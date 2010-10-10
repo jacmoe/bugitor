@@ -32,7 +32,7 @@ class Project extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{projects}}';
+		return '{{project}}';
 	}
 
 	/**
