@@ -13,9 +13,9 @@ class ProjectController extends Controller
 	 */
 	public function filters()
 	{
-		return array(
-			'rights',
-		);
+		//return array(
+		//	'rights',
+		//);
 	}
 
 	public function allowedActions()
