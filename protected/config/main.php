@@ -18,10 +18,14 @@ return array(
 		'application.components.*',
                 'application.modules.user.models.*',
                 'application.modules.user.components.*',
+                'application.modules.rights.components.*',
 	),
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
+                'rights' => array(
+                    'install' => true,
+                ),
                 'user',
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
@@ -33,9 +37,13 @@ return array(
 	'components'=>array(
 		'user'=>array(
 			// enable cookie-based authentication
+                        'class' => 'RightsWebUser',
 			'allowAutoLogin'=>true,
                         'loginUrl' => array('/user/login'),
 		),
+                'authManager' => array(
+                    'class' => 'RightsAuthManager',
+                ),
 		// uncomment the following to enable URLs in path-format
 		'urlManager'=>array(
 			'urlFormat'=>'path',
