@@ -41,9 +41,20 @@ return array(
 			'allowAutoLogin'=>true,
                         'loginUrl' => array('/user/login'),
 		),
-                'authManager' => array(
-                    'class' => 'RightsAuthManager',
-                ),
+		'authManager'=>array(
+				// The authorization manager (default: CDbAuthManager)
+				'class'=>'RightsAuthManager',
+				// The database component used
+				'connectionID'=>'db',
+				// The itemTable name (default: AuthItem)
+				'itemTable'=>'bug_auth_item',
+				// The assignmentTable name (default: AuthAssignment)
+				'assignmentTable'=>'bug_auth_assignment',
+				// The itemChildTable name (default: AuthItemChild)
+				'itemChildTable'=>'bug_auth_item_child',
+				// The itemWeightTable (default: AuthItemWeight)
+				'itemWeightTable'=>'bug_auth_item_weight',
+		),
 		// uncomment the following to enable URLs in path-format
 		'urlManager'=>array(
 			'urlFormat'=>'path',
