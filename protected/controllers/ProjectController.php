@@ -13,8 +13,16 @@ class ProjectController extends Controller
 	 */
 	public function filters()
 	{
+		return array(
+			'rights',
+		);
 	}
 
+	public function allowedActions()
+	{
+		return '*';
+	}
+	
 	/**
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
