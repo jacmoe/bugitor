@@ -16,20 +16,11 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
-                'application.modules.user.models.*'
 	),
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
-		'user' => array(
-                        'modules' => array(
-                            'role',
-                            'profiles',
-                            'messages',
-                        ),
-                        'debug' => true
-                ),
-                'gii'=>array(
+		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>'letmein',
 		),
@@ -39,9 +30,7 @@ return array(
 	'components'=>array(
 		'user'=>array(
 			// enable cookie-based authentication
-                        'class' => 'application.modules.user.components.YumWebUser',
 			'allowAutoLogin'=>true,
-                        'loginUrl' => array('/user/user/login'),
 		),
 		// uncomment the following to enable URLs in path-format
 		'urlManager'=>array(
