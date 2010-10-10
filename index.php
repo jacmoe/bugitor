@@ -1,8 +1,18 @@
 <?php
 
+$hostname = $_SERVER['SERVER_NAME'];
 // change the following paths if necessary
 $yii=dirname(__FILE__).'/../yii/framework/yii.php';
-$config=dirname(__FILE__).'/protected/config/main.php';
+
+switch ( strtolower($hostname))
+{
+case 'localhost';
+    $config=dirname(__FILE__).'/protected/config/local.php';
+break;
+
+default:
+    $config=dirname(__FILE__).'/protected/config/main.php';
+}
 
 // remove the following lines when in production mode
 defined('YII_DEBUG') or define('YII_DEBUG',true);

@@ -64,26 +64,14 @@ return array(
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
-//		'db'=>array(
-//			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-//		),
-		// uncomment the following to use a MySQL database
 		'db'=>array(
-			'connectionString' => 'mysql:host=mysql.ogitor.org;dbname=ogitorbugs',
+			'connectionString' => 'mysql:host=localhost;dbname=ogitorbugs',
 			'emulatePrepare' => true,
-			'username' => 'ogitordbadmin',
-            'tablePrefix' => 'bug_',
-			'password' => 'Pevum2383',
+			'username' => 'superadmin',
+                        'tablePrefix' => 'bug_',
+			'password' => 'jake2383',
 			'charset' => 'utf8',
 		),
-		//'db'=>array(
-		//	'connectionString' => 'mysql:host=localhost;dbname=ogitorbugs',
-		//	'emulatePrepare' => true,
-		//	'username' => 'superadmin',
-        //    'tablePrefix' => 'bug_',
-		//	'password' => 'jake2383',
-		//	'charset' => 'utf8',
-		//),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
             'errorAction'=>'site/error',
