@@ -20,7 +20,7 @@ class ProjectController extends RightsBaseController
 	
 	public function allowedActions()
 	{
-		return 'index', 'view';
+		return 'index, view';
 	}
 		
 	/**
