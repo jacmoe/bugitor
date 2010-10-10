@@ -24,7 +24,7 @@ return array(
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
                 'rights' => array(
-                    'install' => true,
+                    'install' => false,
                 ),
                 'user',
 		'gii'=>array(
