@@ -16,10 +16,13 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+                'application.modules.user.models.*',
+                'application.modules.user.components.*',
 	),
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
+                'user',
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>'letmein',
@@ -31,6 +34,7 @@ return array(
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
+                        'loginUrl' => array('/user/login'),
 		),
 		// uncomment the following to enable URLs in path-format
 		'urlManager'=>array(
