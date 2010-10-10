@@ -1,0 +1,2 @@
+glob:protected/runtime/application.log
+glob:protected/runtime/state.bin
