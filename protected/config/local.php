@@ -43,7 +43,7 @@ return array(
 		),
 		'config' => array(
 			'class' => 'application.extensions.EConfig',
-			'configTableName' => 'bug_Config',
+			'configTableName' => 'bug_config',
 			'autoCreateConfigTable' => false,
 			'strictMode' => false,
 		),
