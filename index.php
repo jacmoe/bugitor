@@ -21,4 +21,9 @@ defined('YII_DEBUG') or define('YII_DEBUG',true);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 
 require_once($yii);
-Yii::createWebApplication($config)->run();
+$app = Yii::createWebApplication($config);
+
+Yii::app()->config->set('SiteName', 'Bugitor');
+Yii::app()->config->set('HostName', $hostname);
+
+$app->run();

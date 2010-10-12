@@ -41,6 +41,12 @@ return array(
 			'allowAutoLogin'=>true,
                         'loginUrl' => array('/user/login'),
 		),
+		'config' => array(
+			'class' => 'application.extensions.EConfig',
+			'configTableName' => 'bug_Config',
+			'autoCreateConfigTable' => false,
+			'strictMode' => false,
+		),
 		'authManager'=>array(
 				// The authorization manager (default: CDbAuthManager)
 				'class'=>'RightsAuthManager',
