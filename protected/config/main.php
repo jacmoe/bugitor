@@ -41,6 +41,12 @@ return array(
 			'allowAutoLogin'=>true,
                         'loginUrl' => array('/user/login'),
 		),
+		'config' => array(
+			'class' => 'application.extensions.EConfig',
+			'configTableName' => 'bug_Config',
+			'autoCreateConfigTable' => true,
+			'strictMode' => false,
+		),
 		'authManager'=>array(
 				// The authorization manager (default: CDbAuthManager)
 				'class'=>'RightsAuthManager',
@@ -55,7 +61,6 @@ return array(
 				// The itemWeightTable (default: AuthItemWeight)
 				'itemWeightTable'=>'bug_auth_item_weight',
 		),
-		// uncomment the following to enable URLs in path-format
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'rules'=>array(
@@ -64,10 +69,6 @@ return array(
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
-//		'db'=>array(
-//			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-//		),
-		// uncomment the following to use a MySQL database
 		'db'=>array(
 			'connectionString' => 'mysql:host=mysql.ogitor.org;dbname=ogitorbugs',
 			'emulatePrepare' => true,
@@ -76,14 +77,6 @@ return array(
 			'password' => 'Pevum2383',
 			'charset' => 'utf8',
 		),
-		//'db'=>array(
-		//	'connectionString' => 'mysql:host=localhost;dbname=ogitorbugs',
-		//	'emulatePrepare' => true,
-		//	'username' => 'superadmin',
-        //    'tablePrefix' => 'bug_',
-		//	'password' => 'jake2383',
-		//	'charset' => 'utf8',
-		//),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
             'errorAction'=>'site/error',
