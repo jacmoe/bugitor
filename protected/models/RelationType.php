@@ -1,26 +1,20 @@
 <?php
 
 /**
- * This is the model class for table "{{version}}".
+ * This is the model class for table "{{relation_type}}".
  *
- * The followings are the available columns in table '{{version}}':
+ * The followings are the available columns in table '{{relation_type}}':
  * @property integer $id
- * @property integer $project_id
  * @property string $name
- * @property string $description
- * @property string $effective_date
- * @property string $created_on
- * @property string $updated_on
  *
  * The followings are the available model relations:
- * @property Issue[] $issues
- * @property Project $project
+ * @property RelatedIssue[] $relatedIssues
  */
-class Version extends CActiveRecord
+class RelationType extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
-	 * @return Version the static model class
+	 * @return RelationType the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -32,7 +26,7 @@ class Version extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{version}}';
+		return '{{relation_type}}';
 	}
 
 	/**
@@ -43,13 +37,12 @@ class Version extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'required'),
-			array('project_id', 'numerical', 'integerOnly'=>true),
-			array('name, description', 'length', 'max'=>255),
-			array('effective_date, created_on, updated_on', 'safe'),
+			array('id, name', 'required'),
+			array('id', 'numerical', 'integerOnly'=>true),
+			array('name', 'length', 'max'=>45),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, project_id, name, description, effective_date, created_on, updated_on', 'safe', 'on'=>'search'),
+			array('id, name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,8 +54,7 @@ class Version extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'issues' => array(self::HAS_MANY, 'Issue', 'version_id'),
-			'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
+			'relatedIssues' => array(self::HAS_MANY, 'RelatedIssue', 'relation_type_id'),
 		);
 	}
 
@@ -73,12 +65,7 @@ class Version extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'project_id' => 'Project',
 			'name' => 'Name',
-			'description' => 'Description',
-			'effective_date' => 'Effective Date',
-			'created_on' => 'Created On',
-			'updated_on' => 'Updated On',
 		);
 	}
 
@@ -94,12 +81,7 @@ class Version extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('project_id',$this->project_id);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('effective_date',$this->effective_date,true);
-		$criteria->compare('created_on',$this->created_on,true);
-		$criteria->compare('updated_on',$this->updated_on,true);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
