@@ -20,6 +20,7 @@ return array(
 		'application.modules.user.components.*',
 		'application.modules.rights.components.*',
 		'application.helpers.Time',
+		'application.behaviors.ActiveRecordLogableBehavior',
 	),
 
 	'modules'=>array(

@@ -36,8 +36,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'updated'); ?>
-		<?php echo $form->textField($model,'updated'); ?>
+		<?php echo $form->label($model,'modified'); ?>
+		<?php echo $form->textField($model,'modified'); ?>
 	</div>
 
 	<div class="row">

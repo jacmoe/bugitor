@@ -9,8 +9,8 @@
  * @property string $description
  * @property string $homepage
  * @property integer $public
- * @property integer $created
- * @property integer $updated
+ * @property string $created
+ * @property string $modified
  * @property string $identifier
  * @property integer $status
  *
@@ -48,14 +48,14 @@ class Project extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'required'),
-			array('public, created, updated, status', 'numerical', 'integerOnly'=>true),
+			array('public, status', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>30),
 			array('homepage', 'length', 'max'=>255),
 			array('identifier', 'length', 'max'=>20),
-			array('description', 'safe'),
+			array('description, created, modified', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, description, homepage, public, created, updated, identifier, status', 'safe', 'on'=>'search'),
+			array('id, name, description, homepage, public, created, modified, identifier, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -86,12 +86,20 @@ class Project extends CActiveRecord
 			'homepage' => 'Homepage',
 			'public' => 'Public',
 			'created' => 'Created',
-			'updated' => 'Updated',
+			'modified' => 'Modified',
 			'identifier' => 'Identifier',
 			'status' => 'Status',
 		);
 	}
 
+	public function behaviors()
+	{
+		return array(
+			'CActiveRecordLogableBehavior'=>
+			array('class' =>'application.behaviors.CActiveRecordLogableBehavior')
+		);
+	}
+	
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -108,8 +116,8 @@ class Project extends CActiveRecord
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('homepage',$this->homepage,true);
 		$criteria->compare('public',$this->public);
-		$criteria->compare('created',$this->created);
-		$criteria->compare('updated',$this->updated);
+		$criteria->compare('created',$this->created,true);
+		$criteria->compare('modified',$this->modified,true);
 		$criteria->compare('identifier',$this->identifier,true);
 		$criteria->compare('status',$this->status);
 
