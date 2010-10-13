@@ -40,9 +40,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'updated'); ?>
-		<?php echo $form->textField($model,'updated'); ?>
-		<?php echo $form->error($model,'updated'); ?>
+		<?php echo $form->labelEx($model,'modified'); ?>
+		<?php echo $form->textField($model,'modified'); ?>
+		<?php echo $form->error($model,'modified'); ?>
 	</div>
 
 	<div class="row">

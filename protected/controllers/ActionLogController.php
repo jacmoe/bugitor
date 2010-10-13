@@ -1,6 +1,6 @@
 <?php
 
-class ProjectController extends RightsBaseController
+class ActionLogController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -14,13 +14,34 @@ class ProjectController extends RightsBaseController
 	public function filters()
 	{
 		return array(
-			'rights', // perform access control for CRUD operations
+			'accessControl', // perform access control for CRUD operations
 		);
 	}
 
-	public function allowedActions()
+	/**
+	 * Specifies the access control rules.
+	 * This method is used by the 'accessControl' filter.
+	 * @return array access control rules
+	 */
+	public function accessRules()
 	{
-		return 'index, view';
+		return array(
+			array('allow',  // allow all users to perform 'index' and 'view' actions
+				'actions'=>array('index','view'),
+				'users'=>array('*'),
+			),
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('create','update'),
+				'users'=>array('@'),
+			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('admin','delete'),
+				'users'=>array('admin'),
+			),
+			array('deny',  // deny all users
+				'users'=>array('*'),
+			),
+		);
 	}
 
 	/**
@@ -40,14 +61,14 @@ class ProjectController extends RightsBaseController
 	 */
 	public function actionCreate()
 	{
-		$model=new Project;
+		$model=new ActionLog;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Project']))
+		if(isset($_POST['ActionLog']))
 		{
-			$model->attributes=$_POST['Project'];
+			$model->attributes=$_POST['ActionLog'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -69,9 +90,9 @@ class ProjectController extends RightsBaseController
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Project']))
+		if(isset($_POST['ActionLog']))
 		{
-			$model->attributes=$_POST['Project'];
+			$model->attributes=$_POST['ActionLog'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -106,7 +127,7 @@ class ProjectController extends RightsBaseController
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Project');
+		$dataProvider=new CActiveDataProvider('ActionLog');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -117,10 +138,10 @@ class ProjectController extends RightsBaseController
 	 */
 	public function actionAdmin()
 	{
-		$model=new Project('search');
+		$model=new ActionLog('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Project']))
-			$model->attributes=$_GET['Project'];
+		if(isset($_GET['ActionLog']))
+			$model->attributes=$_GET['ActionLog'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -134,7 +155,7 @@ class ProjectController extends RightsBaseController
 	 */
 	public function loadModel($id)
 	{
-		$model=Project::model()->findByPk((int)$id);
+		$model=ActionLog::model()->findByPk((int)$id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -146,7 +167,7 @@ class ProjectController extends RightsBaseController
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='project-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='action-log-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

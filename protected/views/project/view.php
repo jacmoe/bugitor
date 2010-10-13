@@ -24,7 +24,7 @@ $this->menu=array(
 		'homepage',
 		'public',
 		'created',
-		'updated',
+		'modified',
 		'identifier',
 		'status',
 	),

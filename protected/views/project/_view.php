@@ -24,8 +24,8 @@
 	<?php echo CHtml::encode($data->created); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('updated')); ?>:</b>
-	<?php echo CHtml::encode($data->updated); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('modified')); ?>:</b>
+	<?php echo CHtml::encode($data->modified); ?>
 	<br />
 
 	<?php /*
