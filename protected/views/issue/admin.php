@@ -50,15 +50,16 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'due_date',
 		/*
 		'issue_category_id',
-		'issue_status_id',
 		'user_id',
 		'issue_priority_id',
 		'version_id',
 		'assigned_to',
-		'created_on',
-		'updated_on',
+		'created',
+		'modified',
 		'start_date',
 		'done_ratio',
+		'status',
+		'closed',
 		*/
 		array(
 			'class'=>'CButtonColumn',

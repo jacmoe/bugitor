@@ -46,12 +46,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'issue_status_id'); ?>
-		<?php echo $form->textField($model,'issue_status_id'); ?>
-		<?php echo $form->error($model,'issue_status_id'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'user_id'); ?>
 		<?php echo $form->textField($model,'user_id'); ?>
 		<?php echo $form->error($model,'user_id'); ?>
@@ -76,15 +70,15 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'created_on'); ?>
-		<?php echo $form->textField($model,'created_on'); ?>
-		<?php echo $form->error($model,'created_on'); ?>
+		<?php echo $form->labelEx($model,'created'); ?>
+		<?php echo $form->textField($model,'created'); ?>
+		<?php echo $form->error($model,'created'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'updated_on'); ?>
-		<?php echo $form->textField($model,'updated_on'); ?>
-		<?php echo $form->error($model,'updated_on'); ?>
+		<?php echo $form->labelEx($model,'modified'); ?>
+		<?php echo $form->textField($model,'modified'); ?>
+		<?php echo $form->error($model,'modified'); ?>
 	</div>
 
 	<div class="row">
@@ -97,6 +91,18 @@
 		<?php echo $form->labelEx($model,'done_ratio'); ?>
 		<?php echo $form->textField($model,'done_ratio'); ?>
 		<?php echo $form->error($model,'done_ratio'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'status'); ?>
+		<?php echo $form->textField($model,'status',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->error($model,'status'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'closed'); ?>
+		<?php echo $form->textField($model,'closed'); ?>
+		<?php echo $form->error($model,'closed'); ?>
 	</div>
 
 	<div class="row buttons">

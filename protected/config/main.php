@@ -21,6 +21,7 @@ return array(
 		'application.modules.rights.components.*',
 		'application.helpers.Time',
 		'application.behaviors.ActiveRecordLogableBehavior',
+		'application.extensions.simpleWorkflow.*',
 	),
 
 	'modules'=>array(
@@ -48,6 +49,9 @@ return array(
 			'configTableName' => 'bug_config',
 			'autoCreateConfigTable' => true,
 			'strictMode' => false,
+		),
+		'swSource' => array(
+			'class'=>'application.extensions.simpleWorkflow.SWPhpWorkflowSource',
 		),
 		'authManager'=>array(
 				// The authorization manager (default: CDbAuthManager)

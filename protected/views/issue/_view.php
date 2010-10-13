@@ -29,10 +29,6 @@
 	<br />
 
 	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('issue_status_id')); ?>:</b>
-	<?php echo CHtml::encode($data->issue_status_id); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('user_id')); ?>:</b>
 	<?php echo CHtml::encode($data->user_id); ?>
 	<br />
@@ -49,12 +45,12 @@
 	<?php echo CHtml::encode($data->assigned_to); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('created_on')); ?>:</b>
-	<?php echo CHtml::encode($data->created_on); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('created')); ?>:</b>
+	<?php echo CHtml::encode($data->created); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('updated_on')); ?>:</b>
-	<?php echo CHtml::encode($data->updated_on); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('modified')); ?>:</b>
+	<?php echo CHtml::encode($data->modified); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('start_date')); ?>:</b>
@@ -63,6 +59,14 @@
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('done_ratio')); ?>:</b>
 	<?php echo CHtml::encode($data->done_ratio); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
+	<?php echo CHtml::encode($data->status); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('closed')); ?>:</b>
+	<?php echo CHtml::encode($data->closed); ?>
 	<br />
 
 	*/ ?>
