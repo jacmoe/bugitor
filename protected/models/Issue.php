@@ -11,25 +11,25 @@
  * @property string $description
  * @property string $due_date
  * @property integer $issue_category_id
- * @property integer $issue_status_id
  * @property integer $user_id
  * @property integer $issue_priority_id
  * @property integer $version_id
  * @property integer $assigned_to
- * @property string $created_on
- * @property string $updated_on
+ * @property string $created
+ * @property string $modified
  * @property string $start_date
  * @property integer $done_ratio
+ * @property string $status
+ * @property integer $closed
  *
  * The followings are the available model relations:
- * @property Tracker $tracker
- * @property Project $project
+ * @property Users $assignedTo0
  * @property IssueCategory $issueCategory
- * @property IssueStatus $issueStatus
+ * @property Project $project
  * @property IssuePriority $issuePriority
+ * @property Tracker $tracker
  * @property Users $user
  * @property Version $version
- * @property Users $assignedTo0
  * @property RelatedIssue[] $relatedIssues
  * @property Users[] $bugUsers
  */
@@ -60,13 +60,14 @@ class Issue extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('subject, description, user_id', 'required'),
-			array('tracker_id, project_id, issue_category_id, issue_status_id, user_id, issue_priority_id, version_id, assigned_to, done_ratio', 'numerical', 'integerOnly'=>true),
+			array('subject, description, user_id, status', 'required'),
+			array('tracker_id, project_id, issue_category_id, user_id, issue_priority_id, version_id, assigned_to, done_ratio, closed', 'numerical', 'integerOnly'=>true),
 			array('subject', 'length', 'max'=>255),
-			array('due_date, created_on, updated_on, start_date', 'safe'),
+			array('status', 'length', 'max'=>50),
+			array('due_date, created, modified, start_date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, tracker_id, project_id, subject, description, due_date, issue_category_id, issue_status_id, user_id, issue_priority_id, version_id, assigned_to, created_on, updated_on, start_date, done_ratio', 'safe', 'on'=>'search'),
+			array('id, tracker_id, project_id, subject, description, due_date, issue_category_id, user_id, issue_priority_id, version_id, assigned_to, created, modified, start_date, done_ratio, status, closed', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -78,14 +79,13 @@ class Issue extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'tracker' => array(self::BELONGS_TO, 'Tracker', 'tracker_id'),
-			'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
+			'assignedTo0' => array(self::BELONGS_TO, 'Users', 'assigned_to'),
 			'issueCategory' => array(self::BELONGS_TO, 'IssueCategory', 'issue_category_id'),
-			'issueStatus' => array(self::BELONGS_TO, 'IssueStatus', 'issue_status_id'),
+			'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
 			'issuePriority' => array(self::BELONGS_TO, 'IssuePriority', 'issue_priority_id'),
+			'tracker' => array(self::BELONGS_TO, 'Tracker', 'tracker_id'),
 			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
 			'version' => array(self::BELONGS_TO, 'Version', 'version_id'),
-			'assignedTo0' => array(self::BELONGS_TO, 'Users', 'assigned_to'),
 			'relatedIssues' => array(self::HAS_MANY, 'RelatedIssue', 'issue_to'),
 			'bugUsers' => array(self::MANY_MANY, 'Users', '{{watcher}}(issue_id, user_id)'),
 		);
@@ -104,15 +104,16 @@ class Issue extends CActiveRecord
 			'description' => 'Description',
 			'due_date' => 'Due Date',
 			'issue_category_id' => 'Issue Category',
-			'issue_status_id' => 'Issue Status',
 			'user_id' => 'User',
 			'issue_priority_id' => 'Issue Priority',
 			'version_id' => 'Version',
 			'assigned_to' => 'Assigned To',
-			'created_on' => 'Created On',
-			'updated_on' => 'Updated On',
+			'created' => 'Created',
+			'modified' => 'Modified',
 			'start_date' => 'Start Date',
 			'done_ratio' => 'Done Ratio',
+			'status' => 'Status',
+			'closed' => 'Closed',
 		);
 	}
 
@@ -134,15 +135,16 @@ class Issue extends CActiveRecord
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('due_date',$this->due_date,true);
 		$criteria->compare('issue_category_id',$this->issue_category_id);
-		$criteria->compare('issue_status_id',$this->issue_status_id);
 		$criteria->compare('user_id',$this->user_id);
 		$criteria->compare('issue_priority_id',$this->issue_priority_id);
 		$criteria->compare('version_id',$this->version_id);
 		$criteria->compare('assigned_to',$this->assigned_to);
-		$criteria->compare('created_on',$this->created_on,true);
-		$criteria->compare('updated_on',$this->updated_on,true);
+		$criteria->compare('created',$this->created,true);
+		$criteria->compare('modified',$this->modified,true);
 		$criteria->compare('start_date',$this->start_date,true);
 		$criteria->compare('done_ratio',$this->done_ratio);
+		$criteria->compare('status',$this->status,true);
+		$criteria->compare('closed',$this->closed);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
