@@ -16,9 +16,10 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
-                'application.modules.user.models.*',
-                'application.modules.user.components.*',
-                'application.modules.rights.components.*',
+		'application.modules.user.models.*',
+		'application.modules.user.components.*',
+		'application.modules.rights.components.*',
+		'application.helpers.Time',
 	),
 
 	'modules'=>array(
