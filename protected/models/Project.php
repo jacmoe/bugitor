@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "{{projects}}".
+ * This is the model class for table "{{project}}".
  *
- * The followings are the available columns in table '{{projects}}':
+ * The followings are the available columns in table '{{project}}':
  * @property integer $id
  * @property string $name
  * @property string $description
@@ -15,6 +15,10 @@
  * @property integer $status
  *
  * The followings are the available model relations:
+ * @property Issue[] $issues
+ * @property Tracker[] $bugTrackers
+ * @property Repository[] $repositories
+ * @property Version[] $versions
  */
 class Project extends CActiveRecord
 {
@@ -63,6 +67,10 @@ class Project extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'issues' => array(self::HAS_MANY, 'Issue', 'project_id'),
+			'bugTrackers' => array(self::MANY_MANY, 'Tracker', '{{project_tracker}}(project_id, tracker_id)'),
+			'repositories' => array(self::HAS_MANY, 'Repository', 'project_id'),
+			'versions' => array(self::HAS_MANY, 'Version', 'project_id'),
 		);
 	}
 
