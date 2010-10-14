@@ -31,13 +31,13 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'created_on'); ?>
-		<?php echo $form->textField($model,'created_on'); ?>
+		<?php echo $form->label($model,'created'); ?>
+		<?php echo $form->textField($model,'created'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'updated_on'); ?>
-		<?php echo $form->textField($model,'updated_on'); ?>
+		<?php echo $form->label($model,'modified'); ?>
+		<?php echo $form->textField($model,'modified'); ?>
 	</div>
 
 	<div class="row buttons">

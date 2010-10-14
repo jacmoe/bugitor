@@ -47,9 +47,9 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'name',
 		'description',
 		'effective_date',
-		'created_on',
+		'created',
 		/*
-		'updated_on',
+		'modified',
 		*/
 		array(
 			'class'=>'CButtonColumn',

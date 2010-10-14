@@ -20,12 +20,12 @@
 	<?php echo CHtml::encode($data->effective_date); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('created_on')); ?>:</b>
-	<?php echo CHtml::encode($data->created_on); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('created')); ?>:</b>
+	<?php echo CHtml::encode($data->created); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('updated_on')); ?>:</b>
-	<?php echo CHtml::encode($data->updated_on); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('modified')); ?>:</b>
+	<?php echo CHtml::encode($data->modified); ?>
 	<br />
 
 

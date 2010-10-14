@@ -23,7 +23,7 @@ $this->menu=array(
 		'name',
 		'description',
 		'effective_date',
-		'created_on',
-		'updated_on',
+		'created',
+		'modified',
 	),
 )); ?>
