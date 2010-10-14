@@ -6,4 +6,4 @@
 			array('id'=>'assigned',	 'transition'=>'closed, rejected'),
 			array('id'=>'closed', 'transition'=>'assigned'),
 		)
-	)
+	);

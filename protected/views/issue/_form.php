@@ -47,7 +47,8 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'user_id'); ?>
-		<?php echo $form->textField($model,'user_id'); ?>
+                <?php echo $form->dropDownList($model, 'user_id', CHtml::listData(
+                User::model()->findAll(), 'id', 'username')); ?>
 		<?php echo $form->error($model,'user_id'); ?>
 	</div>
 
@@ -95,7 +96,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'status'); ?>
-		<?php echo $form->textField($model,'status',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->dropDownList($model,'status',SWHelper::nextStatuslistData($model)); ?>
 		<?php echo $form->error($model,'status'); ?>
 	</div>
 
