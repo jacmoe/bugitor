@@ -17,7 +17,8 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'project_id'); ?>
-		<?php echo $form->textField($model,'project_id'); ?>
+                <?php echo $form->dropDownList($model, 'project_id', CHtml::listData(
+                Project::model()->findAll(), 'id', 'name'),array('prompt' => '<Select>')); ?>
 		<?php echo $form->error($model,'project_id'); ?>
 	</div>
 
@@ -48,7 +49,7 @@
 	<div class="row">
 		<?php echo $form->labelEx($model,'user_id'); ?>
                 <?php echo $form->dropDownList($model, 'user_id', CHtml::listData(
-                User::model()->findAll(), 'id', 'username')); ?>
+                User::model()->findAll(), 'id', 'username'),array('prompt' => '<Select>')); ?>
 		<?php echo $form->error($model,'user_id'); ?>
 	</div>
 
@@ -66,7 +67,8 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'assigned_to'); ?>
-		<?php echo $form->textField($model,'assigned_to'); ?>
+                <?php echo $form->dropDownList($model, 'assigned_to', CHtml::listData(
+                User::model()->findAll(), 'id', 'username'),array('prompt' => '<None>')); ?>
 		<?php echo $form->error($model,'assigned_to'); ?>
 	</div>
 
