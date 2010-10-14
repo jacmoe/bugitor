@@ -33,135 +33,131 @@
  * @property RelatedIssue[] $relatedIssues
  * @property Users[] $bugUsers
  */
-class Issue extends CActiveRecord
-{
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @return Issue the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+class Issue extends CActiveRecord {
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return '{{issue}}';
-	}
+    /**
+     * Returns the static model of the specified AR class.
+     * @return Issue the static model class
+     */
+    public static function model($className=__CLASS__) {
+        return parent::model($className);
+    }
 
-	public function behaviors()
-	{
-	    return array(
-	        'swBehavior'=>array(
-	            'class' => 'application.extensions.simpleWorkflow.SWActiveRecordBehavior',
-	        ),
-                'CTimestampBehavior' => array(
-                    'class' => 'zii.behaviors.CTimestampBehavior',
-                    'createAttribute' => 'created',
-                    'updateAttribute' => 'modified',
-                )
-	    );
-	}	
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName() {
+        return '{{issue}}';
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('subject, description, user_id, status', 'required'),
-			array('tracker_id, project_id, issue_category_id, user_id, issue_priority_id, version_id, assigned_to, done_ratio, closed', 'numerical', 'integerOnly'=>true),
-			array('subject', 'length', 'max'=>255),
-			array('status', 'SWValidator'),
-			array('due_date, created, modified, start_date', 'safe'),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, tracker_id, project_id, subject, description, due_date, issue_category_id, user_id, issue_priority_id, version_id, assigned_to, created, modified, start_date, done_ratio, status, closed', 'safe', 'on'=>'search'),
-		);
-	}
+    public function behaviors() {
+        return array(
+            'CActiveRecordLogableBehavior' =>
+            array('class' => 'application.behaviors.CActiveRecordLogableBehavior'),
+            'swBehavior' => array(
+                'class' => 'application.extensions.simpleWorkflow.SWActiveRecordBehavior',
+            ),
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'modified',
+            )
+        );
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'assignedTo0' => array(self::BELONGS_TO, 'Users', 'assigned_to'),
-			'issueCategory' => array(self::BELONGS_TO, 'IssueCategory', 'issue_category_id'),
-			'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
-			'issuePriority' => array(self::BELONGS_TO, 'IssuePriority', 'issue_priority_id'),
-			'tracker' => array(self::BELONGS_TO, 'Tracker', 'tracker_id'),
-			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
-			'version' => array(self::BELONGS_TO, 'Version', 'version_id'),
-			'relatedIssues' => array(self::HAS_MANY, 'RelatedIssue', 'issue_to'),
-			'bugUsers' => array(self::MANY_MANY, 'Users', '{{watcher}}(issue_id, user_id)'),
-		);
-	}
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules() {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('subject, description, user_id, status', 'required'),
+            array('tracker_id, project_id, issue_category_id, user_id, issue_priority_id, version_id, assigned_to, done_ratio, closed', 'numerical', 'integerOnly' => true),
+            array('subject', 'length', 'max' => 255),
+            array('status', 'SWValidator'),
+            array('due_date, created, modified, start_date', 'safe'),
+            // The following rule is used by search().
+            // Please remove those attributes that should not be searched.
+            array('id, tracker_id, project_id, subject, description, due_date, issue_category_id, user_id, issue_priority_id, version_id, assigned_to, created, modified, start_date, done_ratio, status, closed', 'safe', 'on' => 'search'),
+        );
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'tracker_id' => 'Tracker',
-			'project_id' => 'Project',
-			'subject' => 'Subject',
-			'description' => 'Description',
-			'due_date' => 'Due Date',
-			'issue_category_id' => 'Issue Category',
-			'user_id' => 'User',
-			'issue_priority_id' => 'Issue Priority',
-			'version_id' => 'Version',
-			'assigned_to' => 'Assigned To',
-			'created' => 'Created',
-			'modified' => 'Modified',
-			'start_date' => 'Start Date',
-			'done_ratio' => 'Done Ratio',
-			'status' => 'Status',
-			'closed' => 'Closed',
-		);
-	}
+    /**
+     * @return array relational rules.
+     */
+    public function relations() {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'assignedTo0' => array(self::BELONGS_TO, 'Users', 'assigned_to'),
+            'issueCategory' => array(self::BELONGS_TO, 'IssueCategory', 'issue_category_id'),
+            'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
+            'issuePriority' => array(self::BELONGS_TO, 'IssuePriority', 'issue_priority_id'),
+            'tracker' => array(self::BELONGS_TO, 'Tracker', 'tracker_id'),
+            'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
+            'version' => array(self::BELONGS_TO, 'Version', 'version_id'),
+            'relatedIssues' => array(self::HAS_MANY, 'RelatedIssue', 'issue_to'),
+            'bugUsers' => array(self::MANY_MANY, 'Users', '{{watcher}}(issue_id, user_id)'),
+        );
+    }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels() {
+        return array(
+            'id' => 'ID',
+            'tracker_id' => 'Tracker',
+            'project_id' => 'Project',
+            'subject' => 'Subject',
+            'description' => 'Description',
+            'due_date' => 'Due Date',
+            'issue_category_id' => 'Issue Category',
+            'user_id' => 'User',
+            'issue_priority_id' => 'Issue Priority',
+            'version_id' => 'Version',
+            'assigned_to' => 'Assigned To',
+            'created' => 'Created',
+            'modified' => 'Modified',
+            'start_date' => 'Start Date',
+            'done_ratio' => 'Done Ratio',
+            'status' => 'Status',
+            'closed' => 'Closed',
+        );
+    }
 
-		$criteria=new CDbCriteria;
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search() {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('tracker_id',$this->tracker_id);
-		$criteria->compare('project_id',$this->project_id);
-		$criteria->compare('subject',$this->subject,true);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('due_date',$this->due_date,true);
-		$criteria->compare('issue_category_id',$this->issue_category_id);
-		$criteria->compare('user_id',$this->user_id);
-		$criteria->compare('issue_priority_id',$this->issue_priority_id);
-		$criteria->compare('version_id',$this->version_id);
-		$criteria->compare('assigned_to',$this->assigned_to);
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('modified',$this->modified,true);
-		$criteria->compare('start_date',$this->start_date,true);
-		$criteria->compare('done_ratio',$this->done_ratio);
-		$criteria->compare('status',$this->status,true);
-		$criteria->compare('closed',$this->closed);
+        $criteria = new CDbCriteria;
 
-		return new CActiveDataProvider(get_class($this), array(
-			'criteria'=>$criteria,
-		));
-	}
+        $criteria->compare('id', $this->id);
+        $criteria->compare('tracker_id', $this->tracker_id);
+        $criteria->compare('project_id', $this->project_id);
+        $criteria->compare('subject', $this->subject, true);
+        $criteria->compare('description', $this->description, true);
+        $criteria->compare('due_date', $this->due_date, true);
+        $criteria->compare('issue_category_id', $this->issue_category_id);
+        $criteria->compare('user_id', $this->user_id);
+        $criteria->compare('issue_priority_id', $this->issue_priority_id);
+        $criteria->compare('version_id', $this->version_id);
+        $criteria->compare('assigned_to', $this->assigned_to);
+        $criteria->compare('created', $this->created, true);
+        $criteria->compare('modified', $this->modified, true);
+        $criteria->compare('start_date', $this->start_date, true);
+        $criteria->compare('done_ratio', $this->done_ratio);
+        $criteria->compare('status', $this->status, true);
+        $criteria->compare('closed', $this->closed);
+
+        return new CActiveDataProvider(get_class($this), array(
+            'criteria' => $criteria,
+        ));
+    }
+
 }
