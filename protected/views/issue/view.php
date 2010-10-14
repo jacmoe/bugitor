@@ -33,7 +33,11 @@ $this->menu=array(
 		'modified',
 		'start_date',
 		'done_ratio',
-		'status',
+		array(
+                    'label' => 'Status',
+                    'type' => 'raw',
+                    'value' => $model->swGetStatus()->getLabel()
+                ),
 		'closed',
 	),
 )); ?>

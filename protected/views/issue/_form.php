@@ -11,7 +11,8 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'tracker_id'); ?>
-		<?php echo $form->textField($model,'tracker_id'); ?>
+                <?php echo $form->dropDownList($model, 'tracker_id', CHtml::listData(
+                Tracker::model()->findAll(), 'id', 'name'),array('prompt' => '<Select>')); ?>
 		<?php echo $form->error($model,'tracker_id'); ?>
 	</div>
 
@@ -55,7 +56,8 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'issue_priority_id'); ?>
-		<?php echo $form->textField($model,'issue_priority_id'); ?>
+                <?php echo $form->dropDownList($model, 'issue_priority_id', CHtml::listData(
+                IssuePriority::model()->findAll(), 'id', 'name'),array('prompt' => '<Select>')); ?>
 		<?php echo $form->error($model,'issue_priority_id'); ?>
 	</div>
 
