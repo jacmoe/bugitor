@@ -52,6 +52,15 @@ class Issue extends CActiveRecord
 		return '{{issue}}';
 	}
 
+	public function behaviors()
+	{
+	    return array(
+	        'swBehavior'=>array(
+	            'class' => 'application.extensions.simpleWorkflow.SWActiveRecordBehavior',
+	        ),
+	    );
+	}	
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */
