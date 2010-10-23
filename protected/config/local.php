@@ -20,6 +20,7 @@ return array(
 		'application.modules.rights.components.*',
 		'application.helpers.Time',
 		'application.extensions.simpleWorkflow.*',
+		'application.extensions.yiidebugtb.*',
 	),
 
 	'modules'=>array(
@@ -87,19 +88,21 @@ return array(
 			// use 'site/error' action to display errors
             'errorAction'=>'site/error',
         ),
-//		'log'=>array(
-//			'class'=>'CLogRouter',
-//			'routes'=>array(
-//				array(
-//					'class'=>'CFileLogRoute',
-//					'levels'=>'error, warning',
-//				),
-//				// uncomment the following to show log messages on web pages
-//				array(
-//					'class'=>'CWebLogRoute',
-//				),
-//			),
-//		),
+	  'log'=>array(
+		'class'=>'CLogRouter',
+		  'routes'=>array(
+			array(
+			  'class'=>'CFileLogRoute',
+			  'levels'=>'error, warning, trace',
+			),
+			array( // configuration for the toolbar
+			  'class'=>'XWebDebugRouter',
+			  'config'=>'alignRight, opaque, runInDebug, fixedPos, collapsed, yamlStyle',
+			  'levels'=>'error, warning, trace, profile, info',
+			  'allowedIPs'=>array('127.0.0.1','192.168.1.54'),
+			),
+		  ),
+	  ),
 	),
 
 	// application-level parameters that can be accessed
