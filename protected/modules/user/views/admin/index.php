@@ -16,8 +16,13 @@ $this->breadcrumbs=array(
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'=>$dataProvider,
 	'columns'=>array(
+                array(
+                        'name' => 'avatar',
+                        'type' => 'raw',
+                        'value' => 'CHtml::image("http://www.gravatar.com/avatar/".md5( strtolower($data->email) )."?s=16")',
+                ),
 		array(
-			'name' => 'id',
+			'name' => 'Id',
 			'type'=>'raw',
 			'value' => 'CHtml::link(CHtml::encode($data->id),array("admin/update","id"=>$data->id))',
 		),
