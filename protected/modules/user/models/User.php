@@ -80,8 +80,8 @@ class User extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'username'=>UserModule::t("username"),
-			'password'=>UserModule::t("password"),
+			'username'=>UserModule::t("Username"),
+			'password'=>UserModule::t("Password"),
 			'verifyPassword'=>UserModule::t("Retype Password"),
 			'email'=>UserModule::t("E-mail"),
 			'verifyCode'=>UserModule::t("Verification Code"),
@@ -94,7 +94,23 @@ class User extends CActiveRecord
 		);
 	}
 	
-	public function scopes()
+public function avatar( $size = '0' ) {
+
+    if ( !($local_exists = file_exists( "uploads/avatar_".$this->id.".gif" )) ) {
+          $default = "/images/user_img/avatar/admin_".$size.".gif"; // absolute route to default image
+          if(0 !== $size) {
+              $url = "http://www.gravatar.com/avatar/".md5( strtolower($this->email) )."?d=".Yii::app()->controller->createAbsoluteUrl($default)."&s=".$size;
+          } else {
+              $url = "http://www.gravatar.com/avatar/".md5( strtolower($this->email) )."?d=".Yii::app()->controller->createAbsoluteUrl($default);
+          }
+    }
+    else {
+          $url = "/uploads/avatar_".$this->id.".gif";
+    }
+    return $url;
+  }
+
+  public function scopes()
     {
         return array(
             'active'=>array(
