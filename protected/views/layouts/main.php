@@ -58,9 +58,7 @@
                 $this->widget('zii.widgets.CBreadcrumbs', array(
                     'links' => $this->breadcrumbs,
                 )); ?><!-- breadcrumbs -->
-            <?php echo CHtml::image(Yii::app()->getModule('user')->user()->avatar('64')); ?>
                 <?php echo $content; ?>
-            <?php echo CHtml::image(Yii::app()->getModule('user')->user()->avatar()); ?>
 
             <div id="footer">
 		Copyright &copy; 2010 by Ogitor Team.<br/>
