@@ -63,7 +63,7 @@
             <?php echo CHtml::image(Yii::app()->getModule('user')->user()->avatar()); ?>
 
             <div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
+		Copyright &copy; 2010 by Ogitor Team.<br/>
 		All Rights Reserved.<br/>
 <?php echo Yii::powered(); ?>
             </div><!-- footer -->
