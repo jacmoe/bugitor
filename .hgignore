@@ -4,3 +4,4 @@ glob:protected/data/*.db
 glob:protected/tests/report/*
 glob:yii/*
 glob:wamp.php
+glob:resources/bugitor.mwb.bak
