@@ -10,7 +10,7 @@ class SiteTest extends WebTestCase
 
 	public function testContact()
 	{
-		$this->open('?r=site/contact');
+		$this->open('site/contact');
 		$this->assertTextPresent('Contact Us');
 		$this->assertElementPresent('name=ContactForm[name]');
 
@@ -28,18 +28,18 @@ class SiteTest extends WebTestCase
 		if($this->isTextPresent('Logout'))
 			$this->clickAndWait('link=Logout');
 
-		// test login process, including validation
+////		// test login process, including validation
 		$this->clickAndWait('link=Login');
-		$this->assertElementPresent('name=LoginForm[username]');
-		$this->type('name=LoginForm[username]','demo');
+		$this->assertElementPresent('name=UserLogin[username]');
+		$this->type('name=UserLogin[username]','jacmoe');
 		$this->clickAndWait("//input[@value='Login']");
-		$this->assertTextPresent('Password cannot be blank.');
-		$this->type('name=LoginForm[password]','demo');
+		$this->assertTextPresent('password cannot be blank.');
+		$this->type('name=UserLogin[password]','jake2383');
 		$this->clickAndWait("//input[@value='Login']");
-		$this->assertTextNotPresent('Password cannot be blank.');
+		$this->assertTextNotPresent('password cannot be blank.');
 		$this->assertTextPresent('Logout');
 
-		// test logout process
+////		// test logout process
 		$this->assertTextNotPresent('Login');
 		$this->clickAndWait('link=Logout');
 		$this->assertTextPresent('Login');

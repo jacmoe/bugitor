@@ -17,7 +17,9 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('description')); ?>:</b>
-	<?php echo CHtml::encode($data->description); ?>
+	<?php //$this->beginWidget('CMarkdown', array('purifyOutput'=>true)); ?>
+	<?php echo $data->getDescription(); ?>
+	<?php //$this->endWidget(); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('due_date')); ?>:</b>
