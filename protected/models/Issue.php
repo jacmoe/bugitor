@@ -95,10 +95,10 @@ class Issue extends CActiveRecord {
             'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
             'issuePriority' => array(self::BELONGS_TO, 'IssuePriority', 'issue_priority_id'),
             'tracker' => array(self::BELONGS_TO, 'Tracker', 'tracker_id'),
-            'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
+            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
             'version' => array(self::BELONGS_TO, 'Version', 'version_id'),
             'relatedIssues' => array(self::HAS_MANY, 'RelatedIssue', 'issue_to'),
-            'bugUsers' => array(self::MANY_MANY, 'Users', '{{watcher}}(issue_id, user_id)'),
+            'bugUsers' => array(self::MANY_MANY, 'User', '{{watcher}}(issue_id, user_id)'),
         );
     }
 
@@ -158,6 +158,11 @@ class Issue extends CActiveRecord {
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
         ));
+    }
+
+    public function getDescription() {
+        $parser=new CMarkdownParser;
+        return $parser->safeTransform($this->description);
     }
 
 }

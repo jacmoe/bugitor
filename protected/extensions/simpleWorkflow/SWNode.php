@@ -112,7 +112,7 @@ class SWNode {
 		
 		if( is_string($tr))
 		{
-			$trAr=split(',',$tr);
+			$trAr=explode(',',$tr);
 			foreach($trAr as $aTr)
 			{
 				$objNode=new SWNode(trim($aTr),$defWfId);

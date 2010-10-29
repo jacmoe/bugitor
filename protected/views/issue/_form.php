@@ -31,7 +31,14 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'description'); ?>
-		<?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50)); ?>
+		<?php $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
+			// you can either use it for model attribute
+			'model' => $model,
+			'attribute' => 'description',
+			// or just for input field
+			//'name' => 'my_input_name',
+		))?>
+		<?php //echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
 
