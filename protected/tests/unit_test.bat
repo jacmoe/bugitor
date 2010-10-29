@@ -1,2 +1,2 @@
-call phpunit unit/MessageTest.php
+call phpunit unit/DbTest.php
 pause
