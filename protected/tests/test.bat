@@ -1,3 +1,3 @@
-phpunit functional/SiteTest.php
+call phpunit functional/SiteTest.php
 
 pause
