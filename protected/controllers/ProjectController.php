@@ -7,6 +7,7 @@ class ProjectController extends RightsBaseController
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
+        public $defaultAction = 'index';
 
 	/**
 	 * @return array action filters
@@ -27,10 +28,11 @@ class ProjectController extends RightsBaseController
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-	public function actionView($id)
+	public function actionView($name)
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+            $project=Project::model()->find('name=?',array($_GET['name']));
+            $this->render('view',array(
+			'model'=>$project,
 		));
 	}
 
@@ -49,7 +51,7 @@ class ProjectController extends RightsBaseController
 		{
 			$model->attributes=$_POST['Project'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('view','name'=>$model->name));
 		}
 
 		$this->render('create',array(
@@ -73,7 +75,7 @@ class ProjectController extends RightsBaseController
 		{
 			$model->attributes=$_POST['Project'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('view','name'=>$model->name));
 		}
 
 		$this->render('update',array(
