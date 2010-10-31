@@ -69,15 +69,15 @@
                     </div>
                 </div>
                 <div id="mainmenu" class="span-24">
-                <?php if ((Yii::app()->controller->id === 'project') && (isset($_GET['name']))) : ?>
+                <?php if (((Yii::app()->controller->id === 'project')||(Yii::app()->controller->id === 'issue')) && (isset($_GET['name']))) : ?>
                 <?php
                                 $this->widget('BugitorMenu', array(
                                     'items' => array(
                                         array('label' => 'Overview', 'url' => array('/projects/' . $_GET['name']), 'id' => 'project/view'),
                                         array('label' => 'Activity', 'url' => array('/projects/' . $_GET['name'] . '/activity'), 'id' => 'project/activity'),
                                         array('label' => 'Roadmap', 'url' => array('/projects/' . $_GET['name'] . '/roadmap'), 'id' => 'project/roadmap'),
-                                        array('label' => 'Issues', 'url' => array('/projects/' . $_GET['name'] . '/issues'), 'id' => 'project/issues'),
-                                        array('label' => 'New Issue', 'url' => array('/projects/' . $_GET['name'] . '/newissue'), 'visible' => !Yii::app()->user->isGuest, 'id' => 'project/newissue'),
+                                        array('label' => 'Issues', 'url' => array('/projects/' . $_GET['name'] . '/issues'), 'id' => 'issue/index'),
+                                        array('label' => 'New Issue', 'url' => array('/projects/' . $_GET['name'] . '/issue/create'), 'visible' => !Yii::app()->user->isGuest, 'id' => 'issue/create'),
                                         array('label' => 'Code', 'url' => array('/projects/' . $_GET['name'] . '/code'), 'id' => 'project/code'),
                                         array('label' => 'Settings', 'url' => array('/projects/' . $_GET['name'] . '/settings'), 'visible' => !Yii::app()->user->isGuest, 'id' => 'project/settings'),
                                     ),

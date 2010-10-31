@@ -50,13 +50,13 @@ class ProjectController extends RightsBaseController
 			'model'=>$project,
 		));
 	}
-	public function actionIssues($name)
-	{
-            $project=Project::model()->find('name=?',array($_GET['name']));
-            $this->render('issues',array(
-			'model'=>$project,
-		));
-	}
+//	public function actionIssues($name)
+//	{
+//            $project=Project::model()->find('name=?',array($_GET['name']));
+//            $this->render('issues',array(
+//			'model'=>$project,
+//		));
+//	}
 	public function actionNewIssue($name)
 	{
             $project=Project::model()->find('name=?',array($_GET['name']));
