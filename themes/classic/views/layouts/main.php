@@ -16,10 +16,26 @@
     </head>
     <body>
     <div class=container id="page">
-      <div id="topnav" class="span-16">Home Projects
+      <div id="mainmenu" class="span-16">
+                <?php
+                $this->widget('zii.widgets.CMenu', array(
+                    'items' => array(
+                        array('label' => 'Home', 'url' => array('/site/index')),
+                        array('label' => 'Projects', 'url' => array('/projects')),
+                    ),
+                )); ?>
       </div>
-      <div id="usernav" class="span-8 last">
-        <span class="right">Login Register
+      <div id="mainmenu" class="span-8 last">
+        <span class="right">
+                <?php
+                $this->widget('zii.widgets.CMenu', array(
+                    'items' => array(
+                        array('url' => Yii::app()->getModule('user')->loginUrl, 'label' => Yii::app()->getModule('user')->t("Login"), 'visible' => Yii::app()->user->isGuest),
+                        array('url' => Yii::app()->getModule('user')->registrationUrl, 'label' => Yii::app()->getModule('user')->t("Register"), 'visible' => Yii::app()->user->isGuest),
+                        array('url' => Yii::app()->getModule('user')->profileUrl, 'label' => Yii::app()->getModule('user')->t("Profile"), 'visible' => !Yii::app()->user->isGuest),
+                        array('url' => Yii::app()->getModule('user')->logoutUrl, 'label' => Yii::app()->getModule('user')->t("Logout") . ' (' . Yii::app()->user->name . ')', 'visible' => !Yii::app()->user->isGuest),
+                    ),
+                )); ?>
         </span>
       </div>
       <hr/>
@@ -54,19 +70,22 @@
       </div>
       <hr/>
       <div id="mainmenu" class="span-24">
-                <?php
-                $this->widget('zii.widgets.CMenu', array(
-                    'items' => array(
-                        array('label' => 'Home', 'url' => array('/projects')),
-                        array('label' => 'About', 'url' => array('/site/page', 'view' => 'about')),
-                        array('label' => 'Contact', 'url' => array('/site/contact')),
-                        array('url' => Yii::app()->getModule('user')->loginUrl, 'label' => Yii::app()->getModule('user')->t("Login"), 'visible' => Yii::app()->user->isGuest),
-                        array('url' => Yii::app()->getModule('user')->registrationUrl, 'label' => Yii::app()->getModule('user')->t("Register"), 'visible' => Yii::app()->user->isGuest),
-                        array('url' => Yii::app()->getModule('user')->profileUrl, 'label' => Yii::app()->getModule('user')->t("Profile"), 'visible' => !Yii::app()->user->isGuest),
-                        array('label' => 'Rights', 'url' => array('/rights'), 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
-                        array('url' => Yii::app()->getModule('user')->logoutUrl, 'label' => Yii::app()->getModule('user')->t("Logout") . ' (' . Yii::app()->user->name . ')', 'visible' => !Yii::app()->user->isGuest),
-                    ),
-                )); ?>
+                <?php if(Yii::app()->controller->id !== 'project') : ?>
+                    <?php
+                    $this->widget('zii.widgets.CMenu', array(
+                        'items' => array(
+                            array('label' => 'Welcome', 'url' => array('/site/index')),
+                            array('label' => 'Projects', 'url' => array('/projects')),
+                        ),
+                    )); ?>
+                <?php elseif(Yii::app()->controller->id === 'project') : ?>
+                    <?php
+                    $this->widget('zii.widgets.CMenu', array(
+                        'items' => array(
+                            array('label' => 'Rights', 'url' => array('/rights'), 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
+                        ),
+                    )); ?>
+                <?php endif; ?>
       </div>
       <hr/>
         <?php echo $content; ?>
