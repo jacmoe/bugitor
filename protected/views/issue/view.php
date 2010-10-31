@@ -1,4 +1,5 @@
 <?php
+$this->pageTitle = $model->project->name . ' - ' . $model->tracker->name . ' #' . $model->id . ': ' . $model->subject . ' - ' . Yii::app()->name ;
 $this->breadcrumbs=array(
 	'Issues'=>array('index'),
 	$model->id,
@@ -13,7 +14,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>View Issue #<?php echo $model->id; ?></h1>
+<h3><?php echo $model->project->name . ' - ' . $model->tracker->name . ' #' . $model->id . ': ' . $model->subject; ?></h3>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

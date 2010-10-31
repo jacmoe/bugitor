@@ -1,4 +1,5 @@
 <?php
+$this->pageTitle = $project_name . 'New Issue - ' . Yii::app()->name ;
 $this->breadcrumbs=array(
 	'Issues'=>array('index'),
 	'Create',

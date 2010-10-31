@@ -1,11 +1,7 @@
 <div class="view">
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-        <?php if(isset($_GET['name'])) : ?>
-            <?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id, 'name' => $_GET['name'])); ?>
-        <?php else : ?>
-            <?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id, 'name' => $project_name)); ?>
-	<?php endif; ?>
+        <?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id, 'name' => $data->project->name)); ?>
         <br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('tracker_id')); ?>:</b>

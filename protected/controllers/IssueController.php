@@ -42,6 +42,9 @@ class IssueController extends RightsBaseController
 	{
 		$model=new Issue;
 
+                $project_name = '';
+                if(isset($_GET['name']))
+                    $project_name = $_GET['name'] . ' - ';
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -49,11 +52,12 @@ class IssueController extends RightsBaseController
 		{
 			$model->attributes=$_POST['Issue'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('view','id'=>$model->id, 'name' => $model->project->name));
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
+                        'project_name' => $project_name,
 		));
 	}
 
@@ -73,7 +77,7 @@ class IssueController extends RightsBaseController
 		{
 			$model->attributes=$_POST['Issue'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('view','id'=>$model->id, 'name' => $model->project->name));
 		}
 
 		$this->render('update',array(
@@ -106,13 +110,22 @@ class IssueController extends RightsBaseController
 	 */
 	public function actionIndex($name = '')
 	{
-            if($name === '')
-                $name = 'Bugitor';
-            $dataProvider=new CActiveDataProvider('Issue');
+            if($name !== '')
+            {
+                $criteria=new CDbCriteria;
+                $criteria->compare('project_id',$this->getProject($name),true);
+                $dataProvider=new CActiveDataProvider('Issue', array('criteria' =>$criteria));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
-                        'project_name' => $name,
+                        'project_name' => $name . ' - ',
 		));
+            } else {
+                $dataProvider=new CActiveDataProvider('Issue');
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
+                        'project_name' => '',
+		));
+            }
 	}
 
 	/**
@@ -143,7 +156,12 @@ class IssueController extends RightsBaseController
 		return $model;
 	}
 
-	/**
+        private function getProject($name)
+        {
+            $project = Project::model()->findByAttributes(array('name' => $name));
+            return $project->id;
+        }
+/**
 	 * Performs the AJAX validation.
 	 * @param CModel the model to be validated
 	 */

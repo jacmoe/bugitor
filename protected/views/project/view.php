@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = $model->name . ' : Overview - ' . Yii::app()->name;
+$this->pageTitle = $model->name . ' - Overview - ' . Yii::app()->name;
 
 $this->breadcrumbs=array(
 	'Projects'=>array('index'),
