@@ -1,4 +1,3 @@
-glob:assets/*
 glob:protected/runtime/*
 glob:protected/data/*.db
 glob:protected/tests/report/*
