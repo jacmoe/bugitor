@@ -1,10 +1,5 @@
 <?php
-$this->pageTitle = $model->name . ' : Overview - ' . Yii::app()->name;
-
-$this->breadcrumbs=array(
-	'Projects'=>array('index'),
-	$model->name,
-);
+$this->pageTitle = $model->name . ' : Activity - ' . Yii::app()->name;
 
 $this->menu=array(
 	array('label'=>'List Projects', 'url'=>array('index')),
@@ -15,19 +10,4 @@ $this->menu=array(
 );
 ?>
 
-<h1>View Project <?php echo $model->name; ?></h1>
-
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'name',
-		'description',
-		'homepage',
-		'public',
-		'created',
-		'modified',
-		'identifier',
-		'status',
-	),
-)); ?>
+<h1><?php echo $model->name; ?> : Activity</h1>
