@@ -1,6 +1,6 @@
 <?php
 /**
- * MyButtonColumn class file.
+ * BugitorButtonColumn class file.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @link http://www.yiiframework.com/
@@ -11,7 +11,7 @@
 Yii::import('zii.widgets.grid.CGridColumn');
 
 /**
- * MyButtonColumn represents a grid view column that renders one or several buttons.
+ * BugitorButtonColumn represents a grid view column that renders one or several buttons.
  *
  * By default, it will display three buttons, "view", "update" and "delete", which triggers the corresponding
  * actions on the model of the row.
@@ -20,11 +20,11 @@ Yii::import('zii.widgets.grid.CGridColumn');
  * and customize the display order of the buttons.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: MyButtonColumn.php 2326 2010-08-20 17:02:07Z qiang.xue $
+ * @version $Id: BugitorButtonColumn.php 2326 2010-08-20 17:02:07Z qiang.xue $
  * @package zii.widgets.grid
  * @since 1.1
  */
-class MyButtonColumn extends CGridColumn
+class BugitorButtonColumn extends CGridColumn
 {
 	/**
 	 * @var array the HTML options for the data cell tags.
