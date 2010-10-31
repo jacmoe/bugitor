@@ -18,22 +18,22 @@
         <div class=container id="page">
             <div id="mainmenu" class="span-16">
                 <?php
-                $this->widget('zii.widgets.CMenu', array(
+                $this->widget('BugitorMenu', array(
                     'items' => array(
-                        array('label' => 'Home', 'url' => array('/site/index')),
-                        array('label' => 'Projects', 'url' => array('/projects/')),
+                        array('label' => 'Home', 'url' => array('/site/index'), 'id' => 'site/index'),
+                        array('label' => 'Projects', 'url' => array('/projects/'), 'id' => 'project/index'),
                     ),
                 )); ?>
             </div>
             <div id="mainmenu" class="span-8 last">
                 <span class="right">
                     <?php
-                    $this->widget('zii.widgets.CMenu', array(
+                    $this->widget('BugitorMenu', array(
                         'items' => array(
-                            array('url' => Yii::app()->getModule('user')->loginUrl, 'label' => Yii::app()->getModule('user')->t("Login"), 'visible' => Yii::app()->user->isGuest),
-                            array('url' => Yii::app()->getModule('user')->registrationUrl, 'label' => Yii::app()->getModule('user')->t("Register"), 'visible' => Yii::app()->user->isGuest),
-                            array('url' => Yii::app()->getModule('user')->profileUrl, 'label' => Yii::app()->getModule('user')->t("Profile"), 'visible' => !Yii::app()->user->isGuest),
-                            array('url' => Yii::app()->getModule('user')->logoutUrl, 'label' => Yii::app()->getModule('user')->t("Logout") . ' (' . Yii::app()->user->name . ')', 'visible' => !Yii::app()->user->isGuest),
+                            array('url' => Yii::app()->getModule('user')->loginUrl, 'label' => Yii::app()->getModule('user')->t("Login"), 'visible' => Yii::app()->user->isGuest, 'id' => 'user/login/login'),
+                            array('url' => Yii::app()->getModule('user')->registrationUrl, 'label' => Yii::app()->getModule('user')->t("Register"), 'visible' => Yii::app()->user->isGuest, 'id' => 'user/registration/registration'),
+                            array('url' => Yii::app()->getModule('user')->profileUrl, 'label' => Yii::app()->getModule('user')->t("Profile"), 'visible' => !Yii::app()->user->isGuest, 'id' => 'user/profile/profile'),
+                            array('url' => Yii::app()->getModule('user')->logoutUrl, 'label' => Yii::app()->getModule('user')->t("Logout") . ' (' . Yii::app()->user->name . ')', 'visible' => !Yii::app()->user->isGuest, 'id' => 'user/logout/logout'),
                         ),
                     )); ?>
                 </span>
@@ -71,23 +71,23 @@
                 <div id="mainmenu" class="span-24">
                 <?php if ((Yii::app()->controller->id === 'project') && (isset($_GET['name']))) : ?>
                 <?php
-                                $this->widget('zii.widgets.CMenu', array(
+                                $this->widget('BugitorMenu', array(
                                     'items' => array(
-                                        array('label' => 'Overview', 'url' => array('/projects/' . $_GET['name'])),
-                                        array('label' => 'Activity', 'url' => array('/projects/' . $_GET['name'] . '/activity')),
-                                        array('label' => 'Roadmap', 'url' => array('/projects/' . $_GET['name'] . '/roadmap')),
-                                        array('label' => 'Issues', 'url' => array('/projects/' . $_GET['name'] . '/issues')),
-                                        array('label' => 'New Issue', 'url' => array('/projects/' . $_GET['name'] . '/newissue'), 'visible' => !Yii::app()->user->isGuest),
-                                        array('label' => 'Code', 'url' => array('/projects/' . $_GET['name'] . '/code')),
-                                        array('label' => 'Settings', 'url' => array('/projects/' . $_GET['name'] . '/settings'), 'visible' => !Yii::app()->user->isGuest),
+                                        array('label' => 'Overview', 'url' => array('/projects/' . $_GET['name']), 'id' => 'project/view'),
+                                        array('label' => 'Activity', 'url' => array('/projects/' . $_GET['name'] . '/activity'), 'id' => 'project/activity'),
+                                        array('label' => 'Roadmap', 'url' => array('/projects/' . $_GET['name'] . '/roadmap'), 'id' => 'project/roadmap'),
+                                        array('label' => 'Issues', 'url' => array('/projects/' . $_GET['name'] . '/issues'), 'id' => 'project/issues'),
+                                        array('label' => 'New Issue', 'url' => array('/projects/' . $_GET['name'] . '/newissue'), 'visible' => !Yii::app()->user->isGuest, 'id' => 'project/newissue'),
+                                        array('label' => 'Code', 'url' => array('/projects/' . $_GET['name'] . '/code'), 'id' => 'project/code'),
+                                        array('label' => 'Settings', 'url' => array('/projects/' . $_GET['name'] . '/settings'), 'visible' => !Yii::app()->user->isGuest, 'id' => 'project/settings'),
                                     ),
                                 )); ?>
                 <?php else : ?>
                 <?php
-                                    $this->widget('zii.widgets.CMenu', array(
+                                    $this->widget('BugitorMenu', array(
                                         'items' => array(
-                                            array('label' => 'Welcome', 'url' => array('/site/index')),
-                                            array('label' => 'Projects', 'url' => array('/projects/')),
+                                            array('label' => 'Welcome', 'url' => array('/site/index'), 'id' => 'site/index'),
+                                            array('label' => 'Projects', 'url' => array('/projects/'), 'id' => 'project/index'),
                                         ),
                                     )); ?>
                 <?php endif; ?>
