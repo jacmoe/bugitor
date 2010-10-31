@@ -39,42 +39,42 @@ class ProjectController extends RightsBaseController
 	public function actionActivity($name)
 	{
             $project=Project::model()->find('name=?',array($_GET['name']));
-            $this->render('view',array(
+            $this->render('activity',array(
 			'model'=>$project,
 		));
 	}
 	public function actionRoadmap($name)
 	{
             $project=Project::model()->find('name=?',array($_GET['name']));
-            $this->render('view',array(
+            $this->render('roadmap',array(
 			'model'=>$project,
 		));
 	}
 	public function actionIssues($name)
 	{
             $project=Project::model()->find('name=?',array($_GET['name']));
-            $this->render('view',array(
+            $this->render('issues',array(
 			'model'=>$project,
 		));
 	}
 	public function actionNewIssue($name)
 	{
             $project=Project::model()->find('name=?',array($_GET['name']));
-            $this->render('view',array(
+            $this->render('newissue',array(
 			'model'=>$project,
 		));
 	}
 	public function actionCode($name)
 	{
             $project=Project::model()->find('name=?',array($_GET['name']));
-            $this->render('view',array(
+            $this->render('code',array(
 			'model'=>$project,
 		));
 	}
 	public function actionSettings($name)
 	{
             $project=Project::model()->find('name=?',array($_GET['name']));
-            $this->render('view',array(
+            $this->render('settings',array(
 			'model'=>$project,
 		));
 	}
