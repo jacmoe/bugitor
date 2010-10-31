@@ -51,15 +51,8 @@ class BugitorMenu extends CMenu {
      */
     protected function isItemActive($item, $route) {
         if (isset($item['id'])) {
-            //echo $route;
-            switch ($route) {
-                case $item['id']:
-                    return true;
-                    break;
-                default:
-                    return false;
-                    break;
-            }
+            if($route === $item['id'])
+                return true;
             return false;
         }
         return false;
