@@ -66,7 +66,12 @@ return array(
             'rules' => array(
                 '/projects/' => 'project/index',
                 '/projects/<name>' => 'project/view',
+                '/issues/' => 'issue/index',
+                '/projects/<name>/issues' => 'issue/index',
+                '/projects/<name>/issue/<_a:(create)>'   => 'issue/<_a>',
+                '/projects/<name>/issue/<action:\w+>/<id:\d+>'   => 'issue/<action>',
                 '/projects/<name>/<_a:(activity|roadmap|issues|newissue|code|settings)>'   => 'project/<_a>',
+                '/projects/<name>/issue/<action:\w+>/<id:\d+>/' => 'issue/<action>',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',

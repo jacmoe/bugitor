@@ -27,7 +27,7 @@ class IssueController extends RightsBaseController
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-	public function actionView($id)
+	public function actionView($id, $name='')
 	{
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
@@ -104,11 +104,14 @@ class IssueController extends RightsBaseController
 	/**
 	 * Lists all models.
 	 */
-	public function actionIndex()
+	public function actionIndex($name = '')
 	{
-		$dataProvider=new CActiveDataProvider('Issue');
+            if($name === '')
+                $name = 'Bugitor';
+            $dataProvider=new CActiveDataProvider('Issue');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+                        'project_name' => $name,
 		));
 	}
 
