@@ -38,7 +38,6 @@
 <?php endif; ?>
                     </div></div>
             </div><!-- header -->
-
             <div id="mainmenu">
                 <?php
                 $this->widget('zii.widgets.CMenu', array(
