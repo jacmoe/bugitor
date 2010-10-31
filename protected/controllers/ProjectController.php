@@ -21,7 +21,7 @@ class ProjectController extends RightsBaseController
 
 	public function allowedActions()
 	{
-		return 'index, view';
+		return 'index, view, activity, roadmap, issues, code';
 	}
 
 	/**
@@ -36,6 +36,48 @@ class ProjectController extends RightsBaseController
 		));
 	}
 
+	public function actionActivity($name)
+	{
+            $project=Project::model()->find('name=?',array($_GET['name']));
+            $this->render('view',array(
+			'model'=>$project,
+		));
+	}
+	public function actionRoadmap($name)
+	{
+            $project=Project::model()->find('name=?',array($_GET['name']));
+            $this->render('view',array(
+			'model'=>$project,
+		));
+	}
+	public function actionIssues($name)
+	{
+            $project=Project::model()->find('name=?',array($_GET['name']));
+            $this->render('view',array(
+			'model'=>$project,
+		));
+	}
+	public function actionNewIssue($name)
+	{
+            $project=Project::model()->find('name=?',array($_GET['name']));
+            $this->render('view',array(
+			'model'=>$project,
+		));
+	}
+	public function actionCode($name)
+	{
+            $project=Project::model()->find('name=?',array($_GET['name']));
+            $this->render('view',array(
+			'model'=>$project,
+		));
+	}
+	public function actionSettings($name)
+	{
+            $project=Project::model()->find('name=?',array($_GET['name']));
+            $this->render('view',array(
+			'model'=>$project,
+		));
+	}
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
