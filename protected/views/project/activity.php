@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = $model->name . ' : Activity - ' . Yii::app()->name;
+$this->pageTitle = $model->name . ' - Activity - ' . Yii::app()->name;
 
 $this->menu=array(
 	array('label'=>'List Projects', 'url'=>array('index')),
