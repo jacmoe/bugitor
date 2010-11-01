@@ -25,12 +25,11 @@ class ProjectController extends RightsBaseController
 	}
 
         public function getProjects() {
-            //$project=Project::model()->find('name=?',array($_GET['name']));
-            //$projectsArray = CHtml::listData(Project::model()->findAll(), 'id', 'name');
             $results = Project::model()->findAll();
             $project_list = array();
+            $project_list['<Switch Project>'] = '<Switch Project>';
             foreach($results as $result) {
-                $project_list[$result->name] = 'project/';
+                $project_list[$result->name] = $result->name;
             }
             return $project_list;
         }

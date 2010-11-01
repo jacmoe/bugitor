@@ -105,7 +105,17 @@ class IssueController extends RightsBaseController
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 	}
 
-	/**
+        public function getProjects() {
+            $results = Project::model()->findAll();
+            $project_list = array();
+            $project_list['<Switch Project>'] = '<Switch Project>';
+            foreach($results as $result) {
+                $project_list[$result->name] = $result->name;
+            }
+            return $project_list;
+        }
+
+        /**
 	 * Lists all models.
 	 */
 	public function actionIndex($name = '')
