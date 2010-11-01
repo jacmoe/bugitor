@@ -99,6 +99,8 @@ class Issue extends CActiveRecord {
             'version' => array(self::BELONGS_TO, 'Version', 'version_id'),
             'relatedIssues' => array(self::HAS_MANY, 'RelatedIssue', 'issue_to'),
             'bugUsers' => array(self::MANY_MANY, 'User', '{{watcher}}(issue_id, user_id)'),
+            'comments' => array(self::HAS_MANY, 'Comment', 'issue_id'),
+            'commentCount' => array(self::STAT, 'Comment', 'issue_id'),
         );
     }
 
@@ -161,7 +163,7 @@ class Issue extends CActiveRecord {
     }
 
     public function getDescription() {
-        $parser=new CMarkdownParser;
+        $parser = new CMarkdownParser;
         return $parser->safeTransform($this->description);
     }
 
