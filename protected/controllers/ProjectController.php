@@ -24,6 +24,16 @@ class ProjectController extends RightsBaseController
 		return 'index, view, activity, roadmap, issues, code';
 	}
 
+        public function getProjects() {
+            //$project=Project::model()->find('name=?',array($_GET['name']));
+            //$projectsArray = CHtml::listData(Project::model()->findAll(), 'id', 'name');
+            $results = Project::model()->findAll();
+            $project_list = array();
+            foreach($results as $result) {
+                $project_list[$result->name] = 'project/';
+            }
+            return $project_list;
+        }
 	/**
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
