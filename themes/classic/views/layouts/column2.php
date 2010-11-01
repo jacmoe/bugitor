@@ -7,6 +7,12 @@
 	<div class="span-5 last">
 		<div id="sidebar">
 		<?php
+                        $this->widget('DropDownRedirect', array(
+                            'data' => array('<Switch Project>' => '<Switch Project>' ,'Bugitor' => 'Bugitor', 'MyProject' => 'MyProject'), // data od my dropdownlist
+                            'url' => $this->createUrl($this->route, array_merge($_GET, array('name' => '__value__'))),//'/projects/'.'__value__'), // the url (__value__ will be replaced by the selected value)
+                            'select' => '<Switch Project>', //the preselected value
+                            'htmlOptions'=>array('class'=>'operations')
+                            ));
 			$this->beginWidget('zii.widgets.CPortlet', array(
 				'title'=>'Operations',
 			));
