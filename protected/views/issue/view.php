@@ -7,10 +7,10 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List Issue', 'url'=>array('index')),
-	array('label'=>'Create Issue', 'url'=>array('create')),
-	array('label'=>'Update Issue', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Issue', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Issue', 'url'=>array('admin')),
+	array('label'=>'Create Issue', 'url'=>array('create'), 'visible' => Yii::app()->user->checkAccess('Issue.Create')),
+	array('label'=>'Update Issue', 'url'=>array('update', 'id'=>$model->id), 'visible' => Yii::app()->user->checkAccess('Issue.Update')),
+	array('label'=>'Delete Issue', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?'), 'visible' => Yii::app()->user->checkAccess('Issue.Delete')),
+	array('label'=>'Manage Issue', 'url'=>array('admin'), 'visible' => Yii::app()->user->checkAccess('Issue.Admin')),
 );
 ?>
 

@@ -6,7 +6,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List Project', 'url'=>array('index')),
-	array('label'=>'Manage Project', 'url'=>array('admin')),
+	array('label'=>'Manage Project', 'url'=>array('admin'), 'visible' => Yii::app()->user->checkAccess('Project.Admin')),
 );
 ?>
 

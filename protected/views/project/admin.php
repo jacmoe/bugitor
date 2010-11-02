@@ -6,7 +6,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List Project', 'url'=>array('index')),
-	array('label'=>'Create Project', 'url'=>array('create')),
+	array('label'=>'Create Project', 'url'=>array('create'), 'visible' => Yii::app()->user->checkAccess('Project.Create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
