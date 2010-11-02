@@ -110,7 +110,7 @@ class CommentController extends Controller {
         foreach ($comments as $comment) {
             $entries[] = array(
                 'title' => $comment->issue->subject,
-                'link' => CHtml::encode($this->createAbsoluteUrl('issue/view', array('id' => $comment->issue->id))),
+                'link' => CHtml::encode($this->createAbsoluteUrl('/issue/view', array('id' => $comment->issue->id))),
                 'description' => $comment->author->username . ' says:<br>' . $comment->content,
                 'lastUpdate' => strtotime($comment->created),
                 'author' => $comment->author->username,
