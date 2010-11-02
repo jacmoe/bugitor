@@ -32,3 +32,8 @@ $this->menu=array(
 		'status',
 	),
 )); ?>
+<?php $this->beginWidget('zii.widgets.CPortlet', array(
+'title'=>'Recent Project Comments',
+));
+$this->widget('RecentComments', array('projectId'=>$model->id));
+$this->endWidget(); ?>
