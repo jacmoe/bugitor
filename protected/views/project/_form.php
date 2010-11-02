@@ -17,7 +17,13 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'description'); ?>
-		<?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50)); ?>
+		<?php $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
+			// you can either use it for model attribute
+			'model' => $model,
+			'attribute' => 'description',
+			// or just for input field
+			//'name' => 'my_input_name',
+		))?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
 
@@ -31,30 +37,6 @@
 		<?php echo $form->labelEx($model,'public'); ?>
 		<?php echo $form->textField($model,'public'); ?>
 		<?php echo $form->error($model,'public'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'created'); ?>
-		<?php echo $form->textField($model,'created'); ?>
-		<?php echo $form->error($model,'created'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'modified'); ?>
-		<?php echo $form->textField($model,'modified'); ?>
-		<?php echo $form->error($model,'modified'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'identifier'); ?>
-		<?php echo $form->textField($model,'identifier',array('size'=>20,'maxlength'=>20)); ?>
-		<?php echo $form->error($model,'identifier'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'status'); ?>
-		<?php echo $form->textField($model,'status'); ?>
-		<?php echo $form->error($model,'status'); ?>
 	</div>
 
 	<div class="row buttons">
