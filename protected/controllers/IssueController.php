@@ -26,7 +26,7 @@ class IssueController extends RightsBaseController {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
-        $issue = $this->loadModel($id);
+        $issue = $this->loadModel($id, true);
         $comment = $this->createComment($issue);
         $this->render('view', array(
             'model' => $issue,
@@ -162,8 +162,15 @@ class IssueController extends RightsBaseController {
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer the ID of the model to be loaded
      */
-    public function loadModel($id) {
-        $model = Issue::model()->findByPk((int) $id);
+    public function loadModel($id, $withComments=false) {
+
+        if($withComments) {
+            $model = Issue::model()->with(
+                    array('comments' => array('with' => 'author'))
+                    )->findbyPk((int)$id);
+        } else {
+            $model = Issue::model()->findByPk((int) $id);
+        }
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
