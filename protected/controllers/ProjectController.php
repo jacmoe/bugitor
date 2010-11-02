@@ -180,6 +180,10 @@ class ProjectController extends RightsBaseController {
      */
     public function actionIndex() {
         $dataProvider = new CActiveDataProvider('Project');
+        Yii::app()->clientScript->registerLinkTag('alternate',
+        'application/rss+xml',
+        $this->createUrl('comment/feed'));
+
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));
