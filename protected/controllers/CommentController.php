@@ -113,7 +113,7 @@ class CommentController extends Controller {
                 'link' => CHtml::encode($this->createAbsoluteUrl('/issue/view', array('id' => $comment->issue->id))),
                 'description' => $comment->author->username . ' says:<br>' . $comment->content,
                 'lastUpdate' => strtotime($comment->created),
-                'author' => $comment->author->username,
+                'dc:creator' => $comment->author->username,
             );
         }
         //now use the Zend Feed class to generate the Feed
