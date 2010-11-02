@@ -67,7 +67,7 @@ class ProjectController extends RightsBaseController {
         Yii::app()->clientScript->registerLinkTag(
             'alternate',
             'application/rss+xml',
-            $this->createUrl('comment/feed',array('pid'=>$this->loadModel()->id)));
+            $this->createUrl('comment/feed',array('pid'=>$project->id)));
 
         $this->render('view', array(
             'model' => $project,
