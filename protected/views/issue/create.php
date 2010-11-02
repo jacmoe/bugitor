@@ -7,7 +7,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List Issue', 'url'=>array('index')),
-	array('label'=>'Manage Issue', 'url'=>array('admin')),
+	array('label'=>'Manage Issue', 'url'=>array('admin'), 'visible' => Yii::app()->user->checkAccess('Issue.Admin')),
 );
 ?>
 

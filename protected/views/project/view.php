@@ -8,10 +8,11 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List Projects', 'url'=>array('index')),
-	array('label'=>'Create Project', 'url'=>array('create')),
-	array('label'=>'Update Project', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Project', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Projects', 'url'=>array('admin')),
+	array('label'=>'Create Project', 'url'=>array('create'), 'visible' => Yii::app()->user->checkAccess('Project.Create')),
+	array('label'=>'Update Project', 'url'=>array('update', 'id'=>$model->id), 'visible' => Yii::app()->user->checkAccess('Project.Update')),
+	array('label'=>'Delete Project', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?'), 'visible' => Yii::app()->user->checkAccess('Project.Delete')),
+	array('label'=>'Manage Projects', 'url'=>array('admin'), 'visible' => Yii::app()->user->checkAccess('Project.Admin')),
+	array('label'=>'Add Users', 'url'=>array('adduser', 'name' => $_GET['name']), 'visible' => Yii::app()->user->checkAccess('Project.Adduser')),
 );
 ?>
 

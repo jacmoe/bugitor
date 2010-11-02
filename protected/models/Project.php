@@ -124,4 +124,46 @@ class Project extends CActiveRecord {
         ));
     }
 
+    /**
+     * Returns an array of available roles in which a user can be
+      placed when being added to a project
+     */
+    public static function getUserRoleOptions() {
+        return CHtml::listData(Rights::module()->getAuthorizer()->getRoles(),
+                'name', 'name');
+    }
+
+    /**
+     * Makes an association between a user and a the project
+     */
+    public function associateUserToProject($user) {
+        $sql = "INSERT INTO bug_project_user_assignment (project_id,
+user_id) VALUES (:projectId, :userId)";
+        $command = Yii::app()->db->createCommand($sql);
+        $command->bindValue(":projectId", $this->id, PDO::PARAM_INT);
+        $command->bindValue(":userId", $user->id, PDO::PARAM_INT);
+        return $command->execute();
+    }
+
+    public function associateUserToRole($role, $userId) {
+	$model = User::model()->findByPk($userId);
+        $model->attachBehavior('rights', new RightsUserBehavior);
+        Yii::app()->getModule('rights')->getAuthorizer()->authManager->assign($role, $model->getId());
+        $item = Yii::app()->getModule('rights')->getAuthorizer()->authManager->getAuthItem($role);
+        echo $item->getNameText();
+    }
+
+    /*
+     * Determines whether or not a user is already part of a project
+     */
+
+    public function isUserInProject($user) {
+        $sql = "SELECT user_id FROM bug_project_user_assignment WHERE
+project_id=:projectId AND user_id=:userId";
+        $command = Yii::app()->db->createCommand($sql);
+        $command->bindValue(":projectId", $this->id, PDO::PARAM_INT);
+        $command->bindValue(":userId", $user->id, PDO::PARAM_INT);
+        return $command->execute() == 1 ? true : false;
+    }
+
 }
