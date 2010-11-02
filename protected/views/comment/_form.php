@@ -8,8 +8,13 @@ required.</p>
 <?php echo $form->errorSummary($model); ?>
 <div class="row">
 <?php echo $form->labelEx($model,'content'); ?>
-<?php echo $form->textArea($model,'content',array('rows'=>6,
-'cols'=>50)); ?>
+<?php $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
+        // you can either use it for model attribute
+        'model' => $model,
+        'attribute' => 'content',
+        // or just for input field
+        //'name' => 'my_input_name',
+))?>
 <?php echo $form->error($model,'content'); ?>
 </div>
 <div class="row buttons">

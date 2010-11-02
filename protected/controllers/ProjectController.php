@@ -123,6 +123,9 @@ class ProjectController extends RightsBaseController {
 
         if (isset($_POST['Project'])) {
             $model->attributes = $_POST['Project'];
+            $sPattern = '/\s*/m';
+            $sReplace = '';
+            $model->identifier = preg_replace( $sPattern, $sReplace, strtolower($model->name));
             if ($model->save())
                 $this->redirect(array('view', 'name' => $model->name));
         }
