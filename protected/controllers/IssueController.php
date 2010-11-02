@@ -106,9 +106,10 @@ class IssueController extends RightsBaseController
 	}
 
         public function getProjects() {
-            $results = Project::model()->findAll();
+            $Criteria = new CDbCriteria();
+            $Criteria->select = "name";
+            $results = Project::model()->findAll($Criteria);
             $project_list = array();
-            $project_list['<Switch Project>'] = '<Switch Project>';
             foreach($results as $result) {
                 $project_list[$result->name] = $result->name;
             }
