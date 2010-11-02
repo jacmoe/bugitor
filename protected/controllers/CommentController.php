@@ -120,7 +120,7 @@ class CommentController extends Controller {
         // generate and render RSS feed
         $feed = Zend_Feed::importArray(array(
                     'title' => 'Bugitor Project Comments Feed',
-                    'link' => 'http://files.ogitor.org/commentfeed.xml',
+                    'link' => $this->createAbsoluteUrl(''),
                     'charset' => 'UTF-8',
                     'entries' => $entries,
                         ), 'rss');
