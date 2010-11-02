@@ -90,7 +90,7 @@ class Issue extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'assignedTo0' => array(self::BELONGS_TO, 'Users', 'assigned_to'),
+            'assignedTo' => array(self::BELONGS_TO, 'User', 'assigned_to'),
             'issueCategory' => array(self::BELONGS_TO, 'IssueCategory', 'issue_category_id'),
             'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
             'issuePriority' => array(self::BELONGS_TO, 'IssuePriority', 'issue_priority_id'),
@@ -165,6 +165,14 @@ class Issue extends CActiveRecord {
     public function getDescription() {
         $parser = new CMarkdownParser;
         return $parser->safeTransform($this->description);
+    }
+
+    /**
+     * Adds a comment to this issue
+     */
+    public function addComment($comment) {
+        $comment->issue_id = $this->id;
+        return $comment->save();
     }
 
 }
