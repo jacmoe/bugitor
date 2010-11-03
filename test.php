@@ -62,7 +62,7 @@ if (php_sapi_name() != 'cli') {
   {
     $args = func_get_args();
     //$a = array("-y", "-R", $this->repopath, "--cwd", $this->repopath);
-	$a = array("-R", '/home/stealth977/files.ogitor.org', "--cwd", '/home/stealth977/files.ogitor.org');
+	$a = array("-R", '/home/stealth977/files.ogitor.org/', "--cwd", '/home/stealth977/files.ogitor.org/');
     foreach ($args as $arg) {
       $a[] = $arg;
     }
