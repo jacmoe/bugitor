@@ -15,13 +15,13 @@ class TestCommand extends CConsoleCommand
         fclose($fd);
         
         if($email !== '') {
-            $fp=fopen("/home/stealth977/files.ogitor.org/email.txt","w+");
-            fwrite($fp, $email);
-            fclose($fp);
+            //$fp=fopen("/home/stealth977/files.ogitor.org/email.txt","w+");
+            //fwrite($fp, $email);
+            //fclose($fp);
             }
 //        foreach($pass_this as $key => $value){
 //            fwrite($fp,$value."\t");
 //        }
-        mail("jacmoe@mail.dk", "Script was run", "The script was run succesfully", "admin@ogitor.org");
+        //mail("jacmoe@mail.dk", "Script was run", "The script was run succesfully", "admin@ogitor.org");
     }
 }
