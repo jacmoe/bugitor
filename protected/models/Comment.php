@@ -63,13 +63,13 @@ class Comment extends CActiveRecord {
 
     public static function findRecentComments($limit=10, $projectId=null) {
         if ($projectId != null) {
-            return self::model()->with(array('issue' => array('condition' => 'project_id='.$projectId)))->findAll(array(
+            return self::model()->with(array('project','issue' => array('condition' => 'project_id='.$projectId)))->findAll(array(
                 'order' => 't.created DESC',
                 'limit' => $limit,
             ));
         } else {
             //get all comments across all projects
-            return self::model()->with('issue')->findAll(array(
+            return self::model()->with('issue','project')->findAll(array(
                 'order' => 't.created DESC',
                 'limit' => $limit,
             ));
