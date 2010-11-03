@@ -4,7 +4,7 @@ function mtrack_run_tool($toolname, $mode, $args = null)
 {
   global $FORKS;
 
-  $tool = "hg";//MTrackConfig::get('tools', $toolname);
+  $tool = "/home/stealth977/bin/hg";//MTrackConfig::get('tools', $toolname);
   if (!strlen($tool)) {
     $tool = $toolname;
   }
@@ -60,6 +60,7 @@ if (php_sapi_name() != 'cli') {
 
   function hg()
   {
+	putenv('PYTHONPATH=/home/stealth977/.packages/lib/python');
     $args = func_get_args();
     //$a = array("-y", "-R", $this->repopath, "--cwd", $this->repopath);
 	$a = array("-R", '/home/stealth977/files.ogitor.org/', "--cwd", '/home/stealth977/files.ogitor.org/');
