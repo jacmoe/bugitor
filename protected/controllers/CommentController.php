@@ -111,6 +111,7 @@ class CommentController extends Controller {
             $entries[] = array(
                 'title' => $comment->issue->subject,
                 'link' => CHtml::encode($this->createAbsoluteUrl('/issue/view', array('id' => $comment->issue->id))),
+                'guid' => CHtml::encode($this->createAbsoluteUrl('/issue/view', array('id' => $comment->issue->id, 'comment' => $comment->id))),
                 'description' => $comment->author->username . ' says:<br>' . $comment->content,
                 'lastUpdate' => strtotime($comment->created),
                 'dc:creator' => $comment->author->username,
@@ -121,6 +122,7 @@ class CommentController extends Controller {
         $feed = Zend_Feed::importArray(array(
                     'title' => 'Bugitor Project Comments Feed',
                     'link' => $this->createAbsoluteUrl(''),
+                    'atom:link' => $this->createAbsoluteUrl('', array('rel' => 'self')),
                     'charset' => 'UTF-8',
                     'entries' => $entries,
                         ), 'rss');
