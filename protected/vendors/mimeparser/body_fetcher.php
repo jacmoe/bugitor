@@ -134,7 +134,7 @@ class MimeParser
             $this->boundary = $this->P_NEWLINE;
         }
 
-        $parts = split($this->boundary, $content);
+        $parts = explode($this->boundary, $content);
 
         $header1 = array_shift($parts);
         $header2 = array_shift($parts);

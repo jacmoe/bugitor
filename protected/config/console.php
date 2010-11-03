@@ -74,6 +74,14 @@ return array(
                 'comment/feed'=>array('comment/feed', 'urlSuffix'=>'.xml', 'caseSensitive'=>false),
                 ),
         ),
+//            'db' => array(
+//                'connectionString' => 'mysql:host=localhost;dbname=ogitorbugs',
+//                'emulatePrepare' => true,
+//                'username' => 'superadmin',
+//                'tablePrefix' => 'bug_',
+//                'password' => 'jake2383',
+//                'charset' => 'utf8',
+//            ),
         'db' => array(
             'connectionString' => 'mysql:host=mysql.ogitor.org;dbname=ogitorbugs',
             'emulatePrepare' => true,
