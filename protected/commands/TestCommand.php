@@ -100,13 +100,29 @@ class TestCommand extends CConsoleCommand {
                 $pass_this['issue'] = $matches_closes[5][0];
             }
             //$fp = fopen("C:/wamp/www/out.txt", "w+");
-            $fp = fopen("/home/stealth977/files.ogitor.org/email.txt","w+");
-            foreach ($pass_this as $key => $value) {
-                fwrite($fp, $key . ': ' . $value . "\n");
-            }
-            fclose($fp);
+            //$fp = fopen("/home/stealth977/files.ogitor.org/email.txt","w+");
+            //foreach ($pass_this as $key => $value) {
+            //    fwrite($fp, $key . ': ' . $value . "\n");
+            //}
+            //fclose($fp);
+
+            $user = User::model()->find('email=?', array($pass_this['from']));
+            if(null == $user)
+                return;
+            $issue = Issue::model()->findByPk((int) $pass_this['issue']);
+            if(null == $issue)
+                return;
+            $new_comment = new Comment;
+            $new_comment->content = $pass_this['message'];
+            $new_comment->create_user_id = $user->id;
+            $new_comment->update_user_id = $user->id;
+            $new_comment->modified = new CDbExpression('NOW()');
+            $new_comment->created = new CDbExpression('NOW()');
+            $new_comment->issue_id = $issue->id;
+            $new_comment->save(false);
         }
         //mail("jacmoe@mail.dk", "Script was run", "The script was run succesfully", "admin@ogitor.org");
+
     }
 
 }
