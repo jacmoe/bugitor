@@ -69,6 +69,7 @@ class User extends CActiveRecord
 	{
 		$relations = array(
 			'profile'=>array(self::HAS_ONE, 'Profile', 'user_id'),
+                        'members' => array(self::MANY_MANY, 'Project', '{{project_user_assignment}}(project_id, user_id)'),
 		);
 		if (isset(Yii::app()->getModule('user')->relations)) $relations = array_merge($relations,Yii::app()->getModule('user')->relations);
 		return $relations;

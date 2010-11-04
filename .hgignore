@@ -5,3 +5,4 @@ glob:yii/*
 glob:wamp.php
 glob:resources/bugitor.mwb.bak
 glob:assets/
+glob:webgrind/*

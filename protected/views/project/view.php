@@ -32,6 +32,17 @@ $this->menu=array(
 		'status',
 	),
 )); ?>
+<?php
+foreach($members as $member) {
+    echo '<b>' . $member->username . '</b> | ';
+    $assignments = Rights::getAssignedRoles($member->id);
+    foreach($assignments as $assignment) {
+        echo $assignment->name . ' . ';
+        }
+        echo '<br/>';
+
+}
+?>
 <?php $this->beginWidget('zii.widgets.CPortlet', array(
 'title'=>'Recent Project Comments',
 ));

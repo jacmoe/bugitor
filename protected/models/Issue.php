@@ -98,7 +98,7 @@ class Issue extends CActiveRecord {
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
             'version' => array(self::BELONGS_TO, 'Version', 'version_id'),
             'relatedIssues' => array(self::HAS_MANY, 'RelatedIssue', 'issue_to'),
-            'bugUsers' => array(self::MANY_MANY, 'User', '{{watcher}}(issue_id, user_id)'),
+            'watchers' => array(self::MANY_MANY, 'User', '{{watcher}}(issue_id, user_id)'),
             'comments' => array(self::HAS_MANY, 'Comment', 'issue_id'),
             'commentCount' => array(self::STAT, 'Comment', 'issue_id'),
         );

@@ -65,6 +65,7 @@ class Project extends CActiveRecord {
         return array(
             'issues' => array(self::HAS_MANY, 'Issue', 'project_id'),
             'bugTrackers' => array(self::MANY_MANY, 'Tracker', '{{project_tracker}}(project_id, tracker_id)'),
+            'members' => array(self::MANY_MANY, 'User', '{{project_user_assignment}}(project_id, user_id)'),
             'repositories' => array(self::HAS_MANY, 'Repository', 'project_id'),
             'versions' => array(self::HAS_MANY, 'Version', 'project_id'),
         );
@@ -164,6 +165,12 @@ project_id=:projectId AND user_id=:userId";
         $command->bindValue(":projectId", $this->id, PDO::PARAM_INT);
         $command->bindValue(":userId", $user->id, PDO::PARAM_INT);
         return $command->execute() == 1 ? true : false;
+    }
+
+    public function getMembers() {
+        $criteria = new CDbCriteria;
+        $criteria->compare('project_id', $this->id, true);
+        return User::model()->with('members')->findAll($criteria);
     }
 
 }

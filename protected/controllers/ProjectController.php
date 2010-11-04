@@ -71,6 +71,7 @@ class ProjectController extends RightsBaseController {
 
         $this->render('view', array(
             'model' => $project,
+            'members' => $project->getMembers(),
         ));
     }
 
