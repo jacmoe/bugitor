@@ -54,9 +54,6 @@ class Issue extends CActiveRecord {
         return array(
             'CActiveRecordLogableBehavior' =>
             array('class' => 'application.behaviors.CActiveRecordLogableBehavior'),
-            'swBehavior' => array(
-                'class' => 'application.extensions.simpleWorkflow.SWActiveRecordBehavior',
-            ),
             'BugitorTimestampBehavior' => array(
                 'class' => 'application.behaviors.BugitorTimestampBehavior',
                 'createAttribute' => 'created',
@@ -65,6 +62,9 @@ class Issue extends CActiveRecord {
             'CSafeContentBehavior' => array(
                 'class' => 'application.behaviors.CSafeContentBehavior',
                 'attributes' => array('description', 'subject'),
+            ),
+            'swBehavior' => array(
+                'class' => 'application.extensions.simpleWorkflow.SWActiveRecordBehavior',
             ),
         );
     }

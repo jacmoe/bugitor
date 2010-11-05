@@ -44,7 +44,7 @@ $this->menu=array(
 		array(
 				'label' => 'User',
 				'type' => 'raw',
-				'value' => $model->user->username,
+				'value' => ucfirst($model->user->username),
 		),
 		//'user_id',
 		array(
@@ -62,7 +62,7 @@ $this->menu=array(
 		array(
 				'label' => 'Assigned To',
 				'type' => 'raw',
-				'value' => $model->user->username,
+				'value' => ucfirst($model->user->username),
 		),
 		//'assigned_to',
 		array('name' => 'created',
@@ -78,7 +78,11 @@ $this->menu=array(
                     'type' => 'raw',
                     'value' => $model->swGetStatus()->getLabel()
                 ),
-		'closed',
+		array(
+                    'label' => 'Closed',
+                    'type' => 'boolean',
+                    'value' => $model->closed,
+                ),
 	),
 )); ?>
 <div id="comments">
