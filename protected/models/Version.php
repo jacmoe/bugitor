@@ -82,7 +82,7 @@ class Version extends CActiveRecord {
             'CActiveRecordLogableBehavior' =>
             array('class' => 'application.behaviors.CActiveRecordLogableBehavior'),
             'BugitorTimestampBehavior' => array(
-                'class' => 'behaviors.BugitorTimestampBehavior',
+                'class' => 'application.behaviors.BugitorTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'modified',
             ),
