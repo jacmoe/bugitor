@@ -81,8 +81,8 @@ class Version extends CActiveRecord {
         return array(
             'CActiveRecordLogableBehavior' =>
             array('class' => 'application.behaviors.CActiveRecordLogableBehavior'),
-            'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
+            'BugitorTimestampBehavior' => array(
+                'class' => 'behaviors.BugitorTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'modified',
             ),
