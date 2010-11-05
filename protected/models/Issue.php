@@ -57,8 +57,8 @@ class Issue extends CActiveRecord {
             'swBehavior' => array(
                 'class' => 'application.extensions.simpleWorkflow.SWActiveRecordBehavior',
             ),
-            'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
+            'BugitorTimestampBehavior' => array(
+                'class' => 'behaviors.BugitorTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'modified',
             ),
