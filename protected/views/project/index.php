@@ -10,7 +10,12 @@ $this->menu=array(
 	array('label'=>'Manage Project', 'url'=>array('admin'), 'visible' => Yii::app()->user->checkAccess('Project.Admin')),
 );
 ?>
-        <?php echo date('l jS \of F Y h:i:s A', time() + Time::serverOffset()); ?>
+
+        <?php echo 'Local time: ' . date('l jS \of F Y h:i:s A', Yii::app()->timezonekeeper->serverToUser(time())); echo '<br/>'; ?>
+
+        <?php echo 'Utc time: ' . date('l jS \of F Y h:i:s A', time()); echo '<br/>'; ?>
+
+        <?php echo 'Server time: '.date('l jS \of F Y h:i:s A', time() + Yii::app()->timezonekeeper->userToServer(time())); echo '<br/>'; ?>
 
 <h1>Projects</h1>
 
