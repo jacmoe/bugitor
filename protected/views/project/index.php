@@ -10,6 +10,7 @@ $this->menu=array(
 	array('label'=>'Manage Project', 'url'=>array('admin'), 'visible' => Yii::app()->user->checkAccess('Project.Admin')),
 );
 ?>
+        <?php echo Time::serverOffset(); ?>
 
 <h1>Projects</h1>
 

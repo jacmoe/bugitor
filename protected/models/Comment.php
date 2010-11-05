@@ -139,6 +139,8 @@ class Comment extends CActiveRecord {
                 'class' => 'application.behaviors.CSafeContentBehavior',
                 'attributes' => array('content'),
             ),
+            'CActiveRecordLogableBehavior' =>
+            array('class' => 'application.behaviors.CActiveRecordLogableBehavior'),
         );
     }
 

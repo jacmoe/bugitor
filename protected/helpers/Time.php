@@ -1,18 +1,56 @@
 <?php
+/**
+* Time helper is ported over from CakePHP.  Most of the credit goes to them for this class
+*/
 class Time {
+	const LONG='D, M jS Y, g:i a';
+	const SHORT='F d, o';
+	/**
+	 * Converts given time (in server's time zone) to user's local time, given his/her offset from GMT.
+	 *
+	 * @param string $serverTime UNIX timestamp
+	 * @param int $userOffset User's offset from GMT (in hours)
+	 * @return string UNIX timestamp
+	 */
+	static function convert($serverTime, $userOffset) {
+		$serverOffset = self::serverOffset();
+		$gmtTime = $serverTime - $serverOffset;
+		$userTime = $gmtTime + $userOffset * (60*60);
+		return $userTime;
+	}
+	/**
+	 * Returns server's offset from GMT in seconds.
+	 *
+	 * @return int Offset
+	 */
+	static function serverOffset() {
+		return date('Z', time());
+	}
+	/**
+	 * Returns a UNIX timestamp, given either a UNIX timestamp or a valid strtotime() date string.
+	 *
+	 * @param string $dateString Datetime string
+	 * @param int $userOffset User's offset from GMT (in hours)
+	 * @return string Parsed timestamp
+	 */
+	static function makeUnix($dateString, $userOffset = null) {
+		//if ($userOffset === null) $userOffset = default user offset? how to obtain?
+		$date = is_numeric($dateString) ? intval($dateString) : strtotime($dateString);
+		return ($userOffset !== null) ? self::convert($date, $userOffset) : $date;
+	}
 	/**
 	* Returns a nicely formatted date string for given Datetime string.
 	*
-	* @param string $dateString Datetime string
+	* @param string $dateString Datetime string or UNIX time
 	* @param int $format Format of returned date
 	* @return string Formatted date string
 	*/
-	public static function nice($dateString = null, $format = 'D, M jS Y, H:i') {
+	public static function nice($dateString = null, $format = 'F d, o') {
 
-		$date = ($dateString == null) ? time() : strtotime($dateString);
+		$date = ($dateString == null) ? time() : self::makeUnix($dateString);
 		return date($format, $date);
 	}
-	
+
 	/**
 	* Returns a formatted descriptive date string for given datetime string.
 	*
@@ -25,8 +63,8 @@ class Time {
 	* @return string Described, relative date string
 	*/
 	public static function niceShort($dateString = null) {
-		$date = ($dateString == null) ? time() : strtotime($dateString);
-		
+		$date = ($dateString == null) ? time() : self::makeUnix($dateString);
+
 		$y = (self::isThisYear($date)) ? '' : ' Y';
 
 		if (self::isToday($date)) {
@@ -39,57 +77,57 @@ class Time {
 
 		return $ret;
 	}
-	
+
 	/**
 	* Returns true if given date is today.
 	*
-	* @param string $date Unix timestamp
+	* @param string $date Unix timestamp or datetime string
 	* @return boolean True if date is today
 	*/
 	public static function isToday($date) {
-		return date('Y-m-d', $date) == date('Y-m-d', time());
+		return date('Y-m-d', self::makeUnix($date)) == date('Y-m-d', time());
 	}
-	
+
 	/**
 	* Returns true if given date was yesterday
 	*
-	* @param string $date Unix timestamp
+	* @param string $date Unix timestamp or datetime string
 	* @return boolean True if date was yesterday
 	*/
 	public static function wasYesterday($date) {
-		return date('Y-m-d', $date) == date('Y-m-d', strtotime('yesterday'));
+		return date('Y-m-d', self::makeUnix($date)) == date('Y-m-d', strtotime('yesterday'));
 	}
-	
+
 	/**
 	* Returns true if given date is in this year
 	*
-	* @param string $date Unix timestamp
+	* @param string $date Unix timestamp or datetime string
 	* @return boolean True if date is in this year
 	*/
 	public static function isThisYear($date) {
-		return date('Y', $date) == date('Y', time());
+		return date('Y', self::makeUnix($date)) == date('Y', time());
 	}
-	
+
 	/**
 	* Returns true if given date is in this week
 	*
-	* @param string $date Unix timestamp
+	* @param string $date Unix timestamp or datetime string
 	* @return boolean True if date is in this week
 	*/
 	public static function isThisWeek($date) {
-		return date('W Y', $date) == date('W Y', time());
+		return date('W Y', self::makeUnix($date)) == date('W Y', time());
 	}
-	
+
 	/**
 	* Returns true if given date is in this month
 	*
-	* @param string $date Unix timestamp
+	* @param string $date Unix timestamp or datetime string
 	* @return boolean True if date is in this month
 	*/
 	public static function isThisMonth($date) {
-		return date('m Y',$date) == date('m Y', time());
+		return date('m Y',self::makeUnix($date)) == date('m Y', time());
 	}
-	
+
 	/**
 	* Returns either a relative date or a formatted date depending
 	* on the difference between the current time and given datetime.
@@ -115,7 +153,7 @@ class Time {
 	function timeAgoInWords($dateTime, $options = array()) {
 		$now = time();
 
-		$inSeconds = strtotime($dateTime);
+		$inSeconds = self::makeUnix($dateTime);
 		$backwards = ($inSeconds > $now);
 
 		$format = 'j/n/y';
