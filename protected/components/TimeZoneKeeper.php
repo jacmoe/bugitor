@@ -10,7 +10,7 @@ class TimeZoneKeeper extends CComponent{
                 //settiamo il server di default a UTC per rendere l'implementazione  indipendente
                 //dal settaggio del server.
                 Yii::app()->setTimeZone("UTC");
-                $this->serverTimeZone = new DateTimeZone(Yii::app()->getTimeZone());
+                $this->serverTimeZone = new DateTimeZone("UTC"/*Yii::app()->getTimeZone()*/);
         }
 
         public function serverToUser($timestamp){
