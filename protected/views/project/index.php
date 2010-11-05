@@ -15,7 +15,7 @@ $this->menu=array(
 
         <?php echo 'Utc time: ' . date('l jS \of F Y h:i:s A', time()); echo '<br/>'; ?>
 
-        <?php echo 'Server time: '.date('l jS \of F Y h:i:s A', Yii::app()->timezonekeeper->userToServer(time())); echo '<br/>'; ?>
+        <?php echo 'Server time: '.date('l jS \of F Y h:i:s A', Yii::app()->timezonekeeper->userToServer(Yii::app()->timezonekeeper->serverToUser(time()))); echo '<br/>'; ?>
 
 <h1>Projects</h1>
 
