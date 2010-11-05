@@ -46,6 +46,9 @@ return array(
         'swSource' => array(
             'class' => 'application.extensions.simpleWorkflow.SWPhpWorkflowSource',
         ),
+        'timezonekeeper' => array (
+            'class' => 'application.extensions.TimeZoneKeeper',
+        ),
         'authManager' => array(
             // The authorization manager (default: CDbAuthManager)
             'class' => 'RightsAuthManager',
