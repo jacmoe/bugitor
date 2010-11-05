@@ -5,7 +5,8 @@
  *
  * The followings are the available columns in table '{{action_log}}':
  * @property string $id
- * @property string $description
+ * @property string $new_value
+ * @property string $old_value
  * @property string $action
  * @property string $model
  * @property string $idModel
@@ -43,7 +44,8 @@ class ActionLog extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('creationdate', 'required'),
-			array('description', 'length', 'max'=>255),
+			array('old_value', 'length', 'max'=>255),
+			array('new_value', 'length', 'max'=>255),
 			array('action', 'length', 'max'=>20),
 			array('model, field, userid', 'length', 'max'=>45),
 			array('idModel', 'length', 'max'=>10),
@@ -71,7 +73,8 @@ class ActionLog extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'description' => 'Description',
+			'old_value' => 'Old Value',
+			'new_value' => 'New Value',
 			'action' => 'Action',
 			'model' => 'Model',
 			'idModel' => 'Id Model',
@@ -93,7 +96,8 @@ class ActionLog extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('description',$this->description,true);
+		$criteria->compare('new_value',$this->new_value,true);
+		$criteria->compare('old_value',$this->old_value,true);
 		$criteria->compare('action',$this->action,true);
 		$criteria->compare('model',$this->model,true);
 		$criteria->compare('idModel',$this->idModel,true);
