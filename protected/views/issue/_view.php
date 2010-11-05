@@ -5,11 +5,11 @@
         <br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('tracker_id')); ?>:</b>
-	<?php echo CHtml::encode($data->tracker_id); ?>
+	<?php echo CHtml::encode($data->tracker->name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('project_id')); ?>:</b>
-	<?php echo CHtml::encode($data->project_id); ?>
+	<?php echo CHtml::encode($data->project->name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('subject')); ?>:</b>
@@ -26,10 +26,11 @@
 	<?php echo CHtml::encode($data->due_date); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('issue_category_id')); ?>:</b>
+	<?php /*
+        <b><?php echo CHtml::encode($data->getAttributeLabel('issue_category_id')); ?>:</b>
 	<?php echo CHtml::encode($data->issue_category_id); ?>
 	<br />
-
+        */ ?>
 	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('user_id')); ?>:</b>
 	<?php echo CHtml::encode($data->user_id); ?>
