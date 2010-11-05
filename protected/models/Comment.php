@@ -133,5 +133,13 @@ class Comment extends CActiveRecord {
         return parent::beforeValidate();
         //return true;
     }
+    public function behaviors() {
+        return array(
+            'CSafeContentBehavior' => array(
+                'class' => 'application.behaviors.CSafeContentBehavior',
+                'attributes' => array('content'),
+            ),
+        );
+    }
 
 }

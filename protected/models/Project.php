@@ -96,7 +96,11 @@ class Project extends CActiveRecord {
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'modified',
-            )
+            ),
+            'CSafeContentBehavior' => array(
+                'class' => 'application.behaviors.CSafeContentBehavior',
+                'attributes' => array('description', 'homepage', 'name'),
+            ),
         );
     }
 
