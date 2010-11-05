@@ -24,7 +24,7 @@ class TimeZoneKeeper extends CComponent{
                 $this->userTimezone = new DateTimeZone('Europe/copenhagen'/*Yii::app()->user->tz*/);
                 $userDateTime = new DateTime("@".$timestamp);
                 $offset = $this->userTimezone->getOffset($userDateTime);
-                return ($userDateTime->format('U') + $offset);
+                return ($userDateTime->format('U') - $offset);
         }
 
 }
