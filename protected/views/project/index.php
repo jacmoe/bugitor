@@ -10,7 +10,6 @@ $this->menu=array(
 	array('label'=>'Manage Project', 'url'=>array('admin'), 'visible' => Yii::app()->user->checkAccess('Project.Admin')),
 );
 ?>
-<?php echo 'Utc time: ' . date('l jS \of F Y h:i:s A', time()); echo '<br/>'; ?>
 <h1>Projects</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
