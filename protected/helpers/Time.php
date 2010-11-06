@@ -153,7 +153,7 @@ class Time {
 	function timeAgoInWords($dateTime, $options = array()) {
 		$now = time();
 
-		$inSeconds = self::makeUnix($dateTime);
+		$inSeconds = self::makeUnix($dateTime) - Yii::app()->config->get('serverOffset');
 		$backwards = ($inSeconds > $now);
 
 		$format = 'j/n/y';
