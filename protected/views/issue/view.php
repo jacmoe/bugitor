@@ -17,39 +17,51 @@ $this->menu=array(
 <div class="span-24 issue">
 <?php $this->widget('application.extensions.VGGravatarWidget', array('email' => $model->user()->email)); ?>
 <h3><?php echo $model->subject; ?></h3>
-Added by <?php echo CHtml::link(ucfirst($model->user->username),array('/user/user/view', "id" => $model->user->id)); ?> <?php echo Time::timeAgoInWords($model->created); ?>.
+Added by <?php echo Bugitor::link_to_user($model->user->username, $model->user->id); ?> <?php echo Time::timeAgoInWords($model->created); ?>.
 <hr/>
 <table width="100%">
     <tbody><tr>
         <td style="width: 15%;" class="status"><b>Status:</b></td>
-        <td style="width: 35%;" class="status"><?php echo $model->swGetStatus()->getLabel(); ?></td>
-        <td style="width: 15%;" class="start-date"><b>Start:</b></td>
-        <td style="width: 35%;">04/16/2010</td>
+        <td style="width: 35%;" class="status">
+            <?php if(isset($model->status)) : ?>
+                <?php echo $model->swGetStatus()->getLabel(); ?>
+            <?php endif; ?>
+        </td>
+        <td class="category"><b>Category:</b></td>
+        <td>
+            <?php if(isset($model->issueCategory)) : ?>
+                    <?php echo $model->issueCategory->name; ?>
+            <?php endif; ?>
+        </td>
     </tr>
     <tr>
         <td class="priority"><b>Priority:</b></td>
-        <td class="priority"><?php echo $model->issuePriority->name; ?></td>
-        <td class="due-date"><b>Due Date:</b></td>
-        <td class="due-date"></td>
+        <td class="priority">
+            <?php if(isset($model->issuePriority)) : ?>
+                    <?php echo $model->issuePriority->name; ?>
+            <?php endif; ?>
+        </td>
+        <td class="fixed-version"><b>Version:</b></td>
+        <td>
+            <?php if(isset($model->version)) : ?>
+                    <?php echo $model->version->name; ?>
+            <?php endif; ?>
+        </td>
     </tr>
     <tr>
         <td class="assigned-to"><b>Assigned to:</b></td>
-        <td><?php if(isset($model->assignedTo)) : ?>
-            <span><?php $this->widget('application.extensions.VGGravatarWidget', array('email' => $model->assignedTo->email)); ?></span> 
-            <?php echo CHtml::link(ucfirst($model->assignedTo->username),array('/user/user/view', "id" => $model->assignedTo->id)); ?>
-        <?php endif; ?></td>
+        <td>
+            <?php if(isset($model->assignedTo)) : ?>
+                <span><?php $this->widget('application.extensions.VGGravatarWidget', array('email' => $model->assignedTo->email)); ?></span>
+                <?php echo Bugitor::link_to_user($model->assignedTo->username, $model->assignedTo->id); ?>
+            <?php endif; ?>
+        </td>
         <td class="progress"><b>% Done:</b></td>
-        <td class="progress"><?php echo Bugitor::progress_bar($model->done_ratio, array('width'=>'80px', 'legend'=>$model->done_ratio.'%'));?></td>
-    </tr>
-    <tr>
-        <td class="category"><b>Category:</b></td>
-        <td>-</td>
-    </tr>
-    <tr>
-        <td class="fixed-version"><b>Version:</b></td>
-        <td>0.5.0</td>
-    </tr>
-    <tr>
+        <td class="progress">
+            <?php if(isset($model->done_ratio)) : ?>
+                <?php echo Bugitor::progress_bar($model->done_ratio, array('width'=>'80px', 'legend'=>$model->done_ratio.'%'));?>
+            <?php endif; ?>
+        </td>
     </tr>
 </tbody></table>
 <hr/>
