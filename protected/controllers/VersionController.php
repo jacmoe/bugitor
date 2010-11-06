@@ -1,6 +1,6 @@
 <?php
 
-class VersionController extends RightsBaseController
+class VersionController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning

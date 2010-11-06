@@ -25,5 +25,5 @@ $app = Yii::createWebApplication($config);
 
 Yii::app()->config->set('SiteName', 'Bugitor');
 Yii::app()->config->set('HostName', $hostname);
-
+Yii::app()->setTimeZone("UTC");
 $app->run();

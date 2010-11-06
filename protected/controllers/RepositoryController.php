@@ -1,6 +1,6 @@
 <?php
 
-class RepositoryController extends RightsBaseController
+class RepositoryController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
