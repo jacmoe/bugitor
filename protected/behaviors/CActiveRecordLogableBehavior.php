@@ -32,7 +32,7 @@ class CActiveRecordLogableBehavior extends CActiveRecordBehavior
                     $log->field=        $name;
                     $log->old_value=    $old;
                     $log->new_value=    $value;
-                    $log->creationdate= time();//new CDbExpression('UTC_TIMESTAMP()');
+                    $log->creationdate= new CDbExpression('UTC_TIMESTAMP()');
                     $log->userid=       Yii::app()->user->id;
                     $log->save();
                 }
@@ -43,7 +43,7 @@ class CActiveRecordLogableBehavior extends CActiveRecordBehavior
             $log->model=        get_class($this->Owner);
             $log->idModel=      $this->Owner->getPrimaryKey();
             $log->field=        '';
-            $log->creationdate= time();//new CDbExpression('UTC_TIMESTAMP()');
+            $log->creationdate= new CDbExpression('UTC_TIMESTAMP()');
             $log->userid=       Yii::app()->user->id;
             $log->save();
         }
@@ -56,7 +56,7 @@ class CActiveRecordLogableBehavior extends CActiveRecordBehavior
         $log->model=        get_class($this->Owner);
         $log->idModel=      $this->Owner->getPrimaryKey();
         $log->field=        '';
-        $log->creationdate= time();//new CDbExpression('UTC_TIMESTAMP()');
+        $log->creationdate= new CDbExpression('UTC_TIMESTAMP()');
         $log->userid=       Yii::app()->user->id;
         $log->save();
     }
