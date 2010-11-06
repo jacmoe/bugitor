@@ -25,6 +25,6 @@ $app = Yii::createWebApplication($config);
 
 Yii::app()->config->set('SiteName', 'Bugitor');
 Yii::app()->config->set('HostName', $hostname);
-Yii::app()->config->set('serverOffset', 300); // 5 minutes offset
+Yii::app()->config->set('serverOffset', 336); // 5 minutes offset
 Yii::app()->setTimeZone("UTC");
 $app->run();
