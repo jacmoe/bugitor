@@ -190,6 +190,8 @@ class ProjectController extends Controller {
         'application/rss+xml',
         $this->createUrl('comment/feed'));
 
+        //Project::testTime();
+
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));
