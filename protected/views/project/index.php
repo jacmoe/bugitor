@@ -11,7 +11,8 @@ $this->menu=array(
 );
 ?>
         <?php echo 'Utc time: ' . date('l jS \of F Y h:i:s A', time()); echo '<br/>'; ?>
-        <?php echo 'mySql Server time: '.date('l jS \of F Y h:i:s A', new CDbExpression('UTC_TIMESTAMP()')); echo '<br/>'; ?>
+        <?php $mysqltime = new CDbExpression('UTC_TIMESTAMP()'); ?>
+        <?php echo 'mySql Server time: '.date('l jS \of F Y h:i:s A', $mysqltime); echo '<br/>'; ?>
 
 <h1>Projects</h1>
 
