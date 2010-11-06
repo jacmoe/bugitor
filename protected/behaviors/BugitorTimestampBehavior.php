@@ -112,7 +112,6 @@ class BugitorTimestampBehavior extends CActiveRecordBehavior {
 	* @return mixed timestamp (eg unix timestamp or a mysql function)
 	*/
 	protected function getTimestampByColumnType($columnType) {
-		//return isset(self::$map[$columnType]) ? new CDbExpression(self::$map[$columnType]) : time();
-                return time();
+		return isset(self::$map[$columnType]) ? new CDbExpression(self::$map[$columnType]) : time();
 	}
 }
