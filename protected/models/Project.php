@@ -150,12 +150,20 @@ user_id) VALUES (:projectId, :userId)";
         return $command->execute();
     }
 
+    public static function testTime() {
+        $model = new TimeTest();
+        $model->server_time = date("Y-m-d\TH:i:s\Z", time());//
+        $model->sql_time = new CDbExpression('UTC_TIMESTAMP');
+        $model->save();
+        echo $model->sql_time;
+    }
+
     public function associateUserToRole($role, $userId) {
 	$model = User::model()->findByPk($userId);
         $model->attachBehavior('rights', new RightsUserBehavior);
         Yii::app()->getModule('rights')->getAuthorizer()->authManager->assign($role, $model->getId());
         $item = Yii::app()->getModule('rights')->getAuthorizer()->authManager->getAuthItem($role);
-        echo $item->getNameText();
+        //echo $item->getNameText();
     }
 
     /*
