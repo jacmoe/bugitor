@@ -1,5 +1,8 @@
 <?php
 class Bugitor {
+    public static function link_to_user($name, $id) {
+        return CHtml::link(ucfirst($name),array('/user/user/view', "id" => $id));
+    }
     public static function progress_bar_auto($pcts, $options=array()) {
         $total = $pcts[0] + $pcts[1];
         $pcts[0] = $pcts[0] * 100 / $total;
