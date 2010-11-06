@@ -297,6 +297,6 @@ class Time {
 				$relativeDate = sprintf('%s ago', $relativeDate);
 			}
 		}
-		return $relativeDate;
+		return '<acronym title="' . $dateTime . '">' . $relativeDate . '</acronym>';
 	}
 }
