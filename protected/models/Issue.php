@@ -23,7 +23,7 @@
  * @property integer $closed
  *
  * The followings are the available model relations:
- * @property Users $assignedTo0
+ * @property Users $assignedTo
  * @property IssueCategory $issueCategory
  * @property Project $project
  * @property IssuePriority $issuePriority

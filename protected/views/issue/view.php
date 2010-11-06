@@ -13,10 +13,51 @@ $this->menu=array(
 	array('label'=>'Manage Issue', 'url'=>array('admin'), 'visible' => Yii::app()->user->checkAccess('Issue.Admin')),
 );
 ?>
-
-<h3><?php echo $model->project->name . ' - ' . $model->tracker->name . ' #' . $model->id . ': ' . $model->subject; ?></h3>
-
-<?php $this->widget('zii.widgets.CDetailView', array(
+<h3><?php echo $model->tracker->name . ' #' . $model->id; ?></h3>
+<div class="span-24 issue">
+<?php $this->widget('application.extensions.VGGravatarWidget', array('email' => $model->user()->email)); ?>
+<h3><?php echo $model->subject; ?></h3>
+Added by <?php echo CHtml::link(ucfirst($model->user->username),array('/user/user/view', "id" => $model->user->id)); ?> <?php echo Time::timeAgoInWords($model->created); ?>.
+<hr/>
+<table width="100%">
+    <tbody><tr>
+        <td style="width: 15%;" class="status"><b>Status:</b></td>
+        <td style="width: 35%;" class="status"><?php echo $model->swGetStatus()->getLabel(); ?></td>
+        <td style="width: 15%;" class="start-date"><b>Start:</b></td>
+        <td style="width: 35%;">04/16/2010</td>
+    </tr>
+    <tr>
+        <td class="priority"><b>Priority:</b></td>
+        <td class="priority"><?php echo $model->issuePriority->name; ?></td>
+        <td class="due-date"><b>Due Date:</b></td>
+        <td class="due-date"></td>
+    </tr>
+    <tr>
+        <td class="assigned-to"><b>Assigned to:</b></td>
+        <td><?php if(isset($model->assignedTo)) : ?>
+            <span><?php $this->widget('application.extensions.VGGravatarWidget', array('email' => $model->assignedTo->email)); ?></span> 
+            <?php echo CHtml::link(ucfirst($model->assignedTo->username),array('/user/user/view', "id" => $model->assignedTo->id)); ?>
+        <?php endif; ?></td>
+        <td class="progress"><b>% Done:</b></td>
+        <td class="progress"><?php echo Bugitor::progress_bar($model->done_ratio, array('width'=>'80px', 'legend'=>$model->done_ratio.'%'));?></td>
+    </tr>
+    <tr>
+        <td class="category"><b>Category:</b></td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td class="fixed-version"><b>Version:</b></td>
+        <td>0.5.0</td>
+    </tr>
+    <tr>
+    </tr>
+</tbody></table>
+<hr/>
+<p><b>Description:</b></p>
+<?php echo $model->getDescription(); ?>
+<hr/>
+</div>
+<?php /*$this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
@@ -84,8 +125,8 @@ $this->menu=array(
                     'value' => $model->closed,
                 ),
 	),
-)); ?>
-<div id="comments">
+));*/ ?>
+<div class="span-16" id="comments">
 <?php if($model->commentCount>=1): ?>
 <h3>
 <?php echo $model->commentCount>1 ? $model->commentCount . ' comments' : 'One comment'; ?>

@@ -64,12 +64,12 @@ class VGGravatarWidget extends CWidget
 	 * image or redirect if an image cannot be found for the specified email address. 
 	 * 
 	 */
-	public $default = '';
+	public $default = 'identicon';
 	
 	/**
 	 * @var int - Gravatar Size in px, Defaults to 40px
 	 */
-	public $size = 40;
+	public $size = 54;
 	
 	/**
 	 * @var string - the Gravatar default rating
@@ -89,7 +89,7 @@ class VGGravatarWidget extends CWidget
 	/**
 	 * @var array - any HTML options that will be passed to the IMG tag
 	 */
-	public $htmlOptions = array();
+	public $htmlOptions = array('alt' => 'Gravatar Icon', 'class' => 'gravatar');
 	
 	/**
 	 * Gravatar Url
