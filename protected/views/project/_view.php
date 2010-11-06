@@ -21,11 +21,11 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('created')); ?>:</b>
-	<?php echo CHtml::encode(Time::timeAgoInWords($data->created)); ?>
+	<?php echo Time::timeAgoInWords($data->created); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('modified')); ?>:</b>
-	<?php echo CHtml::encode(Time::timeAgoInWords($data->modified)); ?>
+	<?php echo Time::timeAgoInWords($data->modified); ?>
 	<br />
 
 	<?php /*
