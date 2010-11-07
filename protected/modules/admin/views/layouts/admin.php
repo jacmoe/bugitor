@@ -84,8 +84,7 @@
                     <?php
                                         $this->widget('BugitorMenu', array(
                                             'items' => array(
-                                                array('label' => 'Welcome', 'url' => array('/site/index'), 'id' => 'site/index'),
-                                                array('label' => 'Projects', 'url' => array('/projects/'), 'id' => 'project/index'),
+                                                array('label' => 'Rights', 'url' => array('/rights'), 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
                                             ),
                                         )); ?>
                     <?php endif; ?>

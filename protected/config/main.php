@@ -23,7 +23,7 @@ return array(
         'application.extensions.simpleWorkflow.*',
     ),
     'modules' => array(
-        // uncomment the following to enable the Gii tool
+        'admin',
         'rights' => array(
             'install' => false,
         ),
