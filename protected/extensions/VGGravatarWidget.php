@@ -69,7 +69,7 @@ class VGGravatarWidget extends CWidget
 	/**
 	 * @var int - Gravatar Size in px, Defaults to 40px
 	 */
-	public $size = 54;
+	public $size = 48;
 	
 	/**
 	 * @var string - the Gravatar default rating
@@ -115,16 +115,16 @@ class VGGravatarWidget extends CWidget
 		$this->url .= $this->hashed ? strtolower( $this->email ) . '?' : md5( strtolower( $this->email ) ) . '?';
 		
 		// Size
-		$this->params['s'] = (int) $this->size;
+		$this->params['size'] = (int) $this->size;
 		
 		// Rating
-		$this->params['r'] = $this->rating;
+		$this->params['rating'] = $this->rating;
 		
 		// Default
-		if( $this->default != '' )
-		{
-			$this->params['d'] = $this->default;
-		}
+		//if( $this->default != '' )
+		//{
+		//	$this->params['default'] = $this->default;
+		//}
 		
 		$array = array();
 		foreach( $this->params as $key => $value )

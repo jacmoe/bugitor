@@ -47,7 +47,11 @@
                     </div>
                     <div id="header" class="span-14 alt">
                         <div>
+                        <?php if (((Yii::app()->controller->id === 'project') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['name']))) : ?>
+                            <h1 class="alt"><?php echo CHtml::encode($_GET['name']); ?></h1>
+                        <?php else : ?>
                             <h1 class="alt"><?php echo CHtml::encode(Yii::app()->name); ?></h1>
+                        <?php endif; ?>
                         </div>
                     </div>
                     <div id="gravatar" class="span-8 last">
