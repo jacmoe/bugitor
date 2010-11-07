@@ -13,13 +13,16 @@ $this->menu=array(
 	array('label'=>'Manage Issue', 'url'=>array('admin'), 'visible' => Yii::app()->user->checkAccess('Issue.Admin')),
 );
 ?>
-<h3><?php echo $model->tracker->name . ' #' . $model->id; ?></h3>
-<div class="span-24 issue">
+<div class="contextual" id="contextual">
+<?php echo CHtml::link('Update', array('update', 'id' => $model->id, 'name' => $model->project->name), array('class' => 'icon icon-edit')) ?>
+</div>
+<h2><?php echo $model->tracker->name . ' #' . $model->id; ?></h2>
+<div class="issue">
 <?php $this->widget('application.extensions.VGGravatarWidget', array('email' => $model->user()->email)); ?>
 <h3><?php echo $model->subject; ?></h3>
 Added by <?php echo Bugitor::link_to_user($model->user->username, $model->user->id); ?> <?php echo Time::timeAgoInWords($model->created); ?>.
 <hr/>
-<table width="100%">
+<table width="95%">
     <tbody><tr>
         <td style="width: 15%;" class="status"><b>Status:</b></td>
         <td style="width: 35%;" class="status">

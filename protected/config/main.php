@@ -18,8 +18,7 @@ return array(
         'application.modules.user.models.*',
         'application.modules.user.components.*',
         'application.modules.rights.components.*',
-        'application.helpers.Time',
-        'application.helpers.Bugitor',
+        'application.helpers.*',
         'application.behaviors.ActiveRecordLogableBehavior',
         'application.extensions.simpleWorkflow.*',
     ),
@@ -49,6 +48,9 @@ return array(
         ),
         'timezonekeeper' => array (
             'class' => 'application.components.TimeZoneKeeper',
+        ),
+        'gravatar' => array (
+            'class' => 'application.helpers.Gravatar',
         ),
         'authManager' => array(
             // The authorization manager (default: CDbAuthManager)

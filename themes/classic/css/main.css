@@ -109,6 +109,10 @@ bottom: 0px;
 bottom: 0px;
 }
 
+#content {
+    font-size: 13px;
+}
+
 div.flash-error, div.flash-notice, div.flash-success
 {
 	padding:.8em;
@@ -300,6 +304,76 @@ h2 {font-size: 20px;padding: 2px 10px 1px 0px;margin: 0 0 10px 0; border-bottom:
 h3 {font-size: 16px;padding: 2px 10px 1px 0px;margin: 0 0 10px 0; border-bottom: 1px solid #bbbbbb; color: #444;}
 h4 {font-size: 13px;padding: 2px 10px 1px 0px;margin-bottom: 5px; border-bottom: 1px dotted #bbbbbb; color: #444;}
 
+.contextual {float:right; white-space: nowrap; line-height:1.4em;margin-top:5px; padding-left: 10px; font-size:0.9em;}
+
+/***** Links *****/
+a, a:link, a:visited{ color: #2A5685; text-decoration: none; }
+a:hover, a:active{ text-decoration: underline;}
+a img{ border: 0; }
+
+a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
+color:#999999;
+text-decoration:line-through;
+}
+/***** Tables *****/
+table.list { border: 1px solid #e4e4e4;  border-collapse: collapse; width: 100%; margin-bottom: 4px; }
+table.list th {  background-color:#EEEEEE; padding: 4px; white-space:nowrap; }
+table.list td { vertical-align: top; }
+table.list td.id { width: 2%; text-align: center;}
+table.list td.checkbox { width: 15px; padding: 0px;}
+
+tr.issue { text-align: center; white-space: nowrap; }
+tr.issue td.subject, tr.issue td.category, td.assignedto { white-space: normal; }
+tr.issue td.subject { text-align: left; }
+tr.issue td.done_ratio table.progress { margin-left:auto; margin-right: auto;}
+
+tr.entry { border: 1px solid #f8f8f8; }
+tr.entry td { white-space: nowrap; }
+tr.entry td.filename { width: 30%; }
+tr.entry td.size { text-align: right; font-size: 90%; }
+tr.entry td.revision, tr.entry td.author { text-align: center; }
+tr.entry td.age { text-align: right; }
+
+tr.entry span.expander {background-image: url(../images/bullet_toggle_plus.png); padding-left: 8px; margin-left: 0; cursor: pointer;}
+tr.entry.open span.expander {background-image: url(../images/bullet_toggle_minus.png);}
+tr.entry.file td.filename a { margin-left: 16px; }
+
+tr.changeset td.author { text-align: center; width: 15%; }
+tr.changeset td.committed_on { text-align: center; width: 15%; }
+
+tr.message { height: 2.6em; }
+tr.message td.last_message { font-size: 80%; }
+tr.message.locked td.subject a { background-image: url(../images/locked.png); }
+tr.message.sticky td.subject a { background-image: url(../images/sticky.png); font-weight: bold; }
+
+tr.user td { width:13%; }
+tr.user td.email { width:18%; }
+tr.user td { white-space: nowrap; }
+tr.user.locked, tr.user.registered { color: #aaa; }
+tr.user.locked a, tr.user.registered a { color: #aaa; }
+
+tr.time-entry { text-align: center; white-space: nowrap; }
+tr.time-entry td.subject, tr.time-entry td.comments { text-align: left; white-space: normal; }
+td.hours { text-align: right; font-weight: bold; padding-right: 0.5em; }
+td.hours .hours-dec { font-size: 0.9em; }
+
+table.plugins td { vertical-align: middle; }
+table.plugins td.configure { text-align: right; padding-right: 1em; }
+table.plugins span.name { font-weight: bold; display: block; margin-bottom: 6px; }
+table.plugins span.description { display: block; font-size: 0.9em; }
+table.plugins span.url { display: block; font-size: 0.9em; }
+
+table.list tbody tr:hover { background-color:#ffffdd; }
+table td {padding:2px;}
+table p {margin:0;}
+.odd {background-color:#f6f7f8;}
+.even {background-color: #fff;}
+
+.highlight { background-color: #FCFD8D;}
+.highlight.token-1 { background-color: #faa;}
+.highlight.token-2 { background-color: #afa;}
+.highlight.token-3 { background-color: #aaf;}
+
 /***** Progress bar *****/
 table.progress {
     border: 1px solid #D7D7D7;
@@ -336,3 +410,66 @@ table.big_progress td.open { background: #FFF none repeat scroll 0%; }
 p.big_pourcent {font-size: 100%;}
 p.big_progress-info {clear: left; font-style: italic; font-size: 100%;}
 
+/***** Icons *****/
+.icon {
+background-position: 0% 40%;
+background-repeat: no-repeat;
+padding-left: 20px;
+padding-top: 2px;
+padding-bottom: 3px;
+}
+
+.icon22 {
+background-position: 0% 40%;
+background-repeat: no-repeat;
+padding-left: 26px;
+line-height: 22px;
+vertical-align: middle;
+}
+
+.icon-add { background-image: url(../images/add.png); }
+.icon-edit { background-image: url(../images/edit.png); }
+.icon-copy { background-image: url(../images/copy.png); }
+.icon-del { background-image: url(../images/delete.png); }
+.icon-move { background-image: url(../images/move.png); }
+.icon-save { background-image: url(../images/save.png); }
+.icon-cancel { background-image: url(../images/cancel.png); }
+.icon-file { background-image: url(../images/file.png); }
+.icon-folder { background-image: url(../images/folder.png); }
+.open .icon-folder { background-image: url(../images/folder_open.png); }
+.icon-package { background-image: url(../images/package.png); }
+.icon-home { background-image: url(../images/home.png); }
+.icon-user { background-image: url(../images/user.png); }
+.icon-mypage { background-image: url(../images/user_page.png); }
+.icon-admin { background-image: url(../images/admin.png); }
+.icon-projects { background-image: url(../images/projects.png); }
+.icon-help { background-image: url(../images/help.png); }
+.icon-attachment  { background-image: url(../images/attachment.png); }
+.icon-index  { background-image: url(../images/index.png); }
+.icon-history  { background-image: url(../images/history.png); }
+.icon-time  { background-image: url(../images/time.png); }
+.icon-stats  { background-image: url(../images/stats.png); }
+.icon-warning  { background-image: url(../images/warning.png); }
+.icon-fav  { background-image: url(../images/fav.png); }
+.icon-fav-off  { background-image: url(../images/fav_off.png); }
+.icon-reload  { background-image: url(../images/reload.png); }
+.icon-lock  { background-image: url(../images/locked.png); }
+.icon-unlock  { background-image: url(../images/unlock.png); }
+.icon-checked  { background-image: url(../images/true.png); }
+.icon-details  { background-image: url(../images/zoom_in.png); }
+.icon-report  { background-image: url(../images/report.png); }
+.icon-comment  { background-image: url(../images/comment.png); }
+
+.icon22-projects { background-image: url(../images/22x22/projects.png); }
+.icon22-users { background-image: url(../images/22x22/users.png); }
+.icon22-tracker { background-image: url(../images/22x22/tracker.png); }
+.icon22-role { background-image: url(../images/22x22/role.png); }
+.icon22-workflow { background-image: url(../images/22x22/workflow.png); }
+.icon22-options { background-image: url(../images/22x22/options.png); }
+.icon22-notifications { background-image: url(../images/22x22/notifications.png); }
+.icon22-authent { background-image: url(../images/22x22/authent.png); }
+.icon22-info { background-image: url(../images/22x22/info.png); }
+.icon22-comment { background-image: url(../images/22x22/comment.png); }
+.icon22-package { background-image: url(../images/22x22/package.png); }
+.icon22-settings { background-image: url(../images/22x22/settings.png); }
+.icon22-plugin { background-image: url(../images/22x22/plugin.png); }
