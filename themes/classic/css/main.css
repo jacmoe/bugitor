@@ -1,29 +1,112 @@
+/*#mainmenu li a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 0;
+  padding: 4px 10px 4px 10px;
+}*/
+/*#mainmenu li a:hover {background:#759FCF; color:#fff;}*/
+/*#mainmenu li a.selected, #main-menu li a.selected:hover {background:#fff; color:#555;}*/
+
+#mainmenu
+{
+  padding: 4px 10px 2px 10px;
+	background-color:#507AAA;
+      margin: 0;
+}
+
+#topmenu
+{
+  padding: 4px 10px 2px 10px;
+	background-color:black !important;
+      margin: 0;
+}
+
 #mainmenu ul
 {
-	padding:6px 20px 5px 20px;
 	margin:0px;
+      margin: 0;
+bottom: 0px;
+}
+
+#topmenu ul
+{
+	margin:0px;
+      margin: 0;
+bottom: 0px;
 }
 
 #mainmenu ul li
 {
+padding: 0;
 	display: inline;
+      margin: 0;
+bottom: 0px;
+}
+
+#topmenu ul li
+{
+padding: 0;
+	display: inline;
+      margin: 0;
+bottom: 0px;
 }
 
 #mainmenu ul li a
 {
-	/*color:#ffffff;*/
-	background-color:transparent;
+	color:#ffffff;
+	background-color:#507AAA;
 	font-size:12px;
 	font-weight:bold;
 	text-decoration:none;
 	padding:5px 8px;
+bottom: 0px;
+}
+#topmenu ul li a
+{
+	color:#ffffff;
+	background-color:black;
+	font-size:12px;
+	font-weight:bold;
+	text-decoration:none;
+	padding:5px 8px;
+bottom: 0px;
 }
 
-#mainmenu ul li a:hover, #mainmenu ul li.active a
+#mainmenu ul li.active a
 {
 	color: #6399cd;
 	background-color:#EFF4FA;
 	text-decoration:none;
+bottom: 0px;
+}
+
+#topmenu ul li.active a
+{
+	color: #fff;
+	background-color:black;
+	text-decoration:none;
+        font-weight: bold;
+        font-style: italic;
+bottom: 0px;
+}
+
+#mainmenu ul li a:hover
+{
+	color: #fff;
+	background-color:#759FCF;
+	text-decoration:none;
+bottom: 0px;
+}
+
+#topmenu ul li a:hover
+{
+	color: #fff;
+	/*background-color:#759FCF;*/
+	text-decoration:underline;
+        font-weight: bold;
+bottom: 0px;
 }
 
 div.flash-error, div.flash-notice, div.flash-success
@@ -212,6 +295,7 @@ td.username img.gravatar {
 	margin: 0 1em 1em 0;
 }
 
+h1.alt {color: #ffffff;}
 h2 {font-size: 20px;padding: 2px 10px 1px 0px;margin: 0 0 10px 0; border-bottom: 1px solid #bbbbbb; color: #444;}
 h3 {font-size: 16px;padding: 2px 10px 1px 0px;margin: 0 0 10px 0; border-bottom: 1px solid #bbbbbb; color: #444;}
 h4 {font-size: 13px;padding: 2px 10px 1px 0px;margin-bottom: 5px; border-bottom: 1px dotted #bbbbbb; color: #444;}

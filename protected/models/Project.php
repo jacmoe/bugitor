@@ -47,7 +47,7 @@ class Project extends CActiveRecord {
             array('name', 'required'),
             array('public, status', 'numerical', 'integerOnly' => true),
             array('name', 'length', 'max' => 30),
-            array('homepage', 'length', 'max' => 255),
+            array('homepage', 'url'),
             array('identifier', 'length', 'max' => 20),
             array('description, created, modified', 'safe'),
             // The following rule is used by search().

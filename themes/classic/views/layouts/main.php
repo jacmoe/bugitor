@@ -15,80 +15,85 @@
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
     <body>
-        <div class=container id="page">
-            <div id="mainmenu" class="span-16">
-                <?php
-                $this->widget('BugitorMenu', array(
-                    'items' => array(
-                        array('label' => 'Home', 'url' => array('/site/index'), 'id' => 'site/index'),
-                        array('label' => 'Projects', 'url' => array('/projects/'), 'id' => 'project/index'),
-                    ),
-                )); ?>
-            </div>
-            <div id="mainmenu" class="span-8 last">
-                <span class="right">
+        <div class="container" id="page">
+            <div id="topmenu" class="span-24">
+                <div id="topmenu" class="span-15">
                     <?php
                     $this->widget('BugitorMenu', array(
                         'items' => array(
-                            array('url' => Yii::app()->getModule('user')->loginUrl, 'label' => Yii::app()->getModule('user')->t("Login"), 'visible' => Yii::app()->user->isGuest, 'id' => 'user/login/login'),
-                            array('url' => Yii::app()->getModule('user')->registrationUrl, 'label' => Yii::app()->getModule('user')->t("Register"), 'visible' => Yii::app()->user->isGuest, 'id' => 'user/registration/registration'),
-                            array('url' => Yii::app()->getModule('user')->profileUrl, 'label' => Yii::app()->getModule('user')->t("Profile"), 'visible' => !Yii::app()->user->isGuest, 'id' => 'user/profile/profile'),
-                            array('url' => Yii::app()->getModule('user')->logoutUrl, 'label' => Yii::app()->getModule('user')->t("Logout") . ' (' . Yii::app()->user->name . ')', 'visible' => !Yii::app()->user->isGuest, 'id' => 'user/logout/logout'),
+                            array('label' => 'Home', 'url' => array('/site/index'), 'id' => 'site/index'),
+                            array('label' => 'Projects', 'url' => array('/projects/'), 'id' => 'project/index'),
                         ),
                     )); ?>
-                </span>
-            </div>
-            <hr/>
-            <div id="header" class="span-24">
-                <div id="logo" class="span-2">
-                    <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/bugitor_64.png') ?>
                 </div>
-                <div id="header" class="span-14 alt">
-                    <div>
-                        <h1 class="alt"><?php echo CHtml::encode(Yii::app()->name); ?></h1>
-                    </div>
-                </div>
-                <div id="gravatar" class="span-8 last">
-                    <div class="right">
-                        <?php if (!Yii::app()->user->isGuest): ?>
+                <div id="topmenu" class="span-8 last">
+                    <span class="right">
                         <?php
-                            $this->widget('application.extensions.VGGravatarWidget',
-                                    array('email' => Yii::app()->getModule('user')->user()->email));
-                        ?>
-                        <?php endif; ?>
+                        $this->widget('BugitorMenu', array(
+                            'items' => array(
+                                array('url' => Yii::app()->getModule('user')->loginUrl, 'label' => Yii::app()->getModule('user')->t("Login"), 'visible' => Yii::app()->user->isGuest, 'id' => 'user/login/login'),
+                                array('url' => Yii::app()->getModule('user')->registrationUrl, 'label' => Yii::app()->getModule('user')->t("Register"), 'visible' => Yii::app()->user->isGuest, 'id' => 'user/registration/registration'),
+                                array('url' => Yii::app()->getModule('user')->profileUrl, 'label' => Yii::app()->getModule('user')->t("Profile"), 'visible' => !Yii::app()->user->isGuest, 'id' => 'user/profile/profile'),
+                                array('url' => Yii::app()->getModule('user')->logoutUrl, 'label' => Yii::app()->getModule('user')->t("Logout") . ' (' . Yii::app()->user->name . ')', 'visible' => !Yii::app()->user->isGuest, 'id' => 'user/logout/logout'),
+                            ),
+                        )); ?>
+                    </span>
+                </div>
+            </div>
+            <div id="mainmenu" class="span-24">
+                <div id="header" class="span-24">
+                    <div id="logo" class="span-2">
+                        <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/bugitor_64.png') ?>
+                    </div>
+                    <div id="header" class="span-14 alt">
+                        <div>
+                            <h1 class="alt"><?php echo CHtml::encode(Yii::app()->name); ?></h1>
                         </div>
                     </div>
-                </div>
-                <div id="mainmenu" class="span-24">
-                <?php if (((Yii::app()->controller->id === 'project')||(Yii::app()->controller->id === 'issue')) && (isset($_GET['name']))) : ?>
-                <?php
-                                $this->widget('BugitorMenu', array(
-                                    'items' => array(
-                                        array('label' => 'Overview', 'url' => array('/projects/' . $_GET['name']), 'id' => 'project/view'),
-                                        array('label' => 'Activity', 'url' => array('/projects/' . $_GET['name'] . '/activity'), 'id' => 'project/activity'),
-                                        array('label' => 'Roadmap', 'url' => array('/projects/' . $_GET['name'] . '/roadmap'), 'id' => 'project/roadmap'),
-                                        array('label' => 'Issues', 'url' => array('/projects/' . $_GET['name'] . '/issues'), 'id' => 'issue/index'),
-                                        array('label' => 'New Issue', 'url' => array('/projects/' . $_GET['name'] . '/issue/create'), 'visible' => !Yii::app()->user->isGuest, 'id' => 'issue/create'),
-                                        array('label' => 'Code', 'url' => array('/projects/' . $_GET['name'] . '/code'), 'id' => 'project/code'),
-                                        array('label' => 'Settings', 'url' => array('/projects/' . $_GET['name'] . '/settings'), 'visible' => !Yii::app()->user->isGuest, 'id' => 'project/settings'),
-                                    ),
-                                )); ?>
-                <?php else : ?>
-                <?php
+                    <div id="gravatar" class="span-8 last">
+                        <div class="right">
+                            <?php if (!Yii::app()->user->isGuest): ?>
+                            <?php
+                                $this->widget('application.extensions.VGGravatarWidget',
+                                        array('email' => Yii::app()->getModule('user')->user()->email));
+                            ?>
+                            <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="mainmenu" class="span-20 last">
+                    <?php if (((Yii::app()->controller->id === 'project') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['name']))) : ?>
+                    <?php
                                     $this->widget('BugitorMenu', array(
                                         'items' => array(
-                                            array('label' => 'Welcome', 'url' => array('/site/index'), 'id' => 'site/index'),
-                                            array('label' => 'Projects', 'url' => array('/projects/'), 'id' => 'project/index'),
+                                            array('label' => 'Overview', 'url' => array('/projects/' . $_GET['name']), 'id' => 'project/view'),
+                                            array('label' => 'Activity', 'url' => array('/projects/' . $_GET['name'] . '/activity'), 'id' => 'project/activity'),
+                                            array('label' => 'Roadmap', 'url' => array('/projects/' . $_GET['name'] . '/roadmap'), 'id' => 'project/roadmap'),
+                                            array('label' => 'Issues', 'url' => array('/projects/' . $_GET['name'] . '/issues'), 'id' => 'issue/index'),
+                                            array('label' => 'New Issue', 'url' => array('/projects/' . $_GET['name'] . '/issue/create'), 'visible' => !Yii::app()->user->isGuest, 'id' => 'issue/create'),
+                                            array('label' => 'Code', 'url' => array('/projects/' . $_GET['name'] . '/code'), 'id' => 'project/code'),
+                                            array('label' => 'Settings', 'url' => array('/projects/' . $_GET['name'] . '/settings'), 'visible' => !Yii::app()->user->isGuest, 'id' => 'project/settings'),
                                         ),
                                     )); ?>
-                <?php endif; ?>
+                    <?php else : ?>
+                    <?php
+                                        $this->widget('BugitorMenu', array(
+                                            'items' => array(
+                                                array('label' => 'Welcome', 'url' => array('/site/index'), 'id' => 'site/index'),
+                                                array('label' => 'Projects', 'url' => array('/projects/'), 'id' => 'project/index'),
+                                            ),
+                                        )); ?>
+                    <?php endif; ?>
+                                    </div>
                                 </div>
-                                <hr/>
+                                <div class="clear">
+                                    <br/>
+                                </div>
             <?php echo $content; ?>
-                                    <hr/>
-                                    <div class="span-24 alt"><div align="center" class="quiet">
-                                            Copyright &copy; 2010 by Ogitor Team.<br/>
-                    <a href="http://www.yiiframework.com/" rel="external"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/yii_power_lightgrey_white.gif" alt="Powered by Yii Framework" title="Powered by Yii Framework"/></a><hr/></div>
+                                        <hr/>
+                                        <div class="span-24 alt"><div align="center" class="quiet">
+                                                Copyright &copy; 2010 by Ogitor Team.<br/>
+                                                <a href="http://www.yiiframework.com/" rel="external"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/yii_power_lightgrey_white.gif" alt="Powered by Yii Framework" title="Powered by Yii Framework"/></a><hr/></div>
             </div>
         </div>
     </body>
