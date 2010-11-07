@@ -57,6 +57,8 @@ class BugitorMenu extends CMenu {
                 return true;
             if(($route === 'issue/view')&&($item['id'] === 'issue/index'))
                 return true;
+            if(($route === 'issue/update')&&($item['id'] === 'issue/index'))
+                return true;
             return false;
         }
         return false;
