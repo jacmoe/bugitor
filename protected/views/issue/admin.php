@@ -47,7 +47,6 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'project_id',
 		'subject',
 		'description',
-		'due_date',
 		/*
 		'issue_category_id',
 		'user_id',

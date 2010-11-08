@@ -10,7 +10,7 @@ return array(
     'theme' => 'classic',
     'defaultController' => 'project',
     // preloading 'log' component
-    'preload' => array('log'),
+    'preload' => array('log', 'maintenanceMode'),
     // autoloading model and component classes
     'import' => array(
         'application.models.*',
@@ -36,6 +36,19 @@ return array(
             'class' => 'RightsWebUser',
             'allowAutoLogin' => true,
             'loginUrl' => array('/user/login'),
+        ),
+        'maintenanceMode' => array(
+            'class' => 'ext.MaintenanceMode.MaintenanceMode',
+            'enabledMode' => false,
+            'message' => 'This site is currently undergoing maintenance. It should be up and running pretty soon.<br/>Thanks for your patience.',
+            // or
+            //'capUrl' => 'site/contact',
+            // allowed users
+            'users' => array('jacmoe', ),
+            // allowed roles
+            'roles' => array('Administrator', ),
+            // allowed urls
+            'urls' => array('/user/login', '/login', ),
         ),
         'config' => array(
             'class' => 'application.extensions.EConfig',

@@ -31,11 +31,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'due_date'); ?>
-		<?php echo $form->textField($model,'due_date'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'issue_category_id'); ?>
 		<?php echo $form->textField($model,'issue_category_id'); ?>
 	</div>
@@ -68,11 +63,6 @@
 	<div class="row">
 		<?php echo $form->label($model,'modified'); ?>
 		<?php echo $form->textField($model,'modified'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'start_date'); ?>
-		<?php echo $form->textField($model,'start_date'); ?>
 	</div>
 
 	<div class="row">
