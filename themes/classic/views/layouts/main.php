@@ -94,7 +94,24 @@
                                 <div class="clear">
                                     <br/>
                                 </div>
-            <?php echo $content; ?>
+                                <?php
+                                Yii::app()->clientScript->registerScript(
+                                   'myHideEffect',
+                                   '$(".info").animate({opacity: 1.0}, 3000).fadeOut("slow");',
+                                   CClientScript::POS_READY
+                                );
+                                ?>
+                                <?php
+                                    $user=Yii::app()->getUser();
+                                    foreach($user->getFlashKeys() as $key):
+                                        if($user->hasFlash($key)): ?>
+                                        <div class="info flash-<?php echo $key; ?>">
+                                            <?php echo $user->getFlash($key); ?>
+                                        </div>
+                                <?php
+                                        endif;
+                                    endforeach; ?>
+                                <?php echo $content; ?>
                                         <hr/>
                                         <div class="span-24 alt"><div align="center" class="quiet">
                                                 Copyright &copy; 2010 by Ogitor Team.<br/>

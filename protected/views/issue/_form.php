@@ -13,15 +13,12 @@
 	<div class="row">
 		<?php echo $form->labelEx($model,'tracker_id'); ?>
                 <?php echo $form->dropDownList($model, 'tracker_id', CHtml::listData(
-                Tracker::model()->findAll(), 'id', 'name'),array('prompt' => '<Select>')); ?>
+                Tracker::model()->findAll(), 'id', 'name'),array('selected' => 'Bug')); ?>
 		<?php echo $form->error($model,'tracker_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'project_id'); ?>
-                <?php echo $form->dropDownList($model, 'project_id', CHtml::listData(
-                Project::model()->findAll(), 'id', 'name'),array('prompt' => '<Select>')); ?>
-		<?php echo $form->error($model,'project_id'); ?>
+		<?php echo $form->hiddenField($model,'project_id', array('value' => Project::getProjectIdFromName($_GET['name']))); ?>
 	</div>
 
 	<div class="row">
@@ -44,28 +41,19 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'due_date'); ?>
-		<?php echo $form->textField($model,'due_date'); ?>
-		<?php echo $form->error($model,'due_date'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'issue_category_id'); ?>
 		<?php echo $form->textField($model,'issue_category_id'); ?>
 		<?php echo $form->error($model,'issue_category_id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'user_id'); ?>
-                <?php echo $form->dropDownList($model, 'user_id', CHtml::listData(
-                User::model()->findAll(), 'id', 'username'),array('prompt' => '<Select>')); ?>
-		<?php echo $form->error($model,'user_id'); ?>
+		<?php echo $form->hiddenField($model,'user_id', array('value' => Yii::app()->getModule('user')->user()->id)); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'issue_priority_id'); ?>
                 <?php echo $form->dropDownList($model, 'issue_priority_id', CHtml::listData(
-                IssuePriority::model()->findAll(), 'id', 'name'),array('prompt' => '<Select>')); ?>
+                IssuePriority::model()->findAll(array('order'=>'id')), 'id', 'name')); ?>
 		<?php echo $form->error($model,'issue_priority_id'); ?>
 	</div>
 
@@ -80,12 +68,6 @@
                 <?php echo $form->dropDownList($model, 'assigned_to', CHtml::listData(
                 User::model()->findAll(), 'id', 'username'),array('prompt' => '<None>')); ?>
 		<?php echo $form->error($model,'assigned_to'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'start_date'); ?>
-		<?php echo $form->textField($model,'start_date'); ?>
-		<?php echo $form->error($model,'start_date'); ?>
 	</div>
 
 	<div class="row">
