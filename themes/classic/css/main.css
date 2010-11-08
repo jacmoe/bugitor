@@ -473,3 +473,6 @@ vertical-align: middle;
 .icon22-package { background-image: url(../images/22x22/package.png); }
 .icon22-settings { background-image: url(../images/22x22/settings.png); }
 .icon22-plugin { background-image: url(../images/22x22/plugin.png); }
+
+.splitcontentleft{float:left; width:49%;}
+.splitcontentright{float:right; width:49%;}

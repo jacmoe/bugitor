@@ -100,14 +100,14 @@ class Issue extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('subject, description, user_id, status', 'required'),
+            array('subject, description, user_id, status, issue_priority_id, tracker_id', 'required'),
             array('tracker_id, project_id, issue_category_id, user_id, issue_priority_id, version_id, assigned_to, done_ratio, closed', 'numerical', 'integerOnly' => true),
             array('subject', 'length', 'max' => 255),
             array('status', 'SWValidator'),
             array('created, modified', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, tracker_id, project_id, subject, description, due_date, issue_category_id, user_id, issue_priority_id, version_id, assigned_to, created, modified, start_date, done_ratio, status, closed', 'safe', 'on' => 'search'),
+            array('id, tracker_id, project_id, subject, description, issue_category_id, user_id, issue_priority_id, version_id, assigned_to, created, modified, done_ratio, status, closed', 'safe', 'on' => 'search'),
         );
     }
 

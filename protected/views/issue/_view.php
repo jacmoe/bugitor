@@ -22,10 +22,6 @@
 	<?php //$this->endWidget(); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('due_date')); ?>:</b>
-	<?php echo CHtml::encode($data->due_date); ?>
-	<br />
-
 	<?php /*
         <b><?php echo CHtml::encode($data->getAttributeLabel('issue_category_id')); ?>:</b>
 	<?php echo CHtml::encode($data->issue_category_id); ?>
