@@ -129,6 +129,11 @@ class Project extends CActiveRecord {
         ));
     }
 
+    public static function getProjectIdFromName($name) {
+        $project = Project::model()->find('name=?', array($name));
+        return $project->id;
+    }
+
     /**
      * Returns an array of available roles in which a user can be
       placed when being added to a project

@@ -62,8 +62,12 @@ class IssueController extends Controller {
 
         if (isset($_POST['Issue'])) {
             $model->attributes = $_POST['Issue'];
-            if ($model->save())
+            if ($model->save()) {
+                Yii::app()->user->setFlash('success',"Issue was succesfully created");
                 $this->redirect(array('view', 'id' => $model->id, 'name' => $model->project->name));
+            } else {
+                Yii::app()->user->setFlash('error',"There was an error creating the issue.");
+            }
         }
 
         $this->render('create', array(
@@ -85,8 +89,12 @@ class IssueController extends Controller {
 
         if (isset($_POST['Issue'])) {
             $model->attributes = $_POST['Issue'];
-            if ($model->save())
+            if ($model->save()) {
+                Yii::app()->user->setFlash('success',"Issue was succesfully updated");
                 $this->redirect(array('view', 'id' => $model->id, 'name' => $model->project->name));
+            } else {
+                Yii::app()->user->setFlash('error',"There was an error updating the issue");
+            }
         }
 
         $this->render('update', array(

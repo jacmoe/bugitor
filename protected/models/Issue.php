@@ -9,7 +9,6 @@
  * @property integer $project_id
  * @property string $subject
  * @property string $description
- * @property string $due_date
  * @property integer $issue_category_id
  * @property integer $user_id
  * @property integer $issue_priority_id
@@ -17,7 +16,6 @@
  * @property integer $assigned_to
  * @property string $created
  * @property string $modified
- * @property string $start_date
  * @property integer $done_ratio
  * @property string $status
  * @property integer $closed
@@ -50,6 +48,32 @@ class Issue extends CActiveRecord {
         return '{{issue}}';
     }
 
+    public function sendAssignedNotice($isAssigned = true) {
+        if($isAssigned) {
+            Yii::app()->user->setFlash('success',"Sending Assignment notice!");
+        } else {
+            Yii::app()->user->setFlash('notice',"Sending Unassignment notice!");
+        }
+    }
+    /**
+     * Prepares create_time, create_user_id, update_time and update_user_id attributes before performing validation.
+     */
+    protected function beforeValidate() {
+        if(($this->assigned_to) && ($this->status === 'swIssue/new')) {
+            $this->status = 'swIssue/assigned';
+            $this->sendAssignedNotice();
+        }
+        if(($this->assigned_to) && ($this->status === 'swIssue/unassigned')) {
+            $this->status = 'swIssue/assigned';
+            $this->sendAssignedNotice();
+        }
+        if((!$this->assigned_to) && ($this->status === 'swIssue/assigned')) {
+            $this->status = 'swIssue/unassigned';
+            $this->sendAssignedNotice(false);
+        }
+        return parent::beforeValidate();
+    }
+
     public function behaviors() {
         return array(
             'CActiveRecordLogableBehavior' =>
@@ -80,7 +104,7 @@ class Issue extends CActiveRecord {
             array('tracker_id, project_id, issue_category_id, user_id, issue_priority_id, version_id, assigned_to, done_ratio, closed', 'numerical', 'integerOnly' => true),
             array('subject', 'length', 'max' => 255),
             array('status', 'SWValidator'),
-            array('due_date, created, modified, start_date', 'safe'),
+            array('created, modified', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, tracker_id, project_id, subject, description, due_date, issue_category_id, user_id, issue_priority_id, version_id, assigned_to, created, modified, start_date, done_ratio, status, closed', 'safe', 'on' => 'search'),
@@ -118,7 +142,6 @@ class Issue extends CActiveRecord {
             'project_id' => 'Project',
             'subject' => 'Subject',
             'description' => 'Description',
-            'due_date' => 'Due Date',
             'issue_category_id' => 'Issue Category',
             'user_id' => 'User',
             'issue_priority_id' => 'Issue Priority',
@@ -126,7 +149,6 @@ class Issue extends CActiveRecord {
             'assigned_to' => 'Assigned To',
             'created' => 'Created',
             'modified' => 'Modified',
-            'start_date' => 'Start Date',
             'done_ratio' => 'Done Ratio',
             'status' => 'Status',
             'closed' => 'Closed',
