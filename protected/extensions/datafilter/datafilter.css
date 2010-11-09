@@ -1,0 +1,58 @@
+/**
+ * CSS styles for CDataFilter
+ */
+
+/* .dataFiltersDropDown*/
+.dataFilterBlock
+{
+    display:block;
+    clear:both;
+    margin:2px;
+}
+
+.dataFilterInline
+{
+    display:inline;
+    float:left;
+    margin:2px;
+}
+
+/*.dataFiltersDropDown .dropDown*/
+.dataFilterGroup .dropDown
+{
+    display:block;
+    float:left;
+    width:auto;
+    margin-right:3px;
+    
+    
+}
+
+.searchdiv 
+{
+ display:inline;
+ float:left;
+}
+
+.searchdiv .fileds
+{
+
+ display:inline;
+ float:left;
+ margin-right:1px;
+}
+
+.searchdiv .value
+{
+ display:inline;
+ float:left;
+ margin-left:5px
+}
+
+.searchdiv  .submit
+{
+
+    margin-left:5px;
+}
+
+.dataFilterGroup a.active { color: rgb(255,255,255); background: rgb(0,0,255); text-decoration: none; }

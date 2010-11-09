@@ -170,7 +170,6 @@ class Issue extends CActiveRecord {
         $criteria->compare('project_id', $this->project_id);
         $criteria->compare('subject', $this->subject, true);
         $criteria->compare('description', $this->description, true);
-        $criteria->compare('due_date', $this->due_date, true);
         $criteria->compare('issue_category_id', $this->issue_category_id);
         $criteria->compare('user_id', $this->user_id);
         $criteria->compare('issue_priority_id', $this->issue_priority_id);
@@ -178,7 +177,6 @@ class Issue extends CActiveRecord {
         $criteria->compare('assigned_to', $this->assigned_to);
         $criteria->compare('created', $this->created, true);
         $criteria->compare('modified', $this->modified, true);
-        $criteria->compare('start_date', $this->start_date, true);
         $criteria->compare('done_ratio', $this->done_ratio);
         $criteria->compare('status', $this->status, true);
         $criteria->compare('closed', $this->closed);
