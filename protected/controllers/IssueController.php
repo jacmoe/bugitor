@@ -138,7 +138,7 @@ class IssueController extends Controller {
         if ($name !== '') {
             $criteria = new CDbCriteria;
             $criteria->compare('project_id', $this->getProject($name), true);
-            $dataProvider = new CActiveDataProvider('Issue', array('criteria' => $criteria));
+            $dataProvider = new CActiveDataProvider('Issue', array('criteria' => $criteria, 'pagination' => array('pageSize' => 3)));
             $this->render('index', array(
                 'dataProvider' => $dataProvider,
                 'project_name' => $name . ' - ',

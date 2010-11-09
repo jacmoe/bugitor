@@ -21,6 +21,8 @@ return array(
         'application.helpers.*',
         'application.behaviors.ActiveRecordLogableBehavior',
         'application.extensions.simpleWorkflow.*',
+        'application.extensions.datafilter.*',
+        'application.extensions.datafilter.filters.*',
     ),
     'modules' => array(
         'admin',
