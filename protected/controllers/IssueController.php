@@ -6,7 +6,7 @@ class IssueController extends Controller {
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
-    public $layout = '//layouts/column2';
+    public $layout = '//layouts/column1';
 
     /**
      * @return array action filters
@@ -137,21 +137,46 @@ class IssueController extends Controller {
      * Lists all models.
      */
     public function actionIndex($name = '') {
-        if ($name !== '') {
             $criteria = new CDbCriteria;
-            $criteria->compare('project_id', $this->getProject($name), true);
-            $dataProvider = new CActiveDataProvider('Issue', array('criteria' => $criteria, 'pagination' => array('pageSize' => 3)));
-            $this->render('index', array(
-                'dataProvider' => $dataProvider,
-                'project_name' => $name . ' - ',
+
+            $fromGroup = new CFilterGroup('Filter', array('cssClass'=>'dataFilterBlock'));
+            $fromFilterOptions = array('emptyValue'=>'All', 'specialOptions'=>array('null'=>'None'));
+
+            $filters = new CDataFilter(Issue::model());
+            
+            $filters->addFilter(new CFilterSearch('issueFieldsSearch'), 'Search');
+            $filters->addFilter(new CFilterDropdown('Priority', $fromFilterOptions), $fromGroup);
+
+            $filters->addFilter(new CFilterDropdown('closedDropFilter',
+                array('displayName'=>'Closed')),
+                //group is given as name (string), not as object
+                //this filter will be joined to 'Filter' group, because group with same name already exists
+                'Filter'
+            );
+
+            $filters->storeToSession = true;
+
+            $sort = new CSort('Issue');
+
+            $project_name = '';
+
+            if ($name !== '') {
+                $criteria->compare('project_id', $this->getProject($name), true);
+            }
+
+            $filters->applyCriteria($criteria);
+
+            $pages=new CPagination(Issue::model()->count($criteria));
+            $pages->pageSize=3;
+            $pages->applyLimit($criteria);
+
+            $sort->applyOrder($criteria);
+
+            $models=Issue::model()->findAll($criteria);
+
+            $this->render('index',compact(
+                'models', 'pages', 'sort', 'filters', 'project_name'
             ));
-        } else {
-            $dataProvider = new CActiveDataProvider('Issue');
-            $this->render('index', array(
-                'dataProvider' => $dataProvider,
-                'project_name' => '',
-            ));
-        }
     }
 
     /**

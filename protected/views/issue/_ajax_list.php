@@ -1,34 +1,19 @@
-<?php
-$this->pageTitle = $project_name . 'Issues - ' . Yii::app()->name ;
-$this->breadcrumbs=array(
-	'Issues',
-);
-
-$this->menu=array(
-	array('label'=>'Create Issue', 'url'=>array('create'), 'visible' => Yii::app()->user->checkAccess('Issue.Create')),
-	array('label'=>'Manage Issue', 'url'=>array('admin'), 'visible' => Yii::app()->user->checkAccess('Issue.Admin')),
-);
-?>
-
-<h1><?php echo $project_name ?>Issues</h1>
-
-<?php /*$this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-        'pager' => array('class' => 'CustomLinkPager'),
-));*/ ?>
 <table class="dataGrid">
   <thead>
   <tr>
       <td colspan="9">
-      <?php
-      $this->widget('CDataFilterWidget',
-            array('filters'=>$filters)
-      );
+      <?php $this->widget('CDataFilterWidget',
+                array(
+                    'filters'=>$filters,
+                    'ajaxMode'=>true, 'beforeUpdateCode'=>'showIndicator();',
+                    //following parameters added just for demo purpose
+                    //these parameters are default for this form
+                    'formAction'=>'/issue/index',
+                    'formMethod'=>'get', 'formOptions'=>array()
+                ));
       ?>
       </td>
   </tr>
-
   <tr>
     <th><?php echo $sort->link('id'); ?></th>
     <th><?php echo $sort->link('priority_id'); ?></th>
@@ -53,5 +38,13 @@ $this->menu=array(
 <?php endforeach; ?>
   </tbody>
 </table>
-<br/>
 <?php $this->widget('CustomLinkPager',array('pages'=>$pages)); ?>
+
+<?php
+$scriptInit = <<<EOD
+
+$('#sort-buttons a, .yiiPager a').click(updatePage);
+
+EOD;
+echo CHtml::script($scriptInit);
+?>
