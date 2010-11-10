@@ -1,13 +1,28 @@
 <?php
 $this->pageTitle = $model->name . ' - Settings - ' . Yii::app()->name;
-
-$this->menu=array(
-	array('label'=>'List Projects', 'url'=>array('index')),
-	array('label'=>'Create Project', 'url'=>array('create')),
-	array('label'=>'Update Project', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Project', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Projects', 'url'=>array('admin')),
-);
 ?>
-
-<h1><?php echo $model->name; ?> : Settings</h1>
+<h3>Settings</h3>
+<div class="tabs">
+<ul>
+<?php foreach($tabs as $tab): ?>
+<?php if($tab['name'] == $selected_tab): ?>
+    <li><?php echo CHtml::link($tab['label'], '/projects/'.$_GET['name'].'/settings'.'?tab='.$tab['name'], array('class' => 'selected')); ?></li>
+<?php else : ?>
+    <li><?php echo CHtml::link($tab['label'], '/projects/'.$_GET['name'].'/settings'.'?tab='.$tab['name']); ?></li>
+<?php endif; ?>
+<?php endforeach; ?>
+</ul>
+</div>
+<?php foreach($tabs as $tab): ?>
+<?php if($tab['name'] == $selected_tab): ?>
+<?php echo'<div ?tab='.$tab['name'].' class="tab-content">';
+$this->renderPartial($tab['partial'], array('model' => $model));
+echo '</div>';
+?>
+<?php else : ?>
+<?php echo'<div ?tab='.$tab['name'].' class="tab-content" style="display:none;">';
+$this->renderPartial($tab['partial'], array('model' => $model));
+echo '</div>';
+?>
+<?php endif; ?>
+<?php endforeach; ?>
