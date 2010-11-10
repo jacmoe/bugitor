@@ -7,6 +7,7 @@
 )); ?>
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 	<?php echo $form->errorSummary($model); ?>
+        <div class="halfsplitcontentleft">
 	<div class="row">
 		<?php echo $form->labelEx($model,'tracker_id'); ?>
                 <?php echo $form->dropDownList($model, 'tracker_id', CHtml::listData(
@@ -26,7 +27,8 @@
 		))?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
-        <div class="splitcontentleft">
+        </div>
+        <div class="halfsplitcontentright">
             <div class="row">
                     <?php echo $form->labelEx($model,'issue_priority_id'); ?>
                     <?php echo $form->dropDownList($model, 'issue_priority_id', CHtml::listData(
@@ -43,8 +45,6 @@
                     <?php echo $form->textField($model,'issue_category_id'); ?>
                     <?php echo $form->error($model,'issue_category_id'); ?>
             </div>
-        </div>
-        <div class="splitcontentright">
             <div class="row">
                     <?php echo $form->labelEx($model,'assigned_to'); ?>
                     <?php echo $form->dropDownList($model, 'assigned_to', CHtml::listData(
@@ -61,6 +61,17 @@
 		<?php echo $form->textField($model,'done_ratio'); ?>
 		<?php echo $form->error($model,'done_ratio'); ?>
 	</div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
         </div>
 	<div class="row">
 		<?php echo $form->hiddenField($model,'user_id', array('value' => Yii::app()->getModule('user')->user()->id)); ?>

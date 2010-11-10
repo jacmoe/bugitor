@@ -82,6 +82,8 @@ class IssueController extends Controller {
      * @param integer $id the ID of the model to be updated
      */
     public function actionUpdate($id) {
+        $this->layout = '//layouts/column1';
+
         $model = $this->loadModel($id);
 
         // Uncomment the following line if AJAX validation is needed

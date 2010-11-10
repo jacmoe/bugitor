@@ -112,8 +112,24 @@ class ProjectController extends Controller {
 
     public function actionSettings($name) {
         $project = Project::model()->find('name=?', array($_GET['name']));
+
+        $tabs = array(
+                array('name' => 'info', 'partial' => 'update', 'label' =>  'Information'),
+                array('name' =>  'members', 'partial' =>  'settings/members', 'label' =>  'Members'),
+                array('name' =>  'versions', 'partial' =>  'settings/versions', 'label' => 'Versions'),
+                array('name' =>  'categories', 'partial' =>  'settings/issue_categories', 'label' =>  'Issue categories'),
+                array('name' =>  'repository', 'partial' =>  'settings/repository', 'label' =>  'Repository'),
+        );
+        $selected_tab = $tabs[0]['name'];
+        if (isset($_GET['tab'])) {
+            $selected_tab = $_GET['tab'];
+        }
+
+
         $this->render('settings', array(
             'model' => $project,
+            'tabs' => $tabs,
+            'selected_tab' => $selected_tab,
         ));
     }
 
