@@ -6,7 +6,7 @@ class ProjectController extends Controller {
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
-    public $layout = '//layouts/column2';
+    public $layout = '//layouts/column1';
     public $defaultAction = 'index';
 
     /**
@@ -170,8 +170,10 @@ class ProjectController extends Controller {
 
         if (isset($_POST['Project'])) {
             $model->attributes = $_POST['Project'];
-            if ($model->save())
-                $this->redirect(array('view', 'name' => $model->name));
+            if ($model->save()) {
+                Yii::app()->user->setFlash('success',"Project was succesfully updated");
+                $this->redirect(array('settings', 'name' => $model->name, 'tab' => 'info'));
+            }
         }
 
         $this->render('update', array(

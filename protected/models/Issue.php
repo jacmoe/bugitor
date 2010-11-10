@@ -48,6 +48,74 @@ class Issue extends CActiveRecord {
         return '{{issue}}';
     }
 
+    // Returns list of searchable fileds for DataFilter widget
+    public function getDataFilterSearchFields($filterName)
+    {
+        switch ($filterName) {
+            case 'issueFieldsSearch': //filter name
+                return array(
+                    't.id'=>'Issue ID', //field name => display name
+                    't.subject'=>'Subject',
+                );
+        }
+    }
+
+    // Applies search criteria enterd using DataFilter widget
+    public function applyDataSearchCriteria(&$criteria, $filterName, $searchField, $searchValue)
+    {
+        if($filterName == 'issueFieldsSearch') {
+            $localCriteria = new CDbCriteria;
+            //$localCriteria->condition = ' '.$searchField.' LIKE "%'.$searchValue.'%" ';
+            $localCriteria->condition = ' '.$searchField.' LIKE :searchValue ';
+            $localCriteria->params = array(':searchValue'=>'%'.$searchValue.'%');
+            $criteria->mergeWith($localCriteria);
+        }
+    }
+
+    // Returns options for DataFilter widget
+    public function getDataFilterOptions($filterName)
+    {
+        switch ($filterName) {
+            case 'Priority':  //filter name
+            case 'priorityFilter2':
+                // data from database
+                $priority = IssuePriority::model()->findAll();
+                return CHtml::listData($priority, 'id', 'name');
+           case 'closedDropFilter':
+                // static data (not from database)
+                $options = array(
+                    array('id'=>'', 'name'=>'All'),
+                    array('id'=>1, 'name'=>'Closed'),
+                    array('id'=>0, 'name'=>'Open'),
+                );
+                return CHtml::listData($options, 'id', 'name');
+        }
+    }
+
+    // Applies filter criteria enterd using DataFilter widget
+    public function applyDataFilterCriteria(&$criteria, $filterName, $filterValue)
+    {
+        if($filterName == 'Priority' || $filterName == 'groupFilter2') {
+            $localCriteria = new CDbCriteria;
+            CDataFilter::setCondition('issue_priority_id', $filterValue, $localCriteria);
+            $criteria->mergeWith($localCriteria);
+        }
+
+        if($filterName == 'closedFilter') {
+            if ($filterValue !== 'closed') return;
+            $localCriteria = new CDbCriteria;
+            CDataFilter::setCondition('closed', 1, $localCriteria);
+            $criteria->mergeWith($localCriteria);
+        }
+
+        if($filterName == 'closedDropFilter') {
+            $localCriteria = new CDbCriteria;
+            CDataFilter::setCondition('closed', $filterValue, $localCriteria);
+            $criteria->mergeWith($localCriteria);
+        }
+
+    }
+
     public function sendAssignedNotice($isAssigned = true) {
         if($isAssigned) {
             Yii::app()->user->setFlash('success',"Sending Assignment notice!");
