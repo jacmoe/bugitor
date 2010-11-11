@@ -42,16 +42,75 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'id',
-		'tracker_id',
-		'project_id',
-		'subject',
-		'description',
+                array(
+                    'name' => 'id',
+                    'header' => 'Id',
+                    'type' => 'raw',
+                    'value' => 'CHtml::link(CHtml::encode($data->id),array("view","id"=>$data->id, "name"=>$data->project->name))',
+                    'htmlOptions'=>array('width'=>'5'),
+                    ),
+                array(
+                    'name' => 'tracker_id',
+                    'header' => 'Type',
+                    'value' => '$data->tracker->name',
+                    'filter' => $this->getTrackers(),
+                    'htmlOptions'=>array('width'=>'10'),
+                ),
+//                array(
+//                    'name' => 'project_id',
+//                    'header' => 'Project',
+//                    'value' => '$data->project->name',
+//                    'filter' => $this->getProjects(),
+//                ),
+                array(
+                    'name' => 'status',
+                    'header' => 'Status',
+                    'value' => '$data->swGetStatus()->getLabel()',
+                    'filter' => SWHelper::allStatuslistData($model),
+                    'htmlOptions'=>array('width'=>'10'),
+                ),
+                array(
+                    'name' => 'issue_priority_id',
+                    'header' => 'Priority',
+                    'value' => '$data->issuePriority->name',
+                    'filter' => $this->getPriorities(),
+                    'htmlOptions'=>array('width'=>'10'),
+                ),
+                array(
+                    'name' => 'subject',
+                    'htmlOptions'=>array('width'=>'40%'),
+                ),
 		/*
-		'issue_category_id',
-		'user_id',
-		'issue_priority_id',
-		'version_id',
+		'issue_category_id',*/
+                array(
+                    'name' => 'user_id',
+                    'header' => 'Author',
+                    'value' => '$data->user->username',
+                    'filter' => $this->getUsers(),
+                    'htmlOptions'=>array('width'=>'10'),
+                ),
+                array(
+                    'name' => 'assigned_to',
+                    'header' => 'Owner',
+                    'value' => '(($data->assignedTo)?$data->assignedTo->username:"")',
+                    'filter' => $this->getUsers(),
+                    'htmlOptions'=>array('width'=>'10'),
+                ),
+                array(
+                    'name' => 'version_id',
+                    'header' => 'Version',
+                    'value' => '(($data->version)?$data->version->name:"")',
+                    'filter' => $this->getVersions(),
+                    'htmlOptions'=>array('width'=>'10'),
+                ),
+                array(
+                    'name' => 'done_ratio',
+                    'header' => '% Done',
+                    'type' => 'raw',
+                    'value' => '(($data->done_ratio)?$data->done_ratio:"")',
+                    'htmlOptions'=>array('width'=>'10'),
+                ),
+		/*'version_id',
 		'assigned_to',
 		'created',
 		'modified',
@@ -61,7 +120,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'closed',
 		*/
 		array(
-			'class'=>'CButtonColumn',
+			'class'=>'IssueButtonColumn',
 		),
 	),
 )); ?>
