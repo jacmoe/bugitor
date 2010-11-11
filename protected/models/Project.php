@@ -19,6 +19,7 @@
  * @property Tracker[] $bugTrackers
  * @property Repository[] $repositories
  * @property Version[] $versions
+ * @property IssueCategory[] $issueCategories
  */
 class Project extends CActiveRecord {
 
@@ -68,6 +69,7 @@ class Project extends CActiveRecord {
             'members' => array(self::MANY_MANY, 'User', '{{project_user_assignment}}(project_id, user_id)'),
             'repositories' => array(self::HAS_MANY, 'Repository', 'project_id'),
             'versions' => array(self::HAS_MANY, 'Version', 'project_id'),
+            'issueCategories' => array(self::HAS_MANY, 'IssueCategory', 'project_id'),
         );
     }
 
