@@ -6,6 +6,7 @@
  * The followings are the available columns in table '{{issue_category}}':
  * @property integer $id
  * @property string $name
+ * @property integer $project_id
  *
  * The followings are the available model relations:
  * @property Issue[] $issues
@@ -41,7 +42,7 @@ class IssueCategory extends CActiveRecord
 			array('name', 'length', 'max'=>45),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name', 'safe', 'on'=>'search'),
+			array('id, name, project_id', 'safe', 'on'=>'search'),
 		);
 	}
 

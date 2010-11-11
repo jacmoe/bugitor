@@ -233,14 +233,14 @@ class Issue extends CActiveRecord {
 
         $criteria = new CDbCriteria;
 
-        $criteria->with = array('user', 'project', 'tracker', 'issuePriority', 'assignedTo', 'version');
+        $criteria->with = array('user', 'project', 'tracker', 'issuePriority', 'assignedTo', 'version', 'issueCategory');
         $criteria->compare('id', $this->id);
         $criteria->compare('tracker.name', $this->tracker_id);
         $criteria->compare('User.username', $this->user_id);
         $criteria->compare('project.name', $this->project_id);
         $criteria->compare('subject', $this->subject, true);
         $criteria->compare('description', $this->description, true);
-        $criteria->compare('issue_category_id', $this->issue_category_id);
+        $criteria->compare('issueCategory.name', $this->issue_category_id);
         $criteria->compare('issuePriority.name', $this->issue_priority_id);
         $criteria->compare('version.name', $this->version_id);
         $criteria->compare('assignedTo.username', $this->assigned_to);
@@ -256,6 +256,8 @@ class Issue extends CActiveRecord {
         }
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
+            'sort'=>array('defaultOrder'=>'t.modified DESC'),
+            //'pagination' => array('pageSize' => 3),
         ));
     }
 

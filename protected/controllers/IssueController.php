@@ -180,56 +180,30 @@ class IssueController extends Controller {
         return $version_list;
     }
 
+    public function getCategories() {
+        $Criteria = new CDbCriteria();
+        $Criteria->select = "name";
+        if (isset($_GET['name'])) {
+            $Criteria->compare('project_id', $this->getProject($_GET['name']), true);
+        }
+        $results = IssueCategory::model()->findAll($Criteria);
+        $category_list = array();
+        foreach ($results as $result) {
+            $category_list[$result->name] = $result->name;
+        }
+        return $category_list;
+    }
+
     /**
      * Lists all models.
      */
     public function actionIndex($name = '') {
-            /*$criteria = new CDbCriteria;
-
-            $fromGroup = new CFilterGroup('Filter', array('cssClass'=>'dataFilterBlock'));
-            $fromFilterOptions = array('emptyValue'=>'All', 'specialOptions'=>array('null'=>'None'));
-
-            $filters = new CDataFilter(Issue::model());
-            
-            $filters->addFilter(new CFilterSearch('issueFieldsSearch'), 'Search');
-            $filters->addFilter(new CFilterDropdown('Priority', $fromFilterOptions), $fromGroup);
-
-            $filters->addFilter(new CFilterDropdown('closedDropFilter',
-                array('displayName'=>'Closed')),
-                //group is given as name (string), not as object
-                //this filter will be joined to 'Filter' group, because group with same name already exists
-                'Filter'
-            );
-
-            $filters->storeToSession = true;
-
-            $sort = new CSort('Issue');
-
-            $project_name = '';
-
-            if ($name !== '') {
-                $criteria->compare('project_id', $this->getProject($name), true);
-            }
-
-            $filters->applyCriteria($criteria);
-
-            $pages=new CPagination(Issue::model()->count($criteria));
-            $pages->pageSize=3;
-            $pages->applyLimit($criteria);
-
-            $sort->applyOrder($criteria);
-
-            $models=Issue::model()->findAll($criteria);
-
-            $this->render('index',compact(
-                'models', 'pages', 'sort', 'filters', 'project_name'
-            ));*/
             $model = new Issue('search');
             $model->unsetAttributes();  // clear any default values
             if (isset($_GET['Issue']))
                 $model->attributes = $_GET['Issue'];
 
-                $this->render('admin', array(
+                $this->render('index', array(
             'model' => $model,
             ));
     }
