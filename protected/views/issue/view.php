@@ -18,7 +18,7 @@ $this->menu=array(
 </div>
 <h2><?php echo $model->tracker->name . ' #' . $model->id; ?></h2>
 <div class="issue">
-<?php $this->widget('application.extensions.VGGravatarWidget', array('email' => $model->user()->email)); ?>
+<?php echo Bugitor::gravatar($model->user->email); ?>
 <h3><?php echo $model->subject; ?></h3>
 Added by <?php echo Bugitor::link_to_user($model->user->username, $model->user->id); ?> <?php echo Time::timeAgoInWords($model->created); ?>.
 <hr/>
@@ -55,7 +55,7 @@ Added by <?php echo Bugitor::link_to_user($model->user->username, $model->user->
         <td class="assigned-to"><b>Assigned to:</b></td>
         <td>
             <?php if(isset($model->assignedTo)) : ?>
-                <span><?php $this->widget('application.extensions.VGGravatarWidget', array('email' => $model->assignedTo->email)); ?></span>
+                <span><?php echo Bugitor::gravatar($model->assignedTo->email); ?></span>
                 <?php echo Bugitor::link_to_user($model->assignedTo->username, $model->assignedTo->id); ?>
             <?php endif; ?>
         </td>

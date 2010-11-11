@@ -1,3 +1,7 @@
+<?php
+    $pageSize=Yii::app()->user->getState('pageSize',Yii::app()->params['defaultPageSize']);
+?>
+
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'issue-grid',
 	'dataProvider'=>$model->search(),
@@ -15,26 +19,31 @@
                 array(
                     'name' => 'tracker_id',
                     'header' => 'Type',
-                    'value' => '$data->tracker->name',
+                    'type' => 'raw',
+                    'value' => 'Bugitor::namedImage($data->tracker->name)',
                     'filter' => $this->getTrackers(),
                     'htmlOptions'=>array('width'=>'10'),
                 ),
                 array(
                     'name' => 'status',
                     'header' => 'Status',
-                    'value' => '$data->swGetStatus()->getLabel()',
+                    'type' => 'raw',
+                    'value' => 'Bugitor::namedImage($data->swGetStatus()->getLabel())',
                     'filter' => SWHelper::allStatuslistData($model),
                     'htmlOptions'=>array('width'=>'10'),
                 ),
                 array(
                     'name' => 'issue_priority_id',
                     'header' => 'Priority',
-                    'value' => '$data->issuePriority->name',
+                    'type' => 'raw',
+                    'value' => 'Bugitor::namedImage($data->issuePriority->name)',
                     'filter' => $this->getPriorities(),
                     'htmlOptions'=>array('width'=>'10'),
                 ),
                 array(
                     'name' => 'subject',
+                    'type' => 'raw',
+                    'value' => 'CHtml::link(CHtml::encode($data->subject),array("view","id"=>$data->id, "name"=>$data->project->name),array("title" => $data->description))',
                     'htmlOptions'=>array('width'=>'25%'),
                 ),
                 array(
@@ -48,14 +57,16 @@
                 array(
                     'name' => 'user_id',
                     'header' => 'Author',
-                    'value' => '$data->user->username',
+                    'type' => 'raw',
+                    'value' => 'Bugitor::gravatar($data->user->email,16,$data->user->username)',
                     'filter' => $this->getUsers(),
                     'htmlOptions'=>array('width'=>'10'),
                 ),
                 array(
                     'name' => 'assigned_to',
                     'header' => 'Owner',
-                    'value' => '(($data->assignedTo)?$data->assignedTo->username:"")',
+                    'type' => 'raw',
+                    'value' => '(($data->assignedTo)?Bugitor::gravatar($data->assignedTo->email,16,$data->assignedTo->username):"")',
                     'filter' => $this->getUsers(),
                     'htmlOptions'=>array('width'=>'10'),
                 ),
@@ -65,7 +76,7 @@
                     'type' => 'raw',
                     'filter' => '',
                     'value' => '(($data->done_ratio)?Bugitor::progress_bar($data->done_ratio, array("width"=>"100%")):"")',
-                    'htmlOptions'=>array('width'=>'6%'),
+                    'htmlOptions'=>array('width'=>'6%','class'=>'progress'),
                 ),
                 array(
                     'name' => 'version_id',
@@ -83,6 +94,11 @@
                 ),
 		array(
 			'class'=>'IssueButtonColumn',
+                        'header'=>CHtml::dropDownList('pageSize',$pageSize,array(10=>10,20=>20,50=>50,100=>100),array(
+                            // change 'user-grid' to the actual id of your grid!!
+                            'id' => Yii::app()->config->get('defaultPagesize'),
+                            'onchange'=>"$.fn.yiiGridView.update('issue-grid',{ data:{pageSize: $(this).val() }})",
+                        )),
 		),
 	),
 )); ?>

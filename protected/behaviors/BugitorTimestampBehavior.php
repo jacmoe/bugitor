@@ -57,7 +57,7 @@ class BugitorTimestampBehavior extends CActiveRecordBehavior {
 	* @var bool Whether to set the update attribute to the creation timestamp upon creation.
 	* Otherwise it will be left alone.  Defaults to false.
 	*/
-	public $setUpdateOnCreate = false;
+	public $setUpdateOnCreate = true;
 
 	/**
 	* @var mixed The expression to use to generate the timestamp.  e.g. 'time()'.

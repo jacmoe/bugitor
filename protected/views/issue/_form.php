@@ -32,7 +32,7 @@
             <div class="row">
                     <?php echo $form->labelEx($model,'issue_priority_id'); ?>
                     <?php echo $form->dropDownList($model, 'issue_priority_id', CHtml::listData(
-                    IssuePriority::model()->findAll(array('order'=>'id')), 'id', 'name')); ?>
+                    IssuePriority::model()->findAll(array('order'=>'id')), 'id', 'name'), array('options' => array('2'=>array('selected'=>true)))); ?>
                     <?php echo $form->error($model,'issue_priority_id'); ?>
             </div>
             <div class="row">

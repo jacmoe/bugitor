@@ -198,14 +198,19 @@ class IssueController extends Controller {
      * Lists all models.
      */
     public function actionIndex($name = '') {
-            $model = new Issue('search');
-            $model->unsetAttributes();  // clear any default values
-            if (isset($_GET['Issue']))
-                $model->attributes = $_GET['Issue'];
+        $model = new Issue('search');
+        $model->unsetAttributes();  // clear any default values
+        if (isset($_GET['Issue']))
+            $model->attributes = $_GET['Issue'];
 
-                $this->render('index', array(
+        // page size drop down changed
+        if (isset($_GET['pageSize'])) {
+            Yii::app()->user->setState('pageSize', (int) $_GET['pageSize']);
+            unset($_GET['pageSize']);  // would interfere with pager and repetitive page size change
+        }
+        $this->render('index', array(
             'model' => $model,
-            ));
+        ));
     }
 
     /**

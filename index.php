@@ -23,8 +23,7 @@ defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 require_once($yii);
 $app = Yii::createWebApplication($config);
 
-Yii::app()->config->set('SiteName', 'Bugitor');
-Yii::app()->config->set('HostName', $hostname);
-Yii::app()->config->set('serverOffset', 336); // 5 minutes, 36 seconds offset
+//Yii::app()->config->set('defaultPagesize', 20);
+
 Yii::app()->setTimeZone("UTC");
 $app->run();
