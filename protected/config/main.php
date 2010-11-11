@@ -9,7 +9,6 @@ return array(
     'name' => 'Bugitor',
     'theme' => 'classic',
     'defaultController' => 'project',
-    // preloading 'log' component
     'preload' => array('log', 'maintenanceMode'),
     // autoloading model and component classes
     'import' => array(
@@ -21,8 +20,6 @@ return array(
         'application.helpers.*',
         'application.behaviors.ActiveRecordLogableBehavior',
         'application.extensions.simpleWorkflow.*',
-        'application.extensions.datafilter.*',
-        'application.extensions.datafilter.filters.*',
     ),
     'modules' => array(
         'admin',

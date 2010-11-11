@@ -1,4 +1,0 @@
-1) Create database from \dbTools\dump\local.sql
-2) "\www" folder is a web server root
-3) tested with yii 1.0.8, yii's "framework" folder contents should be placed to "yii" folder
-4) point browser to "http://datafilterdemo"
