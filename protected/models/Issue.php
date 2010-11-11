@@ -21,12 +21,12 @@
  * @property integer $closed
  *
  * The followings are the available model relations:
- * @property Users $assignedTo
+ * @property User $assignedTo
  * @property IssueCategory $issueCategory
  * @property Project $project
  * @property IssuePriority $issuePriority
  * @property Tracker $tracker
- * @property Users $user
+ * @property User $user
  * @property Version $version
  * @property RelatedIssue[] $relatedIssues
  * @property Users[] $bugUsers
@@ -211,10 +211,10 @@ class Issue extends CActiveRecord {
             'subject' => 'Subject',
             'description' => 'Description',
             'issue_category_id' => 'Issue Category',
-            'user_id' => 'User',
+            'user_id' => 'Author',
             'issue_priority_id' => 'Issue Priority',
             'version_id' => 'Version',
-            'assigned_to' => 'Assigned To',
+            'assigned_to' => 'Owner',
             'created' => 'Created',
             'modified' => 'Modified',
             'done_ratio' => 'Done Ratio',
@@ -233,22 +233,27 @@ class Issue extends CActiveRecord {
 
         $criteria = new CDbCriteria;
 
+        $criteria->with = array('user', 'project', 'tracker', 'issuePriority', 'assignedTo', 'version');
         $criteria->compare('id', $this->id);
-        $criteria->compare('tracker_id', $this->tracker_id);
-        $criteria->compare('project_id', $this->project_id);
+        $criteria->compare('tracker.name', $this->tracker_id);
+        $criteria->compare('User.username', $this->user_id);
+        $criteria->compare('project.name', $this->project_id);
         $criteria->compare('subject', $this->subject, true);
         $criteria->compare('description', $this->description, true);
         $criteria->compare('issue_category_id', $this->issue_category_id);
-        $criteria->compare('user_id', $this->user_id);
-        $criteria->compare('issue_priority_id', $this->issue_priority_id);
-        $criteria->compare('version_id', $this->version_id);
-        $criteria->compare('assigned_to', $this->assigned_to);
+        $criteria->compare('issuePriority.name', $this->issue_priority_id);
+        $criteria->compare('version.name', $this->version_id);
+        $criteria->compare('assignedTo.username', $this->assigned_to);
         $criteria->compare('created', $this->created, true);
         $criteria->compare('modified', $this->modified, true);
         $criteria->compare('done_ratio', $this->done_ratio);
-        $criteria->compare('status', $this->status, true);
+        $criteria->compare('t.status', $this->status, true);
         $criteria->compare('closed', $this->closed);
 
+        if (isset($_GET['name'])) {
+            $project = Project::model()->findByAttributes(array('name' => $_GET['name']));
+            $criteria->compare('t.project_id', $project->id, true);
+        }
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
         ));

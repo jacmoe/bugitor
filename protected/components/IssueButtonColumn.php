@@ -1,6 +1,6 @@
 <?php
 /**
- * BugitorButtonColumn class file.
+ * IssueButtonColumn class file.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @link http://www.yiiframework.com/
@@ -11,7 +11,7 @@
 Yii::import('zii.widgets.grid.CGridColumn');
 
 /**
- * BugitorButtonColumn represents a grid view column that renders one or several buttons.
+ * IssueButtonColumn represents a grid view column that renders one or several buttons.
  *
  * By default, it will display three buttons, "view", "update" and "delete", which triggers the corresponding
  * actions on the model of the row.
@@ -20,11 +20,11 @@ Yii::import('zii.widgets.grid.CGridColumn');
  * and customize the display order of the buttons.
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @version $Id: BugitorButtonColumn.php 2326 2010-08-20 17:02:07Z qiang.xue $
+ * @version $Id: IssueButtonColumn.php 2326 2010-08-20 17:02:07Z qiang.xue $
  * @package zii.widgets.grid
  * @since 1.1
  */
-class BugitorButtonColumn extends CGridColumn
+class IssueButtonColumn extends CGridColumn
 {
 	/**
 	 * @var array the HTML options for the data cell tags.
@@ -61,7 +61,7 @@ class BugitorButtonColumn extends CGridColumn
 	 * <code>$row</code> the row number (zero-based); <code>$data</code> the data model for the row;
 	 * and <code>$this</code> the column object.
 	 */
-	public $viewButtonUrl='Yii::app()->controller->createUrl("view",array("name"=>$data->name))';
+	public $viewButtonUrl='Yii::app()->controller->createUrl("view",array("id"=>$data->id,"name"=>$data->project->name))';
 	/**
 	 * @var array the HTML options for the view button tag.
 	 */
@@ -83,7 +83,7 @@ class BugitorButtonColumn extends CGridColumn
 	 * <code>$row</code> the row number (zero-based); <code>$data</code> the data model for the row;
 	 * and <code>$this</code> the column object.
 	 */
-	public $updateButtonUrl='Yii::app()->controller->createUrl("update",array("id"=>$data->primaryKey))';
+	public $updateButtonUrl='Yii::app()->controller->createUrl("update",array("id"=>$data->id,"name"=>$data->project->name))';
 	/**
 	 * @var array the HTML options for the update button tag.
 	 */

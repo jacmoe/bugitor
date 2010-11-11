@@ -133,11 +133,58 @@ class IssueController extends Controller {
         return $project_list;
     }
 
+    public function getTrackers() {
+        $Criteria = new CDbCriteria();
+        $Criteria->select = "name";
+        $results = Tracker::model()->findAll($Criteria);
+        $tracker_list = array();
+        foreach ($results as $result) {
+            $tracker_list[$result->name] = $result->name;
+        }
+        return $tracker_list;
+    }
+
+    public function getPriorities() {
+        $Criteria = new CDbCriteria();
+        $Criteria->select = "name";
+        $results = IssuePriority::model()->findAll($Criteria);
+        $priority_list = array();
+        foreach ($results as $result) {
+            $priority_list[$result->name] = $result->name;
+        }
+        return $priority_list;
+    }
+
+    public function getUsers() {
+        $Criteria = new CDbCriteria();
+        $Criteria->select = "username";
+        $results = User::model()->findAll($Criteria);
+        $user_list = array();
+        foreach ($results as $result) {
+            $user_list[$result->username] = $result->username;
+        }
+        return $user_list;
+    }
+
+    public function getVersions() {
+        $Criteria = new CDbCriteria();
+        $Criteria->select = "name";
+        if (isset($_GET['name'])) {
+            $Criteria->compare('project_id', $this->getProject($_GET['name']), true);
+        }
+        $results = Version::model()->findAll($Criteria);
+        $version_list = array();
+        foreach ($results as $result) {
+            $version_list[$result->name] = $result->name;
+        }
+        return $version_list;
+    }
+
     /**
      * Lists all models.
      */
     public function actionIndex($name = '') {
-            $criteria = new CDbCriteria;
+            /*$criteria = new CDbCriteria;
 
             $fromGroup = new CFilterGroup('Filter', array('cssClass'=>'dataFilterBlock'));
             $fromFilterOptions = array('emptyValue'=>'All', 'specialOptions'=>array('null'=>'None'));
@@ -176,6 +223,14 @@ class IssueController extends Controller {
 
             $this->render('index',compact(
                 'models', 'pages', 'sort', 'filters', 'project_name'
+            ));*/
+            $model = new Issue('search');
+            $model->unsetAttributes();  // clear any default values
+            if (isset($_GET['Issue']))
+                $model->attributes = $_GET['Issue'];
+
+                $this->render('admin', array(
+            'model' => $model,
             ));
     }
 
