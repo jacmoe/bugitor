@@ -55,6 +55,9 @@ return array(
             'autoCreateConfigTable' => true,
             'strictMode' => false,
         ),
+        'cache' => array(
+            'class' => 'system.caching.CFileCache',
+        ),
         'swSource' => array(
             'class' => 'application.extensions.simpleWorkflow.SWPhpWorkflowSource',
         ),
