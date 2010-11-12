@@ -96,7 +96,7 @@
             <?php echo $content; ?>
                                         <div class="span-24 alt"><div align="center" class="quiet">
                                         <hr/>
-                                                Powered by <a href="#">Bugitor</a> &copy; 2010 by Bugitor Team.<br/>
+                                                Powered by <a href="http://bitbucket.org/jacmoe/bugitor">Bugitor</a> &copy; 2010 by Bugitor Team.<br/>
                                                 <a href="http://www.yiiframework.com/" rel="external"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/yii_power_lightblue_white.gif" alt="Made with Yii Framework" title="Made with Yii Framework"/></a>
 <hr/></div>
             </div>
