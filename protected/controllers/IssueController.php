@@ -202,7 +202,7 @@ class IssueController extends Controller {
      * Lists all models.
      */
     public function actionIndex($identifier = '') {
-        $_GET['projectname'] = Project::getProjectNameFromIdentifier($identifier);
+        if($identifier !== '') $_GET['projectname'] = Project::getProjectNameFromIdentifier($identifier);
 
         $model = new Issue('search');
         $model->unsetAttributes();  // clear any default values
