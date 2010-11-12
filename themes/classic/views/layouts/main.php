@@ -115,7 +115,7 @@
                                         <hr/>
                                         <div class="span-24 alt"><div align="center" class="quiet">
                                                 Copyright &copy; 2010 by Ogitor Team.<br/>
-                                                <a href="http://www.yiiframework.com/" rel="external"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/yii_power_lightgrey_white.gif" alt="Powered by Yii Framework" title="Powered by Yii Framework"/></a><hr/></div>
+                                                <a href="http://www.yiiframework.com/" rel="external"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/yii_power_lightblue_white.gif" alt="Powered by Yii Framework" title="Powered by Yii Framework"/></a><hr/></div>
             </div>
         </div>
     </body>
