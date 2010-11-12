@@ -39,7 +39,6 @@ $this->menu=array(
                     'value' => Time::timeAgoInWords($model->modified),
                 ),
 		'identifier',
-		'status',
 	),
 )); ?>
 <?php

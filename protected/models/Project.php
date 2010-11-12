@@ -12,7 +12,6 @@
  * @property string $created
  * @property string $modified
  * @property string $identifier
- * @property integer $status
  *
  * The followings are the available model relations:
  * @property Issue[] $issues
@@ -46,14 +45,14 @@ class Project extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('name', 'required'),
-            array('public, status', 'numerical', 'integerOnly' => true),
+            array('public', 'numerical', 'integerOnly' => true),
             array('name', 'length', 'max' => 30),
             array('homepage', 'url'),
             array('identifier', 'length', 'max' => 20),
             array('description, created, modified', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, name, description, homepage, public, created, modified, identifier, status', 'safe', 'on' => 'search'),
+            array('id, name, description, homepage, public, created, modified, identifier', 'safe', 'on' => 'search'),
         );
     }
 
@@ -86,7 +85,6 @@ class Project extends CActiveRecord {
             'created' => 'Created',
             'modified' => 'Modified',
             'identifier' => 'Identifier',
-            'status' => 'Status',
         );
     }
 
@@ -124,7 +122,6 @@ class Project extends CActiveRecord {
         $criteria->compare('created', $this->created, true);
         $criteria->compare('modified', $this->modified, true);
         $criteria->compare('identifier', $this->identifier, true);
-        $criteria->compare('status', $this->status);
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
@@ -132,13 +129,33 @@ class Project extends CActiveRecord {
     }
 
     public static function getProjectNameFromIdentifier($identifier) {
-        $project = Project::model()->find('identifier=?', array($identifier));
-        return $project->name;
+        $cacheKey = 'ProjectNameFromIdentifier_'.$identifier;
+        $name = '';
+        if(false === $name = Yii::app()->cache->get($cacheKey)) {
+            $project = Project::model()->find('identifier=?', array($identifier));
+            $name = $project->name;
+            $cacheDependency = new CDbCacheDependency("
+               SELECT `modified` FROM `bug_project`
+                  WHERE `id` = {$project->id} LIMIT 1
+            ");
+            Yii::app()->cache->set($cacheKey, $name, 0, $cacheDependency);
+        }
+        return $name;
     }
 
     public static function getProjectIdFromIdentifier($identifier) {
-        $project = Project::model()->find('identifier=?', array($identifier));
-        return $project->id;
+        $cacheKey = 'ProjectIdFromIdentifier'.$identifier;
+        $id = '';
+        if(false === $id = Yii::app()->cache->get($cacheKey)) {
+            $project = Project::model()->find('identifier=?', array($identifier));
+            $id = $project->id;
+            $cacheDependency = new CDbCacheDependency("
+               SELECT `modified` FROM `bug_project`
+                  WHERE `id` = {$project->id} LIMIT 1
+            ");
+            Yii::app()->cache->set($cacheKey, $id, 0, $cacheDependency);
+        }
+        return $id;
     }
 
     /**

@@ -33,10 +33,6 @@
 	<?php echo CHtml::encode($data->identifier); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
-	<?php echo CHtml::encode($data->status); ?>
-	<br />
-
 	*/ ?>
 
 </div>
