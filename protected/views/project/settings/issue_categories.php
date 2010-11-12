@@ -11,16 +11,16 @@ $this->pageTitle = $name . ' - Settings - Issue Categories';
   </tr>
 
   <tr>
-    <th width="20">Category</th>
-    <th width="20">Name</th>
-    <th width="20">Actions</th>
+    <th width="10">Category</th>
+    <th width="20">Description</th>
+    <th width="10">Actions</th>
   </tr>
   </thead>
   <tbody>
 <?php foreach($model as $n=>$category): ?>
   <tr class="<?php echo $n%2?'even':'odd';?>">
     <td width="20"><?php echo CHtml::encode($category->name); ?></td>
-    <td width="20">Category really need a description..<?php //echo CHtml::encode($category->description); ?></td>
+    <td width="20"><?php echo CHtml::encode($category->description); ?></td>
     <td width="20">
       <?php echo CHtml::link('Update',array('update','id'=>$category->id)); ?>
       <?php echo CHtml::linkButton('Delete',array(
