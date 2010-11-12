@@ -55,8 +55,10 @@ class IssueController extends Controller {
         $model = new Issue;
 
         $project_name = '';
-        if (isset($_GET['identifier']))
-            $project_name = $_GET['identifier'] . ' - ';
+        if (isset($_GET['identifier'])){
+            $project_name = $_GET['projectname'] = Project::getProjectNameFromIdentifier($_GET['identifier']);
+            $project_name .= ' - ';
+        }
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
@@ -83,8 +85,10 @@ class IssueController extends Controller {
      */
     public function actionUpdate($id) {
         $this->layout = '//layouts/column1';
-
+        
         $model = $this->loadModel($id);
+
+        $_GET['projectname'] = $model->project->name;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -198,6 +202,8 @@ class IssueController extends Controller {
      * Lists all models.
      */
     public function actionIndex($identifier = '') {
+        $_GET['projectname'] = Project::getProjectNameFromIdentifier($identifier);
+
         $model = new Issue('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Issue']))
