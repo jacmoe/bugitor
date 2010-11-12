@@ -180,7 +180,7 @@ class Issue extends CActiveRecord {
         $criteria->compare('created', $this->created, true);
         $criteria->compare('modified', $this->modified, true);
         $criteria->compare('done_ratio', $this->done_ratio);
-        $criteria->compare('status', $this->status, true);
+        $criteria->compare('t.status', $this->status, true);
         $criteria->compare('closed', $this->closed);
 
         if (isset($_GET['identifier'])) {
