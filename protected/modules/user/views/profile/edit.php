@@ -161,7 +161,7 @@ $this->breadcrumbs=array(
 		} elseif ($field->field_type=="TEXT") {
 			echo CHtml::activeTextArea($profile,$field->varname,array('rows'=>6, 'cols'=>50));
 		} elseif ($field->varname=="timezone") {
-			echo CHtml::activeDropdownList($profile,$field->varname,$zonelist);
+			echo CHtml::activeDropdownList($profile,$field->varname,$zonelist, array('options' => array('Europe/London'=>array('selected'=>true))));
 		} else {
 			echo CHtml::activeTextField($profile,$field->varname,array('size'=>60,'maxlength'=>(($field->field_size)?$field->field_size:255)));
 		}
