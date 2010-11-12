@@ -48,8 +48,8 @@
                     </div>
                     <div id="header" class="span-14 alt">
                         <div>
-                        <?php if (((Yii::app()->controller->id === 'project') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) : ?>
-                            <h1 class="alt"><?php echo CHtml::encode($_GET['identifier']); ?></h1>
+                        <?php if (((Yii::app()->controller->id === 'project') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['projectname']))) : ?>
+                            <h1 class="alt"><?php echo CHtml::encode($_GET['projectname']); ?></h1>
                         <?php else : ?>
                             <h1 class="alt"><?php echo CHtml::encode(Yii::app()->name); ?></h1>
                         <?php endif; ?>

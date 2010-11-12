@@ -131,7 +131,12 @@ class Project extends CActiveRecord {
         ));
     }
 
-    public static function getProjectIdFromName($identifier) {
+    public static function getProjectNameFromIdentifier($identifier) {
+        $project = Project::model()->find('identifier=?', array($identifier));
+        return $project->name;
+    }
+
+    public static function getProjectIdFromIdentifier($identifier) {
         $project = Project::model()->find('identifier=?', array($identifier));
         return $project->id;
     }
@@ -190,6 +195,24 @@ project_id=:projectId AND user_id=:userId";
         $criteria = new CDbCriteria;
         $criteria->compare('project_id', $this->id, true);
         return User::model()->with('members')->findAll($criteria);
+    }
+
+    public function getVersions() {
+        $criteria = new CDbCriteria;
+        $criteria->compare('project_id', $this->id, true);
+        return Version::model()->findAll($criteria);
+    }
+
+    public function getCategories() {
+        $criteria = new CDbCriteria;
+        $criteria->compare('project_id', $this->id, true);
+        return IssueCategory::model()->findAll($criteria);
+    }
+
+    public function getRepositories() {
+        $criteria = new CDbCriteria;
+        $criteria->compare('project_id', $this->id, true);
+        return Repository::model()->findAll($criteria);
     }
 
 }

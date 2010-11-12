@@ -35,6 +35,7 @@ class ProjectController extends Controller {
 
     public function actionAdduser($identifier) {
         $project = Project::model()->find('identifier=?', array($_GET['identifier']));
+        $_GET['projectname'] = $project->name;
         $form = new ProjectUserForm;
         // collect user input data
         if (isset($_POST['ProjectUserForm'])) {
@@ -64,6 +65,7 @@ class ProjectController extends Controller {
      */
     public function actionView($identifier) {
         $project = Project::model()->find('identifier=?', array($_GET['identifier']));
+        $_GET['projectname'] = $project->name;
         Yii::app()->clientScript->registerLinkTag(
             'alternate',
             'application/rss+xml',
@@ -77,6 +79,7 @@ class ProjectController extends Controller {
 
     public function actionActivity($identifier) {
         $project = Project::model()->find('identifier=?', array($_GET['identifier']));
+        $_GET['projectname'] = $project->name;
         $this->render('activity', array(
             'model' => $project,
         ));
@@ -84,6 +87,7 @@ class ProjectController extends Controller {
 
     public function actionRoadmap($identifier) {
         $project = Project::model()->find('identifier=?', array($_GET['identifier']));
+        $_GET['projectname'] = $project->name;
         $this->render('roadmap', array(
             'model' => $project,
         ));
@@ -98,6 +102,7 @@ class ProjectController extends Controller {
 //	}
     public function actionNewIssue($identifier) {
         $project = Project::model()->find('identifier=?', array($_GET['identifier']));
+        $_GET['projectname'] = $project->name;
         $this->render('newissue', array(
             'model' => $project,
         ));
@@ -105,32 +110,34 @@ class ProjectController extends Controller {
 
     public function actionCode($identifier) {
         $project = Project::model()->find('identifier=?', array($_GET['identifier']));
+        $_GET['projectname'] = $project->name;
         $this->render('code', array(
             'model' => $project,
         ));
     }
 
     public function actionSettings($identifier) {
-        $project = Project::model()->find('identifier=?', array($_GET['identifier']));
+        $info = Project::model()->find('identifier=?', array($_GET['identifier']));
+        $_GET['projectname'] = $info->name;
+        $members = $info->getMembers();
+        $versions = $info->getVersions();
+        $categories = $info->getCategories();
+        $repository = $info->getRepositories();
 
         $tabs = array(
                 array('name' => 'info', 'partial' => 'update', 'label' =>  'Information'),
                 array('name' =>  'members', 'partial' =>  'settings/members', 'label' =>  'Members'),
                 array('name' =>  'versions', 'partial' =>  'settings/versions', 'label' => 'Versions'),
                 array('name' =>  'categories', 'partial' =>  'settings/issue_categories', 'label' =>  'Issue categories'),
-                array('name' =>  'repository', 'partial' =>  'settings/repository', 'label' =>  'Repository'),
+                array('name' =>  'repository', 'partial' =>  'settings/repository', 'label' =>  'Repositories'),
         );
         $selected_tab = $tabs[0]['name'];
         if (isset($_GET['tab'])) {
             $selected_tab = $_GET['tab'];
         }
 
-
-        $this->render('settings', array(
-            'model' => $project,
-            'tabs' => $tabs,
-            'selected_tab' => $selected_tab,
-        ));
+        $this->render('settings', compact('info', 'tabs', 'selected_tab',
+                'members', 'versions', 'categories', 'repository'));
     }
 
     /**
