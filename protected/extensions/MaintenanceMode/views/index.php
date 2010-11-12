@@ -35,7 +35,7 @@
             <div id="mainmenu" class="span-24">
                 <div id="header" class="span-24">
                     <div id="logo" class="span-2">
-                        <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/bugitor_64.png') ?>
+                        <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/bugitor_64.png','Powered by Bugitor', array('title' => 'Powered by Bugitor')) ?>
                     </div>
                     <div id="header" class="span-14 alt">
                         <div>
