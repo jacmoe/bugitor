@@ -33,8 +33,8 @@ class ProjectController extends Controller {
         return $project_list;
     }
 
-    public function actionAdduser($name) {
-        $project = Project::model()->find('name=?', array($_GET['name']));
+    public function actionAdduser($identifier) {
+        $project = Project::model()->find('identifier=?', array($_GET['identifier']));
         $form = new ProjectUserForm;
         // collect user input data
         if (isset($_POST['ProjectUserForm'])) {
@@ -62,8 +62,8 @@ class ProjectController extends Controller {
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
      */
-    public function actionView($name) {
-        $project = Project::model()->find('name=?', array($_GET['name']));
+    public function actionView($identifier) {
+        $project = Project::model()->find('identifier=?', array($_GET['identifier']));
         Yii::app()->clientScript->registerLinkTag(
             'alternate',
             'application/rss+xml',
@@ -75,43 +75,43 @@ class ProjectController extends Controller {
         ));
     }
 
-    public function actionActivity($name) {
-        $project = Project::model()->find('name=?', array($_GET['name']));
+    public function actionActivity($identifier) {
+        $project = Project::model()->find('identifier=?', array($_GET['identifier']));
         $this->render('activity', array(
             'model' => $project,
         ));
     }
 
-    public function actionRoadmap($name) {
-        $project = Project::model()->find('name=?', array($_GET['name']));
+    public function actionRoadmap($identifier) {
+        $project = Project::model()->find('identifier=?', array($_GET['identifier']));
         $this->render('roadmap', array(
             'model' => $project,
         ));
     }
 
-//	public function actionIssues($name)
+//	public function actionIssues($identifier)
 //	{
-//            $project=Project::model()->find('name=?',array($_GET['name']));
+//            $project=Project::model()->find('identifier=?',array($_GET['identifier']));
 //            $this->render('issues',array(
 //			'model'=>$project,
 //		));
 //	}
-    public function actionNewIssue($name) {
-        $project = Project::model()->find('name=?', array($_GET['name']));
+    public function actionNewIssue($identifier) {
+        $project = Project::model()->find('identifier=?', array($_GET['identifier']));
         $this->render('newissue', array(
             'model' => $project,
         ));
     }
 
-    public function actionCode($name) {
-        $project = Project::model()->find('name=?', array($_GET['name']));
+    public function actionCode($identifier) {
+        $project = Project::model()->find('identifier=?', array($_GET['identifier']));
         $this->render('code', array(
             'model' => $project,
         ));
     }
 
-    public function actionSettings($name) {
-        $project = Project::model()->find('name=?', array($_GET['name']));
+    public function actionSettings($identifier) {
+        $project = Project::model()->find('identifier=?', array($_GET['identifier']));
 
         $tabs = array(
                 array('name' => 'info', 'partial' => 'update', 'label' =>  'Information'),
@@ -149,7 +149,7 @@ class ProjectController extends Controller {
             $sReplace = '';
             $model->identifier = preg_replace( $sPattern, $sReplace, strtolower($model->name));
             if ($model->save())
-                $this->redirect(array('view', 'name' => $model->name));
+                $this->redirect(array('view', 'identifier' => $model->identifier));
         }
 
         $this->render('create', array(
@@ -172,7 +172,7 @@ class ProjectController extends Controller {
             $model->attributes = $_POST['Project'];
             if ($model->save()) {
                 Yii::app()->user->setFlash('success',"Project was succesfully updated");
-                $this->redirect(array('settings', 'name' => $model->name, 'tab' => 'info'));
+                $this->redirect(array('settings', 'identifier' => $model->identifier, 'tab' => 'info'));
             }
         }
 

@@ -6,7 +6,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Back To Project', 'url'=>array('view','name'=>$model->project->name)),
+	array('label'=>'Back To Project', 'url'=>array('view','identifier'=>$model->project->identifier)),
 );
 ?>
 

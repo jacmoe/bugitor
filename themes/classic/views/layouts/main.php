@@ -48,8 +48,8 @@
                     </div>
                     <div id="header" class="span-14 alt">
                         <div>
-                        <?php if (((Yii::app()->controller->id === 'project') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['name']))) : ?>
-                            <h1 class="alt"><?php echo CHtml::encode($_GET['name']); ?></h1>
+                        <?php if (((Yii::app()->controller->id === 'project') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) : ?>
+                            <h1 class="alt"><?php echo CHtml::encode($_GET['identifier']); ?></h1>
                         <?php else : ?>
                             <h1 class="alt"><?php echo CHtml::encode(Yii::app()->name); ?></h1>
                         <?php endif; ?>
@@ -67,17 +67,17 @@
                         </div>
                     </div>
                     <div id="mainmenu" class="span-20 last">
-                    <?php if (((Yii::app()->controller->id === 'project') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['name']))) : ?>
+                    <?php if (((Yii::app()->controller->id === 'project') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) : ?>
                     <?php
                                     $this->widget('BugitorMenu', array(
                                         'items' => array(
-                                            array('label' => 'Overview', 'url' => array('/projects/' . $_GET['name']), 'id' => 'project/view'),
-                                            array('label' => 'Activity', 'url' => array('/projects/' . $_GET['name'] . '/activity'), 'id' => 'project/activity'),
-                                            array('label' => 'Roadmap', 'url' => array('/projects/' . $_GET['name'] . '/roadmap'), 'id' => 'project/roadmap'),
-                                            array('label' => 'Issues', 'url' => array('/projects/' . $_GET['name'] . '/issues'), 'id' => 'issue/index'),
-                                            array('label' => 'New Issue', 'url' => array('/projects/' . $_GET['name'] . '/issue/create'), 'visible' => !Yii::app()->user->isGuest, 'id' => 'issue/create'),
-                                            array('label' => 'Code', 'url' => array('/projects/' . $_GET['name'] . '/code'), 'id' => 'project/code'),
-                                            array('label' => 'Settings', 'url' => array('/projects/' . $_GET['name'] . '/settings'), 'visible' => !Yii::app()->user->isGuest, 'id' => 'project/settings'),
+                                            array('label' => 'Overview', 'url' => array('/projects/' . $_GET['identifier']), 'id' => 'project/view'),
+                                            array('label' => 'Activity', 'url' => array('/projects/' . $_GET['identifier'] . '/activity'), 'id' => 'project/activity'),
+                                            array('label' => 'Roadmap', 'url' => array('/projects/' . $_GET['identifier'] . '/roadmap'), 'id' => 'project/roadmap'),
+                                            array('label' => 'Issues', 'url' => array('/projects/' . $_GET['identifier'] . '/issues'), 'id' => 'issue/index'),
+                                            array('label' => 'New Issue', 'url' => array('/projects/' . $_GET['identifier'] . '/issue/create'), 'visible' => !Yii::app()->user->isGuest, 'id' => 'issue/create'),
+                                            array('label' => 'Code', 'url' => array('/projects/' . $_GET['identifier'] . '/code'), 'id' => 'project/code'),
+                                            array('label' => 'Settings', 'url' => array('/projects/' . $_GET['identifier'] . '/settings'), 'visible' => !Yii::app()->user->isGuest, 'id' => 'project/settings'),
                                         ),
                                     )); ?>
                     <?php else : ?>

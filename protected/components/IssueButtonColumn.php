@@ -61,7 +61,7 @@ class IssueButtonColumn extends CGridColumn
 	 * <code>$row</code> the row number (zero-based); <code>$data</code> the data model for the row;
 	 * and <code>$this</code> the column object.
 	 */
-	public $viewButtonUrl='Yii::app()->controller->createUrl("view",array("id"=>$data->id,"name"=>$data->project->name))';
+	public $viewButtonUrl='Yii::app()->controller->createUrl("view",array("id"=>$data->id,"identifier"=>$data->project->identifier))';
 	/**
 	 * @var array the HTML options for the view button tag.
 	 */
@@ -83,7 +83,7 @@ class IssueButtonColumn extends CGridColumn
 	 * <code>$row</code> the row number (zero-based); <code>$data</code> the data model for the row;
 	 * and <code>$this</code> the column object.
 	 */
-	public $updateButtonUrl='Yii::app()->controller->createUrl("update",array("id"=>$data->id,"name"=>$data->project->name))';
+	public $updateButtonUrl='Yii::app()->controller->createUrl("update",array("id"=>$data->id,"identifier"=>$data->project->identifier))';
 	/**
 	 * @var array the HTML options for the update button tag.
 	 */

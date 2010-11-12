@@ -183,8 +183,8 @@ class Issue extends CActiveRecord {
         $criteria->compare('t.status', $this->status, true);
         $criteria->compare('closed', $this->closed);
 
-        if (isset($_GET['name'])) {
-            $project = Project::model()->findByAttributes(array('name' => $_GET['name']));
+        if (isset($_GET['identifier'])) {
+            $project = Project::model()->findByAttributes(array('identifier' => $_GET['identifier']));
             $criteria->compare('t.project_id', $project->id, true);
         }
         return new CActiveDataProvider(get_class($this), array(
