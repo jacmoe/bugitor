@@ -114,9 +114,8 @@
                                 <?php echo $content; ?>
                                         <div class="span-24 alt"><div align="center" class="quiet">
                                         <hr/>
-                                                Copyright &copy; 2010 by Ogitor Team.<br/>
-                                                <a href="http://www.yiiframework.com/" rel="external"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/bugitor_tracker.png" alt="Powered by Bugitor" title="Powered by Bugitor"/></a>
-                                                <br/><a href="http://www.yiiframework.com/" rel="external"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/yii_power_lightblue_white.gif" alt="Made with Yii Framework" title="Made with Yii Framework"/></a>
+                                                Powered by <a href="#">Bugitor</a> &copy; 2010 by Bugitor Team.<br/>
+                                                <a href="http://www.yiiframework.com/" rel="external"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/yii_power_lightblue_white.gif" alt="Made with Yii Framework" title="Made with Yii Framework"/></a>
                                                 <hr/></div>
             </div>
         </div>
