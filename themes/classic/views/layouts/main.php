@@ -29,7 +29,6 @@
                 </div>
                 <div id="topmenu" class="span-8 last">
                     <span class="right">
-                    <?php echo date("d.m.Y H:i:s", Yii::app()->timezonekeeper->serverToUser(time()));?>
                     <?php
                         $this->widget('BugitorMenu', array(
                             'items' => array(
@@ -112,6 +111,9 @@
                                 <?php
                                         endif;
                                     endforeach; ?>
+                    <?php echo Yii::app()->setLanguage('en_gb'); ?>
+                    <?php echo Yii::app()->dateFormatter->formatDateTime(date("Y-m-d H:i:s", Yii::app()->timezonekeeper->serverToUser(time())),'short'); ?>
+                    <?php echo date("Y-m-d H:i:s", Yii::app()->timezonekeeper->serverToUser(time()));?>
                                 <?php echo $content; ?>
                                         <div class="span-24 alt"><div align="center" class="quiet">
                                         <hr/>
