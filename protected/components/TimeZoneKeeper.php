@@ -14,16 +14,16 @@ class TimeZoneKeeper extends CComponent{
         }
 
         public function serverToUser($timestamp){
-                $this->userTimezone = new DateTimeZone('Europe/copenhagen'/*Yii::app()->user->tz*/);
+                $this->userTimezone = new DateTimeZone(Yii::app()->getModule('user')->user()->profile->getAttribute('timezone'));
                 $serverDateTime = new DateTime("@".$timestamp);
                 $offset = $this->userTimezone->getOffset($serverDateTime);
                 return ($serverDateTime->format('U') + $offset);
         }
 
         public function userToServer($timestamp){
-                $this->userTimezone = new DateTimeZone('Europe/copenhagen'/*Yii::app()->user->tz*/);
+                $this->userTimezone = new DateTimeZone(Yii::app()->getModule('user')->user()->profile->getAttribute('timezone'));
                 $userDateTime = new DateTime("@".$timestamp);
-                $offset = $this->userTimezone->getOffset($userDateTime);
+                $offset = $this->serverTimezone->getOffset($userDateTime);
                 return ($userDateTime->format('U') - $offset);
         }
 

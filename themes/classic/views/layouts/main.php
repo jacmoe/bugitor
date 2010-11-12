@@ -29,7 +29,8 @@
                 </div>
                 <div id="topmenu" class="span-8 last">
                     <span class="right">
-                        <?php
+                    <?php echo date("d.m.Y H:i:s", Yii::app()->timezonekeeper->serverToUser(time()));?>
+                    <?php
                         $this->widget('BugitorMenu', array(
                             'items' => array(
                                 array('url' => Yii::app()->getModule('user')->loginUrl, 'label' => Yii::app()->getModule('user')->t("Login"), 'visible' => Yii::app()->user->isGuest, 'id' => 'user/login/login'),
