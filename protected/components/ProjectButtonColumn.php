@@ -61,7 +61,7 @@ class ProjectButtonColumn extends CGridColumn
 	 * <code>$row</code> the row number (zero-based); <code>$data</code> the data model for the row;
 	 * and <code>$this</code> the column object.
 	 */
-	public $viewButtonUrl='Yii::app()->controller->createUrl("view",array("name"=>$data->name))';
+	public $viewButtonUrl='Yii::app()->controller->createUrl("view",array("identifier"=>$data->identifier))';
 	/**
 	 * @var array the HTML options for the view button tag.
 	 */

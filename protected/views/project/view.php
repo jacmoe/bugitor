@@ -12,7 +12,7 @@ $this->menu=array(
 	array('label'=>'Update Project', 'url'=>array('update', 'id'=>$model->id), 'visible' => Yii::app()->user->checkAccess('Project.Update')),
 	array('label'=>'Delete Project', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?'), 'visible' => Yii::app()->user->checkAccess('Project.Delete')),
 	array('label'=>'Manage Projects', 'url'=>array('admin'), 'visible' => Yii::app()->user->checkAccess('Project.Admin')),
-	array('label'=>'Add Users', 'url'=>array('adduser', 'name' => $_GET['name']), 'visible' => Yii::app()->user->checkAccess('Project.Adduser')),
+	array('label'=>'Add Users', 'url'=>array('adduser', 'identifier' => $_GET['identifier']), 'visible' => Yii::app()->user->checkAccess('Project.Adduser')),
 );
 ?>
 

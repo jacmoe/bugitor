@@ -55,8 +55,8 @@ class IssueController extends Controller {
         $model = new Issue;
 
         $project_name = '';
-        if (isset($_GET['name']))
-            $project_name = $_GET['name'] . ' - ';
+        if (isset($_GET['identifier']))
+            $project_name = $_GET['identifier'] . ' - ';
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
@@ -64,7 +64,7 @@ class IssueController extends Controller {
             $model->attributes = $_POST['Issue'];
             if ($model->save()) {
                 Yii::app()->user->setFlash('success',"Issue was succesfully created");
-                $this->redirect(array('view', 'id' => $model->id, 'name' => $model->project->name));
+                $this->redirect(array('view', 'id' => $model->id, 'identifier' => $model->project->identifier));
             } else {
                 Yii::app()->user->setFlash('error',"There was an error creating the issue.");
             }
@@ -93,7 +93,7 @@ class IssueController extends Controller {
             $model->attributes = $_POST['Issue'];
             if ($model->save()) {
                 Yii::app()->user->setFlash('success',"Issue was succesfully updated");
-                $this->redirect(array('view', 'id' => $model->id, 'name' => $model->project->name));
+                $this->redirect(array('view', 'id' => $model->id, 'identifier' => $model->project->identifier));
             } else {
                 Yii::app()->user->setFlash('error',"There was an error updating the issue");
             }
@@ -169,8 +169,8 @@ class IssueController extends Controller {
     public function getVersions() {
         $Criteria = new CDbCriteria();
         $Criteria->select = "name";
-        if (isset($_GET['name'])) {
-            $Criteria->compare('project_id', $this->getProject($_GET['name']), true);
+        if (isset($_GET['identifier'])) {
+            $Criteria->compare('project_id', $this->getProject($_GET['identifier']), true);
         }
         $results = Version::model()->findAll($Criteria);
         $version_list = array();
@@ -183,8 +183,8 @@ class IssueController extends Controller {
     public function getCategories() {
         $Criteria = new CDbCriteria();
         $Criteria->select = "name";
-        if (isset($_GET['name'])) {
-            $Criteria->compare('project_id', $this->getProject($_GET['name']), true);
+        if (isset($_GET['identifier'])) {
+            $Criteria->compare('project_id', $this->getProject($_GET['identifier']), true);
         }
         $results = IssueCategory::model()->findAll($Criteria);
         $category_list = array();
@@ -197,7 +197,7 @@ class IssueController extends Controller {
     /**
      * Lists all models.
      */
-    public function actionIndex($name = '') {
+    public function actionIndex($identifier = '') {
         $model = new Issue('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Issue']))
@@ -246,8 +246,8 @@ class IssueController extends Controller {
         return $model;
     }
 
-    private function getProject($name) {
-        $project = Project::model()->findByAttributes(array('name' => $name));
+    private function getProject($identifier) {
+        $project = Project::model()->findByAttributes(array('identifier' => $identifier));
         return $project->id;
     }
 

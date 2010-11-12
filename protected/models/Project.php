@@ -131,8 +131,8 @@ class Project extends CActiveRecord {
         ));
     }
 
-    public static function getProjectIdFromName($name) {
-        $project = Project::model()->find('name=?', array($name));
+    public static function getProjectIdFromName($identifier) {
+        $project = Project::model()->find('identifier=?', array($identifier));
         return $project->id;
     }
 

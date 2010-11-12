@@ -75,7 +75,7 @@
         </div>
 	<div class="row">
 		<?php echo $form->hiddenField($model,'user_id', array('value' => Yii::app()->getModule('user')->user()->id)); ?>
-		<?php echo $form->hiddenField($model,'project_id', array('value' => Project::getProjectIdFromName($_GET['name']))); ?>
+		<?php echo $form->hiddenField($model,'project_id', array('value' => Project::getProjectIdFromName($_GET['identifier']))); ?>
 	</div>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

@@ -6,9 +6,9 @@ $this->pageTitle = $model->name . ' - Settings - ' . Yii::app()->name;
 <ul>
 <?php foreach($tabs as $tab): ?>
 <?php if($tab['name'] == $selected_tab): ?>
-    <li><?php echo CHtml::link($tab['label'], '/projects/'.$_GET['name'].'/settings'.'?tab='.$tab['name'], array('class' => 'selected')); ?></li>
+    <li><?php echo CHtml::link($tab['label'], '/projects/'.$_GET['identifier'].'/settings'.'?tab='.$tab['name'], array('class' => 'selected')); ?></li>
 <?php else : ?>
-    <li><?php echo CHtml::link($tab['label'], '/projects/'.$_GET['name'].'/settings'.'?tab='.$tab['name']); ?></li>
+    <li><?php echo CHtml::link($tab['label'], '/projects/'.$_GET['identifier'].'/settings'.'?tab='.$tab['name']); ?></li>
 <?php endif; ?>
 <?php endforeach; ?>
 </ul>
