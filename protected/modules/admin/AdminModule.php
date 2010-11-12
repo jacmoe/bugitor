@@ -12,7 +12,7 @@ class AdminModule extends CWebModule
 			'admin.models.*',
 			'admin.components.*',
 		));
-                $this->layout = 'admin';
+                $this->layout = '//admin/layouts/main1';
 	}
 
 	public function beforeControllerAction($controller, $action)
@@ -21,7 +21,8 @@ class AdminModule extends CWebModule
 		{
 			// this method is called before any module controller action is performed
 			// you may place customized code here
-			return true;
+                        $controller->layout = 'main';
+                        return true;
 		}
 		else
 			return false;
