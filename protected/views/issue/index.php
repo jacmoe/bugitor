@@ -14,7 +14,7 @@
                     'header' => 'Id',
                     'type' => 'raw',
                     'filter' => '',
-                    'value' => 'CHtml::link(CHtml::encode($data->id),array("view","id"=>$data->id, "name"=>$data->project->name))',
+                    'value' => 'CHtml::link(CHtml::encode($data->id),array("view","id"=>$data->id, "identifier"=>$data->project->identifier))',
                     'htmlOptions'=>array('width'=>'5'),
                     ),
                 array(
@@ -44,7 +44,7 @@
                 array(
                     'name' => 'subject',
                     'type' => 'raw',
-                    'value' => 'CHtml::link(CHtml::encode($data->subject),array("view","id"=>$data->id, "name"=>$data->project->name),array("title" => $data->description))',
+                    'value' => 'CHtml::link(CHtml::encode($data->subject),array("view","id"=>$data->id, "identifier"=>$data->project->identifier),array("title" => $data->description))',
                     'htmlOptions'=>array('width'=>'25%'),
                 ),
                 array(
