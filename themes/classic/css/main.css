@@ -1,13 +1,12 @@
-/*#mainmenu li a {
-  display: block;
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-  margin: 0;
-  padding: 4px 10px 4px 10px;
-}*/
-/*#mainmenu li a:hover {background:#759FCF; color:#fff;}*/
-/*#mainmenu li a.selected, #main-menu li a.selected:hover {background:#fff; color:#555;}*/
+#content
+{
+    padding: 20px;
+}
+
+#sidebar
+{
+	padding: 20px 20px 20px 0;
+}
 
 #mainmenu
 {
