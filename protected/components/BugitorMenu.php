@@ -59,6 +59,8 @@ class BugitorMenu extends CMenu {
                 return true;
             if(($route === 'issue/update')&&($item['id'] === 'issue/index'))
                 return true;
+            if((Yii::app()->controller->module->id === 'rights')&&($item['id'] === 'rights'))
+                return true;
             return false;
         }
         return false;
