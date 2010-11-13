@@ -67,32 +67,21 @@
                         </div>
                     </div>
                     <div id="mainmenu" class="span-20 last">
-                    <?php if (((Yii::app()->controller->id === 'project') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) : ?>
-                    <?php
-                                    $this->widget('BugitorMenu', array(
-                                        'items' => array(
-                                            array('label' => 'Overview', 'url' => array('/projects/' . $_GET['identifier']), 'id' => 'project/view'),
-                                            array('label' => 'Activity', 'url' => array('/projects/' . $_GET['identifier'] . '/activity'), 'id' => 'project/activity'),
-                                            array('label' => 'Roadmap', 'url' => array('/projects/' . $_GET['identifier'] . '/roadmap'), 'id' => 'project/roadmap'),
-                                            array('label' => 'Issues', 'url' => array('/projects/' . $_GET['identifier'] . '/issues'), 'id' => 'issue/index'),
-                                            array('label' => 'New Issue', 'url' => array('/projects/' . $_GET['identifier'] . '/issue/create'), 'visible' => !Yii::app()->user->isGuest, 'id' => 'issue/create'),
-                                            array('label' => 'Code', 'url' => array('/projects/' . $_GET['identifier'] . '/code'), 'id' => 'project/code'),
-                                            array('label' => 'Settings', 'url' => array('/projects/' . $_GET['identifier'] . '/settings'), 'visible' => !Yii::app()->user->isGuest, 'id' => 'project/settings'),
-                                        ),
-                                    )); ?>
-                    <?php else : ?>
                     <?php
                                         $this->widget('BugitorMenu', array(
                                             'items' => array(
-                                                array('label' => 'Rights', 'url' => array('/rights'), 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
+                                                array('label' => 'Admin Home', 'url' => array('/admin/default/index'), 'id' => 'admin/default/index', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
+                                                array('label' => 'Projects', 'url' => array('/admin'), 'id' => '/admin/projecs', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
+                                                array('label' => 'Users', 'url' => array('/admin'), 'id' => 'admin/user', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
+                                                array('label' => 'Roles and Rights', 'url' => array('/rights'), 'id' => '/rights', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
+                                                array('label' => 'Global Settings', 'url' => array('/admin'), 'id' => '/admin/settings', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
+                                                array('label' => 'Information', 'url' => array('/admin'), 'id' => '/admin/information', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
                                             ),
                                         )); ?>
-                    <?php endif; ?>
                                     </div>
                                 </div>
-                                <div class="clear">
                                     <br/>
-                                </div>
+                                    <div class="break"></div>
             <?php echo $content; ?>
                                         <div class="span-24 alt"><div align="center" class="quiet">
                                         <hr/>
