@@ -2,6 +2,13 @@
     $this->pageTitle = isset($_GET['projectname']) ? $_GET['projectname'] . '- Issues - ' . Yii::app()->name : Yii::app()->name . ' - Issues';
     $pageSize=Yii::app()->user->getState('pageSize',Yii::app()->params['defaultPageSize']);
 ?>
+<?php echo CHtml::form('issues','get'); ?>
+Show:
+<?php echo CHtml::dropDownList('issueFilter',
+    isset($_GET['issueFilter'])?(int)$_GET['issueFilter']:1,
+    $issueFilter,
+    array('empty'=>'All Issues', 'submit'=>'')); ?>
+<?php echo CHtml::endForm(); ?>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'issue-grid',

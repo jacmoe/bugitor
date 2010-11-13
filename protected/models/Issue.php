@@ -187,6 +187,17 @@ class Issue extends CActiveRecord {
             $project = Project::model()->findByAttributes(array('identifier' => $_GET['identifier']));
             $criteria->compare('t.project_id', $project->id, true);
         }
+        if (isset($_GET['issueFilter'])) {
+            if((int)$_GET['issueFilter']===1) {
+                $criteria->compare('t.closed', 0, true);
+            }
+            elseif((int)$_GET['issueFilter']===2) {
+                $criteria->compare('t.closed', 1, true);
+            }
+        } else {
+            $criteria->compare('t.closed', 0, true);
+        }
+
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
             'sort'=>array('defaultOrder'=>'t.modified DESC'),
