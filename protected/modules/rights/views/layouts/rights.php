@@ -1,4 +1,4 @@
-<?php $this->beginContent('application.views.layouts.main'); ?>
+<?php $this->beginContent('application.modules.admin.views.layouts.main'); ?>
 
 <div id="rights" class="container">
 
