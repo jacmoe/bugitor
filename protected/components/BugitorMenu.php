@@ -50,8 +50,6 @@ class BugitorMenu extends CMenu {
      * @return boolean whether the menu item is active
      */
     protected function isItemActive($item, $route) {
-        //echo $route;
-        //echo '<br>';
         if (isset($item['id'])) {
             if($route === $item['id'])
                 return true;
@@ -59,8 +57,10 @@ class BugitorMenu extends CMenu {
                 return true;
             if(($route === 'issue/update')&&($item['id'] === 'issue/index'))
                 return true;
-            if((Yii::app()->controller->module->id === 'rights')&&($item['id'] === 'rights'))
-                return true;
+            if(isset(Yii::app()->controller->module)){
+                if((Yii::app()->controller->module->id === 'rights')&&($item['id'] === 'rights'))
+                    return true;
+                }
             return false;
         }
         return false;
