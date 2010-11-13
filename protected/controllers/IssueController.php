@@ -207,6 +207,9 @@ class IssueController extends Controller {
     public function actionIndex($identifier = '') {
         if($identifier !== '') $_GET['projectname'] = Project::getProjectNameFromIdentifier($identifier);
 
+        $issueFilter = array('1' => 'Open Issues', '2' => 'Closed Issues');
+        //$_GET['issueFilter'] = '1';
+
         $model = new Issue('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Issue']))
@@ -219,6 +222,7 @@ class IssueController extends Controller {
         }
         $this->render('index', array(
             'model' => $model,
+            'issueFilter' => $issueFilter,
         ));
     }
 
