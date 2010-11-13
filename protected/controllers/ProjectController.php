@@ -24,11 +24,11 @@ class ProjectController extends Controller {
 
     public function getProjects() {
         $Criteria = new CDbCriteria();
-        $Criteria->select = "name";
+        $Criteria->select = "name, identifier";
         $results = Project::model()->findAll($Criteria);
         $project_list = array();
         foreach ($results as $result) {
-            $project_list[$result->name] = $result->name;
+            $project_list[$result->identifier] = $result->name;
         }
         return $project_list;
     }

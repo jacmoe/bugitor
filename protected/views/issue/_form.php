@@ -37,7 +37,11 @@
             </div>
             <div class="row">
                     <?php echo $form->labelEx($model,'status'); ?>
-                    <?php echo $form->dropDownList($model,'status',SWHelper::nextStatuslistData($model)); ?>
+                    <?php if($model->isNewRecord) : ?>
+                        <?php echo $form->dropDownList($model,'status',array('swIssue/new' => 'New*')); ?>
+                    <?php else : ?>
+                        <?php echo $form->dropDownList($model,'status',SWHelper::nextStatuslistData($model)); ?>
+                    <?php endif; ?>
                     <?php echo $form->error($model,'status'); ?>
             </div>
             <div class="row">
