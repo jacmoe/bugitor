@@ -111,10 +111,6 @@
                                 <?php
                                         endif;
                                     endforeach; ?>
-                    <?php echo Yii::app()->setLanguage('en_gb'); ?>
-                    <?php echo Yii::app()->dateFormatter->formatDateTime(date("Y-m-d H:i:s", Yii::app()->timezonekeeper->serverToUser(time())),'short'); ?>
-                    <?php echo date("Y-m-d H:i:s", Yii::app()->timezonekeeper->serverToUser(time()));?>
-                    <?php echo Yii::app()->dateFormatter->formatDateTime(date("Y-m-d H:i:s", time()),'short'); ?>
                                 <?php echo $content; ?>
                                         <div class="span-24 alt"><div align="center" class="quiet">
                                         <hr/>
