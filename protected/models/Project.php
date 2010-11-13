@@ -191,7 +191,7 @@ user_id) VALUES (:projectId, :userId)";
 	$model = User::model()->findByPk($userId);
         $model->attachBehavior('rights', new RightsUserBehavior);
         Yii::app()->getModule('rights')->getAuthorizer()->authManager->assign($role, $model->getId());
-        $item = Yii::app()->getModule('rights')->getAuthorizer()->authManager->getAuthItem($role);
+        //$item = Yii::app()->getModule('rights')->getAuthorizer()->authManager->getAuthItem($role);
         //echo $item->getNameText();
     }
 

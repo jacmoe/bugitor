@@ -45,6 +45,13 @@ class RegistrationController extends Controller
 						if ($model->save()) {
 							$profile->user_id=$model->id;
 							$profile->save();
+
+                                                        // Assign to default role
+                                                        $model->attachBehavior('rights', new RightsUserBehavior);
+                                                        Yii::app()->getModule('rights')->getAuthorizer()->authManager->assign('User', $model->getId());
+                                                        $auth = Yii::app()->authManager;
+                                                        $auth->assign('User',$model->id);
+
 							if (Yii::app()->controller->module->sendActivationMail) {
 								$activation_url = 'http://' . $_SERVER['HTTP_HOST'].$this->createUrl('/user/activation/activation',array("activkey" => $model->activkey, "email" => $model->email));
 								UserModule::sendMail($model->email,UserModule::t("You registered from {site_name}",array('{site_name}'=>Yii::app()->name)),UserModule::t("Please activate you account go to {activation_url}",array('{activation_url}'=>$activation_url)));
