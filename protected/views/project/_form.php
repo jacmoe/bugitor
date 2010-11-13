@@ -19,16 +19,21 @@
 	<div class="row">
 		<?php echo $form->labelEx($model,'description'); ?>
 		<?php $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
-			// you can either use it for model attribute
 			'model' => $model,
 			'attribute' => 'description',
-			// or just for input field
-			//'name' => 'my_input_name',
 		))?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
 
-	<div class="row">
+	<?php if(!$model->isNewRecord) :?>
+        <div class="row">
+		<?php echo $form->labelEx($model,'identifier'); ?>
+		<?php echo $form->textField($model,'identifier',array('size'=>60,'maxlength'=>255,'disabled' => true)); ?>
+		<?php echo $form->error($model,'identifier'); ?>
+	</div>
+        <?php endif; ?>
+	
+        <div class="row">
 		<?php echo $form->labelEx($model,'homepage'); ?>
 		<?php echo $form->textField($model,'homepage',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'homepage'); ?>
@@ -36,7 +41,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'public'); ?>
-		<?php echo $form->textField($model,'public'); ?>
+		<?php echo $form->checkBox($model,'public'); ?>
 		<?php echo $form->error($model,'public'); ?>
 	</div>
 

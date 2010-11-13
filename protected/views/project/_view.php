@@ -17,7 +17,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('public')); ?>:</b>
-	<?php echo CHtml::encode($data->public); ?>
+	<?php echo Yii::app()->format->boolean($data->public); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('created')); ?>:</b>
