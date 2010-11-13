@@ -17,6 +17,7 @@
  * @property string $created
  * @property string $modified
  * @property integer $done_ratio
+ * @property integer $pre_done_ratio
  * @property string $status
  * @property integer $closed
  *
@@ -56,11 +57,18 @@ class Issue extends CActiveRecord {
         }
         if($reopen) {
             $this->closed = 0;
+            $this->done_ratio = $this->pre_done_ratio;
         }
     }
     
-    public function markAsClosed() {
+    public function markAsClosed($rejected = false) {
         $this->closed = 1;
+        $this->pre_done_ratio = $this->done_ratio;
+        if($rejected) {
+            $this->done_ratio = 0;
+        } else {
+            $this->done_ratio = 100;
+        }
     }
 
     /**
@@ -110,13 +118,13 @@ class Issue extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('subject, description, user_id, status, issue_priority_id, tracker_id', 'required'),
-            array('tracker_id, project_id, issue_category_id, user_id, issue_priority_id, version_id, assigned_to, done_ratio, closed', 'numerical', 'integerOnly' => true),
+            array('tracker_id, project_id, issue_category_id, user_id, issue_priority_id, version_id, assigned_to, done_ratio, pre_done_ratio, closed', 'numerical', 'integerOnly' => true),
             array('subject', 'length', 'max' => 255),
             array('status', 'SWValidator'),
             array('created, modified', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, tracker_id, project_id, subject, description, issue_category_id, user_id, issue_priority_id, version_id, assigned_to, created, modified, done_ratio, status, closed', 'safe', 'on' => 'search'),
+            array('id, tracker_id, project_id, subject, description, issue_category_id, user_id, issue_priority_id, version_id, assigned_to, created, modified, done_ratio, pre_done_ratio, status, closed', 'safe', 'on' => 'search'),
         );
     }
 
@@ -159,6 +167,7 @@ class Issue extends CActiveRecord {
             'created' => 'Created',
             'modified' => 'Modified',
             'done_ratio' => 'Done Ratio',
+            'pre_done_ratio' => 'Done Ratio on close',
             'status' => 'Status',
             'closed' => 'Closed',
         );
