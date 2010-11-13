@@ -48,13 +48,21 @@ class Issue extends CActiveRecord {
         return '{{issue}}';
     }
 
-    public function sendAssignedNotice($isAssigned = true) {
+    public function sendAssignedNotice($isAssigned = true, $reopen = false) {
         if($isAssigned) {
             Yii::app()->user->setFlash('success',"Sending Assignment notice!");
         } else {
             Yii::app()->user->setFlash('notice',"Sending Unassignment notice!");
         }
+        if($reopen) {
+            $this->closed = 0;
+        }
     }
+    
+    public function markAsClosed() {
+        $this->closed = 1;
+    }
+
     /**
      * Prepares create_time, create_user_id, update_time and update_user_id attributes before performing validation.
      */
