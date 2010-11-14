@@ -186,7 +186,7 @@ class Issue extends CActiveRecord {
         $criteria->with = array('user', 'project', 'tracker', 'issuePriority', 'assignedTo', 'version', 'issueCategory');
         $criteria->compare('id', $this->id);
         $criteria->compare('tracker.name', $this->tracker_id);
-        $criteria->compare('User.username', $this->user_id);
+        $criteria->compare('user.username', $this->user_id);
         $criteria->compare('project.name', $this->project_id);
         $criteria->compare('subject', $this->subject, true);
         $criteria->compare('description', $this->description, true);
