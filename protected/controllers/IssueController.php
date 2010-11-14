@@ -140,7 +140,7 @@ class IssueController extends Controller {
         return $project_list;
     }
 
-    public function getTrackers() {
+    public function getTrackerFilter() {
         $Criteria = new CDbCriteria();
         $Criteria->select = "name";
         $results = Tracker::model()->findAll($Criteria);
@@ -151,7 +151,7 @@ class IssueController extends Controller {
         return $tracker_list;
     }
 
-    public function getPriorities() {
+    public function getPriorityFilter() {
         $Criteria = new CDbCriteria();
         $Criteria->select = "name";
         $results = IssuePriority::model()->findAll($Criteria);
@@ -162,7 +162,7 @@ class IssueController extends Controller {
         return $priority_list;
     }
 
-    public function getUsers() {
+    public function getUserFilter() {
         $Criteria = new CDbCriteria();
         $Criteria->select = "username";
         $results = User::model()->findAll($Criteria);
@@ -173,7 +173,7 @@ class IssueController extends Controller {
         return $user_list;
     }
 
-    public function getVersions() {
+    public function getVersionFilter() {
         $Criteria = new CDbCriteria();
         $Criteria->select = "name";
         if (isset($_GET['identifier'])) {
@@ -187,7 +187,7 @@ class IssueController extends Controller {
         return $version_list;
     }
 
-    public function getCategories() {
+    public function getCategoryFilter() {
         $Criteria = new CDbCriteria();
         $Criteria->select = "name";
         if (isset($_GET['identifier'])) {
@@ -197,6 +197,67 @@ class IssueController extends Controller {
         $category_list = array();
         foreach ($results as $result) {
             $category_list[$result->name] = $result->name;
+        }
+        return $category_list;
+    }
+
+    public function getTrackerSelectList() {
+        $Criteria = new CDbCriteria();
+        $Criteria->select = "name, id";
+        $results = Tracker::model()->findAll($Criteria);
+        $tracker_list = array();
+        foreach ($results as $result) {
+            $tracker_list[$result->id] = $result->name;
+        }
+        return $tracker_list;
+    }
+
+    public function getPrioritySelectList() {
+        $Criteria = new CDbCriteria();
+        $Criteria->select = "name, id";
+        $results = IssuePriority::model()->findAll($Criteria);
+        $priority_list = array();
+        foreach ($results as $result) {
+            $priority_list[$result->id] = $result->name;
+        }
+        return $priority_list;
+    }
+
+    public function getUserSelectList() {
+        $Criteria = new CDbCriteria();
+        $Criteria->select = "username, id";
+        $results = User::model()->findAll($Criteria);
+        $user_list = array();
+        foreach ($results as $result) {
+            $user_list[$result->id] = $result->username;
+        }
+        return $user_list;
+    }
+
+    public function getVersionSelectList() {
+        $Criteria = new CDbCriteria();
+        $Criteria->select = "name, id";
+        if (isset($_GET['identifier'])) {
+            $Criteria->compare('project_id', $this->getProject($_GET['identifier']), true);
+        }
+        $results = Version::model()->findAll($Criteria);
+        $version_list = array();
+        foreach ($results as $result) {
+            $version_list[$result->id] = $result->name;
+        }
+        return $version_list;
+    }
+
+    public function getCategorySelectList() {
+        $Criteria = new CDbCriteria();
+        $Criteria->select = "name, id";
+        if (isset($_GET['identifier'])) {
+            $Criteria->compare('project_id', $this->getProject($_GET['identifier']), true);
+        }
+        $results = IssueCategory::model()->findAll($Criteria);
+        $category_list = array();
+        foreach ($results as $result) {
+            $category_list[$result->id] = $result->name;
         }
         return $category_list;
     }

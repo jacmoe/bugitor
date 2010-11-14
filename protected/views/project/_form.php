@@ -21,6 +21,7 @@
 		<?php $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
 			'model' => $model,
 			'attribute' => 'description',
+                        'htmlOptions'=>array('style'=>'height:150px;')
 		))?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
