@@ -14,7 +14,7 @@ $this->menu=array(
 );
 ?>
 <div class="contextual" id="contextual">
-<?php echo CHtml::link('Update', array('update', 'id' => $model->id, 'identifier' => $model->project->identifier), array('class' => 'icon icon-edit')) ?>
+<?php if(Yii::app()->user->checkAccess('Issue.Update')) echo CHtml::link('Update', array('update', 'id' => $model->id, 'identifier' => $model->project->identifier), array('class' => 'icon icon-edit')) ?>
 </div>
 <h2><?php echo $model->tracker->name . ' #' . $model->id; ?></h2>
 <div class="issue">

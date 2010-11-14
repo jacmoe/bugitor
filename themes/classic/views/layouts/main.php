@@ -80,7 +80,7 @@
                                             array('label' => 'Issues', 'url' => array('/projects/' . $_GET['identifier'] . '/issues'), 'id' => 'issue/index'),
                                             array('label' => 'New Issue', 'url' => array('/projects/' . $_GET['identifier'] . '/issue/create'), 'visible' => !Yii::app()->user->isGuest, 'id' => 'issue/create'),
                                             array('label' => 'Code', 'url' => array('/projects/' . $_GET['identifier'] . '/code'), 'id' => 'project/code'),
-                                            array('label' => 'Settings', 'url' => array('/projects/' . $_GET['identifier'] . '/settings'), 'visible' => !Yii::app()->user->isGuest, 'id' => 'project/settings'),
+                                            array('label' => 'Settings', 'url' => array('/projects/' . $_GET['identifier'] . '/settings'), 'visible' => Yii::app()->user->checkAccess('Project.Settings')===true, 'id' => 'project/settings'),
                                         ),
                                     )); ?>
                     <?php else : ?>
