@@ -38,7 +38,7 @@ class VersionController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($identifier)
 	{
 		$model=new Version;
 
@@ -49,7 +49,7 @@ class VersionController extends Controller
 		{
 			$model->attributes=$_POST['Version'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'versions'));
 		}
 
 		$this->render('create',array(
@@ -62,7 +62,7 @@ class VersionController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate($id)
+	public function actionUpdate($id, $identifier)
 	{
 		$model=$this->loadModel($id);
 
@@ -73,7 +73,7 @@ class VersionController extends Controller
 		{
 			$model->attributes=$_POST['Version'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'versions'));
 		}
 
 		$this->render('update',array(
@@ -86,16 +86,22 @@ class VersionController extends Controller
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionDelete($id)
+	public function actionDelete($id, $identifier)
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			//TODO: check if the version is in use!!
+                        $issue = Issue::model()->findByAttributes(array('version_id' => $id));
+                        if(!$issue) {
+                            $this->loadModel($id)->delete();
+                        } else {
+                            Yii::app()->user->setFlash('info',"Version is in use");
+                        }
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+				$this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'versions'));
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');

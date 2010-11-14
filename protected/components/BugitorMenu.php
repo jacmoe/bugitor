@@ -53,6 +53,8 @@ class BugitorMenu extends CMenu {
         if (isset($item['id'])) {
             if($route === $item['id'])
                 return true;
+            if(($route === 'project/addUser')&&($item['id'] === 'project/settings'))
+                return true;
             if(($route === 'issue/view')&&($item['id'] === 'issue/index'))
                 return true;
             if(($route === 'issue/update')&&($item['id'] === 'issue/index'))
@@ -61,6 +63,12 @@ class BugitorMenu extends CMenu {
                 if((Yii::app()->controller->module->id === 'rights')&&($item['id'] === 'rights'))
                     return true;
                 }
+            if((Yii::app()->controller->id === 'version')&&($item['id'] === 'project/settings')) {
+                return true;
+            }
+            if((Yii::app()->controller->id === 'issuecategory')&&($item['id'] === 'project/settings')) {
+                return true;
+            }
             return false;
         }
         return false;

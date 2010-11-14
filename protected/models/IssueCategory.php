@@ -6,6 +6,7 @@
  * The followings are the available columns in table '{{issue_category}}':
  * @property integer $id
  * @property string $name
+ * @property string $description
  * @property integer $project_id
  *
  * The followings are the available model relations:
@@ -38,15 +39,27 @@ class IssueCategory extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'required'),
+			array('name, description', 'required'),
 			array('name', 'length', 'max'=>45),
+			array('description', 'length', 'max'=>255),
+			array('name', 'isinproject'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, project_id', 'safe', 'on'=>'search'),
+			array('id, name, description, project_id', 'safe', 'on'=>'search'),
 		);
 	}
 
-	/**
+        public function isinproject($attribute, $params) {
+            if($this->isNewRecord) {
+                $criteria = new CDbCriteria;
+                $criteria->compare('project_id', $this->project_id, true);
+                $criteria->compare('name', $this->name, true);
+                $results = IssueCategory::model()->findAll($criteria);
+                if($results)
+                    $this->addError($attribute, 'There is already a category of that name in this project.');
+            }
+        }
+        /**
 	 * @return array relational rules.
 	 */
 	public function relations()
@@ -66,6 +79,7 @@ class IssueCategory extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
+			'description' => 'Description',
 		);
 	}
 
@@ -82,6 +96,7 @@ class IssueCategory extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
+		$criteria->compare('description',$this->description,true);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,

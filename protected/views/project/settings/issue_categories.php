@@ -1,7 +1,5 @@
-<?php
-$this->pageTitle = $name . ' - Settings - Issue Categories';
-?>
 <h3>Issue Categories</h3>
+<?php if (!empty($model)) : ?>
 <table class="list" width="60%">
   <thead width="60">
   <tr>
@@ -22,13 +20,16 @@ $this->pageTitle = $name . ' - Settings - Issue Categories';
     <td width="20"><?php echo CHtml::encode($category->name); ?></td>
     <td width="20"><?php echo CHtml::encode($category->description); ?></td>
     <td width="20">
-      <?php echo CHtml::link('Update',array('update','id'=>$category->id)); ?>
+      <?php echo CHtml::link('Update',array('issuecategory/update','id'=>$category->id, 'identifier' => $_GET['identifier'])); ?>
       <?php echo CHtml::linkButton('Delete',array(
-      	  'submit'=>'',
-      	  'params'=>array('command'=>'delete','id'=>$category->id),
-      	  'confirm'=>"Are you sure to delete #{$category->id}?")); ?>
+      	  'submit'=>array('/issuecategory/delete', 'id' => $category->id, 'identifier' => $_GET['identifier']),
+      	  'confirm'=>"Are you sure you want to delete {$category->name}?")); ?>
 	</td>
   </tr>
 <?php endforeach; ?>
   </tbody>
 </table>
+<?php else: ?>
+<p class="nodata"><?php echo 'No data to display'; ?></p>
+<?php endif; ?>
+<?php echo CHtml::link('New Category',array('issuecategory/create','identifier'=>$_GET['identifier'])); ?>

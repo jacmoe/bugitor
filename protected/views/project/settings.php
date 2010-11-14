@@ -1,5 +1,9 @@
 <?php
-$this->pageTitle = $info->name . ' - Settings - ' . Yii::app()->name;
+if(isset($_GET['tab'])) {
+    $this->pageTitle = $information->name . ' - Settings - ' . ucfirst($_GET['tab']);
+} else {
+    $this->pageTitle = $information->name . ' - Settings - Information';
+}
 ?>
 <h3>Settings</h3>
 <div class="tabs">
@@ -16,12 +20,12 @@ $this->pageTitle = $info->name . ' - Settings - ' . Yii::app()->name;
 <?php foreach($tabs as $tab): ?>
 <?php if($tab['name'] == $selected_tab): ?>
 <?php echo'<div ?tab='.$tab['name'].' class="tab-content">';
-$this->renderPartial($tab['partial'], array('model' => ${$tab['name']}, 'name' => $info->name));
+$this->renderPartial($tab['partial'], array('model' => ${$tab['name']}, 'name' => $information->name));
 echo '</div>';
 ?>
 <?php else : ?>
 <?php echo'<div ?tab='.$tab['name'].' class="tab-content" style="display:none;">';
-$this->renderPartial($tab['partial'], array('model' => ${$tab['name']}, 'name' => $info->name));
+$this->renderPartial($tab['partial'], array('model' => ${$tab['name']}, 'name' => $information->name));
 echo '</div>';
 ?>
 <?php endif; ?>

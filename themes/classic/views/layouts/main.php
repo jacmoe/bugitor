@@ -67,7 +67,10 @@
                         </div>
                     </div>
                     <div id="mainmenu" class="span-20 last">
-                    <?php if (((Yii::app()->controller->id === 'project') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) : ?>
+                    <?php if (((Yii::app()->controller->id === 'project')
+                            || (Yii::app()->controller->id === 'version') 
+                            || (Yii::app()->controller->id === 'issuecategory')
+                            || (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) : ?>
                     <?php
                                     $this->widget('BugitorMenu', array(
                                         'items' => array(

@@ -1,7 +1,5 @@
-<?php
-$this->pageTitle = $name . ' - Settings - Versions';
-?>
 <h3>Versions</h3>
+<?php if (!empty($model)) : ?>
 <table class="list" width="60%">
   <thead width="60">
   <tr>
@@ -24,13 +22,16 @@ $this->pageTitle = $name . ' - Settings - Versions';
     <td width="20"><?php echo CHtml::encode($version->description); ?></td>
     <td width="20"><?php echo CHtml::encode($version->effective_date); ?></td>
     <td width="20">
-      <?php echo CHtml::link('Update',array('update','id'=>$version->id)); ?>
+      <?php echo CHtml::link('Update',array('version/update','id'=>$version->id, 'identifier' => $_GET['identifier'])); ?>
       <?php echo CHtml::linkButton('Delete',array(
-      	  'submit'=>'',
-      	  'params'=>array('command'=>'delete','id'=>$version->id),
-      	  'confirm'=>"Are you sure to delete #{$version->id}?")); ?>
+      	  'submit'=>array('/version/delete', 'id' => $version->id, 'identifier' => $_GET['identifier']),
+      	  'confirm'=>"Are you sure you want to delete {$version->name}?")); ?>
 	</td>
   </tr>
 <?php endforeach; ?>
   </tbody>
 </table>
+<?php else: ?>
+<p class="nodata"><?php echo 'No data to display'; ?></p>
+<?php endif; ?>
+<?php echo CHtml::link('New Version',array('version/create','identifier'=>$_GET['identifier'])); ?>
