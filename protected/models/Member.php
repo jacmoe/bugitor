@@ -70,7 +70,7 @@ class Member extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'project_id' => 'Project',
-			'user_id' => 'User',
+			'user_id' => 'Member',
 			'role' => 'Role',
 		);
 	}
