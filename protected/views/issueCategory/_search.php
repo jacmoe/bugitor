@@ -15,7 +15,13 @@
 		<?php echo $form->textField($model,'name',array('size'=>45,'maxlength'=>45)); ?>
 	</div>
 
-	<div class="row buttons">
+	<div class="row">
+		<?php echo $form->labelEx($model,'description'); ?>
+		<?php echo $form->textField($model,'description',array('size'=>100,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'description'); ?>
+	</div>
+
+        <div class="row buttons">
 		<?php echo CHtml::submitButton('Search'); ?>
 	</div>
 

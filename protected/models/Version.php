@@ -43,6 +43,7 @@ class Version extends CActiveRecord {
             array('name', 'required'),
             array('project_id', 'numerical', 'integerOnly' => true),
             array('name, description', 'length', 'max' => 255),
+            array('name', 'isinproject'),
             array('effective_date, created, modified', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -50,6 +51,16 @@ class Version extends CActiveRecord {
         );
     }
 
+        public function isinproject($attribute, $params) {
+            if($this->isNewRecord) {
+                $criteria = new CDbCriteria;
+                $criteria->compare('project_id', $this->project_id, true);
+                $criteria->compare('name', $this->name, true);
+                $results = Version::model()->findAll($criteria);
+                if($results)
+                    $this->addError($attribute, 'There is already a version of that name in this project.');
+            }
+        }
     /**
      * @return array relational rules.
      */

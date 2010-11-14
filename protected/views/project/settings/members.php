@@ -1,7 +1,5 @@
-<?php
-$this->pageTitle = $name . ' - Settings - Members';
-?>
 <h3>Members</h3>
+<?php if (!empty($model)) : ?>
 <table class="list" width="60%">
   <thead width="60">
   <tr>
@@ -27,13 +25,16 @@ $this->pageTitle = $name . ' - Settings - Members';
         } ?>
     </td>
     <td width="20">
-      <?php echo CHtml::link('Update',array('update','id'=>$member->id)); ?>
-      <?php echo CHtml::linkButton('Delete',array(
-      	  'submit'=>'',
-      	  'params'=>array('command'=>'delete','id'=>$member->id),
-      	  'confirm'=>"Are you sure to delete #{$member->id}?")); ?>
+      <?php echo CHtml::link('Update',array('updateUser','id'=>$member->id)); ?>
+      <?php echo CHtml::linkButton('Remove',array(
+      	  'submit'=>array('addUser', 'id' => $member->id, 'identifier' => $_GET['identifier']),
+      	  'confirm'=>"Are you sure you want to delete {$member->username}?")); ?>
 	</td>
   </tr>
 <?php endforeach; ?>
   </tbody>
 </table>
+<?php else: ?>
+<p class="nodata"><?php echo 'No data to display'; ?></p>
+<?php endif; ?>
+<?php echo CHtml::link('Add Member',array('addUser','identifier'=>$_GET['identifier'])); ?>

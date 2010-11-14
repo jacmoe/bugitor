@@ -38,7 +38,7 @@ class IssueCategoryController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($identifier)
 	{
 		$model=new IssueCategory;
 
@@ -48,8 +48,9 @@ class IssueCategoryController extends Controller
 		if(isset($_POST['IssueCategory']))
 		{
 			$model->attributes=$_POST['IssueCategory'];
+                        $model->project_id = Project::getProjectIdFromIdentifier($_GET['identifier']);
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+                            $this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'categories'));
 		}
 
 		$this->render('create',array(
@@ -62,7 +63,7 @@ class IssueCategoryController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate($id)
+	public function actionUpdate($id, $identifier)
 	{
 		$model=$this->loadModel($id);
 
@@ -73,7 +74,7 @@ class IssueCategoryController extends Controller
 		{
 			$model->attributes=$_POST['IssueCategory'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'categories'));
 		}
 
 		$this->render('update',array(
@@ -86,16 +87,21 @@ class IssueCategoryController extends Controller
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionDelete($id)
+	public function actionDelete($id, $identifier)
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+                        $issue = Issue::model()->findByAttributes(array('issue_category_id' => $id));
+                        if(!$issue) {
+                            $this->loadModel($id)->delete();
+                        } else {
+                            Yii::app()->user->setFlash('info',"Category is in use");
+                        }
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+				$this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'categories'));
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');

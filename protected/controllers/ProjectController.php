@@ -117,27 +117,27 @@ class ProjectController extends Controller {
     }
 
     public function actionSettings($identifier) {
-        $info = Project::model()->find('identifier=?', array($_GET['identifier']));
-        $_GET['projectname'] = $info->name;
-        $members = $info->getMembers();
-        $versions = $info->getVersions();
-        $categories = $info->getCategories();
-        $repository = $info->getRepositories();
+        $information = Project::model()->find('identifier=?', array($_GET['identifier']));
+        $_GET['projectname'] = $information->name;
+        $members = $information->getMembers();
+        $versions = $information->getVersions();
+        $categories = $information->getCategories();
+        $repositories = $information->getRepositories();
 
         $tabs = array(
-                array('name' => 'info', 'partial' => 'update', 'label' =>  'Information'),
+                array('name' => 'information', 'partial' => 'update', 'label' =>  'Information'),
                 array('name' =>  'members', 'partial' =>  'settings/members', 'label' =>  'Members'),
                 array('name' =>  'versions', 'partial' =>  'settings/versions', 'label' => 'Versions'),
                 array('name' =>  'categories', 'partial' =>  'settings/issue_categories', 'label' =>  'Issue categories'),
-                array('name' =>  'repository', 'partial' =>  'settings/repository', 'label' =>  'Repositories'),
+                array('name' =>  'repositories', 'partial' =>  'settings/repository', 'label' =>  'Repositories'),
         );
         $selected_tab = $tabs[0]['name'];
         if (isset($_GET['tab'])) {
             $selected_tab = $_GET['tab'];
         }
 
-        $this->render('settings', compact('info', 'tabs', 'selected_tab',
-                'members', 'versions', 'categories', 'repository'));
+        $this->render('settings', compact('information', 'tabs', 'selected_tab',
+                'members', 'versions', 'categories', 'repositories'));
     }
 
     /**
