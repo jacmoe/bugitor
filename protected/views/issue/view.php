@@ -72,75 +72,7 @@ Added by <?php echo Bugitor::link_to_user($model->user->username, $model->user->
 <?php echo $model->getDescription(); ?>
 <hr/>
 </div>
-<?php /*$this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		array(
-				'label' => 'Tracker',
-				'type' => 'raw',
-				'value' => $model->tracker->name,
-		),
-		//'tracker_id',
-		array(
-				'label' => 'Project',
-				'type' => 'raw',
-				'value' => $model->project->name,
-		),
-		//'project_id',
-		'subject',
-		array(
-				'label' => 'Description',
-				'type' => 'raw',
-				'value' => $model->getDescription(),
-		),
-		//'description',
-		'due_date',
-		'issue_category_id',
-		array(
-				'label' => 'User',
-				'type' => 'raw',
-				'value' => ucfirst($model->user->username),
-		),
-		//'user_id',
-		array(
-				'label' => 'Priority',
-				'type' => 'raw',
-				'value' => $model->issuePriority->name,
-		),
-		//'issue_priority_id',
-//		array(
-//				'label' => 'Version',
-//				'type' => 'raw',
-//				'value' => $model->version->name,
-//		),
-		'version_id',
-		array(
-				'label' => 'Assigned To',
-				'type' => 'raw',
-				'value' => ucfirst($model->user->username),
-		),
-		//'assigned_to',
-		array('name' => 'created',
-                    'value' => Time::timeAgoInWords($model->created),
-                ),
-		array('name' => 'modified',
-                    'value' => Time::timeAgoInWords($model->modified),
-                ),
-		'start_date',
-		'done_ratio',
-		array(
-                    'label' => 'Status',
-                    'type' => 'raw',
-                    'value' => $model->swGetStatus()->getLabel()
-                ),
-		array(
-                    'label' => 'Closed',
-                    'type' => 'boolean',
-                    'value' => $model->closed,
-                ),
-	),
-));*/ ?>
+<?php /* ?>
 <div class="span-16" id="comments">
 <?php if($model->commentCount>=1): ?>
 <h3>
@@ -156,3 +88,4 @@ Added by <?php echo Bugitor::link_to_user($model->user->username, $model->user->
 <?php endif; ?>
 <?php $this->renderPartial('/comment/_form',array('model'=>$comment,)); ?>
 </div>
+<?php */ ?>
