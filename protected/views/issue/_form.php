@@ -62,7 +62,23 @@
             </div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'done_ratio'); ?>
-		<?php echo $form->textField($model,'done_ratio'); ?>
+<?php
+$this->widget('zii.widgets.jui.CJuiSlider', array(
+    'value'=>$model->done_ratio,
+    'id'=>'doneRatioSlider',
+    // additional javascript options for the slider plugin
+    'options'=>array(
+        'min'=>0,
+        'max'=>100,
+        'step' => 5,
+        'slide'=>'js:function(event, ui) { $("#done_ratio").val(ui.value);}',
+        ),
+    'htmlOptions'=>array(
+        'style'=>'height:12px;'
+    ),
+));
+?>
+		<?php echo $form->textField($model,'done_ratio', array('id' => 'done_ratio', 'readonly' => true)); ?>
 		<?php echo $form->error($model,'done_ratio'); ?>
 	</div>
             <br/>
