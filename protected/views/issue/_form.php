@@ -24,7 +24,8 @@
 		<?php $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
 			'model' => $model,
 			'attribute' => 'description',
-		))?>
+                        'htmlOptions'=>array('style'=>'height:150px;')
+                    ))?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
         </div>
@@ -46,18 +47,17 @@
             </div>
             <div class="row">
                     <?php echo $form->labelEx($model,'issue_category_id'); ?>
-                    <?php echo $form->textField($model,'issue_category_id'); ?>
+                    <?php echo $form->dropDownList($model, 'issue_category_id', $this->getCategorySelectList(),array('prompt' => '<None>')); ?>
                     <?php echo $form->error($model,'issue_category_id'); ?>
             </div>
             <div class="row">
                     <?php echo $form->labelEx($model,'assigned_to'); ?>
-                    <?php echo $form->dropDownList($model, 'assigned_to', CHtml::listData(
-                    User::model()->findAll(), 'id', 'username'),array('prompt' => '<None>')); ?>
+                    <?php echo $form->dropDownList($model, 'assigned_to', $this->getUserSelectList(),array('prompt' => '<None>')); ?>
                     <?php echo $form->error($model,'assigned_to'); ?>
             </div>
             <div class="row">
                     <?php echo $form->labelEx($model,'version_id'); ?>
-                    <?php echo $form->textField($model,'version_id'); ?>
+                    <?php echo $form->dropDownList($model, 'version_id', $this->getVersionSelectList(),array('prompt' => '<None>')); ?>
                     <?php echo $form->error($model,'version_id'); ?>
             </div>
 	<div class="row">

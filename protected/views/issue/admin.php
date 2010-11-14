@@ -53,7 +53,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
                     'name' => 'tracker_id',
                     'header' => 'Type',
                     'value' => '$data->tracker->name',
-                    'filter' => $this->getTrackers(),
+                    'filter' => $this->getTrackerFilter(),
                     'htmlOptions'=>array('width'=>'10'),
                 ),
 //                array(
@@ -73,7 +73,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
                     'name' => 'issue_priority_id',
                     'header' => 'Priority',
                     'value' => '$data->issuePriority->name',
-                    'filter' => $this->getPriorities(),
+                    'filter' => $this->getPriorityFilter(),
                     'htmlOptions'=>array('width'=>'10'),
                 ),
                 array(
@@ -86,21 +86,21 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
                     'name' => 'user_id',
                     'header' => 'Author',
                     'value' => '$data->user->username',
-                    'filter' => $this->getUsers(),
+                    'filter' => $this->getUserFilter(),
                     'htmlOptions'=>array('width'=>'10'),
                 ),
                 array(
                     'name' => 'assigned_to',
                     'header' => 'Owner',
                     'value' => '(($data->assignedTo)?$data->assignedTo->username:"")',
-                    'filter' => $this->getUsers(),
+                    'filter' => $this->getUserFilter(),
                     'htmlOptions'=>array('width'=>'10'),
                 ),
                 array(
                     'name' => 'version_id',
                     'header' => 'Version',
                     'value' => '(($data->version)?$data->version->name:"")',
-                    'filter' => $this->getVersions(),
+                    'filter' => $this->getVersionFilter(),
                     'htmlOptions'=>array('width'=>'10'),
                 ),
                 array(

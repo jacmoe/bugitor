@@ -29,7 +29,7 @@ Show:
                     'header' => 'Type',
                     'type' => 'raw',
                     'value' => 'Bugitor::namedImage($data->tracker->name)',
-                    'filter' => $this->getTrackers(),
+                    'filter' => $this->getTrackerFilter(),
                     'htmlOptions'=>array('width'=>'10'),
                 ),
                 array(
@@ -45,7 +45,7 @@ Show:
                     'header' => 'Priority',
                     'type' => 'raw',
                     'value' => 'Bugitor::namedImage($data->issuePriority->name)',
-                    'filter' => $this->getPriorities(),
+                    'filter' => $this->getPriorityFilter(),
                     'htmlOptions'=>array('width'=>'10'),
                 ),
                 array(
@@ -67,7 +67,7 @@ Show:
                     'header' => 'Author',
                     'type' => 'raw',
                     'value' => 'Bugitor::gravatar($data->user->email,16,$data->user->username)',
-                    'filter' => $this->getUsers(),
+                    'filter' => $this->getUserFilter(),
                     'htmlOptions'=>array('width'=>'10'),
                 ),
                 array(
@@ -75,7 +75,7 @@ Show:
                     'header' => 'Owner',
                     'type' => 'raw',
                     'value' => '(($data->assignedTo)?Bugitor::gravatar($data->assignedTo->email,16,$data->assignedTo->username):"")',
-                    'filter' => $this->getUsers(),
+                    'filter' => $this->getUserFilter(),
                     'htmlOptions'=>array('width'=>'10'),
                 ),
                 array(
@@ -90,14 +90,14 @@ Show:
                     'name' => 'version_id',
                     'header' => 'Version',
                     'value' => '(($data->version)?$data->version->name:"")',
-                    'filter' => $this->getVersions(),
+                    'filter' => $this->getVersionFilter(),
                     'htmlOptions'=>array('width'=>'10'),
                 ),
                 array(
                     'name' => 'issue_category_id',
                     'header' => 'Category',
                     'value' => '(($data->issueCategory)?$data->issueCategory->name:"")',
-                    'filter' => $this->getCategories(),
+                    'filter' => $this->getCategoryFilter(),
                     'htmlOptions'=>array('width'=>'10'),
                 ),
 		array(
