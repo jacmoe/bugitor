@@ -65,7 +65,7 @@ class Project extends CActiveRecord {
         return array(
             'issues' => array(self::HAS_MANY, 'Issue', 'project_id'),
             'bugTrackers' => array(self::MANY_MANY, 'Tracker', '{{project_tracker}}(project_id, tracker_id)'),
-            'members' => array(self::MANY_MANY, 'User', '{{project_user_assignment}}(project_id, user_id)'),
+            'members' => array(self::MANY_MANY, 'Member', 'project_id'),
             'repositories' => array(self::HAS_MANY, 'Repository', 'project_id'),
             'versions' => array(self::HAS_MANY, 'Version', 'project_id'),
             'issueCategories' => array(self::HAS_MANY, 'IssueCategory', 'project_id'),
