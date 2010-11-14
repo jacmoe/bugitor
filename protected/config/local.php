@@ -29,6 +29,12 @@ return CMap::mergeArray(
                         'class' => 'CFileLogRoute',
                         'levels' => 'error, warning, trace',
                     ),
+                    array(
+                        'class' => 'CFileLogRoute',
+                        'levels' => 'info, error, warning, trace',
+                        'categories' => 'bugitor',
+                        'logFile' => 'bugitor.log',
+                    ),
                     array(// configuration for the toolbar
                         'class' => 'XWebDebugRouter',
                         'config' => 'alignRight, opaque, runInDebug, fixedPos, collapsed, yamlStyle',

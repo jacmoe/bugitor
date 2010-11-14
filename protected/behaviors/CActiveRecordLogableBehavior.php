@@ -11,18 +11,16 @@ class CActiveRecordLogableBehavior extends CActiveRecordBehavior
             // new attributes
             $newattributes = $this->Owner->getAttributes();
             $oldattributes = $this->getOldAttributes();
- 
             // compare old and new
             foreach ($newattributes as $name => $value) {
+
                 if (!empty($oldattributes)) {
                     $old = $oldattributes[$name];
                 } else {
                     $old = '';
                 }
-                if($name === 'modified')
-                    return;
                 
-                if ($value != $old) {
+                if (($value != $old)&&($name !== 'modified')) {
                     //$changes = $name . ' ('.$old.') => ('.$value.'), ';
  
                     $log=new ActionLog;
