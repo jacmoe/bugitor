@@ -17,18 +17,18 @@
   <tbody>
 <?php foreach($model as $n=>$member): ?>
   <tr class="<?php echo $n%2?'even':'odd';?>">
-    <td width="20"><?php echo CHtml::encode($member->username); ?></td>
+    <td width="20"><?php echo CHtml::encode(ucfirst($member->user->username)); ?></td>
     <td width="20">
-    <?php $assignments = Rights::getAssignedRoles($member->id); ?>
+    <?php $assignments = Rights::getAssignedRoles($member->user->id); ?>
     <?php foreach($assignments as $assignment) {
         echo $assignment->name . ' . ';
         } ?>
     </td>
     <td width="20">
-      <?php echo CHtml::link('Update',array('updateUser','id'=>$member->id)); ?>
+      <?php echo CHtml::link('Update',array('member/update','id'=>$member->id, 'identifier' => $_GET['identifier'])); ?>
       <?php echo CHtml::linkButton('Remove',array(
-      	  'submit'=>array('addUser', 'id' => $member->id, 'identifier' => $_GET['identifier']),
-      	  'confirm'=>"Are you sure you want to delete {$member->username}?")); ?>
+      	  'submit'=>array('member/delete', 'id' => $member->id, 'identifier' => $_GET['identifier']),
+      	  'confirm'=>"Are you sure you want to delete {$member->user->username}?")); ?>
 	</td>
   </tr>
 <?php endforeach; ?>
@@ -37,4 +37,4 @@
 <?php else: ?>
 <p class="nodata"><?php echo 'No data to display'; ?></p>
 <?php endif; ?>
-<?php echo CHtml::link('Add Member',array('addUser','identifier'=>$_GET['identifier'])); ?>
+<?php echo CHtml::link('Add Member',array('member/create','identifier'=>$_GET['identifier'])); ?>

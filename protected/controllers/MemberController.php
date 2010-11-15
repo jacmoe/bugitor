@@ -14,34 +14,13 @@ class MemberController extends Controller
 	public function filters()
 	{
 		return array(
-			'accessControl', // perform access control for CRUD operations
+			'rights',
 		);
 	}
 
-	/**
-	 * Specifies the access control rules.
-	 * This method is used by the 'accessControl' filter.
-	 * @return array access control rules
-	 */
-	public function accessRules()
+	public function allowedActions()
 	{
-		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
+		return 'index, view';
 	}
 
 	/**
@@ -59,7 +38,7 @@ class MemberController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($identifier)
 	{
 		$model=new Member;
 
@@ -69,8 +48,12 @@ class MemberController extends Controller
 		if(isset($_POST['Member']))
 		{
 			$model->attributes=$_POST['Member'];
+                        $user = User::model()->findByPk($model->user_id);
+                        $user->attachBehavior('rights', new RightsUserBehavior);
+                        Yii::app()->getModule('rights')->getAuthorizer()->authManager->assign($model->role, $model->user_id);
+                        
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+                            $this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'members'));
 		}
 
 		$this->render('create',array(
@@ -83,7 +66,7 @@ class MemberController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate($id)
+	public function actionUpdate($id, $identifier)
 	{
 		$model=$this->loadModel($id);
 
@@ -94,7 +77,7 @@ class MemberController extends Controller
 		{
 			$model->attributes=$_POST['Member'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'members'));
 		}
 
 		$this->render('update',array(
@@ -107,16 +90,19 @@ class MemberController extends Controller
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionDelete($id)
+	public function actionDelete($id, $identifier)
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+                        if($this->loadModel($id)->delete())
+                        {
+                            Yii::app()->user->setFlash('succes',"Member was deleted.");
+                        }
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+				$this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'members'));
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
