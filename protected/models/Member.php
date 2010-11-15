@@ -58,7 +58,7 @@ class Member extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
-			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
+			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 		);
 	}
 

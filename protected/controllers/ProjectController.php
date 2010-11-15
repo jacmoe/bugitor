@@ -33,32 +33,6 @@ class ProjectController extends Controller {
         return $project_list;
     }
 
-    public function actionAdduser($identifier) {
-        $project = Project::model()->find('identifier=?', array($_GET['identifier']));
-        $_GET['projectname'] = $project->name;
-        $form = new ProjectUserForm;
-        // collect user input data
-        if (isset($_POST['ProjectUserForm'])) {
-            $form->attributes = $_POST['ProjectUserForm'];
-            $form->project = $project;
-            // validate user input and set a sucessfull flassh message if valid
-            if ($form->validate()) {
-                Yii::app()->user->setFlash('success', $form->username .
-                        " has been added to the project.");
-                $form = new ProjectUserForm;
-            }
-        }
-        // display the add user form
-        $users = Yii::app()->getModule('user')->users()->findAll();
-        $usernames = array();
-        foreach ($users as $user) {
-            $usernames[] = $user->username;
-        }
-        $form->project = $project;
-        $this->render('adduser', array('model' => $form,
-            'usernames' => $usernames));
-    }
-
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed

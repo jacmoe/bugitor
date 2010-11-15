@@ -167,40 +167,11 @@ class Project extends CActiveRecord {
                 'name', 'name');
     }
 
-    /**
-     * Makes an association between a user and a the project
-     */
-    public function associateUserToProject($user) {
-        $sql = "INSERT INTO bug_project_user_assignment (project_id,
-user_id) VALUES (:projectId, :userId)";
-        $command = Yii::app()->db->createCommand($sql);
-        $command->bindValue(":projectId", $this->id, PDO::PARAM_INT);
-        $command->bindValue(":userId", $user->id, PDO::PARAM_INT);
-        return $command->execute();
-    }
-
-    public static function testTime() {
-        $model = new TimeTest();
-        $model->server_time = date("Y-m-d\TH:i:s\Z", time());//
-        $model->sql_time = new CDbExpression('UTC_TIMESTAMP');
-        $model->save();
-        echo $model->sql_time;
-    }
-
-    public function associateUserToRole($role, $userId) {
-	$model = User::model()->findByPk($userId);
-        $model->attachBehavior('rights', new RightsUserBehavior);
-        Yii::app()->getModule('rights')->getAuthorizer()->authManager->assign($role, $model->getId());
-        //$item = Yii::app()->getModule('rights')->getAuthorizer()->authManager->getAuthItem($role);
-        //echo $item->getNameText();
-    }
-
     /*
      * Determines whether or not a user is already part of a project
      */
-
     public function isUserInProject($user) {
-        $sql = "SELECT user_id FROM bug_project_user_assignment WHERE
+        $sql = "SELECT user_id FROM bug_member WHERE
 project_id=:projectId AND user_id=:userId";
         $command = Yii::app()->db->createCommand($sql);
         $command->bindValue(":projectId", $this->id, PDO::PARAM_INT);
@@ -211,7 +182,33 @@ project_id=:projectId AND user_id=:userId";
     public function getMembers() {
         $criteria = new CDbCriteria;
         $criteria->compare('project_id', $this->id, true);
-        return User::model()->with('members')->findAll($criteria);
+        return Member::model()->findAll($criteria);
+    }
+
+    public static function getNonMembers() {
+        $members = Member::model()->findAll();
+        $criteria = new CDbCriteria;
+        $criteria->addNotInCondition('user_id', $members);
+        return User::model()->findAll($criteria);
+    }
+
+    public static function getNonMembersList() {
+        $members = Member::model()->findAll();
+        $criteria1 = new CDbCriteria();
+        $criteria1->select = "user_id";
+        $members = Member::model()->findAll($criteria1);
+        $member_list = array();
+        foreach ($members as $member) {
+            $member_list[] = $member->user_id;
+        }
+        $criteria2 = new CDbCriteria;
+        $criteria2->addNotInCondition('id', $member_list);
+        $results =  User::model()->findAll($criteria2);
+        $user_list = array();
+        foreach ($results as $result) {
+            $user_list[$result->id] = $result->username;
+        }
+        return $user_list;
     }
 
     public function getVersions() {

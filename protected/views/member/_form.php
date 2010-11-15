@@ -10,23 +10,17 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'project_id'); ?>
-		<?php echo $form->textField($model,'project_id'); ?>
-		<?php echo $form->error($model,'project_id'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'user_id'); ?>
-		<?php echo $form->textField($model,'user_id'); ?>
+                <?php echo $form->dropDownList($model, 'user_id', Project::getNonMembersList(),array('prompt' => '<None>')); ?>
 		<?php echo $form->error($model,'user_id'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'role'); ?>
-		<?php echo $form->textField($model,'role',array('size'=>32,'maxlength'=>32)); ?>
+		<?php echo $form->dropDownList($model,'role', Project::getUserRoleOptions()); ?>
 		<?php echo $form->error($model,'role'); ?>
 	</div>
-
+        <?php echo $form->hiddenField($model,'project_id', array('value' => Project::getProjectIdFromIdentifier($_GET['identifier']))); ?>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

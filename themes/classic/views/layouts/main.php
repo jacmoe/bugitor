@@ -98,8 +98,11 @@
         <?php
         if (((Yii::app()->controller->id === 'project')||(Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) {
             $this->widget('DropDownRedirect', array(
+                'id' => 'projectSwitcher',
+                'name' => 'projectSwitcher2',
+                'replacement' => '__value__',
                 'data' => Yii::app()->controller->getProjects(),
-                'url' => $this->createUrl($this->route, array_merge($_GET, array('identifier' => '__value__'))),
+                'url' => '/',//$this->createUrl($this->route, array_merge($_GET, array('identifier' => '__value__'))),
                 'select' => $_GET['identifier'], //the preselected value
                 'htmlOptions' => array('class' => 'floatright')
             ));
