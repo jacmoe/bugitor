@@ -16,21 +16,15 @@ class DropDownRedirect extends CWidget {
 	
 	public $replacement = '__value__'; // will be replaced by the value
 	
-	protected function registerScript() {
-		$script = '$("#'.$this->id.'").change(function(){'
-		.'$(location).attr("href", "'.$this->url.'".replace("'.$this->replacement.'", $(this).val()));'
-		.'});';
-		Yii::app()->clientScript->registerScript(__CLASS__.$this->id, $script);
-	}
-	
 	public function init() {
 		if (! isset($this->name))
 			$this->name= $this->id;
-		$this->registerScript();
 	}
 	
 	public function run() {
 		if (!isset($this->htmlOptions['id'])) $this->htmlOptions['id'] = $this->id;
-		echo CHtml::dropDownList($this->name, $this->select, $this->data, $this->htmlOptions);
+                $script = 'window.location = "'.$this->url.'".replace("'.$this->replacement.'", $(this).val());';
+                if (!isset($this->htmlOptions['onChange'])) $this->htmlOptions['onChange'] = $script;
+                echo CHtml::dropDownList($this->name, $this->select, $this->data, $this->htmlOptions);
 	}
 }
