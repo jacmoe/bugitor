@@ -17,7 +17,10 @@ $this->menu=array(
 ?>
 
 <h1>View Project <?php echo $model->name; ?></h1>
-
+<div class="box">
+<?php echo Yii::t('Bugitor','Bugs'); ?>: <?php echo $model->issueOpenBugCount . ' ' . Yii::t('Bugitor','open'); ?> / <?php echo $model->issueBugCount; ?><br/>
+<?php echo Yii::t('Bugitor','Features'); ?>: <?php echo $model->issueOpenFeatureCount . ' ' . Yii::t('Bugitor','open'); ?> / <?php echo $model->issueFeatureCount; ?><br/>
+</div>
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(

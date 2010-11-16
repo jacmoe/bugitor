@@ -64,6 +64,13 @@ class Project extends CActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'issues' => array(self::HAS_MANY, 'Issue', 'project_id'),
+            'issueCount' => array(self::STAT, 'Issue', 'project_id'),
+            'issueBugCount' => array(self::STAT, 'Issue', 'project_id', 'condition' => 'tracker_id=1'),
+            'issueFeatureCount' => array(self::STAT, 'Issue', 'project_id', 'condition' => 'tracker_id=2'),
+            'issueOpenBugCount' => array(self::STAT, 'Issue', 'project_id', 'condition' => 'tracker_id=1 AND t.closed=0'),
+            'issueOpenFeatureCount' => array(self::STAT, 'Issue', 'project_id', 'condition' => 'tracker_id=2 AND t.closed=0'),
+            'issueClosedBugCount' => array(self::STAT, 'Issue', 'project_id', 'condition' => 'tracker_id=1 AND t.closed=1'),
+            'issueClosedFeatureCount' => array(self::STAT, 'Issue', 'project_id', 'condition' => 'tracker_id=2 AND t.closed=1'),
             'bugTrackers' => array(self::MANY_MANY, 'Tracker', '{{project_tracker}}(project_id, tracker_id)'),
             'members' => array(self::MANY_MANY, 'Member', 'project_id'),
             'repositories' => array(self::HAS_MANY, 'Repository', 'project_id'),

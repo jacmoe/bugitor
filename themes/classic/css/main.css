@@ -299,7 +299,8 @@ h2 {font-size: 20px;padding: 2px 10px 1px 0px;margin: 0 0 10px 0; border-bottom:
 h3 {font-size: 16px;padding: 2px 10px 1px 0px;margin: 0 0 10px 0; border-bottom: 1px solid #bbbbbb; color: #444;}
 h4 {font-size: 13px;padding: 2px 10px 1px 0px;margin-bottom: 5px; border-bottom: 1px dotted #bbbbbb; color: #444;}
 
-.floatright {float:right; white-space: wrap; position:relative; bottom:32px}
+.floatrightup {float:right; white-space: nowrap; position:relative; bottom:38px}
+.floatright {float:right; white-space: nowrap; position:relative; bottom:32px}
 .contextual {float:right; white-space: nowrap; line-height:1.4em;margin-top:5px; padding-left: 10px; font-size:0.9em;}
 
 /***** Links *****/
@@ -521,3 +522,27 @@ background-color: #fff;
 	border-color: #FDBF3B;
 	color: #A6750C;
 }
+
+.box{
+padding:6px;
+margin-bottom: 10px;
+background-color:#f6f6f6;
+color:#505050;
+line-height:1.5em;
+border: 1px solid #e4e4e4;
+}
+
+div.square {
+ border: 1px solid #999;
+ float: left;
+ margin: .3em .4em 0 .4em;
+ overflow: hidden;
+ width: .6em; height: .6em;
+}
+
+fieldset {border: 1px solid #e4e4e4; margin:0;}
+legend {color: #484848;}
+
+fieldset.collapsible { border-width: 1px 0 0 0; font-size: 0.9em; }
+fieldset.collapsible legend { padding-left: 16px; background: url(../images/arrow_expanded.png) no-repeat 0% 40%; cursor:pointer; }
+fieldset.collapsible.collapsed legend { background-image: url(../images/arrow_collapsed.png); }

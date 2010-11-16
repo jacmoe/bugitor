@@ -2,22 +2,28 @@
     $this->pageTitle = isset($_GET['projectname']) ? $_GET['projectname'] . '- Issues - ' . Yii::app()->name : Yii::app()->name . ' - Issues';
     $pageSize=Yii::app()->user->getState('pageSize',Yii::app()->params['defaultPageSize']);
 ?>
-<?php echo CHtml::form('issues','get'); ?>
+<h3>Issues</h3>
+<?php echo CHtml::form('issues','get', array('class' => 'floatrightup')); ?>
 Show:
 <?php echo CHtml::dropDownList('issueFilter',
     isset($_GET['issueFilter'])?(int)$_GET['issueFilter']:1,
     $issueFilter,
     array('empty'=>'All Issues', 'submit'=>'')); ?>
 <?php echo CHtml::endForm(); ?>
-
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'issue-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
+        'selectableRows'=>2,
         'pager' => array('class' => 'CustomLinkPager'),
         'columns'=>array(
+                /*array(
+                    'class'=>'CCheckBoxColumn',
+                    'id'=>'selectedItems'
+                ),*/
                 array(
                     'name' => 'id',
+                    'id'=>'selectedItems',
                     'header' => 'Id',
                     'type' => 'raw',
                     'filter' => '',
@@ -110,3 +116,36 @@ Show:
 		),
 	),
 )); ?>
+<div class="box" style="width:350px;">
+<fieldset class="collapsible">
+    <legend>Quick Admin</legend>
+<?php echo CHtml::dropDownList('versionDrop',
+    0,
+    $this->getVersionSelectList(),
+    array('empty'=>'No Version')); ?>
+&nbsp;|-&gt;&nbsp;<?php echo CHtml::ajaxLink("Set Version",
+        $this->createUrl('reqTest03'),
+        array("type" => "post",
+            "data" => "js:{ids:$.fn.yiiGridView.getSelection('issue-grid'),val:$('#versionDrop').val(),type:'version'}"
+        ), array("onClick" => "js:{location.reload()}")); ?>
+<br/>
+<?php echo CHtml::dropDownList('priorityDrop',
+    0,
+    $this->getPrioritySelectList()); ?>
+&nbsp;|-&gt;&nbsp;<?php echo CHtml::ajaxLink("Set Priority",
+        $this->createUrl('reqTest03'),
+        array("type" => "post",
+            "data" => "js:{ids:$.fn.yiiGridView.getSelection('issue-grid'),val:$('#priorityDrop').val(),type:'priority'}"
+        ), array("onClick" => "js:{location.reload()}")); ?>
+<br/>
+<?php echo CHtml::dropDownList('categoryDrop',
+    0,
+    $this->getCategorySelectList(),
+    array('empty'=>'No Category')); ?>
+&nbsp;|-&gt;&nbsp;<?php echo CHtml::ajaxLink("Set Category",
+        $this->createUrl('reqTest03'),
+        array("type" => "post",
+            "data" => "js:{ids:$.fn.yiiGridView.getSelection('issue-grid'),val:$('#categoryDrop').val(),type:'category'}"
+        ), array("onClick" => "js:{location.reload()}")); ?>
+</fieldset>
+</div>
