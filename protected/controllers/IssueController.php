@@ -18,8 +18,44 @@ class IssueController extends Controller {
     }
 
     public function allowedActions() {
-        return 'index, view';
+        return 'index, view, reqTest03';
     }
+
+    public function actionReqTest03() {
+        if(Yii::app()->request->isAjaxRequest){
+            if(isset($_POST['ids'])) {
+                foreach($_POST['ids'] as $val) {
+                    switch($_POST['type']) {
+                        case 'priority':
+                            $issue = $this->loadModel($val, true);
+                            $issue->issue_priority_id = $_POST['val'];
+                            $issue->save();
+                            break;
+                        case 'version':
+                            $issue = $this->loadModel($val, true);
+                            $issue->version_id = $_POST['val'];
+                            $issue->save();
+                            break;
+                        case 'category':
+                            $issue = $this->loadModel($val, true);
+                            $issue->issue_category_id = $_POST['val'];
+                            $issue->save();
+                            break;
+                        default:
+                            break;
+                    }
+                    echo $val . '<br/>';
+                }
+            }
+            if(isset($_POST['val'])) {
+                echo $_POST['val'] . '<br/>';
+            }
+            if(isset($_POST['type'])) {
+                echo $_POST['type'] . '<br/>';
+            }
+        }
+    }
+
 
     /**
      * Displays a particular model.
