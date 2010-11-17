@@ -9,6 +9,10 @@
         <h3>My Issues</h3>
         <br/>
     </div>
+    <div class="watched box">
+        <h3>Watched Issues</h3>
+        <br/>
+    </div>
 </div>
 <div class="splitcontentright">
     <div class="project box">

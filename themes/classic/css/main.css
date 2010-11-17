@@ -622,3 +622,7 @@ background:url("../images/Assigned.png") no-repeat scroll 0 50% transparent;
 padding-left:20px;
 }
 
+div.watched h3 {
+background:url("../images/fav.png") no-repeat scroll 0 50% transparent;
+padding-left:20px;
+}
