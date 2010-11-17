@@ -2,6 +2,17 @@
     $this->pageTitle = isset($_GET['projectname']) ? $_GET['projectname'] . '- Issues - ' . Yii::app()->name : Yii::app()->name . ' - Issues';
     $pageSize=Yii::app()->user->getState('pageSize',Yii::app()->params['defaultPageSize']);
 ?>
+<?php /* echo CHtml::ajaxLink("Click",
+        $this->createUrl('testAjax'),
+        array('dataType' => 'json', 'success' => 'function(data,status){
+                $("#test1").html(data.test1);
+                $("#test2").html(data.test2);
+            }')); */ ?>
+<!--<br/>
+Test1:<br/>
+<div id="test1"></div>
+Test2:<br/>
+<div id="test2"></div>//-->
 <h3 class="issues">Issues</h3>
 <?php echo CHtml::form('issues','get', array('class' => 'floatrightup')); ?>
 Show:
