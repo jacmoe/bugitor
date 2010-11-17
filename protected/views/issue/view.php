@@ -1,22 +1,10 @@
 <?php
 $this->pageTitle = $model->project->name . ' - ' . $model->tracker->name . ' #' . $model->id . ': ' . $model->subject . ' - ' . Yii::app()->name ;
-$this->breadcrumbs=array(
-	'Issues'=>array('index'),
-	$model->id,
-);
-
-$this->menu=array(
-	array('label'=>'List Issue', 'url'=>array('index')),
-	array('label'=>'Create Issue', 'url'=>array('create'), 'visible' => Yii::app()->user->checkAccess('Issue.Create')),
-	array('label'=>'Update Issue', 'url'=>array('update', 'id'=>$model->id), 'visible' => Yii::app()->user->checkAccess('Issue.Update')),
-	array('label'=>'Delete Issue', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?'), 'visible' => Yii::app()->user->checkAccess('Issue.Delete')),
-	array('label'=>'Manage Issue', 'url'=>array('admin'), 'visible' => Yii::app()->user->checkAccess('Issue.Admin')),
-);
 ?>
 <div class="contextual" id="contextual">
 <?php if(Yii::app()->user->checkAccess('Issue.Update')) echo CHtml::link('Update', array('update', 'id' => $model->id, 'identifier' => $model->project->identifier), array('class' => 'icon icon-edit')) ?>
 </div>
-<h2><?php echo $model->tracker->name . ' #' . $model->id; ?></h2>
+<h2><?php echo Bugitor::namedImage($model->tracker->name) . ' ' . $model->tracker->name . ' #' . $model->id; ?></h2>
 <div class="issue">
 <?php echo Bugitor::gravatar($model->user->email); ?>
 <h3><?php echo $model->subject; ?></h3>

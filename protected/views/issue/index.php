@@ -2,7 +2,7 @@
     $this->pageTitle = isset($_GET['projectname']) ? $_GET['projectname'] . '- Issues - ' . Yii::app()->name : Yii::app()->name . ' - Issues';
     $pageSize=Yii::app()->user->getState('pageSize',Yii::app()->params['defaultPageSize']);
 ?>
-<h3>Issues</h3>
+<h3 class="issues">Issues</h3>
 <?php echo CHtml::form('issues','get', array('class' => 'floatrightup')); ?>
 Show:
 <?php echo CHtml::dropDownList('issueFilter',

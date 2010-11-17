@@ -1,7 +1,7 @@
 <?php
 $this->pageTitle = $model->name . ' - Overview - ' . Yii::app()->name;
 ?>
-<h3>Overview</h3>
+<h3 class="overview">Overview</h3>
 <div class="splitcontentleft">
 <div class="project box">
 <h2><?php echo $model->name; ?></h2>
