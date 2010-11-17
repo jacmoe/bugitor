@@ -66,7 +66,7 @@ class IssueController extends Controller {
             $_GET['projectname'] = Project::getProjectNameFromIdentifier($_GET['identifier']);
         }
         $this->layout = '//layouts/column1';
-        $issue = $this->loadModel($id, true);
+        $issue = Issue::model()->with(array('tracker','user', 'issueCategory', 'issuePriority', 'version', 'assignedTo', 'project'))->findByPk((int) $id);//$this->loadModel($id, true);
         $comment = $this->createComment($issue);
         $this->render('view', array(
             'model' => $issue,
@@ -125,7 +125,7 @@ class IssueController extends Controller {
     public function actionUpdate($id) {
         $this->layout = '//layouts/column1';
         
-        $model = $this->loadModel($id);
+        $model = Issue::model()->with('project')->findByPk((int) $id);//$this->loadModel($id);
 
         $_GET['projectname'] = $model->project->name;
 

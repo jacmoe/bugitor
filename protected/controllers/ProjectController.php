@@ -38,7 +38,7 @@ class ProjectController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($identifier) {
-        $project = Project::model()->find('identifier=?', array($_GET['identifier']));
+        $project = Project::model()->with(array('issueOpenBugCount', 'issueBugCount', 'issueOpenFeatureCount', 'issueFeatureCount'))->find('identifier=?', array($_GET['identifier']));
         $_GET['projectname'] = $project->name;
         Yii::app()->clientScript->registerLinkTag(
             'alternate',
