@@ -552,18 +552,73 @@ background:url("../images/ticket.png") no-repeat scroll 0 50% transparent;
 padding-left:20px;
 }
 
+h3.issues {
+background:url("../images/ticket.png") no-repeat scroll 0 50% transparent;
+padding-left:20px;
+}
+
+h3.editissue {
+background:url("../images/ticket_edit.png") no-repeat scroll 0 50% transparent;
+padding-left:20px;
+}
+
 div.members h3 {
 background:url("../images/group.png") no-repeat scroll 0 50% transparent;
 padding-left:20px;
 }
 
 div.activity h3 {
-background:url("../images/Assigned.png") no-repeat scroll 0 50% transparent;
+background:url("../images/time.png") no-repeat scroll 0 50% transparent;
+padding-left:20px;
+}
+
+h3.activity {
+background:url("../images/time.png") no-repeat scroll 0 50% transparent;
+padding-left:20px;
+}
+
+h3.roadmap {
+background:url("../images/package.png") no-repeat scroll 0 50% transparent;
+padding-left:20px;
+}
+
+h3.overview {
+background:url("../images/true.png") no-repeat scroll 0 50% transparent;
+padding-left:20px;
+}
+
+h3.code {
+background:url("../images/changeset.png") no-repeat scroll 0 50% transparent;
+padding-left:20px;
+}
+
+h3.settings {
+background:url("../images/admin.png") no-repeat scroll 0 50% transparent;
+padding-left:20px;
+}
+
+div.project h3 {
+background:url("../images/projects.png") no-repeat scroll 0 50% transparent;
+padding-left:20px;
+}
+
+h3.projects {
+background:url("../images/projects.png") no-repeat scroll 0 50% transparent;
+padding-left:20px;
+}
+
+h3.welcome {
+background:url("../images/home.png") no-repeat scroll 0 50% transparent;
 padding-left:20px;
 }
 
 div.project h2 {
 background:url("../images/22x22/projects.png") no-repeat scroll 0 50% transparent;
 padding-left:25px;
+}
+
+div.assigned h3 {
+background:url("../images/Assigned.png") no-repeat scroll 0 50% transparent;
+padding-left:20px;
 }
 
