@@ -21,6 +21,16 @@ class IssueController extends Controller {
         return 'index, view, reqTest03';
     }
 
+    public function actionTestAjax() {
+        if(Yii::app()->request->isAjaxRequest){
+            $response = array(
+                'test1' => 'Username',
+                'test2' => 'Password'
+            );
+            echo json_encode($response);
+        }
+    }
+
     public function actionReqTest03() {
         if(Yii::app()->request->isAjaxRequest){
             if(isset($_POST['ids'])) {
