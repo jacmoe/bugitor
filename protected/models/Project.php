@@ -135,6 +135,11 @@ class Project extends CActiveRecord {
         ));
     }
 
+    public function getDescription() {
+        $parser = new CMarkdownParser;
+        return $parser->safeTransform($this->description);
+    }
+
     public static function getProjectNameFromIdentifier($identifier) {
         $cacheKey = 'ProjectNameFromIdentifier_'.$identifier;
         $name = '';

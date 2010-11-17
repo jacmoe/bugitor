@@ -546,3 +546,24 @@ legend {color: #484848;}
 fieldset.collapsible { border-width: 1px 0 0 0; font-size: 0.9em; }
 fieldset.collapsible legend { padding-left: 16px; background: url(../images/arrow_expanded.png) no-repeat 0% 40%; cursor:pointer; }
 fieldset.collapsible.collapsed legend { background-image: url(../images/arrow_collapsed.png); }
+
+div.issues h3 {
+background:url("../images/ticket.png") no-repeat scroll 0 50% transparent;
+padding-left:20px;
+}
+
+div.members h3 {
+background:url("../images/group.png") no-repeat scroll 0 50% transparent;
+padding-left:20px;
+}
+
+div.activity h3 {
+background:url("../images/Assigned.png") no-repeat scroll 0 50% transparent;
+padding-left:20px;
+}
+
+div.project h2 {
+background:url("../images/22x22/projects.png") no-repeat scroll 0 50% transparent;
+padding-left:25px;
+}
+

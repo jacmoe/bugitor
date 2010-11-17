@@ -1,51 +1,29 @@
 <?php
 $this->pageTitle = $model->name . ' - Overview - ' . Yii::app()->name;
-
-$this->breadcrumbs=array(
-	'Projects'=>array('index'),
-	$model->name,
-);
-
-$this->menu=array(
-	array('label'=>'List Projects', 'url'=>array('index')),
-	array('label'=>'Create Project', 'url'=>array('create'), 'visible' => Yii::app()->user->checkAccess('Project.Create')),
-	array('label'=>'Update Project', 'url'=>array('update', 'id'=>$model->id), 'visible' => Yii::app()->user->checkAccess('Project.Update')),
-	array('label'=>'Delete Project', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?'), 'visible' => Yii::app()->user->checkAccess('Project.Delete')),
-	array('label'=>'Manage Projects', 'url'=>array('admin'), 'visible' => Yii::app()->user->checkAccess('Project.Admin')),
-	array('label'=>'Add Users', 'url'=>array('adduser', 'identifier' => $_GET['identifier']), 'visible' => Yii::app()->user->checkAccess('Project.Adduser')),
-);
 ?>
-
-<h1>View Project <?php echo $model->name; ?></h1>
-<div class="box">
-<?php echo Yii::t('Bugitor','Bugs'); ?>: <?php echo $model->issueOpenBugCount . ' ' . Yii::t('Bugitor','open'); ?> / <?php echo $model->issueBugCount; ?><br/>
-<?php echo Yii::t('Bugitor','Features'); ?>: <?php echo $model->issueOpenFeatureCount . ' ' . Yii::t('Bugitor','open'); ?> / <?php echo $model->issueFeatureCount; ?><br/>
+<h3>Overview</h3>
+<div class="splitcontentleft">
+<div class="project box">
+<h2><?php echo $model->name; ?></h2>
+<?php echo $model->getDescription(); ?>
+Homepage: <?php echo CHtml::link($model->homepage); ?>
+<br/>
+<br/>
+<div class="alt" style="font-size:smaller;">Created : <?php echo Time::timeAgoInWords($model->created); ?></div>
 </div>
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'name',
-		'description',
-		array('name' => 'homepage',
-                    'type' => 'url',
-                ),
-		array('name' => 'public',
-                    'type' => 'boolean',
-                ),
-		array('name' => 'created',
-                    'type' => 'html',
-                    'value' => Time::timeAgoInWords($model->created),
-                ),
-		array('name' => 'modified',
-                    'type' => 'html',
-                    'value' => Time::timeAgoInWords($model->modified),
-                ),
-		'identifier',
-	),
-)); ?>
-<?php $this->beginWidget('zii.widgets.CPortlet', array(
-'title'=>'Recent Project Comments',
-));
-$this->widget('RecentComments', array('projectId'=>$model->id));
-$this->endWidget(); ?>
+<div class="issues box">
+<h3>Issues</h3>
+<?php echo CHtml::link(Yii::t('Bugitor','Bugs'), array('issue/index', 'identifier' => $model->identifier, 'Issue[tracker_id]' => 'Bug')); ?>: <?php echo $model->issueOpenBugCount . ' ' . Yii::t('Bugitor','open'); ?> / <?php echo $model->issueBugCount; ?><br/>
+<?php echo CHtml::link(Yii::t('Bugitor','Features'), array('issue/index', 'identifier' => $model->identifier, 'Issue[tracker_id]' => 'Feature')); ?>: <?php echo $model->issueOpenFeatureCount . ' ' . Yii::t('Bugitor','open'); ?> / <?php echo $model->issueFeatureCount; ?><br/>
+</div>
+</div>
+<div class="splitcontentright">
+<div class="members box">
+<h3>Members</h3>
+Members here
+</div>
+<div class="activity box">
+<h3>Recent Activity</h3>
+Recent actitity here
+</div>
+</div>
