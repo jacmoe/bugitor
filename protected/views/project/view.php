@@ -6,7 +6,9 @@ $this->pageTitle = $model->name . ' - Overview - ' . Yii::app()->name;
 <div class="project box">
 <h2><?php echo $model->name; ?></h2>
 <?php echo $model->getDescription(); ?>
+<?php if($model->homepage != ''): ?>
 Homepage: <?php echo CHtml::link($model->homepage); ?>
+<?php endif; ?>
 <br/>
 <br/>
 <div class="alt" style="font-size:smaller;">Created : <?php echo Time::timeAgoInWords($model->created); ?></div>
@@ -15,6 +17,8 @@ Homepage: <?php echo CHtml::link($model->homepage); ?>
 <h3>Issues</h3>
 <?php echo CHtml::link(Yii::t('Bugitor','Bugs'), array('issue/index', 'identifier' => $model->identifier, 'Issue[tracker_id]' => 'Bug')); ?>: <?php echo $model->issueOpenBugCount . ' ' . Yii::t('Bugitor','open'); ?> / <?php echo $model->issueBugCount; ?><br/>
 <?php echo CHtml::link(Yii::t('Bugitor','Features'), array('issue/index', 'identifier' => $model->identifier, 'Issue[tracker_id]' => 'Feature')); ?>: <?php echo $model->issueOpenFeatureCount . ' ' . Yii::t('Bugitor','open'); ?> / <?php echo $model->issueFeatureCount; ?><br/>
+<br/>
+<?php echo CHtml::link(Yii::t('Bugitor','View all issues'), array('issue/index', 'identifier' => $model->identifier)); ?>
 </div>
 </div>
 <div class="splitcontentright">

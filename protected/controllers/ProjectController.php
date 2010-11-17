@@ -184,7 +184,9 @@ class ProjectController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-        $dataProvider = new CActiveDataProvider('Project');
+        $dataProvider = new CActiveDataProvider('Project', array(
+            'sort'=>array('defaultOrder'=>'t.name ASC'),
+        ));
         Yii::app()->clientScript->registerLinkTag('alternate',
         'application/rss+xml',
         $this->createUrl('comment/feed'));
