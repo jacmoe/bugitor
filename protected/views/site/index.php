@@ -17,7 +17,7 @@
 <div class="splitcontentright">
     <div class="project box">
         <h3>My Projects</h3>
-        <br/>
+        <?php $this->Widget('MyProjects'); ?>
     </div>
     <div class="assigned box">
         <h3>Issues Assigned to me</h3>

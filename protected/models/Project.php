@@ -204,6 +204,13 @@ project_id=:projectId AND user_id=:userId";
         return User::model()->findAll($criteria);
     }
 
+    public static function myProjects($user_id) {
+        $criteria = new CDbCriteria();
+        $criteria->compare('user_id', $user_id, true);
+        $projects = Member::model()->with(array('project'))->findAll($criteria);
+        return $projects;
+    }
+
     public static function getNonMembersList() {
         $members = Member::model()->findAll();
         $criteria1 = new CDbCriteria();
