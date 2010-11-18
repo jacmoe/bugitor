@@ -3,6 +3,29 @@ $this->pageTitle = $model->project->name . ' - ' . $model->tracker->name . ' #' 
 ?>
 <div class="contextual" id="contextual">
 <?php if(Yii::app()->user->checkAccess('Issue.Update')) echo CHtml::link('Update', array('update', 'id' => $model->id, 'identifier' => $model->project->identifier), array('class' => 'icon icon-edit')) ?>
+&nbsp;&nbsp;
+<?php if(Yii::app()->user->checkAccess('Issue.Update'))
+    echo CHtml::ajaxLink(($model->watchedBy(Yii::app()->user->id)) ? "Unwatch" : "Watch",
+        $this->createUrl('testAjax'),
+        array('update' => '#watchers',
+            'type' => "post",
+            'data' => array('id' => $model->id),
+            'complete' => 'function(data,status){
+                if(status == "success") {
+                var titleTxt = $("#watchButton").attr("text");
+                if(titleTxt == "Unwatch") {
+                    $("#watchButton").text("Watch");
+                    $("#watchButton").removeClass("icon icon-fav");
+                    $("#watchButton").addClass("icon icon-fav-off");
+                } else {
+                    $("#watchButton").text("Unwatch");
+                    $("#watchButton").removeClass("icon icon-fav-off");
+                    $("#watchButton").addClass("icon icon-fav");
+                }}
+            }'), array('class' => ($model->watchedBy(Yii::app()->user->id)) ? 'icon icon-fav' : 'icon icon-fav-off', 'id' => 'watchButton')); ?>
+&nbsp;&nbsp;
+<?php if(Yii::app()->user->checkAccess('Issue.Move')) echo '  ' . CHtml::link('Move', '#',array('submit' => array('move', 'id' => $model->id, 'identifier' => $model->project->identifier), 'class' => 'icon icon-move')) ?>
+<?php if(Yii::app()->user->checkAccess('Issue.Delete')) echo '  ' . CHtml::link('Delete', '#', array('submit' => array('delete','id' => $model->id, 'identifier' => $model->project->identifier), 'confirm' => 'Are you sure you want to delete this issue?', 'class' => 'icon icon-del')); ?>
 </div>
 <h2><?php echo Bugitor::namedImage($model->tracker->name) . ' ' . $model->tracker->name . ' #' . $model->id; ?></h2>
 <div class="issue">
@@ -59,6 +82,10 @@ Added by <?php echo Bugitor::link_to_user($model->user->username, $model->user->
 <p><b>Description:</b></p>
 <?php echo $model->getDescription(); ?>
 <hr/>
+<h4>Watchers</h4>
+<div id="watchers">
+<?php $this->renderPartial('_watchers', array('watchers' => $model->getWatchers())); ?>
+</div>
 </div>
 <?php /* ?>
 <div class="span-16" id="comments">

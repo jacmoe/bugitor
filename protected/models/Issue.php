@@ -71,6 +71,23 @@ class Issue extends CActiveRecord {
         }
     }
 
+    public function getWatchers() {
+        $criteria = new CDbCriteria();
+        $criteria->compare('issue_id', $this->id, true);
+        $watchers = Watcher::model()->findAll($criteria);
+        //CA_Debug::output_yii_models($watchers);
+        return $watchers;
+    }
+
+    public function watchedBy() {
+        $criteria = new CDbCriteria();
+        $criteria->select = 'user_id';
+        $criteria->compare('user_id', Yii::app()->user->id, true);
+        $criteria->compare('issue_id', $this->id, true);
+        $watchers = Watcher::model()->findAll($criteria);
+        //CA_Debug::output_yii_models($watchers);
+        return !empty($watchers);
+    }
     /**
      * Prepares create_time, create_user_id, update_time and update_user_id attributes before performing validation.
      */
