@@ -4,9 +4,9 @@ $this->pageTitle = $model->project->name . ' - ' . $model->tracker->name . ' #' 
 <div class="contextual" id="contextual">
 <?php if(Yii::app()->user->checkAccess('Issue.Update')) echo CHtml::link('Update', array('update', 'id' => $model->id, 'identifier' => $model->project->identifier), array('class' => 'icon icon-edit')) ?>
 &nbsp;&nbsp;
-<?php if(Yii::app()->user->checkAccess('Issue.Update'))
+<?php if(Yii::app()->user->checkAccess('Issue.Watch'))
     echo CHtml::ajaxLink(($model->watchedBy(Yii::app()->user->id)) ? "Unwatch" : "Watch",
-        $this->createUrl('testAjax'),
+        $this->createUrl('watch'),
         array('update' => '#watchers',
             'type' => "post",
             'data' => array('id' => $model->id),

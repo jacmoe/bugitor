@@ -88,6 +88,21 @@ class Issue extends CActiveRecord {
         //CA_Debug::output_yii_models($watchers);
         return !empty($watchers);
     }
+
+    public static function isOwnerOf() {
+        if((isset(Yii::app()->user->id))&&(isset($_GET['id']))) {
+            $criteria = new CDbCriteria();
+            $criteria->select = 'user_id';
+            $criteria->compare('user_id', Yii::app()->user->id, true);
+            $criteria->compare('id', $_GET['id'], true);
+            $owner = Issue::model()->findAll($criteria);
+            //CA_Debug::output_yii_models($watchers);
+            return !empty($owner);
+        } else {
+            return false;
+        }
+        return false;
+    }
     /**
      * Prepares create_time, create_user_id, update_time and update_user_id attributes before performing validation.
      */
