@@ -8,7 +8,7 @@ return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'Bugitor',
     'theme' => 'classic',
-    'defaultController' => 'project',
+    'defaultController' => 'site',
     'preload' => array('log', 'maintenanceMode'),
     // autoloading model and component classes
     'import' => array(
@@ -85,6 +85,7 @@ return array(
             'urlFormat' => 'path',
             'showScriptName' => false,
             'rules' => array(
+                '/welcome/' => 'site/index',
                 '/projects/' => 'project/index',
                 '/projects/<identifier>' => 'project/view',
                 '/issues/' => 'issue/index',
