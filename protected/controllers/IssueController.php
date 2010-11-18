@@ -18,10 +18,10 @@ class IssueController extends Controller {
     }
 
     public function allowedActions() {
-        return 'index, view, reqTest03';
+        return 'index, view';
     }
 
-    public function actionTestAjax() {
+    public function actionWatch() {
         if(Yii::app()->request->isAjaxRequest){
             if(isset($_POST['id'])) {
                 $issue = $this->loadModel($_POST['id']);
@@ -39,7 +39,7 @@ class IssueController extends Controller {
         }
     }
 
-    public function actionReqTest03() {
+    public function actionMassEdit() {
         if(Yii::app()->request->isAjaxRequest){
             if(isset($_POST['ids'])) {
                 foreach($_POST['ids'] as $val) {

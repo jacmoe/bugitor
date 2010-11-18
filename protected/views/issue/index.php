@@ -127,6 +127,7 @@ Show:
 		),
 	),
 )); ?>
+<?php if(Yii::app()->user->checkAccess('Issue.MassEdit')) : ?>
 <div class="box" style="width:350px;">
 <fieldset class="collapsible">
     <legend>Quick Admin</legend>
@@ -135,7 +136,7 @@ Show:
     $this->getVersionSelectList(),
     array('empty'=>'No Version')); ?>
 &nbsp;|-&gt;&nbsp;<?php echo CHtml::ajaxLink("Set Version",
-        $this->createUrl('reqTest03'),
+        $this->createUrl('massEdit'),
         array("type" => "post",
             "data" => "js:{ids:$.fn.yiiGridView.getSelection('issue-grid'),val:$('#versionDrop').val(),type:'version'}"
         ), array("onClick" => "js:{location.reload()}")); ?>
@@ -144,7 +145,7 @@ Show:
     0,
     $this->getPrioritySelectList()); ?>
 &nbsp;|-&gt;&nbsp;<?php echo CHtml::ajaxLink("Set Priority",
-        $this->createUrl('reqTest03'),
+        $this->createUrl('massEdit'),
         array("type" => "post",
             "data" => "js:{ids:$.fn.yiiGridView.getSelection('issue-grid'),val:$('#priorityDrop').val(),type:'priority'}"
         ), array("onClick" => "js:{location.reload()}")); ?>
@@ -154,9 +155,10 @@ Show:
     $this->getCategorySelectList(),
     array('empty'=>'No Category')); ?>
 &nbsp;|-&gt;&nbsp;<?php echo CHtml::ajaxLink("Set Category",
-        $this->createUrl('reqTest03'),
+        $this->createUrl('massEdit'),
         array("type" => "post",
             "data" => "js:{ids:$.fn.yiiGridView.getSelection('issue-grid'),val:$('#categoryDrop').val(),type:'category'}"
         ), array("onClick" => "js:{location.reload()}")); ?>
 </fieldset>
 </div>
+<?php endif; ?>
