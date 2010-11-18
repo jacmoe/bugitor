@@ -7,11 +7,11 @@
     </div>
     <div class="issues box">
         <h3>My Issues</h3>
-        <br/>
+        <?php $this->Widget('ownedIssues'); ?>
     </div>
     <div class="watched box">
         <h3>Watched Issues</h3>
-        <br/>
+        <?php $this->Widget('watchedIssues'); ?>
     </div>
 </div>
 <div class="splitcontentright">
@@ -21,6 +21,6 @@
     </div>
     <div class="assigned box">
         <h3>Issues Assigned to me</h3>
-        <br/>
+        <?php $this->Widget('assignedIssues'); ?>
     </div>
 </div>
