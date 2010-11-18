@@ -120,6 +120,7 @@
                                     $user=Yii::app()->getUser();
                                     foreach($user->getFlashKeys() as $key):
                                         if($user->hasFlash($key)): ?>
+                                        <br/>
                                         <div class="info flash-<?php echo $key; ?>">
                                             <?php echo $user->getFlash($key); ?>
                                         </div>

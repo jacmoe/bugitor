@@ -23,11 +23,19 @@ class IssueController extends Controller {
 
     public function actionTestAjax() {
         if(Yii::app()->request->isAjaxRequest){
-            $response = array(
-                'test1' => 'Username',
-                'test2' => 'Password'
-            );
-            echo json_encode($response);
+            if(isset($_POST['id'])) {
+                $issue = $this->loadModel($_POST['id']);
+                if($issue->watchedBy(Yii::app()->user->id)) {
+                    Watcher::model()->deleteAllByAttributes(array('user_id' => Yii::app()->user->id, 'issue_id' => $issue->id));
+                } else {
+                    $watcher = new Watcher();
+                    $watcher->issue_id = $issue->id;
+                    $watcher->user_id = Yii::app()->user->id;
+                    $watcher->save();
+                }
+                $issue = $this->loadModel($_POST['id']);
+                $this->renderPartial('_watchers', array('watchers' => $issue->getWatchers()), false, true);
+            }
         }
     }
 
@@ -65,7 +73,6 @@ class IssueController extends Controller {
             }
         }
     }
-
 
     /**
      * Displays a particular model.
@@ -166,10 +173,13 @@ class IssueController extends Controller {
         if (Yii::app()->request->isPostRequest) {
             // we only allow deletion via POST request
             $this->loadModel($id)->delete();
+            
+            Yii::app()->user->setFlash('success', "Issue " . $id . " has been deleted.");
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                //$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                $this->redirect(array('issue/index', 'identifier' => $_GET['identifier']));
         }
         else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
