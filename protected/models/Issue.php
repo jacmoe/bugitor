@@ -74,7 +74,7 @@ class Issue extends CActiveRecord {
     public function getWatchers() {
         $criteria = new CDbCriteria();
         $criteria->compare('issue_id', $this->id, true);
-        $watchers = Watcher::model()->findAll($criteria);
+        $watchers = Watcher::model()->with('user')->findAll($criteria);
         //CA_Debug::output_yii_models($watchers);
         return $watchers;
     }

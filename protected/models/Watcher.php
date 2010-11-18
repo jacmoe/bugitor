@@ -8,6 +8,8 @@
  * @property integer $user_id
  *
  * The followings are the available model relations:
+ * @property User $user
+ * @property Issue $issue
  */
 class Watcher extends CActiveRecord
 {
@@ -52,7 +54,9 @@ class Watcher extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-		);
+                    'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+                    'issue' => array(self::BELONGS_TO, 'Issue', 'issue_id'),
+                    );
 	}
 
 	/**
