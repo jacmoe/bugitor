@@ -256,9 +256,29 @@ EOD;
 		ob_start();
 		foreach($this->buttons as $id=>$button)
 		{
-			$this->renderButton($id,$button,$row,$data);
+                    if($id === 'view') {
+                        $this->renderButton($id,$button,$row,$data);
 			$tr['{'.$id.'}']=ob_get_contents();
 			ob_clean();
+                    } elseif($id === 'update') {
+                        if(Yii::app()->user->checkAccess('Issue.Update')) {
+                            $this->renderButton($id,$button,$row,$data);
+                            $tr['{'.$id.'}']=ob_get_contents();
+                            ob_clean();
+                        } else {
+                            $tr['{'.$id.'}']='';
+                            ob_clean();
+                        }
+                    } elseif($id === 'delete') {
+                        if(Yii::app()->user->checkAccess('Issue.Delete')) {
+                            $this->renderButton($id,$button,$row,$data);
+                            $tr['{'.$id.'}']=ob_get_contents();
+                            ob_clean();
+                        } else {
+                            $tr['{'.$id.'}']='';
+                            ob_clean();
+                        }
+                    }
 		}
 		ob_end_clean();
 		echo strtr($this->template,$tr);
