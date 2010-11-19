@@ -194,7 +194,7 @@ project_id=:projectId AND user_id=:userId";
     public function getMembers() {
         $criteria = new CDbCriteria;
         $criteria->compare('project_id', $this->id, true);
-        return Member::model()->findAll($criteria);
+        return Member::model()->with('user')->findAll($criteria);
     }
 
     public static function getNonMembers() {

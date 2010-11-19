@@ -1,7 +1,7 @@
 <?php
 
 /**
- * WatchedIssues is a Yii widget used to display a list of owned
+ * OwnedIssues is a Yii widget used to display a list of owned
   issues
  */
 class OwnedIssues extends CWidget {

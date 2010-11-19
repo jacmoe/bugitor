@@ -1,7 +1,11 @@
 <?php
 class Bugitor {
-    public static function link_to_user($name, $id) {
-        return CHtml::link(ucfirst($name),array('/user/user/view', "id" => $id));
+    public static function link_to_user($user) {
+        if(false) {
+            return CHtml::link(ucfirst($user->username),array('/user/user/view', "id" => $user->id));
+        } else {
+            return CHtml::link(ucwords($user->profile->getAttribute('firstname') . ' ' . $user->profile->getAttribute('lastname')),array('/user/user/view', "id" => $user->id));
+        }
     }
     public static function progress_bar_auto($pcts, $options=array()) {
         $total = $pcts[0] + $pcts[1];
