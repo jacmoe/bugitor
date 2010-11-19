@@ -3,12 +3,6 @@
 class MemberController extends Controller
 {
 	/**
-	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-	 * using two-column layout. See 'protected/views/layouts/column2.php'.
-	 */
-	public $layout='//layouts/column2';
-
-	/**
 	 * @return array action filters
 	 */
 	public function filters()
@@ -68,7 +62,7 @@ class MemberController extends Controller
 	 */
 	public function actionUpdate($id, $identifier)
 	{
-		$model=$this->loadModel($id);
+		$model = Member::model()->with('user')->findByPk((int)$id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);

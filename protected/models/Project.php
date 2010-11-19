@@ -170,15 +170,6 @@ class Project extends CActiveRecord {
         return $id;
     }
 
-    /**
-     * Returns an array of available roles in which a user can be
-      placed when being added to a project
-     */
-    public static function getUserRoleOptions() {
-        return CHtml::listData(Rights::module()->getAuthorizer()->getRoles(),
-                'name', 'name');
-    }
-
     /*
      * Determines whether or not a user is already part of a project
      */
@@ -201,6 +192,7 @@ project_id=:projectId AND user_id=:userId";
         $members = Member::model()->findAll();
         $criteria = new CDbCriteria;
         $criteria->addNotInCondition('user_id', $members);
+        $criteria1->addInCondition('project_id', Project::getProjectIdFromIdentifier($_GET['identifier']));
         return User::model()->findAll($criteria);
     }
 
@@ -215,6 +207,7 @@ project_id=:projectId AND user_id=:userId";
         $members = Member::model()->findAll();
         $criteria1 = new CDbCriteria();
         $criteria1->select = "user_id";
+        $criteria1->compare('project_id', Project::getProjectIdFromIdentifier($_GET['identifier']));
         $members = Member::model()->findAll($criteria1);
         $member_list = array();
         foreach ($members as $member) {

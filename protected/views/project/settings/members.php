@@ -19,10 +19,7 @@
   <tr class="<?php echo $n%2?'even':'odd';?>">
     <td width="20"><?php echo CHtml::encode(ucfirst($member->user->username)); ?></td>
     <td width="20">
-    <?php $assignments = Rights::getAssignedRoles($member->user->id); ?>
-    <?php foreach($assignments as $assignment) {
-        echo $assignment->name . ' . ';
-        } ?>
+    <?php echo $member->role; ?>
     </td>
     <td width="20">
       <?php echo CHtml::link('Update',array('member/update','id'=>$member->id, 'identifier' => $_GET['identifier'])); ?>
