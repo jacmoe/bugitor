@@ -14,7 +14,7 @@ $this->pageTitle = $model->name . ' - Overview - ' . Yii::app()->name;
 <div class="splitcontentright">
 <div class="members box">
 <h3>Members</h3>
-Members here
+<?php $this->widget('ProjectMembers', array('project' => $model)) ?>
 </div>
 <div class="activity box">
 <h3>Recent Activity</h3>

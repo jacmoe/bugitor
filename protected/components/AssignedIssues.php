@@ -2,7 +2,7 @@
 
 /**
  * WatchedIssues is a Yii widget used to display a list of assigned
-  issues
+  issues for current user
  */
 class AssignedIssues extends CWidget {
 

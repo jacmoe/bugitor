@@ -1,8 +1,8 @@
 <?php
 
 /**
- * WatchedIssues is a Yii widget used to display a list of assigned
-  issues
+ * MyProjects is a Yii widget used to display a list of projects
+  associated with current user
  */
 class MyProjects extends CWidget {
 

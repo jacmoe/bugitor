@@ -1,5 +1,5 @@
 <?php $project = $this->getProject(); ?>
-<h2><?php echo $project->name; ?></h2>
+<h2><?php echo CHtml::link($project->name, array('project/view', 'identifier' => $project->identifier)); ?></h2>
 <?php echo $project->getDescription(); ?>
 <?php if($project->homepage != ''): ?>
 Homepage: <?php echo CHtml::link($project->homepage); ?>

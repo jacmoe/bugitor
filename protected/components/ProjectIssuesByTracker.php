@@ -1,8 +1,8 @@
 <?php
 
 /**
- * WatchedIssues is a Yii widget used to display a list of assigned
-  issues
+ * ProjectIssuesByTracker is a Yii widget used to display a list of issues
+  associated with a project
  */
 class ProjectIssuesByTracker extends CWidget {
 

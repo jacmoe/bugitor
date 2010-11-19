@@ -1,8 +1,7 @@
 <?php
 
 /**
- * WatchedIssues is a Yii widget used to display a list of assigned
-  issues
+ * ProjectBox is a Yii widget used to display information about a project
  */
 class ProjectBox extends CWidget {
 

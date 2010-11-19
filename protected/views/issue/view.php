@@ -31,7 +31,7 @@ $this->pageTitle = $model->project->name . ' - ' . $model->tracker->name . ' #' 
 <div class="issue">
 <?php echo Bugitor::gravatar($model->user->email); ?>
 <h3><?php echo $model->subject; ?></h3>
-Added by <?php echo Bugitor::link_to_user($model->user->username, $model->user->id); ?> <?php echo Time::timeAgoInWords($model->created); ?>.
+Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Time::timeAgoInWords($model->created); ?>.
 <hr/>
 <table width="95%">
     <tbody><tr>
@@ -67,7 +67,7 @@ Added by <?php echo Bugitor::link_to_user($model->user->username, $model->user->
         <td>
             <?php if(isset($model->assignedTo)) : ?>
                 <span><?php echo Bugitor::gravatar($model->assignedTo->email); ?></span>
-                <?php echo Bugitor::link_to_user($model->assignedTo->username, $model->assignedTo->id); ?>
+                <?php echo Bugitor::link_to_user($model->assignedTo); ?>
             <?php endif; ?>
         </td>
         <td class="progress"><b>% Done:</b></td>
