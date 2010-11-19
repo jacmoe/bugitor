@@ -5,7 +5,7 @@
 <?php foreach($projects as $project): ?>
 <li>
 <?php echo CHtml::link(CHtml::encode($project->project->name),
-array('project/view', 'id'=>$project->project->id, 'identifier' => $project->project->identifier)); ?>
+array('project/view', 'identifier' => $project->project->identifier)); ?>
 </li>
 <?php endforeach; ?>
 </ul>
