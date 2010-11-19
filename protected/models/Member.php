@@ -95,4 +95,26 @@ class Member extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+    public function roleFilter($var) {
+        switch ($var->name) {
+            case 'Guest':
+            case 'User':
+            case 'Admin':
+                return false;
+                break;
+            default:
+                return true;
+                break;
+        }
+        return true;
+    }
+    /**
+     * Returns an array of available roles in which a user can be
+      placed when being added to a project
+     */
+    public function getUserRoleOptions() {
+        $roles = array_filter(Rights::module()->getAuthorizer()->getRoles(), array($this, 'roleFilter'));
+        return CHtml::listData($roles,
+                'name', 'name');
+    }
 }
