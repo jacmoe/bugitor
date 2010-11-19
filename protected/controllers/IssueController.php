@@ -18,7 +18,7 @@ class IssueController extends Controller {
     }
 
     public function allowedActions() {
-        return 'index, view';
+        return 'view';
     }
 
     public function actionWatch() {
