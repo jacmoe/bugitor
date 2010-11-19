@@ -20,9 +20,9 @@
     <td width="20"><?php echo CHtml::encode($category->name); ?></td>
     <td width="20"><?php echo CHtml::encode($category->description); ?></td>
     <td width="20">
-      <?php echo CHtml::link('Update',array('issuecategory/update','id'=>$category->id, 'identifier' => $_GET['identifier'])); ?>
+      <?php echo CHtml::link('Update',array('issueCategory/update','id'=>$category->id, 'identifier' => $_GET['identifier'])); ?>
       <?php echo CHtml::linkButton('Delete',array(
-      	  'submit'=>array('/issuecategory/delete', 'id' => $category->id, 'identifier' => $_GET['identifier']),
+      	  'submit'=>array('/issueCategory/delete', 'id' => $category->id, 'identifier' => $_GET['identifier']),
       	  'confirm'=>"Are you sure you want to delete {$category->name}?")); ?>
 	</td>
   </tr>
@@ -32,4 +32,4 @@
 <?php else: ?>
 <p class="nodata"><?php echo 'No data to display'; ?></p>
 <?php endif; ?>
-<?php echo CHtml::link('New Category',array('issuecategory/create','identifier'=>$_GET['identifier'])); ?>
+<?php echo CHtml::link('New Category',array('issueCategory/create','identifier'=>$_GET['identifier'])); ?>
