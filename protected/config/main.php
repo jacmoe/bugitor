@@ -88,7 +88,6 @@ return array(
                 '/welcome/' => 'site/index',
                 '/projects/' => 'project/index',
                 '/projects/<identifier>' => 'project/view',
-                '/issues/' => 'issue/index',
                 '/projects/<identifier>/issues' => 'issue/index',
                 '/projects/<identifier>/issue/<_a:(create)>'   => 'issue/<_a>',
                 '/projects/<identifier>/issue/<action:\w+>/<id:\d+>'   => 'issue/<action>',
@@ -98,6 +97,7 @@ return array(
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
                 'comment/feed'=>array('comment/feed', 'urlSuffix'=>'.xml', 'caseSensitive'=>false),
+                '/issues/' => 'issue/index',
                 ),
         ),
         'db' => array(
