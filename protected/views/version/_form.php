@@ -50,6 +50,7 @@
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+                <?php echo CHtml::Button('Cancel',array('submit' => CHttpRequest::getUrlReferrer()));?>
 	</div>
 
 <?php $this->endWidget(); ?>
