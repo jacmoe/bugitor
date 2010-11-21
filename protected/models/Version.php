@@ -123,8 +123,6 @@ class Version extends CActiveRecord {
 
     public function behaviors() {
         return array(
-            'CActiveRecordLogableBehavior' =>
-            array('class' => 'application.behaviors.CActiveRecordLogableBehavior'),
             'BugitorTimestampBehavior' => array(
                 'class' => 'application.behaviors.BugitorTimestampBehavior',
                 'createAttribute' => 'created',
