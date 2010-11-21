@@ -35,17 +35,6 @@
     $this->pageTitle = isset($_GET['projectname']) ? $_GET['projectname'] . '- Issues - ' . Yii::app()->name : Yii::app()->name . ' - Issues';
     $pageSize=Yii::app()->user->getState('pageSize',Yii::app()->params['defaultPageSize']);
 ?>
-<?php /* echo CHtml::ajaxLink("Click",
-        $this->createUrl('testAjax'),
-        array('dataType' => 'json', 'success' => 'function(data,status){
-                $("#test1").html(data.test1);
-                $("#test2").html(data.test2);
-            }')); */ ?>
-<!--<br/>
-Test1:<br/>
-<div id="test1"></div>
-Test2:<br/>
-<div id="test2"></div>//-->
 <h3 class="issues">Issues</h3>
 <?php echo CHtml::form('issues','get', array('class' => 'floatrightup')); ?>
 Show:
@@ -162,36 +151,49 @@ Show:
 )); ?>
 <?php if(Yii::app()->user->checkAccess('Issue.MassEdit')) : ?>
 <div class="box" style="width:350px;">
-<fieldset class="collapsible">
-    <legend>Quick Admin</legend>
-<?php echo CHtml::dropDownList('versionDrop',
-    0,
-    $this->getVersionSelectList(),
-    array('empty'=>'No Version')); ?>
-&nbsp;|-&gt;&nbsp;<?php echo CHtml::ajaxLink("Set Version",
-        $this->createUrl('massEdit'),
-        array("type" => "post",
-            "data" => "js:{ids:$.fn.yiiGridView.getSelection('issue-grid'),val:$('#versionDrop').val(),type:'version'}"
-        ), array("onClick" => "js:{location.reload()}")); ?>
-<br/>
-<?php echo CHtml::dropDownList('priorityDrop',
-    0,
-    $this->getPrioritySelectList()); ?>
-&nbsp;|-&gt;&nbsp;<?php echo CHtml::ajaxLink("Set Priority",
-        $this->createUrl('massEdit'),
-        array("type" => "post",
-            "data" => "js:{ids:$.fn.yiiGridView.getSelection('issue-grid'),val:$('#priorityDrop').val(),type:'priority'}"
-        ), array("onClick" => "js:{location.reload()}")); ?>
-<br/>
-<?php echo CHtml::dropDownList('categoryDrop',
-    0,
-    $this->getCategorySelectList(),
-    array('empty'=>'No Category')); ?>
-&nbsp;|-&gt;&nbsp;<?php echo CHtml::ajaxLink("Set Category",
-        $this->createUrl('massEdit'),
-        array("type" => "post",
-            "data" => "js:{ids:$.fn.yiiGridView.getSelection('issue-grid'),val:$('#categoryDrop').val(),type:'category'}"
-        ), array("onClick" => "js:{location.reload()}")); ?>
-</fieldset>
+    <fieldset id="quick_admin_fieldset" class="collapsible collapsed">
+            <legend onclick="$('#quick_admin').toggle();$('#quick_admin_fieldset').toggleClass('collapsed')">
+                Quick Admin
+            </legend>
+            <div id="quick_admin" style="display: none;">
+            <?php
+            echo CHtml::dropDownList('versionDrop',
+                    0,
+                    $this->getVersionSelectList(),
+                    array('empty' => 'No Version'));
+            ?>
+            &nbsp;|-&gt;&nbsp;<?php
+            echo CHtml::ajaxLink("Set Version",
+                    $this->createUrl('massEdit'),
+                    array("type" => "post",
+                        "data" => "js:{ids:$.fn.yiiGridView.getSelection('issue-grid'),val:$('#versionDrop').val(),type:'version'}"
+                    ), array("onClick" => "js:{location.reload()}")); ?>
+            <br/>
+<?php
+            echo CHtml::dropDownList('priorityDrop',
+                    0,
+                    $this->getPrioritySelectList()); ?>
+            &nbsp;|-&gt;&nbsp;<?php
+            echo CHtml::ajaxLink("Set Priority",
+                    $this->createUrl('massEdit'),
+                    array("type" => "post",
+                        "data" => "js:{ids:$.fn.yiiGridView.getSelection('issue-grid'),val:$('#priorityDrop').val(),type:'priority'}"
+                    ), array("onClick" => "js:{location.reload()}")); ?>
+            <br/>
+            <?php
+            echo CHtml::dropDownList('categoryDrop',
+                    0,
+                    $this->getCategorySelectList(),
+                    array('empty' => 'No Category'));
+            ?>
+            &nbsp;|-&gt;&nbsp;<?php
+            echo CHtml::ajaxLink("Set Category",
+                    $this->createUrl('massEdit'),
+                    array("type" => "post",
+                        "data" => "js:{ids:$.fn.yiiGridView.getSelection('issue-grid'),val:$('#categoryDrop').val(),type:'category'}"
+                    ), array("onClick" => "js:{location.reload()}"));
+            ?>
+                    </div>
+                </fieldset>
 </div>
 <?php endif; ?>
