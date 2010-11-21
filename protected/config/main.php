@@ -51,7 +51,6 @@ return array(
         'application.modules.user.components.*',
         'application.modules.rights.components.*',
         'application.helpers.*',
-        'application.behaviors.ActiveRecordLogableBehavior',
         'application.extensions.simpleWorkflow.*',
     ),
     'modules' => array(
