@@ -178,24 +178,31 @@ class IssueController extends Controller {
         $_GET['projectname'] = $model->project->name;
 
         $comment = new Comment;
-        if (isset($_POST['Comment'])) {
-            $comment->attributes = $_POST['Comment'];
-            $comment->issue_id = $model->id;
-            if($comment->validate())
-                $comment->save(false);
-        }
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Issue'])) {
             $model->attributes = $_POST['Issue'];
-            if ($model->validate()) {
-                $model->save(false);
-                Yii::app()->user->setFlash('success',"Issue was succesfully updated");
-                $this->redirect(array('view', 'id' => $model->id, 'identifier' => $model->project->identifier));
+            if (($_POST['Comment']['content'] !== '')) {
+                $comment->attributes = $_POST['Comment'];
+                $comment->issue_id = $model->id;
+                if($comment->validate()) {
+                    $comment->save(false);
+                    $model->updated_by = Yii::app()->user->id;
+                }
+            }
+            if($model->wasModified()) {
+                if ($model->validate()) {
+                    $model->save(false);
+                    Yii::app()->user->setFlash('success',"Issue was succesfully updated");
+                    $this->redirect(array('view', 'id' => $model->id, 'identifier' => $model->project->identifier));
+                } else {
+                    Yii::app()->user->setFlash('error',"There was an error updating the issue");
+                }
             } else {
-                Yii::app()->user->setFlash('error',"There was an error updating the issue");
+                Yii::app()->user->setFlash('success',"No changes detected");
+                $this->redirect(array('view', 'id' => $model->id, 'identifier' => $model->project->identifier));
             }
         }
 

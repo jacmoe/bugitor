@@ -47,6 +47,7 @@
  * @property integer $issue_priority_id
  * @property integer $version_id
  * @property integer $assigned_to
+ * @property integer $updated_by
  * @property string $created
  * @property string $modified
  * @property integer $done_ratio
@@ -56,6 +57,7 @@
  *
  * The followings are the available model relations:
  * @property User $assignedTo
+ * @property User $updatedBy
  * @property IssueCategory $issueCategory
  * @property Project $project
  * @property IssuePriority $issuePriority
@@ -205,7 +207,7 @@ class Issue extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('subject, description, user_id, status, issue_priority_id, tracker_id', 'required'),
-            array('tracker_id, project_id, issue_category_id, user_id, issue_priority_id, version_id, assigned_to, done_ratio, pre_done_ratio, closed', 'numerical', 'integerOnly' => true),
+            array('tracker_id, project_id, issue_category_id, user_id, issue_priority_id, version_id, assigned_to, updated_by, done_ratio, pre_done_ratio, closed', 'numerical', 'integerOnly' => true),
             array('subject', 'length', 'max' => 255),
             array('status', 'SWValidator'),
             array('created, modified', 'safe'),
@@ -223,6 +225,7 @@ class Issue extends CActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'assignedTo' => array(self::BELONGS_TO, 'User', 'assigned_to'),
+            'updatedBy' => array(self::BELONGS_TO, 'User', 'updated_by'),
             'issueCategory' => array(self::BELONGS_TO, 'IssueCategory', 'issue_category_id'),
             'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
             'issuePriority' => array(self::BELONGS_TO, 'IssuePriority', 'issue_priority_id'),
@@ -251,6 +254,7 @@ class Issue extends CActiveRecord {
             'issue_priority_id' => 'Issue Priority',
             'version_id' => 'Version',
             'assigned_to' => 'Owner',
+            'updated_by' => 'Updated by',
             'created' => 'Created',
             'modified' => 'Modified',
             'done_ratio' => 'Done Ratio',
@@ -314,6 +318,24 @@ class Issue extends CActiveRecord {
     public function getDescription() {
         $parser = new CMarkdownParser;
         return $parser->safeTransform($this->description);
+    }
+
+    public function wasModified() {
+        $newattributes = $this->getAttributes();
+        $oldattributes = $this->getOldAttributes();
+        // compare old and new
+        foreach ($newattributes as $name => $value) {
+
+            if (!empty($oldattributes)) {
+                $old = $oldattributes[$name];
+            } else {
+                $old = '';
+            }
+            if ($value != $old) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
