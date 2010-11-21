@@ -474,8 +474,8 @@ p.big_progress-info {clear: left; font-style: italic; font-size: 100%;}
 .splitcontentleft{float:left; width:49%;}
 .splitcontentright{float:right; width:49%;}
 
-.halfsplitcontentleft{float:left; width:79%;}
-.halfsplitcontentright{float:right; width:19%;}
+.halfsplitcontentleft{float:left; width:75%;}
+.halfsplitcontentright{float:right; width:15%;}
 
 /***** Tabs *****/
 #content .tabs {height: 2.6em; border-bottom: 1px solid #bbbbbb; margin-bottom:1.2em; position:relative;}

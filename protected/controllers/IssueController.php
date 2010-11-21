@@ -116,11 +116,9 @@ class IssueController extends Controller {
             $_GET['projectname'] = Project::getProjectNameFromIdentifier($_GET['identifier']);
         }
         $this->layout = '//layouts/column1';
-        $issue = Issue::model()->with(array('tracker','user', 'issueCategory', 'issuePriority', 'version', 'assignedTo', 'project'))->findByPk((int) $id);//$this->loadModel($id, true);
-        $comment = $this->createComment($issue);
+        $issue = Issue::model()->with(array('comments','tracker','user', 'issueCategory', 'issuePriority', 'version', 'assignedTo', 'project'))->findByPk((int) $id);//$this->loadModel($id, true);
         $this->render('view', array(
             'model' => $issue,
-            'comment' => $comment,
         ));
     }
 
@@ -130,7 +128,7 @@ class IssueController extends Controller {
             $comment->attributes = $_POST['Comment'];
             if ($issue->addComment($comment)) {
                 Yii::app()->user->setFlash('commentSubmitted', "Your comment has been added.");
-                $this->refresh();
+                //$this->refresh();
             }
         }
         return $comment;
@@ -175,16 +173,25 @@ class IssueController extends Controller {
     public function actionUpdate($id) {
         $this->layout = '//layouts/column1';
         
-        $model = Issue::model()->with('project')->findByPk((int) $id);//$this->loadModel($id);
+        $model = Issue::model()->with(array('comments','tracker','user', 'issueCategory', 'issuePriority', 'version', 'assignedTo', 'project'))->findByPk((int) $id);
 
         $_GET['projectname'] = $model->project->name;
+
+        $comment = new Comment;
+        if (isset($_POST['Comment'])) {
+            $comment->attributes = $_POST['Comment'];
+            $comment->issue_id = $model->id;
+            if($comment->validate())
+                $comment->save(false);
+        }
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Issue'])) {
             $model->attributes = $_POST['Issue'];
-            if ($model->save()) {
+            if ($model->validate()) {
+                $model->save(false);
                 Yii::app()->user->setFlash('success',"Issue was succesfully updated");
                 $this->redirect(array('view', 'id' => $model->id, 'identifier' => $model->project->identifier));
             } else {
@@ -194,6 +201,7 @@ class IssueController extends Controller {
 
         $this->render('update', array(
             'model' => $model,
+            'comment' => $comment,
         ));
     }
 

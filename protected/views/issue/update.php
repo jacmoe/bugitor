@@ -36,4 +36,4 @@ $this->pageTitle = $model->project->name . ' - Update ' . $model->tracker->name 
 ?>
 <h3 class="editissue">Update Issue <?php echo $model->id; ?></h3>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model, 'comment' => $comment)); ?>
