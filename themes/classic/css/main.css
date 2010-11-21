@@ -563,8 +563,8 @@ h3.editissue {
 }
 
 div.members h3 {
-    background:url("../images/group.png") no-repeat scroll 0 50% transparent;
-    padding-left:20px;
+    background:url("../images/22x22/users.png") no-repeat scroll 0 50% transparent;
+    padding-left:25px;
 }
 
 div.activity h3 {
