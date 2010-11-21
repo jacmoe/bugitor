@@ -69,6 +69,24 @@
  */
 class Issue extends CActiveRecord {
 
+    private $_oldattributes = array();
+
+    public function afterFind($event)
+    {
+        // Save old values
+        $this->setOldAttributes($this->Owner->getAttributes());
+    }
+
+    public function getOldAttributes()
+    {
+        return $this->_oldattributes;
+    }
+
+    public function setOldAttributes($value)
+    {
+        $this->_oldattributes=$value;
+    }
+
     /**
      * Returns the static model of the specified AR class.
      * @return Issue the static model class
