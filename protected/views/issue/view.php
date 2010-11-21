@@ -124,9 +124,6 @@ Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Time::tim
 <?php ?>
 <div class="span-16" id="comments">
 <?php if($model->commentCount>=1): ?>
-<h3>
-<?php echo $model->commentCount>1 ? $model->commentCount . ' comments' : 'One comment'; ?>
-</h3>
 <?php $this->renderPartial('_comments',array('comments'=>$model->comments,)); ?>
 <?php endif; ?>
 </div>

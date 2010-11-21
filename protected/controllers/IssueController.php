@@ -81,19 +81,49 @@ class IssueController extends Controller {
                             $issue = $this->loadModel($val, true);
                             $issue->issue_priority_id = $_POST['val'];
                             $issue->updated_by = Yii::app()->user->id;
-                            $issue->save();
+                            if($issue->validate()) {
+                                $comment = new Comment();
+                                $comment->issue_id = $issue->id;
+                                $comment->content = '<div class="alt"><small>(Mass Edit) No comments for this change</small></div>';
+                                if($comment->validate())
+                                    $comment->save(false);
+
+                                $issue->buildCommentDetails($comment->id);
+
+                                $issue->save(false);
+                            }
                             break;
                         case 'version':
                             $issue = $this->loadModel($val, true);
                             $issue->version_id = $_POST['val'];
                             $issue->updated_by = Yii::app()->user->id;
-                            $issue->save();
+                            if($issue->validate()) {
+                                $comment = new Comment();
+                                $comment->issue_id = $issue->id;
+                                $comment->content = '<div class="alt"><small>(Mass Edit) No comments for this change</small></div>';
+                                if($comment->validate())
+                                    $comment->save(false);
+
+                                $issue->buildCommentDetails($comment->id);
+
+                                $issue->save(false);
+                            }
                             break;
                         case 'category':
                             $issue = $this->loadModel($val, true);
                             $issue->issue_category_id = $_POST['val'];
                             $issue->updated_by = Yii::app()->user->id;
-                            $issue->save();
+                            if($issue->validate()) {
+                                $comment = new Comment();
+                                $comment->issue_id = $issue->id;
+                                $comment->content = '<div class="alt"><small>(Mass Edit) No comments for this change</small></div>';
+                                if($comment->validate())
+                                    $comment->save(false);
+
+                                $issue->buildCommentDetails($comment->id);
+
+                                $issue->save(false);
+                            }
                             break;
                         default:
                             break;
