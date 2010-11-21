@@ -369,17 +369,17 @@ class Issue extends CActiveRecord {
 
                 if($old == '')
                 {
-                    $detail->change = $labels[$name] . ' set to <i>' . $this->getNamefromRowValue($name, $value).'</i>';
+                    $detail->change = '<b>'.$labels[$name] . '</b> set to <i>' . $this->getNamefromRowValue($name, $value).'</i>';
                 }
                 else
                 {
                     if($value != '')
                     {
-                        $detail->change = $labels[$name] . ' changed from <i>' . $this->getNamefromRowValue($name, $old) . '</i> to <i>' . $this->getNamefromRowValue($name, $value).'</i>';
+                        $detail->change = '<b>'.$labels[$name] . '</b> changed from <i>' . $this->getNamefromRowValue($name, $old) . '</i> to <i>' . $this->getNamefromRowValue($name, $value).'</i>';
                     }
                     else
                     {
-                        $detail->change = $labels[$name] . ' removed (<s>'.$this->getNamefromRowValue($name, $old).'</s>)';
+                        $detail->change = '<b>'.$labels[$name] . '</b> removed (<i><s>'.$this->getNamefromRowValue($name, $old).'</s></i>)';
                     }
                 }
                 if($detail->validate())

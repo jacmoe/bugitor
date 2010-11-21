@@ -32,15 +32,14 @@
  */
 ?>
 <?php $comments = array_reverse($comments); ?>
+<div id="history">
+    <h3>History</h3>
 <?php foreach($comments as $comment): ?>
-<div class="comment">
-<div class="author">
-<?php echo ucfirst($comment->author->username); ?>:
-</div>
-<div class="time">
-<?php echo Time::timeAgoInWords($comment->created); ?>
-</div>
-<div class="content">
+<div id="change-1210" class="journal">
+<h4><div style="float: right;"><a href="/projects/ogitor/issues/view/51#note-6">#6</a></div>
+Updated by <?php echo Bugitor::link_to_user($comment->author); ?>
+ <?php echo Time::timeAgoInWords($comment->created); ?></h4>
+<span><?php echo Bugitor::gravatar($comment->author->email); ?></span>
 <?php if($comment->details) : ?>
 <ul>
 <?php foreach($comment->details as $detail): ?>
@@ -48,8 +47,10 @@
 <?php endforeach; ?>
 </ul>
 <?php endif; ?>
-<?php echo $comment->content; ?>
+<div class="content">
+<p><?php echo $comment->content; ?>
+<br/></p>
 </div>
-<hr>
-</div><!-- comment -->
+</div>
 <?php endforeach; ?>
+</div>
