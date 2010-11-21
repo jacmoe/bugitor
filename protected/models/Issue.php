@@ -71,7 +71,7 @@ class Issue extends CActiveRecord {
 
     private $_oldattributes = array();
 
-    public function afterFind($event)
+    public function afterFind()
     {
         // Save old values
         $this->setOldAttributes($this->Owner->getAttributes());
