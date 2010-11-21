@@ -41,7 +41,14 @@
 <?php echo Time::timeAgoInWords($comment->created); ?>
 </div>
 <div class="content">
-<?php echo nl2br(CHtml::encode($comment->content)); ?>
+<?php if($comment->details) : ?>
+<ul>
+<?php foreach($comment->details as $detail): ?>
+<li><?php echo $detail->change; ?></li>
+<?php endforeach; ?>
+</ul>
+<?php endif; ?>
+<?php echo $comment->content; ?>
 </div>
 <hr>
 </div><!-- comment -->
