@@ -33,7 +33,6 @@
 ?>
 <div class="issue">
 <div class="form">
-
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'issue-form',
 	'enableAjaxValidation'=>false,
@@ -47,7 +46,41 @@
                 Tracker::model()->findAll(), 'id', 'name'),array('selected' => 'Bug')); ?>
 		<?php echo $form->error($model,'tracker_id'); ?>
 	</div>
-	<div class="row">
+
+        <?php if(!$model->isNewRecord) : ?>
+        <fieldset id="subject_description_fieldset" class="collapsible collapsed">
+        <legend onclick="$('#description_row').toggle();$('#subject_row').toggle();$('#subject_description_fieldset').toggleClass('collapsed')">
+            Toggle Subject/Description
+        </legend>
+        <div class="row" id="subject_row" style="display: none;">
+		<?php echo $form->labelEx($model,'subject'); ?>
+		<?php echo $form->textField($model,'subject',array(Yii::app()->user->checkAccess('Issue.Edit')?'enabled':'disabled' => true, 'size'=>112,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'subject'); ?>
+	</div>
+	<div class="row" id="description_row" style="display: none;">
+		<?php echo $form->labelEx($model,'description'); ?>
+		<?php if(Yii::app()->user->checkAccess('Issue.Edit')) : ?>
+                <?php $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
+			'model' => $model,
+			'attribute' => 'description',
+                        'htmlOptions'=>array('style'=>'height:150px;')
+                ))?>
+                <?php else : ?>
+		<?php echo $form->textArea($model,'description', array('disabled' => true, 'style' => 'height:150px;width:98%;')); ?>
+                <?php endif; ?>
+                <?php echo $form->error($model,'description'); ?>
+	</div>
+        </fieldset>
+        <div class="row">
+        <?php $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
+                // you can either use it for model attribute
+                // or just for input field
+                'name' => 'my_input_name',
+                'htmlOptions'=>array('style'=>'height:150px;'),
+        )) ?>
+        </div>
+        <?php else : ?>
+        <div class="row">
 		<?php echo $form->labelEx($model,'subject'); ?>
 		<?php echo $form->textField($model,'subject',array('size'=>112,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'subject'); ?>
@@ -61,40 +94,44 @@
                     ))?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
+        <?php endif; ?>
         </div>
         <div class="halfsplitcontentright">
             <div class="row">
                     <?php echo $form->labelEx($model,'issue_priority_id'); ?>
-                    <?php echo $form->dropDownList($model, 'issue_priority_id', CHtml::listData(
-                    IssuePriority::model()->findAll(array('order'=>'id')), 'id', 'name'), array('options' => array('2'=>array('selected'=>true)))); ?>
+                    <?php echo $form->dropDownList($model,
+                            'issue_priority_id',
+                            CHtml::listData(IssuePriority::model()->findAll(array('order'=>'id')), 'id', 'name'),
+                            array(Yii::app()->user->checkAccess('Issue.Edit')?'enabled':'disabled' => true, 'options' => array('2'=>array('selected'=>true)))); ?>
                     <?php echo $form->error($model,'issue_priority_id'); ?>
             </div>
             <div class="row">
                     <?php echo $form->labelEx($model,'status'); ?>
                     <?php if($model->isNewRecord) : ?>
-                        <?php echo $form->dropDownList($model,'status',array('swIssue/new' => 'New*')); ?>
+                        <?php echo $form->dropDownList($model,'status',array('swIssue/new' => 'New*'), array(Yii::app()->user->checkAccess('Issue.Edit')?'enabled':'disabled' => true)); ?>
                     <?php else : ?>
-                        <?php echo $form->dropDownList($model,'status',SWHelper::nextStatuslistData($model)); ?>
+                        <?php echo $form->dropDownList($model,'status',SWHelper::nextStatuslistData($model), array(Yii::app()->user->checkAccess('Issue.Edit')?'enabled':'disabled' => true)); ?>
                     <?php endif; ?>
                     <?php echo $form->error($model,'status'); ?>
             </div>
             <div class="row">
                     <?php echo $form->labelEx($model,'issue_category_id'); ?>
-                    <?php echo $form->dropDownList($model, 'issue_category_id', $this->getCategorySelectList(),array('prompt' => '<None>')); ?>
+                    <?php echo $form->dropDownList($model, 'issue_category_id', $this->getCategorySelectList(),array(Yii::app()->user->checkAccess('Issue.Edit')?'enabled':'disabled' => true, 'prompt' => '<None>')); ?>
                     <?php echo $form->error($model,'issue_category_id'); ?>
             </div>
             <div class="row">
                     <?php echo $form->labelEx($model,'assigned_to'); ?>
-                    <?php echo $form->dropDownList($model, 'assigned_to', $this->getUserSelectList(),array('prompt' => '<None>')); ?>
+                    <?php echo $form->dropDownList($model, 'assigned_to', $this->getUserSelectList(),array(Yii::app()->user->checkAccess('Issue.Edit')?'enabled':'disabled' => true, 'prompt' => '<None>')); ?>
                     <?php echo $form->error($model,'assigned_to'); ?>
             </div>
             <div class="row">
                     <?php echo $form->labelEx($model,'version_id'); ?>
-                    <?php echo $form->dropDownList($model, 'version_id', $this->getVersionSelectList(),array('prompt' => '<None>')); ?>
+                    <?php echo $form->dropDownList($model, 'version_id', $this->getVersionSelectList(),array(Yii::app()->user->checkAccess('Issue.Edit')?'enabled':'disabled' => true, 'prompt' => '<None>')); ?>
                     <?php echo $form->error($model,'version_id'); ?>
             </div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'done_ratio'); ?>
+                <?php if((Yii::app()->user->checkAccess('Issue.Update'))&&(!$model->isNewRecord)) : ?>
                 <?php
                 $this->widget('zii.widgets.jui.CJuiSlider', array(
                     'value'=>$model->done_ratio,
@@ -107,10 +144,12 @@
                         'slide'=>'js:function(event, ui) { $("#done_ratio").val(ui.value);}',
                         ),
                     'htmlOptions'=>array(
-                        'style'=>'height:8px;width:144px;'
+                        'style'=>'height:8px;width:144px;',
+                        Yii::app()->user->checkAccess('Issue.Edit')?'enabled':'disabled' => true,
                     ),
                 ));
                 ?>
+                <?php endif; ?>
 		<?php echo $form->textField($model,'done_ratio', array('id' => 'done_ratio', 'readonly' => true)); ?>
 		<?php echo $form->error($model,'done_ratio'); ?>
 	</div>
