@@ -4,7 +4,7 @@
 # Server version:               5.1.36-community-log
 # Server OS:                    Win32
 # HeidiSQL version:             5.0.0.3272
-# Date/time:                    2010-11-19 16:31:54
+# Date/time:                    2010-11-21 23:21:45
 # --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -14,16 +14,20 @@
 
 # Dumping structure for table ogitorbugs.bug_action_log
 CREATE TABLE IF NOT EXISTS `bug_action_log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `old_value` varchar(255) DEFAULT NULL,
-  `new_value` varchar(255) DEFAULT NULL,
-  `action` varchar(20) DEFAULT NULL,
-  `model` varchar(45) DEFAULT NULL,
-  `idModel` int(10) unsigned DEFAULT NULL,
-  `field` varchar(45) DEFAULT NULL,
-  `creationdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `userid` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `type` varchar(32) NOT NULL,
+  `author_id` int(10) NOT NULL,
+  `when` datetime NOT NULL,
+  `url` varchar(50) NOT NULL,
+  `project_id` int(10) NOT NULL,
+  `subject` varchar(155) NOT NULL,
+  `description` tinytext NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `type` (`type`),
+  KEY `fk_action_log_user_id` (`author_id`),
+  KEY `fk_action_log_project_id` (`project_id`),
+  CONSTRAINT `fk_action_log_project_id` FOREIGN KEY (`project_id`) REFERENCES `bug_project` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_action_log_user_id` FOREIGN KEY (`author_id`) REFERENCES `bug_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Data exporting was unselected.
@@ -101,10 +105,23 @@ CREATE TABLE IF NOT EXISTS `bug_comment` (
 # Data exporting was unselected.
 
 
+# Dumping structure for table ogitorbugs.bug_comment_detail
+CREATE TABLE IF NOT EXISTS `bug_comment_detail` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `comment_id` int(10) NOT NULL,
+  `change` tinytext,
+  PRIMARY KEY (`id`),
+  KEY `comment_id` (`comment_id`),
+  CONSTRAINT `bug_comment_detail_ibfk_1` FOREIGN KEY (`comment_id`) REFERENCES `bug_comment` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+# Data exporting was unselected.
+
+
 # Dumping structure for table ogitorbugs.bug_config
 CREATE TABLE IF NOT EXISTS `bug_config` (
-  `key` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `value` text CHARACTER SET utf8,
+  `key` varchar(100) COLLATE utf8_bin NOT NULL,
+  `value` text COLLATE utf8_bin,
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -129,6 +146,7 @@ CREATE TABLE IF NOT EXISTS `bug_issue` (
   `status` varchar(50) NOT NULL,
   `closed` tinyint(1) NOT NULL DEFAULT '0',
   `pre_done_ratio` int(11) NOT NULL DEFAULT '0',
+  `updated_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_bug_issue_tracker_id` (`tracker_id`),
   KEY `fk_bug_issue_project_id` (`project_id`),
@@ -137,13 +155,16 @@ CREATE TABLE IF NOT EXISTS `bug_issue` (
   KEY `fk_bug_issue_user_id` (`user_id`),
   KEY `fk_bug_issue_version_id` (`version_id`),
   KEY `fk_bug_issue_assigned_to_id` (`assigned_to`),
-  CONSTRAINT `fk_bug_issue_assigned_to_id` FOREIGN KEY (`assigned_to`) REFERENCES `bug_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_bug_issue_category_id` FOREIGN KEY (`issue_category_id`) REFERENCES `bug_issue_category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_bug_issue_project_id` FOREIGN KEY (`project_id`) REFERENCES `bug_project` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_bug_issue_prority_id` FOREIGN KEY (`issue_priority_id`) REFERENCES `bug_issue_priority` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_bug_issue_tracker_id` FOREIGN KEY (`tracker_id`) REFERENCES `bug_tracker` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_bug_issue_user_id` FOREIGN KEY (`user_id`) REFERENCES `bug_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_bug_issue_version_id` FOREIGN KEY (`version_id`) REFERENCES `bug_version` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fk_bug_issue_updated_by` (`updated_by`),
+  KEY `closed` (`closed`),
+  CONSTRAINT `fk_bug_issue_assigned_to` FOREIGN KEY (`assigned_to`) REFERENCES `bug_users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_bug_issue_category` FOREIGN KEY (`issue_category_id`) REFERENCES `bug_issue_category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_bug_issue_issue_priority` FOREIGN KEY (`issue_priority_id`) REFERENCES `bug_issue_priority` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_bug_issue_tracker` FOREIGN KEY (`tracker_id`) REFERENCES `bug_tracker` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_bug_issue_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `bug_users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_bug_issue_user` FOREIGN KEY (`user_id`) REFERENCES `bug_users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_bug_issue_version` FOREIGN KEY (`version_id`) REFERENCES `bug_version` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_bug_issue_project` FOREIGN KEY (`project_id`) REFERENCES `bug_project` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Data exporting was unselected.
@@ -158,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `bug_issue_category` (
   PRIMARY KEY (`id`),
   KEY `project_id` (`project_id`),
   KEY `name_UNIQUE` (`name`),
-  CONSTRAINT `FK_bug_issue_category_bug_project` FOREIGN KEY (`project_id`) REFERENCES `bug_project` (`id`)
+  CONSTRAINT `FK_bug_issue_category_bug_project` FOREIGN KEY (`project_id`) REFERENCES `bug_project` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Data exporting was unselected.
@@ -184,8 +205,8 @@ CREATE TABLE IF NOT EXISTS `bug_member` (
   PRIMARY KEY (`id`),
   KEY `FK_member_user` (`user_id`),
   KEY `FK_member_project` (`project_id`),
-  CONSTRAINT `FK_member_project` FOREIGN KEY (`project_id`) REFERENCES `bug_project` (`id`),
-  CONSTRAINT `FK_member_user` FOREIGN KEY (`user_id`) REFERENCES `bug_users` (`id`)
+  CONSTRAINT `FK_member_project` FOREIGN KEY (`project_id`) REFERENCES `bug_project` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_member_user` FOREIGN KEY (`user_id`) REFERENCES `bug_users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Data exporting was unselected.
@@ -255,8 +276,8 @@ CREATE TABLE IF NOT EXISTS `bug_project_tracker` (
   PRIMARY KEY (`project_id`,`tracker_id`),
   KEY `fk_project_tracker_project_id` (`project_id`),
   KEY `fk_project_tracker_tracker_id` (`tracker_id`),
-  CONSTRAINT `fk_project_tracker_project_id` FOREIGN KEY (`project_id`) REFERENCES `bug_project` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_project_tracker_tracker_id` FOREIGN KEY (`tracker_id`) REFERENCES `bug_tracker` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_project_tracker_project_id` FOREIGN KEY (`project_id`) REFERENCES `bug_project` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_project_tracker_tracker_id` FOREIGN KEY (`tracker_id`) REFERENCES `bug_tracker` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Data exporting was unselected.
@@ -271,9 +292,9 @@ CREATE TABLE IF NOT EXISTS `bug_related_issue` (
   KEY `fk_related_issue_issue_from_id` (`issue_from`),
   KEY `fk_related_issue_issue_to_id` (`issue_to`),
   KEY `fk_related_issue_relation_type_id` (`relation_type_id`),
-  CONSTRAINT `fk_related_issue_issue_from_id` FOREIGN KEY (`issue_from`) REFERENCES `bug_issue` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_related_issue_issue_to_id` FOREIGN KEY (`issue_to`) REFERENCES `bug_issue` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_related_issue_relation_type_id` FOREIGN KEY (`relation_type_id`) REFERENCES `bug_relation_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_related_issue_issue_from_id` FOREIGN KEY (`issue_from`) REFERENCES `bug_issue` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_related_issue_issue_to_id` FOREIGN KEY (`issue_to`) REFERENCES `bug_issue` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_related_issue_relation_type_id` FOREIGN KEY (`relation_type_id`) REFERENCES `bug_relation_type` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Data exporting was unselected.
@@ -302,7 +323,7 @@ CREATE TABLE IF NOT EXISTS `bug_repository` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `repository_project_id` (`project_id`),
-  CONSTRAINT `repository_project_id` FOREIGN KEY (`project_id`) REFERENCES `bug_project` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `repository_project_id` FOREIGN KEY (`project_id`) REFERENCES `bug_project` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Data exporting was unselected.
@@ -354,7 +375,7 @@ CREATE TABLE IF NOT EXISTS `bug_version` (
   PRIMARY KEY (`id`),
   KEY `versions_project_id` (`project_id`),
   KEY `name` (`name`),
-  CONSTRAINT `bug_version_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `bug_project` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `bug_version_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `bug_project` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Data exporting was unselected.
@@ -367,8 +388,8 @@ CREATE TABLE IF NOT EXISTS `bug_watcher` (
   PRIMARY KEY (`issue_id`,`user_id`),
   KEY `fk_watcher_user_id` (`user_id`),
   KEY `fk_watcher_issue_id` (`issue_id`),
-  CONSTRAINT `fk_watcher_issue_id` FOREIGN KEY (`issue_id`) REFERENCES `bug_issue` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_watcher_user_id` FOREIGN KEY (`user_id`) REFERENCES `bug_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_watcher_issue_id` FOREIGN KEY (`issue_id`) REFERENCES `bug_issue` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_watcher_user_id` FOREIGN KEY (`user_id`) REFERENCES `bug_users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Data exporting was unselected.
