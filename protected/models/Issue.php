@@ -350,8 +350,45 @@ class Issue extends CActiveRecord {
         return $returned_name;
     }
 
-    public function wasModified() {
+    public function buildCommentDetails($comment_id) {
         $labels = $this->attributeLabels();
+        $newattributes = $this->getAttributes();
+        $oldattributes = $this->getOldAttributes();
+        // compare old and new
+        foreach ($newattributes as $name => $value) {
+
+            if (!empty($oldattributes)) {
+                $old = $oldattributes[$name];
+            } else {
+                $old = '';
+            }
+            if ($value != $old)
+            {
+                $detail = new CommentDetail();
+                $detail->comment_id = $comment_id;
+
+                if($old == '')
+                {
+                    $detail->change = $labels[$name] . ' set to <i>' . $this->getNamefromRowValue($name, $value).'</i>';
+                }
+                else
+                {
+                    if($value != '')
+                    {
+                        $detail->change = $labels[$name] . ' changed from <i>' . $this->getNamefromRowValue($name, $old) . '</i> to <i>' . $this->getNamefromRowValue($name, $value).'</i>';
+                    }
+                    else
+                    {
+                        $detail->change = $labels[$name] . ' removed (<s>'.$this->getNamefromRowValue($name, $old).'</s>)';
+                    }
+                }
+                if($detail->validate())
+                    $detail->save(false);
+            }
+        }
+    }
+
+    public function wasModified() {
         $newattributes = $this->getAttributes();
         $oldattributes = $this->getOldAttributes();
         // compare old and new
@@ -365,23 +402,8 @@ class Issue extends CActiveRecord {
             }
             if ($value != $old)
             {
-                if($old == '')
-                {
-                    echo Yii::log($labels[$name] . ' set to ' . $this->getNamefromRowValue($name, $value), CLogger::LEVEL_INFO, 'bugitor');
-                }
-                else
-                {
-                    if($value != '')
-                    {
-                        echo Yii::log($labels[$name] . ' changed from ' . $this->getNamefromRowValue($name, $old) . ' to ' . $this->getNamefromRowValue($name, $value), CLogger::LEVEL_INFO, 'bugitor');
-                    }
-                    else
-                    {
-                        echo Yii::log($labels[$name] . ' removed ('.$this->getNamefromRowValue($name, $old).')', CLogger::LEVEL_INFO, 'bugitor');
-                    }
-                }
+                $changed = true;
             }
-            $changed = true;
         }
         return $changed;
     }

@@ -48,6 +48,7 @@
  * The followings are the available model relations:
  * @property Users $createUser
  * @property Issue $issue
+ * @property CommentDetail $details
  */
 class Comment extends CActiveRecord {
 
@@ -75,7 +76,7 @@ class Comment extends CActiveRecord {
         return array(
             array('content', 'required'),
             array('issue_id, create_user_id, update_user_id', 'numerical', 'integerOnly' => true),
-            array('created, modified', 'safe'),
+            array('created, modified, content', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, content, issue_id, created, create_user_id, modified, update_user_id', 'safe', 'on' => 'search'),
@@ -91,18 +92,19 @@ class Comment extends CActiveRecord {
         return array(
             'author' => array(self::BELONGS_TO, 'User', 'create_user_id'),
             'issue' => array(self::BELONGS_TO, 'Issue', 'issue_id'),
+            'details' => array(self::HAS_MANY, 'CommentDetail', 'comment_id'),
         );
     }
 
     public static function findRecentComments($limit=10, $projectId=null) {
         if ($projectId != null) {
-            return self::model()->with(array('issue' => array('condition' => 'project_id='.$projectId)))->findAll(array(
+            return self::model()->with(array('issue, details' => array('condition' => 'project_id='.$projectId)))->findAll(array(
                 'order' => 't.created DESC',
                 'limit' => $limit,
             ));
         } else {
             //get all comments across all projects
-            return self::model()->with('issue')->findAll(array(
+            return self::model()->with('issue, details')->findAll(array(
                 'order' => 't.created DESC',
                 'limit' => $limit,
             ));

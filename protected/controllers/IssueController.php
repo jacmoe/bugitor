@@ -177,20 +177,27 @@ class IssueController extends Controller {
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
-
+        $comment_made = false;
         if (isset($_POST['Issue'])) {
             $model->attributes = $_POST['Issue'];
             if (($_POST['Comment']['content'] !== '')) {
                 $comment->attributes = $_POST['Comment'];
                 $comment->issue_id = $model->id;
-                if($comment->validate()) {
-                    $comment->save(false);
-                    $model->updated_by = Yii::app()->user->id;
-                }
+                $comment_made = true;
             }
-            if($model->wasModified()) {
+            if($model->wasModified()||($comment_made)) {
                 $model->updated_by = Yii::app()->user->id;
                 if ($model->validate()) {
+
+                    if(!$comment_made) {
+                        $comment->content = '<div class="alt"><small>No comments for this change</small></div>';
+                        $comment->issue_id = $model->id;
+                    }
+                    if($comment->validate()) {
+                        $comment->save(false);
+                    }
+                    $model->buildCommentDetails($comment->id);
+
                     $model->save(false);
                     Yii::app()->user->setFlash('success',"Issue was succesfully updated");
                     $this->redirect(array('view', 'id' => $model->id, 'identifier' => $model->project->identifier));
