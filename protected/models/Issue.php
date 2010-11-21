@@ -274,7 +274,7 @@ class Issue extends CActiveRecord {
 
         $criteria = new CDbCriteria;
 
-        $criteria->with = array('user', 'project', 'tracker', 'issuePriority', 'assignedTo', 'version', 'issueCategory');
+        $criteria->with = array('user', 'project', 'tracker', 'issuePriority', 'assignedTo', 'updatedBy', 'version', 'issueCategory');
         $criteria->compare('id', $this->id);
         $criteria->compare('tracker.name', $this->tracker_id);
         $criteria->compare('user.username', $this->user_id);
@@ -285,6 +285,7 @@ class Issue extends CActiveRecord {
         $criteria->compare('issuePriority.name', $this->issue_priority_id);
         $criteria->compare('version.name', $this->version_id);
         $criteria->compare('assignedTo.username', $this->assigned_to);
+        $criteria->compare('updatedBy.username', $this->updated_by);
         $criteria->compare('created', $this->created, true);
         $criteria->compare('modified', $this->modified, true);
         $criteria->compare('done_ratio', $this->done_ratio);
@@ -320,10 +321,41 @@ class Issue extends CActiveRecord {
         return $parser->safeTransform($this->description);
     }
 
+    private function getNamefromRowValue($name, $value) {
+        $returned_name = '';
+        switch ($name) {
+            case 'tracker_id':
+                $returned_name = Tracker::model()->findByPk($value)->name;
+                break;
+            case 'version_id':
+                $returned_name = Version::model()->findByPk($value)->name;
+                break;
+            case 'issue_category_id':
+                $returned_name = IssueCategory::model()->findByPk($value)->name;
+                break;
+            case 'assigned_to':
+                $returned_name = ucfirst(User::model()->findByPk($value)->username);
+                break;
+            case 'issue_priority_id':
+                $returned_name = IssuePriority::model()->findByPk($value)->name;
+                break;
+            case 'status':
+                list($crap, $out) = explode('/', $value);
+                $returned_name = ucfirst($out);
+                break;
+            default:
+                $returned_name = $value;
+                break;
+        }
+        return $returned_name;
+    }
+
     public function wasModified() {
+        $labels = $this->attributeLabels();
         $newattributes = $this->getAttributes();
         $oldattributes = $this->getOldAttributes();
         // compare old and new
+        $changed = false;
         foreach ($newattributes as $name => $value) {
 
             if (!empty($oldattributes)) {
@@ -331,11 +363,27 @@ class Issue extends CActiveRecord {
             } else {
                 $old = '';
             }
-            if ($value != $old) {
-                return true;
+            if ($value != $old)
+            {
+                if($old == '')
+                {
+                    echo Yii::log($labels[$name] . ' set to ' . $this->getNamefromRowValue($name, $value), CLogger::LEVEL_INFO, 'bugitor');
+                }
+                else
+                {
+                    if($value != '')
+                    {
+                        echo Yii::log($labels[$name] . ' changed from ' . $this->getNamefromRowValue($name, $old) . ' to ' . $this->getNamefromRowValue($name, $value), CLogger::LEVEL_INFO, 'bugitor');
+                    }
+                    else
+                    {
+                        echo Yii::log($labels[$name] . ' removed ('.$this->getNamefromRowValue($name, $old).')', CLogger::LEVEL_INFO, 'bugitor');
+                    }
+                }
             }
+            $changed = true;
         }
-        return false;
+        return $changed;
     }
 
     /**
