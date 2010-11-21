@@ -120,7 +120,7 @@ Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Time::tim
 <?php $this->renderPartial('_watchers', array('watchers' => $model->getWatchers())); ?>
 </div>
 </div>
-<?php /* ?>
+<?php ?>
 <div class="span-16" id="comments">
 <?php if($model->commentCount>=1): ?>
 <h3>
@@ -128,12 +128,4 @@ Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Time::tim
 </h3>
 <?php $this->renderPartial('_comments',array('comments'=>$model->comments,)); ?>
 <?php endif; ?>
-<h3>Leave a Comment</h3>
-<?php if(Yii::app()->user->hasFlash('commentSubmitted')): ?>
-<div class="flash-success">
-<?php echo Yii::app()->user->getFlash('commentSubmitted'); ?>
 </div>
-<?php endif; ?>
-<?php $this->renderPartial('/comment/_form',array('model'=>$comment,)); ?>
-</div>
-<?php */ ?>
