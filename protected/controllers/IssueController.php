@@ -80,29 +80,25 @@ class IssueController extends Controller {
                         case 'priority':
                             $issue = $this->loadModel($val, true);
                             $issue->issue_priority_id = $_POST['val'];
+                            $issue->updated_by = Yii::app()->user->id;
                             $issue->save();
                             break;
                         case 'version':
                             $issue = $this->loadModel($val, true);
                             $issue->version_id = $_POST['val'];
+                            $issue->updated_by = Yii::app()->user->id;
                             $issue->save();
                             break;
                         case 'category':
                             $issue = $this->loadModel($val, true);
                             $issue->issue_category_id = $_POST['val'];
+                            $issue->updated_by = Yii::app()->user->id;
                             $issue->save();
                             break;
                         default:
                             break;
                     }
-                    echo $val . '<br/>';
                 }
-            }
-            if(isset($_POST['val'])) {
-                echo $_POST['val'] . '<br/>';
-            }
-            if(isset($_POST['type'])) {
-                echo $_POST['type'] . '<br/>';
             }
         }
     }
@@ -116,7 +112,7 @@ class IssueController extends Controller {
             $_GET['projectname'] = Project::getProjectNameFromIdentifier($_GET['identifier']);
         }
         $this->layout = '//layouts/column1';
-        $issue = Issue::model()->with(array('comments','tracker','user', 'issueCategory', 'issuePriority', 'version', 'assignedTo', 'project'))->findByPk((int) $id);//$this->loadModel($id, true);
+        $issue = Issue::model()->with(array('comments','tracker','user', 'issueCategory', 'issuePriority', 'version', 'assignedTo', 'updatedBy','project'))->findByPk((int) $id);//$this->loadModel($id, true);
         $this->render('view', array(
             'model' => $issue,
         ));
@@ -173,7 +169,7 @@ class IssueController extends Controller {
     public function actionUpdate($id) {
         $this->layout = '//layouts/column1';
         
-        $model = Issue::model()->with(array('comments','tracker','user', 'issueCategory', 'issuePriority', 'version', 'assignedTo', 'project'))->findByPk((int) $id);
+        $model = Issue::model()->with(array('comments','tracker','user', 'issueCategory', 'issuePriority', 'version', 'assignedTo', 'updatedBy', 'project'))->findByPk((int) $id);
 
         $_GET['projectname'] = $model->project->name;
 
@@ -193,6 +189,7 @@ class IssueController extends Controller {
                 }
             }
             if($model->wasModified()) {
+                $model->updated_by = Yii::app()->user->id;
                 if ($model->validate()) {
                     $model->save(false);
                     Yii::app()->user->setFlash('success',"Issue was succesfully updated");
