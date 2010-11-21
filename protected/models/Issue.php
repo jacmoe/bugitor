@@ -362,7 +362,7 @@ class Issue extends CActiveRecord {
             } else {
                 $old = '';
             }
-            if ($value != $old)
+            if (($value != $old)&&($name != 'updated_by'))
             {
                 $detail = new CommentDetail();
                 $detail->comment_id = $comment_id;
@@ -400,7 +400,7 @@ class Issue extends CActiveRecord {
             } else {
                 $old = '';
             }
-            if ($value != $old)
+            if (($value != $old)&&($name != 'updated_by'))
             {
                 $changed = true;
             }
