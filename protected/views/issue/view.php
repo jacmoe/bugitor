@@ -113,8 +113,8 @@ Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Time::tim
     </tr>
 </tbody></table>
 <hr/>
-<p><b>Description:</b></p>
-<?php echo $model->getDescription(); ?>
+<b>Description:</b>
+<?php echo Yii::app()->textile->textilize($model->description); ?>
 <hr/>
 <h4>Watchers</h4>
 <div id="watchers">

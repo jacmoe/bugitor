@@ -386,6 +386,9 @@ class Issue extends CActiveRecord {
                 {
                     $detail->change = '<b>'.$labels[$name] . '</b> set to <i>' . $this->getNamefromRowValue($name, $value).'</i>';
                 }
+                elseif($name == 'description') {
+                    $detail->change = '<b>'.$labels[$name] . '</b> was changed.';
+                }
                 else
                 {
                     if($value != '')

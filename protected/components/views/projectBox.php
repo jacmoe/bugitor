@@ -33,7 +33,7 @@
 ?>
 <?php $project = $this->getProject(); ?>
 <h2><?php echo CHtml::link($project->name, array('project/view', 'identifier' => $project->identifier)); ?></h2>
-<?php echo $project->getDescription(); ?>
+<?php echo Yii::app()->textile->textilize($project->description); ?>
 <?php if($project->homepage != ''): ?>
 Homepage: <?php echo CHtml::link($project->homepage, $project->homepage); ?>
 <?php endif; ?>

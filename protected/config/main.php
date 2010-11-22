@@ -47,6 +47,7 @@ return array(
     'import' => array(
         'application.models.*',
         'application.components.*',
+        'application.components.textile.*',
         'application.modules.user.models.*',
         'application.modules.user.components.*',
         'application.modules.rights.components.*',
@@ -67,6 +68,9 @@ return array(
             'class' => 'RightsWebUser',
             'allowAutoLogin' => true,
             'loginUrl' => array('/user/login'),
+        ),
+        'textile' => array(
+            'class' => 'application.components.textile.Textilizer',
         ),
         'maintenanceMode' => array(
             'class' => 'ext.MaintenanceMode.MaintenanceMode',
