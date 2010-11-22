@@ -31,15 +31,22 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
+<?php //TODO: check if the user wants the comments in cronological order?  ?>
 <?php $comments = array_reverse($comments); ?>
+<?php $comment_count = count($comments); ?>
 <div id="history">
     <h3>History</h3>
 <?php foreach($comments as $comment): ?>
 <div id="change-1210" class="journal">
-<h4><div style="float: right;"><a href="/projects/ogitor/issues/view/51#note-6">#6</a></div>
+<h4><div style="float:right;">
+<?php echo CHtml::link('#'.$comment_count, '#note-'.$comment_count); ?>
+<?php echo CHtml::tag('a', array('name' => 'note-'.$comment_count),'.'); ?>
+</div>
 Updated by <?php echo Bugitor::link_to_user($comment->author); ?>
  <?php echo Time::timeAgoInWords($comment->created); ?></h4>
+<table><tr><td style="width:10%;vertical-align:top;">
 <span><?php echo Bugitor::gravatar($comment->author->email); ?></span>
+</td><td style="width:90%">
 <?php if($comment->details) : ?>
 <ul>
 <?php foreach($comment->details as $detail): ?>
@@ -47,10 +54,9 @@ Updated by <?php echo Bugitor::link_to_user($comment->author); ?>
 <?php endforeach; ?>
 </ul>
 <?php endif; ?>
-<div class="content">
-<p><?php echo $comment->content; ?>
-<br/></p>
+<?php echo Yii::app()->textile->textilize($comment->content); ?>
+</td></tr></table>
 </div>
-</div>
+<?php $comment_count--; ?>
 <?php endforeach; ?>
 </div>

@@ -44,7 +44,7 @@ class EMarkitupWidget extends CInputWidget
      * html and markdown are available by default
      * @var string
      */
-	public $settings='markdown';
+	public $settings='textile';
 
     /**
      * markItUp options
