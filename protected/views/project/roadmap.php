@@ -83,9 +83,24 @@ $this->pageTitle = $model->name . ' - Roadmap - ' . Yii::app()->name;
  0 rejected
 <?php endif; ?>
 </p>
+<div class="description"><?php echo Yii::app()->textile->textilize($version->description); ?></div>
+<p><br/></p>
+<fieldset class="related-issues">
+    <legend><?php echo 'Related issues'; ?></legend>
+    <ul>
+        <?php foreach($version->issues as $issue) : ?>
+            <li>
+                <?php echo CHtml::link($issue->tracker->name . ' #' . $issue->id,
+                        array('issue/view',
+                            'id' => $issue->id,
+                            'identifier' => $model->identifier,
+                        ), array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue')); ?> : <?php echo $issue->subject; ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</fieldset>
 <?php else : ?>
 <p class="nodata"><?php echo 'No issues for this version'; ?></p>
 <?php endif; ?>
 <?php endforeach; ?>
 </div>
-<?php //echo  ?>

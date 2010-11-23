@@ -108,7 +108,10 @@ class ProjectController extends Controller {
     }
 
     public function actionRoadmap($identifier) {
-        $project = Project::model()->with('versions')->find('identifier=?', array($_GET['identifier']));
+        $project = Project::model()->with(
+                array('versions' => array('with' => array('issues')))
+                )->find('identifier=?', array($_GET['identifier']));
+
         $_GET['projectname'] = $project->name;
 
         $this->render('roadmap', array(
