@@ -332,4 +332,91 @@ class Time {
 		}
 		return '<acronym title="' . $dateTime . '">' . $relativeDate . '</acronym>';
 	}
+
+        // This is a simple script to calculate the difference between two dates
+        // and express it in years, months and days
+        //
+        // use as in: "my daughter is 4 years, 2 month and 17 days old" ... :-)
+        //
+        // Feel free to use this script for whatever you want
+        //
+        // version 0.1 / 2002-10-3
+        //
+        // please send comments and feedback to webmaster@lotekk.net
+        function dueDateInWords($dateTime) {
+            // get the base date here (today)
+            $base_day		= date ("j");
+            $base_mon		= date ("n");
+            $base_yr		= date ("Y");
+
+            $the_date = date_parse($dateTime);
+            $due_day = $the_date['day'];
+            $due_mon = $the_date['month'];
+            $due_yr = $the_date['year'];
+
+            // and now .... calculate the difference! :-)
+
+            // overflow is always caused by max days of $base_mon
+            // so we need to know how many days $base_mon had
+            $base_mon_max		= date ("t",mktime (0,0,0,$base_mon,$base_day,$base_yr));
+
+            // days left till the end of that month
+            $base_day_diff 		= $base_mon_max - $base_day;
+
+            // month left till end of that year
+            // substract one to handle overflow correctly
+            $base_mon_diff 		= 12 - $base_mon - 1;
+
+            // start on jan 1st of the next year
+            $start_day		= 1;
+            $start_mon		= 1;
+            $start_yr		= $base_yr + 1;
+
+            // difference to that 1st of jan
+            $day_diff	= ($due_day - $start_day) + 1; 	// add today
+            $mon_diff	= ($due_mon - $start_mon) + 1;	// add current month
+            $yr_diff	= ($due_yr - $start_yr);
+
+            // and add the rest of $base_yr
+            $day_diff	= $day_diff + $base_day_diff;
+            $mon_diff	= $mon_diff + $base_mon_diff;
+
+            // handle overflow of days
+            if ($day_diff >= $base_mon_max)
+            {
+                    $day_diff = $day_diff - $base_mon_max;
+                    $mon_diff = $mon_diff + 1;
+            }
+
+            // handle overflow of years
+            if ($mon_diff >= 12)
+            {
+                    $mon_diff = $mon_diff - 12;
+                    $yr_diff = $yr_diff + 1;
+            }
+            // this is just to make it look nicer
+            $years = "years";
+            $days = "days";
+            $months = "months";
+
+            if ($yr_diff == "1") $years = "year";
+            if ($yr_diff == "-1") $years = "year";
+            if ($day_diff == "1") $days = "day";
+            if ($day_diff == "-1") $days = "day";
+            if ($mon_diff == "1") $months = "month";
+            if ($mon_diff == "-1") $months = "month";
+
+            // here we go
+            $due = "Due in ";
+            if($yr_diff <> 0)
+                $due = $due . $yr_diff." ".$years.", ";
+            if($mon_diff <> 0)
+                $due = $due . $mon_diff." " .$months. " and ";
+            $due = $due . $day_diff." ".$days;
+
+            if( ( $yr_diff < 0 )||( $mon_diff < 0 )||( $day_diff < 0 ) )
+                $due = $due . ' (<b>Overdue!</b>)';
+
+            return $due;
+        }
 }

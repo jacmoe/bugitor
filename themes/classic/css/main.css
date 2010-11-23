@@ -405,7 +405,7 @@ table.big_progress td.closed { background: #BAE0BA none repeat scroll 0%; }
 table.big_progress td.done { background: #DEF0DE none repeat scroll 0%; }
 table.big_progress td.open { background: #FFF none repeat scroll 0%; }
 p.big_pourcent {font-size: 100%;}
-p.big_progress-info {clear: left; font-style: italic; font-size: 100%;}
+p.big_progress-info {clear: left; font-style: italic; font-size: 90%; position: relative; bottom: 18px; }
 
 /***** Icons *****/
 .icon {
