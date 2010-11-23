@@ -35,3 +35,11 @@
 $this->pageTitle = $model->name . ' - Roadmap - ' . Yii::app()->name;
 ?>
 <h3 class="roadmap">Roadmap</h3>
+<?php foreach($model->versions as $version) : ?>
+<?php echo $version->name; ?><br/>
+<?php echo $version->issueCount; ?> issues.<br/>
+<?php echo $version->issueCountOpen; ?> open.<br/>
+<?php echo $version->issueCountClosed; ?> closed.<br/>
+<?php echo $version->issueCountResolved; ?> resolved.<br/>
+<?php echo $version->issueCountRejected; ?> rejected.<br/>
+<?php endforeach; ?>

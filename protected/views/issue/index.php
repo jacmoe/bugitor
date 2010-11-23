@@ -75,7 +75,7 @@ Show:
                     'name' => 'status',
                     'header' => 'Status',
                     'type' => 'raw',
-                    'value' => 'Bugitor::namedImage($data->swGetStatus()->getLabel())',
+                    'value' => 'Bugitor::namedImage($data->getStatusLabel($data->status))',
                     'filter' => SWHelper::allStatuslistData($model),
                     'htmlOptions'=>array('width'=>'10'),
                 ),
