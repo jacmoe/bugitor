@@ -463,7 +463,7 @@ class Issue extends CActiveRecord {
             } else {
                 $old = '';
             }
-            if (($value != $old)&&($name != 'updated_by'))
+            if (($value != $old)&&($name != 'updated_by')&&($name != 'description'))
             {
                 $changed = true;
                 $detail = new CommentDetail();
@@ -503,7 +503,7 @@ class Issue extends CActiveRecord {
             } else {
                 $old = '';
             }
-            if (($value != $old)&&($name != 'updated_by'))
+            if (($value != $old)&&($name != 'updated_by')&&($name != 'description'))
             {
                 $changed = true;
             }
