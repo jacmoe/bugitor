@@ -331,11 +331,6 @@ class Issue extends CActiveRecord {
         ));
     }
 
-    public function getDescription() {
-        $parser = new CMarkdownParser;
-        return $parser->safeTransform($this->description);
-    }
-
     private function getNamefromRowValue($name, $value) {
         $returned_name = '';
         switch ($name) {
@@ -365,10 +360,101 @@ class Issue extends CActiveRecord {
         return $returned_name;
     }
 
+    public function getStatusLabel($status) {
+        switch ($status) {
+            case 'swIssue/new':
+                return 'New';
+                break;
+            case 'swIssue/assigned':
+                return 'Assigned';
+                break;
+            case 'swIssue/rejected':
+                return 'Rejected';
+                break;
+            case 'swIssue/resolved':
+                return 'Resolved';
+                break;
+            case 'swIssue/reassigned':
+                return 'Reassigned';
+                break;
+            default:
+                return $status;
+                break;
+        }
+    }
+
+    public function addToActionLog($type, $url, $comment = null) {
+        switch ($type) {
+            case 'new':
+                $actionLog = new ActionLog;
+                $actionLog->author_id = Yii::app()->user->id;
+                $actionLog->project_id = $this->project_id;
+                $actionLog->description = $this->description;
+                $actionLog->subject = $this->tracker->name.'#'.$this->id.' (New): '.$this->subject;
+                $actionLog->type = 'issue-new';
+                $actionLog->when = $this->created;
+                $actionLog->url = $url;
+                if($actionLog->validate())
+                    $actionLog->save(false);
+                break;
+            case 'note':
+                $actionLog = new ActionLog;
+                $actionLog->author_id = Yii::app()->user->id;
+                $actionLog->project_id = $this->project_id;
+                $actionLog->description = $comment->content;
+                $actionLog->subject = $this->tracker->name.'#'.$this->id.' : '.$this->subject;
+                $actionLog->type = 'issue-note';
+                $actionLog->when = $comment->created;
+                $actionLog->url = $url;
+                if($actionLog->validate())
+                    $actionLog->save(false);
+                break;
+            case 'change':
+                $actionLog = new ActionLog;
+                $actionLog->author_id = Yii::app()->user->id;
+                $actionLog->project_id = $this->project_id;
+                $actionLog->description = $comment->content;
+                $actionLog->subject = $this->tracker->name.'#'.$this->id.' : '.$this->subject;
+                $actionLog->type = 'issue-change';
+                $actionLog->when = $comment->created;
+                $actionLog->url = $url;
+                if($actionLog->validate())
+                    $actionLog->save(false);
+                break;
+            case 'resolved':
+                $actionLog = new ActionLog;
+                $actionLog->author_id = Yii::app()->user->id;
+                $actionLog->project_id = $this->project_id;
+                $actionLog->description = $comment->content;
+                $actionLog->subject = $this->tracker->name.'#'.$this->id.' (Resolved): '.$this->subject;
+                $actionLog->type = 'issue-resolved';
+                $actionLog->when = $comment->created;
+                $actionLog->url = $url;
+                if($actionLog->validate())
+                    $actionLog->save(false);
+                break;
+            case 'rejected':
+                $actionLog = new ActionLog;
+                $actionLog->author_id = Yii::app()->user->id;
+                $actionLog->project_id = $this->project_id;
+                $actionLog->description = $comment->content;
+                $actionLog->subject = $this->tracker->name.'#'.$this->id.' (Rejected): '.$this->subject;
+                $actionLog->type = 'issue-rejected';
+                $actionLog->when = $comment->created;
+                $actionLog->url = $url;
+                if($actionLog->validate())
+                    $actionLog->save(false);
+                break;
+            default:
+                break;
+        }
+    }
+
     public function buildCommentDetails($comment_id) {
         $labels = $this->attributeLabels();
         $newattributes = $this->getAttributes();
         $oldattributes = $this->getOldAttributes();
+        $changed = false;
         // compare old and new
         foreach ($newattributes as $name => $value) {
 
@@ -379,6 +465,7 @@ class Issue extends CActiveRecord {
             }
             if (($value != $old)&&($name != 'updated_by'))
             {
+                $changed = true;
                 $detail = new CommentDetail();
                 $detail->comment_id = $comment_id;
 
@@ -404,6 +491,7 @@ class Issue extends CActiveRecord {
                     $detail->save(false);
             }
         }
+        return $changed;
     }
 
     public function wasModified() {

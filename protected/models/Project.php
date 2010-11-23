@@ -52,6 +52,7 @@
  * @property Repository[] $repositories
  * @property Version[] $versions
  * @property IssueCategory[] $issueCategories
+ * @property ActionLog[] $activities
  */
 class Project extends CActiveRecord {
 
@@ -109,6 +110,7 @@ class Project extends CActiveRecord {
             'repositories' => array(self::HAS_MANY, 'Repository', 'project_id'),
             'versions' => array(self::HAS_MANY, 'Version', 'project_id'),
             'issueCategories' => array(self::HAS_MANY, 'IssueCategory', 'project_id'),
+            'activities' => array(self::HAS_MANY, 'ActionLog', 'project_id'),
         );
     }
 
@@ -164,11 +166,6 @@ class Project extends CActiveRecord {
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
         ));
-    }
-
-    public function getDescription() {
-        $parser = new CMarkdownParser;
-        return $parser->safeTransform($this->description);
     }
 
     public static function getProjectNameFromIdentifier($identifier) {

@@ -15,7 +15,7 @@
  *
  * The followings are the available model relations:
  * @property Project $project
- * @property Users $author
+ * @property User $author
  */
 class ActionLog extends CActiveRecord
 {
@@ -64,7 +64,7 @@ class ActionLog extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
-			'author' => array(self::BELONGS_TO, 'Users', 'author_id'),
+			'author' => array(self::BELONGS_TO, 'User', 'author_id'),
 		);
 	}
 
