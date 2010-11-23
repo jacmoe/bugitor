@@ -373,7 +373,7 @@ table p {margin:0;}
 
 /***** Progress bar *****/
 table.progress {
-    border: 1px solid #D7D7D7;
+    border: 1px solid #D7D7D7 !important;
     border-collapse: collapse;
     border-spacing: 0pt;
     empty-cells: show;
@@ -382,7 +382,7 @@ table.progress {
     margin: 1px 6px 1px 0px;
 }
 
-table.progress td { height: 0.9em; }
+table.progress td { height: 0.9em; border: 1px solid #D7D7D7 !important; }
 table.progress td.closed { background: #BAE0BA none repeat scroll 0%; }
 table.progress td.done { background: #DEF0DE none repeat scroll 0%; }
 table.progress td.open { background: #FFF none repeat scroll 0%; }
@@ -401,8 +401,8 @@ table.big_progress {
 }
 
 table.big_progress td { height: 1.4em; }
-table.big_progress td.closed { background: #BAE0BA none repeat scroll 0%; }
-table.big_progress td.done { background: #DEF0DE none repeat scroll 0%; }
+table.big_progress td.closed { background: /*#99cc66*/#BAE0BA none repeat scroll 0%; }
+table.big_progress td.done { background: #fdee99/*#DEF0DE*/ none repeat scroll 0%; }
 table.big_progress td.open { background: #FFF none repeat scroll 0%; }
 p.big_pourcent {font-size: 100%;}
 p.big_progress-info {clear: left; font-style: italic; font-size: 90%; position: relative; bottom: 18px; }
