@@ -50,9 +50,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('description')); ?>:</b>
-	<?php //$this->beginWidget('CMarkdown', array('purifyOutput'=>true)); ?>
-	<?php echo $data->getDescription(); ?>
-	<?php //$this->endWidget(); ?>
+	<?php echo Yii::app()->textile->textilize($data->description); ?>
 	<br />
 
 	<?php /*

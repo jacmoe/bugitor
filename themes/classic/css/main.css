@@ -636,3 +636,43 @@ div.watched h3 {
     color:white;
     text-align:center;
 }
+
+dt.issue-new { background-image: url(../images/ticket.png); }
+dt.issue-change { background-image: url(../images/ticket_edit.png); }
+dt.issue-resolved { background-image: url(../images/ticket_checked.png); }
+dt.issue-rejected { background-image: url(../images/ticket_crossed.png); }
+dt.issue-note { background-image: url(../images/ticket_note.png); }
+dt.changeset { background-image: url(../images/changeset.png); }
+dt.news { background-image: url(../images/news.png); }
+dt.message { background-image: url(../images/message.png); }
+dt.reply { background-image: url(../images/comments.png); }
+dt.wiki-page { background-image: url(../images/wiki_edit.png); }
+dt.attachment { background-image: url(../images/attachment.png); }
+dt.document { background-image: url(../images/document.png); }
+dt.project { background-image: url(../images/projects.png); }
+
+div#issue-changesets {float:right; width:45%; margin-left: 1em; margin-bottom: 1em; background: #fff; padding-left: 1em; font-size: 90%;}
+div#issue-changesets .changeset { padding: 4px;}
+div#issue-changesets .changeset { border-bottom: 1px solid #ddd; }
+div#issue-changesets p { margin-top: 0; margin-bottom: 1em;}
+
+div#activity dl, #search-results { margin-left: 2em; }
+div#activity dd, #search-results dd { margin-bottom: 1em; padding-left: 18px; font-size: 0.9em; }
+div#activity dt, #search-results dt { margin-bottom: 0px; padding-left: 20px; line-height: 18px; background-position: 0 50%; background-repeat: no-repeat; }
+div#activity dt.me .time { border-bottom: 1px solid #999; }
+div#activity dt .time { color: #777; font-size: 80%; }
+div#activity dd .description, #search-results dd .description { font-style: italic; }
+div#activity span.project:after, #search-results span.project:after { content: " -"; }
+div#activity dd span.description, #search-results dd span.description { display:block; }
+
+#activity dt img.gravatar {
+	float: left;
+	margin: 0 1em 1em 0;
+}
+
+#activity dt,
+.journal {
+	clear: left;
+}
+
+div.attachments span.author { font-size: 0.9em; color: #888; }

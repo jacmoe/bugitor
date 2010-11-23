@@ -85,7 +85,7 @@ class ProjectController extends Controller {
     }
 
     public function actionActivity($identifier) {
-        $project = Project::model()->find('identifier=?', array($_GET['identifier']));
+        $project = Project::model()->with('activities')->find('identifier=?', array($_GET['identifier']));
         $_GET['projectname'] = $project->name;
         $this->render('activity', array(
             'model' => $project,
