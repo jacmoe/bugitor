@@ -39,7 +39,7 @@ class RepositoryController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+	//public $layout='//layouts/column2';
 
 	/**
 	 * @return array action filters
@@ -62,7 +62,11 @@ class RepositoryController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
+                if (isset($_GET['identifier'])){
+                    $_GET['projectname'] = Project::getProjectNameFromIdentifier($_GET['identifier']);
+                }
+
+                $this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
 	}
@@ -71,9 +75,11 @@ class RepositoryController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($identifier)
 	{
-		$model=new Repository;
+                $_GET['projectname'] = Project::getProjectNameFromIdentifier($identifier);
+
+                $model=new Repository;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -95,8 +101,10 @@ class RepositoryController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate($id)
+	public function actionUpdate($id, $identifier)
 	{
+                $_GET['projectname'] = Project::getProjectNameFromIdentifier($identifier);
+
 		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed

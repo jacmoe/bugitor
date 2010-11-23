@@ -39,7 +39,7 @@ class IssueCategoryController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+	//public $layout='//layouts/column2';
 
 	/**
 	 * @return array action filters
@@ -62,6 +62,9 @@ class IssueCategoryController extends Controller
 	 */
 	public function actionView($id)
 	{
+                if (isset($_GET['identifier'])){
+                    $_GET['projectname'] = Project::getProjectNameFromIdentifier($_GET['identifier']);
+                }
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
@@ -73,7 +76,9 @@ class IssueCategoryController extends Controller
 	 */
 	public function actionCreate($identifier)
 	{
-		$model=new IssueCategory;
+                $_GET['projectname'] = Project::getProjectNameFromIdentifier($identifier);
+
+                $model=new IssueCategory;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -98,6 +103,8 @@ class IssueCategoryController extends Controller
 	 */
 	public function actionUpdate($id, $identifier)
 	{
+                $_GET['projectname'] = Project::getProjectNameFromIdentifier($identifier);
+
 		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed

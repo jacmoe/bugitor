@@ -83,7 +83,14 @@
                     </div>
                     <div id="header" class="span-14 alt">
                         <div>
-                        <?php if (((Yii::app()->controller->id === 'project') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['projectname']))) : ?>
+                        <?php if (
+                                ((Yii::app()->controller->id === 'project')
+                                || (Yii::app()->controller->id === 'issue')
+                                || (Yii::app()->controller->id === 'member')
+                                || (Yii::app()->controller->id === 'version')
+                                || (Yii::app()->controller->id === 'issueCategory')
+                                || (Yii::app()->controller->id === 'repository')
+                                        ) && (isset($_GET['projectname']))) : ?>
                             <h1 class="alt"><?php echo CHtml::encode($_GET['projectname']); ?></h1>
                         <?php else : ?>
                             <h1 class="alt"><?php echo CHtml::encode(Yii::app()->name); ?></h1>
@@ -104,6 +111,8 @@
                     <div id="mainmenu" class="span-20 last">
                     <?php if (((Yii::app()->controller->id === 'project')
                             || (Yii::app()->controller->id === 'version') 
+                            || (Yii::app()->controller->id === 'member')
+                            || (Yii::app()->controller->id === 'repository')
                             || (Yii::app()->controller->id === 'issueCategory')
                             || (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) : ?>
                     <?php

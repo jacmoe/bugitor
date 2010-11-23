@@ -37,7 +37,14 @@ $this->pageTitle = $model->name . ' - Roadmap - ' . Yii::app()->name;
 <h3 class="roadmap">Roadmap</h3>
 <div id="roadmap">
 <?php foreach($model->versions as $version) : ?>
-<h3><?php echo $version->name; ?></h3>
+<h3>
+    <?php echo CHtml::link($version->name,
+        array('version/view',
+            'id' => $version->id,
+            'identifier' => $model->identifier,
+        )
+    ); ?>
+</h3>
 <?php if( $version->issueCount > 0 ) : ?>
 <b>Deadline</b> (<?php echo $version->effective_date; ?>) - <span class="quiet"><?php echo Time::dueDateInWords($version->effective_date) ?></span><br/>
 <?php $num_actual_issues = $version->issueCount - $version->issueCountRejected; ?>

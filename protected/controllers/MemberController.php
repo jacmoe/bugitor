@@ -56,7 +56,11 @@ class MemberController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
+                if (isset($_GET['identifier'])){
+                    $_GET['projectname'] = Project::getProjectNameFromIdentifier($_GET['identifier']);
+                }
+
+                $this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
 	}
@@ -67,7 +71,9 @@ class MemberController extends Controller
 	 */
 	public function actionCreate($identifier)
 	{
-		$model=new Member;
+                $_GET['projectname'] = Project::getProjectNameFromIdentifier($identifier);
+
+                $model=new Member;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -95,6 +101,8 @@ class MemberController extends Controller
 	 */
 	public function actionUpdate($id, $identifier)
 	{
+                $_GET['projectname'] = Project::getProjectNameFromIdentifier($identifier);
+
 		$model = Member::model()->with('user')->findByPk((int)$id);
 
 		// Uncomment the following line if AJAX validation is needed

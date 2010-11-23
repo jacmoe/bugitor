@@ -32,17 +32,7 @@
  */
 ?>
 <?php
-$this->breadcrumbs=array(
-	'Versions'=>array('index'),
-	'Create',
-);
-
-$this->menu=array(
-	array('label'=>'List Version', 'url'=>array('index')),
-	array('label'=>'Manage Version', 'url'=>array('admin')),
-);
+    $this->pageTitle = $_GET['projectname'] . ' - New Version - ' . Yii::app()->name;
 ?>
-
-<h1>Create Version</h1>
-
+<h3>Create Version</h3>
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
