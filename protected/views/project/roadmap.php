@@ -36,10 +36,19 @@ $this->pageTitle = $model->name . ' - Roadmap - ' . Yii::app()->name;
 ?>
 <h3 class="roadmap">Roadmap</h3>
 <?php foreach($model->versions as $version) : ?>
-<?php echo $version->name; ?><br/>
+<h3><?php echo $version->name; ?></h3>
+Due: <?php echo $version->effective_date; ?><br/>
 <?php echo $version->issueCount; ?> issues.<br/>
-<?php echo $version->issueCountOpen; ?> open.<br/>
-<?php echo $version->issueCountClosed; ?> closed.<br/>
-<?php echo $version->issueCountResolved; ?> resolved.<br/>
-<?php echo $version->issueCountRejected; ?> rejected.<br/>
+<?php $num_actual_issues = $version->issueCount - $version->issueCountRejected; ?>
+<?php $open_percent = (($version->issueCountOpen / $num_actual_issues)*100); ?>
+<?php $closed_percent = (($version->issueCountResolved / $num_actual_issues)*100); ?>
+<?php $done_ratio = ((($version->issueCountDone / 100) * $version->issueCountOpen) / $num_actual_issues) * 100; ?>
+<?php $open_ratio = $open_percent - $done_ratio; ?>
+<?php echo $version->issueCountOpen; ?> open. (<?php echo number_format($open_percent) ?>%)<br/>
+Done: <?php echo number_format($version->issueCountDone); ?>%.<br/>
+<?php echo $version->issueCountResolved; ?> resolved. (<?php echo $version->issueCountClosed; ?> closed - <?php echo $version->issueCountRejected; ?> rejected) (<?php echo number_format($closed_percent) ?>%)<br/>
+Done ratio: <?php echo number_format($done_ratio) ?>%<br/>
+Open ratio: <?php echo number_format($open_ratio) ?>%<br/>
+<?php echo Bugitor::big_progress_bar(array($closed_percent, $done_ratio, $open_ratio), array('width' => '500px', 'legend' => $closed_percent + $done_ratio.'%')); ?>
+<?php echo $version->issueCountResolved; ?> closed (<?php echo number_format($closed_percent) ?>%) 2 open (<?php echo number_format($open_percent) ?>%) <s>1 rejected</s>
 <?php endforeach; ?>
