@@ -32,17 +32,7 @@
  */
 ?>
 <?php
-$this->breadcrumbs=array(
-	'Repositories'=>array('index'),
-	'Create',
-);
-
-$this->menu=array(
-	array('label'=>'List Repository', 'url'=>array('index')),
-	array('label'=>'Manage Repository', 'url'=>array('admin')),
-);
+    $this->pageTitle = $_GET['projectname'] . ' - New Repository - ' . Yii::app()->name;
 ?>
-
-<h1>Create Repository</h1>
-
+<h3>Create Repository</h3>
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

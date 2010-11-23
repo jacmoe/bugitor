@@ -32,17 +32,7 @@
  */
 ?>
 <?php
-$this->breadcrumbs=array(
-	'Issue Categories'=>array('index'),
-	'Create',
-);
-
-$this->menu=array(
-	array('label'=>'List IssueCategory', 'url'=>array('index')),
-	array('label'=>'Manage IssueCategory', 'url'=>array('admin')),
-);
+    $this->pageTitle = $_GET['projectname'] . ' - New Issue Category - ' . Yii::app()->name;
 ?>
-
-<h1>Create IssueCategory</h1>
-
+<h3>Create IssueCategory</h3>
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

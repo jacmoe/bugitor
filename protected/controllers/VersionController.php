@@ -39,7 +39,7 @@ class VersionController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+	//public $layout='//layouts/column2';
 
 	/**
 	 * @return array action filters
@@ -62,9 +62,13 @@ class VersionController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
+            if (isset($_GET['identifier'])){
+                $_GET['projectname'] = Project::getProjectNameFromIdentifier($_GET['identifier']);
+            }
+            $model = Version::model()->with(array('project'))->findByPk((int)$id);
+            $this->render('view',array(
+                'model'=>$model,
+            ));
 	}
 
 	/**
@@ -73,7 +77,9 @@ class VersionController extends Controller
 	 */
 	public function actionCreate($identifier)
 	{
-		$model=new Version;
+                $_GET['projectname'] = Project::getProjectNameFromIdentifier($identifier);
+
+                $model=new Version;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -97,7 +103,9 @@ class VersionController extends Controller
 	 */
 	public function actionUpdate($id, $identifier)
 	{
-		$model=$this->loadModel($id);
+                $_GET['projectname'] = Project::getProjectNameFromIdentifier($identifier);
+
+                $model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
