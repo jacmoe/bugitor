@@ -473,11 +473,11 @@ class Issue extends CActiveRecord {
                 {
                     $detail->change = '<b>'.$labels[$name] . '</b> set to <i>' . $this->getNamefromRowValue($name, $value).'</i>';
                 }
-                elseif($name == 'description') {
-                    $detail->change = '<b>'.$labels[$name] . '</b> was changed.';
-                }
                 else
                 {
+                    if($name == 'description') {
+                        $detail->change = '<b>'.$labels[$name] . '</b> was changed.';
+                    }
                     if($value != '')
                     {
                         $detail->change = '<b>'.$labels[$name] . '</b> changed from <i>' . $this->getNamefromRowValue($name, $old) . '</i> to <i>' . $this->getNamefromRowValue($name, $value).'</i>';
