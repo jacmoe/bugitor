@@ -85,10 +85,25 @@ class ProjectController extends Controller {
     }
 
     public function actionActivity($identifier) {
-        $project = Project::model()->with('activities')->find('identifier=?', array($_GET['identifier']));
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'identifier = :identifier';
+        $criteria->params = array('identifier' => $_GET['identifier']);
+        $project = Project::model()->with('activities')->find($criteria);
         $_GET['projectname'] = $project->name;
+        
+        $criteria2 = new CDbCriteria;
+        $criteria2->condition = 'project_id = :project_id';
+        $criteria2->params = array('project_id' => $project->id);
+        $criteria2->order = 'id DESC';
+        $pages = new CPagination(ActionLog::model()->find()->count($criteria2));
+        $pages->pageSize = 10;
+        $pages->applyLimit($criteria2);
+
+        $activities = ActionLog::model()->findAll($criteria2);
         $this->render('activity', array(
             'model' => $project,
+            'activities' => $activities,
+            'pages' => $pages,
         ));
     }
 
@@ -96,21 +111,6 @@ class ProjectController extends Controller {
         $project = Project::model()->find('identifier=?', array($_GET['identifier']));
         $_GET['projectname'] = $project->name;
         $this->render('roadmap', array(
-            'model' => $project,
-        ));
-    }
-
-//	public function actionIssues($identifier)
-//	{
-//            $project=Project::model()->find('identifier=?',array($_GET['identifier']));
-//            $this->render('issues',array(
-//			'model'=>$project,
-//		));
-//	}
-    public function actionNewIssue($identifier) {
-        $project = Project::model()->find('identifier=?', array($_GET['identifier']));
-        $_GET['projectname'] = $project->name;
-        $this->render('newissue', array(
             'model' => $project,
         ));
     }

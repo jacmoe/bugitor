@@ -36,7 +36,7 @@ $this->pageTitle = $model->name . ' - Activity - ' . Yii::app()->name;
 ?>
 <h3 class="activity">Activity</h3>
 <div id="activity" class="quiet">
-    <?php foreach (array_reverse($model->activities) as $activity): ?>
+    <?php foreach ($activities as $activity): ?>
     <dl>
         <dt class="<?php echo $activity->type; ?>">
             <?php echo Bugitor::gravatar($activity->author->email, 16, $activity->author->username); ?>
@@ -47,4 +47,5 @@ $this->pageTitle = $model->name . ' - Activity - ' . Yii::app()->name;
         <dd><span class="author" style="position:relative;bottom:18px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo Bugitor::link_to_user($activity->author) ?></span></dd>
     </dl>
     <?php endforeach; ?>
+<?php $this->widget('CustomLinkPager',array('pages'=>$pages)); ?>
 </div>
