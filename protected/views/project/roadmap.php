@@ -38,6 +38,7 @@ $this->pageTitle = $model->name . ' - Roadmap - ' . Yii::app()->name;
 <div id="roadmap">
 <?php foreach($model->versions as $version) : ?>
 <h3><?php echo $version->name; ?></h3>
+<?php if( $version->issueCount > 0 ) : ?>
 <b>Deadline</b> (<?php echo $version->effective_date; ?>) - <span class="quiet"><?php echo Time::dueDateInWords($version->effective_date) ?></span><br/>
 <?php $num_actual_issues = $version->issueCount - $version->issueCountRejected; ?>
 <?php $open_percent = (($version->issueCountOpen / $num_actual_issues)*100); ?>
@@ -75,6 +76,9 @@ $this->pageTitle = $model->name . ' - Roadmap - ' . Yii::app()->name;
  0 rejected
 <?php endif; ?>
 </p>
+<?php else : ?>
+<p class="nodata"><?php echo 'No issues for this version'; ?></p>
+<?php endif; ?>
 <?php endforeach; ?>
 </div>
 <?php //echo  ?>
