@@ -35,6 +35,27 @@ mySettings = {
 		{name:'Quotes', openWith:'bq(!(([![Class]!]))!). '},
 		{name:'Code', openWith:'@', closeWith:'@'},
 		{separator:'---------------' },
-		{name:'Preview', call:'preview', className:'preview'}
+		{name:'Preview', call:'preview', className:'preview'},
+		{name: 'Smilies', className: "smilies",
+                    dropMenu: [
+                            {name:'Smile',	replaceWith:':smile:', className:"smile" },
+                            {name:'Wink',	replaceWith:':wink:', className:"wink" },
+                            {name:'Big Grin',	replaceWith:':big_grin:', className:"big_grin" },
+                            {name:'Cheesy',	replaceWith:':cheesy_grin:', className:"cheesy" },
+                            {name:'Confused',	replaceWith:':confused:', className:"confused" },
+                            {name:'Cool',	replaceWith:':cool:', className:"cool" },
+                            {name:'Cry',	replaceWith:':cry:', className:"cry" },
+                            {name:'Sad',	replaceWith:':sad:', className:"sad" },
+                            {name:'Surprised',	replaceWith:':surprised:', className:"surprised" },
+                            {name:'Evil',	replaceWith:':evil:', className:"evil" },
+                            {name:'Twisted',	replaceWith:':twisted:', className:"twisted" },
+                            {name:'Razz',	replaceWith:':razz:', className:"razz" },
+                            {name:'Blush',	replaceWith:':blush:', className:"blush" },
+                            {name:'Neutral',	replaceWith:':neutral:', className:"neutral" },
+                            {name:'Mad',	replaceWith:':mad:', className:"mad" },
+                            {name:'Eek',	replaceWith:':eek:', className:"eek" },
+                            {name:'Roll Eyes',	replaceWith:':roll_eyes:', className:"roll_eyes" },
+                            {name:'Frown',	replaceWith:':frown:', className:"frown" },
+                ] },
 	]
 }

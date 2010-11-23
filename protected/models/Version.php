@@ -103,6 +103,11 @@ class Version extends CActiveRecord {
         return array(
             'issues' => array(self::HAS_MANY, 'Issue', 'version_id'),
             'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
+            'issueCount' => array(self::STAT, 'Issue', 'version_id'),
+            'issueCountClosed' => array(self::STAT, 'Issue', 'version_id', 'condition' => 'closed=1'),
+            'issueCountOpen' => array(self::STAT, 'Issue', 'version_id', 'condition' => 'closed=0'),
+            'issueCountResolved' => array(self::STAT, 'Issue', 'version_id', 'condition' => 'status="swIssue/resolved" AND closed=1'),
+            'issueCountRejected' => array(self::STAT, 'Issue', 'version_id', 'condition' => 'status="swIssue/rejected" AND closed=1'),
         );
     }
 

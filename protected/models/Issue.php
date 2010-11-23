@@ -75,6 +75,7 @@ class Issue extends CActiveRecord {
     {
         // Save old values
         $this->setOldAttributes($this->Owner->getAttributes());
+        return parent::afterFind();
     }
 
     public function getOldAttributes()

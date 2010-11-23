@@ -108,8 +108,9 @@ class ProjectController extends Controller {
     }
 
     public function actionRoadmap($identifier) {
-        $project = Project::model()->find('identifier=?', array($_GET['identifier']));
+        $project = Project::model()->with('versions')->find('identifier=?', array($_GET['identifier']));
         $_GET['projectname'] = $project->name;
+
         $this->render('roadmap', array(
             'model' => $project,
         ));
@@ -186,7 +187,7 @@ class ProjectController extends Controller {
             $model->attributes = $_POST['Project'];
             if ($model->save()) {
                 Yii::app()->user->setFlash('success',"Project was succesfully updated");
-                $this->redirect(array('settings', 'identifier' => $model->identifier, 'tab' => 'info'));
+                $this->redirect(array('settings', 'identifier' => $model->identifier, 'tab' => 'information'));
             }
         }
 
