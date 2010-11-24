@@ -164,7 +164,6 @@
                         <?php echo $form->hiddenField($model, 'user_id', array('value' => Yii::app()->getModule('user')->user()->id)); ?>
                     <?php else: ?>
                         <?php echo $form->hiddenField($model, 'user_id', array('value' => $model->user_id)); ?>
-                        <?php echo $form->hiddenField($model, 'updated_by', array('value' => Yii::app()->getModule('user')->user()->id)); ?>
                     <?php endif; ?>
                     <?php echo $form->hiddenField($model, 'project_id', array('value' => Project::getProjectIdFromIdentifier($_GET['identifier']))); ?>
                 </div>
