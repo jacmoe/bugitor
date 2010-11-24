@@ -72,6 +72,7 @@ class TestCommand extends CConsoleCommand {
             $pass_this = array();
             for ($message = 0; $message < count($decoded); $message++) {
                 if ($mime->decode_bodies) {
+                    mail("jacmoe@mail.dk", "mime_parser_class decoded bodies", "The MimeParser was run", "admin@ogitor.org");
                     if ($mime->Analyze($decoded[$message], $results)) {
                         foreach ($results['From'] as $senders) {
                             $pass_this['from'] = $senders['address'];
