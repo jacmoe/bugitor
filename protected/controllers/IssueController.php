@@ -178,7 +178,7 @@ class IssueController extends Controller {
         if (isset($_POST['Issue'])) {
             $model->attributes = $_POST['Issue'];
             if ($model->save()) {
-                $model->addToActionLog('new', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier)));
+                $model->addToActionLog($this->id,'new', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier)));
                 Yii::app()->user->setFlash('success',"Issue was succesfully created");
                 $this->redirect(array('view', 'id' => $model->id, 'identifier' => $model->project->identifier));
             } else {

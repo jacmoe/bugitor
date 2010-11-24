@@ -160,8 +160,8 @@ class TestCommand extends CConsoleCommand {
             $issue->updated_by = $user->id;
             if($issue->validate()){
                 $issue->save(false);
-                //$issue->sendNotifications($issue->id, $new_comment);
-                $issue->addToActionLog('note', 'http://files.ogitor.org/projects/'.$issue->project->identifier.'/issue/view'.$issue->id.'#note-'.$issue->commentCount, $new_comment);
+                $issue->sendNotifications($issue->id, $new_comment);
+                $issue->addToActionLog($issue->id, 'note', 'http://files.ogitor.org/projects/'.$issue->project->identifier.'/issue/view'.$issue->id.'#note-'.$issue->commentCount, $new_comment);
             }
         }
     }

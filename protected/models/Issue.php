@@ -384,16 +384,17 @@ class Issue extends CActiveRecord {
         }
     }
 
-    public function addToActionLog($type, $url, $comment = null) {
+    public function addToActionLog($id, $type, $url, $comment = null) {
+        $issue = Issue::model()->findByPk((int) $id);
         switch ($type) {
             case 'new':
                 $actionLog = new ActionLog;
                 $actionLog->author_id = Yii::app()->user->id;
-                $actionLog->project_id = $this->project_id;
-                $actionLog->description = $this->description;
-                $actionLog->subject = $this->tracker->name.'#'.$this->id.' (New): '.$this->subject;
+                $actionLog->project_id = $issue->project_id;
+                $actionLog->description = $issue->description;
+                $actionLog->subject = $issue->tracker->name.'#'.$issue->id.' (New): '.$issue->subject;
                 $actionLog->type = 'issue-new';
-                $actionLog->when = $this->created;
+                $actionLog->when = $issue->created;
                 $actionLog->url = $url;
                 if($actionLog->validate())
                     $actionLog->save(false);
@@ -401,9 +402,9 @@ class Issue extends CActiveRecord {
             case 'note':
                 $actionLog = new ActionLog;
                 $actionLog->author_id = Yii::app()->user->id;
-                $actionLog->project_id = $this->project_id;
+                $actionLog->project_id = $issue->project_id;
                 $actionLog->description = $comment->content;
-                $actionLog->subject = $this->tracker->name.'#'.$this->id.' : '.$this->subject;
+                $actionLog->subject = $issue->tracker->name.'#'.$issue->id.' : '.$issue->subject;
                 $actionLog->type = 'issue-note';
                 $actionLog->when = $comment->created;
                 $actionLog->url = $url;
@@ -413,9 +414,9 @@ class Issue extends CActiveRecord {
             case 'change':
                 $actionLog = new ActionLog;
                 $actionLog->author_id = Yii::app()->user->id;
-                $actionLog->project_id = $this->project_id;
+                $actionLog->project_id = $issue->project_id;
                 $actionLog->description = $comment->content;
-                $actionLog->subject = $this->tracker->name.'#'.$this->id.' : '.$this->subject;
+                $actionLog->subject = $issue->tracker->name.'#'.$issue->id.' : '.$issue->subject;
                 $actionLog->type = 'issue-change';
                 $actionLog->when = $comment->created;
                 $actionLog->url = $url;
@@ -425,9 +426,9 @@ class Issue extends CActiveRecord {
             case 'resolved':
                 $actionLog = new ActionLog;
                 $actionLog->author_id = Yii::app()->user->id;
-                $actionLog->project_id = $this->project_id;
+                $actionLog->project_id = $issue->project_id;
                 $actionLog->description = $comment->content;
-                $actionLog->subject = $this->tracker->name.'#'.$this->id.' (Resolved): '.$this->subject;
+                $actionLog->subject = $issue->tracker->name.'#'.$issue->id.' (Resolved): '.$issue->subject;
                 $actionLog->type = 'issue-resolved';
                 $actionLog->when = $comment->created;
                 $actionLog->url = $url;
@@ -437,9 +438,9 @@ class Issue extends CActiveRecord {
             case 'rejected':
                 $actionLog = new ActionLog;
                 $actionLog->author_id = Yii::app()->user->id;
-                $actionLog->project_id = $this->project_id;
+                $actionLog->project_id = $issue->project_id;
                 $actionLog->description = $comment->content;
-                $actionLog->subject = $this->tracker->name.'#'.$this->id.' (Rejected): '.$this->subject;
+                $actionLog->subject = $issue->tracker->name.'#'.$issue->id.' (Rejected): '.$issue->subject;
                 $actionLog->type = 'issue-rejected';
                 $actionLog->when = $comment->created;
                 $actionLog->url = $url;
@@ -514,12 +515,13 @@ class Issue extends CActiveRecord {
     }
 
     public function sendNotifications($id, $comment) {
+        $issue = Issue::model()->findByPk((int) $id);
         $message = new Message;
         $message->view = 'issuechange';
-        $message->setSubject(Bugitor::issue_subject($this));
-        $message->setBody(array('issue'=>$this, 'comment' => $comment), 'text/html');
+        $message->setSubject(Bugitor::issue_subject($issue));
+        $message->setBody(array('issue'=>$issue, 'comment' => $comment), 'text/html');
         $message->from = 'ticket@tracker.ogitor.org';
-        $emails = $this->getWatcherEmails($id);
+        $emails = $issue->getWatcherEmails($id);
         foreach($emails as $email)
             $message->addTo($email);
         Yii::app()->mail->send($message);
