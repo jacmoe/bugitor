@@ -48,6 +48,7 @@ return array(
         'application.modules.user.components.*',
         'application.modules.rights.components.*',
         'application.helpers.Time',
+        'application.helpers.Bugitor',
         'application.behaviors.ActiveRecordLogableBehavior',
         'application.extensions.simpleWorkflow.*',
         'ext.mail.Message',
