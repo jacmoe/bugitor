@@ -134,10 +134,10 @@ class Version extends CActiveRecord {
                 'createAttribute' => 'created',
                 'updateAttribute' => 'modified',
             ),
-            'CSafeContentBehavior' => array(
-                'class' => 'application.behaviors.CSafeContentBehavior',
-                'attributes' => array('description', 'name'),
-            ),
+//            'CSafeContentBehavior' => array(
+//                'class' => 'application.behaviors.CSafeContentBehavior',
+//                'attributes' => array('description', 'name'),
+//            ),
         );
     }
 
