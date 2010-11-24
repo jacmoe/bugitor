@@ -44,10 +44,12 @@ class TestCommand extends CConsoleCommand {
         $email = '';
         $fd = fopen("php://stdin", "r");
         //$fd = fopen("C:/wamp/www/email.txt", "r");
-        while (!feof($fd)) {
-            $email .= fread($fd, 1024);
+        if($fd) {
+            while (!feof($fd)) {
+                $email .= fread($fd, 1024);
+            }
+            fclose($fd);
         }
-        fclose($fd);
 
         if ($email !== '') {
             /* Create a new instance of MimeParser - just for the body in plain text */
