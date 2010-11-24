@@ -168,12 +168,16 @@ class Textilizer extends CApplicationComponent
 //        return $result;
     }
 
-    public function textilize($content) {
+    public function textilize($content, $parseSmilies = true) {
         $text = $this->getTextile()->TextileThis($content);
 //        $text = preg_replace_callback('{([\s\(,\-\>]|^)(!)?(attachment|document|version|commit|source|export|message)?((#|r)([A-z0-9]+)|(:)([^"\s<>][^\s<>]*?|"[^"]+?"))(?=(?=[[:punct:]]\W)|\s|<|$)}',
 //                array($this, '_replaceCandycaneLinks'),
 //                $text);
-        return $this->smiley($text);
+        if($parseSmilies) {
+            return $this->smiley($text);
+        } else {
+            return $text;
+        }
     }
 
 }
