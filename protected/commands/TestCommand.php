@@ -154,7 +154,7 @@ class TestCommand extends CConsoleCommand {
             $criteria->compare('email', $pass_this['from'], true);
             $user = User::model()->find($criteria);
             if(null == $user) {
-                mail("jacmoe@mail.dk", "User not found", "The script was run unsuccesfully", "admin@ogitor.org");
+                //mail("jacmoe@mail.dk", "User not found", "The script was run unsuccesfully", "admin@ogitor.org");
                 return;
             }
             //mail("jacmoe@mail.dk", "user was found", "The MimeParser was run", "admin@ogitor.org");
@@ -162,10 +162,10 @@ class TestCommand extends CConsoleCommand {
 
             $issue = Issue::model()->findByPk(33);
             if(null == $issue){
-                mail("jacmoe@mail.dk", "Issue not found", "The script was run unsuccesfully", "admin@ogitor.org");
+                //mail("jacmoe@mail.dk", "Issue not found", "The script was run unsuccesfully", "admin@ogitor.org");
                 return;
             }
-            mail("jacmoe@mail.dk", "issue was found", "The MimeParser was run", "admin@ogitor.org");
+            //mail("jacmoe@mail.dk", "issue was found", "The MimeParser was run", "admin@ogitor.org");
 
             $new_comment = new Comment;
             $new_comment->content = $pass_this['message'];
@@ -173,21 +173,21 @@ class TestCommand extends CConsoleCommand {
             $new_comment->update_user_id = $user->id;
             $new_comment->issue_id = $issue->id;
             if($new_comment->validate()){
-                mail("jacmoe@mail.dk", "Comment was saved", "success?", "admin@ogitor.org");
+                //mail("jacmoe@mail.dk", "Comment was saved", "success?", "admin@ogitor.org");
                 $new_comment->save(false);
             } else {
-                mail("jacmoe@mail.dk", "comment did not validate", "The MimeParser was run", "admin@ogitor.org");
+                //mail("jacmoe@mail.dk", "comment did not validate", "The MimeParser was run", "admin@ogitor.org");
             }
             $issue->updated_by = $user->id;
             if($issue->validate()){
-                mail("jacmoe@mail.dk", "Issue was saved", "success?", "admin@ogitor.org");
-                $issuees->save(false);
+                //mail("jacmoe@mail.dk", "Issue was saved", "success?", "admin@ogitor.org");
+                $issue->save(false);
             } else {
-                mail("jacmoe@mail.dk", "issue did not validate", "The MimeParser was run", "admin@ogitor.org");
+                //mail("jacmoe@mail.dk", "issue did not validate", "The MimeParser was run", "admin@ogitor.org");
             }
-            mail("jacmoe@mail.dk", "Script was run", "The script was run succesfully", "admin@ogitor.org");
+            //mail("jacmoe@mail.dk", "Script was run", "The script was run succesfully", "admin@ogitor.org");
         }
-        mail("jacmoe@mail.dk", "Script was run", "The script was run..", "admin@ogitor.org");
+        //mail("jacmoe@mail.dk", "Script was run", "The script was run..", "admin@ogitor.org");
     }
 
 }
