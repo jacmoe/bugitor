@@ -49,16 +49,12 @@ class TestCommand extends CConsoleCommand {
                 $email .= fread($fd, 1024);
             }
             fclose($fd);
-        } else {
-            //mail("jacmoe@mail.dk", "Fd not valid", "The script was run unsuccesfully", "admin@ogitor.org");
         }
 
         if ($email !== '') {
             /* Create a new instance of MimeParser - just for the body in plain text */
-            //mail("jacmoe@mail.dk", "Before MimeParser run", "The MimeParser is about to run", "admin@ogitor.org");
             $parse = new MimeParser($email);
             /* Create a new instance of Parser */
-            //mail("jacmoe@mail.dk", "MimeParser run", "The MimeParser was run", "admin@ogitor.org");
             $mime = new mime_parser_class;
             $mime->mbox = 0;
             $mime->decode_bodies = 1;
@@ -67,21 +63,17 @@ class TestCommand extends CConsoleCommand {
             $parameters = array('Data' => $email, 'SkipBody' => 0,);
 
             $mime->Decode($parameters, $decoded);
-            //mail("jacmoe@mail.dk", "mime_parser_class run", "The MimeParser was run", "admin@ogitor.org");
 
             $pass_this = array();
             for ($message = 0; $message < count($decoded); $message++) {
                 if ($mime->decode_bodies) {
-                    //mail("jacmoe@mail.dk", "mime_parser_class decoded bodies", "The MimeParser was run", "admin@ogitor.org");
                     if ($mime->Analyze($decoded[$message], $results)) {
-                        //mail("jacmoe@mail.dk", "mime_parser_class analyzed", "The MimeParser was run", "admin@ogitor.org");
                         foreach ($results['From'] as $senders) {
                             $pass_this['from'] = $senders['address'];
                         }
                         $pass_this['subject'] = $results['Subject'];
 
                         $incoming_message = $parse->message['plain'];
-                        //mail("jacmoe@mail.dk", "MimeParser decoded bodies", "The MimeParser was run", "admin@ogitor.org");
 
                         $incoming_message = utf8_encode($incoming_message);
                         // Clean out 'quoted-printable' rubbish
@@ -142,30 +134,18 @@ class TestCommand extends CConsoleCommand {
                 $pass_this['project'] = $matches_closes[2][0];
                 $pass_this['issue'] = $matches_closes[5][0];
             }
-            //$fp = fopen("C:/wamp/www/out.txt", "w+");
-            //$fp = fopen("/home/stealth977/files.ogitor.org/email.txt","w+");
-            //foreach ($pass_this as $key => $value) {
-            //    fwrite($fp, $key . ': ' . $value . "\n");
-            //}
-            //fclose($fp);
-            //mail("jacmoe@mail.dk", "email was parsed", "The MimeParser was run", "admin@ogitor.org");
 
             $criteria = new CDbCriteria();
             $criteria->compare('email', $pass_this['from'], true);
             $user = User::model()->find($criteria);
             if(null == $user) {
-                //mail("jacmoe@mail.dk", "User not found", "The script was run unsuccesfully", "admin@ogitor.org");
                 return;
             }
-            //mail("jacmoe@mail.dk", "user was found", "The MimeParser was run", "admin@ogitor.org");
-            //mail("jacmoe@mail.dk", $user->username, "The MimeParser was run", "admin@ogitor.org");
 
             $issue = Issue::model()->findByPk(33);
             if(null == $issue){
-                //mail("jacmoe@mail.dk", "Issue not found", "The script was run unsuccesfully", "admin@ogitor.org");
                 return;
             }
-            //mail("jacmoe@mail.dk", "issue was found", "The MimeParser was run", "admin@ogitor.org");
 
             $new_comment = new Comment;
             $new_comment->content = $pass_this['message'];
@@ -174,21 +154,16 @@ class TestCommand extends CConsoleCommand {
             $new_comment->create_user_id = $user->id;
             $new_comment->issue_id = $issue->id;
             if($new_comment->validate()){
-                //mail("jacmoe@mail.dk", "Comment was saved", "success?", "admin@ogitor.org");
                 $new_comment->save(false);
-            } else {
-                //mail("jacmoe@mail.dk", "comment did not validate", "The MimeParser was run", "admin@ogitor.org");
             }
+
             $issue->updated_by = $user->id;
             if($issue->validate()){
-                //mail("jacmoe@mail.dk", "Issue was saved", "success?", "admin@ogitor.org");
                 $issue->save(false);
-            } else {
-                //mail("jacmoe@mail.dk", "issue did not validate", "The MimeParser was run", "admin@ogitor.org");
+                $issue->sendNotifications($issue->id, $new_comment);
+                $issue->addToActionLog('note', Yii::app()->request->hostInfo.'/projects/'.$issue->project->identifier.'/issue/view'.$issue->id.'#note-'.$issue->commentCount, $comment);
             }
-            //mail("jacmoe@mail.dk", "Script was run", "The script was run succesfully", "admin@ogitor.org");
         }
-        //mail("jacmoe@mail.dk", "Script was run", "The script was run..", "admin@ogitor.org");
     }
 
 }
