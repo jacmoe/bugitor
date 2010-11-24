@@ -386,7 +386,6 @@ class Issue extends CActiveRecord {
 
     public function addToActionLog($id, $user_id, $type, $url, $comment = null) {
         $issue = Issue::model()->findByPk((int)$id);
-        if(!isset($issue)) die('what the..');
         switch ($type) {
             case 'new':
                 $actionLog = new ActionLog;
@@ -408,7 +407,7 @@ class Issue extends CActiveRecord {
                 $actionLog->subject = 'asdf';//$issue->tracker->name.'#'.$issue->id.' : '.$issue->subject;
                 $actionLog->type = 'issue-note';
                 $actionLog->when = $comment->created;
-                $actionLog->url = $url;
+                $actionLog->url = 'sdf';//$url;
                 if($actionLog->validate())
                     $actionLog->save(false);
                 break;
