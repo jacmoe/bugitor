@@ -14,7 +14,5 @@ defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 require_once($yii);
 $app = Yii::createConsoleApplication($config);
 
-Yii::app()->config->set('SiteName', 'Bugitor');
-Yii::app()->config->set('HostName', $hostname);
-
+Yii::app()->setTimeZone("UTC");
 $app->run();
