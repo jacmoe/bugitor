@@ -52,7 +52,7 @@ return array(
         'application.helpers.Bugitor',
         'application.behaviors.ActiveRecordLogableBehavior',
         'application.extensions.simpleWorkflow.*',
-        'ext.mail.Message',
+        'ext.yii-mail.YiiMessage',
     ),
     'modules' => array(
         // uncomment the following to enable the Gii tool
@@ -73,7 +73,7 @@ return array(
             'class' => 'application.components.textile.Textilizer',
         ),
         'mail' => array(
-            'class' => 'ext.mail.Mail',
+            'class' => 'ext.yii-mail.YiiMailMessage',
             'transportType' => 'php',
             'viewPath' => 'application.views.mail',
             'debug' => false,

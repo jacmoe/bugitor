@@ -53,7 +53,7 @@ return array(
         'application.modules.rights.components.*',
         'application.helpers.*',
         'ext.simpleWorkflow.*',
-        'ext.mail.Message',
+        'ext.mail.YiiMessage',
     ),
     'modules' => array(
         'admin',
@@ -71,7 +71,7 @@ return array(
             'loginUrl' => array('/user/login'),
         ),
         'mail' => array(
-            'class' => 'ext.mail.Mail',
+            'class' => 'ext.mail.YiiMailMessage',
             'transportType' => 'php',
             'viewPath' => 'application.views.mail',
             'debug' => false,
