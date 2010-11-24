@@ -214,6 +214,8 @@ class IssueController extends Controller {
             if (($_POST['Comment']['content'] !== '')) {
                 $comment->attributes = $_POST['Comment'];
                 $comment->issue_id = $model->id;
+                $comment->create_user_id = Yii::app()->user->id;
+                $comment->update_user_id = Yii::app()->user->id;
                 $comment_made = true;
             }
             if($model->wasModified()||($comment_made)) {
@@ -227,6 +229,8 @@ class IssueController extends Controller {
                     if(!$comment_made) {
                         $comment->content = '_No comments for this change_';
                         $comment->issue_id = $model->id;
+                        $comment->create_user_id = Yii::app()->user->id;
+                        $comment->update_user_id = Yii::app()->user->id;
                     }
 
                     if($comment->validate()) {

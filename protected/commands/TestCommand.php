@@ -171,6 +171,7 @@ class TestCommand extends CConsoleCommand {
             $new_comment->content = $pass_this['message'];
             $new_comment->create_user_id = $user->id;
             $new_comment->update_user_id = $user->id;
+            $new_comment->create_user_id = $user->id;
             $new_comment->issue_id = $issue->id;
             if($new_comment->validate()){
                 //mail("jacmoe@mail.dk", "Comment was saved", "success?", "admin@ogitor.org");
