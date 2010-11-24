@@ -160,7 +160,11 @@
                     <?php echo $form->error($model, 'done_ratio'); ?>
                 </div>
                 <div class="row">
-                    <?php echo $form->hiddenField($model, 'user_id', array('value' => Yii::app()->getModule('user')->user()->id)); ?>
+                    <?php if ($model->isNewRecord) : ?>
+                        <?php echo $form->hiddenField($model, 'user_id', array('value' => Yii::app()->getModule('user')->user()->id)); ?>
+                    <?php else: ?>
+                        <?php echo $form->hiddenField($model, 'user_id'); ?>
+                    <?php endif; ?>
                     <?php echo $form->hiddenField($model, 'project_id', array('value' => Project::getProjectIdFromIdentifier($_GET['identifier']))); ?>
                 </div>
             </div><!-- content right //-->
