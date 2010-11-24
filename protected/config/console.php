@@ -50,6 +50,7 @@ return array(
         'application.helpers.Time',
         'application.behaviors.ActiveRecordLogableBehavior',
         'application.extensions.simpleWorkflow.*',
+        'ext.mail.Message',
     ),
     'modules' => array(
         // uncomment the following to enable the Gii tool
@@ -65,6 +66,12 @@ return array(
             'class' => 'RightsWebUser',
             'allowAutoLogin' => true,
             'loginUrl' => array('/user/login'),
+        ),
+        'mail' => array(
+            'class' => 'ext.mail.Mail',
+            'transportType' => 'php',
+            'viewPath' => 'application.views.mail',
+            'debug' => false,
         ),
         'config' => array(
             'class' => 'application.extensions.EConfig',
