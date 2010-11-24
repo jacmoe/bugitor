@@ -108,6 +108,9 @@ class ProjectController extends Controller {
     }
 
     public function actionRoadmap($identifier) {
+
+        //$this->layout = '//layouts/column2';
+
         $project = Project::model()->with(
                 array('versions' => array('with' => array('issues')))
                 )->find('identifier=?', array($_GET['identifier']));

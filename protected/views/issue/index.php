@@ -141,7 +141,7 @@ Show:
                 ),
 		array(
 			'class'=>'IssueButtonColumn',
-                        'header'=>CHtml::dropDownList('pageSize',$pageSize,array(10=>10,20=>20,50=>50,100=>100),array(
+                        'header'=>CHtml::dropDownList('pageSize',Yii::app()->user->getState('pageSize') ? Yii::app()->user->getState('pageSize'):'20' ,array(10=>10,20=>20,50=>50,100=>100),array(
                             // change 'user-grid' to the actual id of your grid!!
                             'id' => Yii::app()->config->get('defaultPagesize'),
                             'onchange'=>"$.fn.yiiGridView.update('issue-grid',{ data:{pageSize: $(this).val() }})",
