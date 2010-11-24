@@ -71,7 +71,13 @@ class Bugitor {
         return preg_replace('/[\r\n\_]+/', ' ', $string);
     }
 
-    public static function format_activity_description($text, $length = 100) {
+    public static function p2nl ($str) {
+        return preg_replace(array("/<p[^>]*>/iU","/<\/p[^>]*>/iU"),
+                            array("","\n"),
+                            $str);
+    }
+
+    public static function format_activity_description($text, $length = 120) {
         $out = Bugitor::truncate($text, $length);
         return preg_replace('/<(pre|code)>.*$/', '...', $out);
     }
