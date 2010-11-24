@@ -159,7 +159,9 @@ class TestCommand extends CConsoleCommand {
             }
             mail("jacmoe@mail.dk", "user was found", "The MimeParser was run", "admin@ogitor.org");
 
-            $issue = Issue::model()->findByPk((int) $pass_this['issue']);
+            mail("jacmoe@mail.dk", $pass_this['issue'], "The MimeParser was run", "admin@ogitor.org");
+
+            $issue = Issue::model()->findByPk((int)$pass_this['issue']);
             if(null == $issue){
                 mail("jacmoe@mail.dk", "Issue not found", "The script was run unsuccesfully", "admin@ogitor.org");
                 return;
