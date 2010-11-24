@@ -142,7 +142,7 @@ class TestCommand extends CConsoleCommand {
                 return;
             }
 
-            $issue = Issue::model()->findByPk(33);
+            $issue = Issue::model()->findByPk($pass_this['issue']);
             if(null == $issue){
                 return;
             }
@@ -152,7 +152,7 @@ class TestCommand extends CConsoleCommand {
             $new_comment->create_user_id = $user->id;
             $new_comment->update_user_id = $user->id;
             $new_comment->create_user_id = $user->id;
-            $new_comment->issue_id = $issue->id;
+            $new_comment->issue_id = $pass_this['issue'];
             $new_comment->created = $new_comment->modified = date("Y-m-d\TH:i:s\Z", time());
             if($new_comment->validate()){
                 $new_comment->save(false);
@@ -161,8 +161,8 @@ class TestCommand extends CConsoleCommand {
             $issue->updated_by = $user->id;
             if($issue->validate()){
                 $issue->save(false);
-                $issue->sendNotifications($issue->id, $new_comment);
-                $issue->addToActionLog($issue->id, $user->id, 'note', 'http://files.ogitor.org/projects/'/*.$issue->project->identifier*/.'/issue/view/'.$issue->id.'#note-'/*.$issue->commentCount*/, $new_comment);
+                $issue->sendNotifications($pass_this['issue'], $new_comment);
+                $issue->addToActionLog($pass_this['issue'], $user->id, 'note', 'http://files.ogitor.org/projects/'/*.$issue->project->identifier*/.'/issue/view/'.$pass_this['issue'].'#note-'/*.$issue->commentCount*/, $new_comment);
             }
         }
     }
