@@ -205,10 +205,10 @@ class Issue extends CActiveRecord {
                 'createAttribute' => 'created',
                 'updateAttribute' => 'modified',
             ),
-            'CSafeContentBehavior' => array(
-                'class' => 'application.behaviors.CSafeContentBehavior',
-                'attributes' => array('description', 'subject'),
-            ),
+//            'CSafeContentBehavior' => array(
+//                'class' => 'application.behaviors.CSafeContentBehavior',
+//                'attributes' => array('description', 'subject'),
+//            ),
             'swBehavior' => array(
                 'class' => 'application.extensions.simpleWorkflow.SWActiveRecordBehavior',
             ),
