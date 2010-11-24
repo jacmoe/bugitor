@@ -37,7 +37,7 @@
 <ul>
 <?php foreach($assigned_issues as $assigned): ?>
 <li>
-<?php echo Bugitor::link_to_issue($assigned) ?>
+<?php echo Bugitor::short_link_to_issue($assigned) ?>
 </li>
 <?php endforeach; ?>
 </ul>

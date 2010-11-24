@@ -48,7 +48,6 @@ class ActionLog extends CActiveRecord
 			array('author_id, project_id', 'numerical', 'integerOnly'=>true),
 			array('type', 'length', 'max'=>32),
 			array('url', 'length', 'max'=>100),
-			array('subject', 'length', 'max'=>155),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, type, author_id, when, url, project_id, subject, description', 'safe', 'on'=>'search'),

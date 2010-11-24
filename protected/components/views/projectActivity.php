@@ -40,8 +40,7 @@
             <span class="time"><?php echo Time::timeAgoInWords($activity->when); ?></span>
             <?php echo CHtml::link($activity->subject, $activity->url) ?>
         </dt>
-        <dd><span class="description"><?php echo Bugitor::format_activity_description($activity->description); ?></span></dd>
-        <dd><span class="author" style="position: relative; bottom: 12px;left: 18px;"><?php echo Bugitor::link_to_user($activity->author) ?></span></dd>
+        <dd><span class="description"><?php echo Bugitor::format_activity_description(CHtml::encode($activity->description)); ?></span></dd>
     </dl>
     <?php endforeach; ?>
 </div>
