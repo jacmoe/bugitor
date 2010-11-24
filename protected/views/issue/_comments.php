@@ -54,7 +54,7 @@ Updated by <?php echo Bugitor::link_to_user($comment->author); ?>
 <?php endforeach; ?>
 </ul>
 <?php endif; ?>
-<?php echo Yii::app()->textile->textilize($comment->content, false); ?>
+<?php echo Yii::app()->textile->textilize($comment->content); ?>
 </td></tr></table>
 </div>
 <?php $comment_count--; ?>
