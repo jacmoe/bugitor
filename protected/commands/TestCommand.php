@@ -150,9 +150,13 @@ class TestCommand extends CConsoleCommand {
             $new_comment->create_user_id = $user->id;
             $new_comment->update_user_id = $user->id;
             $new_comment->issue_id = $issue->id;
-            $new_comment->save();
+            if($new_comment->validate())
+                $new_comment->save(false);
+            $issue->updated_by = $user->id;
+            if($issue->validate())
+                $issue->save(false);
         }
-        //mail("jacmoe@mail.dk", "Script was run", "The script was run succesfully", "admin@ogitor.org");
+        mail("jacmoe@mail.dk", "Script was run", "The script was run succesfully", "admin@ogitor.org");
 
     }
 
