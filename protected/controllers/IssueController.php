@@ -217,16 +217,23 @@ class IssueController extends Controller {
                 $comment_made = true;
             }
             if($model->wasModified()||($comment_made)) {
-                $model->updated_by = Yii::app()->user->id;
+                if($comment_made) {
+                    $model->updated_by = $comment->create_user_id;
+                } else {
+                    $model->updated_by = Yii::app()->user->id;
+                }
                 if ($model->validate()) {
 
                     if(!$comment_made) {
                         $comment->content = '_No comments for this change_';
                         $comment->issue_id = $model->id;
                     }
+
                     if($comment->validate()) {
                         $comment->save(false);
+                        $model->updated_by = $comment->create_user_id;
                     }
+
                     $has_details = $model->buildCommentDetails($comment->id);
 
                     $model->save(false);

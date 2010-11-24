@@ -57,12 +57,12 @@
                 <?php if (!$model->isNewRecord) : ?>
                     <div class="row" id="subject_row" style="display: none;">
                         <?php echo $form->labelEx($model, 'subject'); ?>
-                        <?php echo $form->textField($model, 'subject', array(Yii::app()->user->checkAccess('Issue.Edit') ? 'enabled' : 'disabled' => true, 'size' => 112, 'maxlength' => 255)); ?>
+                        <?php echo $form->textField($model, 'subject', array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'size' => 112, 'maxlength' => 255)); ?>
                         <?php echo $form->error($model, 'subject'); ?>
                     </div>
                     <div class="row" id="description_row" style="display: none;">
                         <?php echo $form->labelEx($model, 'description'); ?>
-                        <?php if (Yii::app()->user->checkAccess('Issue.Edit')) : ?>
+                        <?php if (Yii::app()->user->checkAccess('Issue.Update')) : ?>
                             <?php
                                     $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
                                         'model' => $model,
@@ -107,32 +107,32 @@
                         echo $form->dropDownList($model,
                                 'issue_priority_id',
                                 CHtml::listData(IssuePriority::model()->findAll(array('order' => 'id')), 'id', 'name'),
-                                array(Yii::app()->user->checkAccess('Issue.Edit') ? 'enabled' : 'disabled' => true, 'options' => array('2' => array('selected' => true))));
+                                array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'options' => array('2' => array('selected' => true))));
                     ?>
                     <?php echo $form->error($model, 'issue_priority_id'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model, 'status'); ?>
                     <?php if ($model->isNewRecord) : ?>
-                        <?php echo $form->dropDownList($model, 'status', array('swIssue/new' => 'New*'), array(Yii::app()->user->checkAccess('Issue.Edit') ? 'enabled' : 'disabled' => true)); ?>
+                        <?php echo $form->dropDownList($model, 'status', array('swIssue/new' => 'New*'), array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true)); ?>
                     <?php else : ?>
-                        <?php echo $form->dropDownList($model, 'status', SWHelper::nextStatuslistData($model), array(Yii::app()->user->checkAccess('Issue.Edit') ? 'enabled' : 'disabled' => true)); ?>
+                        <?php echo $form->dropDownList($model, 'status', SWHelper::nextStatuslistData($model), array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true)); ?>
                     <?php endif; ?>
                     <?php echo $form->error($model, 'status'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model, 'issue_category_id'); ?>
-                    <?php echo $form->dropDownList($model, 'issue_category_id', $this->getCategorySelectList(), array(Yii::app()->user->checkAccess('Issue.Edit') ? 'enabled' : 'disabled' => true, 'prompt' => '<None>')); ?>
+                    <?php echo $form->dropDownList($model, 'issue_category_id', $this->getCategorySelectList(), array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'prompt' => '<None>')); ?>
                     <?php echo $form->error($model, 'issue_category_id'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model, 'assigned_to'); ?>
-                    <?php echo $form->dropDownList($model, 'assigned_to', $this->getUserSelectList(), array(Yii::app()->user->checkAccess('Issue.Edit') ? 'enabled' : 'disabled' => true, 'prompt' => '<None>')); ?>
+                    <?php echo $form->dropDownList($model, 'assigned_to', $this->getUserSelectList(), array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'prompt' => '<None>')); ?>
                     <?php echo $form->error($model, 'assigned_to'); ?>
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model, 'version_id'); ?>
-                    <?php echo $form->dropDownList($model, 'version_id', $this->getVersionSelectList(), array(Yii::app()->user->checkAccess('Issue.Edit') ? 'enabled' : 'disabled' => true, 'prompt' => '<None>')); ?>
+                    <?php echo $form->dropDownList($model, 'version_id', $this->getVersionSelectList(), array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'prompt' => '<None>')); ?>
                     <?php echo $form->error($model, 'version_id'); ?>
                 </div>
                 <div class="row">
@@ -151,7 +151,7 @@
                                 ),
                                 'htmlOptions' => array(
                                     'style' => 'height:8px;width:144px;',
-                                    Yii::app()->user->checkAccess('Issue.Edit') ? 'enabled' : 'disabled' => true,
+                                    Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true,
                                 ),
                             ));
                         ?>
@@ -163,7 +163,7 @@
                     <?php if ($model->isNewRecord) : ?>
                         <?php echo $form->hiddenField($model, 'user_id', array('value' => Yii::app()->getModule('user')->user()->id)); ?>
                     <?php else: ?>
-                        <?php echo $form->hiddenField($model, 'user_id'); ?>
+                        <?php echo $form->hiddenField($model, 'user_id', array('value' => $model->user_id)); ?>
                         <?php echo $form->hiddenField($model, 'updated_by', array('value' => Yii::app()->getModule('user')->user()->id)); ?>
                     <?php endif; ?>
                     <?php echo $form->hiddenField($model, 'project_id', array('value' => Project::getProjectIdFromIdentifier($_GET['identifier']))); ?>
