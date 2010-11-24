@@ -56,10 +56,10 @@ return CMap::mergeArray(
                 'charset' => 'utf8',
             ),
             'mail' => array(
-                'class' => 'ext.mail.Mail',
+                'class' => 'ext.yii-mail.YiiMail',
                 'transportType' => 'php',
                 'viewPath' => 'application.views.mail',
-                'debug' => true,
+                'dryRun' => true,
             ),
             'log' => array(
                 'class' => 'CLogRouter',

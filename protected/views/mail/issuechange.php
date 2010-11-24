@@ -58,7 +58,7 @@ hr {
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
-<?php //$this->widget('ext.mail.MailDebug'); ?>
+<?php //$this->widget('ext.yii-mail.YiiMailDebug'); ?>
 <div class="wiki">
 <hr />
 Issue #<?php echo $issue->id ?> has been updated by <?php echo Bugitor::format_username($comment->author); ?>
