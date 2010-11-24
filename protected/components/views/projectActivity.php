@@ -31,25 +31,17 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
-<?php $this->pageTitle=Yii::app()->name . ' : Welcome'; ?>
-<h3 class="welcome">Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h3>
-<div class="splitcontentleft">
-    <div class="issues box">
-        <h3>My Issues</h3>
-        <?php $this->Widget('OwnedIssues'); ?>
-    </div>
-</div>
-<div class="splitcontentright">
-    <div class="project box">
-        <h3>My Projects</h3>
-        <?php $this->Widget('MyProjects'); ?>
-    </div>
-    <div class="assigned box">
-        <h3>Issues Assigned to me</h3>
-        <?php $this->Widget('AssignedIssues'); ?>
-    </div>
-    <div class="watched box">
-        <h3>Watched Issues</h3>
-        <?php $this->Widget('WatchedIssues'); ?>
-    </div>
+<?php $activities = $this->getActivities(); ?>
+<div id="activity" class="quiet">
+    <?php foreach ($activities as $activity): ?>
+    <dl>
+        <dt class="<?php echo $activity->type; ?>">
+            <?php echo Bugitor::gravatar($activity->author->email, 16, $activity->author->username); ?>
+            <span class="time"><?php echo Time::timeAgoInWords($activity->when); ?></span>
+            <?php echo CHtml::link($activity->subject, $activity->url) ?>
+        </dt>
+        <dd><span class="description"><?php echo Bugitor::format_activity_description($activity->description); ?></span></dd>
+        <dd><span class="author" style="position: relative; bottom: 12px;left: 18px;"><?php echo Bugitor::link_to_user($activity->author) ?></span></dd>
+    </dl>
+    <?php endforeach; ?>
 </div>

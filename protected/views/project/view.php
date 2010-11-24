@@ -51,6 +51,6 @@ $this->pageTitle = $model->name . ' - Overview - ' . Yii::app()->name;
 </div>
 <div class="activity box">
 <h3>Recent Activity</h3>
-Recent actitity here
+<?php $this->widget('ProjectActivity', array('projectId' => $model->id, 'displayLimit' => 3)); ?>
 </div>
 </div>

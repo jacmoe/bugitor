@@ -37,8 +37,7 @@
 <ul>
 <?php foreach($watched_issues as $watched): ?>
 <li>
-<?php echo CHtml::link(CHtml::encode($watched->issue->subject),
-array('issue/view', 'id'=>$watched->issue->id, 'identifier' => $watched->issue->project->identifier)); ?>
+<?php echo Bugitor::link_to_issue($watched->issue) ?>
 </li>
 <?php endforeach; ?>
 </ul>

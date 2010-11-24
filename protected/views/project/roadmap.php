@@ -98,11 +98,7 @@ if ((strtotime($version->effective_date) > strtotime(date("Y-m-d"))) && ($versio
     <ul>
         <?php foreach($version->issues as $issue) : ?>
             <li>
-                <?php echo CHtml::link($issue->tracker->name . ' #' . $issue->id,
-                        array('issue/view',
-                            'id' => $issue->id,
-                            'identifier' => $model->identifier,
-                        ), array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue')); ?> : <?php echo $issue->subject; ?>
+                <?php echo Bugitor::short_link_to_issue($issue) ?> : <?php echo $issue->subject; ?>
             </li>
         <?php endforeach; ?>
     </ul>
