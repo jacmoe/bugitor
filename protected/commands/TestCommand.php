@@ -49,12 +49,15 @@ class TestCommand extends CConsoleCommand {
                 $email .= fread($fd, 1024);
             }
             fclose($fd);
+        } else {
+            mail("jacmoe@mail.dk", "Fd not valid", "The script was run unsuccesfully", "admin@ogitor.org");
         }
 
         if ($email !== '') {
             /* Create a new instance of MimeParser - just for the body in plain text */
             $parse = new MimeParser($email);
             /* Create a new instance of Parser */
+            mail("jacmoe@mail.dk", "MimeParser run", "The MimeParser was run", "admin@ogitor.org");
             $mime = new mime_parser_class;
             $mime->mbox = 0;
             $mime->decode_bodies = 1;
@@ -63,6 +66,7 @@ class TestCommand extends CConsoleCommand {
             $parameters = array('Data' => $email, 'SkipBody' => 0,);
 
             $mime->Decode($parameters, $decoded);
+            mail("jacmoe@mail.dk", "mime_parser_class run", "The MimeParser was run", "admin@ogitor.org");
 
             $pass_this = array();
             for ($message = 0; $message < count($decoded); $message++) {
@@ -140,6 +144,7 @@ class TestCommand extends CConsoleCommand {
             //    fwrite($fp, $key . ': ' . $value . "\n");
             //}
             //fclose($fp);
+            mail("jacmoe@mail.dk", "email was parsed", "The MimeParser was run", "admin@ogitor.org");
 
             $criteria = new CDbCriteria();
             $criteria->compare('email', $pass_this['from'], true);
