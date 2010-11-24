@@ -50,15 +50,15 @@ class TestCommand extends CConsoleCommand {
             }
             fclose($fd);
         } else {
-            mail("jacmoe@mail.dk", "Fd not valid", "The script was run unsuccesfully", "admin@ogitor.org");
+            //mail("jacmoe@mail.dk", "Fd not valid", "The script was run unsuccesfully", "admin@ogitor.org");
         }
 
         if ($email !== '') {
             /* Create a new instance of MimeParser - just for the body in plain text */
-            mail("jacmoe@mail.dk", "Before MimeParser run", "The MimeParser is about to run", "admin@ogitor.org");
+            //mail("jacmoe@mail.dk", "Before MimeParser run", "The MimeParser is about to run", "admin@ogitor.org");
             $parse = new MimeParser($email);
             /* Create a new instance of Parser */
-            mail("jacmoe@mail.dk", "MimeParser run", "The MimeParser was run", "admin@ogitor.org");
+            //mail("jacmoe@mail.dk", "MimeParser run", "The MimeParser was run", "admin@ogitor.org");
             $mime = new mime_parser_class;
             $mime->mbox = 0;
             $mime->decode_bodies = 1;
@@ -67,21 +67,21 @@ class TestCommand extends CConsoleCommand {
             $parameters = array('Data' => $email, 'SkipBody' => 0,);
 
             $mime->Decode($parameters, $decoded);
-            mail("jacmoe@mail.dk", "mime_parser_class run", "The MimeParser was run", "admin@ogitor.org");
+            //mail("jacmoe@mail.dk", "mime_parser_class run", "The MimeParser was run", "admin@ogitor.org");
 
             $pass_this = array();
             for ($message = 0; $message < count($decoded); $message++) {
                 if ($mime->decode_bodies) {
-                    mail("jacmoe@mail.dk", "mime_parser_class decoded bodies", "The MimeParser was run", "admin@ogitor.org");
+                    //mail("jacmoe@mail.dk", "mime_parser_class decoded bodies", "The MimeParser was run", "admin@ogitor.org");
                     if ($mime->Analyze($decoded[$message], $results)) {
-                        mail("jacmoe@mail.dk", "mime_parser_class analyzed", "The MimeParser was run", "admin@ogitor.org");
+                        //mail("jacmoe@mail.dk", "mime_parser_class analyzed", "The MimeParser was run", "admin@ogitor.org");
                         foreach ($results['From'] as $senders) {
                             $pass_this['from'] = $senders['address'];
                         }
                         $pass_this['subject'] = $results['Subject'];
 
                         $incoming_message = $parse->message['plain'];
-                        mail("jacmoe@mail.dk", "MimeParser decoded bodies", "The MimeParser was run", "admin@ogitor.org");
+                        //mail("jacmoe@mail.dk", "MimeParser decoded bodies", "The MimeParser was run", "admin@ogitor.org");
 
                         $incoming_message = utf8_encode($incoming_message);
                         // Clean out 'quoted-printable' rubbish
@@ -148,7 +148,7 @@ class TestCommand extends CConsoleCommand {
             //    fwrite($fp, $key . ': ' . $value . "\n");
             //}
             //fclose($fp);
-            mail("jacmoe@mail.dk", "email was parsed", "The MimeParser was run", "admin@ogitor.org");
+            //mail("jacmoe@mail.dk", "email was parsed", "The MimeParser was run", "admin@ogitor.org");
 
             $criteria = new CDbCriteria();
             $criteria->compare('email', $pass_this['from'], true);
@@ -158,11 +158,10 @@ class TestCommand extends CConsoleCommand {
                 return;
             }
             mail("jacmoe@mail.dk", "user was found", "The MimeParser was run", "admin@ogitor.org");
-
-            mail("jacmoe@mail.dk", $pass_this['issue'], "The MimeParser was run", "admin@ogitor.org");
+            mail("jacmoe@mail.dk", $user->username, "The MimeParser was run", "admin@ogitor.org");
 
             $criteria2 = new CDbCriteria();
-            $criteria2->compare('id', $pass_this['issue'], true);
+            $criteria2->compare('t.id', $pass_this['issue']);
             $issue = Issue::model()->find($criteria2);
             if(null == $issue){
                 mail("jacmoe@mail.dk", "Issue not found", "The script was run unsuccesfully", "admin@ogitor.org");
