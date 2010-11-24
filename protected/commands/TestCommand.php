@@ -153,6 +153,7 @@ class TestCommand extends CConsoleCommand {
             $new_comment->update_user_id = $user->id;
             $new_comment->create_user_id = $user->id;
             $new_comment->issue_id = $issue->id;
+            $new_comment->created = $new_comment->modified = date("Y-m-d\TH:i:s\Z", time());
             if($new_comment->validate()){
                 $new_comment->save(false);
             }
@@ -161,7 +162,7 @@ class TestCommand extends CConsoleCommand {
             if($issue->validate()){
                 $issue->save(false);
                 $issue->sendNotifications($issue->id, $new_comment);
-                $issue->addToActionLog($issue->id, $user->id, 'note', 'http://files.ogitor.org/projects/'.$issue->project->identifier.'/issue/view'.$issue->id.'#note-'.$issue->commentCount, $new_comment);
+                $issue->addToActionLog($issue->id, $user->id, 'note', 'http://files.ogitor.org/projects/'.$issue->project->identifier.'/issue/view/'.$issue->id.'#note-'.$issue->commentCount, $new_comment);
             }
         }
     }
