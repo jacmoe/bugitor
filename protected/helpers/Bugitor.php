@@ -49,6 +49,33 @@ class Bugitor {
         }
     }
 
+    public static function truncate($text, $length, $ending = '...', $exact = true) {
+        if (strlen($text) <= $length) {
+            return $text;
+        } else {
+            mb_internal_encoding("UTF-8");
+            if (mb_strlen($text) > $length) {
+                $length -= mb_strlen($ending);
+                if (!$exact) {
+                    $text = preg_replace('/\s+?(\S+)?$/', '', mb_substr($text, 0, $length+1));
+                }
+                return mb_substr($text, 0, $length).$ending;
+            } else {
+                return $text;
+            }
+        }
+    }
+
+    public static function truncate_single_line($string, $length, $ending = '...', $exact = true) {
+        $string = Bugitor::truncate($string, $length, $ending, $exact);
+        return preg_replace('/[\r\n\_]+/', ' ', $string);
+    }
+
+    public static function format_activity_description($text) {
+        $out = Bugitor::truncate_single_line($text, 250);
+        return preg_replace('/<(pre|code)>.*$/', '...', $out);
+    }
+
     public static function link_to_issue($issue, $absolute = false) {
         if($absolute) {
             return CHtml::link($issue->tracker->name . ' #' . $issue->id . ': ' . $issue->subject,Yii::app()->request->hostInfo.'/projects/'.$issue->project->identifier.'/issue/view/'.$issue->id);

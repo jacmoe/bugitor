@@ -43,8 +43,8 @@ $this->pageTitle = $model->name . ' - Activity - ' . Yii::app()->name;
             <span class="time"><?php echo $activity->when; ?></span>
             <?php echo CHtml::link($activity->subject, $activity->url) ?>
         </dt>
-        <dd><span class="description"><?php echo Yii::app()->textile->textilize($activity->description); ?></span></dd>
-        <dd><span class="author"><?php echo Bugitor::link_to_user($activity->author) ?></span></dd>
+        <dd><span class="description"><?php echo Bugitor::format_activity_description($activity->description); ?></span></dd>
+        <dd><span class="author" style="position: relative; bottom: 12px;left: 18px;"><?php echo Bugitor::link_to_user($activity->author) ?></span></dd>
     </dl>
     <?php endforeach; ?>
 <?php $this->widget('CustomLinkPager',array('pages'=>$pages)); ?>
