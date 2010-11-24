@@ -363,8 +363,8 @@ table.plugins span.url { display: block; font-size: 0.9em; }
 table.list tbody tr:hover { background-color:#ffffdd; }
 table td {padding:2px;}
 table p {margin:0;}
-.odd {background-color:#f6f7f8;}
-.even {background-color: #fff;}
+/*.odd {background-color:#f6f7f8;}*/
+/*.even {background-color: #fff;}*/
 
 .highlight { background-color: #FCFD8D;}
 .highlight.token-1 { background-color: #faa;}
