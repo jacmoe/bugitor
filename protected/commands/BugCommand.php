@@ -60,7 +60,7 @@ class BugCommand extends CConsoleCommand {
                 mail("jacmoe@mail.dk", "Issue was saved", "success?", "admin@ogitor.org");
                 $issuees->save(false);
                 //$issuees->sendNotifications($issuees->id, $new_comment);
-                $issuees->addToActionLog($issuees->id, 'note', 'http://files.ogitor.org/projects/'.$issuees->project->identifier.'/issue/view'.$issuees->id.'#note-'.$issuees->commentCount, $new_comment);
+                $issuees->addToActionLog($issuees->id, 1, 'note', 'http://files.ogitor.org/projects/'.$issuees->project->identifier.'/issue/view'.$issuees->id.'#note-'.$issuees->commentCount, $new_comment);
 
             } else {
                 mail("jacmoe@mail.dk", "issue did not validate", "The MimeParser was run", "admin@ogitor.org");
