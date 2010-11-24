@@ -150,18 +150,18 @@ class TestCommand extends CConsoleCommand {
             //fclose($fp);
             //mail("jacmoe@mail.dk", "email was parsed", "The MimeParser was run", "admin@ogitor.org");
 
-            /*$criteria = new CDbCriteria();
+            $criteria = new CDbCriteria();
             $criteria->compare('email', $pass_this['from'], true);
             $user = User::model()->find($criteria);
             if(null == $user) {
                 mail("jacmoe@mail.dk", "User not found", "The script was run unsuccesfully", "admin@ogitor.org");
                 return;
-            }*/
+            }
             //mail("jacmoe@mail.dk", "user was found", "The MimeParser was run", "admin@ogitor.org");
             //mail("jacmoe@mail.dk", $user->username, "The MimeParser was run", "admin@ogitor.org");
 
-            $issuees = Issue::model()->findByPk(33);
-            if(null == $issuees){
+            $issue = Issue::model()->findByPk(33);
+            if(null == $issue){
                 mail("jacmoe@mail.dk", "Issue not found", "The script was run unsuccesfully", "admin@ogitor.org");
                 return;
             }
@@ -178,8 +178,8 @@ class TestCommand extends CConsoleCommand {
             } else {
                 mail("jacmoe@mail.dk", "comment did not validate", "The MimeParser was run", "admin@ogitor.org");
             }
-            $issuees->updated_by = $user->id;
-            if($issuees->validate()){
+            $issue->updated_by = $user->id;
+            if($issue->validate()){
                 mail("jacmoe@mail.dk", "Issue was saved", "success?", "admin@ogitor.org");
                 $issuees->save(false);
             } else {
