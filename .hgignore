@@ -7,3 +7,4 @@ glob:resources/bugitor.mwb.bak
 glob:assets/
 glob:webgrind/*
 glob:nbproject/*
+glob:protected/extensions/yii-mail/doc/*
