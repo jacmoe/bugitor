@@ -149,10 +149,8 @@ class TestCommand extends CConsoleCommand {
             $new_comment->content = $pass_this['message'];
             $new_comment->create_user_id = $user->id;
             $new_comment->update_user_id = $user->id;
-            $new_comment->modified = new CDbExpression('NOW()');
-            $new_comment->created = new CDbExpression('NOW()');
             $new_comment->issue_id = $issue->id;
-            $new_comment->save(false);
+            $new_comment->save();
         }
         //mail("jacmoe@mail.dk", "Script was run", "The script was run succesfully", "admin@ogitor.org");
 
