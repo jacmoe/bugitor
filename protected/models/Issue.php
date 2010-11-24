@@ -405,7 +405,7 @@ class Issue extends CActiveRecord {
                 $actionLog->author_id = $user_id;
                 $actionLog->project_id = $issue->project_id;
                 $actionLog->description = $comment->content;
-                $actionLog->subject = $issue->tracker->name.'#'.$issue->id.' : '.$issue->subject;
+                $actionLog->subject = 'asdf';//$issue->tracker->name.'#'.$issue->id.' : '.$issue->subject;
                 $actionLog->type = 'issue-note';
                 $actionLog->when = $comment->created;
                 $actionLog->url = $url;
