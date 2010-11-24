@@ -55,6 +55,12 @@ return CMap::mergeArray(
                 'password' => 'jake2383',
                 'charset' => 'utf8',
             ),
+            'mail' => array(
+                'class' => 'ext.mail.Mail',
+                'transportType' => 'php',
+                'viewPath' => 'application.views.mail',
+                'debug' => true,
+            ),
             'log' => array(
                 'class' => 'CLogRouter',
                 'routes' => array(

@@ -74,7 +74,7 @@ return array(
             'class' => 'ext.mail.Mail',
             'transportType' => 'php',
             'viewPath' => 'application.views.mail',
-            'debug' => true,
+            'debug' => false,
         ),
         'textile' => array(
             'class' => 'application.components.textile.Textilizer',
