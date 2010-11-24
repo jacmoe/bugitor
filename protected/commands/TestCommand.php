@@ -42,8 +42,8 @@ class TestCommand extends CConsoleCommand {
 
     public function run($args) {
         $email = '';
-        //$fd = fopen("php://stdin", "r");
-        $fd = fopen("C:/wamp/www/email.txt", "r");
+        $fd = fopen("php://stdin", "r");
+        //$fd = fopen("C:/wamp/www/email.txt", "r");
         if($fd) {
             while (!feof($fd)) {
                 $email .= fread($fd, 1024);
