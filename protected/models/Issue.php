@@ -518,7 +518,7 @@ class Issue extends CActiveRecord {
         $message->view = 'issuechange';
         $message->setSubject(Bugitor::issue_subject($this));
         $message->setBody(array('issue'=>$this, 'comment' => $comment), 'text/html');
-        $message->from = 'admin@jacmoe.dk';
+        $message->from = 'ticket@tracker.ogitor.org';
         $emails = $this->getWatcherEmails($id);
         foreach($emails as $email)
             $message->addTo($email);
