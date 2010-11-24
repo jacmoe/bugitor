@@ -161,7 +161,7 @@ class TestCommand extends CConsoleCommand {
             if($issue->validate()){
                 $issue->save(false);
                 $issue->sendNotifications($issue->id, $new_comment);
-                $issue->addToActionLog('note', Yii::app()->request->hostInfo.'/projects/'.$issue->project->identifier.'/issue/view'.$issue->id.'#note-'.$issue->commentCount, $comment);
+                $issue->addToActionLog('note', Yii::app()->request->hostInfo.'/projects/'.$issue->project->identifier.'/issue/view'.$issue->id.'#note-'.$issue->commentCount, $new_comment);
             }
         }
     }
