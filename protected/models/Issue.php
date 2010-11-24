@@ -516,25 +516,32 @@ class Issue extends CActiveRecord {
 
     public function sendNotifications($id, $comment) {
         $issue = Issue::model()->findByPk((int) $id);
-        $message = new YiiMailMessage;
-        $message->view = 'issuechange';
-        $message->setSubject(Bugitor::issue_subject($issue));
-        $message->setBody(array('issue'=>$issue, 'comment' => $comment), 'text/html');
-        $message->from = 'ticket@tracker.ogitor.org';
         $emails = $issue->getWatcherEmails($id);
-        foreach($emails as $email)
-            $message->addTo($email);
-        Yii::app()->mail->send($message);
+        if(null != $emails) {
+            $message = new YiiMailMessage;
+            $message->view = 'issuechange';
+            $message->setSubject(Bugitor::issue_subject($issue));
+            $message->setBody(array('issue'=>$issue, 'comment' => $comment), 'text/html');
+            $message->from = 'ticket@tracker.ogitor.org';
+            foreach($emails as $email)
+                $message->addTo($email);
+            Yii::app()->mail->send($message);
+        }
     }
 
     public function getWatcherEmails($id) {
         $criteria = new CDbCriteria();
         $criteria->compare('issue_id', $id, true);
         $watchers = Watcher::model()->with('user')->findAll($criteria);
-        foreach($watchers as $watcher){
-            $emails[] = $watcher->user->email;
+        $emails = array();
+        if(isset($watchers)) {
+            foreach($watchers as $watcher){
+                $emails[] = $watcher->user->email;
+            }
+            return $emails;
+        } else {
+            return array();
         }
-        return $emails;
     }
 
     /**
