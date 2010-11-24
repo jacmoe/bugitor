@@ -407,7 +407,7 @@ class Issue extends CActiveRecord {
                 $actionLog->subject = $issue->tracker->name.'#'.$issue->id.' : '.$issue->subject;
                 $actionLog->type = 'issue-note';
                 $actionLog->when = $comment->created;
-                $actionLog->url = 'sdf';//$url;
+                $actionLog->url = $url;
                 if($actionLog->validate())
                     $actionLog->save(false);
                 break;
