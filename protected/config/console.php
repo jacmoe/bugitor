@@ -48,6 +48,7 @@ return array(
         'application.modules.user.components.*',
         'application.modules.rights.components.*',
         'application.helpers.Time',
+        'application.components.textile.*',
         'application.helpers.Bugitor',
         'application.behaviors.ActiveRecordLogableBehavior',
         'application.extensions.simpleWorkflow.*',
@@ -67,6 +68,9 @@ return array(
             'class' => 'RightsWebUser',
             'allowAutoLogin' => true,
             'loginUrl' => array('/user/login'),
+        ),
+        'textile' => array(
+            'class' => 'application.components.textile.Textilizer',
         ),
         'mail' => array(
             'class' => 'ext.mail.Mail',
