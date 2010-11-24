@@ -160,8 +160,8 @@ class TestCommand extends CConsoleCommand {
             //mail("jacmoe@mail.dk", "user was found", "The MimeParser was run", "admin@ogitor.org");
             //mail("jacmoe@mail.dk", $user->username, "The MimeParser was run", "admin@ogitor.org");
 
-            $issue = Issue::model()->findByPk(33);
-            if(null == $issue){
+            $issuees = Issue::model()->findByPk(33);
+            if(null == $issuees){
                 mail("jacmoe@mail.dk", "Issue not found", "The script was run unsuccesfully", "admin@ogitor.org");
                 return;
             }
@@ -178,10 +178,10 @@ class TestCommand extends CConsoleCommand {
             } else {
                 mail("jacmoe@mail.dk", "comment did not validate", "The MimeParser was run", "admin@ogitor.org");
             }
-            $issue->updated_by = $user->id;
-            if($issue->validate()){
+            $issuees->updated_by = $user->id;
+            if($issuees->validate()){
                 mail("jacmoe@mail.dk", "Issue was saved", "success?", "admin@ogitor.org");
-                $issue->save(false);
+                $issuees->save(false);
             } else {
                 mail("jacmoe@mail.dk", "issue did not validate", "The MimeParser was run", "admin@ogitor.org");
             }
