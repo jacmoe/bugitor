@@ -162,7 +162,7 @@ class TestCommand extends CConsoleCommand {
             if($issue->validate()){
                 $issue->save(false);
                 $issue = Issue::model()->with(array('comments','project', 'commentCount'))->findByPk($pass_this['issue']);
-                $issue->addToActionLog($issue->id, $user->id, 'note', 'http://files.ogitor.org/projects/'/*.$issue->project->identifier*/.'/issue/view/'.$pass_this['issue'].'#note-'/*.$issue->commentCount*/, $new_comment);
+                $issue->addToActionLog($issue->id, $user->id, 'note', 'http://files.ogitor.org/projects/'/*.$issue->project->identifier*/.'issue/view/'.$pass_this['issue'].'#note-'/*.$issue->commentCount*/, $new_comment);
                 $issue->sendNotifications($issue->id, $new_comment);
             }
         }
