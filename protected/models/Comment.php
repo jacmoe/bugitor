@@ -158,11 +158,11 @@ class Comment extends CActiveRecord {
         if ($this->isNewRecord) {
             // set the create date, last updated date and the user doing the creating
             $this->created = $this->modified = date("Y-m-d\TH:i:s\Z", time());//new CDbExpression('UTC_TIMESTAMP()');
-            $this->create_user_id = $this->update_user_id = Yii::app()->user->id;
+            //$this->create_user_id = $this->update_user_id = Yii::app()->user->id;
         } else {
             //not a new record, so just set the last updated time and last updated user id
             $this->modified = date("Y-m-d\TH:i:s\Z", time());//new CDbExpression('UTC_TIMESTAMP()');
-            $this->update_user_id = Yii::app()->user->id;
+            //$this->update_user_id = Yii::app()->user->id;
         }
 
         return parent::beforeValidate();
