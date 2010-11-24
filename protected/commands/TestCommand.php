@@ -150,13 +150,13 @@ class TestCommand extends CConsoleCommand {
             //fclose($fp);
             //mail("jacmoe@mail.dk", "email was parsed", "The MimeParser was run", "admin@ogitor.org");
 
-            $criteria = new CDbCriteria();
+            /*$criteria = new CDbCriteria();
             $criteria->compare('email', $pass_this['from'], true);
             $user = User::model()->find($criteria);
             if(null == $user) {
                 mail("jacmoe@mail.dk", "User not found", "The script was run unsuccesfully", "admin@ogitor.org");
                 return;
-            }
+            }*/
             //mail("jacmoe@mail.dk", "user was found", "The MimeParser was run", "admin@ogitor.org");
             //mail("jacmoe@mail.dk", $user->username, "The MimeParser was run", "admin@ogitor.org");
 
