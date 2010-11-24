@@ -52,7 +52,8 @@ return array(
         'application.modules.user.components.*',
         'application.modules.rights.components.*',
         'application.helpers.*',
-        'application.extensions.simpleWorkflow.*',
+        'ext.simpleWorkflow.*',
+        'ext.mail.Message',
     ),
     'modules' => array(
         'admin',
@@ -68,6 +69,12 @@ return array(
             'class' => 'RightsWebUser',
             'allowAutoLogin' => true,
             'loginUrl' => array('/user/login'),
+        ),
+        'mail' => array(
+            'class' => 'ext.mail.Mail',
+            'transportType' => 'php',
+            'viewPath' => 'application.views.mail',
+            'debug' => true,
         ),
         'textile' => array(
             'class' => 'application.components.textile.Textilizer',

@@ -512,6 +512,16 @@ class Issue extends CActiveRecord {
         return $changed;
     }
 
+    public function sendNotifications($id, $comment) {
+        $message = new Message;
+        $message->view = 'issuechange';
+        $message->setSubject('['.$this->project->name.' - '.$this->tracker->name.' #'.$id.'] '.$this->subject);
+        $message->setBody(array('issue'=>$this, 'comment' => $comment), 'text/html');
+        $message->addTo('jacmoe@mail.dk');
+        $message->from = 'admin@jacmoe.dk';
+        Yii::app()->mail->send($message);
+}
+
     /**
      * Adds a comment to this issue
      */
