@@ -40,6 +40,27 @@ class Bugitor {
             return CHtml::link(ucwords($user->profile->getAttribute('firstname') . ' ' . $user->profile->getAttribute('lastname')),array('/user/user/view', "id" => $user->id));
         }
     }
+
+    public static function format_username($user) {
+        if(false) {
+            return ucfirst($user->username);
+        } else {
+            return ucwords($user->profile->getAttribute('firstname') . ' ' . $user->profile->getAttribute('lastname'));
+        }
+    }
+
+    public static function link_to_issue($issue, $absolute = false) {
+        if($absolute) {
+            return CHtml::link($issue->tracker->name . ' #' . $issue->id . ': ' . $issue->subject,Yii::app()->request->hostInfo.'/projects/'.$issue->project->identifier.'/issue/view/'.$issue->id);
+        } else {
+            return CHtml::link($issue->tracker->name . ' #' . $issue->id . ': ' . $issue->subject,array('/issue/view', "id" => $issue->id, 'identifier' => $issue->project->identifier));
+        }
+    }
+
+    public static function issue_subject($issue) {
+        return '['.$issue->project->name.' - '.$issue->tracker->name.' #'.$issue->id.'] '.$issue->subject;
+    }
+
     public static function progress_bar_auto($pcts, $options=array()) {
         $total = $pcts[0] + $pcts[1];
         $pcts[0] = $pcts[0] * 100 / $total;

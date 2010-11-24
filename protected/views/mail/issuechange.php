@@ -60,7 +60,9 @@ hr {
 ?>
 <?php $this->widget('ext.mail.MailDebug'); ?>
 <div class="wiki">
-Issue #<?php echo $issue->id ?> was updated by <?php echo Bugitor::link_to_user($comment->author); ?>
+<hr />
+Issue #<?php echo $issue->id ?> has been updated by <?php echo Bugitor::format_username($comment->author); ?>
+<h1><?php echo Bugitor::link_to_issue($issue, true)?></h1>
 <?php if($comment->details) : ?>
 <ul>
 <?php foreach($comment->details as $detail): ?>
@@ -68,7 +70,7 @@ Issue #<?php echo $issue->id ?> was updated by <?php echo Bugitor::link_to_user(
 <?php endforeach; ?>
 </ul>
 <?php endif; ?>
-<?php echo Yii::app()->textile->textilize($comment->content); ?>
+<?php echo Yii::app()->textile->textilize($comment->content, false); ?>
 </div>
 <br/>
 <br/>

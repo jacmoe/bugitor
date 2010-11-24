@@ -515,12 +515,24 @@ class Issue extends CActiveRecord {
     public function sendNotifications($id, $comment) {
         $message = new Message;
         $message->view = 'issuechange';
-        $message->setSubject('['.$this->project->name.' - '.$this->tracker->name.' #'.$id.'] '.$this->subject);
+        $message->setSubject(Bugitor::issue_subject($this));
         $message->setBody(array('issue'=>$this, 'comment' => $comment), 'text/html');
-        $message->addTo('jacmoe@mail.dk');
         $message->from = 'admin@jacmoe.dk';
+        $emails = $this->getWatcherEmails($id);
+        foreach($emails as $email)
+            $message->addTo($email);
         Yii::app()->mail->send($message);
-}
+    }
+
+    public function getWatcherEmails($id) {
+        $criteria = new CDbCriteria();
+        $criteria->compare('issue_id', $id, true);
+        $watchers = Watcher::model()->with('user')->findAll($criteria);
+        foreach($watchers as $watcher){
+            $emails[] = $watcher->user->email;
+        }
+        return $emails;
+    }
 
     /**
      * Adds a comment to this issue
