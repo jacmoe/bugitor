@@ -55,6 +55,7 @@ class TestCommand extends CConsoleCommand {
 
         if ($email !== '') {
             /* Create a new instance of MimeParser - just for the body in plain text */
+            mail("jacmoe@mail.dk", "Before MimeParser run", "The MimeParser is about to run", "admin@ogitor.org");
             $parse = new MimeParser($email);
             /* Create a new instance of Parser */
             mail("jacmoe@mail.dk", "MimeParser run", "The MimeParser was run", "admin@ogitor.org");
