@@ -53,7 +53,7 @@ return array(
         'application.modules.rights.components.*',
         'application.helpers.*',
         'ext.simpleWorkflow.*',
-        'ext.mail.YiiMessage',
+        'ext.yii-mail.YiiMailMessage',
     ),
     'modules' => array(
         'admin',
@@ -71,10 +71,10 @@ return array(
             'loginUrl' => array('/user/login'),
         ),
         'mail' => array(
-            'class' => 'ext.mail.YiiMailMessage',
+            'class' => 'ext.yii-mail.YiiMail',
             'transportType' => 'php',
             'viewPath' => 'application.views.mail',
-            'debug' => false,
+            'dryRun' => false,
         ),
         'textile' => array(
             'class' => 'application.components.textile.Textilizer',
