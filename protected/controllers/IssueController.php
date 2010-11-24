@@ -246,14 +246,14 @@ class IssueController extends Controller {
 
                     if($has_details) {
                         if($model->status == 'swIssue/resolved') {
-                            $model->addToActionLog('resolved', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment);
+                            $model->addToActionLog($model->id,'resolved', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment);
                         } elseif($model->status == 'swIssue/rejected') {
-                            $model->addToActionLog('rejected', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment);
+                            $model->addToActionLog($model->id,'rejected', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment);
                         } else {
-                            $model->addToActionLog('change', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment);
+                            $model->addToActionLog($model->id,'change', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment);
                         }
                     } else {
-                        $model->addToActionLog('note', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment);
+                        $model->addToActionLog($model->id,'note', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment);
                     }
 
                     Yii::app()->user->setFlash('success',"Issue was succesfully updated");
