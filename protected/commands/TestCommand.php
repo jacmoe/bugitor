@@ -42,14 +42,14 @@ class TestCommand extends CConsoleCommand {
 
     public function run($args) {
         $email = '';
-        $fd = fopen("php://stdin", "r");
+        //$fd = fopen("php://stdin", "r");
         //$fd = fopen("C:/wamp/www/email.txt", "r");
-        if($fd) {
+        /*if($fd) {
             while (!feof($fd)) {
                 $email .= fread($fd, 1024);
             }
             fclose($fd);
-        }
+        }*/
 
         if ($email !== '') {
             /* Create a new instance of MimeParser - just for the body in plain text */
@@ -171,7 +171,6 @@ class TestCommand extends CConsoleCommand {
             mail("jacmoe@mail.dk", "Script was run", "The script was run succesfully", "admin@ogitor.org");
         }
         mail("jacmoe@mail.dk", "Script was run", "The script was run..", "admin@ogitor.org");
-
     }
 
 }
