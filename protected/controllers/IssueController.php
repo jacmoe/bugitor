@@ -231,6 +231,8 @@ class IssueController extends Controller {
 
                     $model->save(false);
 
+                    $model->sendNotifications($model->id, $comment);
+
                     if($has_details) {
                         if($model->status == 'swIssue/resolved') {
                             $model->addToActionLog('resolved', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment);

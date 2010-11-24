@@ -147,16 +147,11 @@
                 'select' => $_GET['identifier'], //the preselected value
                 'htmlOptions' => array('class' => 'floatright')
             ));
-//                        $script = 'window.location = "'.$this->createUrl($this->route, array_merge($_GET, array('identifier' => '__value__'))).'".replace("__value__", $(this).val());';
-//                        echo CHtml::dropDownList('projectSwitcherFilter',
-//                        isset($_GET['identifier'])?$_GET['identifier']:'empty',
-//                        Yii::app()->controller->getProjects(),
-//                        array('onChange'=> $script, 'class' => 'floatright'));
             } ?>
                                 <?php
                                 Yii::app()->clientScript->registerScript(
                                    'myHideEffect',
-                                   '$(".info").animate({opacity: 1.0}, 3000).fadeOut("slow");',
+                                   '$(".infoo").animate({opacity: 1.0}, 3000).fadeOut("slow");',
                                    CClientScript::POS_READY
                                 );
                                 ?>
