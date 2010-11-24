@@ -144,6 +144,7 @@ class Issue extends CActiveRecord {
     public static function watching($user_id) {
         $criteria = new CDbCriteria();
         $criteria->compare('t.user_id', $user_id, true);
+        $criteria->compare('closed', 0, true);
         $watched = Watcher::model()->with(array('user', 'issue', 'issue.project'))->findAll($criteria);
         return $watched;
     }
@@ -151,6 +152,7 @@ class Issue extends CActiveRecord {
     public static function owned($user_id) {
         $criteria = new CDbCriteria();
         $criteria->compare('user_id', $user_id, true);
+        $criteria->compare('closed', 0, true);
         $owned = Issue::model()->with(array('project'))->findAll($criteria);
         return $owned;
     }
@@ -158,6 +160,7 @@ class Issue extends CActiveRecord {
     public static function assigned($user_id) {
         $criteria = new CDbCriteria();
         $criteria->compare('assigned_to', $user_id, true);
+        $criteria->compare('closed', 0, true);
         $assigned = Issue::model()->with(array('project'))->findAll($criteria);
         return $assigned;
     }

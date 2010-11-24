@@ -31,25 +31,35 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
-<?php $this->pageTitle=Yii::app()->name . ' : Welcome'; ?>
-<h3 class="welcome">Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h3>
-<div class="splitcontentleft">
-    <div class="issues box">
-        <h3>My Issues</h3>
-        <?php $this->Widget('OwnedIssues'); ?>
-    </div>
-</div>
-<div class="splitcontentright">
-    <div class="project box">
-        <h3>My Projects</h3>
-        <?php $this->Widget('MyProjects'); ?>
-    </div>
-    <div class="assigned box">
-        <h3>Issues Assigned to me</h3>
-        <?php $this->Widget('AssignedIssues'); ?>
-    </div>
-    <div class="watched box">
-        <h3>Watched Issues</h3>
-        <?php $this->Widget('WatchedIssues'); ?>
-    </div>
-</div>
+<?php
+
+/**
+ * ProjectMembers is a Yii widget used to display a list of project
+  members
+ */
+class ProjectActivity extends CWidget {
+
+    private $_activities = null;
+    public $displayLimit = 0;
+    public $projectId = null;
+
+    public function init() {
+        $criteria2 = new CDbCriteria;
+        $criteria2->condition = 'project_id = :project_id';
+        $criteria2->params = array('project_id' => $this->projectId);
+        $criteria2->order = 'id DESC';
+        if($this->displayLimit > 0)
+            $criteria2->limit = $this->displayLimit;
+        $this->_activities = ActionLog::model()->findAll($criteria2);
+    }
+
+    public function getActivities() {
+        return $this->_activities;
+    }
+
+    public function run() {
+// this method is called by CController::endWidget()
+        $this->render('projectActivity');
+    }
+
+}
