@@ -151,7 +151,7 @@
                                 <?php
                                 Yii::app()->clientScript->registerScript(
                                    'myHideEffect',
-                                   '$(".infoo").animate({opacity: 1.0}, 3000).fadeOut("slow");',
+                                   '$(".info").animate({opacity: 1.0}, 4000).fadeOut("slow");',
                                    CClientScript::POS_READY
                                 );
                                 ?>
