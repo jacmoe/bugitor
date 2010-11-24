@@ -137,10 +137,10 @@ class Project extends CActiveRecord {
                 'createAttribute' => 'created',
                 'updateAttribute' => 'modified',
             ),
-            'CSafeContentBehavior' => array(
-                'class' => 'application.behaviors.CSafeContentBehavior',
-                'attributes' => array('description', 'homepage', 'name'),
-            ),
+//            'CSafeContentBehavior' => array(
+//                'class' => 'application.behaviors.CSafeContentBehavior',
+//                'attributes' => array('description', 'homepage', 'name'),
+//            ),
         );
     }
 
