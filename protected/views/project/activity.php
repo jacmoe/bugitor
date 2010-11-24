@@ -44,7 +44,7 @@ $this->pageTitle = $model->name . ' - Activity - ' . Yii::app()->name;
             <?php echo CHtml::link($activity->subject, $activity->url) ?>
         </dt>
         <dd><span class="description"><?php echo Yii::app()->textile->textilize($activity->description); ?></span></dd>
-        <dd><span class="author" style="position:relative;bottom:18px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo Bugitor::link_to_user($activity->author) ?></span></dd>
+        <dd><span class="author"><?php echo Bugitor::link_to_user($activity->author) ?></span></dd>
     </dl>
     <?php endforeach; ?>
 <?php $this->widget('CustomLinkPager',array('pages'=>$pages)); ?>

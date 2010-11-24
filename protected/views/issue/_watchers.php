@@ -31,6 +31,8 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
-<?php foreach($watchers as $watcher): ?>
-<?php echo Bugitor::link_to_user($watcher->user); ?> 
-<?php endforeach; ?>
+<?php if(isset($watchers)) : ?>
+    <?php foreach($watchers as $watcher): ?>
+        <?php echo Bugitor::link_to_user($watcher->user); ?>
+    <?php endforeach; ?>
+<?php endif; ?>
