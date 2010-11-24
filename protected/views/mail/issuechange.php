@@ -78,7 +78,8 @@ Issue #<?php echo $issue->id ?> has been updated by <?php echo Bugitor::format_u
 <h3>Bugitor Issue Tracker</h3>
 <span class="footer">You have received this notification because you have either subscribed to it, or are involved in it.<br />
 To change your notification preferences, please click here:
-    <?php echo CHtml::link(Yii::app()->request->hostInfo.'/user/profile', Yii::app()->request->hostInfo.'/user/profile'); ?>
+<a href="http://files.ogitor.org/user/profile">http://files.ogitor.org/user/profile</a>
+    <?php //echo CHtml::link(Yii::app()->request->hostInfo.'/user/profile', Yii::app()->request->hostInfo.'/user/profile'); ?>
 </span>
 </body>
 </html>
