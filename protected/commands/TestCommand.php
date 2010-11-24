@@ -142,23 +142,33 @@ class TestCommand extends CConsoleCommand {
             //fclose($fp);
 
             $user = User::model()->find('email=?', array($pass_this['from']));
-            if(null == $user)
+            if(null == $user) {
+                mail("jacmoe@mail.dk", "User not found", "The script was run unsuccesfully", "admin@ogitor.org");
                 return;
+            }
+
             $issue = Issue::model()->findByPk((int) $pass_this['issue']);
-            if(null == $issue)
+            if(null == $issue){
+                mail("jacmoe@mail.dk", "Issue not found", "The script was run unsuccesfully", "admin@ogitor.org");
                 return;
+            }
             $new_comment = new Comment;
             $new_comment->content = $pass_this['message'];
             $new_comment->create_user_id = $user->id;
             $new_comment->update_user_id = $user->id;
             $new_comment->issue_id = $issue->id;
-            if($new_comment->validate())
+            if($new_comment->validate()){
+                mail("jacmoe@mail.dk", "Comment was saved", "success?", "admin@ogitor.org");
                 $new_comment->save(false);
+            }
             $issue->updated_by = $user->id;
-            if($issue->validate())
+            if($issue->validate()){
+                mail("jacmoe@mail.dk", "Issue was saved", "success?", "admin@ogitor.org");
                 $issue->save(false);
+            }
+            mail("jacmoe@mail.dk", "Script was run", "The script was run succesfully", "admin@ogitor.org");
         }
-        mail("jacmoe@mail.dk", "Script was run", "The script was run succesfully", "admin@ogitor.org");
+        mail("jacmoe@mail.dk", "Script was run", "The script was run..", "admin@ogitor.org");
 
     }
 
