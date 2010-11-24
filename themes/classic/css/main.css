@@ -676,3 +676,7 @@ div#activity dd span.description, #search-results dd span.description { display:
 }
 
 div.attachments span.author { font-size: 0.9em; color: #888; }
+
+dl.activity {margin:0 !important;}
+dd.activity {margin:0 !important;}
+dt.activity {margin:0 !important;}

@@ -91,14 +91,13 @@ if ((strtotime($version->effective_date) > strtotime(date("Y-m-d"))) && ($versio
  0 rejected
 <?php endif; ?>
 </p>
-<div class="description"><?php echo Yii::app()->textile->textilize($version->description); ?></div>
-<p><br/></p>
+<?php echo Yii::app()->textile->textilize($version->description); ?>
 <fieldset class="related-issues">
     <legend><?php echo 'Related issues'; ?></legend>
     <ul>
         <?php foreach($version->issues as $issue) : ?>
             <li>
-                <?php echo Bugitor::short_link_to_issue($issue) ?> : <?php echo $issue->subject; ?>
+                <?php echo Bugitor::short_link_to_issue($issue) ?>
             </li>
         <?php endforeach; ?>
     </ul>

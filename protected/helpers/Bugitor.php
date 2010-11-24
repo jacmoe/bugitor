@@ -71,8 +71,8 @@ class Bugitor {
         return preg_replace('/[\r\n\_]+/', ' ', $string);
     }
 
-    public static function format_activity_description($text) {
-        $out = Bugitor::truncate_single_line($text, 250);
+    public static function format_activity_description($text, $length = 100) {
+        $out = Bugitor::truncate($text, $length);
         return preg_replace('/<(pre|code)>.*$/', '...', $out);
     }
 
@@ -86,9 +86,9 @@ class Bugitor {
 
     public static function short_link_to_issue($issue, $absolute = false) {
         if($absolute) {
-            return CHtml::link($issue->tracker->name . ' #' . $issue->id,Yii::app()->request->hostInfo.'/projects/'.$issue->project->identifier.'/issue/view/'.$issue->id, array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue'));
+            return CHtml::link($issue->tracker->name . ' #' . $issue->id,Yii::app()->request->hostInfo.'/projects/'.$issue->project->identifier.'/issue/view/'.$issue->id, array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue')) . ': ' . $issue->subject;
         } else {
-            return CHtml::link($issue->tracker->name . ' #' . $issue->id,array('/issue/view', "id" => $issue->id, 'identifier' => $issue->project->identifier), array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue'));
+            return CHtml::link($issue->tracker->name . ' #' . $issue->id,array('/issue/view', "id" => $issue->id, 'identifier' => $issue->project->identifier), array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue')) . ': ' . $issue->subject;
         }
     }
 
