@@ -211,8 +211,8 @@ class IssueController extends Controller {
         $comment_made = false;
         if (isset($_POST['Issue'])) {
             $model->attributes = $_POST['Issue'];
-            if (($_POST['Comment']['content'] !== '')) {
-                $comment->attributes = $_POST['Comment'];
+            if (($_POST['Comment'] !== '')) {
+                $comment->content = $_POST['Comment'];
                 $comment->issue_id = $model->id;
                 $comment->create_user_id = Yii::app()->user->id;
                 $comment->update_user_id = Yii::app()->user->id;

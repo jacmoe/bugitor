@@ -36,7 +36,7 @@ mySettings = {
 		{name:'Code', openWith:'@', closeWith:'@'},
 		{separator:'---------------' },
 		{name:'Preview', call:'preview', className:'preview'},
-		{name: 'Smilies', className: "smilies",
+		{name: 'Smilies1', className: "smilies1",
                     dropMenu: [
                             {name:'Smile',	replaceWith:':smile:', className:"smile" },
                             {name:'Wink',	replaceWith:':wink:', className:"wink" },
@@ -47,6 +47,9 @@ mySettings = {
                             {name:'Cry',	replaceWith:':cry:', className:"cry" },
                             {name:'Sad',	replaceWith:':sad:', className:"sad" },
                             {name:'Surprised',	replaceWith:':surprised:', className:"surprised" },
+                ] },
+		{name: 'Smilies2', className: "smilies2",
+                    dropMenu: [
                             {name:'Evil',	replaceWith:':evil:', className:"evil" },
                             {name:'Twisted',	replaceWith:':twisted:', className:"twisted" },
                             {name:'Razz',	replaceWith:':razz:', className:"razz" },

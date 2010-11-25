@@ -50,8 +50,13 @@
                 <?php echo $form->errorSummary($model); ?>
                 <div class="row">
                     <?php echo $form->labelEx($model, 'tracker_id'); ?>
-                    <?php echo $form->dropDownList($model, 'tracker_id', CHtml::listData(
-                                    Tracker::model()->findAll(), 'id', 'name'), array('selected' => 'Bug')); ?>
+                    <?php if ($model->isNewRecord) : ?>
+                        <?php echo $form->dropDownList($model, 'tracker_id', CHtml::listData(
+                                        Tracker::model()->findAll(), 'id', 'name'), array('selected' => 'Bug')); ?>
+                    <?php else : ?>
+                        <?php echo $form->dropDownList($model, 'tracker_id', CHtml::listData(
+                                        Tracker::model()->findAll(), 'id', 'name')); ?>
+                    <?php endif; ?>
                     <?php echo $form->error($model, 'tracker_id'); ?>
                 </div>
                 <?php if (!$model->isNewRecord) : ?>
@@ -75,7 +80,11 @@
                         <?php echo $form->error($model, 'description'); ?>
                     </div>
                     <div class="row">
-                        <?php $this->renderPartial('/comment/_form', array('model' => $comment,)); ?>
+                        <?php //$this->renderPartial('/comment/_form', array('model' => $comment,)); ?>
+                        <?php $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
+                                'name' => 'Comment',
+                                'htmlOptions'=>array('style'=>'height:150px;')
+                        ))?>
                     </div>
                 <?php else : ?>
                     <div class="row">
@@ -103,12 +112,21 @@
             <div class="halfsplitcontentright">
                 <div class="row">
                     <?php echo $form->labelEx($model, 'issue_priority_id'); ?>
-                    <?php
-                        echo $form->dropDownList($model,
-                                'issue_priority_id',
-                                CHtml::listData(IssuePriority::model()->findAll(array('order' => 'id')), 'id', 'name'),
-                                array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'options' => array('2' => array('selected' => true))));
-                    ?>
+                    <?php if ($model->isNewRecord) : ?>
+                        <?php
+                            echo $form->dropDownList($model,
+                                    'issue_priority_id',
+                                    CHtml::listData(IssuePriority::model()->findAll(array('order' => 'id')), 'id', 'name'),
+                                    array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'options' => array('2' => array('selected' => true))));
+                        ?>
+                    <?php else : ?>
+                        <?php
+                            echo $form->dropDownList($model,
+                                    'issue_priority_id',
+                                    CHtml::listData(IssuePriority::model()->findAll(array('order' => 'id')), 'id', 'name'),
+                                    array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true));
+                        ?>
+                    <?php endif; ?>
                     <?php echo $form->error($model, 'issue_priority_id'); ?>
                 </div>
                 <div class="row">

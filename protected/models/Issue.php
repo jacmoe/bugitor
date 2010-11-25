@@ -388,7 +388,11 @@ class Issue extends CActiveRecord {
     }
 
     public function addToActionLog($id, $user_id, $type, $url, $comment = null) {
-        $issue = Issue::model()->findByPk((int)$id);
+        if(isset($this->id)) {
+            $issue = $this;
+        } else {
+            $issue = Issue::model()->findByPk((int)$id);
+        }
         switch ($type) {
             case 'new':
                 $actionLog = new ActionLog;
