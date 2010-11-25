@@ -59,60 +59,63 @@
 	background-image:url(images/preview.png);
 }
 
-.markItUp .smilies a {
+.markItUp .smilies1 a {
 	background-image:url(/themes/classic/images/smilies/icon_smile.gif);
 }
-.markItUp .smilies .smile a {
-	background-image:url(/themes/classic/images/smilies/icon_smile.gif);
-}
-.markItUp .smilies .big_grin a {
-	background-image:url(/themes/classic/images/smilies/icon_biggrin.gif);
-}
-.markItUp .smilies .cheesy a {
-	background-image:url(/themes/classic/images/smilies/icon_cheesygrin.gif);
-}
-.markItUp .smilies .confused a {
-	background-image:url(/themes/classic/images/smilies/icon_confused.gif);
-}
-.markItUp .smilies .cool a {
-	background-image:url(/themes/classic/images/smilies/icon_cool.gif);
-}
-.markItUp .smilies .cry a {
-	background-image:url(/themes/classic/images/smilies/icon_cry.gif);
-}
-.markItUp .smilies .eek a {
-	background-image:url(/themes/classic/images/smilies/icon_eek.gif);
-}
-.markItUp .smilies .evil a {
+.markItUp .smilies2 a {
 	background-image:url(/themes/classic/images/smilies/icon_evil.gif);
 }
-.markItUp .smilies .frown a {
+.markItUp .smilies1 .smile a {
+	background-image:url(/themes/classic/images/smilies/icon_smile.gif);
+}
+.markItUp .smilies1 .big_grin a {
+	background-image:url(/themes/classic/images/smilies/icon_biggrin.gif);
+}
+.markItUp .smilies1 .cheesy a {
+	background-image:url(/themes/classic/images/smilies/icon_cheesygrin.gif);
+}
+.markItUp .smilies1 .confused a {
+	background-image:url(/themes/classic/images/smilies/icon_confused.gif);
+}
+.markItUp .smilies1 .cool a {
+	background-image:url(/themes/classic/images/smilies/icon_cool.gif);
+}
+.markItUp .smilies1 .cry a {
+	background-image:url(/themes/classic/images/smilies/icon_cry.gif);
+}
+.markItUp .smilies2 .eek a {
+	background-image:url(/themes/classic/images/smilies/icon_eek.gif);
+}
+.markItUp .smilies2 .evil a {
+	background-image:url(/themes/classic/images/smilies/icon_evil.gif);
+}
+.markItUp .smilies2 .frown a {
 	background-image:url(/themes/classic/images/smilies/icon_frown.gif);
 }
-.markItUp .smilies .mad a {
+.markItUp .smilies2 .mad a {
 	background-image:url(/themes/classic/images/smilies/icon_mad.gif);
 }
-.markItUp .smilies .neutral a {
+.markItUp .smilies2 .neutral a {
 	background-image:url(/themes/classic/images/smilies/icon_neutral.gif);
 }
-.markItUp .smilies .razz a {
+.markItUp .smilies2 .razz a {
 	background-image:url(/themes/classic/images/smilies/icon_razz.gif);
 }
-.markItUp .smilies .blush a {
+.markItUp .smilies2 .blush a {
 	background-image:url(/themes/classic/images/smilies/icon_redface.gif);
 }
-.markItUp .smilies .roll_eyes a {
+.markItUp .smilies2 .roll_eyes a {
 	background-image:url(/themes/classic/images/smilies/icon_rolleyes.gif);
 }
-.markItUp .smilies .sad a {
+.markItUp .smilies1 .sad a {
 	background-image:url(/themes/classic/images/smilies/icon_sad.gif);
 }
-.markItUp .smilies .surprised a {
+.markItUp .smilies1 .surprised a {
 	background-image:url(/themes/classic/images/smilies/icon_surprised.gif);
 }
-.markItUp .smilies .twisted a {
+.markItUp .smilies2 .twisted a {
 	background-image:url(/themes/classic/images/smilies/icon_twisted.gif);
 }
-.markItUp .smilies .wink a {
+.markItUp .smilies1 .wink a {
 	background-image:url(/themes/classic/images/smilies/icon_wink.gif);
 }

@@ -32,6 +32,7 @@
  */
 ?>
 <?php $activities = $this->getActivities(); ?>
+<?php //CA_Debug::output_yii_models($activities) ?>
 <div id="activity" class="quiet">
     <?php foreach ($activities as $activity): ?>
     <dl>
