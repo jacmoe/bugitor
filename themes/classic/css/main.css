@@ -22,6 +22,7 @@
     margin:0px;
     margin: 0;
     bottom: 0px;
+    padding-bottom: 0.5px !important;
 }
 
 #topmenu ul
@@ -55,6 +56,7 @@
     font-weight:bold;
     text-decoration:none;
     padding:5px 8px;
+    padding-bottom: 6px !important;
     bottom: 0px;
 }
 #topmenu ul li a
@@ -74,6 +76,7 @@
     background-color:#EFF4FA;
     text-decoration:none;
     bottom: 0px;
+    padding-bottom: 6px !important;
 }
 
 #topmenu ul li.active a
