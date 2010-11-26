@@ -76,7 +76,7 @@ class RepositoryController extends Controller
                                 $commandString = 'start /b '.Yii::app()->config->get('hg_executable').' clone '.$model->url.' "'.$model->local_path.'"';
                             } else { // we're on *nix
                                 if(Yii::app()->config->get('python_path'))
-                                    put_env(Yii::app()->config->get('python_path'));
+                                    putenv(Yii::app()->config->get('python_path'));
                                 $commandString = Yii::app()->config->get('hg_executable').' clone '.$model->url.' "'.$model->local_path.'"';
                             }
                             pclose(popen($commandString, 'r'));
