@@ -84,7 +84,7 @@ class IssueController extends Controller {
                             if($issue->validate()) {
                                 $comment = new Comment();
                                 $comment->issue_id = $issue->id;
-                                $comment->content = '<div class="alt"><small>(Mass Edit) No comments for this change</small></div>';
+                                $comment->content = '_(Mass Edit) No comments for this change_';
                                 if($comment->validate())
                                     $comment->save(false);
 
@@ -100,7 +100,7 @@ class IssueController extends Controller {
                             if($issue->validate()) {
                                 $comment = new Comment();
                                 $comment->issue_id = $issue->id;
-                                $comment->content = '<div class="alt"><small>(Mass Edit) No comments for this change</small></div>';
+                                $comment->content = '_(Mass Edit) No comments for this change_';
                                 if($comment->validate())
                                     $comment->save(false);
 
@@ -116,7 +116,7 @@ class IssueController extends Controller {
                             if($issue->validate()) {
                                 $comment = new Comment();
                                 $comment->issue_id = $issue->id;
-                                $comment->content = '<div class="alt"><small>(Mass Edit) No comments for this change</small></div>';
+                                $comment->content = '_(Mass Edit) No comments for this change_</small></div>';
                                 if($comment->validate())
                                     $comment->save(false);
 

@@ -40,8 +40,7 @@
  * @property integer $id
  * @property integer $project_id
  * @property string $url
- * @property string $login
- * @property string $password
+ * @property string $local_path
  * @property string $name
  *
  * The followings are the available model relations:
@@ -76,11 +75,11 @@ class Repository extends CActiveRecord
 		return array(
 			array('name', 'required'),
 			array('project_id', 'numerical', 'integerOnly'=>true),
-			array('url, login, password', 'length', 'max'=>60),
-			array('name', 'length', 'max'=>255),
+			array('url', 'length', 'max'=>60),
+			array('name, local_path', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, project_id, url, login, password, name', 'safe', 'on'=>'search'),
+			array('id, project_id, url, local_path, name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -105,8 +104,7 @@ class Repository extends CActiveRecord
 			'id' => 'ID',
 			'project_id' => 'Project',
 			'url' => 'Url',
-			'login' => 'Login',
-			'password' => 'Password',
+			'local_path' => 'Local Path',
 			'name' => 'Name',
 		);
 	}
@@ -125,8 +123,7 @@ class Repository extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('project_id',$this->project_id);
 		$criteria->compare('url',$this->url,true);
-		$criteria->compare('login',$this->login,true);
-		$criteria->compare('password',$this->password,true);
+		$criteria->compare('local_path',$this->local_path,true);
 		$criteria->compare('name',$this->name,true);
 
 		return new CActiveDataProvider(get_class($this), array(

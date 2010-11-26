@@ -57,7 +57,8 @@ default:
 require_once($yii);
 $app = Yii::createWebApplication($config);
 
-//Yii::app()->config->set('defaultPagesize', 20);
+//Yii::app()->config->set('hg_executable', 'hg');
+//Yii::app()->config->set('python_path', null);
 
 Yii::app()->setTimeZone("UTC");
 $app->run();

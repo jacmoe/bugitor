@@ -51,26 +51,6 @@ class RepositoryController extends Controller
 		);
 	}
 
-	public function allowedActions()
-	{
-		return 'index, view';
-	}
-
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id)
-	{
-                if (isset($_GET['identifier'])){
-                    $_GET['projectname'] = Project::getProjectNameFromIdentifier($_GET['identifier']);
-                }
-
-                $this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
-
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -87,8 +67,26 @@ class RepositoryController extends Controller
 		if(isset($_POST['Repository']))
 		{
 			$model->attributes=$_POST['Repository'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+                        $unique_id = uniqid($model->name.'_');
+                        Yii::app()->file->createDir(0754, 'repositories/'.$unique_id);
+                        $directoryy = Yii::app()->file->set('repositories/'.$unique_id, true);
+			$model->local_path = $directoryy->getRealPath();
+                        if($model->save()){
+                            if (PHP_OS === 'WINNT') {
+                                $commandString = 'start /b '.Yii::app()->config->get('hg_executable').' clone '.$model->url.' "'.$model->local_path.'"';
+                            } else { // we're on *nix
+                                if(Yii::app()->config->get('python_path'))
+                                    put_env(Yii::app()->config->get('python_path'));
+                                $commandString = 'start /b '.Yii::app()->config->get('hg_executable').' clone '.$model->url.' "'.$model->local_path.'"';
+                            }
+                            pclose(popen($commandString, 'r'));
+                            //Yii::app()->scm->mtrack_run_tool('hg', 'read', array('init', 'C:/wamp/www/repositories/'.$model->name ));
+                            //Yii::app()->scm->mtrack_run_tool('hg', 'read', array('clone', $model->url, 'C:/wamp/www/repositories/'.$model->name ));
+                            
+                            $this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'repositories'));
+                        } else {
+                            //delete directory
+                        }
 		}
 
 		$this->render('create',array(
@@ -114,7 +112,7 @@ class RepositoryController extends Controller
 		{
 			$model->attributes=$_POST['Repository'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+                            $this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'repositories'));
 		}
 
 		$this->render('update',array(
@@ -132,40 +130,25 @@ class RepositoryController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			$model = $this->loadModel($id);
+
+                        
+                        if($model->delete())
+                        {
+                            if (PHP_OS === 'WINNT') {
+                                $commandString = 'start /b rmdir /S /Q "'.$model->local_path.'"';
+                            } else {
+                                $commandString = 'start /b rm -rf "'.$model->local_path.'"';
+                            }
+                            pclose(popen($commandString, 'r'));
+                        }
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                            $this->redirect(array('project/settings','identifier'=>$_GET['identifier'], 'tab' => 'repositories'));
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
-	}
-
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('Repository');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
-
-	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
-	{
-		$model=new Repository('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Repository']))
-			$model->attributes=$_GET['Repository'];
-
-		$this->render('admin',array(
-			'model'=>$model,
-		));
 	}
 
 	/**

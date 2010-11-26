@@ -44,8 +44,7 @@
   <tr>
     <th width="20">Name</th>
     <th width="20">URL</th>
-    <th width="20">Login</th>
-    <th width="20">Password</th>
+    <th width="20">Local Path</th>
     <th width="20">Actions</th>
   </tr>
   </thead>
@@ -54,10 +53,9 @@
   <tr class="<?php echo $n%2?'even':'odd';?>">
     <td width="20"><?php echo CHtml::encode($repository->name); ?></td>
     <td width="20"><?php echo CHtml::encode($repository->url); ?></td>
-    <td width="20"><?php echo CHtml::encode($repository->login); ?></td>
-    <td width="20"><?php echo CHtml::encode($repository->password); ?></td>
+    <td width="20"><?php echo CHtml::encode($repository->local_path); ?></td>
     <td width="20">
-      <?php echo CHtml::link('Update',array('repository/update','id'=>$repository->id)); ?>
+      <?php echo CHtml::link('Update',array('repository/update','id'=>$repository->id, 'identifier' => $_GET['identifier'])); ?>
       <?php echo CHtml::linkButton('Delete',array(
       	  'submit'=>array('/repository/delete', 'id' => $repository->id, 'identifier' => $_GET['identifier']),
       	  'confirm'=>"Are you sure you want to delete {$repository->name}?")); ?>
