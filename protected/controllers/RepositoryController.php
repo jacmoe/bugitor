@@ -74,12 +74,13 @@ class RepositoryController extends Controller
                         if($model->save()){
                             if (PHP_OS === 'WINNT') {
                                 $commandString = 'start /b '.Yii::app()->config->get('hg_executable').' clone '.$model->url.' "'.$model->local_path.'"';
+                                pclose(popen($commandString, 'r'));
                             } else { // we're on *nix
                                 if(Yii::app()->config->get('python_path'))
                                     putenv(Yii::app()->config->get('python_path'));
                                 $commandString = Yii::app()->config->get('hg_executable').' clone '.$model->url.' "'.$model->local_path.'"';
+                                shell_exec("nohup $commandString 2> /dev/null &");
                             }
-                            pclose(popen($commandString, 'r'));
                             //Yii::app()->scm->mtrack_run_tool('hg', 'read', array('init', 'C:/wamp/www/repositories/'.$model->name ));
                             //Yii::app()->scm->mtrack_run_tool('hg', 'read', array('clone', $model->url, 'C:/wamp/www/repositories/'.$model->name ));
                             
