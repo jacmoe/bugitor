@@ -77,7 +77,7 @@ class RepositoryController extends Controller
                             } else { // we're on *nix
                                 if(Yii::app()->config->get('python_path'))
                                     put_env(Yii::app()->config->get('python_path'));
-                                $commandString = 'start /b '.Yii::app()->config->get('hg_executable').' clone '.$model->url.' "'.$model->local_path.'"';
+                                $commandString = Yii::app()->config->get('hg_executable').' clone '.$model->url.' "'.$model->local_path.'"';
                             }
                             pclose(popen($commandString, 'r'));
                             //Yii::app()->scm->mtrack_run_tool('hg', 'read', array('init', 'C:/wamp/www/repositories/'.$model->name ));
@@ -138,7 +138,7 @@ class RepositoryController extends Controller
                             if (PHP_OS === 'WINNT') {
                                 $commandString = 'start /b rmdir /S /Q "'.$model->local_path.'"';
                             } else {
-                                $commandString = 'start /b rm -rf "'.$model->local_path.'"';
+                                $commandString = 'rm -rf "'.$model->local_path.'"';
                             }
                             pclose(popen($commandString, 'r'));
                         }

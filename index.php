@@ -57,8 +57,13 @@ default:
 require_once($yii);
 $app = Yii::createWebApplication($config);
 
-//Yii::app()->config->set('hg_executable', 'hg');
-//Yii::app()->config->set('python_path', null);
+if (PHP_OS === 'WINNT') {
+    Yii::app()->config->set('hg_executable', 'hg');
+    Yii::app()->config->set('python_path', null);
+} else {
+    Yii::app()->config->set('hg_executable', '/home/stealth977/bin/hg');
+    Yii::app()->config->set('python_path', 'PYTHONPATH=/home/stealth977/.packages/lib/python');
+}
 
 Yii::app()->setTimeZone("UTC");
 $app->run();
