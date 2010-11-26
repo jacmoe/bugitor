@@ -1,10 +1,9 @@
 glob:protected/runtime/*
 glob:protected/data/*.db
 glob:protected/tests/report/*
-glob:yii/*
 glob:wamp.php
 glob:resources/bugitor.mwb.bak
 glob:assets/
-glob:webgrind/*
+glob:repositories/*
 glob:nbproject/*
 glob:protected/extensions/yii-mail/doc/*
