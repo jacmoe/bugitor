@@ -53,6 +53,7 @@ return array(
         'application.modules.rights.components.*',
         'application.helpers.*',
         'ext.simpleWorkflow.*',
+        'ext.scm.*',
         'ext.yii-mail.YiiMailMessage',
     ),
     'modules' => array(
@@ -78,6 +79,12 @@ return array(
         ),
         'textile' => array(
             'class' => 'application.components.textile.Textilizer',
+        ),
+        'file' => array(
+            'class' => 'ext.CFile',
+        ),
+        'scm' => array(
+            'class' => 'ext.scm.ESCM',
         ),
         'maintenanceMode' => array(
             'class' => 'ext.MaintenanceMode.MaintenanceMode',
