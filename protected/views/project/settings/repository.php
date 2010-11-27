@@ -35,13 +35,17 @@
 <?php if(Yii::app()->user->getState('pid') !== 'none') : ?>
 <?php $actionUrl = $this->createUrl('project/waitforclone', array('who' => 'spinnerId')); ?>
 <?php Yii::app()->clientScript->registerScript('cloneSpinner',<<<EOD
-$(document).ready(function() {
-        $('#cloneSpinnerId').show();
-        $.get('$actionUrl', function(data) {
-        $('#cloneSpinnerId').hide('slow');
-        $('#cloneSpinnerSuccess').show('slow');
-    });
-});
+var lpOnComplete = function(response) {
+	alert(response);
+	// do more processing
+	lpStart();
+};
+
+var lpStart = function() {
+	$.post('$actionUrl', {}, lpOnComplete, 'json');
+};
+
+$(document).ready(lpStart);
 EOD
 ,CClientScript::POS_END); ?>
 <div id="cloneSpinnerId" style="display: none;">
