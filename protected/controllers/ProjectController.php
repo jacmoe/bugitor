@@ -52,7 +52,7 @@ class ProjectController extends Controller {
     }
 
     public function allowedActions() {
-        return 'index, view, activity, roadmap, issues, code';
+        return 'index, view, activity, roadmap, issues, code, waitforclone';
     }
 
     public function getProjects() {
