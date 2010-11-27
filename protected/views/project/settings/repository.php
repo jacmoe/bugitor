@@ -42,6 +42,7 @@ var lpOnComplete = function(response) {
             $('#cloneSpinnerSuccess').show();
         } else {
             // do more processing
+            $('#outputId').append(response);
             lpStart();
         }
 };
@@ -56,7 +57,7 @@ EOD
 ,CClientScript::POS_END); ?>
 <div id="cloneSpinnerId" style="display: none;">
 <div class="flash-notice" align="center"><img src="/themes/classic/images/loading_1.gif" alt="Cloning Repository, please wait"><br/>
-    Repository is being cloned.<br/>This might take a while...<br/></div>
+    Repository is being cloned.<br/><div id="outputId">This might take a while...</div><br/></div>
 </div>
 <div id="cloneSpinnerSuccess" style="display: none;">
 <div class="flash-success" align="center">Repository successfully cloned!<br/></div>
