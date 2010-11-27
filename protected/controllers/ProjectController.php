@@ -135,10 +135,10 @@ class ProjectController extends Controller {
     }
 
     public function actionSettings($identifier) {
-        if(Yii::app()->user->hasState('pid')) {
+        if(Yii::app()->user->getState('pid')!=null) {
             if(!$this->is_process_running(Yii::app()->user->getState('pid')))
             {
-                Yii::app()->user->__unset('pid');
+                Yii::app()->user->setState('pid', null);
             }
         }
         $information = Project::model()->find('identifier=?', array($_GET['identifier']));
