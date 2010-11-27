@@ -70,7 +70,7 @@
 <?php if(Yii::app()->user->hasState('pid')) : ?>
 <?php
 echo 'Cloning repository...';
-while($this->is_process_running($ps))
+while($this->is_process_running(Yii::app()->user->getState('pid')))
 {
 echo '.';
 }
