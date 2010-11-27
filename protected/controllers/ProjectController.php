@@ -164,9 +164,7 @@ class ProjectController extends Controller {
 
         if (isset($_POST['Project'])) {
             $model->attributes = $_POST['Project'];
-            $sPattern = '/\s*/m';
-            $sReplace = '';
-            $model->identifier = preg_replace( $sPattern, $sReplace, strtolower($model->name));
+            $model->identifier = preg_replace( '/\s*/m', '', strtolower($model->name));
             if ($model->save())
                 $this->redirect(array('view', 'identifier' => $model->identifier));
         }

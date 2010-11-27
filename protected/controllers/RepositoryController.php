@@ -67,7 +67,8 @@ class RepositoryController extends Controller
 		if(isset($_POST['Repository']))
 		{
 			$model->attributes=$_POST['Repository'];
-                        $unique_id = uniqid($model->name.'_');
+                        $model->identifier = preg_replace( '/\s*/m', '', strtolower($model->name));
+                        $unique_id = uniqid($model->identifier.'_');
                         Yii::app()->file->createDir(0754, 'repositories/'.$unique_id);
                         $directoryy = Yii::app()->file->set('repositories/'.$unique_id, true);
 			$model->local_path = $directoryy->getRealPath();
@@ -86,7 +87,12 @@ class RepositoryController extends Controller
                             
                             $this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'repositories'));
                         } else {
-                            //delete directory
+                            if (PHP_OS === 'WINNT') {
+                                $commandString = 'start /b rmdir /S /Q "'.$model->local_path.'"';
+                            } else {
+                                $commandString = 'rm -rf "'.$model->local_path.'"';
+                            }
+                            pclose(popen($commandString, 'r'));
                         }
 		}
 
