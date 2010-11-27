@@ -33,7 +33,15 @@
 ?>
 <h3>Repositories</h3>
 <?php if(Yii::app()->user->getState('pid') !== 'none') : ?>
-<p class="nodata"><?php echo 'Cloning of repository in progress...<br/>(Refresh page to update status)'; ?></p>
+<?php Yii::app()->clientScript->registerScript('cloneSpinner',<<<EOD
+$.get('project/waitForClone', function(success) {
+  $(#cloneSpinnerId).hide();
+});
+EOD
+,CClientScript::POS_READY); ?>
+<div id="cloneSpinnerId">
+<div class="nodata"><img src="/themes/classic/images/loading_1.gif"><br/>Cloning of repository in progress...</div>
+</div>
 <?php endif; ?>
 <?php if (!empty($model)) : ?>
 <table class="list" width="60%">
