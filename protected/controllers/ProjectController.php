@@ -135,7 +135,7 @@ class ProjectController extends Controller {
     }
 
     public function actionSettings($identifier) {
-        if(Yii::app()->user->getState('pid')!== 'none') {
+        if(Yii::app()->user->getState('pid') !== 'none') {
             if(!$this->is_process_running(Yii::app()->user->getState('pid')))
             {
                 Yii::app()->user->setState('pid', 'none');
