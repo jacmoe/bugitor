@@ -79,6 +79,7 @@ class ProjectController extends Controller {
             echo json_encode('.');
             sleep(1);
         } else {
+            sleep(1);
             echo json_encode('end');
             Yii::app()->user->setState('pid', 'none');
         }
