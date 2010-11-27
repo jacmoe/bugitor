@@ -83,7 +83,6 @@ class ProjectController extends Controller {
                 shell_exec("nohup $commandString > /dev/null 2> /dev/null & echo $!");
                 Yii::app()->user->setState('pid', 'none');
             }
-            
         }
         $message = "Repository successfully cloned";
         echo json_encode($message);
