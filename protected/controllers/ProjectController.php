@@ -78,7 +78,7 @@ class ProjectController extends Controller {
             // Do nothing
             sleep(1);
        }
-       $returned['success'] = 'Repository was succesfully cloned';
+       $returned['message'] = 'Repository was succesfully cloned';
        return json_encode($returned);
    }
 
