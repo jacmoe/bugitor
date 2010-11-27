@@ -146,10 +146,11 @@ class RepositoryController extends Controller
                         {
                             if (PHP_OS === 'WINNT') {
                                 $commandString = 'start /b rmdir /S /Q "'.$model->local_path.'"';
+                                pclose(popen($commandString, 'r'));
                             } else {
                                 $commandString = 'rm -rf "'.$model->local_path.'"';
+                                shell_exec("nohup $commandString > /dev/null 2> /dev/null & echo $!");
                             }
-                            pclose(popen($commandString, 'r'));
                         }
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
