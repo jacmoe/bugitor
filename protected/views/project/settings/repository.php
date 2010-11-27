@@ -32,7 +32,6 @@
  */
 ?>
 <h3>Repositories</h3>
-<?php echo Yii::app()->user->getState('pid'); ?>
 <?php if(Yii::app()->user->getState('pid') !== 'none') : ?>
 <?php $actionUrl = $this->createUrl('project/waitforclone', array('who' => 'spinnerId')); ?>
 <?php Yii::app()->clientScript->registerScript('cloneSpinner',<<<EOD
@@ -40,14 +39,17 @@ $(document).ready(function() {
         $('#cloneSpinnerId').show();
         $.get('$actionUrl', function(data) {
         $('#cloneSpinnerId').hide('slow');
-        alert("Repository succesfully cloned!");
+        $('#cloneSpinnerSuccess').show();
     });
 });
 EOD
 ,CClientScript::POS_END); ?>
 <div id="cloneSpinnerId" style="display: none;">
-<div class="nodata"><img src="/themes/classic/images/loading_1.gif" alt="Cloning Repository, please wait"><br/>
+<div class="flash-notice" align="center"><img src="/themes/classic/images/loading_1.gif" alt="Cloning Repository, please wait"><br/>
     Repository is being cloned.<br/>This might take a while...<br/></div>
+</div>
+<div id="cloneSpinnerSuccess" style="display: none;">
+<div class="flash-success" align="center">Repository successfully cloned!<br/></div>
 </div>
 <?php endif; ?>
 <?php if (!empty($model)) : ?>
