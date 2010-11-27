@@ -67,7 +67,7 @@ $app = Yii::createWebApplication($config);
 
 Yii::app()->setTimeZone("UTC");
 
-if(!Yii::app()->user->hasState('pid'))
+if(!Yii::app()->user->getState('pid'))
     Yii::app()->user->setState('pid', 'none');
 
 $app->run();
