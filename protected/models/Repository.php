@@ -36,14 +36,12 @@
 /**
  * This is the model class for table "{{repository}}".
  *
- * The followings are the available columns in table '{{repository}}':
  * @property integer $id
  * @property integer $project_id
  * @property string $url
  * @property string $local_path
  * @property string $name
- *
- * The followings are the available model relations:
+ * @property string $identifier
  * @property Project $project
  */
 class Repository extends CActiveRecord
@@ -76,10 +74,10 @@ class Repository extends CActiveRecord
 			array('name', 'required'),
 			array('project_id', 'numerical', 'integerOnly'=>true),
 			array('url', 'length', 'max'=>60),
-			array('name, local_path', 'length', 'max'=>255),
+			array('name, local_path, identifier', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, project_id, url, local_path, name', 'safe', 'on'=>'search'),
+			array('id, project_id, url, local_path, name, identifier', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -125,6 +123,7 @@ class Repository extends CActiveRecord
 		$criteria->compare('url',$this->url,true);
 		$criteria->compare('local_path',$this->local_path,true);
 		$criteria->compare('name',$this->name,true);
+		$criteria->compare('identifier',$this->identifier,true);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
