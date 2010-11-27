@@ -32,7 +32,7 @@
  */
 ?>
 <h3>Repositories</h3>
-<?php //if(Yii::app()->user->getState('pid') !== 'none') : ?>
+<?php if(Yii::app()->user->getState('pid') !== 'none') : ?>
 <?php $actionUrl = $this->createUrl('project/waitforclone'); ?>
 <?php Yii::app()->clientScript->registerScript('cloneSpinner',<<<EOD
 var lpOnComplete = function(response) {
@@ -62,7 +62,7 @@ EOD
 <div id="cloneSpinnerSuccess" style="display: none;">
 <div class="flash-success" align="center">Repository successfully cloned!<br/></div>
 </div>
-<?php //endif; ?>
+<?php endif; ?>
 <?php if (!empty($model)) : ?>
 <table class="list" width="60%">
   <thead width="60">
