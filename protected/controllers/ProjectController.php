@@ -66,7 +66,7 @@ class ProjectController extends Controller {
         return $project_list;
     }
 
-   function is_process_running($PID)
+   protected function is_process_running($PID)
    {
        exec("ps $PID", $ProcessState);
        return(count($ProcessState) >= 2);
@@ -152,7 +152,7 @@ class ProjectController extends Controller {
     }
 
     public function actionSettings($identifier) {
-        if(!Yii::app()->user->getState('pid') !== 'none') {
+        if(Yii::app()->user->getState('pid') !== 'none') {
             if(!($this->is_process_running((int)Yii::app()->user->getState('pid'))))
             {
                 Yii::app()->user->setState('pid', 'none');
