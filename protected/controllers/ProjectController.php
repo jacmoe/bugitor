@@ -79,14 +79,14 @@ class ProjectController extends Controller {
             $count++;
             // Do nothing
             if($this->is_process_running((int)Yii::app()->user->getState('pid'))) {
-                echo "{.}";
+                echo '{'.raw_urlencode('"."').'}';
             } else {
-                echo "{end}";
+                echo '{'.raw_urlencode('"end"').'}';
                 Yii::app()->user->setState('pid', 'none');
             }
             sleep(1);
         }
-        echo "{.}";
+        echo '{'.raw_urlencode('"."').'}';
     }
 
     /**
