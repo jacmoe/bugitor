@@ -36,9 +36,14 @@
 <?php $actionUrl = $this->createUrl('project/waitforclone', array('who' => 'spinnerId')); ?>
 <?php Yii::app()->clientScript->registerScript('cloneSpinner',<<<EOD
 var lpOnComplete = function(response) {
-	alert(response);
-	// do more processing
-	lpStart();
+        alert(response);
+	if(response == 'end'){
+            $('#cloneSpinnerId').hide();
+            $('#cloneSpinnerSuccess').show();
+        } else {
+            // do more processing
+            lpStart();
+        }
 };
 
 var lpStart = function() {
