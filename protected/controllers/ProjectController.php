@@ -76,7 +76,7 @@ class ProjectController extends Controller {
        while($this->is_process_running(Yii::app()->user->getState('pid')))
        {
             // Do nothing
-            //sleep(1);
+            sleep(1);
        }
        return json_encode('success');
    }
