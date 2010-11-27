@@ -74,7 +74,7 @@ class ProjectController extends Controller {
 
     public function actionWaitforclone() {
         $count = 0;
-        while(Yii::app()->mutex->lock('pid'.(int)Yii::app()->user->getState('pid')))
+        while(!Yii::app()->mutex->lock('pid'.(int)Yii::app()->user->getState('pid')))
         {
             // Do nothing
             sleep(1);
