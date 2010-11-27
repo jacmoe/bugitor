@@ -42,6 +42,7 @@ var lpOnComplete = function(response) {
 };
 
 var lpStart = function() {
+        $('#cloneSpinnerId').show();
 	$.post('$actionUrl', {}, lpOnComplete, 'json');
 };
 
