@@ -72,6 +72,14 @@ class ProjectController extends Controller {
        return(count($ProcessState) >= 2);
    }
 
+   public function waitForClone() {
+       while(is_process_running(Yii::app()->user->getState('pid')))
+       {
+            sleep(1);
+       }
+       return true;
+   }
+
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
