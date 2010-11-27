@@ -52,7 +52,7 @@ EOD
 <?php endif; ?>
 <?php if (!empty($model)) : ?>
 <table class="list" width="60%">
-  <thead width="60">
+  <thead>
   <tr>
       <td colspan="5">
       Project Repositories
