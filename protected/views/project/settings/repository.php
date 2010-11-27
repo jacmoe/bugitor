@@ -70,11 +70,6 @@
 <?php if(Yii::app()->user->hasState('pid')) : ?>
 <?php
 echo 'Cloning repository...';
-while($this->is_process_running(Yii::app()->user->getState('pid')))
-{
-echo '.';
-}
-Yii::app()->user->__unset('pid');
 ?>
 <?php endif; ?>
 <?php echo CHtml::link('Add Repository',array('repository/create','identifier'=>$_GET['identifier'])); ?>
