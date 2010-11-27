@@ -72,7 +72,7 @@ class ProjectController extends Controller {
        return(count($ProcessState) >= 2);
    }
 
-   public function waitForClone() {
+   public function waitForClone($who) {
        while($this->is_process_running(Yii::app()->user->getState('pid')))
        {
             // Do nothing
