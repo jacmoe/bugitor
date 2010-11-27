@@ -68,19 +68,16 @@ class ProjectController extends Controller {
 
    function is_process_running($PID)
    {
-       exec("ps $PID", $ProcessState);
-       return(count($ProcessState) >= 2);
+       exec("ps -p $PID", $ProcessState);
+       return(count($ProcessState) > 1);
    }
 
     public function actionWaitforclone() {
         $count = 0;
-        while(!Yii::app()->mutex->lock('pid'.(int)Yii::app()->user->getState('pid')))
+        while($this->is_process_running((int)Yii::app()->user->getState('pid')))
         {
             // Do nothing
             sleep(1);
-            if (!($this->is_process_running((int)Yii::app()->user->getState('pid'))))
-                Yii::app()->mutex->unlock();
-
         }
         $message = "Repository successfully cloned";
         echo json_encode($message);
@@ -150,7 +147,7 @@ class ProjectController extends Controller {
 
     public function actionSettings($identifier) {
         if(Yii::app()->user->getState('pid') !== 'none') {
-            if(!Yii::app()->mutex->lock('pid'.(int)Yii::app()->user->getState('pid')))
+            if(!$this->is_process_running((int)Yii::app()->user->getState('pid')))
             {
                 Yii::app()->user->setState('pid', 'none');
             }
