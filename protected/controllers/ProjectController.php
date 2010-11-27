@@ -74,22 +74,20 @@ class ProjectController extends Controller {
 
     public function actionWaitforclone() {
         $count = 0;
+        $out = 0;
         while($count < 5)
         {
             $count++;
             // Do nothing
             if($this->is_process_running((int)Yii::app()->user->getState('pid'))) {
-                $out = array("."=>".");
-                echo json_encode($out);
+                sleep(1);
             } else {
-                $out = array("end"=>"end");
-                echo json_encode($out);
+                $out = 1;
                 Yii::app()->user->setState('pid', 'none');
+                echo json_encode($out);
             }
-            sleep(1);
         }
-        $out = array("."=>".");
-        echo json_encode($out);
+        Yii::app()->end();
     }
 
     /**
