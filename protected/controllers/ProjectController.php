@@ -80,7 +80,6 @@ class ProjectController extends Controller {
             sleep(1);
             $count++;
             if($count > 150) {
-            if (!($this->is_process_running((int)Yii::app()->user->getState('pid'))))
                 Yii::app()->mutex->unlock();
             }
         }
