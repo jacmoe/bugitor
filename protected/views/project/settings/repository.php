@@ -32,6 +32,10 @@
  */
 ?>
 <h3>Repositories</h3>
+<?php if(Yii::app()->user->getState('pid')!=null) : ?>
+<p class="nodata"><?php echo 'Cloning of repository in progress...<br/>Refresh the page to update this status.'; ?></p>
+
+<?php endif; ?>
 <?php if (!empty($model)) : ?>
 <table class="list" width="60%">
   <thead width="60">
@@ -66,10 +70,5 @@
 </table>
 <?php else: ?>
 <p class="nodata"><?php echo 'No data to display'; ?></p>
-<?php endif; ?>
-<?php if(Yii::app()->user->getState('pid')!=null) : ?>
-<?php
-echo 'Cloning repository...';
-?>
 <?php endif; ?>
 <?php echo CHtml::link('Add Repository',array('repository/create','identifier'=>$_GET['identifier'])); ?>
