@@ -79,8 +79,8 @@ class RepositoryController extends Controller
                             } else { // we're on *nix
                                 if(Yii::app()->config->get('python_path'))
                                     putenv(Yii::app()->config->get('python_path'));
-                                $commandString = 'touch the.clone_lock;'.Yii::app()->config->get('hg_executable').' clone '.$model->url.' "'.$model->local_path.'";rm the.clonelock';
-                                $PID = shell_exec("nohup $commandString > /dev/null 2> /dev/null & echo $!");
+                                $commandString = Yii::app()->config->get('hg_executable').' clone '.$model->url.' "'.$model->local_path.'"';
+                                $PID = shell_exec("nohup $commandString > /dev/null 2> /dev/null &");
                                 //$PID = exec($commandString . ' > /dev/null &');
                                 Yii::app()->user->setState('pid', $PID);
                             }
