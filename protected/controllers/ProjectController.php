@@ -78,7 +78,7 @@ class ProjectController extends Controller {
             // Do nothing
             sleep(1);
        }
-       return true;
+       return json_encode('success');
    }
 
     /**
