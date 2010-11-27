@@ -37,7 +37,7 @@
 <?php Yii::app()->clientScript->registerScript('cloneSpinner',<<<EOD
 var lpOnComplete = function(response) {
         //alert(response);
-	if(response == 'end'){
+	if(response == "end"){
             $('#cloneSpinnerId').hide();
             $('#cloneSpinnerSuccess').show();
         } else {
