@@ -67,4 +67,16 @@
 <?php else: ?>
 <p class="nodata"><?php echo 'No data to display'; ?></p>
 <?php endif; ?>
+<?php if(Yii::app()->user->hasState('pid')) : ?>
+<?php
+echo 'Cloning repository...';
+while($this->is_process_running($ps))
+{
+ echo(" . ");
+   ob_flush(); flush();
+        sleep(1);
+}
+Yii::app()->user->__unset('pid');
+?>
+<?php endif; ?>
 <?php echo CHtml::link('Add Repository',array('repository/create','identifier'=>$_GET['identifier'])); ?>

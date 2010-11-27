@@ -66,6 +66,12 @@ class ProjectController extends Controller {
         return $project_list;
     }
 
+   function is_process_running($PID)
+   {
+       exec("ps $PID", $ProcessState);
+       return(count($ProcessState) >= 2);
+   }
+
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
