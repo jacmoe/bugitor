@@ -73,9 +73,10 @@ class ProjectController extends Controller {
    }
 
    public function waitForClone() {
-       while(is_process_running(Yii::app()->user->getState('pid')))
+       while($this->is_process_running(Yii::app()->user->getState('pid')))
        {
-            sleep(1);
+            // Do nothing
+            //sleep(1);
        }
        return true;
    }
