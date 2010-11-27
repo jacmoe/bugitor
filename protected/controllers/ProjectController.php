@@ -79,17 +79,17 @@ class ProjectController extends Controller {
             $count++;
             // Do nothing
             if($this->is_process_running((int)Yii::app()->user->getState('pid'))) {
-                $out = ".";
-                echo json_encode($out, 'JSON_FORCE_OBJECT');
+                $out = array("."=>".");
+                echo json_encode($out);
             } else {
-                $out = "end";
-                echo json_encode($out, 'JSON_FORCE_OBJECT');
+                $out = array("end"=>"end");
+                echo json_encode($out);
                 Yii::app()->user->setState('pid', 'none');
             }
             sleep(1);
         }
-        $out = ".";
-        echo json_encode($out, 'JSON_FORCE_OBJECT');
+        $out = array("."=>".");
+        echo json_encode($out);
     }
 
     /**
