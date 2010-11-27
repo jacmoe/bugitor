@@ -77,10 +77,10 @@ class ProjectController extends Controller {
         while($this->is_process_running((int)Yii::app()->user->getState('pid')))
         {
             // Do nothing
-            echo 'sleeping..';
+            echo json_encode('sleeping..');
             sleep(1);
         }
-        echo 'end';
+        echo json_encode('end');
         $message = "Repository successfully cloned";
         echo json_encode($message);
     }
