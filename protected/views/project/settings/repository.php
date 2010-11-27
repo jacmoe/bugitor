@@ -35,9 +35,11 @@
 <?php if(Yii::app()->user->getState('pid') !== 'none') : ?>
 <?php $actionUrl = $this->createUrl('project/waitForClone', array('who' => 'spinnerId')); ?>
 <?php Yii::app()->clientScript->registerScript('cloneSpinner',<<<EOD
-$.get('$actionUrl', function(data) {
- $('#cloneSpinnerId').hide('slow', function() {
-        alert('Repository cloned succesfully!');
+$(document).ready(function() {
+    $.get('$actionUrl', function(data) {
+        $('#cloneSpinnerId').hide('slow', function() {
+            alert('Repository cloned succesfully!');
+        });
     });
 });
 EOD
