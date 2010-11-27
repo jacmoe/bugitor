@@ -82,6 +82,7 @@ return array(
         ),
         'mutex' => array(
             'class' => 'ext.EMutex',
+        ),
         'file' => array(
             'class' => 'ext.CFile',
         ),
