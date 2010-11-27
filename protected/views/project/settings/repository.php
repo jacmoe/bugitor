@@ -44,7 +44,7 @@ $(document).ready(function() {
     });
 });
 EOD
-,CClientScript::POS_READY); ?>
+,CClientScript::POS_END); ?>
 <div id="cloneSpinnerId" style="visibility: hidden;">
 <div class="nodata"><img src="/themes/classic/images/loading_1.gif"><br/>
     Repository is being cloned.<br/>This might take a while...<br/></div>
