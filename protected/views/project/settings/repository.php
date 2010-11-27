@@ -39,7 +39,7 @@ $(document).ready(function() {
         $('#cloneSpinnerId').show();
         $.get('$actionUrl', function(data) {
         $('#cloneSpinnerId').hide('slow', function() {
-            alert('Repository cloned succesfully!');
+            alert(data);
         });
     });
 });
