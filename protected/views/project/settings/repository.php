@@ -38,8 +38,8 @@
 var lpOnComplete = function(response) {
         //alert(response);
 	if(response == "end"){
-            $('#cloneSpinnerId').hide();
             $('#cloneSpinnerSuccess').show();
+            $('#cloneSpinnerId').hide();
         } else {
             // do more processing
             $('#outputId').append(response);
