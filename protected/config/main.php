@@ -80,6 +80,8 @@ return array(
         'textile' => array(
             'class' => 'application.components.textile.Textilizer',
         ),
+        'mutex' => array(
+            'class' => 'ext.EMutex',
         'file' => array(
             'class' => 'ext.CFile',
         ),

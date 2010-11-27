@@ -32,6 +32,7 @@
  */
 ?>
 <h3>Repositories</h3>
+<?php echo Yii::app()->user->getState('pid'); ?>
 <?php if(Yii::app()->user->getState('pid') !== 'none') : ?>
 <?php $actionUrl = $this->createUrl('project/waitforclone', array('who' => 'spinnerId')); ?>
 <?php Yii::app()->clientScript->registerScript('cloneSpinner',<<<EOD
