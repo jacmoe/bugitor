@@ -72,9 +72,7 @@
 echo 'Cloning repository...';
 while($this->is_process_running($ps))
 {
- echo(" . ");
-   ob_flush(); flush();
-        sleep(1);
+echo '.';
 }
 Yii::app()->user->__unset('pid');
 ?>
