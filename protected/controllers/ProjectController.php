@@ -73,10 +73,18 @@ class ProjectController extends Controller {
    }
 
     public function actionWaitforclone() {
+        $count = 0;
         while($this->is_process_running(Yii::app()->user->getState('pid')))
         {
             // Do nothing
             sleep(1);
+            $count++;
+            if($count > 600){
+                $commandString = 'kill '.(int)Yii::app()->user->getState('pid');
+                $PID = shell_exec("nohup $commandString > /dev/null 2> /dev/null & echo $!");
+                //$PID = exec($commandString . ' > /dev/null &');
+                Yii::app()->user->setState('pid', 'none');
+            }
         }
         $message = "Repository successfully cloned";
         echo json_encode($message);
