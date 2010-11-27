@@ -67,7 +67,7 @@
 <?php else: ?>
 <p class="nodata"><?php echo 'No data to display'; ?></p>
 <?php endif; ?>
-<?php if(Yii::app()->user->hasState('pid')) : ?>
+<?php if(Yii::app()->user->getState('pid')!=null) : ?>
 <?php
 echo 'Cloning repository...';
 ?>
