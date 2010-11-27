@@ -73,10 +73,11 @@ class ProjectController extends Controller {
    }
 
     public function actionWaitforclone() {
-        while($this->is_process_running((int)Yii::app()->user->getState('pid')))
+        $continue = true;
+        while(file_exists('the.clonelock'))
         {
-            // Do nothing
             sleep(1);
+            
         }
         $message = "Repository successfully cloned";
         echo json_encode($message);
@@ -146,7 +147,7 @@ class ProjectController extends Controller {
 
     public function actionSettings($identifier) {
         if(Yii::app()->user->getState('pid') !== 'none') {
-            if(!$this->is_process_running(Yii::app()->user->getState('pid')))
+            if(!file_exists('the.clonelock'))
             {
                 Yii::app()->user->setState('pid', 'none');
             }
