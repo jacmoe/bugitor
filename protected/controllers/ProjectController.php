@@ -78,7 +78,7 @@ class ProjectController extends Controller {
             // Do nothing
             sleep(1);
         }
-        echo "'Repository was cloned successfully.'";
+        echo json_encode("'Repository was cloned successfully.'");
     }
 
     /**
