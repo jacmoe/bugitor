@@ -38,9 +38,8 @@
 $(document).ready(function() {
         $('#cloneSpinnerId').show();
         $.get('$actionUrl', function(data) {
-        $('#cloneSpinnerId').hide('slow', function() {
-            alert(data);
-        });
+        $('#cloneSpinnerId').hide('slow');
+        alert("Repository succesfully cloned!");
     });
 });
 EOD

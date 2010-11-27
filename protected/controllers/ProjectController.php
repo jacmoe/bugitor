@@ -72,13 +72,14 @@ class ProjectController extends Controller {
        return(count($ProcessState) >= 2);
    }
 
-    public function actionWaitforclone($who) {
+    public function actionWaitforclone() {
         while($this->is_process_running(Yii::app()->user->getState('pid')))
         {
             // Do nothing
             sleep(1);
         }
-        return json_encode("success");
+        $message = "Repository successfully cloned";
+        echo json_encode($message);
     }
 
     /**
