@@ -78,8 +78,7 @@ class ProjectController extends Controller {
         {
             // Do nothing
             sleep(1);
-            $res = exec('ps -A|grep '.(int)Yii::app()->user->getState('pid'));
-            if (empty($res))
+            if (!($this->is_process_running((int)Yii::app()->user->getState('pid'))))
                 Yii::app()->mutex->unlock();
 
         }
