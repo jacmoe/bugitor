@@ -82,7 +82,7 @@ class RepositoryController extends Controller
                                 $commandString = Yii::app()->config->get('hg_executable').' clone '.$model->url.' "'.$model->local_path.'"';
                                 $PID = shell_exec("nohup $commandString > /dev/null 2> /dev/null & echo $!");
                                 //$PID = exec($commandString . ' > /dev/null &');
-                                Yii::app()->mutex->lock('pid'.$PID, 60000);
+                                Yii::app()->mutex->lock('pid'.$PID, 1200);
                                 Yii::app()->user->setState('pid', $PID);
                             }
                             //Yii::app()->scm->mtrack_run_tool('hg', 'read', array('init', 'C:/wamp/www/repositories/'.$model->name ));
