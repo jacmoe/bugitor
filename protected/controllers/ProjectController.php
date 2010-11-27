@@ -79,7 +79,7 @@ class ProjectController extends Controller {
             sleep(1);
        }
         echo CJSON::encode(array(
-            'message' => "Repository was cloned successfully.",
+            'message' => "'Repository was cloned successfully.'",
         ));
     }
 
