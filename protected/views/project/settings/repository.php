@@ -32,15 +32,14 @@
  */
 ?>
 <h3>Repositories</h3>
-<?php echo Yii::app()->user->getState('pid'); ?>
 <?php if(Yii::app()->user->getState('pid') !== 'none') : ?>
-<?php $actionUrl = $this->createUrl('project/waitforclone'); ?>
+<?php $actionUrl = $this->createUrl('project/waitforclone', array('who' => 'spinnerId')); ?>
 <?php Yii::app()->clientScript->registerScript('cloneSpinner',<<<EOD
 $(document).ready(function() {
         $('#cloneSpinnerId').show();
         $.get('$actionUrl', function(data) {
         $('#cloneSpinnerId').hide('slow');
-        //alert("Repository succesfully cloned!");
+        alert("Repository succesfully cloned!");
     });
 });
 EOD
@@ -52,7 +51,7 @@ EOD
 <?php endif; ?>
 <?php if (!empty($model)) : ?>
 <table class="list" width="60%">
-  <thead>
+  <thead width="60">
   <tr>
       <td colspan="5">
       Project Repositories
