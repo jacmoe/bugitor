@@ -78,9 +78,10 @@ class ProjectController extends Controller {
             // Do nothing
             sleep(1);
        }
-       $returned['message'] = 'Repository was succesfully cloned';
-       return json_encode($returned);
-   }
+        echo CJSON::encode(array(
+            'message' => "Repository was cloned successfully.",
+        ));
+    }
 
     /**
      * Displays a particular model.
