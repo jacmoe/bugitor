@@ -44,9 +44,9 @@ $(document).ready(function() {
     });
 });
 EOD
-,CClientScript::POS_LOAD); ?>
+,CClientScript::POS_END); ?>
 <div id="cloneSpinnerId" style="display: none;">
-<div class="nodata"><img src="/themes/classic/images/loading_1.gif"><br/>
+<div class="nodata"><img src="/themes/classic/images/loading_1.gif" alt="Cloning Repository, please wait"><br/>
     Repository is being cloned.<br/>This might take a while...<br/></div>
 </div>
 <?php endif; ?>
