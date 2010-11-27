@@ -32,9 +32,8 @@
  */
 ?>
 <h3>Repositories</h3>
-<?php echo Yii::app()->user->getState('pid'); ?>
 <?php if(Yii::app()->user->getState('pid') !== 'none') : ?>
-<p class="nodata"><?php echo 'Cloning of repository in progress...<br/>Refresh the page to update this status.'; ?></p>
+<p class="nodata"><?php echo 'Cloning of repository in progress...<br/>(Refresh page to update status)'; ?></p>
 <?php endif; ?>
 <?php if (!empty($model)) : ?>
 <table class="list" width="60%">
