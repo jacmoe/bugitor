@@ -40,7 +40,7 @@ var lpOnComplete = function(response) {
             $('#cloneSpinnerSuccess').show();
             $('#cloneSpinnerId').hide();
             $('#outputId').append('success');
-        } else {
+        } elseif(response == '1') {
             // do more processing
             $('#outputId').append('.');
             lpStart();
