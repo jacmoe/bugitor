@@ -105,95 +105,147 @@ function hg() {
     return mtrack_run_tool('hg', 'read', $a);
 }
 
-$start = 100;
-$end = 150;
-$limit = 100;
-$sep = uniqid();
-$fp = hg('log',
-        '--rev', $start.':'.$end, '--template', $sep . '\n{node|short}\n{branches}\n{tags}\n{file_adds}\n{file_copies}\n{file_mods}\n{file_dels}\n{author|email}\n{date|hgdate}\n{desc}\n', '-l '.$limit);
-
-fgets($fp); # discard leading $sep
-// corresponds to the file_adds, file_copies, file_modes, file_dels
-// in the template above
-static $file_status_order = array('A', 'C', 'M', 'D');
-
-$count = 0;
-while (true) {
-    //$ent = new MTrackSCMEvent;
-    echo "<br/>";
-    echo $count .')-------------------------------------------------------------';
-    echo "<br/>";
-    $count++;
-    echo 'Revision: ' . trim(fgets($fp));
-    echo "<br/>";
-    //if (!strlen($ent->rev)) {
+//$start = 100;
+//$end = 150;
+//$limit = 100;
+//$sep = uniqid();
+//$fp = hg('log',
+//        '--rev', $start.':'.$end, '--template', $sep . '\n{node|short}\n{branches}\n{tags}\n{file_adds}\n{file_copies}\n{file_mods}\n{file_dels}\n{author|email}\n{date|hgdate}\n{desc}\n', '-l '.$limit);
+//
+//fgets($fp); # discard leading $sep
+//// corresponds to the file_adds, file_copies, file_modes, file_dels
+//// in the template above
+//static $file_status_order = array('A', 'C', 'M', 'D');
+//
+//$count = 0;
+//while (true) {
+//    //$ent = new MTrackSCMEvent;
+//    echo "<br/>";
+//    echo $count .')-------------------------------------------------------------';
+//    echo "<br/>";
+//    $count++;
+//    echo 'Revision: ' . trim(fgets($fp));
+//    echo "<br/>";
+//    //if (!strlen($ent->rev)) {
+////        break;
+////      }
+////      $ent->branches = array();
+//    $branches = array();
+//    foreach (preg_split('/\s+/', trim(fgets($fp))) as $b) {
+//        if (strlen($b)) {
+//            echo 'Branch: '.$b;
+//            echo '<br/>';
+//            $branches[] = $b;
+//        }
+//    }
+//    if (!count($branches)) {
+//        echo 'Branch: default';
+//        echo '<br/>';
+//    }
+////      if (!count($ent->branches)) {
+////        $ent->branches[] = 'default';
+////      }
+//
+//    $tags = array();
+//    foreach (preg_split('/\s+/', trim(fgets($fp))) as $t) {
+//        if (strlen($t)) {
+//            echo 'Tag: '.$t;
+//            echo '<br/>';
+//            $tags[] = $t;
+//        }
+//    }
+//
+//    $files = array();
+//    foreach ($file_status_order as $status) {
+//        foreach (preg_split('/\s+/', trim(fgets($fp))) as $t) {
+//            if (strlen($t)) {
+////            $f = new MTrackSCMFileEvent;
+//                echo 'File: ' . $t . ' ' . $status;
+//                echo "<br/>";
+////            $f->name = $t;
+////            $f->status = $status;
+////            $files[] = $f;
+//            }
+//        }
+//    }
+//
+//    $changeby = trim(fgets($fp));
+//    //$ent->changeby = trim(fgets($fp));
+//    echo 'Author: ' . $changeby;
+//    echo "<br/>";
+//    list($ts) = preg_split('/\s+/', fgets($fp));
+//    echo 'Time: ' . date("d-m-Y H:i:s", $ts);
+//    echo "<br/>";
+//    //$ent->ctime = MTrackDB::unixtime((int)$ts);
+//    $changelog = array();
+//    while (($line = fgets($fp)) !== false) {
+//        $line = rtrim($line, "\r\n");
+//        if ($line == $sep) {
+//            break;
+//        }
+//        $changelog[] = $line;
+//    }
+//    $thechangelog = join("\n", $changelog);
+//
+//    echo 'Changelog: ' . $thechangelog;
+//    echo "<br/>";
+//
+//    //$res[] = $ent;
+//
+//    if ($line === false) {
 //        break;
-//      }
-//      $ent->branches = array();
-    $branches = array();
-    foreach (preg_split('/\s+/', trim(fgets($fp))) as $b) {
-        if (strlen($b)) {
-            echo 'Branch: '.$b;
-            echo '<br/>';
-            $branches[] = $b;
-        }
-    }
-    if (!count($branches)) {
-        echo 'Branch: default';
-        echo '<br/>';
-    }
-//      if (!count($ent->branches)) {
-//        $ent->branches[] = 'default';
-//      }
+//    }
+//} //while true
+//$fp = null;
 
-    $tags = array();
-    foreach (preg_split('/\s+/', trim(fgets($fp))) as $t) {
-        if (strlen($t)) {
-            echo 'Tag: '.$t;
-            echo '<br/>';
-            $tags[] = $t;
-        }
-    }
+  function parseCommitMessage($msg) {
+    // Parse the commit message and look for commands;
+    // returns each recognized command and its args in an array
 
-    $files = array();
-    foreach ($file_status_order as $status) {
-        foreach (preg_split('/\s+/', trim(fgets($fp))) as $t) {
-            if (strlen($t)) {
-//            $f = new MTrackSCMFileEvent;
-                echo 'File: ' . $t . ' ' . $status;
-                echo "<br/>";
-//            $f->name = $t;
-//            $f->status = $status;
-//            $files[] = $f;
+    $close = array('resolves', 'resolved', 'close', 'closed',
+                   'closes', 'fix', 'fixed', 'fixes',
+                    'Resolves', 'Resolved', 'Close', 'Closed',
+                   'Closes', 'Fix', 'Fixed', 'Fixes');
+    $refs = array('addresses', 'references', 'referenced',
+                  'refs', 'ref', 'see', 're',
+                'Addresses', 'References', 'Referenced',
+                  'Refs', 'Ref', 'See', 'Re');
+
+    $cmds = join('|', $close) . '|' . join('|', $refs);
+    $timepat = '(?:\s*\((?:spent|sp)\s*(-?[0-9]*(?:\.[0-9]+)?)\s*(?:hours?|hrs)?\s*\))?';
+    $tktref = "(?:#|(?:(?:#|issue|bug):?\s*))([a-z]*[0-9]+)$timepat";
+
+    $pat = "(?P<action>(?:$cmds))\s*(?P<ticket>$tktref(?:(?:[, &]*|\s+and\s+)$tktref)*)";
+
+    $M = array();
+    $actions = array();
+
+    if (preg_match_all("/$pat/smi", $msg, $M, PREG_SET_ORDER)) {
+      foreach ($M as $match) {
+        if (in_array($match['action'], $close)) {
+          $action = 'close';
+        } else {
+          $action = 'ref';
+        }
+        $tickets = array();
+        $T = array();
+        if (preg_match_all("/$tktref/smi", $match['ticket'],
+            $T, PREG_SET_ORDER)) {
+
+          foreach ($T as $tmatch) {
+            if (isset($tmatch[2])) {
+              // [ action, ticket, spent ]
+              $actions[] = array($action, $tmatch[1], $tmatch[2]);
+            } else {
+              // [ action, ticket ]
+              $actions[] = array($action, $tmatch[1]);
             }
+          }
         }
+      }
     }
+    return $actions;
+  }
 
-    $changeby = trim(fgets($fp));
-    //$ent->changeby = trim(fgets($fp));
-    echo 'Author: ' . $changeby;
-    echo "<br/>";
-    list($ts) = preg_split('/\s+/', fgets($fp));
-    echo 'Time: ' . date("d-m-Y H:i:s", $ts);
-    echo "<br/>";
-    //$ent->ctime = MTrackDB::unixtime((int)$ts);
-    $changelog = array();
-    while (($line = fgets($fp)) !== false) {
-        $line = rtrim($line, "\r\n");
-        if ($line == $sep) {
-            break;
-        }
-        $changelog[] = $line;
-    }
-    $thechangelog = join("\n", $changelog);
+  print_r(parseCommitMessage('this is a commit which references #44 and closes #33, see #22 and #21, #56, #57, #58 and #59. Fixes #100. See #112'));
 
-    echo 'Changelog: ' . $thechangelog;
-    echo "<br/>";
-
-    //$res[] = $ent;
-    
-    if ($line === false) {
-        break;
-    }
-} //while true
-$fp = null;
