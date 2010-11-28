@@ -93,7 +93,7 @@ class ProjectController extends Controller {
         Yii::app()->user->setState('pid', 'none');
         $out = 1;
         echo json_encode($out);
-        exit();
+        $this->redirect($this->route);
     }
 
     /**
