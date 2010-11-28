@@ -39,7 +39,6 @@ var lpOnComplete = function(response) {
         if(response){
             $('#cloneSpinnerSuccess').show();
             $('#cloneSpinnerId').hide();
-            $('#outputId').append('success');
         } else {
             // do more processing
             $('#outputId').append('.');
