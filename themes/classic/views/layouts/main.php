@@ -76,7 +76,7 @@
             <div id="mainmenu" class="span-24">
                 <div id="header" class="span-24">
                     <div id="logo" class="span-2">
-                        <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/bugitor_64.png','Powered by Bugitor', array('title' => 'Powered by Bugitor')) ?>
+                        <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/bugitor_64.png','Bugitor - The Yii-powered issue tracker', array('title' => 'Bugitor - The Yii-powered issue tracker')) ?>
                     </div>
                     <div id="header" class="span-14 alt">
                         <div>
@@ -166,7 +166,7 @@
                                 <?php echo $content; ?>
                                         <div class="span-24 alt"><div align="center" class="quiet">
                                         <hr/>
-                                                Powered by <a class="noicon" href="http://bitbucket.org/jacmoe/bugitor">Bugitor</a> &copy; 2010 by Bugitor Team.<br/>
+                                                Powered by <a class="noicon" title="Bugitor - The Yii-powered issue tracker" href="http://bitbucket.org/jacmoe/bugitor">Bugitor</a> &copy; 2010 by Bugitor Team.<br/>
                                                 <a class="noicon" href="http://www.yiiframework.com/" rel="external"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/yii_power_lightblue_white.gif" alt="Made with Yii Framework" title="Made with Yii Framework"/></a>
                                                 <hr/></div>
             </div>

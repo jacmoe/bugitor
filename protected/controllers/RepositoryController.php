@@ -68,9 +68,8 @@ class RepositoryController extends Controller
 		{
 			$model->attributes=$_POST['Repository'];
                         $model->identifier = preg_replace( '/\s*/m', '', strtolower($model->name));
-                        $unique_id = uniqid($model->identifier.'_');
-                        Yii::app()->file->createDir(0754, 'repositories/'.$unique_id);
-                        $directoryy = Yii::app()->file->set('repositories/'.$unique_id, true);
+                        Yii::app()->file->createDir(0754, 'repositories/'.$model->identifier);
+                        $directoryy = Yii::app()->file->set('repositories/'.$model->identifier, true);
 			$model->local_path = $directoryy->getRealPath();
                         if($model->save()){
                             if (PHP_OS === 'WINNT') {
