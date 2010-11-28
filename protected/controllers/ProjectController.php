@@ -80,12 +80,12 @@ class ProjectController extends Controller {
             $count++;
             // Do nothing
             if($this->is_process_running((int)Yii::app()->user->getState('pid'))) {
-                sleep(1);
+                $out = 0;
             } else {
                 $out = 1;
-                Yii::app()->user->setState('pid', 'none');
-                echo json_encode($out);
+                sleep(1);
             }
+            echo json_encode($out);
         }
         Yii::app()->end();
     }
@@ -153,6 +153,12 @@ class ProjectController extends Controller {
     }
 
     public function actionSettings($identifier) {
+        if(!Yii::app()->user->getState('pid')=== 'none') {
+            if(!$this->is_process_running((int)Yii::app()->user->getState('pid'))) {
+                Yii::app()->user->setState('pid', 'none');
+            }
+        }
+
         $information = Project::model()->find('identifier=?', array($_GET['identifier']));
         $_GET['projectname'] = $information->name;
         $members = $information->getMembers();
