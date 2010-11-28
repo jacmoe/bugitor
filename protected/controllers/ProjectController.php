@@ -88,10 +88,11 @@ class ProjectController extends Controller {
             ob_flush();
             flush();
             sleep(1);
-            $out = 0;
+            $out = 1;
             echo json_encode($out);
             Yii::app()->end();
         }
+        Yii::app()->user->setState('pid', 'none');
         $out = 0;
         echo json_encode($out);
     }

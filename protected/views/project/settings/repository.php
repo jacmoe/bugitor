@@ -36,7 +36,7 @@
 <?php $actionUrl = $this->createUrl('project/waitforclone'); ?>
 <?php Yii::app()->clientScript->registerScript('cloneSpinner',<<<EOD
 var lpOnComplete = function(response) {
-        if(response){
+        if(response == 0){
             $('#cloneSpinnerSuccess').show();
             $('#cloneSpinnerId').hide();
             $('#outputId').append('success');
