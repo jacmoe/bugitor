@@ -73,7 +73,13 @@ return array(
         ),
         'mail' => array(
             'class' => 'ext.yii-mail.YiiMail',
-            'transportType' => 'php',
+            //'transportType' => 'php',
+            'transportType'=>'smtp',
+            'transportOptions'=>array(
+            'host'=>'asmtp.mail.dk',
+            'username'=>'120105688206',
+            'password'=>'jake2383',
+            'port'=>25,),
             'viewPath' => 'application.views.mail',
             'dryRun' => false,
         ),

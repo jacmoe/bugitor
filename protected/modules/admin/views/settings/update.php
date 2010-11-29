@@ -32,19 +32,29 @@
  */
 ?>
 <?php
-$this->breadcrumbs=array(
-	'Configs',
-);
-
-$this->menu=array(
-	array('label'=>'Create Config', 'url'=>array('create')),
-	array('label'=>'Manage Config', 'url'=>array('admin')),
-);
 ?>
-
-<h1>Configs</h1>
-
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-)); ?>
+<h3>Update Settings</h3>
+<div class="form">
+<?php $form=$this->beginWidget('CActiveForm'); ?>
+	<?php echo $form->errorSummary($model); ?>
+        <div class="row">
+		<?php echo $form->labelEx($model,'pagesize'); ?>
+		<?php echo $form->textField($model,'pagesize',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'pagesize'); ?>
+	</div>
+        <div class="row">
+		<?php echo $form->labelEx($model,'hg_executable'); ?>
+		<?php echo $form->textField($model,'hg_executable',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'hg_executable'); ?>
+	</div>
+        <div class="row">
+		<?php echo $form->labelEx($model,'python_path'); ?>
+		<?php echo $form->textField($model,'python_path',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'python_path'); ?>
+	</div>
+	<div class="row buttons">
+		<?php echo CHtml::submitButton('Update'); ?>
+                <?php echo CHtml::Button('Cancel',array('submit' => CHttpRequest::getUrlReferrer()));?>
+	</div>
+<?php $this->endWidget(); ?>
+</div><!-- form -->
