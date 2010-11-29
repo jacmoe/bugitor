@@ -65,6 +65,10 @@ $app = Yii::createWebApplication($config);
 //    Yii::app()->config->set('python_path', 'PYTHONPATH=/home/stealth977/.packages/lib/python');
 //}
 
+//$allowed_scm = array('hg' => 'SCMHg',);
+//Yii::app()->config->set('allowed_scm', $allowed_scm);
+
+
 Yii::app()->setTimeZone("UTC");
 
 if(!Yii::app()->user->getState('pid'))

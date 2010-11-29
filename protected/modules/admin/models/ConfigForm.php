@@ -31,27 +31,46 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
-<div class="form">
+<?php
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'config-form',
-	'enableAjaxValidation'=>false,
-)); ?>
+/**
+ * ConfigForm class.
+ * ConfigForm is the data structure for keeping
+ * config form data. It is used by the 'settings' action of 'admin/DefaultController'.
+ */
+class ConfigForm extends CFormModel
+{
+	public $pagesize;
+        public $hg_executable;
+        public $python_path;
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	/**
+	 * Declares the validation rules.
+	 */
+	public function rules()
+	{
+		return array(
+			array('pagesize, hg_executable, python_path', 'required'),
+		);
+	}
 
-	<?php echo $form->errorSummary($model); ?>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'value'); ?>
-		<?php echo $form->textArea($model,'value',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'value'); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-	</div>
-
-<?php $this->endWidget(); ?>
-
-</div><!-- form -->
+	/**
+	 * Declares customized attribute labels.
+	 * If not declared here, an attribute would have a label that is
+	 * the same as its name with the first letter in upper case.
+	 */
+	public function attributeLabels()
+	{
+		return array(
+			'pagesize'=>'Page Size',
+                        'hg_exectutable' => 'Path to hg exectuable',
+                        'python_path' => 'Python path environment variable',
+		);
+	}
+        public function save() {
+            Yii::app()->config->set('hg_executable', $this->hg_executable);
+            Yii::app()->config->set('defaultPagesize', $this->pagesize);
+            Yii::app()->config->set('python_path', $this->python_path);
+            return true;
+        }
+}

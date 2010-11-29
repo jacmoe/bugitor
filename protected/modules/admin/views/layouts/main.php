@@ -107,7 +107,7 @@
                                                 array('label' => 'Projects', 'url' => array('/admin'), 'id' => '/admin/projecs', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
                                                 array('label' => 'Users', 'url' => array('/admin'), 'id' => 'admin/user', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
                                                 array('label' => 'Roles and Rights', 'url' => array('/rights'), 'id' => 'rights', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
-                                                array('label' => 'Global Settings', 'url' => array('/admin'), 'id' => '/admin/settings', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
+                                                array('label' => 'Global Settings', 'url' => array('settings/index'), 'id' => 'admin/settings/index', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
                                                 array('label' => 'Information', 'url' => array('/admin'), 'id' => '/admin/information', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
                                             ),
                                         )); ?>
