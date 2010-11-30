@@ -115,7 +115,7 @@ class Issue extends CActiveRecord {
             $comment = array();
         }
         $message->setBody(array('isAssigned' => $isAssigned, 'issue'=>$issue, 'comment' => $comment), 'text/html');
-        $message->addFrom('ticket@tracker.ogitor.org', 'Bugitor Issue Tracker');
+        $message->setFrom('ticket@tracker.ogitor.org', 'Bugitor Issue Tracker');
         $message->addTo($issue->assignedTo->email);
         if(Yii::app()->mail->send($message) > 0){
             Yii::log('Email sent succesfully', CLogger::LEVEL_INFO, 'bugitor');
@@ -552,7 +552,7 @@ class Issue extends CActiveRecord {
             $message->view = 'issuechange';
             $message->setSubject(Bugitor::issue_subject($issue));
             $message->setBody(array('issue'=>$issue, 'comment' => $comment), 'text/html');
-            $message->addFrom('ticket@tracker.ogitor.org', 'Bugitor Issue Tracker');
+            $message->setFrom('ticket@tracker.ogitor.org', 'Bugitor Issue Tracker');
             foreach($emails as $email){
                 $message->addTo($email);
                 Yii::log('Email : ' . $email, CLogger::LEVEL_INFO, 'bugitor');
