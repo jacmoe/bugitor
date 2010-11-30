@@ -534,7 +534,8 @@ class Issue extends CActiveRecord {
                 $message->addTo($email);
                 Yii::log('Email : ' . $email, CLogger::LEVEL_INFO, 'bugitor');
             }
-            Yii::app()->mail->send($message);
+            if(Yii::app()->mail->send($message) > 0);
+                Yii::log('Email sent succesfully', CLogger::LEVEL_INFO, 'bugitor');
         }
     }
 
