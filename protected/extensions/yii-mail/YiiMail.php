@@ -128,7 +128,6 @@ class YiiMail extends CApplicationComponent
 	* @see batchSend()
 	*/
 	public function send(YiiMailMessage $message, &$failedRecipients = null) {
-                Yii::log('Message : ' . $message->message, CLogger::LEVEL_INFO, 'bugitor');
 		if ($this->logging===true) self::log($message);
 		if ($this->dryRun===true) return count($message->to);
 		else return $this->getMailer()->send($message->message, $failedRecipients);
