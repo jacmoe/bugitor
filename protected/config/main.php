@@ -175,6 +175,21 @@ return array(
             // use 'site/error' action to display errors
             'errorAction' => 'site/error',
         ),
+        'log' => array(
+            'class' => 'CLogRouter',
+            'routes' => array(
+                array(
+                    'class' => 'CFileLogRoute',
+                    'levels' => 'error, warning, trace',
+                ),
+                array(
+                    'class' => 'CFileLogRoute',
+                    'levels' => 'info, error, warning, trace',
+                    'categories' => 'bugitor',
+                    'logFile' => 'bugitor.log',
+                ),
+            ),
+        ),
     ),
     // application-level parameters that can be accessed
     // using Yii::app()->params['paramName']
