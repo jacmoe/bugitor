@@ -117,7 +117,8 @@ class Issue extends CActiveRecord {
         $message->setBody(array('isAssigned' => $isAssigned, 'issue'=>$issue, 'comment' => $comment), 'text/html');
         $message->setSender(array('ticket@tracker.ogitor.org' => 'Bugitor Issue Tracker'));
         $message->setFrom(array('ticket@tracker.ogitor.org' => 'Bugitor Issue Tracker'));
-        $message->addTo($issue->assignedTo->email);
+        $assigned_to = User::model()->findByPk($this->assigned_to);
+        $message->addTo($assigned_to->email);
         if(Yii::app()->mail->send($message) > 0){
             Yii::log('Email sent succesfully', CLogger::LEVEL_INFO, 'bugitor');
         }
@@ -304,6 +305,7 @@ class Issue extends CActiveRecord {
             'pre_done_ratio' => 'Done Ratio on close',
             'status' => 'Status',
             'closed' => 'Closed',
+            'last_comment' => 'Last Comment',
         );
     }
 
@@ -496,7 +498,7 @@ class Issue extends CActiveRecord {
             } else {
                 $old = '';
             }
-            if (($value != $old)&&($name != 'updated_by')&&($name != 'description'))
+            if (($value != $old)&&($name != 'updated_by')&&($name != 'description')&&($name != 'last_comment'))
             {
                 $changed = true;
                 $detail = new CommentDetail();

@@ -49,6 +49,15 @@ class Bugitor {
         }
     }
 
+    public static function format_username_id($id) {
+        $user = User::model()->findByPk($id);
+        if(false) {
+            return ucfirst($user->username);
+        } else {
+            return ucwords($user->profile->getAttribute('firstname') . ' ' . $user->profile->getAttribute('lastname'));
+        }
+    }
+
     public static function truncate($text, $length, $ending = '...', $exact = true) {
         if (strlen($text) <= $length) {
             return $text;
