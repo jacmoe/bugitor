@@ -71,12 +71,12 @@ Issue #<?php echo $issue->id ?> has been updated by <?php echo Bugitor::format_u
 <hr />
 <h1><?php echo Bugitor::link_to_issue($issue, true)?></h1>
 <ul>
-    <li>Author: <?php echo Bugitor::format_username($issue->assignedTo); ?></li>
-    <li>Status: <?php echo $issue->getStatusLabel($issue->status); ?></li>
-    <li>Priority: <?php echo $issue->issuePriority->name; ?></li>
-    <li>Owner: <?php echo Bugitor::format_username($issue->user); ?></li>
-    <li>Category: <?php echo $issue->issueCategory->name; ?></li>
-    <li>Version: <?php echo $issue->version->name; ?></li>
+    <li>Author: <?php echo Bugitor::format_username($issue->user); ?></li>
+    <li>Status: <?php echo (isset($issue->status)) ? $issue->getStatusLabel($issue->status) : ''; ?></li>
+    <li>Priority: <?php echo (isset($issue->issuePriority)) ? $issue->issuePriority->name : ''; ?></li>
+    <li>Owner: <?php echo (isset($issue->assignedTo)) ? Bugitor::format_username($issue->assignedTo) : ''; ?></li>
+    <li>Category: <?php echo (isset($issue->issueCategory)) ? $issue->issueCategory->name : ''; ?></li>
+    <li>Version: <?php echo (isset($issue->version)) ? $issue->version->name : ''; ?></li>
     <li>Project: <?php echo $issue->project->name; ?></li>
 </ul>
 <?php echo Yii::app()->textile->textilize($comment->content, false); ?>
