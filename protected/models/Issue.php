@@ -529,7 +529,8 @@ class Issue extends CActiveRecord {
             $message->view = 'issuechange';
             $message->setSubject(Bugitor::issue_subject($issue));
             $message->setBody(array('issue'=>$issue, 'comment' => $comment), 'text/html');
-            $message->from = 'ticket@tracker.ogitor.org';
+            $message->setSender(array('ticket@tracker.ogitor.org' => 'Bugitor Issue Tracker'));
+            $message->setFrom(array('ticket@tracker.ogitor.org' => 'Bugitor Issue Tracker'));
             foreach($emails as $email)
                 $message->addTo($email);
             Yii::app()->mail->send($message);
