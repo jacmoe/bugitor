@@ -108,7 +108,7 @@ class Issue extends CActiveRecord {
         $message = new YiiMailMessage;
         $message->view = 'issueassigned';
         $message->setSubject(Bugitor::issue_subject($issue));
-        $comment = Comment::model()->with('user')->findByPk((int) Yii::app()->db->getLastInsertID('comment'));
+        $comment = Comment::model()->with('author')->findByPk((int) Yii::app()->db->getLastInsertID('comment'));
         $message->setBody(array('isAssigned' => $isAssigned, 'issue'=>$issue, 'comment' => $comment), 'text/html');
         $message->from = array('ticket@tracker.ogitor.org' => 'Bugitor Issue Tracker');
         $message->addTo($issue->assignedTo->email);
