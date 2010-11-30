@@ -529,7 +529,7 @@ class Issue extends CActiveRecord {
             $message->view = 'issuechange';
             $message->setSubject(Bugitor::issue_subject($issue));
             $message->setBody(array('issue'=>$issue, 'comment' => $comment), 'text/html');
-            $message->from = 'ticket@tracker.ogitor.org';
+            $message->from = array('ticket@tracker.ogitor.org' => 'Bugitor Issue Tracker');
             foreach($emails as $email){
                 $message->addTo($email);
                 Yii::log('Email : ' . $email, CLogger::LEVEL_INFO, 'bugitor');
