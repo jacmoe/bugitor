@@ -116,11 +116,13 @@ class Issue extends CActiveRecord {
             Yii::log('Email sent succesfully', CLogger::LEVEL_INFO, 'bugitor');
         }
         if($isAssigned) {
-        $watcher = new Watcher();
-        $watcher->issue_id = $issue->id;
-        $watcher->user_id = Yii::app()->user->id;
-        if($watcher->validate())
-            $watcher->save(false);
+            if(!$this->watching($issue->assignedTo)) {
+                $watcher = new Watcher();
+                $watcher->issue_id = $issue->id;
+                $watcher->user_id = Yii::app()->user->id;
+                if($watcher->validate())
+                    $watcher->save(false);
+            }
         } else {
             Watcher::model()->deleteAllByAttributes(array('user_id' => Yii::app()->user->id, 'issue_id' => $issue->id));
         }
