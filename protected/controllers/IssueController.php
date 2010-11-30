@@ -242,6 +242,7 @@ class IssueController extends Controller {
 
                     $model->save(false);
 
+                    Yii::log('Sending notifications..', CLogger::LEVEL_INFO, 'bugitor');
                     $model->sendNotifications($model->id, $comment);
 
                     if($has_details) {
