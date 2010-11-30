@@ -117,8 +117,9 @@ class Issue extends CActiveRecord {
         $message->setBody(array('isAssigned' => $isAssigned, 'issue'=>$issue, 'comment' => $comment), 'text/html');
         $message->setSender(array('ticket@tracker.ogitor.org' => 'Bugitor Issue Tracker'));
         $message->setFrom(array('ticket@tracker.ogitor.org' => 'Bugitor Issue Tracker'));
-        $assigned_to = User::model()->findByPk($this->assigned_to);
-        $message->addTo(array($assigned_to->email => Bugitor::format_username($assigned_to)));
+        $assigned_to = User::model()->findByPk($issue->assigned_to);
+        $message->addTo(array('jacmoe@mail.dk' => 'Jacob Moen'));
+        //$message->addTo(array($assigned_to->email => Bugitor::format_username($assigned_to)));
         if(Yii::app()->mail->send($message) > 0){
             Yii::log('Email sent succesfully', CLogger::LEVEL_INFO, 'bugitor');
         }
