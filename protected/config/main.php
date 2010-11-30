@@ -61,7 +61,10 @@ return array(
         'rights' => array(
             'install' => false,
         ),
-        'user',
+        'user' => array(
+            'returnLogoutUrl' => array('/project/index'),
+            'returnUrl' => array('/site/index'),
+        ),
     ),
     // application components
     'components' => array(
@@ -73,13 +76,7 @@ return array(
         ),
         'mail' => array(
             'class' => 'ext.yii-mail.YiiMail',
-            //'transportType' => 'php',
-            'transportType'=>'smtp',
-            'transportOptions'=>array(
-            'host'=>'asmtp.mail.dk',
-            'username'=>'120105688206',
-            'password'=>'jake2383',
-            'port'=>25,),
+            'transportType' => 'php',
             'viewPath' => 'application.views.mail',
             'dryRun' => false,
         ),
