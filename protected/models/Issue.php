@@ -104,11 +104,27 @@ class Issue extends CActiveRecord {
     }
 
     public function sendAssignedNotice($isAssigned = true, $reopen = false) {
-        if($isAssigned) {
-            Yii::app()->user->setFlash('success',"Sending Assignment notice!");
-        } else {
-            Yii::app()->user->setFlash('notice',"Sending Unassignment notice!");
+        $issue = $this;
+        $message = new YiiMailMessage;
+        $message->view = 'issueassigned';
+        $message->setSubject(Bugitor::issue_subject($issue));
+        $comment = Comment::model()->findByPk((int) Yii::app()->db->getLastInsertID('comments'));
+        $message->setBody(array('isAssigned' => $isAssigned, 'issue'=>$issue, 'comment' => $comment), 'text/html');
+        $message->from = array('ticket@tracker.ogitor.org' => 'Bugitor Issue Tracker');
+        $message->addTo($issue->assignedTo->email);
+        if(Yii::app()->mail->send($message) > 0){
+            Yii::log('Email sent succesfully', CLogger::LEVEL_INFO, 'bugitor');
         }
+        if($isAssigned) {
+        $watcher = new Watcher();
+        $watcher->issue_id = $issue->id;
+        $watcher->user_id = Yii::app()->user->id;
+        if($watcher->validate())
+            $watcher->save(false);
+        } else {
+            Watcher::model()->deleteAllByAttributes(array('user_id' => Yii::app()->user->id, 'issue_id' => $issue->id));
+        }
+
         if($reopen) {
             $this->closed = 0;
             $this->done_ratio = $this->pre_done_ratio;
