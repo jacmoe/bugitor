@@ -79,6 +79,7 @@ return array(
             'transportType' => 'php',
             'viewPath' => 'application.views.mail',
             'dryRun' => false,
+            'logging' => true,
         ),
         'textile' => array(
             'class' => 'application.components.textile.Textilizer',
