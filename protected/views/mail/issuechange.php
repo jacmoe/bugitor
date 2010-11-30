@@ -60,7 +60,7 @@ hr {
 ?>
 <?php //$this->widget('ext.yii-mail.YiiMailDebug'); ?>
 <div class="wiki">
-Issue #<?php echo $issue->id ?> has been updated by <?php echo Bugitor::format_username($comment->author); ?>
+Issue #<?php echo $issue->id ?> has been updated by <?php echo Bugitor::format_username_id($comment->update_user_id); ?>
 <?php if($comment->details) : ?>
 <ul>
 <?php foreach($comment->details as $detail): ?>
