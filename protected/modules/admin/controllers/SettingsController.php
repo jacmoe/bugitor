@@ -39,17 +39,14 @@ class SettingsController extends Controller {
     /**
      * @return array action filters
      */
-//    public function filters() {
-//        return array(
-//            'rights', // perform access control for CRUD operations
-//        );
-//    }
+    public function filters() {
+        return array(
+            'rights', // perform access control for CRUD operations
+        );
+    }
 
     public function actionUpdate() {
-        $model = new ConfigForm;
-        $model->pagesize = Yii::app()->config->get('defaultPagesize');
-        $model->hg_executable = Yii::app()->config->get('hg_executable');
-        $model->python_path = Yii::app()->config->get('python_path');
+        $model = $this->loadModel();
 
         if(isset($_POST['ConfigForm']))
         {
@@ -63,15 +60,8 @@ class SettingsController extends Controller {
         ));
     }
 
-    /**
-     * Lists all models.
-     */
     public function actionIndex() {
-        $model = new ConfigForm;
-        $model->pagesize = Yii::app()->config->get('defaultPagesize');
-        $model->hg_executable = Yii::app()->config->get('hg_executable');
-        $model->python_path = Yii::app()->config->get('python_path');
-
+        $model = $this->loadModel();
         $this->render('index', array(
             'model' => $model,
         ));
@@ -82,10 +72,13 @@ class SettingsController extends Controller {
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer the ID of the model to be loaded
      */
-    public function loadModel($id) {
-        $model = Config::model()->findByPk((int) $id);
-        if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
+    public function loadModel() {
+        $model = new ConfigForm;
+        $model->pagesize = Yii::app()->config->get('defaultPagesize');
+        $model->hg_executable = Yii::app()->config->get('hg_executable');
+        $model->python_path = Yii::app()->config->get('python_path');
+        $model->default_scm = Yii::app()->config->get('default_scm');
+        $model->default_timezone = Yii::app()->config->get('default_timezone');
         return $model;
     }
 

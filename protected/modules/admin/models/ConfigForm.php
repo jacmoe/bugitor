@@ -43,6 +43,8 @@ class ConfigForm extends CFormModel
 	public $pagesize;
         public $hg_executable;
         public $python_path;
+        public $default_scm;
+        public $default_timezone;
 
 	/**
 	 * Declares the validation rules.
@@ -50,7 +52,7 @@ class ConfigForm extends CFormModel
 	public function rules()
 	{
 		return array(
-			array('pagesize, hg_executable, python_path', 'required'),
+			array('pagesize, hg_executable, python_path, default_scm, default_timezone', 'required'),
 		);
 	}
 
@@ -61,16 +63,20 @@ class ConfigForm extends CFormModel
 	 */
 	public function attributeLabels()
 	{
-		return array(
-			'pagesize'=>'Page Size',
-                        'hg_exectutable' => 'Path to hg exectuable',
-                        'python_path' => 'Python path environment variable',
-		);
+            return array(
+                'pagesize'=>'Page Size',
+                'hg_exectutable' => 'Path to hg exectuable',
+                'python_path' => 'Python path environment variable',
+                'default_scm' => 'Default Source Control Provider',
+                'default_timezone' => 'Default Timezone',
+            );
 	}
         public function save() {
             Yii::app()->config->set('hg_executable', $this->hg_executable);
             Yii::app()->config->set('defaultPagesize', $this->pagesize);
             Yii::app()->config->set('python_path', $this->python_path);
+            Yii::app()->config->set('default_timezone', $this->default_timezone);
+            Yii::app()->config->set('default_scm', $this->default_scm);
             return true;
         }
 }

@@ -68,7 +68,12 @@ $app = Yii::createWebApplication($config);
 //$allowed_scm = array('hg' => 'SCMHg',);
 //Yii::app()->config->set('allowed_scm', $allowed_scm);
 
+//Yii::app()->config->set('default_scm', 'hg');
 
+//Yii::app()->config->set('default_timezone', 'UTC');
+
+// we need to set this to UTC, regardless of default timezone 
+// which is only for display. UTC is what timestamps etc. are using.
 Yii::app()->setTimeZone("UTC");
 
 if(!Yii::app()->user->getState('pid'))

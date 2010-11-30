@@ -34,8 +34,46 @@
 <?php
 ?>
 <h3>Settings</h3>
-Pagesize: <?php echo $model->pagesize; ?><br/>
-Hg executable: <?php echo $model->hg_executable; ?><br/>
-Python path: <?php echo $model->python_path; ?><br/>
-<br/>
+<div class="splitcontentleft">
+<table class="dataGrid">
+<tr>
+<th class="label">
+<?php echo CHtml::encode($model->getAttributeLabel('pagesize')); ?>
+</th>
+<td><?php echo CHtml::encode($model->pagesize); ?>
+</td>
+</tr>
+<tr>
+<th class="label">
+<?php echo CHtml::encode($model->getAttributeLabel('hg_executable')); ?>
+</th>
+<td><?php echo CHtml::encode($model->hg_executable); ?>
+</td>
+</tr>
+<tr>
+<th class="label">
+<?php echo CHtml::encode($model->getAttributeLabel('python_path')); ?>
+</th>
+<td><?php echo CHtml::encode($model->python_path); ?>
+</td>
+</tr>
+<tr>
+<th class="label">
+<?php echo CHtml::encode($model->getAttributeLabel('default_scm')); ?>
+</th>
+<td><?php echo CHtml::encode($model->default_scm); ?>
+</td>
+</tr>
+<tr>
+<th class="label">
+<?php echo CHtml::encode($model->getAttributeLabel('default_timezone')); ?>
+</th>
+<td><?php echo CHtml::encode($model->default_timezone); ?>
+</td>
+</tr>
+</table>
 <?php echo CHtml::link('Change Settings', array('update')); ?>
+<br/>
+<br/>
+</div>
+<div class="splitcontentright"></div>

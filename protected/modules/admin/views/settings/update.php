@@ -48,9 +48,19 @@
 		<?php echo $form->error($model,'hg_executable'); ?>
 	</div>
         <div class="row">
+		<?php echo $form->labelEx($model,'default_scm'); ?>
+		<?php echo $form->textField($model,'default_scm',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'default_scm'); ?>
+	</div>
+        <div class="row">
 		<?php echo $form->labelEx($model,'python_path'); ?>
 		<?php echo $form->textField($model,'python_path',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'python_path'); ?>
+	</div>
+        <div class="row">
+		<?php echo $form->labelEx($model,'default_timezone'); ?>
+		<?php echo $form->textField($model,'default_timezone',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'default_timezone'); ?>
 	</div>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Update'); ?>
