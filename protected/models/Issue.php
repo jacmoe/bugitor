@@ -110,7 +110,7 @@ class Issue extends CActiveRecord {
         $message->view = 'issueassigned';
         $message->setSubject(Bugitor::issue_subject($issue));
         if($issue->last_comment) {
-            $comment = Comment::model()->with('author')->findByPk($issue->last_comment);
+            $comment = Comment::model()->findByPk($issue->last_comment);
         } else {
             $comment = array();
         }
