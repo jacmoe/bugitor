@@ -124,12 +124,12 @@ class Issue extends CActiveRecord {
             if(!$this->watching($issue->assignedTo)) {
                 $watcher = new Watcher();
                 $watcher->issue_id = $issue->id;
-                $watcher->user_id = Yii::app()->user->id;
+                $watcher->user_id = $issue->assigned_to;
                 if($watcher->validate())
                     $watcher->save(false);
             }
         } else {
-            Watcher::model()->deleteAllByAttributes(array('user_id' => Yii::app()->user->id, 'issue_id' => $issue->id));
+            Watcher::model()->deleteAllByAttributes(array('user_id' => $issue->assigned_to, 'issue_id' => $issue->id));
         }
 
         if($reopen) {
