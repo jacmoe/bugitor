@@ -54,6 +54,7 @@
  * @property integer $pre_done_ratio
  * @property string $status
  * @property integer $closed
+ * @property integer $last_comment
  *
  * The followings are the available model relations:
  * @property User $assignedTo
@@ -108,7 +109,11 @@ class Issue extends CActiveRecord {
         $message = new YiiMailMessage;
         $message->view = 'issueassigned';
         $message->setSubject(Bugitor::issue_subject($issue));
-        $comment = Comment::model()->with('author')->findByPk((int) Yii::app()->db->getLastInsertID('comment'));
+        if($issue->last_comment) {
+            $comment = Comment::model()->with('author')->findByPk($issue->last_comment);
+        } else {
+            $comment = array();
+        }
         $message->setBody(array('isAssigned' => $isAssigned, 'issue'=>$issue, 'comment' => $comment), 'text/html');
         $message->from = array('ticket@tracker.ogitor.org' => 'Bugitor Issue Tracker');
         $message->addTo($issue->assignedTo->email);
@@ -244,10 +249,10 @@ class Issue extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('subject, description, user_id, status, issue_priority_id, tracker_id', 'required'),
-            array('tracker_id, project_id, issue_category_id, user_id, issue_priority_id, version_id, assigned_to, updated_by, done_ratio, pre_done_ratio, closed', 'numerical', 'integerOnly' => true),
+            array('tracker_id, project_id, last_comment, issue_category_id, user_id, issue_priority_id, version_id, assigned_to, updated_by, done_ratio, pre_done_ratio, closed', 'numerical', 'integerOnly' => true),
             array('subject', 'length', 'max' => 255),
             array('status', 'SWValidator'),
-            array('created, modified, updated_by', 'safe'),
+            array('created, modified, updated_by, last_comment', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, tracker_id, project_id, subject, description, issue_category_id, user_id, issue_priority_id, version_id, assigned_to, created, modified, done_ratio, pre_done_ratio, status, closed', 'safe', 'on' => 'search'),

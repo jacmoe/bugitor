@@ -231,11 +231,13 @@ class IssueController extends Controller {
                         $comment->issue_id = $model->id;
                         $comment->create_user_id = Yii::app()->user->id;
                         $comment->update_user_id = Yii::app()->user->id;
+                        $model->last_comment = null;
                     }
 
                     if($comment->validate()) {
                         $comment->save(false);
                         $model->updated_by = $comment->create_user_id;
+                        $model->last_comment = $comment->id;
                     }
 
                     $has_details = $model->buildCommentDetails($comment->id);
