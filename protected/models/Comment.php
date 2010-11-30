@@ -46,7 +46,7 @@
  * @property integer $update_user_id
  *
  * The followings are the available model relations:
- * @property User $createUser
+ * @property Users $createUser
  * @property Issue $issue
  * @property CommentDetail $details
  */
