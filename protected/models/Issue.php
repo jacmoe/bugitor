@@ -103,16 +103,9 @@ class Issue extends CActiveRecord {
         return '{{issue}}';
     }
 
-    public function sendAssignedNotice($isAssigned = true, $reopen = false) {
-        if($isAssigned) {
-            Yii::app()->user->setFlash('success',"Sending Assignment notice!");
-        } else {
-            Yii::app()->user->setFlash('notice',"Sending Unassignment notice!");
-        }
-        if($reopen) {
-            $this->closed = 0;
-            $this->done_ratio = $this->pre_done_ratio;
-        }
+    public function reopen() {
+        $this->closed = 0;
+        $this->done_ratio = $this->pre_done_ratio;
     }
     
     public function markAsClosed($rejected = false) {
@@ -188,15 +181,12 @@ class Issue extends CActiveRecord {
     protected function beforeValidate() {
         if(($this->assigned_to) && ($this->status === 'swIssue/new')) {
             $this->status = 'swIssue/assigned';
-            $this->sendAssignedNotice();
         }
         if(($this->assigned_to) && ($this->status === 'swIssue/unassigned')) {
             $this->status = 'swIssue/assigned';
-            $this->sendAssignedNotice();
         }
         if((!$this->assigned_to) && ($this->status === 'swIssue/assigned')) {
             $this->status = 'swIssue/unassigned';
-            $this->sendAssignedNotice(false);
         }
         return parent::beforeValidate();
     }

@@ -5,7 +5,7 @@ return array(
             array('id' => 'new',
                 'label' => 'New',
                 'transition' => array(
-                    'assigned' => '$this->sendAssignedNotice(true)',
+                    'assigned',
                     'resolved' => '$this->markAsClosed()',
                     'rejected' => '$this->markAsClosed(true)',
                 )
@@ -13,21 +13,21 @@ return array(
             array('id' => 'resolved',
                 'label' => 'Resolved',
                 'transition' => array(
-                    'assigned' => '$this->sendAssignedNotice(true, true)',
+                    'assigned' => '$this->reOpen()',
                     'rejected',
                 )
             ),
             array('id' => 'rejected',
                 'label' => 'Rejected',
                 'transition' => array(
-                    'assigned' => '$this->sendAssignedNotice(true, true)',
+                    'assigned' => '$this->reOpen()',
                     'resolved',
                 )
             ),
             array('id' => 'assigned',
                 'label' => 'Assigned',
                 'transition' => array(
-                    'unassigned' => '$this->sendAssignedNotice(false)',
+                    'unassigned',
                     'resolved' => '$this->markAsClosed()',
                     'rejected' => '$this->markAsClosed(true)',
                 )
@@ -35,7 +35,7 @@ return array(
             array('id' => 'unassigned',
                 'label' => 'Unassigned',
                 'transition' => array(
-                    'assigned' => '$this->sendAssignedNotice(true)',
+                    'assigned',
                     'resolved' => '$this->markAsClosed()',
                     'rejected' => '$this->markAsClosed(true)',
                 )

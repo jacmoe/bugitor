@@ -7,3 +7,4 @@ glob:assets/
 glob:repositories/*
 glob:nbproject/*
 glob:protected/extensions/yii-mail/doc/*
+glob:blog/*
