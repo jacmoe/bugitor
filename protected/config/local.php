@@ -48,11 +48,11 @@ return CMap::mergeArray(
         // application components
         'components' => array(
             'db' => array(
-                'connectionString' => 'mysql:host=localhost;dbname=ogitorbugs',
+                'connectionString' => 'mysql:host=127.0.0.1;dbname=ogitorbugs',
                 'emulatePrepare' => true,
-                'username' => 'superadmin',
+                'username' => 'root',
                 'tablePrefix' => 'bug_',
-                'password' => 'jake2383',
+                'password' => '',
                 'charset' => 'utf8',
             ),
             'mail' => array(
