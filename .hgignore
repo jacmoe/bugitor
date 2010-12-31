@@ -9,3 +9,5 @@ glob:nbproject/*
 glob:protected/extensions/yii-mail/doc/*
 glob:blog/*
 glob:themetest/*
+glob:xampp/*
+glob:.directory
