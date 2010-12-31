@@ -183,7 +183,7 @@ class Time {
 	* @param array $options Default format if timestamp is used in $dateString
 	* @return string Relative time string.
 	*/
-	function timeAgoInWords($dateTime, $options = array()) {
+	public static function timeAgoInWords($dateTime, $options = array()) {
 		$now = time();
 
 		$inSeconds = self::makeUnix($dateTime);// - Yii::app()->config->get('serverOffset');
@@ -343,7 +343,7 @@ class Time {
         // version 0.1 / 2002-10-3
         //
         // please send comments and feedback to webmaster@lotekk.net
-        function dueDateInWords($dateTime) {
+        public static function dueDateInWords($dateTime) {
             // get the base date here (today)
             $base_day		= date ("j");
             $base_mon		= date ("n");
