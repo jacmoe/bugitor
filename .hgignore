@@ -11,3 +11,6 @@ glob:blog/*
 glob:themetest/*
 glob:xampp/*
 glob:.directory
+glob:.buildpath
+glob:.project
+glob:.settings/org.eclipse.php.core.prefs

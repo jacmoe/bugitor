@@ -59,7 +59,7 @@ return CMap::mergeArray(
                 'class' => 'ext.yii-mail.YiiMail',
                 'transportType' => 'php',
                 'viewPath' => 'application.views.mail',
-                'dryRun' => true,
+                'dryRun' => false,
             ),
             'log' => array(
                 'class' => 'CLogRouter',

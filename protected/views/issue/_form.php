@@ -106,7 +106,7 @@
                 <?php endif; ?>
                 <div class="row buttons">
                     <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-                    <?php echo CHtml::Button('Cancel', array('submit' => CHttpRequest::getUrlReferrer())); ?>
+                    <?php echo CHtml::Button('Cancel', array('submit' => Yii::app()->request->getUrlReferrer())); ?>
                 </div>
             </div><!-- content left //-->
             <div class="halfsplitcontentright">
