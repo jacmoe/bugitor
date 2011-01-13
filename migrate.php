@@ -514,58 +514,79 @@ function get_value_propkey($key, $value) {
 }
 
 // commentdetails
-$to_insert = array();
+//$to_insert = array();
+//
+//try{
+//            $dbh=new PDO('mysql:host=127.0.0.1;dbname=tracker','root','');
+//            $query = $dbh->query('SELECT * FROM journals');
+//            foreach($query as $row){
+//                        $details_query = $dbh->prepare('SELECT journal_details.id, journal_id, property, prop_key, old_value, value FROM journal_details WHERE journal_id = :journal_id');
+//                        $details_query->execute(array(':journal_id' => $row['id']));
+//                        $results = $details_query->fetchAll();
+//                        foreach($results as $result) {
+//                            $change = '';
+//                            if($result['property'] === 'attr') {
+//                                if($result['old_value']) {
+//                                    if($result['value']){
+//                                        $change = '<b>'. get_prop_name($result['prop_key']) . '</b> changed from <i>' . get_value_propkey($result['prop_key'], $result['old_value']) . '</i> to <i>' . get_value_propkey($result['prop_key'], $result['value']) . '</i>';
+//                                    } else {
+//                                        $change =  '<b>'. get_prop_name($result['prop_key']) . '</b> deleted. (<s><i>' . get_value_propkey($result['prop_key'], $result['old_value']) . '</i></s>)';
+//                                    }
+//                                } else {
+//                                    $change =  '<b>'. get_prop_name($result['prop_key']) . '</b> set to <i>' . get_value_propkey($result['prop_key'], $result['value']) . '</i>';
+//                                }
+//                                $insert['id'] = $result['id'];
+//                                $insert['comment_id'] = $result['journal_id'];
+//                                $insert['change'] = $change;
+//                                $to_insert[] = $insert;
+//                            }
+//                        }
+//            }
+//}
+//catch(PDOException $e){
+//            echo 'Error : '.$e->getMessage();
+//            exit();
+//}
+//
+//try{
+//    $dbh3=new PDO('mysql:host=127.0.0.1;dbname=ogitorbugs','root','');
+//    $new_queryy = $dbh3->prepare('INSERT INTO bug_comment_detail (
+//        comment_id, `change`
+//        ) VALUES (? , ?)');
+//
+//    foreach($to_insert as $result)
+//    {
+//        echo 'inserting : ' . $result['id'] . ' , ' . $result['comment_id'] . ' , ' . $result['change'] . '<br/>';
+//        if($new_queryy->execute(array($result['comment_id'], $result['change'])))
+//        {
+//            echo 'fine<br/>';
+//        }else{
+//            echo 'what the fuck?<br/>';
+//        }
+//    }
+//}
+//catch(PDOException $e){
+//            echo 'Error : '.$e->getMessage();
+//            exit();
+//}
 
-try{
-            $dbh=new PDO('mysql:host=127.0.0.1;dbname=tracker','root','');
-            $query = $dbh->query('SELECT * FROM journals');
-            foreach($query as $row){
-                        $details_query = $dbh->prepare('SELECT journal_details.id, journal_id, property, prop_key, old_value, value FROM journal_details WHERE journal_id = :journal_id');
-                        $details_query->execute(array(':journal_id' => $row['id']));
-                        $results = $details_query->fetchAll();
-                        foreach($results as $result) {
-                            $change = '';
-                            if($result['property'] === 'attr') {
-                                if($result['old_value']) {
-                                    if($result['value']){
-                                        $change = '<b>'. get_prop_name($result['prop_key']) . '</b> changed from <i>' . get_value_propkey($result['prop_key'], $result['old_value']) . '</i> to <i>' . get_value_propkey($result['prop_key'], $result['value']) . '</i>';
-                                    } else {
-                                        $change =  '<b>'. get_prop_name($result['prop_key']) . '</b> deleted. (<s><i>' . get_value_propkey($result['prop_key'], $result['old_value']) . '</i></s>)';
-                                    }
-                                } else {
-                                    $change =  '<b>'. get_prop_name($result['prop_key']) . '</b> set to <i>' . get_value_propkey($result['prop_key'], $result['value']) . '</i>';
-                                }
-                                $insert['id'] = $result['id'];
-                                $insert['comment_id'] = $result['journal_id'];
-                                $insert['change'] = $change;
-                                $to_insert[] = $insert;
-                            }
-                        }
-            }
-}
-catch(PDOException $e){
-            echo 'Error : '.$e->getMessage();
-            exit();
-}
-
-try{
-    $dbh3=new PDO('mysql:host=127.0.0.1;dbname=ogitorbugs','root','');
-    $new_queryy = $dbh3->prepare('INSERT INTO bug_comment_detail (
-        comment_id, `change`
-        ) VALUES (? , ?)');
-
-    foreach($to_insert as $result)
-    {
-        echo 'inserting : ' . $result['id'] . ' , ' . $result['comment_id'] . ' , ' . $result['change'] . '<br/>';
-        if($new_queryy->execute(array($result['comment_id'], $result['change'])))
-        {
-            echo 'fine<br/>';
-        }else{
-            echo 'what the fuck?<br/>';
-        }
-    }
-}
-catch(PDOException $e){
-            echo 'Error : '.$e->getMessage();
-            exit();
-}
+// watchers
+//try{
+//            $dbh=new PDO('mysql:host=127.0.0.1;dbname=tracker','root','');
+//            $dbh2=new PDO('mysql:host=127.0.0.1;dbname=ogitorbugs','root','');
+//            $new_query = $dbh2->prepare('INSERT INTO bug_watcher (
+//                issue_id, user_id) VALUES (?, ?)');
+//            $query = $dbh->query('SELECT * FROM watchers');
+//            foreach($query as $row){
+//                        echo ' Issue ID: '.$row['issue_id']
+//                        .' User ID: '.$row['user_id']
+//                        .'<br />';
+//                $new_query->execute(array($row['issue_id'],
+//                        $row['user_id'],
+//                        ));
+//            }
+//}
+//catch(PDOException $e){
+//            echo 'Error : '.$e->getMessage();
+//            exit();
+//}
