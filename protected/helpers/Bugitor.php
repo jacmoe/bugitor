@@ -34,7 +34,7 @@
 <?php
 class Bugitor {
     public static function link_to_user($user) {
-        if(false) {
+        if(true) {
             return CHtml::link(ucfirst($user->username),array('/user/user/view', "id" => $user->id));
         } else {
             return CHtml::link(ucwords($user->profile->getAttribute('firstname') . ' ' . $user->profile->getAttribute('lastname')),array('/user/user/view', "id" => $user->id));
