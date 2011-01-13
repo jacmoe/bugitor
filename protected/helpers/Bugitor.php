@@ -42,7 +42,7 @@ class Bugitor {
     }
 
     public static function format_username($user) {
-        if(false) {
+        if(true) {
             return ucfirst($user->username);
         } else {
             return ucwords($user->profile->getAttribute('firstname') . ' ' . $user->profile->getAttribute('lastname'));
