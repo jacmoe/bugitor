@@ -115,9 +115,13 @@ class ProjectController extends Controller {
         $criteria2->condition = 'project_id = :project_id';
         $criteria2->params = array('project_id' => $project->id);
         $criteria2->order = 'id DESC';
+        if(ActionLog::model()->find($criteria2)) {
         $pages = new CPagination(ActionLog::model()->find()->count($criteria2));
         $pages->pageSize = 40;
         $pages->applyLimit($criteria2);
+        } else {
+            $pages = null;
+        }
 
         $this->render('activity', array(
             'model' => $project,
