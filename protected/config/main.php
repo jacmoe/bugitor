@@ -164,7 +164,7 @@ return array(
                 ),
         ),
         'db' => array(
-            'connectionString' => 'mysql:host=mysql.ogitor.org;dbname=ogitorbugs',
+            'connectionString' => 'mysql:host=mysql.ogitor.org;dbname=ogitorwp',
             'emulatePrepare' => true,
             'username' => 'ogitordbadmin',
             'tablePrefix' => 'bug_',
