@@ -36,5 +36,5 @@ $this->pageTitle = $model->name . ' - Roadmap - ' . Yii::app()->name;
 ?>
 <h3 class="roadmap">Roadmap</h3>
 <div id="roadmap">
-<?php $this->widget('Roadmap', array('versions' => $model->versions, 'identifier' => $model->identifier)) ?>
+<?php $this->widget('Roadmap', array('versions' => $model->versions, 'identifier' => $model->identifier, 'detail_view' => true)) ?>
 </div>

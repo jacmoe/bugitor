@@ -41,6 +41,7 @@ class Roadmap extends CWidget {
 
     public $versions;
     public $identifier;
+    public $detail_view = false;
 
     public function getVersions() {
         return $this->versions;
@@ -48,6 +49,10 @@ class Roadmap extends CWidget {
 
     public function getIdentifier() {
         return $this->identifier;
+    }
+
+    public function getDetailview() {
+        return $this->detail_view;
     }
 
     public function run() {

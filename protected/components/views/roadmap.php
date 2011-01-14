@@ -33,6 +33,7 @@
 ?>
 <?php $versions = $this->getVersions(); ?>
 <?php $identifier = $this->getIdentifier(); ?>
+<?php $show_detail = $this->getDetailview(); ?>
 <?php foreach($versions as $version) : ?>
 <?php $show_version = $completed = false;
 if ((strtotime($version->effective_date) > strtotime(date("Y-m-d"))) && ($version->issueCountOpen > 0)) {
@@ -57,7 +58,8 @@ if ((strtotime($version->effective_date) > strtotime(date("Y-m-d"))) && ($versio
 <?php $closed_percent = (($version->issueCountResolved / $num_actual_issues)*100); ?>
 <?php $done_ratio = ((($version->issueCountDone / 100) * $version->issueCountOpen) / $num_actual_issues) * 100; ?>
 <?php $open_ratio = $open_percent - $done_ratio; ?>
-<?php echo Bugitor::big_progress_bar(array($closed_percent, $done_ratio, $open_ratio), array('width' => '500px', 'legend' => number_format($closed_percent + $done_ratio) . '%')); ?><br/>
+<?php if($show_detail) : ?>
+    <?php echo Bugitor::big_progress_bar(array($closed_percent, $done_ratio, $open_ratio), array('width' => '500px', 'legend' => number_format($closed_percent + $done_ratio) . '%')); ?><br/>
 <p class="big_progress-info quiet">
 <?php if($version->issueCountResolved > 0) : ?>
 <?php echo CHtml::link($version->issueCountResolved. ' ' . Yii::t('Bugitor','closed'),
@@ -87,18 +89,23 @@ if ((strtotime($version->effective_date) > strtotime(date("Y-m-d"))) && ($versio
 <?php else : ?>
  0 rejected
 <?php endif; ?>
-</p>
-<?php echo Yii::app()->textile->textilize($version->description); ?>
-<fieldset class="related-issues">
-    <legend><?php echo 'Related issues'; ?></legend>
-    <ul>
-        <?php foreach($version->issues as $issue) : ?>
-            <li>
-                <?php echo Bugitor::short_link_to_issue($issue) ?>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-</fieldset>
+    </p>
+<?php else : ?>
+    <?php echo Bugitor::progress_bar(array($closed_percent, $done_ratio, $open_ratio), array('width' => '250px', 'legend' => number_format($closed_percent + $done_ratio) . '%')); ?><br/>
+<?php endif; ?>
+<?php if($show_detail) : ?>
+    <?php echo Yii::app()->textile->textilize($version->description); ?>
+    <fieldset class="related-issues">
+        <legend><?php echo 'Related issues'; ?></legend>
+        <ul>
+            <?php foreach($version->issues as $issue) : ?>
+                <li>
+                    <?php echo Bugitor::short_link_to_issue($issue) ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </fieldset>
+<?php endif; ?>
 <?php else : ?>
 <p class="nodata"><?php echo 'No issues for this version'; ?></p>
 <?php endif; // is issues ?>
