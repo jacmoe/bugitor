@@ -40,7 +40,7 @@
 class ProjectActivity extends CWidget {
 
     private $_activities = null;
-    public $displayLimit = 0;
+    public $displayLimit = 10;
     public $projectId = null;
 
     public function init() {

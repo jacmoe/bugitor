@@ -37,8 +37,8 @@
 <ul>
 <?php foreach($projects as $project): ?>
 <li>
-<?php echo CHtml::link(CHtml::encode($project->project->name),
-array('project/view', 'identifier' => $project->project->identifier)); ?>
+<?php echo CHtml::link(CHtml::encode($project->name),
+array('project/view', 'identifier' => $project->identifier)); ?>
 </li>
 <?php endforeach; ?>
 </ul>
