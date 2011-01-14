@@ -580,6 +580,11 @@ h3.activity {
     padding-left:20px;
 }
 
+div.roadmap h3{
+    background:url("../images/package.png") no-repeat scroll 0 50% transparent;
+    padding-left:20px;
+}
+
 h3.roadmap {
     background:url("../images/package.png") no-repeat scroll 0 50% transparent;
     padding-left:20px;

@@ -41,7 +41,7 @@ $this->pageTitle = $model->name . ' - Overview - ' . Yii::app()->name;
 </div>
 <div class="roadmap box">
 <h3>Roadmap</h3>
-Current version
+<?php $this->widget('Roadmap', array('versions' => $model->versions, 'identifier' => $model->identifier)) ?>
 </div>
 <div class="members box">
 <h3>Members</h3>
