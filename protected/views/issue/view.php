@@ -31,6 +31,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
+<?php if(null !== $model) : ?>
 <?php
 $this->pageTitle = $model->project->name . ' - ' . $model->tracker->name . ' #' . $model->id . ': ' . $model->subject . ' - ' . Yii::app()->name ;
 ?>
@@ -127,3 +128,6 @@ Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Time::tim
 <?php $this->renderPartial('_comments',array('comments'=>$model->comments,)); ?>
 <?php endif; ?>
 </div>
+<?php else : ?>
+No such issue.
+<?php endif; ?>
