@@ -247,5 +247,6 @@ function hg() {
     return $actions;
   }
 
-  print_r(parseCommitMessage('this is a commit which references #44 and closes #33, see #22 and #21, #56, #57, #58 and #59. Fixes #100. See #112'));
-
+  //print_r(parseCommitMessage('this is a commit which references #44 and closes #33, see #22 and #21, #56, #57, #58 and #59. Fixes #100. See #112'));
+?>
+<a href="http://<?php echo $_SERVER['HTTP_HOST'] ?>/user/profile">http://<?php echo $_SERVER['HTTP_HOST'] ?>/user/profile</a>

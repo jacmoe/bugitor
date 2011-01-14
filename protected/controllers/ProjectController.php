@@ -117,7 +117,7 @@ class ProjectController extends Controller {
         $criteria2->order = 'id DESC';
         if(ActionLog::model()->find($criteria2)) {
         $pages = new CPagination(ActionLog::model()->find()->count($criteria2));
-        $pages->pageSize = 40;
+        $pages->pageSize = 10;
         $pages->applyLimit($criteria2);
         } else {
             $pages = null;
@@ -133,6 +133,7 @@ class ProjectController extends Controller {
 
         //$this->layout = '//layouts/column2';
 
+        //FIXME: possible sql injection ..
         $project = Project::model()->with(
                 array('versions' => array('with' => array('issues')))
                 )->find('identifier=?', array($_GET['identifier']));
