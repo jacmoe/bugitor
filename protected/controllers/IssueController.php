@@ -90,6 +90,7 @@ class IssueController extends Controller {
                                     $comment->save(false);
 
                                 $issue->buildCommentDetails($comment->id);
+                                $issue->addToActionLog($issue->id, Yii::app()->user->id, 'change', $this->createUrl('issue/view', array('id' => $issue->id, 'identifier' => $issue->project->identifier, '#' => 'note-'.$issue->commentCount)), $comment);
 
                                 $issue->save(false);
                             }
@@ -107,6 +108,7 @@ class IssueController extends Controller {
                                     $comment->save(false);
 
                                 $issue->buildCommentDetails($comment->id);
+                                $issue->addToActionLog($issue->id, Yii::app()->user->id, 'change', $this->createUrl('issue/view', array('id' => $issue->id, 'identifier' => $issue->project->identifier, '#' => 'note-'.$issue->commentCount)), $comment);
 
                                 $issue->save(false);
                             }
@@ -118,12 +120,13 @@ class IssueController extends Controller {
                             if($issue->validate()) {
                                 $comment = new Comment();
                                 $comment->issue_id = $issue->id;
-                                $comment->content = '_(Mass Edit) No comments for this change_</small></div>';
+                                $comment->content = '_(Mass Edit) No comments for this change_';
                                 $comment->create_user_id = Yii::app()->user->id;
                                 if($comment->validate())
                                     $comment->save(false);
 
                                 $issue->buildCommentDetails($comment->id);
+                                $issue->addToActionLog($issue->id, Yii::app()->user->id, 'change', $this->createUrl('issue/view', array('id' => $issue->id, 'identifier' => $issue->project->identifier, '#' => 'note-'.$issue->commentCount)), $comment);
 
                                 $issue->save(false);
                             }
