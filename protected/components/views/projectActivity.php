@@ -32,7 +32,11 @@
  */
 ?>
 <?php $activities = $this->getActivities(); ?>
-<?php //CA_Debug::output_yii_models($activities) ?>
+<?php $pages = $this->getPages(); ?>
+<?php if(null !== $pages) : ?>
+<div class="small" style="float:right;"><?php $this->widget('CustomLinkPager',array('pages'=>$pages)); ?></div>
+<hr/>
+<?php endif; ?>
 <div id="activity" class="quiet">
     <?php foreach ($activities as $activity): ?>
     <dl>
@@ -40,8 +44,14 @@
             <?php echo Bugitor::gravatar($activity->author->email, 16, $activity->author->username); ?>
             <span class="time"><?php echo Time::timeAgoInWords($activity->when); ?></span>
             <?php echo CHtml::link($activity->subject, $activity->url) ?>
+            <?php echo $activity->theday; ?>
         </dt>
         <dd><span class="description"><?php echo Bugitor::format_activity_description(CHtml::encode($activity->description)); ?></span></dd>
     </dl>
     <?php endforeach; ?>
 </div>
+<?php if(null !== $pages) : ?>
+<hr/>
+<div class="small" style="float:right;"><?php $this->widget('CustomLinkPager',array('pages'=>$pages)); ?></div>
+<?php endif; ?>
+

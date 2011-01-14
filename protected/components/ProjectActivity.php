@@ -42,19 +42,33 @@ class ProjectActivity extends CWidget {
     private $_activities = null;
     public $displayLimit = 0;
     public $projectId = null;
+    private $_pages = null;
 
     public function init() {
         $criteria2 = new CDbCriteria;
+        $criteria2->select = array('id', 'type', 'author_id', 't.when', 'url', 'project_id', 'subject', 'description', 'DATE(t.when) as theday');
         $criteria2->condition = 'project_id = :project_id';
+        $criteria2->together = true;
         $criteria2->params = array('project_id' => $this->projectId);
-        $criteria2->order = 'id DESC';
-        if($this->displayLimit > 0)
+        $criteria2->order = 'theday DESC, t.when DESC';
+        $criteria2->group = 'theday, t.when';
+        if($this->displayLimit > 0) {
             $criteria2->limit = $this->displayLimit;
+        } else {
+            //die(ActionLog::model()->find()->count($criteria2));
+            $this->_pages = new CPagination(ActionLog::model()->find()->count($criteria2));
+            $this->_pages->pageSize = 25;
+            $this->_pages->applyLimit($criteria2);
+        }
         $this->_activities = ActionLog::model()->findAll($criteria2);
     }
 
     public function getActivities() {
         return $this->_activities;
+    }
+
+    public function getPages() {
+        return $this->_pages;
     }
 
     public function run() {

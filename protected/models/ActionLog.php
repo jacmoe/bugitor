@@ -19,7 +19,9 @@
  */
 class ActionLog extends CActiveRecord
 {
-	/**
+	public $theday;
+
+        /**
 	 * Returns the static model of the specified AR class.
 	 * @return ActionLog the static model class
 	 */

@@ -35,6 +35,4 @@
 $this->pageTitle = $model->name . ' - Activity - ' . Yii::app()->name;
 ?>
 <h3 class="activity">Activity</h3>
-<div class="small" style="float:right;"><?php $this->widget('CustomLinkPager',array('pages'=>$pages)); ?></div>
 <?php $this->widget('ProjectActivity', array('projectId' => $model->id)); ?>
-<div class="small" style="float:right;"><?php $this->widget('CustomLinkPager',array('pages'=>$pages)); ?></div>
