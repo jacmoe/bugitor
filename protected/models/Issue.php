@@ -389,7 +389,7 @@ class Issue extends CActiveRecord {
                 $actionLog->author_id = $user_id;
                 $actionLog->project_id = $issue->project_id;
                 $actionLog->description = $issue->description;
-                $actionLog->subject = $issue->tracker->name.'#'.$issue->id.' (New): '.$issue->subject;
+                $actionLog->subject = $issue->tracker->name.' #'.$issue->id.' (New): '.$issue->subject;
                 $actionLog->type = 'issue-new';
                 $actionLog->when = $issue->created;
                 $actionLog->url = $url;
@@ -401,7 +401,7 @@ class Issue extends CActiveRecord {
                 $actionLog->author_id = $user_id;
                 $actionLog->project_id = $issue->project_id;
                 $actionLog->description = $comment->content;
-                $actionLog->subject = $issue->tracker->name.'#'.$issue->id.' : '.$issue->subject;
+                $actionLog->subject = $issue->tracker->name.' #'.$issue->id.' : '.$issue->subject;
                 $actionLog->type = 'issue-note';
                 $actionLog->when = $comment->created;
                 $actionLog->url = $url;
@@ -413,7 +413,7 @@ class Issue extends CActiveRecord {
                 $actionLog->author_id = $user_id;
                 $actionLog->project_id = $issue->project_id;
                 $actionLog->description = $comment->content;
-                $actionLog->subject = $issue->tracker->name.'#'.$issue->id.' : '.$issue->subject;
+                $actionLog->subject = $issue->tracker->name.' #'.$issue->id.' : '.$issue->subject;
                 $actionLog->type = 'issue-change';
                 $actionLog->when = $comment->created;
                 $actionLog->url = $url;
@@ -425,7 +425,7 @@ class Issue extends CActiveRecord {
                 $actionLog->author_id = $user_id;
                 $actionLog->project_id = $issue->project_id;
                 $actionLog->description = $comment->content;
-                $actionLog->subject = $issue->tracker->name.'#'.$issue->id.' (Resolved): '.$issue->subject;
+                $actionLog->subject = $issue->tracker->name.' #'.$issue->id.' (Resolved): '.$issue->subject;
                 $actionLog->type = 'issue-resolved';
                 $actionLog->when = $comment->created;
                 $actionLog->url = $url;
@@ -437,7 +437,7 @@ class Issue extends CActiveRecord {
                 $actionLog->author_id = $user_id;
                 $actionLog->project_id = $issue->project_id;
                 $actionLog->description = $comment->content;
-                $actionLog->subject = $issue->tracker->name.'#'.$issue->id.' (Rejected): '.$issue->subject;
+                $actionLog->subject = $issue->tracker->name.' #'.$issue->id.' (Rejected): '.$issue->subject;
                 $actionLog->type = 'issue-rejected';
                 $actionLog->when = $comment->created;
                 $actionLog->url = $url;

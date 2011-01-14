@@ -226,9 +226,17 @@ project_id=:projectId AND user_id=:userId";
 
     public static function myProjects($user_id) {
         $criteria = new CDbCriteria();
+        $criteria->distinct = true;
         $criteria->compare('user_id', $user_id, true);
-        $projects = Member::model()->with(array('project'))->findAll($criteria);
-        return $projects;
+        $members = Member::model()->findAll($criteria);
+        $project_list = array();
+        foreach ($members as $member) {
+            $project_list[] = $member->project_id;
+        }
+        $criteria2 = new CDbCriteria;
+        $criteria2->addInCondition('id', $project_list);
+        $results =  Project::model()->findAll($criteria2);
+        return $results;
     }
 
     public static function getNonMembersList() {

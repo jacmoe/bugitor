@@ -85,6 +85,7 @@ class IssueController extends Controller {
                                 $comment = new Comment();
                                 $comment->issue_id = $issue->id;
                                 $comment->content = '_(Mass Edit) No comments for this change_';
+                                $comment->create_user_id = Yii::app()->user->id;
                                 if($comment->validate())
                                     $comment->save(false);
 
@@ -101,6 +102,7 @@ class IssueController extends Controller {
                                 $comment = new Comment();
                                 $comment->issue_id = $issue->id;
                                 $comment->content = '_(Mass Edit) No comments for this change_';
+                                $comment->create_user_id = Yii::app()->user->id;
                                 if($comment->validate())
                                     $comment->save(false);
 
@@ -117,6 +119,7 @@ class IssueController extends Controller {
                                 $comment = new Comment();
                                 $comment->issue_id = $issue->id;
                                 $comment->content = '_(Mass Edit) No comments for this change_</small></div>';
+                                $comment->create_user_id = Yii::app()->user->id;
                                 if($comment->validate())
                                     $comment->save(false);
 
