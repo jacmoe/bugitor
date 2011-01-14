@@ -71,10 +71,10 @@ Issue #<?php echo $issue->id ?> has been updated by <?php echo Bugitor::format_u
 <hr />
 <h1><?php echo Bugitor::link_to_issue($issue, true)?></h1>
 <ul>
-    <li>Author: <?php echo Bugitor::format_username($issue->assignedTo); ?></li>
+    <li>Author: <?php echo Bugitor::format_username($issue->user); ?></li>
     <li>Status: <?php echo $issue->getStatusLabel($issue->status); ?></li>
     <li>Priority: <?php echo $issue->issuePriority->name; ?></li>
-    <li>Owner: <?php echo Bugitor::format_username($issue->user); ?></li>
+    <li>Owner: <?php echo Bugitor::format_username($issue->assignedTo); ?></li>
     <li>Category: <?php echo $issue->issueCategory->name; ?></li>
     <li>Version: <?php echo $issue->version->name; ?></li>
     <li>Project: <?php echo $issue->project->name; ?></li>
@@ -87,8 +87,7 @@ Issue #<?php echo $issue->id ?> has been updated by <?php echo Bugitor::format_u
 <h3>Bugitor Issue Tracker</h3>
 <span class="footer">You have received this notification because you have either subscribed to it, or are involved in it.<br />
 To change your notification preferences, please click here:
-<a href="http://files.ogitor.org/user/profile">http://files.ogitor.org/user/profile</a>
-    <?php //echo CHtml::link(Yii::app()->request->hostInfo.'/user/profile', Yii::app()->request->hostInfo.'/user/profile'); ?>
+<a href="http://<?php echo $_SERVER['HTTP_HOST'] ?>/user/profile">http://<?php echo $_SERVER['HTTP_HOST'] ?>/user/profile</a>
 </span>
 </body>
 </html>

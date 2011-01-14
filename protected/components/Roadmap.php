@@ -34,32 +34,24 @@
 <?php
 
 /**
- * ProjectMembers is a Yii widget used to display a list of project
-  members
+ * WatchedIssues is a Yii widget used to display a list of assigned
+  issues for current user
  */
-class ProjectActivity extends CWidget {
+class Roadmap extends CWidget {
 
-    private $_activities = null;
-    public $displayLimit = 0;
-    public $projectId = null;
+    public $versions;
+    public $identifier;
 
-    public function init() {
-        $criteria2 = new CDbCriteria;
-        $criteria2->condition = 'project_id = :project_id';
-        $criteria2->params = array('project_id' => $this->projectId);
-        $criteria2->order = 'id DESC';
-        if($this->displayLimit > 0)
-            $criteria2->limit = $this->displayLimit;
-        $this->_activities = ActionLog::model()->findAll($criteria2);
+    public function getVersions() {
+        return $this->versions;
     }
 
-    public function getActivities() {
-        return $this->_activities;
+    public function getIdentifier() {
+        return $this->identifier;
     }
 
     public function run() {
-// this method is called by CController::endWidget()
-        $this->render('projectActivity');
+        $this->render('roadmap');
     }
 
 }
