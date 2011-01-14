@@ -34,16 +34,6 @@
 <?php
     $this->pageTitle = $model->project->name . ' - Version ' . $model->name . ' - ' . Yii::app()->name;
 ?>
-<h3 class="roadmap">View Version #<?php echo $model->id; ?></h3>
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'project_id',
-		'name',
-		'description',
-		'effective_date',
-		'created',
-		'modified',
-	),
-)); ?>
+<h3 class="roadmap">View Version <i>"<?php echo $model->name; ?>"</i></h3>
+<?php $versions[] = $model; ?>
+<?php $this->widget('Roadmap', array('versions' => $versions, 'identifier' => $model->project->identifier, 'detail_view' => true)) ?>
