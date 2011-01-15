@@ -147,6 +147,20 @@ class Bugitor {
         return $out;
     }
 
+    public static function small_progress_bar($pcts, $options=array()) {
+        if(!is_array($pcts)) $pcts = array($pcts, $pcts);
+        $width = empty($options['width']) ? '100px;' : $options['width'];
+        $legend = empty($options['legend']) ? '' : $options['legend'];
+        $out = '<table class="progress" style="width: '.$width.';"><tbody>';
+        $out .= '<tr>';
+        $out .= ($pcts[0] > 0) ? '<td style="width: '.$pcts[0].'%;" class="closed" />' : '';
+        $out .= ($pcts[1] > 0) ? '<td style="width: '.$pcts[1].'%;" class="done" />' : '';
+        $out .= ($pcts[2] > 0) ? '<td style="width: '.$pcts[2].'%;" class="todo" />' : '';
+        $out .= '</tr></tbody></table>';
+        $out .= '<p class="pourcent">'.$legend.'</p>';
+        return $out;
+    }
+
     public static function gravatar($email, $size = 48, $name = '') {
         $grav_url = "http://www.gravatar.com/avatar.php?gravatar_id=" .
             md5($email) . "&size=" . $size;

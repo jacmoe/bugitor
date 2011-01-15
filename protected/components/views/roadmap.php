@@ -91,7 +91,7 @@ if ((strtotime($version->effective_date) > strtotime(date("Y-m-d"))) && ($versio
 <?php endif; ?>
     </p>
 <?php else : ?>
-    <?php echo Bugitor::progress_bar(array($closed_percent, $done_ratio, $open_ratio), array('width' => '250px', 'legend' => number_format($closed_percent + $done_ratio) . '%')); ?><br/>
+    <?php echo Bugitor::small_progress_bar(array($closed_percent, $done_ratio, $open_ratio), array('width' => '250px', 'legend' => number_format($closed_percent + $done_ratio) . '%')); ?><br/>
 <?php endif; ?>
 <?php if($show_detail) : ?>
     <?php echo Yii::app()->textile->textilize($version->description); ?>
