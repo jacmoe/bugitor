@@ -37,7 +37,7 @@
 <ul>
 <?php foreach($owned_issues as $owned): ?>
 <li>
-<?php echo Bugitor::short_link_to_issue($owned) ?>
+<?php echo '(' . $owned->project->name . ') : ' . Bugitor::short_link_to_issue($owned) ?>
 </li>
 <?php endforeach; ?>
 </ul>

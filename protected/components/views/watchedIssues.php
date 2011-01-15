@@ -37,7 +37,7 @@
 <ul>
 <?php foreach($watched_issues as $watched): ?>
 <li>
-<?php echo Bugitor::short_link_to_issue($watched->issue) ?>
+<?php echo '(' . $watched->issue->project->name . ') : ' . Bugitor::short_link_to_issue($watched->issue) ?>
 </li>
 <?php endforeach; ?>
 </ul>
