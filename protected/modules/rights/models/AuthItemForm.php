@@ -59,7 +59,7 @@ class AuthItemForm extends CFormModel
 	*/
 	public function newNameIsAvailable($attribute, $params)
 	{
-		if( strtolower($_GET['name'])!==strtolower($this->name) )
+		if( strtolower(urldecode($_GET['name']))!==strtolower($this->name) )
 			$this->nameIsAvailable($attribute, $params);
 	}
 

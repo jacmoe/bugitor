@@ -8,24 +8,24 @@
  *
  * Each array element represents the translation (value) of a message (key).
  * If the value is empty, the message is considered as not translated.
- * Messages that no longer need translation will have their translations
- * enclosed between a pair of '@@' marks.
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  *
  * @version $Id: $
  */
 return array (
-  'Congratulations!' => '',
-  'Install Rights' => '',
-  'Installation failed.' => '',
-  'No' => '',
-  'Notice: All your existing data will be lost.' => '',
-  'Please confirm if you wish to reinstall.' => '',
-  'Rights has been installed succesfully.' => '',
-  'Rights is already installed!' => '',
-  'Yes' => '',
-  'You can start by generating your authorization items' => '',
-  'You must be logged in to install Rights.' => '',
-  'here' => '',
+  'Application authorization manager must extend the RightsAuthManager class.' => '',
+  'Application web user must extend the RightsWebUser class.' => '',
+  'Congratulations!' => 'Félicitation!',
+  'Install Rights' => 'Installer Rights',
+  'Installation failed.' => 'L\'installation a échoué',
+  'No' => 'Non',
+  'Notice: All your existing data will be lost.' => 'Note: Toutes vos données existantes seront effacées',
+  'Please confirm if you wish to reinstall.' => 'Veuillez confirmer que souhaitez re-installer',
+  'Rights has been installed succesfully.' => 'Rights a été installé avec succès',
+  'Rights is already installed!' => 'Rights est déjà installé',
+  'Yes' => 'Oui',
+  'You can start by generating your authorization items' => 'Vous pouvez commencer à générer vos éléments d\'autorisation',
+  'You must be logged in to install Rights.' => 'Vous devez être connecté pour installer Rights',
+  'here' => 'ici',
 );

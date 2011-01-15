@@ -6,14 +6,27 @@
 * @copyright Copyright &copy; 2010 Christoffer Niska
 * @since 0.9.3
 */
-class RightsInstaller extends CApplicationComponent
+class RInstaller extends CApplicationComponent
 {
+	/**
+	* @property array the roles assigned to users implicitly.
+	*/
+	public $defaultRoles;
+	/**
+	* @property string the name of the superuser role.
+	*/
+	public $superuserName;
+	/**
+	* @property string the name of the authenticated role.
+	*/
+	public $authenticatedName;
+	/**
+	* @property string the name of the guest role.
+	*/
+	public $guestName;
+
 	private $_authManager;
-	private $_defaultRoles;
-	private $_superuserName;
-	private $_authenticatedName;
-	private $_guestName;
-	private $_isInstalled;
+	private $_installed;
 
 	/**
 	* @property CDbConnection
@@ -22,12 +35,26 @@ class RightsInstaller extends CApplicationComponent
 
 	/**
 	* Initializes the installer.
+	* @throws CException if the authorization manager or the web user
+	* is not configured to use the correct class.
 	*/
 	public function init()
 	{
 		parent::init();
 
-		$this->_authManager = Yii::app()->getAuthManager();
+		// Make sure the application is configured
+		// to use a valid authorization manager.
+		$authManager = Yii::app()->getAuthManager();
+		if( ($authManager instanceof RDbAuthManager)===false )
+			throw new CException(Rights::t('install', 'Application authorization manager must extend the RDbAuthManager class.'));
+
+		// Make sure the application is configured
+		// to use a valid web user.
+		$user = Yii::app()->getUser();
+		if( ($user instanceof RWebUser)===false )
+			throw new CException(Rights::t('install', 'Application web user must extend the RWebUser class.'));
+
+		$this->_authManager = $authManager;
 		$this->db = $this->_authManager->db;
 	}
 
@@ -40,12 +67,12 @@ class RightsInstaller extends CApplicationComponent
 	{
 		// Run the installer only if the module is not already installed
 		// or if we wish to overwrite the existing tables.
-		if( $this->isInstalled===false || $overwrite===true )
+		if( $this->installed===false || $overwrite===true )
 		{
 			$itemTable = $this->_authManager->itemTable;
 			$itemChildTable = $this->_authManager->itemChildTable;
-			$itemWeightTable = $this->_authManager->itemWeightTable;
 			$assignmentTable = $this->_authManager->assignmentTable;
+			$rightsTable = $this->_authManager->rightsTable;
 
 			// Start transaction
 			$txn = $this->db->beginTransaction();
@@ -56,7 +83,7 @@ class RightsInstaller extends CApplicationComponent
 				if( $overwrite===true )
 					$this->dropTables();
 
-				// Create the AuthItem-table
+				// Create the AuthItem-table.
 				$sql = "CREATE TABLE {$itemTable} (
 					name varchar(64) not null,
 					type integer not null,
@@ -68,7 +95,7 @@ class RightsInstaller extends CApplicationComponent
 				$command = $this->db->createCommand($sql);
 				$command->execute();
 
-				// Create the AuthChild-table
+				// Create the AuthChild-table.
 				$sql = "CREATE TABLE {$itemChildTable} (
 					parent varchar(64) not null,
 					child varchar(64) not null,
@@ -79,18 +106,7 @@ class RightsInstaller extends CApplicationComponent
 				$command = $this->db->createCommand($sql);
 				$command->execute();
 
-				// Create the AuthItemWeight-table
-				$sql = "CREATE TABLE {$itemWeightTable} (
-					itemname varchar(64) not null,
-					type integer not null,
-					weight integer,
-					primary key (itemname),
-					foreign key (itemname) references {$itemTable} (name) on delete cascade on update cascade
-					) type=InnoDB";
-				$command = $this->db->createCommand($sql);
-				$command->execute();
-
-				// Create the AuthAssignment-table
+				// Create the AuthAssignment-table.
 				$sql = "CREATE TABLE {$assignmentTable} (
 					itemname varchar(64) not null,
 					userid varchar(64) not null,
@@ -102,7 +118,18 @@ class RightsInstaller extends CApplicationComponent
 				$command = $this->db->createCommand($sql);
 				$command->execute();
 
-				// Insert the necessary roles
+				// Create the Rights-table.
+				$sql = "CREATE TABLE {$rightsTable} (
+					itemname varchar(64) not null,
+					type integer not null,
+					weight integer,
+					primary key (itemname),
+					foreign key (itemname) references {$itemTable} (name) on delete cascade on update cascade
+					) type=InnoDB";
+				$command = $this->db->createCommand($sql);
+				$command->execute();
+
+				// Insert the necessary roles.
 				$roles = $this->getUniqueRoles();
 				foreach( $roles as $roleName )
 				{
@@ -115,22 +142,22 @@ class RightsInstaller extends CApplicationComponent
 					$command->execute();
 				}
 
-				// Assign the logged in user the superusers role
+				// Assign the logged in user the superusers role.
 				$sql = "INSERT INTO {$assignmentTable} (itemname, userid, data)
 					VALUES (:itemname, :userid, :data)";
 				$command = $this->db->createCommand($sql);
-				$command->bindValue(':itemname', $this->_superuserName);
+				$command->bindValue(':itemname', $this->superuserName);
 				$command->bindValue(':userid', Yii::app()->getUser()->id);
 				$command->bindValue(':data', 'N;');
 				$command->execute();
 
-				// All commands executed successfully, commit
+				// All commands executed successfully, commit.
 				$txn->commit();
 				return true;
 			}
 			catch( CDbException $e )
 			{
-				// Something went wrong, rollback
+				// Something went wrong, rollback.
 				$txn->rollback();
 				return false;
 			}
@@ -142,11 +169,11 @@ class RightsInstaller extends CApplicationComponent
 	*/
 	private function dropTables()
 	{
-		$sql = "DROP TABLE IF EXISTS {$this->_authManager->assignmentTable}";
+		$sql = "DROP TABLE IF EXISTS {$this->_authManager->rightsTable}";
 		$command = $this->db->createCommand($sql);
 		$command->execute();
 
-		$sql = "DROP TABLE IF EXISTS {$this->_authManager->itemWeightTable}";
+		$sql = "DROP TABLE IF EXISTS {$this->_authManager->assignmentTable}";
 		$command = $this->db->createCommand($sql);
 		$command->execute();
 
@@ -165,17 +192,21 @@ class RightsInstaller extends CApplicationComponent
 	*/
 	private function getUniqueRoles()
 	{
-		$roles = array($this->_superuserName, $this->_authenticatedName, $this->_guestName);
-		$roles = array_merge($roles, $this->_defaultRoles);
+		$roles = array($this->superuserName, $this->authenticatedName, $this->guestName);
+		$roles = array_merge($roles, $this->defaultRoles);
 		return array_unique($roles);
 	}
 
 	/**
 	* @return boolean whether Rights is installed.
 	*/
-	public function getIsInstalled()
+	public function getInstalled()
 	{
-		if( $this->_isInstalled===null )
+		if( $this->_installed!==null )
+		{
+			return $this->_installed;
+		}
+		else
 		{
 			try
 			{
@@ -187,54 +218,22 @@ class RightsInstaller extends CApplicationComponent
 				$command = $this->db->createCommand($sql);
 				$command->queryScalar();
 
-				$sql = "SELECT COUNT(*) FROM {$this->_authManager->itemWeightTable}";
-				$command = $this->db->createCommand($sql);
-				$command->queryScalar();
-
 				$sql = "SELECT COUNT(*) FROM {$this->_authManager->assignmentTable}";
 				$command = $this->db->createCommand($sql);
 				$command->queryScalar();
 
-				$this->_isInstalled = true;
+				$sql = "SELECT COUNT(*) FROM {$this->_authManager->rightsTable}";
+				$command = $this->db->createCommand($sql);
+				$command->queryScalar();
+
+				$installed = true;
 			}
 			catch( CDbException $e )
 			{
-				$this->_isInstalled = false;
+				$installed = false;
 			}
+
+			return $this->_installed = $installed;
 		}
-
-		return $this->_isInstalled;
-	}
-
-	/**
-	* @param string the name of the superuser role.
-	*/
-	public function setSuperuserName($value)
-	{
-		$this->_superuserName = $value;
-	}
-
-	/**
-	* @param string the name of the authenticated role.
-	*/
-	public function setAuthenticatedName($value)
-	{
-		$this->_authenticatedName = $value;
-	}
-
-	/**
-	* @param string the name of the guest role.
-	*/
-	public function setGuestName($value)
-	{
-		$this->_guestName = $value;
-	}
-
-	/**
-	* @param array the default roles.
-	*/
-	public function setDefaultRoles($value)
-	{
-		$this->_defaultRoles = $value;
 	}
 }

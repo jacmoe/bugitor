@@ -1,21 +1,17 @@
 <?php $this->breadcrumbs = array(
 	'Rights'=>Rights::getBaseUrl(),
-	Rights::getAuthItemTypeNamePlural($model->type)=>array(Rights::getAuthItemRoute($model->type)),
+	Rights::getAuthItemTypeNamePlural($model->type)=>Rights::getAuthItemRoute($model->type),
 	$model->name,
 ); ?>
 
 <div id="updatedAuthItem">
 
-	<h2><?php echo Rights::t('core', 'Update :name (:type)', array(
+	<h2><?php echo Rights::t('core', 'Update :name', array(
 		':name'=>$model->name,
 		':type'=>Rights::getAuthItemTypeName($model->type),
 	)); ?></h2>
 
-	<div class="form span-12 first">
-
-		<?php echo $form->render(); ?>
-
-	</div>
+	<?php $this->renderPartial('_form', array('model'=>$formModel)); ?>
 
 	<div class="relations span-11 last">
 
@@ -51,7 +47,7 @@
     					array(
     						'header'=>'&nbsp;',
     						'type'=>'raw',
-    						'htmlOptions'=>array('class'=>'empty-column'),
+    						'htmlOptions'=>array('class'=>'actions-column'),
     						'value'=>'',
     					),
 					)
@@ -85,10 +81,9 @@
     						'value'=>'$data->getTypeText()',
     					),
     					array(
-    						'name'=>'remove',
     						'header'=>'&nbsp;',
     						'type'=>'raw',
-    						'htmlOptions'=>array('class'=>'remove-column'),
+    						'htmlOptions'=>array('class'=>'actions-column'),
     						'value'=>'$data->getRemoveChildLink()',
     					),
 					)
@@ -100,13 +95,12 @@
 
 				<h5><?php echo Rights::t('core', 'Add Child'); ?></h5>
 
-				<?php if( $childForm!==null ): ?>
+				<?php if( $childFormModel!==null ): ?>
 
-					<div class="form">
-
-						<?php echo $childForm->render(); ?>
-
-					</div>
+					<?php $this->renderPartial('_childForm', array(
+						'model'=>$childFormModel,
+						'itemnameSelectOptions'=>$childSelectOptions,
+					)); ?>
 
 				<?php else: ?>
 

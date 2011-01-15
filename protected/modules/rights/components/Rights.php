@@ -70,6 +70,19 @@ class Rights
 		$module = self::module();
 		return Yii::app()->createUrl($module->baseUrl);
 	}
+	
+	/**
+	* Returns the list of authorization item types.
+	* @return array the list of types.
+	*/
+	public static function getAuthItemOptions()
+	{
+		return array(
+			CAuthItem::TYPE_OPERATION=>Rights::t('core', 'Operation'),
+			CAuthItem::TYPE_TASK=>Rights::t('core', 'Task'),
+			CAuthItem::TYPE_ROLE=>Rights::t('core', 'Role'),
+		);
+	}
 
 	/**
 	* Returns the name of a specific authorization item.
@@ -78,13 +91,11 @@ class Rights
 	*/
 	public static function getAuthItemTypeName($type)
 	{
-		switch( (int)$type )
-		{
-			case CAuthItem::TYPE_OPERATION: return Rights::t('core', 'Operation');
-			case CAuthItem::TYPE_TASK: return Rights::t('core', 'Task');
-			case CAuthItem::TYPE_ROLE: return Rights::t('core', 'Role');
-			default: throw new CException(Rights::t('core', 'Invalid authorization item type.'));
-		}
+		$options = self::getAuthItemOptions();
+		if( isset($options[ $type ])===true )
+			return $options[ $type ];
+		else
+			throw new CException(Rights::t('core', 'Invalid authorization item type.'));
 	}
 
 	/**
@@ -112,9 +123,9 @@ class Rights
 	{
 		switch( (int)$type )
 		{
-			case CAuthItem::TYPE_OPERATION: return 'authItem/operations';
-			case CAuthItem::TYPE_TASK: return 'authItem/tasks';
-			case CAuthItem::TYPE_ROLE: return 'authItem/roles';
+			case CAuthItem::TYPE_OPERATION: return array('authItem/operations');
+			case CAuthItem::TYPE_TASK: return array('authItem/tasks');
+			case CAuthItem::TYPE_ROLE: return array('authItem/roles');
 			default: throw new CException(Rights::t('core', 'Invalid authorization item type.'));
 		}
 	}
@@ -140,13 +151,98 @@ class Rights
 	}
 
 	/**
+	* Returns the authorization item select options.
+	* @param mixed the item type (0: operation, 1: task, 2: role). Defaults to null,
+	* meaning returning all items regardless of their type.
+	* @param array the items to be excluded.
+	* @return array the select options.
+	*/
+	public static function getAuthItemSelectOptions($type=null, $exclude=array())
+	{
+		$authorizer = self::getAuthorizer();
+		$items = $authorizer->getAuthItems($type, null, null, true, $exclude);
+		return self::generateAuthItemSelectOptions($items, $type);
+	}
+
+	/**
+	* Returns the valid authorization item select options for a model.
+	* @param mixed the item type (0: operation, 1: task, 2: role). Defaults to null,
+	* meaning returning all items regardless of their type.
+	* @param CAuthItem the item for which to get the select options.
+	* @param array the items to be excluded.
+	* @return array the select options.
+	*/
+	public static function getParentAuthItemSelectOptions(CAuthItem $parent, $type=null, $exclude=array())
+	{
+		$authorizer = self::getAuthorizer();
+		$items = $authorizer->getAuthItems($type, null, $parent, true, $exclude);
+		return self::generateAuthItemSelectOptions($items, $type);
+	}
+
+	/**
+	* Generates the authorization item select options.
+	* @param array the authorization items.
+	* @param mixed the item type (0: operation, 1: task, 2: role).
+	* @return array the select options.
+	*/
+	protected static function generateAuthItemSelectOptions($items, $type)
+	{
+		$selectOptions = array();
+
+		// We have multiple types, nest the items under their types
+       	if( $type!==(int)$type )
+       	{
+       		foreach( $items as $itemName=>$item )
+				$selectOptions[ self::getAuthItemTypeNamePlural($item->type) ][ $itemName ] = $item->getNameText();
+		}
+		// We have only one type
+		else
+		{
+			foreach( $items as $itemName=>$item )
+        		$selectOptions[ $itemName ] = $item->getNameText();
+		}
+
+		return $selectOptions;
+	}
+	
+	/**
+	* Returns the cross-site request forgery parameter 
+	* to be placed in the data of Ajax-requests.
+	* An empty string is returned if csrf-validation is disabled.
+	* @return string the csrf parameter.
+	*/
+	public static function getDataCsrf()
+	{
+		return ($csrf = self::getCsrfParam())!==null ? ', '.$csrf : '';
+	}
+
+	/**
+	* Returns the cross-site request forgery parameter for Ajax-requests.
+	* Null is returned if csrf-validation is disabled.
+	* @return string the csrf parameter.
+	*/
+	public static function getCsrfParam()
+	{
+		if( Yii::app()->request->enableCsrfValidation===true )
+		{
+	        $csrfTokenName = Yii::app()->request->csrfTokenName;
+	        $csrfToken = Yii::app()->request->csrfToken;
+	        return "'$csrfTokenName':'$csrfToken'";
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	/**
 	* @return string a string that can be displayed on your Web page
 	* showing Powered-by-Rights information.
 	*/
 	public static function powered()
 	{
 		$module = self::module();
-		return 'Access Control by <a href="http://code.google.com/p/yii-rights/" rel="external">Rights</a> version '.$module->getVersion().'.';
+		return 'Secured with <a href="http://www.yiiframework.com/extension/rights" rel="external">Rights</a> version '.$module->getVersion().'.';
 	}
 
 	/**
@@ -184,7 +280,7 @@ class Rights
 	}
 
 	/**
-	* @return RightsAuthorizer the authorizer component.
+	* @return RAuthorizer the authorizer component.
 	*/
 	public static function getAuthorizer()
 	{

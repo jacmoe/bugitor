@@ -1,11 +1,11 @@
 <?php $this->breadcrumbs = array(
 	'Rights'=>Rights::getBaseUrl(),
-	Rights::t('core', 'Generator'),
+	Rights::t('core', 'Generate items'),
 ); ?>
 
 <div id="generator">
 
-	<h2><?php echo Rights::t('core', 'Generator'); ?></h2>
+	<h2><?php echo Rights::t('core', 'Generate items'); ?></h2>
 
 	<p><?php echo Rights::t('core', 'Please select which items you wish to generate.'); ?></p>
 

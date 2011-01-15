@@ -14,6 +14,8 @@
  * @version $Id: $
  */
 return array (
+  'Application authorization manager must extend the RightsAuthManager class.' => '',
+  'Application web user must extend the RightsWebUser class.' => '',
   'Congratulations!' => '',
   'Install Rights' => '',
   'Installation failed.' => '',

@@ -36,26 +36,13 @@ create table AuthAssignment
 ) type=InnoDB, character set utf8;
 
 /**
-* Queries to insert necessary roles and assignments for the Rights module.
-* If you wish to use a different super user name than 'Admin' change it before running these queries.
-* If you wish to assign the super user role to any other user do so.
-*
-* @author Christoffer Niska
-* @copyright Copyright &copy; 2008 Christoffer Niska
-* @since 0.5
+* Schema required by Rights.
+* Stores Rights specific data about authorization items.
+* Replaces the old AuthItemWeight-table.
+* @since 1.1.0
 */
 
-insert into AuthItem (name,type,data) values ('Admin',2,'N;');
-insert into AuthItem (name,type,data) values ('Guest',2,'N;');
-insert into AuthAssignment (itemname,userid,data) values ('Admin',1,'N;');
-
-/**
-* Schema for AuthItemWeight
-* Used for sorting of AuthItem in Rights backend.
-* @since 0.9.6
-*/
-
-create table AuthItemWeight
+create table Rights
 (
 	itemname varchar(64) not null,
 	type integer not null,
@@ -66,6 +53,7 @@ create table AuthItemWeight
 
 /**
 * Schema for the User table.
+* Not necessary to create if already exists.
 * @since 0.9.6
 */
 

@@ -8,7 +8,7 @@
 */
 class AuthChildForm extends CFormModel
 {
-	public $name;
+	public $itemname;
 
 	/**
 	 * Declares the validation rules.
@@ -16,7 +16,7 @@ class AuthChildForm extends CFormModel
 	public function rules()
 	{
 		return array(
-			array('name', 'safe'),
+			array('itemname', 'safe'),
 		);
 	}
 
@@ -26,7 +26,7 @@ class AuthChildForm extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-			'name' => Rights::t('core', 'Authorization item'),
+			'itemname' => Rights::t('core', 'Authorization item'),
 		);
 	}
 }

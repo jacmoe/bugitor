@@ -6,9 +6,11 @@
 
 <div id="userAssignments">
 
+	<h2><?php echo Rights::t('core', 'Assignments for :username', array(
+		':username'=>$model->getName()
+	)); ?></h2>
+	
 	<div class="assignments span-12 first">
-
-		<h2><?php echo Rights::t('core', 'Assignments for :username', array(':username'=>$model->getName())); ?></h2>
 
 		<?php $this->widget('zii.widgets.grid.CGridView', array(
 			'dataProvider'=>$dataProvider,
@@ -32,10 +34,9 @@
     				'value'=>'$data->getTypeText()',
     			),
     			array(
-    				'name'=>'revoke',
     				'header'=>'&nbsp;',
     				'type'=>'raw',
-    				'htmlOptions'=>array('class'=>'revoke-column'),
+    				'htmlOptions'=>array('class'=>'actions-column'),
     				'value'=>'$data->getRevokeAssignmentLink()',
     			),
 			)
@@ -43,15 +44,18 @@
 
 	</div>
 
-	<div class="add-user-assignment span-11 last">
+	<div class="add-assignment span-11 last">
 
 		<h3><?php echo Rights::t('core', 'Assign item'); ?></h3>
 
-		<?php if( $form!==null ): ?>
+		<?php if( $formModel!==null ): ?>
 
 			<div class="form">
 
-				<?php echo $form->render(); ?>
+				<?php $this->renderPartial('_form', array(
+					'model'=>$formModel,
+					'itemnameSelectOptions'=>$assignSelectOptions,
+				)); ?>
 
 			</div>
 

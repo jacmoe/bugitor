@@ -4,7 +4,20 @@
 *
 * @author Christoffer Niska <cniska@live.com>
 * @copyright Copyright &copy; 2010 Christoffer Niska
-* @version 0.9.11
+* @version 1.2.0
+* 
+* DO NOT CHANGE THE DEFAULT CONFIGURATION VALUES!
+* 
+* You may overload the module configuration values in your rights-module 
+* configuration like so:
+* 
+* 'modules'=>array(
+*     'rights'=>array(
+*         'userNameColumn'=>'name',
+*         'flashSuccessKey'=>'success',
+*         'flashErrorKey'=>'error',
+*     ),
+* ),
 */
 class RightsModule extends CWebModule
 {
@@ -16,14 +29,6 @@ class RightsModule extends CWebModule
 	* @property string the name of the guest role.
 	*/
 	public $authenticatedName = 'Authenticated';
-	/**
-	* @property string the name of the guest role.
-	*/
-	public $guestName = 'Guest';
-	/**
-	* @property array list of default roles.
-	*/
-	public $defaultRoles = null;
 	/**
 	* @property string the name of the user model class.
 	*/
@@ -45,6 +50,11 @@ class RightsModule extends CWebModule
 	*/
 	public $enableBizRuleData = false;
 	/**
+	* @property boolean whether to display authorization items description 
+	* instead of name it is set.
+	*/
+	public $displayDescription = true;
+	/**
 	* @property string the flash message key to use for success messages.
 	*/
 	public $flashSuccessKey = 'RightsSuccess';
@@ -61,15 +71,19 @@ class RightsModule extends CWebModule
 	*/
 	public $baseUrl = '/rights';
 	/**
-	* @property string that path to the layout file to use for displaying Rights.
+	* @property string the path to the layout file to use for displaying Rights.
 	*/
-	public $layout;
+	public $layout = 'rights.views.layouts.main';
+	/**
+	* @property string the path to the application layout file.
+	*/
+	public $appLayout = 'application.views.layouts.main';
 	/**
 	* @property string the style sheet file to use for Rights.
 	*/
 	public $cssFile;
 	/**
-	* @property boolean whether ot enable debug mode.
+	* @property boolean whether to enable debug mode.
 	*/
 	public $debug = false;
 
@@ -80,55 +94,45 @@ class RightsModule extends CWebModule
 	*/
 	public function init()
 	{
-		// Set required classes for import
+		// Set required classes for import.
 		$this->setImport(array(
-			'rights.models.*',
 			'rights.components.*',
+			'rights.components.behaviors.*',
 			'rights.components.dataproviders.*',
 			'rights.controllers.*',
+			'rights.models.*',
 		));
 
-		// Set the user identity guest name
-		Yii::app()->getUser()->guestName = $this->guestName;
-
-		// Set guest role as the default
-		// if the default roles are not set
-		if( $this->defaultRoles===null )
-			$this->defaultRoles = array($this->guestName);
-
-		// Set the components component
+		// Set the required components.
 		$this->setComponents(array(
 			'authorizer'=>array(
-				'class'=>'RightsAuthorizer',
+				'class'=>'RAuthorizer',
 				'superuserName'=>$this->superuserName,
-				'defaultRoles'=>$this->defaultRoles,
 			),
 			'generator'=>array(
-				'class'=>'RightsGenerator',
+				'class'=>'RGenerator',
 			),
 		));
 
+		// Normally the default controller is Assignment.
 		$this->defaultController = 'assignment';
 
-		// Set the installer if necessary
+		// Set the installer if necessary.
 		if( $this->install===true )
 		{
 			$this->setComponents(array(
 				'installer'=>array(
-					'class'=>'RightsInstaller',
+					'class'=>'RInstaller',
 					'superuserName'=>$this->superuserName,
 					'authenticatedName'=>$this->authenticatedName,
-					'guestName'=>$this->guestName,
-					'defaultRoles'=>$this->defaultRoles,
+					'guestName'=>Yii::app()->user->guestName,
+					'defaultRoles'=>Yii::app()->authManager->defaultRoles,
 				),
 			));
 
+			// When installing we need to set the default controller to Install.
 			$this->defaultController = 'install';
 		}
-
-		// Default layout is used unless one is provided
-		if( $this->layout===null )
-			$this->layout = 'rights.views.layouts.rights';
 	}
 
 	/**
@@ -136,7 +140,7 @@ class RightsModule extends CWebModule
 	*/
 	public function registerScripts()
 	{
-		// Publish the asset path
+		// Get the url to the module assets
 		$assetsUrl = $this->getAssetsUrl();
 
 		// Register the necessary scripts
@@ -146,10 +150,10 @@ class RightsModule extends CWebModule
 		$cs->registerScriptFile($assetsUrl.'/js/rights.js');
 		$cs->registerCssFile($assetsUrl.'/css/core.css');
 
-		// Make sure we want to register a style sheet
+		// Make sure we want to register a style sheet.
 		if( $this->cssFile!==false )
 		{
-			// Default style sheet is used unless one is provided
+			// Default style sheet is used unless one is provided.
 			if( $this->cssFile===null )
 				$this->cssFile = $assetsUrl.'/css/default.css';
 			else
@@ -170,7 +174,7 @@ class RightsModule extends CWebModule
 		{
 			$assetsPath = Yii::getPathOfAlias('rights.assets');
 
-			// We need to republish the assets if debug mode is enabled
+			// We need to republish the assets if debug mode is enabled.
 			if( $this->debug===true )
 				$this->_assetsUrl = Yii::app()->getAssetManager()->publish($assetsPath, false, -1, true);
 			else
@@ -209,6 +213,6 @@ class RightsModule extends CWebModule
 	*/
 	public function getVersion()
 	{
-		return '0.9.11';
+		return '1.2.0';
 	}
 }

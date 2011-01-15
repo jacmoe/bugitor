@@ -7,6 +7,11 @@
 
 	<h2><?php echo Rights::t('core', 'Operations'); ?></h2>
 
+	<p>
+		<?php echo Rights::t('core', 'An operation is a permission to perform a single operation, for example accessing a certain controller action.'); ?><br />
+		<?php echo Rights::t('core', 'Operations exist below tasks in the authorization hierarchy and can therefore only inherit from other operations.'); ?>
+	</p>
+
 	<p><?php echo CHtml::link(Rights::t('core', 'Create a new operation'), array('authItem/create', 'type'=>CAuthItem::TYPE_OPERATION), array(
 		'class'=>'add-operation-link',
 	)); ?></p>
@@ -22,7 +27,7 @@
     			'header'=>Rights::t('core', 'Name'),
     			'type'=>'raw',
     			'htmlOptions'=>array('class'=>'name-column'),
-    			'value'=>'$data->getNameLink(false, true, true)',
+    			'value'=>'$data->getGridNameLink()',
     		),
     		array(
     			'name'=>'description',
@@ -45,10 +50,9 @@
     			'visible'=>Rights::module()->enableBizRuleData===true,
     		),
     		array(
-    			'name'=>'delete',
     			'header'=>'&nbsp;',
     			'type'=>'raw',
-    			'htmlOptions'=>array('class'=>'delete-column'),
+    			'htmlOptions'=>array('class'=>'actions-column'),
     			'value'=>'$data->getDeleteOperationLink()',
     		),
 	    )
