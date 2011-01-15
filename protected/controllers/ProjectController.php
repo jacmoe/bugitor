@@ -91,7 +91,8 @@ class ProjectController extends Controller {
     }
 
     public function actionFeed($identifier) {
-        $activities = ActionLog::model()->findRecentEntries(20);
+        $project = Project::model()->find('identifier=?', array($_GET['identifier']));
+        $activities = ActionLog::model()->findRecentEntries(20, $project->id);
         //convert from an array of comment AR class instances to a name=>value array for Zend
         $entries = array();
         foreach ($activities as $activity) {
