@@ -405,16 +405,22 @@ class IssueController extends Controller {
         return $user_list;
     }
 
-    public function getVersionSelectList() {
+    public function getVersionSelectList($filter = false) {
         $Criteria = new CDbCriteria();
-        $Criteria->select = "name, id";
+        $Criteria->select = "name, id, effective_date";
         if (isset($_GET['identifier'])) {
             $Criteria->compare('project_id', $this->getProject($_GET['identifier']), true);
         }
+
         $results = Version::model()->findAll($Criteria);
         $version_list = array();
         foreach ($results as $result) {
-            $version_list[$result->id] = $result->name;
+            if($filter) {
+                if(strtotime($result->effective_date) > strtotime(date("Y-m-d")))
+                    $version_list[$result->id] = $result->name;
+            } else {
+                $version_list[$result->id] = $result->name;
+            }
         }
         return $version_list;
     }
