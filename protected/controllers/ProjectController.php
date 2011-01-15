@@ -33,6 +33,10 @@
 ?>
 <?php
 
+Yii::import('application.vendors.*');
+require_once('Zend/Feed.php');
+require_once('Zend/Feed/Rss.php');
+
 class ProjectController extends Controller {
 
     /**
@@ -52,7 +56,7 @@ class ProjectController extends Controller {
     }
 
     public function allowedActions() {
-        return 'index, view, activity, roadmap, issues, code, waitforclone';
+        return 'index, view, activity, roadmap, issues, code, waitforclone, feed';
     }
 
     public function getProjects() {
@@ -86,6 +90,31 @@ class ProjectController extends Controller {
         $this->redirect($this->route);
     }
 
+    public function actionFeed($identifier) {
+        $activities = ActionLog::model()->findRecentEntries(20);
+        //convert from an array of comment AR class instances to a name=>value array for Zend
+        $entries = array();
+        foreach ($activities as $activity) {
+            $entries[] = array(
+                'title' => $activity->subject,
+                'link' => CHtml::encode(Yii::app()->getRequest()->getHostInfo('').$activity->url),
+                'guid' => CHtml::encode(Yii::app()->getRequest()->getHostInfo('').$activity->url),
+                'description' => CHtml::encode($activity->description),
+                'lastUpdate' => strtotime($activity->when),
+                'dc:creator' => $activity->author->username,
+            );
+        }
+        //now use the Zend Feed class to generate the Feed
+        // generate and render RSS feed
+        $feed = Zend_Feed::importArray(array(
+                    'title' => ucfirst($identifier) . ' Project Activities Feed',
+                    'link' => $this->createAbsoluteUrl(''),
+                    'atom:link' => $this->createAbsoluteUrl('', array('rel' => 'self')),
+                    'charset' => 'UTF-8',
+                    'entries' => $entries,
+                        ), 'rss');
+        $feed->send();
+    }
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
@@ -93,10 +122,6 @@ class ProjectController extends Controller {
     public function actionView($identifier) {
         $project = Project::model()->with(array('issueOpenBugCount', 'issueBugCount', 'issueOpenFeatureCount', 'issueFeatureCount'))->find('identifier=?', array($_GET['identifier']));
         $_GET['projectname'] = $project->name;
-        Yii::app()->clientScript->registerLinkTag(
-            'alternate',
-            'application/rss+xml',
-            $this->createUrl('comment/feed',array('pid'=>$project->id)));
 
         $this->render('view', array(
             'model' => $project,
@@ -111,6 +136,11 @@ class ProjectController extends Controller {
         $project = Project::model()->with('activities')->find($criteria);
         $_GET['projectname'] = $project->name;
         
+        Yii::app()->clientScript->registerLinkTag(
+            'alternate',
+            'application/rss+xml',
+            $this->createUrl('project/feed',array('identifier' => $project->identifier)));
+
         $this->render('activity', array(
             'model' => $project,
         ));

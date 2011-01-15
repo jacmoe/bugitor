@@ -86,7 +86,20 @@ class ActionLog extends CActiveRecord
 		);
 	}
 
-	/**
+        public function findRecentEntries($number = 20, $projectId = null) {
+            $criteria2 = new CDbCriteria;
+            $criteria2->select = array('id', 'type', 'author_id', 't.when', 'url', 'project_id', 'subject', 'description', 'DATE(t.when) as theday');
+            if(null !== $projectId) {
+                $criteria2->condition = 'project_id = :project_id';
+                $criteria2->params = array('project_id' => $projectId);
+            }
+            $criteria2->order = 'theday DESC, t.when DESC';
+            $criteria2->group = 'theday, t.when';
+            $criteria2->limit = $number;
+            return self::model()->findAll($criteria2);
+        }
+
+        /**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
