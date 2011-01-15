@@ -60,6 +60,7 @@ return array(
         'admin',
         'rights' => array(
             'install' => false,
+            'appLayout'=>'application.modules.admin.views.layouts.main',
         ),
         'user' => array(
             'returnLogoutUrl' => array('/project/index'),
@@ -70,7 +71,7 @@ return array(
     'components' => array(
         'user' => array(
             // enable cookie-based authentication
-            'class' => 'RightsWebUser',
+            'class' => 'RWebUser',
             'allowAutoLogin' => true,
             'loginUrl' => array('/user/login'),
         ),
@@ -125,7 +126,7 @@ return array(
         ),
         'authManager' => array(
             // The authorization manager (default: CDbAuthManager)
-            'class' => 'RightsAuthManager',
+            'class' => 'RDbAuthManager',
             // The database component used
             'connectionID' => 'db',
             // The itemTable name (default: AuthItem)
@@ -135,7 +136,7 @@ return array(
             // The itemChildTable name (default: AuthItemChild)
             'itemChildTable' => 'bug_auth_item_child',
             // The itemWeightTable (default: AuthItemWeight)
-            'itemWeightTable' => 'bug_auth_item_weight',
+            'rightsTable' => 'bug_auth_item_weight',
         ),
         'urlManager' => array(
             'urlFormat' => 'path',

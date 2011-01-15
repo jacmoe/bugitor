@@ -6,7 +6,7 @@
 * @copyright Copyright &copy; 2010 Christoffer Niska
 * @since 0.9.11
 */
-class RightsAuthItemBehavior extends CBehavior
+class RAuthItemBehavior extends CBehavior
 {
 	/**
 	* @property integer the id of the user to whom this item is assigned.
@@ -33,35 +33,39 @@ class RightsAuthItemBehavior extends CBehavior
 	}
 
 	/**
-	* Returns the markup for the item name.
-	* @param boolean whether to display the human readable or system name.
+	* Returns the item name.
 	* @return string the markup.
 	*/
-	public function getNameText($humanReadable=true)
+	public function getNameText()
 	{
-		return ($humanReadable===true && $this->owner->description!==null) ? $this->owner->description : $this->owner->name;
+		return (Rights::module()->displayDescription===true && $this->owner->description!==null) ? $this->owner->description : $this->owner->name;
 	}
 
 	/**
-	* Returns the markup for the name link.
-	* @param boolean whether to display the human readable or system name.
-	* @param boolean whether to display the child count.
-	* @param boolean whether to display the sortable id.
+	* Returns the link to update the item.
 	* @return string the markup.
 	*/
-	public function getNameLink($humanReadable=true, $displayChildCount=false, $displaySortableId=false)
+	public function getNameLink()
 	{
-		$markup = CHtml::link($this->getNameText($humanReadable), array(
+		return CHtml::link($this->getNameText(), array(
 			'authItem/update',
-			'name'=>$this->owner->name,
-			'redirect'=>urlencode(Rights::getAuthItemRoute($this->owner->type))
+			'name'=>urlencode($this->owner->name),
+		));
+	}
+	
+	/**
+	* Returns the markup for the name link to displayed in the grid.
+	* @return string the markup. 
+	*/
+	public function getGridNameLink()
+	{
+		$markup = CHtml::link($this->owner->name, array(
+			'authItem/update',
+			'name'=>urlencode($this->owner->name),
 		));
 
-		if( $displayChildCount===true )
-			$markup .= $this->childCount();
-
-		if( $displaySortableId===true )
-			$markup .= $this->sortableId();
+		$markup .= $this->childCount();
+		$markup .= $this->sortableId();
 
 		return $markup;
 	}
@@ -103,9 +107,10 @@ class RightsAuthItemBehavior extends CBehavior
 	public function getDeleteOperationLink()
 	{
 		return CHtml::linkButton(Rights::t('core', 'Delete'), array(
-			'submit'=>array('authItem/delete', 'name'=>$this->owner->name, 'redirect'=>urlencode('authItem/operations')),
+			'submit'=>array('authItem/delete', 'name'=>urlencode($this->owner->name)),
 			'confirm'=>Rights::t('core', 'Are you sure you want to delete this operation?'),
 			'class'=>'delete-link',
+			'csrf'=>Yii::app()->request->enableCsrfValidation,
 		));
 	}
 
@@ -116,9 +121,10 @@ class RightsAuthItemBehavior extends CBehavior
 	public function getDeleteTaskLink()
 	{
 		return CHtml::linkButton(Rights::t('core', 'Delete'), array(
-			'submit'=>array('authItem/delete', 'name'=>$this->owner->name, 'redirect'=>urlencode('authItem/tasks')),
+			'submit'=>array('authItem/delete', 'name'=>urlencode($this->owner->name)),
 			'confirm'=>Rights::t('core', 'Are you sure you want to delete this task?'),
 			'class'=>'delete-link',
+			'csrf'=>Yii::app()->request->enableCsrfValidation,
 		));
 	}
 
@@ -128,11 +134,16 @@ class RightsAuthItemBehavior extends CBehavior
 	*/
 	public function getDeleteRoleLink()
 	{
-		return CHtml::linkButton(Rights::t('core', 'Delete'), array(
-			'submit'=>array('authItem/delete', 'name'=>$this->owner->name, 'redirect'=>urlencode('authItem/roles')),
-			'confirm'=>Rights::t('core', 'Are you sure you want to delete this role?'),
-			'class'=>'delete-link',
-		));
+		// We do not want to show the delete link for the superuser role.
+		if( $this->owner->name!==Rights::module()->superuserName )
+		{
+			return CHtml::linkButton(Rights::t('core', 'Delete'), array(
+				'submit'=>array('authItem/delete', 'name'=>urlencode($this->owner->name)),
+				'confirm'=>Rights::t('core', 'Are you sure you want to delete this role?'),
+				'class'=>'delete-link',
+				'csrf'=>Yii::app()->request->enableCsrfValidation,
+			));
+		}
 	}
 
 	/**
@@ -142,8 +153,9 @@ class RightsAuthItemBehavior extends CBehavior
 	public function getRemoveParentLink()
 	{
 		return CHtml::linkButton(Rights::t('core', 'Remove'), array(
-			'submit'=>array('authItem/removeChild', 'name'=>$this->owner->name, 'child'=>$this->parent->name),
+			'submit'=>array('authItem/removeChild', 'name'=>urlencode($this->owner->name), 'child'=>urlencode($this->parent->name)),
 			'class'=>'remove-link',
+			'csrf'=>Yii::app()->request->enableCsrfValidation,
 		));
 	}
 
@@ -154,8 +166,9 @@ class RightsAuthItemBehavior extends CBehavior
 	public function getRemoveChildLink()
 	{
 		return CHtml::linkButton(Rights::t('core', 'Remove'), array(
-			'submit'=>array('authItem/removeChild', 'name'=>$this->parent->name, 'child'=>$this->owner->name),
+			'submit'=>array('authItem/removeChild', 'name'=>urlencode($this->parent->name), 'child'=>urlencode($this->owner->name)),
 			'class'=>'remove-link',
+			'csrf'=>Yii::app()->request->enableCsrfValidation,
 		));
 	}
 
@@ -166,11 +179,12 @@ class RightsAuthItemBehavior extends CBehavior
 	public function getRevokeAssignmentLink()
 	{
 		return CHtml::linkButton(Rights::t('core', 'Revoke'), array(
-			'submit'=>array('assignment/revoke', 'id'=>$this->userId, 'name'=>$this->owner->name),
+			'submit'=>array('assignment/revoke', 'id'=>$this->userId, 'name'=>urlencode($this->owner->name)),
 			'class'=>'revoke-link',
+			'csrf'=>Yii::app()->request->enableCsrfValidation,
 		));
 	}
-
+	
 	/**
 	* Returns the markup for the revoke permission link.
 	* @param CAuthItem $role the role the permission is for.
@@ -178,31 +192,24 @@ class RightsAuthItemBehavior extends CBehavior
 	*/
 	public function getRevokePermissionLink(CAuthItem $role)
 	{
-		$this->parent = $role;
-
-		$app = Yii::app();
-		$baseUrl = Rights::module()->baseUrl.'/';
-		$csrf = ($csrf = $this->getCsrfValidationParam())!==null ? ', '.$csrf : '';
-		$onclick = <<<EOD
-jQuery.ajax({
-	type:'POST',
-	url:'{$app->createUrl($baseUrl.'authItem/revoke', array('name'=>$this->parent->name, 'child'=>$this->owner->name))}',
-	data:{
-		ajax:1
-		$csrf
-	},
-	success:function() {
-		$("#permissions").load('{$app->createUrl($baseUrl.'authItem/permissions')}', {
-			ajax:1
-			$csrf
-		});
-	}
-});
-
-return false;
-EOD;
+		$csrf = Rights::getDataCsrf();
+		
 		return CHtml::link(Rights::t('core', 'Revoke'), '#', array(
-			'onclick'=>$onclick,
+			'onclick'=>"
+				jQuery.ajax({
+					type:'POST',
+					url:'".Yii::app()->controller->createUrl('authItem/revoke', array(
+						'name'=>urlencode($role->name), 
+						'child'=>urlencode($this->owner->name),
+					))."',
+					data:{ ajax:1 $csrf },
+					success:function() {
+						$('#permissions').load('".Yii::app()->controller->createUrl('authItem/permissions')."', { ajax:1 $csrf });
+					}
+				});
+
+				return false;				
+			",
 			'class'=>'revoke-link',
 		));
 	}
@@ -214,35 +221,28 @@ EOD;
 	*/
 	public function getAssignPermissionLink(CAuthItem $role)
 	{
-		$this->parent = $role;
-
-		$app = Yii::app();
-		$baseUrl = Rights::module()->baseUrl.'/';
-		$csrf = ($csrf = $this->getCsrfValidationParam())!==null ? ', '.$csrf : '';
-		$onclick = <<<EOD
-jQuery.ajax({
-	type:'POST',
-	url:'{$app->createUrl($baseUrl.'authItem/assign', array('name'=>$this->parent->name, 'child'=>$this->owner->name))}',
-	data:{
-		ajax:1
-		$csrf
-	},
-	success:function() {
-		$("#permissions").load('{$app->createUrl($baseUrl.'authItem/permissions')}', {
-			ajax:1
-			$csrf
-		});
-	}
-});
-
-return false;
-EOD;
+		$csrf = Rights::getDataCsrf();
+		
 		return CHtml::link(Rights::t('core', 'Assign'), '#', array(
-			'onclick'=>$onclick,
+			'onclick'=>"
+				jQuery.ajax({
+					type:'POST',
+					url:'".Yii::app()->controller->createUrl('authItem/assign', array(
+						'name'=>urlencode($role->name), 
+						'child'=>urlencode($this->owner->name),
+					))."',
+					data:{ ajax:1 $csrf },
+					success:function() {
+						$('#permissions').load('".Yii::app()->controller->createUrl('authItem/permissions')."', { ajax:1 $csrf });
+					}
+				});
+
+				return false;				
+			",
 			'class'=>'assign-link',
 		));
 	}
-
+	
 	/**
 	* Returns the markup for a inherited permission.
 	* @param array the parents for this item.
@@ -263,24 +263,5 @@ EOD;
 		}
 
 		return '<span class="inherited-item" title="'.implode('<br />', $items).'">'.Rights::t('core', 'Inherited').' *</span>';
-	}
-
-	/**
-	* Returns the cross-site request forgery parameter for Ajax-requests.
-	* Null is returned if csrf-validation is disabled.
-	* @return string the csrf parameter.
-	*/
-	public static function getCsrfValidationParam()
-	{
-		if( Yii::app()->request->enableCsrfValidation===true )
-		{
-	        $csrfTokenName = Yii::app()->request->csrfTokenName;
-	        $csrfToken = Yii::app()->request->csrfToken;
-	        return "'$csrfTokenName':'$csrfToken'";
-		}
-		else
-		{
-			return null;
-		}
 	}
 }

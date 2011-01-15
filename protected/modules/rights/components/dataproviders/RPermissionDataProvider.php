@@ -6,7 +6,7 @@
 * @copyright Copyright &copy; 2010 Christoffer Niska
 * @since 0.9.11
 */
-class PermissionDataProvider extends CDataProvider
+class RPermissionDataProvider extends CDataProvider
 {
 	/**
 	* @property boolean whether to show the parent type
@@ -121,7 +121,7 @@ class PermissionDataProvider extends CDataProvider
 		foreach( $this->_items as $itemName=>$item )
 		{
 			$row = array();
-			$row['description'] = $item->getNameText();
+			$row['description'] = $item->getNameLink();
 
 			foreach( $this->_roles as $roleName=>$role )
 			{
@@ -167,6 +167,7 @@ class PermissionDataProvider extends CDataProvider
 	*/
 	protected function fetchKeys()
 	{
+		$keys = array();
 		foreach( $this->getData() as $key=>$value )
 			$keys[] = $key;
 

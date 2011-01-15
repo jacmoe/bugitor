@@ -6,20 +6,22 @@
 * @since 0.9.11
 */
 
+#rights .form .text-field { width:320px; }
+
 #rights #updateAuthItem .parents,
 #rights #updateAuthItem .children { margin-bottom:30px; }
 
 #rights .type-column { width:100px; }
-
-#rights .empty-column,
-#rights .delete-column,
-#rights .remove-column,
-#rights .revoke-column { width:80px; text-align:right; }
+#rights .actions-column { width:80px; text-align:right; }
 
 #rights .parent-table,
 #rights .child-table,
 #rights .user-assignment-table { width:420px; }
 
+#rights .assignment-table td { vertical-align:top; }
+#rights .assignment-table .role-column,
+#rights .assignment-table .task-column,
+#rights .assignment-table .operation-column { width:25%; }
 #rights .permission-table .inherited-item { cursor:pointer; }
 
 /**
@@ -30,7 +32,7 @@
 	width:910px;
 	height:40px;
 	position:absolute;
-	top:55px;
+	top:60px;
 	left:20px;
 }
 #rights .flash {

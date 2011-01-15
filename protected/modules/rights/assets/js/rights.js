@@ -88,7 +88,8 @@
 		// Default settings
 		var defaults = {
 			handle: '',
-			placeholder: 'sortable-placeholder'
+			placeholder: 'sortable-placeholder',
+			csrfToken: ''
 		};
 
 		// Merge the options with the defaults
@@ -128,11 +129,10 @@
 				},
 				// Actions to be taken when the row is dropped
 				update: function(e, ui) {
-					// Run an Ajax require to save the new weights
-					$.ajax({
-						type: "POST",
-						url: settings.url,
-						data: { result:$tbody.sortable('toArray') }
+					// Run an Ajax request to save the new weights
+					$.post(settings.url, {
+						result: $tbody.sortable('toArray'),
+						YII_CSRF_TOKEN: settings.csrfToken
 					});
 				},
 				// Actions to be taken when sorting is stopped

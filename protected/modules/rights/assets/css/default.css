@@ -19,13 +19,13 @@
 
 #rights #content { position:relative; }
 
-#rights #menu { margin:0 0 20px 0; }
+#rights #menu { margin:0 0 25px 0; }
 #rights #menu ul.actions { margin:0; padding:0; list-style-type:none; }
 #rights #menu ul.actions li {
 	display:inline;
 	margin:0;
 	padding:8px 12px;
-	background:url('../images/bg_menuButton.gif') repeat-x;
+	background:#666699;
 	-moz-border-radius:6px;
 	-webkit-border-radius:6px;
 }
@@ -74,6 +74,21 @@
 #rights .grid-view table.mini th, #rights .miniTable td { padding:8px; }
 #rights .grid-view table.mini .odd td { background:#e8edff; }
 
+/**
+* Pager style.
+*/
+
+#rights .pager { color:#ffffff; }
+#rights .pager li { margin:0; padding:0; }
+#rights .pager li a { padding:5px 10px; border-style:none; text-decoration:none; }
+#rights .pager li.hidden a { color:#c0c0c0; }
+#rights .pager li.selected a { 
+	background:#666699;
+	color:#ffffff;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+}
+
 #rights .bizrule-column,
 #rights .data-column {
 	color:#808080;
@@ -88,3 +103,9 @@
 
 #rights .permission-table .inherited-item { cursor:pointer; font-style:italic; }
 #rights .child-count { font-weight:bold; }
+
+/**
+* Jquery UI style.
+*/
+
+.ui-widget * { font-family:Trebuchet MS, Verdana, san-serif !important; font-size:11px; }

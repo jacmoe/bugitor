@@ -6,7 +6,7 @@
 * @copyright Copyright &copy; 2010 Christoffer Niska
 * @since 0.9.10
 */
-class AuthItemParentDataProvider extends AuthItemDataProvider
+class RAuthItemParentDataProvider extends RAuthItemDataProvider
 {
 	/**
 	* Constructs the data provider.

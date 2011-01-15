@@ -6,10 +6,10 @@
 * @copyright Copyright &copy; 2010 Christoffer Niska
 * @since 0.9.1
 */
-class AssignmentController extends Controller
+class AssignmentController extends RController
 {
 	/**
-	* @property RightsAuthorizer
+	* @property RAuthorizer
 	*/
 	private $_authorizer;
 
@@ -50,14 +50,6 @@ class AssignmentController extends Controller
 				),
 				'users'=>$this->_authorizer->getSuperusers(),
 			),
-			array('allow',  // Allow to view and revoke assignments if the user can manage them
-				'actions'=>array(
-					'view',
-					'user',
-					'revoke',
-				),
-				'roles'=>array('RightsAssignments'),
-			),
 			array('deny', // Deny all users
 				'users'=>array('*'),
 			),
@@ -69,16 +61,10 @@ class AssignmentController extends Controller
 	*/
 	public function actionView()
 	{
-		// Get the user model class
-		$userClass = $this->module->userClass;
-
 		// Create a data provider for listing the users
-		$dataProvider = new RightsActiveDataProvider($userClass, array(
+		$dataProvider = new RAssignmentDataProvider(array(
 			'pagination'=>array(
-				'pageSize'=>20,
-			),
-			'behaviors'=>array(
-				'rights'=>'RightsUserBehavior',
+				'pageSize'=>50,
 			),
 		));
 
@@ -96,54 +82,44 @@ class AssignmentController extends Controller
 		// Create the user model and attach the required behavior
 		$userClass = $this->module->userClass;
 		$model = CActiveRecord::model($userClass)->findByPk($_GET['id']);
-		$model->attachBehavior('rights', new RightsUserBehavior);
+		$this->_authorizer->attachUserBehavior($model);
 
-		$assignedItems = $this->_authorizer->getAuthItems(null, $model->getId(), null, true);
+		$assignedItems = $this->_authorizer->getAuthItems(null, $model->getId());
 		$assignments = array_keys($assignedItems);
 
 		// Make sure we have items to be selected
-		$selectOptions = $this->_authorizer->getAuthItemSelectOptions(null, null, null, true, $assignments);
-		if( $selectOptions!==array() )
+		$assignSelectOptions = Rights::getAuthItemSelectOptions(null, $assignments);
+		if( $assignSelectOptions!==array() )
 		{
-			// Create a from to add a child for the authorization item
-		    $form = new CForm(array(
-				'elements'=>array(
-					'itemname'=>array(
-						'label'=>false,
-					    'type'=>'dropdownlist',
-					    'items'=>$selectOptions,
-					),
-				),
-				'buttons'=>array(
-					'submit'=>array(
-					    'type'=>'submit',
-					    'label'=>Rights::t('core', 'Assign'),
-					),
-				),
-			), new AssignmentForm);
+			$formModel = new AssignmentForm();
 
 		    // Form is submitted and data is valid, redirect the user
-		    if( $form->submitted()===true && $form->validate()===true )
+		    if( isset($_POST['AssignmentForm'])===true )
 			{
-				// Update and redirect
-				$this->_authorizer->authManager->assign($form->model->itemname, $model->getId());
-				$item = $this->_authorizer->authManager->getAuthItem($form->model->itemname);
+				$formModel->attributes = $_POST['AssignmentForm'];
+				if( $formModel->validate()===true )
+				{
+					// Update and redirect
+					$this->_authorizer->authManager->assign($formModel->itemname, $model->getId());
+					$item = $this->_authorizer->authManager->getAuthItem($formModel->itemname);
+					$item = $this->_authorizer->attachAuthItemBehavior($item);
 
-				Yii::app()->user->setFlash($this->module->flashSuccessKey,
-					Rights::t('core', ':name assigned.', array(':name'=>$item->getNameText()))
-				);
+					Yii::app()->user->setFlash($this->module->flashSuccessKey,
+						Rights::t('core', 'Permission :name assigned.', array(':name'=>$item->getNameText()))
+					);
 
-				$this->redirect(array('assignment/user', 'id'=>$model->getId()));
+					$this->redirect(array('assignment/user', 'id'=>$model->getId()));
+				}
 			}
 		}
 		// No items available
 		else
 		{
-		 	$form = null;
+		 	$formModel = null;
 		}
 
 		// Create a data provider for listing the assignments
-		$dataProvider = new AuthItemDataProvider('assignments', array(
+		$dataProvider = new RAuthItemDataProvider('assignments', array(
 			'userId'=>$model->getId(),
 		));
 
@@ -151,7 +127,8 @@ class AssignmentController extends Controller
 		$this->render('user', array(
 			'model'=>$model,
 			'dataProvider'=>$dataProvider,
-			'form'=>$form,
+			'formModel'=>$formModel,
+			'assignSelectOptions'=>$assignSelectOptions,
 		));
 	}
 
@@ -163,13 +140,16 @@ class AssignmentController extends Controller
 		// We only allow deletion via POST request
 		if( Yii::app()->request->isPostRequest===true )
 		{
+			$itemName = $this->getItemName();
+			
 			// Revoke the item from the user and load it
-			$this->_authorizer->authManager->revoke($_GET['name'], $_GET['id']);
-			$item = $this->_authorizer->authManager->getAuthItem($_GET['name']);
+			$this->_authorizer->authManager->revoke($itemName, $_GET['id']);
+			$item = $this->_authorizer->authManager->getAuthItem($itemName);
+			$item = $this->_authorizer->attachAuthItemBehavior($item);
 
 			// Set flash message for revoking the item
 			Yii::app()->user->setFlash($this->module->flashSuccessKey,
-				Rights::t('core', ':name revoked.', array(':name'=>$item->getNameText()))
+				Rights::t('core', 'Permission :name revoked.', array(':name'=>$item->getNameText()))
 			);
 
 			// if AJAX request, we should not redirect the browser
@@ -180,5 +160,13 @@ class AssignmentController extends Controller
 		{
 			throw new CHttpException(400, Rights::t('core', 'Invalid request. Please do not repeat this request again.'));
 		}
+	}
+	
+	/**
+	* @return string the item name or null if not set.
+	*/
+	public function getItemName()
+	{
+		return isset($_GET['name'])===true ? urldecode($_GET['name']) : null;
 	}
 }

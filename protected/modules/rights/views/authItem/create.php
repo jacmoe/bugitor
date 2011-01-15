@@ -5,12 +5,10 @@
 
 <div class="createAuthItem">
 
-	<h2><?php echo Rights::t('core', 'Create :type', array(':type'=>Rights::getAuthItemTypeName($_GET['type']))); ?></h2>
+	<h2><?php echo Rights::t('core', 'Create :type', array(
+		':type'=>Rights::getAuthItemTypeName($_GET['type']),
+	)); ?></h2>
 
-	<div class="form">
-
-		<?php echo $form->render(); ?>
-
-	</div>
+	<?php $this->renderPartial('_form', array('model'=>$formModel)); ?>
 
 </div>
