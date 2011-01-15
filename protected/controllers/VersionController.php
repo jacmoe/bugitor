@@ -65,7 +65,12 @@ class VersionController extends Controller
             if (isset($_GET['identifier'])){
                 $_GET['projectname'] = Project::getProjectNameFromIdentifier($_GET['identifier']);
             }
-            $model = Version::model()->with(array('project'))->findByPk((int)$id);
+            $criteria = new CDbCriteria();
+            $criteria->condition = 't.id = :id';
+            $criteria->params = array('id' => $id);
+            $criteria->group = 'issues.closed, issues.id';
+            $criteria->order = 'issues.closed, issues.id DESC';
+            $model = Version::model()->with(array('project', 'issues'))->find($criteria);
             $this->render('view',array(
                 'model'=>$model,
             ));
