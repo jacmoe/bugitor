@@ -124,6 +124,11 @@ class ProjectController extends Controller {
         $project = Project::model()->with(array('issueOpenBugCount', 'issueBugCount', 'issueOpenFeatureCount', 'issueFeatureCount'))->find('identifier=?', array($_GET['identifier']));
         $_GET['projectname'] = $project->name;
 
+        Yii::app()->clientScript->registerLinkTag(
+            'alternate',
+            'application/rss+xml',
+            $this->createUrl('project/feed',array('identifier' => $project->identifier)));
+
         $this->render('view', array(
             'model' => $project,
             'members' => $project->getMembers(),
