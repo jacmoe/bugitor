@@ -150,7 +150,7 @@
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model, 'version_id'); ?>
-                    <?php echo $form->dropDownList($model, 'version_id', $this->getVersionSelectList(true), array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'prompt' => '<None>')); ?>
+                    <?php echo $form->dropDownList($model, 'version_id', $this->getVersionSelectList(true, $model->version_id), array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'prompt' => '<None>')); ?>
                     <?php echo $form->error($model, 'version_id'); ?>
                 </div>
                 <div class="row">
