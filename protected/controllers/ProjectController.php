@@ -121,9 +121,15 @@ class ProjectController extends Controller {
         //$this->layout = '//layouts/column2';
 
         //FIXME: possible sql injection ..
+        $criteria = new CDbCriteria();
+        $criteria->condition = 'identifier = :identifier';
+        $criteria->params = array('identifier' => $_GET['identifier']);
+        $criteria->group = 'versions.id, issues.closed, issues.id';
+        $criteria->order = 'versions.id, issues.closed, issues.id DESC';
+
         $project = Project::model()->with(
                 array('versions' => array('with' => array('issues')))
-                )->find('identifier=?', array($_GET['identifier']));
+                )->find($criteria);
 
         $_GET['projectname'] = $project->name;
 
