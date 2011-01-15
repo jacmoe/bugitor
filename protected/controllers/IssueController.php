@@ -405,7 +405,7 @@ class IssueController extends Controller {
         return $user_list;
     }
 
-    public function getVersionSelectList($filter = false) {
+    public function getVersionSelectList($filter = false, $version_id = 0) {
         $Criteria = new CDbCriteria();
         $Criteria->select = "name, id, effective_date";
         if (isset($_GET['identifier'])) {
@@ -416,7 +416,7 @@ class IssueController extends Controller {
         $version_list = array();
         foreach ($results as $result) {
             if($filter) {
-                if(strtotime($result->effective_date) > strtotime(date("Y-m-d")))
+                if((strtotime($result->effective_date) > strtotime(date("Y-m-d")))||($version_id === $result->id))
                     $version_list[$result->id] = $result->name;
             } else {
                 $version_list[$result->id] = $result->name;
