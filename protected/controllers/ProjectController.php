@@ -120,7 +120,6 @@ class ProjectController extends Controller {
 
         //$this->layout = '//layouts/column2';
 
-        //FIXME: possible sql injection ..
         $criteria = new CDbCriteria();
         $criteria->condition = 'identifier = :identifier';
         $criteria->params = array('identifier' => $_GET['identifier']);
