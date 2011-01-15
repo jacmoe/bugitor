@@ -145,7 +145,7 @@
                 </div>
                 <div class="row">
                     <?php echo $form->labelEx($model, 'assigned_to'); ?>
-                    <?php echo $form->dropDownList($model, 'assigned_to', $this->getUserSelectList(), array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'prompt' => '<None>')); ?>
+                    <?php echo $form->dropDownList($model, 'assigned_to', $this->getMemberSelectList(), array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'prompt' => '<None>')); ?>
                     <?php echo $form->error($model, 'assigned_to'); ?>
                 </div>
                 <div class="row">

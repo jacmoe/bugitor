@@ -394,6 +394,15 @@ class IssueController extends Controller {
         return $priority_list;
     }
 
+    public function getMemberSelectList() {
+        $results = Project::model()->findByAttributes(array('identifier' => $_GET['identifier']))->getMembers();
+        $user_list = array();
+        foreach ($results as $result) {
+            $user_list[$result->id] = $result->user->username;
+        }
+        return $user_list;
+    }
+
     public function getUserSelectList() {
         $Criteria = new CDbCriteria();
         $Criteria->select = "username, id";
