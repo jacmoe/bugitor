@@ -184,6 +184,11 @@ class IssueController extends Controller {
         if (isset($_POST['Issue'])) {
             $model->attributes = $_POST['Issue'];
             if ($model->save()) {
+                //TODO: check if the user wants to be a watcher of all created issues ?
+                $watcher = new Watcher();
+                $watcher->issue_id = $model->id;
+                $watcher->user_id = Yii::app()->user->id;
+                $watcher->save();
                 $model->addToActionLog($this->id,Yii::app()->user->id,'new', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier)));
                 Yii::app()->user->setFlash('success',"Issue was succesfully created");
                 $this->redirect(array('view', 'id' => $model->id, 'identifier' => $model->project->identifier));
@@ -295,7 +300,8 @@ class IssueController extends Controller {
 
                     $model->save(false);
 
-                    $model->sendNotifications($model->id, $comment);
+                    
+                    $model->sendNotifications($model->id, $comment, $model->updated_by);
 
                     if($has_details) {
                         if($model->status == 'swIssue/resolved') {
