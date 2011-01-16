@@ -97,10 +97,10 @@ class ProjectController extends Controller {
         $entries = array();
         foreach ($activities as $activity) {
             $entries[] = array(
-                'title' => $activity->subject,
+                'title' => CHtml::encode($activity->subject),
                 'link' => CHtml::encode(Yii::app()->getRequest()->getHostInfo('').$activity->url),
                 'guid' => CHtml::encode(Yii::app()->getRequest()->getHostInfo('').$activity->url),
-                'description' => CHtml::encode($activity->description),
+                'description' => CHtml::encode(ucfirst($activity->author->username)) . ' : ' . CHtml::encode($activity->description),
                 'lastUpdate' => strtotime($activity->when),
                 'dc:creator' => $activity->author->username,
             );
