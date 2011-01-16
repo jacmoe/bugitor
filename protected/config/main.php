@@ -152,6 +152,7 @@ return array(
                 '/projects/<identifier>/repository/<_a:(create)>'   => 'repository/<_a>',
                 '/projects/<identifier>/issueCategory/<_a:(create)>'   => 'issueCategory/<_a>',
                 '/projects/<identifier>/issue/<action:\w+>/<id:\d+>'   => 'issue/<action>',
+                '/projects/<identifier>/issues/<action:\w+>/<id:\d+>'   => 'issue/<action>',
                 '/projects/<identifier>/member/<action:\w+>/<id:\d+>'   => 'member/<action>',
                 '/projects/<identifier>/version/<action:\w+>/<id:\d+>'   => 'version/<action>',
                 '/projects/<identifier>/repository/<action:\w+>/<id:\d+>'   => 'repository/<action>',
