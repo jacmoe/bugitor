@@ -80,7 +80,6 @@
                         <?php echo $form->error($model, 'description'); ?>
                     </div>
                     <div class="row">
-                        <?php //$this->renderPartial('/comment/_form', array('model' => $comment,)); ?>
                         <?php $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
                                 'name' => 'Comment',
                                 'htmlOptions'=>array('style'=>'height:150px;')

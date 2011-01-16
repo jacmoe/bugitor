@@ -688,3 +688,8 @@ div.attachments span.author { font-size: 0.9em; color: #888; }
 dl.activity {margin:0 !important;}
 dd.activity {margin:0 !important;}
 dt.activity {margin:0 !important;}
+
+div.scroll {
+    height: 200px;
+    overflow: auto;
+}

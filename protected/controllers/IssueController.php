@@ -328,7 +328,6 @@ class IssueController extends Controller {
 
         $this->render('update', array(
             'model' => $model,
-            'comment' => $comment,
         ));
     }
 
