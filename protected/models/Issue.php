@@ -120,7 +120,7 @@ class Issue extends CActiveRecord {
 
     public function getWatchers() {
         $criteria = new CDbCriteria();
-        $criteria->compare('issue_id', $this->id, true);
+        $criteria->compare('issue_id', $this->id);
         $watchers = Watcher::model()->with('user')->findAll($criteria);
         return $watchers;
     }
@@ -128,16 +128,16 @@ class Issue extends CActiveRecord {
     public function watchedBy() {
         $criteria = new CDbCriteria();
         $criteria->select = 'user_id';
-        $criteria->compare('user_id', Yii::app()->user->id, true);
-        $criteria->compare('issue_id', $this->id, true);
+        $criteria->compare('user_id', Yii::app()->user->id);
+        $criteria->compare('issue_id', $this->id);
         $watchers = Watcher::model()->findAll($criteria);
         return !empty($watchers);
     }
 
     public static function watching($user_id) {
         $criteria = new CDbCriteria();
-        $criteria->compare('t.user_id', $user_id, true);
-        $criteria->compare('closed', 0, true);
+        $criteria->compare('t.user_id', $user_id);
+        $criteria->compare('closed', 0);
         $criteria->group = 'project.id, issue.id';
         $criteria->order = 'project.id DESC, issue.id DESC';
         $watched = Watcher::model()->with(array('user', 'issue', 'issue.project'))->findAll($criteria);
@@ -146,8 +146,8 @@ class Issue extends CActiveRecord {
 
     public static function owned($user_id) {
         $criteria = new CDbCriteria();
-        $criteria->compare('user_id', $user_id, true);
-        $criteria->compare('closed', 0, true);
+        $criteria->compare('user_id', $user_id);
+        $criteria->compare('closed', 0);
         $criteria->group = 'project.id, t.id';
         $criteria->order = 'project.id DESC, t.id DESC';
         $owned = Issue::model()->with(array('project'))->findAll($criteria);
@@ -156,8 +156,8 @@ class Issue extends CActiveRecord {
 
     public static function assigned($user_id) {
         $criteria = new CDbCriteria();
-        $criteria->compare('assigned_to', $user_id, true);
-        $criteria->compare('closed', 0, true);
+        $criteria->compare('assigned_to', $user_id);
+        $criteria->compare('closed', 0);
         $criteria->group = 'project.id, t.id';
         $criteria->order = 'project.id DESC, t.id DESC';
         $assigned = Issue::model()->with(array('project'))->findAll($criteria);
@@ -171,8 +171,8 @@ class Issue extends CActiveRecord {
         if((isset(Yii::app()->user->id))&&(isset($_GET['id']))) {
             $criteria = new CDbCriteria();
             $criteria->select = 'user_id';
-            $criteria->compare('user_id', Yii::app()->user->id, true);
-            $criteria->compare('id', $_GET['id'], true);
+            $criteria->compare('user_id', Yii::app()->user->id);
+            $criteria->compare('id', $_GET['id']);
             $owner = Issue::model()->findAll($criteria);
             return !empty($owner);
         } else {
