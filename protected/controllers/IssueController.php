@@ -223,12 +223,13 @@ class IssueController extends Controller {
 
                     if($model->save(false)) {
 
+                        $project = Project::model()->findByPk((int)$model->project_id);
                         $model->buildCommentDetails($comment->id);
-                        $model->addToActionLog($model->id,Yii::app()->user->id,'change', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment);
+                        $model->addToActionLog($model->id,Yii::app()->user->id,'change', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $project->identifier, '#' => 'note-'.$model->commentCount)), $comment);
 
                         Yii::app()->user->setFlash('success',"Issue was succesfully moved");
 
-                        $this->redirect(array('view', 'id' => $model->id, 'identifier' => Project::model()->findByPk((int)$model->project_id)->identifier));
+                        $this->redirect(array('view', 'id' => $model->id, 'identifier' => $project->identifier));
 
 
                     }else {
@@ -444,7 +445,7 @@ class IssueController extends Controller {
         $results = Project::model()->findByAttributes(array('identifier' => $_GET['identifier']))->getMembers();
         $user_list = array();
         foreach ($results as $result) {
-            $user_list[$result->id] = $result->user->username;
+            $user_list[$result->user->id] = $result->user->username;
         }
         return $user_list;
     }
