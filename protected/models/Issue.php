@@ -334,6 +334,9 @@ class Issue extends CActiveRecord {
     private function getNamefromRowValue($name, $value) {
         $returned_name = '';
         switch ($name) {
+            case 'project_id':
+                $returned_name = Project::model()->findByPk($value)->name;
+                break;
             case 'tracker_id':
                 $returned_name = Tracker::model()->findByPk($value)->name;
                 break;
@@ -468,7 +471,7 @@ class Issue extends CActiveRecord {
             } else {
                 $old = '';
             }
-            if (($value != $old)&&($name != 'updated_by')&&($name != 'description'))
+            if (($value != $old)&&($name != 'updated_by')&&($name != 'description')&&($name != 'modified'))
             {
                 $changed = true;
                 $detail = new CommentDetail();

@@ -198,6 +198,52 @@ class IssueController extends Controller {
         ));
     }
 
+    public function actionMove($id) {
+        $model = Issue::model()->with(array('project', 'tracker'))->findByPk((int) $id);
+        $_GET['projectname'] = $model->project->name;
+        if (isset($_POST['Issue'])) {
+            $model->project_id = $_POST['Issue']['project_id'];
+            // version and category are connected to project
+            // they need to be set to null
+            $model->version_id = null;
+            $model->issue_category_id = null;
+            if($model->wasModified()) {
+                if($model->validate()) {
+
+                    $comment = new Comment;
+                    $comment->content = '_Issue was moved between projects_';
+                    $comment->issue_id = $model->id;
+                    $comment->create_user_id = Yii::app()->user->id;
+                    $comment->update_user_id = Yii::app()->user->id;
+
+                    if($comment->validate()) {
+                        $comment->save(false);
+                        $model->updated_by = $comment->create_user_id;
+                    }
+
+                    if($model->save(false)) {
+
+                        $model->buildCommentDetails($comment->id);
+                        $model->addToActionLog($model->id,Yii::app()->user->id,'change', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment);
+
+                        Yii::app()->user->setFlash('success',"Issue was succesfully moved");
+
+                        $this->redirect(array('view', 'id' => $model->id, 'identifier' => Project::model()->findByPk((int)$model->project_id)->identifier));
+
+
+                    }else {
+                        Yii::app()->user->setFlash('error',"There was an error moving the issue");
+                    }
+                }
+            }
+        }
+        
+        $this->render('move', array(
+            'model' => $model,
+            'project_name' => $model->project->name,
+        ));
+    }
+
     /**
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
