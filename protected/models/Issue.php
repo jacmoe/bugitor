@@ -520,9 +520,9 @@ class Issue extends CActiveRecord {
         return $changed;
     }
 
-    public function sendNotifications($id, $comment) {
+    public function sendNotifications($id, $comment, $updated_by) {
         $issue = Issue::model()->findByPk((int) $id);
-        $emails = $issue->getWatcherEmails($id);
+        $emails = $issue->getWatcherEmails($id, $updated_by);
         if(null != $emails) {
             $message = new YiiMailMessage;
             $message->view = 'issuechange';
@@ -536,14 +536,15 @@ class Issue extends CActiveRecord {
         }
     }
 
-    public function getWatcherEmails($id) {
+    public function getWatcherEmails($id, $updated_by) {
         $criteria = new CDbCriteria();
         $criteria->compare('issue_id', $id, true);
         $watchers = Watcher::model()->with('user')->findAll($criteria);
         $emails = array();
         if(isset($watchers)) {
             foreach($watchers as $watcher){
-                $emails[] = $watcher->user->email;
+                if($watcher->user->id !== $updated_by)
+                    $emails[] = $watcher->user->email;
             }
             return $emails;
         } else {
