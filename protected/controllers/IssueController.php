@@ -51,7 +51,7 @@ class IssueController extends Controller {
     }
 
     public function allowedActions() {
-        return 'view';
+        return 'view, index';
     }
 
     public function actionWatch() {
@@ -247,6 +247,82 @@ class IssueController extends Controller {
         $this->render('move', array(
             'model' => $model,
             'project_name' => $model->project->name,
+        ));
+    }
+
+    public function actionComment($id) {
+        $this->layout = '//layouts/column1';
+
+        $model = Issue::model()->with(array('comments','tracker','user', 'issueCategory', 'issuePriority', 'version', 'assignedTo', 'updatedBy', 'project'))->findByPk((int) $id);
+
+        $_GET['projectname'] = $model->project->name;
+
+        $comment = new Comment;
+
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
+        $comment_made = false;
+        if (isset($_POST['Issue'])) {
+            $model->attributes = $_POST['Issue'];
+            if (($_POST['Comment'] !== '')) {
+                $comment->content = $_POST['Comment'];
+                $comment->issue_id = $model->id;
+                $comment->create_user_id = Yii::app()->user->id;
+                $comment->update_user_id = Yii::app()->user->id;
+                $comment_made = true;
+            }
+            if($model->wasModified()||($comment_made)) {
+                if($comment_made) {
+                    $model->updated_by = $comment->create_user_id;
+                } else {
+                    $model->updated_by = Yii::app()->user->id;
+                }
+                if ($model->validate()) {
+
+                    if(!$comment_made) {
+                        $comment->content = '_No comments for this change_';
+                        $comment->issue_id = $model->id;
+                        $comment->create_user_id = Yii::app()->user->id;
+                        $comment->update_user_id = Yii::app()->user->id;
+                    }
+
+                    if($comment->validate()) {
+                        $comment->save(false);
+                        $model->updated_by = $comment->create_user_id;
+                    }
+
+                    $has_details = $model->buildCommentDetails($comment->id);
+
+                    $model->save(false);
+
+
+                    $model->sendNotifications($model->id, $comment, $model->updated_by);
+
+                    if($has_details) {
+                        if($model->status == 'swIssue/resolved') {
+                            $model->addToActionLog($model->id,Yii::app()->user->id,'resolved', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment);
+                        } elseif($model->status == 'swIssue/rejected') {
+                            $model->addToActionLog($model->id,Yii::app()->user->id,'rejected', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment);
+                        } else {
+                            $model->addToActionLog($model->id,Yii::app()->user->id,'change', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment);
+                        }
+                    } else {
+                        $model->addToActionLog($model->id,Yii::app()->user->id,'note', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment);
+                    }
+
+                    Yii::app()->user->setFlash('success',"Issue was succesfully updated");
+                    $this->redirect(array('view', 'id' => $model->id, 'identifier' => $model->project->identifier));
+                } else {
+                    Yii::app()->user->setFlash('error',"There was an error updating the issue");
+                }
+            } else {
+                Yii::app()->user->setFlash('success',"No changes detected");
+                $this->redirect(array('view', 'id' => $model->id, 'identifier' => $model->project->identifier));
+            }
+        }
+
+        $this->render('comment', array(
+            'model' => $model,
         ));
     }
 

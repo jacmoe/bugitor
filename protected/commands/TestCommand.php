@@ -40,10 +40,64 @@ require_once('mimeparser/rfc822_addresses.php');
 
 class TestCommand extends CConsoleCommand {
 
+public function parse_email ($email) {
+// Split header and message
+$header = array();
+$message = array();
+
+$is_header = true;
+foreach ($email as $line) {
+if ($line == '<HEADER> ' . "\r\n") continue;
+if ($line == '<MESSAGE> ' . "\r\n") continue;
+if ($line == '</MESSAGE> ' . "\r\n") continue;
+if ($line == '</HEADER> ' . "\r\n") { $is_header = false; continue; }
+
+if ($is_header == true) {
+$header[] = $line;
+} else {
+$message[] = $line;
+}
+}
+
+// Parse headers
+$headers = array();
+
+foreach ($header as $line) {
+$colon_pos = strpos($line, ':');
+$space_pos = strpos($line, ' ');
+
+if ($colon_pos === false OR $space_pos < $colon_pos) {
+// attach to previous
+$previous .= "\r\n" . $line;
+continue;
+}
+
+// Get key
+$key = substr($line, 0, $colon_pos);
+
+// Get value
+$value = substr($line, $colon_pos+2);
+$headers[$key] = $value;
+
+$previous =& $headers[$key];
+}
+// Parse message
+$message = implode('', $message);
+
+// Return array
+$email = array();
+$email['message'] = $message;
+$email['headers'] = $headers;
+/* echo "<pre>";
+echo print_r($message);;
+echo "<pre> message$id";
+*/ return $email;
+}
+
     public function run($args) {
         $email = '';
         $fd = fopen("php://stdin", "r");
-        //$fd = fopen("C:/wamp/www/email.txt", "r");
+        //$fd = fopen("/home/stealth977/email.txt", "r");
         if($fd) {
             while (!feof($fd)) {
                 $email .= fread($fd, 1024);
@@ -54,6 +108,9 @@ class TestCommand extends CConsoleCommand {
         if ($email !== '') {
             /* Create a new instance of MimeParser - just for the body in plain text */
             $parse = new MimeParser($email);
+
+            $parsed_email = $this->parse_email($email);
+
             /* Create a new instance of Parser */
             $mime = new mime_parser_class;
             $mime->mbox = 0;
@@ -138,21 +195,20 @@ class TestCommand extends CConsoleCommand {
             $criteria = new CDbCriteria();
             $criteria->compare('email', $pass_this['from'], true);
             $user = User::model()->find($criteria);
-            if(null == $user) {
+            if(null === $user) {
                 return;
             }
 
             $issue = Issue::model()->findByPk($pass_this['issue']);
-            if(null == $issue){
+            if(null === $issue){
                 return;
             }
 
             $new_comment = new Comment;
-            $new_comment->content = $pass_this['message'];
+            $new_comment->content = $parsed_email['message'];//$pass_this['message'];
             $new_comment->create_user_id = $user->id;
             $new_comment->update_user_id = $user->id;
-            $new_comment->create_user_id = $user->id;
-            $new_comment->issue_id = $pass_this['issue'];
+            $new_comment->issue_id = (int)$pass_this['issue'];
             $new_comment->created = $new_comment->modified = date("Y-m-d\TH:i:s\Z", time());
             if($new_comment->validate()){
                 $new_comment->save(false);
@@ -161,9 +217,8 @@ class TestCommand extends CConsoleCommand {
             $issue->updated_by = $user->id;
             if($issue->validate()){
                 $issue->save(false);
-                $issue = Issue::model()->with(array('comments','project', 'commentCount'))->findByPk($pass_this['issue']);
                 $issue->addToActionLog($issue->id, $user->id, 'note', '/projects/'.$issue->project->identifier.'/issue/view/'.$issue->id.'#note-'.$issue->commentCount, $new_comment);
-                $issue->sendNotifications($issue->id, $new_comment);
+                $issue->sendNotifications($issue->id, $new_comment, $issue->updated_by);
             }
         }
     }
