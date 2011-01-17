@@ -224,6 +224,20 @@ project_id=:projectId AND user_id=:userId";
         return User::model()->findAll($criteria);
     }
 
+    public static function isMemberOf() {
+        if((isset(Yii::app()->user->id))&&(isset($_GET['identifier']))) {
+            $criteria = new CDbCriteria();
+            $criteria->select = 'user_id, project_id';
+            $criteria->compare('user_id', Yii::app()->user->id);
+            $criteria->compare('project_id', Project::getProjectIdFromIdentifier($_GET['identifier']));
+            $member = Member::model()->findAll($criteria);
+            return !empty($member);
+        } else {
+            return false;
+        }
+        return false;
+    }
+
     public static function myProjects($user_id) {
         $criteria = new CDbCriteria();
         $criteria->distinct = true;

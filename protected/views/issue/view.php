@@ -36,7 +36,11 @@
 $this->pageTitle = $model->project->name . ' - ' . $model->tracker->name . ' #' . $model->id . ': ' . $model->subject . ' - ' . Yii::app()->name ;
 ?>
 <div class="contextual" id="contextual">
-<?php if(Yii::app()->user->checkAccess('Issue.Update')) echo CHtml::link('Update', array('update', 'id' => $model->id, 'identifier' => $model->project->identifier), array('class' => 'icon icon-edit')) ?>
+<?php if(Yii::app()->user->checkAccess('Issue.Update')) : ?>
+    <?php echo CHtml::link('Update', array('update', 'id' => $model->id, 'identifier' => $model->project->identifier), array('class' => 'icon icon-edit')) ?>
+<?php elseif(Yii::app()->user->checkAccess('Issue.Create')) : ?>
+    <?php echo CHtml::link('Comment', array('comment', 'id' => $model->id, 'identifier' => $model->project->identifier), array('class' => 'icon icon-edit')) ?>
+<?php endif; ?>
 &nbsp;&nbsp;
 <?php if(Yii::app()->user->checkAccess('Issue.Watch'))
     echo CHtml::ajaxLink(($model->watchedBy(Yii::app()->user->id)) ? "Unwatch" : "Watch",

@@ -53,7 +53,7 @@
                     <?php
                     $this->widget('BugitorMenu', array(
                         'items' => array(
-                            array('label' => 'Home', 'url' => array('/site/index'), 'id' => 'site/index'),
+                            array('label' => 'Home', 'url' => array('/site/index'), 'id' => 'site/index', 'visible' => Yii::app()->user->checkAccess('Issue.Create')),
                             array('label' => 'Projects', 'url' => array('/projects/'), 'id' => 'project/index'),
                             array('label' => 'Administration', 'url' => array('/admin'), 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
                         ),
@@ -128,7 +128,7 @@
                     <?php
                                         $this->widget('BugitorMenu', array(
                                             'items' => array(
-                                                array('label' => 'Welcome', 'url' => array('/site/index'), 'id' => 'site/index'),
+                                                array('label' => 'Welcome', 'url' => array('/site/index'), 'id' => 'site/index', 'visible' => Yii::app()->user->checkAccess('Issue.Create')),
                                                 array('label' => 'Projects', 'url' => array('/projects/'), 'id' => 'project/index'),
                                             ),
                                         )); ?>
@@ -138,13 +138,15 @@
                                 <div class="clear"></div>
         <?php
         if (((Yii::app()->controller->id === 'project')||(Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) {
-            $this->widget('DropDownRedirect', array(
-                'data' => Yii::app()->controller->getProjects(),
-                'url' => $this->createUrl($this->route, array_merge($_GET, array('identifier' => '__value__'))),
-                'select' => $_GET['identifier'], //the preselected value
-                'htmlOptions' => array('class' => 'floatright')
-            ));
-            } ?>
+            if(('issue/view' !== $this->route) && ('issue/update' !== $this->route) && ('issue/create' !== $this->route)) {
+                $this->widget('DropDownRedirect', array(
+                    'data' => Yii::app()->controller->getProjects(),
+                    'url' => $this->createUrl($this->route, array_merge($_GET, array('identifier' => '__value__'))),
+                    'select' => $_GET['identifier'], //the preselected value
+                    'htmlOptions' => array('class' => 'floatright')
+                ));
+            }
+        } ?>
                                 <?php
                                 Yii::app()->clientScript->registerScript(
                                    'myHideEffect',
