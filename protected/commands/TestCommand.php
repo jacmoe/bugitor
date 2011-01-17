@@ -104,12 +104,57 @@ echo "<pre> message$id";
             }
             fclose($fd);
         }
+        
+        // handle email
+        $lines = explode("\n", $email);
+
+        // empty vars
+        $from = "";
+        $subject = "";
+        $headers = "";
+        $message_plain = "";
+        $splittingheaders = true;
+
+        for ($i=0; $i < count($lines); $i++) {
+            if ($splittingheaders) {
+                // this is a header
+                $headers .= $lines[$i]."\n";
+
+                // look out for special headers
+                if (preg_match("/^Subject: (.*)/", $lines[$i], $matches)) {
+                    $subject = $matches[1];
+                }
+                if (preg_match("/^From: (.*)/", $lines[$i], $matches)) {
+                    $from = $matches[1];
+                }
+            } elseif ($splittingmessage) {
+
+            } else {
+                //If message has some HTML headers.
+                if (strstr($lines[$i + 1],"Content-Type: text/html;")) {
+                    break;
+                } else {
+                    // not a header, but message
+                    $message_plain .= $lines[$i]."\n";
+                }
+                //If message has some HTML headers.
+                if (strstr($lines[$i],"Content-Type: text/plain;")) {
+                    $message_plain = "";
+                    $splittingmessage = true;
+                }
+
+            }
+
+            if (trim($lines[$i])=="") {
+                // empty line, header section has ended
+                $splittingheaders = false;
+                $splittingmessage = false;
+            }
+        }
 
         if ($email !== '') {
             /* Create a new instance of MimeParser - just for the body in plain text */
-            $parse = new MimeParser($email);
-
-            $parsed_email = $this->parse_email($email);
+            //$parse = new MimeParser($email);
 
             /* Create a new instance of Parser */
             $mime = new mime_parser_class;
@@ -130,7 +175,7 @@ echo "<pre> message$id";
                         }
                         $pass_this['subject'] = $results['Subject'];
 
-                        $incoming_message = $parse->message['plain'];
+                        $incoming_message = $message_plain;//$parse->message['plain'];
 
                         $incoming_message = utf8_encode($incoming_message);
                         // Clean out 'quoted-printable' rubbish
@@ -170,6 +215,12 @@ echo "<pre> message$id";
                         $exploding = explode('--',$pass_this['message']);
                         $pass_this['message'] = $exploding[0];
 
+                        // /On(.*)wrote\:/iU
+
+                        $cleaned_mess = preg_match('/On(.*)wrote\:/iU',$pass_this['message'],$patterns);
+                        $exploded_mess = explode($patterns[0],$pass_this['message']);
+                        $pass_this['message'] = $exploded_mess[0];
+
                         $the_attachments = array();
                         $count = 0;
 //                    foreach($results['Attachments'] as $attachment) {
@@ -205,7 +256,7 @@ echo "<pre> message$id";
             }
 
             $new_comment = new Comment;
-            $new_comment->content = $parsed_email['message'];//$pass_this['message'];
+            $new_comment->content = $pass_this['message'];
             $new_comment->create_user_id = $user->id;
             $new_comment->update_user_id = $user->id;
             $new_comment->issue_id = (int)$pass_this['issue'];

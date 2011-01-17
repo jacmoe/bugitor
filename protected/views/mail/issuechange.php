@@ -1,64 +1,5 @@
 <html>
-<head>
-<style>
-body {
-  font-family: Verdana, sans-serif;
-  font-size: 0.8em;
-  color:#484848;
-}
-h1, h2, h3 { font-family: "Trebuchet MS", Verdana, sans-serif; margin: 0px; }
-h1 { font-size: 1.2em; }
-h2, h3 { font-size: 1.1em; }
-a, a:link, a:visited { color: #2A5685;}
-a:hover, a:active { color: #c61a1a; }
-a.wiki-anchor { display: none; }
-hr {
-  width: 100%;
-  height: 1px;
-  background: #ccc;
-  border: 0;
-}
-.footer {
-  font-size: 0.8em;
-  font-style: italic;
-}
-</style>
-</head>
-<body>
-<?php
-/*
- * This file is part of
- *     ____              _ __
- *    / __ )__  ______ _(_) /_____  _____
- *   / __  / / / / __ `/ / __/ __ \/ ___/
- *  / /_/ / /_/ / /_/ / / /_/ /_/ / /
- * /_____/\__,_/\__, /_/\__/\____/_/
- *             /____/
- * A Yii powered issue tracker
- * http://bitbucket.org/jacmoe/bugitor/
- *
- * Copyright (C) 2009 - 2010 Bugitor Team
- *
- * Permission is hereby granted, free of charge, to any person
- * obtaining a copy of this software and associated documentation files
- * (the "Software"), to deal in the Software without restriction,
- * including without limitation the rights to use, copy, modify, merge,
- * publish, distribute, sublicense, and/or sell copies of the Software,
- * and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
- * The above copyright notice and this permission notice shall be included
- * in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
- * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
- * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
- * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
- * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-?>
-<?php //$this->widget('ext.yii-mail.YiiMailDebug'); ?>
+<body style="font-family: Verdana, sans-serif; font-size: 0.8em; color:#484848;">
 <div class="wiki">
 Issue #<?php echo $issue->id ?> has been updated by <?php echo Bugitor::format_username($comment->author); ?>
 <?php if($comment->details) : ?>
@@ -84,8 +25,8 @@ Issue #<?php echo $issue->id ?> has been updated by <?php echo Bugitor::format_u
 <br/>
 <br/>
 <hr />
-<h3>Bugitor Issue Tracker</h3>
-<span class="footer">You have received this notification because you have either subscribed to it, or are involved in it.<br />
+<h3 style="font-size: 1.1em; font-family: 'Trebuchet MS', Verdana, sans-serif; margin: 0px;">Bugitor Issue Tracker</h3>
+<span style="font-size: 0.8em; font-style: italic;">You have received this notification because you have either subscribed to it, or are involved in it.<br />
 To change your notification preferences, please click here:
 <a href="http://<?php echo $_SERVER['HTTP_HOST'] ?>/user/profile">http://<?php echo $_SERVER['HTTP_HOST'] ?>/user/profile</a>
 </span>
