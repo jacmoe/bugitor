@@ -43,109 +43,38 @@ class Textilizer extends CApplicationComponent
         //return Yii::app()->theme->baseUrl;
     }
 
-    protected function _replaceCandycaneLinks($already_matched) {
-        /* Redmine links
-     *
-     * Examples:
-     *   Issues:
-     *     #52 -> Link to issue #52
-     *   Changesets:
-     *     r52 -> Link to revision 52
-     *     commit:a85130f -> Link to scmid starting with a85130f
-     *   Documents:
-     *     document#17 -> Link to document with id 17
-     *     document:Greetings -> Link to the document with title "Greetings"
-     *     document:"Some document" -> Link to the document with title "Some document"
-     *   Versions:
-     *     version#3 -> Link to version with id 3
-     *     version:1.0.0 -> Link to version named "1.0.0"
-     *     version:"1.0 beta 2" -> Link to version named "1.0 beta 2"
-     *   Attachments:
-     *     attachment:file.zip -> Link to the attachment of the current object named file.zip
-     *   Source files:
-     *     source:some/file -> Link to the file located at /some/file in the project's repository
-     *     source:some/file@52 -> Link to the file's revision 52
-     *     source:some/file#L120 -> Link to line 120 of the file
-     *     source:some/file@52#L120 -> Link to line 120 of the file's revision 52
-     *     export:some/file -> Force the download of the file
-     *  Forum messages:
-     *     message#1218 -> Link to message with id 1218
-        */
+    protected function _fixupLinks($already_matched) {
+        //return '"' . $already_matched[0] . '":' . $already_matched[0] . ' ';
+        //return $already_matched[0];
+        //return "\"http://localhost\":http://localhost";
+        return 'not implemented';
+    }
+
+    protected function _replaceBugitorLinks($already_matched) {
 //        $view =& ClassRegistry::getObject('view');
 //        $project = isset($view->viewVars['main_project']['Project']['identifier']) ? $view->viewVars['main_project']['Project']['identifier'] : null;
-//        list($all, $leading, $esc, $prefix,, $sep, $oid) = $already_matched;
-//        if ($sep === "" && $oid === "") {
-//            $sep = $already_matched[7];
-//            $oid = $already_matched[8];
-//        }
-//        $link = "";
-//        if ($esc === "") {
-//            if ($prefix === "" && $sep === 'r') {
-//                $Changeset = & ClassRegistry::init('Changeset');
-//                if (($project !== "") && ($change_set = $Changeset->find('first', array( 'conditions' => array( 'revision' => $oid))))) {
-//                    $link = $this->Html->link("r${oid}",
-//                            array('controller' => 'changesets',
-//                            'action' => 'view',
-//                            'project_id' => $project,
-//                            $change_set['Changeset']['id']),
-//                            aa('class', 'changeset',
-//                            'title',
-//                            ''/*truncate_single_line(changeset.comments, 100)*/));
-//
-//                }
-//            } elseif ($sep === '#') {
-//                $oid = (int)$oid;
-//                switch($prefix) {
-//                    case '':
-//                        $issue = true;
-//                        $Issue = & ClassRegistry::init('Issue');
-//                        $issue = $Issue->find('first', array(
-//                            'cache' => '_replaceCandycaneLinks_issue_' . $oid,
-//                            'conditions' => array('Issue.id' => $oid)));
-//                        if ($issue) {
-//                            $class = $issue['IssueStatus']['is_closed'] ? 'issue closed' : 'issue';
-//                            $link = $this->Html->link("#${oid}",
-//                                    array('controller' => 'issues',
-//                                    'action' => 'view',
-//                                    'project_id' => $project,
-//                                    $oid),
-//                                    aa('class', $class,
-//                                    'title', ''/*"#{truncate(issue.subject, 100)} (#{issue.status.name})")*/));
-//                            if ( $issue['IssueStatus']['is_closed']) {
-//                                $link = $this->Html->tag('del', $link);
-//                            }
-//                        }
-//                        break;
+        list($all, $leading, $esc, $prefix,, $sep, $oid) = $already_matched;
+        if ($sep === "" && $oid === "") {
+            $sep = $already_matched[7];
+            $oid = $already_matched[8];
+        }
+        $link = "";
+        if ($esc === "") {
+            if($sep === '#') {
+                $oid = (int)$oid;
+                switch($prefix) {
+                case '':
+                    $issue = Issue::model()->with(array('project', 'tracker'))->findByPk((int) $oid);
+                    if ($issue) {
+                        $link = CHtml::link('#' . $issue->id,Yii::app()->request->hostInfo.'/projects/'.$issue->project->identifier.'/issue/view/'.$issue->id, array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue', 'title' => $issue->subject));
+                    }
+                    break;
+                }
+            } elseif ($sep === ':') {
+                // removes the double quotes if any
+                $name = preg_replace('{^"(.*)"$}', '\\1', $oid);
+                switch ($prefix) {
 //                    case 'document':
-//                        $document = 1;
-//                        /*document =Document.find_by_id(oid, :include => [:project], :conditions => Project.visible_by(User.current))*/
-//                        if ($document) {
-//                            $link = $this->Html->link($oid/*h(document.title)*/,
-//                                    array('controller' => 'documents',
-//                                    'action' => 'show',
-//                                    'id' => $document),
-//                                    aa('class', 'document'));
-//                        }
-//                        break;
-//                    case 'version':
-//                        break;
-//                    case 'message':
-//                        break;
-//                }
-//            } elseif ($sep === ':') {
-//                // removes the double quotes if any
-//                $name = preg_replace('{^"(.*)"$}', '\\1', $oid);
-//                switch ($prefix) {
-//                    case 'document':
-//                        $document = 1;
-//                        /*document = project.documents.find_by_title(name)*/
-//                        if ($project !== "" &&  $document !== "") {
-//                            $link = $this->Html->link($name/*h(document.title)*/,
-//                                    array('controller' => 'documents',
-//                                    'action' => 'show',
-//                                    'id' => $document),
-//                                    aa('class', 'document'));
-//                        }
 //                        break;
 //                    case 'version':
 //                        break;
@@ -156,28 +85,30 @@ class Textilizer extends CApplicationComponent
 //                        break;
 //                    case 'attachment':
 //                        break;
-//                }
-//            }
-//        }
-//        $result = $leading;
-//        if ($link !== "") {
-//            $result .= $link;
-//        } else {
-//            $result .= "${prefix}${sep}${oid}";
-//        }
-//        return $result;
+                    case 'rev':
+                        $link = 'rev:' . $oid;
+                        break;
+                }
+            } // if sep = :
+        } // if esc
+        $result = $leading;
+        if ($link !== "") {
+            $result .= $link;
+        } else {
+            $result .= "${prefix}${sep}${oid}";
+        }
+        return $result;
     }
 
     public function textilize($content, $parseSmilies = true) {
         $text = $this->getTextile()->TextileThis($content);
-//        $text = preg_replace_callback('{([\s\(,\-\>]|^)(!)?(attachment|document|version|commit|source|export|message)?((#|r)([A-z0-9]+)|(:)([^"\s<>][^\s<>]*?|"[^"]+?"))(?=(?=[[:punct:]]\W)|\s|<|$)}',
-//                array($this, '_replaceCandycaneLinks'),
-//                $text);
+        $text = preg_replace_callback('{([\s\(,\-\>]|^)(!)?(attachment|document|version|commit|source|export|message|rev)?((#|rev\:)([A-z0-9]+)|(:)([^"\s<>][^\s<>]*?|"[^"]+?"))(?=(?=[[:punct:]]\W)|\s|<|$)}',
+                    array($this, '_replaceBugitorLinks'),
+                    $text);
         if($parseSmilies) {
-            return $this->smiley($text);
-        } else {
-            return $text;
+            $text = $this->smiley($text);
         }
+        return $text;
     }
 
 }
