@@ -36,20 +36,28 @@
 <div class="splitcontentleft">
     <div class="issues box">
         <h3>My Issues</h3>
-        <?php $this->Widget('OwnedIssues'); ?>
+        <div class="scroll">
+            <?php $this->Widget('OwnedIssues'); ?>
+        </div>
+    </div>
+    <div class="assigned box">
+        <h3>Issues Assigned to me</h3>
+        <div class="scroll">
+            <?php $this->Widget('AssignedIssues'); ?>
+        </div>
     </div>
 </div>
 <div class="splitcontentright">
     <div class="project box">
         <h3>My Projects</h3>
-        <?php $this->Widget('MyProjects'); ?>
-    </div>
-    <div class="assigned box">
-        <h3>Issues Assigned to me</h3>
-        <?php $this->Widget('AssignedIssues'); ?>
+        <div class="scroll_small">
+            <?php $this->Widget('MyProjects'); ?>
+        </div>
     </div>
     <div class="watched box">
         <h3>Watched Issues</h3>
-        <?php $this->Widget('WatchedIssues'); ?>
+        <div class="scroll_larger">
+            <?php $this->Widget('WatchedIssues'); ?>
+        </div>
     </div>
 </div>
