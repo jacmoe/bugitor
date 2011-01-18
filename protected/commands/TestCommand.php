@@ -95,7 +95,12 @@ echo "<pre> message$id";
 }
 
     public function run($args) {
-        $email = '';
+		// debug file
+		//$debugFile = "/home/stealth977/debug_dump.txt";
+		//$debugfh = fopen($debugFile, 'w');
+		//fwrite($debugfh,"alright\r\n");
+        
+		$email = '';
         $fd = fopen("php://stdin", "r");
         //$fd = fopen("/home/stealth977/email.txt", "r");
         if($fd) {
@@ -153,7 +158,9 @@ echo "<pre> message$id";
         }
 
         if ($email !== '') {
-            /* Create a new instance of MimeParser - just for the body in plain text */
+			//fwrite($debugfh,"email exists\r\n");
+			
+			/* Create a new instance of MimeParser - just for the body in plain text */
             //$parse = new MimeParser($email);
 
             /* Create a new instance of Parser */
@@ -165,37 +172,53 @@ echo "<pre> message$id";
             $parameters = array('Data' => $email, 'SkipBody' => 0,);
 
             $mime->Decode($parameters, $decoded);
+			//fwrite($debugfh,"email was decoded\r\n");
 
             $pass_this = array();
             for ($message = 0; $message < count($decoded); $message++) {
                 if ($mime->decode_bodies) {
-                    if ($mime->Analyze($decoded[$message], $results)) {
+					//fwrite($debugfh,"mime decode bodies\r\n");
+                    
+					if ($mime->Analyze($decoded[$message], $results)) {
+						//fwrite($debugfh,"mime analyze\r\n");
                         foreach ($results['From'] as $senders) {
                             $pass_this['from'] = $senders['address'];
                         }
+						//fwrite($debugfh,"Got a sender\r\n");
+						//fwrite($debugfh,$pass_this['from'] . "\r\n");
+
                         $pass_this['subject'] = $results['Subject'];
-
-                        $incoming_message = $message_plain;//$parse->message['plain'];
-
-                        $incoming_message = utf8_encode($incoming_message);
+						//fwrite($debugfh,"Got a subject\r\n");
+						//fwrite($debugfh,$pass_this['subject'] . "\r\n");
+                        
+						$incoming_message = $message_plain;//$parse->message['plain'];
+                        if(strlen($incoming_message)) {
+							//fwrite($debugfh,"incoming message is not empty\r\n");
+							//fwrite($debugfh, $incoming_message . "\r\n");
+						}
+						$incoming_message = utf8_encode($incoming_message);
+						//fwrite($debugfh,"utf8 encoded message\r\n");
                         // Clean out 'quoted-printable' rubbish
                         $quoted = strpos($incoming_message, 'quoted-printable');
                         if ($quoted !== false) {
                             $quoted_parts = explode('quoted-printable', $parse->message['plain']);
                             $incoming_message = $quoted_parts[1];
                         }
+						//fwrite($debugfh,"first clean\r\n");
                         // Clean out 'Content-Transfer-Encoding: 8bit' rubbish
                         $quoted2 = strpos($incoming_message, 'Content-Transfer-Encoding: 8bit');
                         if ($quoted2 !== false) {
                             $quoted_parts2 = explode('Content-Transfer-Encoding: 8bit', $parse->message['plain']);
                             $incoming_message = $quoted_parts2[1];
                         }
+						//fwrite($debugfh,"second clean\r\n");
                         // Clean out 'Content-Transfer-Encoding: 7bit' rubbish
                         $quoted3 = strpos($incoming_message, 'Content-Transfer-Encoding: 7bit');
                         if ($quoted3 !== false) {
                             $quoted_parts3 = explode('Content-Transfer-Encoding: 7bit', $parse->message['plain']);
                             $incoming_message = $quoted_parts3[1];
                         }
+						//fwrite($debugfh,"third clean\r\n");
                         // Remove 'original message'
                         $pos = strpos($incoming_message, '----- Original Message -----');
                         $pos2 = strpos($incoming_message, '---------');
@@ -215,14 +238,33 @@ echo "<pre> message$id";
                         $exploding = explode('--',$pass_this['message']);
                         $pass_this['message'] = $exploding[0];
 
+						//fwrite($debugfh,"just before On wrote clean\r\n");
                         // /On(.*)wrote\:/iU
 
                         $cleaned_mess = preg_match('/On(.*)wrote\:/iU',$pass_this['message'],$patterns);
-                        $exploded_mess = explode($patterns[0],$pass_this['message']);
-                        $pass_this['message'] = $exploded_mess[0];
+						//fwrite($debugfh,"got cleaned mess\r\n");
+                        if(strlen($patterns[0])) {
+							$exploded_mess = explode($patterns[0],$pass_this['message']);
+							//fwrite($debugfh,"got exploded mess\r\n");
+							$pass_this['message'] = $exploded_mess[0];
+						}
 
-                        $the_attachments = array();
+                        $cleaned_mess2 = preg_match('/Von(.*)\:/iU',$pass_this['message'],$patterns2);
+						//fwrite($debugfh,"got cleaned2 mess\r\n");
+                        if(strlen($patterns2[0])) {
+							$exploded_mess2 = explode($patterns2[0],$pass_this['message']);
+							//fwrite($debugfh,"got exploded2 mess\r\n");
+							$pass_this['message'] = $exploded_mess2[0];
+						}
+						
+                        $pass_this['message'] = preg_replace('/\=20/',"\r\n", $pass_this['message']);
+						
+						//fwrite($debugfh,"Message:\r\n");
+						//fwrite($debugfh, $pass_this['message'] . "\r\n");
+						
+						$the_attachments = array();
                         $count = 0;
+						//fwrite($debugfh,"Done here\r\n");
 //                    foreach($results['Attachments'] as $attachment) {
 //                        $file_id = uniqid();
 //                        $the_attachments[$count]['FileID'] = $file_id;
@@ -236,24 +278,39 @@ echo "<pre> message$id";
             $pass_this['project'] = '';
             $pass_this['issue'] = 0;
 
+			//fwrite($debugfh,"Starting to pass on parsed\r\n");
             $subject_regex = '/^(Re: \[)([^0-9][A-z0-9]+)( - )(Bug|Feature) #?(\d+)(\#ic\d*){0,1}/';
             $num_closes = preg_match($subject_regex, $pass_this['subject'], $matches_closes, PREG_OFFSET_CAPTURE);
             if ($num_closes > 0) {
                 $pass_this['project'] = $matches_closes[2][0];
                 $pass_this['issue'] = $matches_closes[5][0];
-            }
+            } else {
+				// German .. tsk..
+				$subject_regex = '/^(AW: \[)([^0-9][A-z0-9]+)( - )(Bug|Feature) #?(\d+)(\#ic\d*){0,1}/';
+				$num_closes = preg_match($subject_regex, $pass_this['subject'], $matches_closes, PREG_OFFSET_CAPTURE);
+				if ($num_closes > 0) {
+					$pass_this['project'] = $matches_closes[2][0];
+					$pass_this['issue'] = $matches_closes[5][0];
+				}
+			}
 
             $criteria = new CDbCriteria();
             $criteria->compare('email', $pass_this['from'], true);
             $user = User::model()->find($criteria);
             if(null === $user) {
+				//fwrite($debugfh,"user is null\r\n");
+				//fclose($debugfh);
                 return;
             }
+			//fwrite($debugfh,"user found\r\n");
 
             $issue = Issue::model()->findByPk($pass_this['issue']);
             if(null === $issue){
+				//fwrite($debugfh,"issue is null\r\n");
+				//fclose($debugfh);
                 return;
             }
+			//fwrite($debugfh,"issue found\r\n");
 
             $new_comment = new Comment;
             $new_comment->content = $pass_this['message'];
@@ -272,6 +329,7 @@ echo "<pre> message$id";
                 $issue->sendNotifications($issue->id, $new_comment, $issue->updated_by);
             }
         }
+		//fclose($debugfh);
     }
 
 }
