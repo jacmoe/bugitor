@@ -81,6 +81,20 @@ return array(
             'viewPath' => 'application.views.mail',
             'dryRun' => false,
         ),
+        'log'=>array(
+            'class'=>'CLogRouter',
+            'routes'=>array(
+                array(
+                    'class'=>'CFileLogRoute',
+                    'levels'=>'trace, info',
+                    'categories'=>'ogitor.*',
+                ),
+                array(
+                    'class'=>'CFileLogRoute',
+                    'levels'=>'error, warning',
+                ),
+            ),
+        ),
         'textile' => array(
             'class' => 'application.components.textile.Textilizer',
         ),
@@ -165,14 +179,7 @@ return array(
                 '/issues/' => 'issue/index',
                 ),
         ),
-        'db' => array(
-            'connectionString' => 'mysql:host=mysql.ogitor.org;dbname=ogitortracker',
-            'emulatePrepare' => true,
-            'username' => 'ogitordbadmin',
-            'tablePrefix' => 'bug_',
-            'password' => 'Pevum2383',
-            'charset' => 'utf8',
-        ),
+        'db' => require(dirname(__FILE__) . '/db.php'),
         'errorHandler' => array(
             // use 'site/error' action to display errors
             'errorAction' => 'site/error',
