@@ -87,7 +87,7 @@ return array(
                 array(
                     'class'=>'CFileLogRoute',
                     'levels'=>'trace, info',
-                    'categories'=>'ogitor.*',
+                    'categories'=>'bugitor.*',
                 ),
                 array(
                     'class'=>'CFileLogRoute',
