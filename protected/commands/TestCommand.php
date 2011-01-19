@@ -196,7 +196,8 @@ echo "<pre> message$id";
 							//fwrite($debugfh,"incoming message is not empty\r\n");
 							//fwrite($debugfh, $incoming_message . "\r\n");
 						}
-						$incoming_message = utf8_encode($incoming_message);
+						
+						$incoming_message = iconv("windows-1256", "UTF-8", $incoming_message);
 						//fwrite($debugfh,"utf8 encoded message\r\n");
                         // Clean out 'quoted-printable' rubbish
                         $quoted = strpos($incoming_message, 'quoted-printable');

@@ -81,9 +81,7 @@ class MemberController extends Controller
 		if(isset($_POST['Member']))
 		{
 			$model->attributes=$_POST['Member'];
-                        $user = User::model()->findByPk($model->user_id);
-                        $user->attachBehavior('rights', new RightsUserBehavior);
-                        Yii::app()->getModule('rights')->getAuthorizer()->authManager->assign($model->role, $model->user_id);
+                        Rights::assign($model->role, $model->user_id);
                         
 			if($model->save())
                             $this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'members'));
