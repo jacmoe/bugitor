@@ -22,6 +22,8 @@ class Textilizer extends CApplicationComponent
         $msg = preg_replace("/:\(/",":sad:", $msg);
         $msg = preg_replace("/:smile:/","<img src='".Yii::app()->theme->baseUrl."/images/smilies/icon_smile.gif' title='Smile' alt='Smile'>", $msg);
         $msg = preg_replace("/:wink:/","<img src='".Yii::app()->theme->baseUrl."/images/smilies/icon_wink.gif' title='Wink' alt='Wink'>", $msg);
+        $msg = preg_replace("/\=P/","<img src='".Yii::app()->theme->baseUrl."/images/smilies/icon_razz.gif' title='p' alt='p'>", $msg);
+        $msg = preg_replace("/\:P/","<img src='".Yii::app()->theme->baseUrl."/images/smilies/icon_razz.gif' title='p' alt='p'>", $msg);
         $msg = preg_replace("/:razz:/","<img src='".Yii::app()->theme->baseUrl."/images/smilies/icon_razz.gif' title='p' alt='p'>", $msg);
         $msg = preg_replace("/:big_grin:/", "<img src='".Yii::app()->theme->baseUrl."/images/smilies/icon_biggrin.gif' title='Big Grin' alt='Big Grin'>", $msg);
         $msg = preg_replace("/:cheesy_grin:/", "<img src='".Yii::app()->theme->baseUrl."/images/smilies/icon_cheesygrin.gif' title='Cheesy Grin' alt='Cheesy Grin'>", $msg);
