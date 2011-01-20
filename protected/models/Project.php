@@ -275,6 +275,7 @@ project_id=:projectId AND user_id=:userId";
 
     public function getVersions() {
         $criteria = new CDbCriteria;
+        $criteria->order = 'effective_date';
         $criteria->compare('project_id', $this->id, true);
         return Version::model()->findAll($criteria);
     }
