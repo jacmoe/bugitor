@@ -45,7 +45,7 @@ $this->pageTitle = $model->project->name . ' - Comment on ' . $model->tracker->n
             ?>
                 <p class="note">Fields with <span class="required">*</span> are required.</p>
                 <?php echo $form->errorSummary($model); ?>
-                <?php echo Bugitor::gravatar($model->user->email); ?>
+                <?php echo Bugitor::gravatar($model->user); ?>
                 <h3><?php echo $model->subject; ?></h3>
                 Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Time::timeAgoInWords($model->created); ?>.
                 <?php if(isset($model->updatedBy)) echo '  Updated by '.Bugitor::link_to_user($model->updatedBy) .' '. Time::timeAgoInWords($model->modified); ?>
@@ -83,7 +83,7 @@ $this->pageTitle = $model->project->name . ' - Comment on ' . $model->tracker->n
                         <td class="assigned-to"><b>Assigned to:</b></td>
                         <td>
                             <?php if(isset($model->assignedTo)) : ?>
-                                <span><?php echo Bugitor::gravatar($model->assignedTo->email); ?></span>
+                                <span><?php echo Bugitor::gravatar($model->assignedTo); ?></span>
                                 <?php echo Bugitor::link_to_user($model->assignedTo); ?>
                             <?php endif; ?>
                         </td>

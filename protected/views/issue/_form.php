@@ -162,7 +162,7 @@
                         <?php echo $form->error($model, 'assigned_to'); ?>
                     <?php else : ?>
                         <?php if(isset($model->assignedTo)) : ?>
-                            <span><?php echo Bugitor::gravatar($model->assignedTo->email); ?></span>
+                            <span><?php echo Bugitor::gravatar($model->assignedTo); ?></span>
                             <?php echo Bugitor::link_to_user($model->assignedTo); ?>
                         <?php endif; ?>
                     <?php endif; ?>

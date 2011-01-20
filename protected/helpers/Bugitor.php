@@ -161,12 +161,10 @@ class Bugitor {
         return $out;
     }
 
-    public static function gravatar($email, $size = 48, $name = '') {
+    public static function gravatar($user, $size = 48) {
         $grav_url = "http://www.gravatar.com/avatar.php?gravatar_id=" .
-            md5($email) . "&size=" . $size;
-        if($name !== '')
-            return '<img title="'.ucfirst($name).'" class="gravatar" src="'.$grav_url.'"/>';
-        return '<img class="gravatar" src="'.$grav_url.'"/>';
+        md5($user->email) . "&size=" . $size;
+        return CHtml::link('<img title="'.ucfirst($user->username).'" class="gravatar" src="'.$grav_url.'"/>', array('/user/user/view', "id" => $user->id));
     }
 
     public static function namedImage($name) {
