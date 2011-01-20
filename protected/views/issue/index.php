@@ -98,7 +98,7 @@ Show:
                     'header' => 'Last Modified',
                     'type' => 'raw',
                     'filter' => '',
-                    'value' => '(($data->modified)?Time::timeAgoInWords($data->modified):"")',
+                    'value' => '(($data->modified)?Time::timeAgoInWords($data->modified," by ".ucfirst($data->updatedBy->username)):"")',
                     'htmlOptions'=>array('width'=>'15%'),
                 ),
                 array(
