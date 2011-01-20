@@ -183,14 +183,14 @@ class Time {
 	* @param array $options Default format if timestamp is used in $dateString
 	* @return string Relative time string.
 	*/
-	public static function timeAgoInWords($dateTime, $options = array()) {
+	public static function timeAgoInWords($dateTime, $title_extra = '', $options = array()) {
 		$now = time();
 
 		$inSeconds = self::makeUnix($dateTime);// - Yii::app()->config->get('serverOffset');
 		$backwards = ($inSeconds > $now);
 
 		$format = 'j/n/y';
-		$end = '+1 month';
+		$end = '+24 month';
 
 		if (is_array($options)) {
 			if (isset($options['format'])) {
@@ -330,7 +330,7 @@ class Time {
 				$relativeDate = sprintf('%s ago', $relativeDate);
 			}
 		}
-		return '<acronym title="' . $dateTime . '">' . $relativeDate . '</acronym>';
+		return '<acronym title="' . $dateTime . $title_extra . '">' . $relativeDate . '</acronym>';
 	}
 
         // This is a simple script to calculate the difference between two dates
