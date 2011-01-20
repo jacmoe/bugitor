@@ -41,7 +41,7 @@
     <?php foreach ($activities as $activity): ?>
     <dl>
         <dt class="<?php echo $activity->type; ?>">
-            <?php echo Bugitor::gravatar($activity->author->email, 16, $activity->author->username); ?>
+            <?php echo Bugitor::gravatar($activity->author, 16); ?>
             <span class="time"><?php echo Time::timeAgoInWords($activity->when); ?></span>
             <?php echo CHtml::link($activity->subject, $activity->url) ?>
             <?php echo $activity->theday; ?>

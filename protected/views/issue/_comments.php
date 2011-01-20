@@ -45,7 +45,7 @@
 Updated by <?php echo Bugitor::link_to_user($comment->author); ?>
  <?php echo Time::timeAgoInWords($comment->created); ?></h4>
 <table><tr><td style="width:10%;vertical-align:top;">
-<span><?php echo Bugitor::gravatar($comment->author->email); ?></span>
+<span><?php echo Bugitor::gravatar($comment->author); ?></span>
 </td><td style="width:90%">
 <?php if($comment->details) : ?>
 <ul>

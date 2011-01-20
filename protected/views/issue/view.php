@@ -67,7 +67,7 @@ $this->pageTitle = $model->project->name . ' - ' . $model->tracker->name . ' #' 
 </div>
 <h2><?php echo Bugitor::namedImage($model->tracker->name) . ' ' . $model->tracker->name . ' #' . $model->id; ?> (<?php echo $model->getStatusLabel($model->status); ?>)</h2>
 <div class="issue">
-<?php echo Bugitor::gravatar($model->user->email); ?>
+<?php echo Bugitor::gravatar($model->user); ?>
 <h3><?php echo $model->subject; ?></h3>
 Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Time::timeAgoInWords($model->created); ?>.
 <?php if(isset($model->updatedBy)) echo '  Updated by '.Bugitor::link_to_user($model->updatedBy) .' '. Time::timeAgoInWords($model->modified); ?>
@@ -105,7 +105,7 @@ Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Time::tim
         <td class="assigned-to"><b>Assigned to:</b></td>
         <td>
             <?php if(isset($model->assignedTo)) : ?>
-                <span><?php echo Bugitor::gravatar($model->assignedTo->email); ?></span>
+                <span><?php echo Bugitor::gravatar($model->assignedTo); ?></span>
                 <?php echo Bugitor::link_to_user($model->assignedTo); ?>
             <?php endif; ?>
         </td>
