@@ -514,6 +514,16 @@ class Issue extends CActiveRecord {
                 }
                 if($detail->validate() && $changed)
                     $detail->save(false);
+
+                if(('Resolved' === $this->getNamefromRowValue($name, $value))||('Rejected' === $this->getNamefromRowValue($name, $value))) {
+                    if($this->getCurrentVersion()->id !== $this->version_id) {
+                        $detail1 = new CommentDetail();
+                        $detail1->comment_id = $comment_id;
+                        $detail1->change = '<b>Version</b> changed from <i>' . $this->version->name . '</i> to <i>' . $this->getCurrentVersion()->name.'</i>';
+                        if($detail1->validate())
+                            $detail1->save(false);
+                    }
+                }
             }
         }
         return $changed;
