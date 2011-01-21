@@ -845,9 +845,9 @@ class Textile
       @list(, $before, $text, $after) = $m;
       if ($this->restricted)
           // $text is already escaped
-            return $before.$this->shelve('<code>'.$text.'</code>').$after;
+            return $before.$this->shelve('<div class="scroll_small"><code>'.$text.'</code></div>').$after;
       else
-            return $before.$this->shelve('<code>'.$this->encode_html($text).'</code>').$after;
+            return $before.$this->shelve('<div class="scroll_small"><code>'.$this->encode_html($text).'</code></div>').$after;
     }
 
 // -------------------------------------------------------------
