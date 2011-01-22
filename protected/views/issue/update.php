@@ -40,14 +40,6 @@ $this->pageTitle = $model->project->name . ' - Update ' . $model->tracker->name 
 
 <div class="scroll">
 <?php if($model->commentCount>=1): ?>
-    <?php if(null !== $pages) : ?>
-    <div class="small" style="float:right;"><?php $this->widget('CustomLinkPager',array('pages'=>$pages)); ?></div>
-    <hr/>
-    <?php endif; ?>
-    <?php $this->renderPartial('_comments',array('comments'=>$comments,)); ?>
-    <?php if(null !== $pages) : ?>
-    <div class="small" style="float:right;"><?php $this->widget('CustomLinkPager',array('pages'=>$pages)); ?></div>
-    <hr/>
-    <?php endif; ?>
+    <?php $this->renderPartial('_comments',array('comments'=>$model->comments,)); ?>
 <?php endif; ?>
 </div>

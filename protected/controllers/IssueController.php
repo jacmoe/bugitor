@@ -148,19 +148,9 @@ class IssueController extends Controller {
             $_GET['projectname'] = Project::getProjectNameFromIdentifier($_GET['identifier']);
         }
         $this->layout = '//layouts/column1';
-        $criteria = new CDbCriteria;
-        $criteria->condition = 'issue_id = :issue_id';
-        $criteria->params = array('issue_id' => $id);
-        $pages = new CPagination(Comment::model()->find()->count($criteria));
-        $pages->pageSize = 50;
-        $pages->applyLimit($criteria);
-        $comments = Comment::model()->findAll($criteria);
-
-        $issue = Issue::model()->with(array('tracker', 'user', 'issueCategory', 'issuePriority', 'version', 'assignedTo', 'updatedBy','project'))->findByPk((int) $id);//$this->loadModel($id, true);
+        $issue = Issue::model()->with(array('comments','tracker','user', 'issueCategory', 'issuePriority', 'version', 'assignedTo', 'updatedBy','project'))->findByPk((int) $id);//$this->loadModel($id, true);
         $this->render('view', array(
             'model' => $issue,
-            'comments' => $comments,
-            'pages' => $pages,
         ));
     }
 
@@ -344,15 +334,7 @@ class IssueController extends Controller {
     public function actionUpdate($id) {
         $this->layout = '//layouts/column1';
         
-        $criteria = new CDbCriteria;
-        $criteria->condition = 'issue_id = :issue_id';
-        $criteria->params = array('issue_id' => $id);
-        $pages = new CPagination(Comment::model()->find()->count($criteria));
-        $pages->pageSize = 50;
-        $pages->applyLimit($criteria);
-        $comments = Comment::model()->findAll($criteria);
-
-        $model = Issue::model()->with(array('tracker','user', 'issueCategory', 'issuePriority', 'version', 'assignedTo', 'updatedBy', 'project'))->findByPk((int) $id);
+        $model = Issue::model()->with(array('comments','tracker','user', 'issueCategory', 'issuePriority', 'version', 'assignedTo', 'updatedBy', 'project'))->findByPk((int) $id);
 
         $_GET['projectname'] = $model->project->name;
 
@@ -422,8 +404,6 @@ class IssueController extends Controller {
 
         $this->render('update', array(
             'model' => $model,
-            'pages' => $pages,
-            'comments' => $comments,
         ));
     }
 
