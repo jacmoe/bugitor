@@ -129,7 +129,15 @@ Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Time::tim
 <?php ?>
 <div class="span-16" id="comments">
 <?php if($model->commentCount>=1): ?>
-<?php $this->renderPartial('_comments',array('comments'=>$model->comments,)); ?>
+    <?php if(null !== $pages) : ?>
+    <div class="small" style="float:right;"><?php $this->widget('CustomLinkPager',array('pages'=>$pages)); ?></div>
+    <hr/>
+    <?php endif; ?>
+    <?php $this->renderPartial('_comments',array('comments'=>$comments,)); ?>
+    <?php if(null !== $pages) : ?>
+    <div class="small" style="float:right;"><?php $this->widget('CustomLinkPager',array('pages'=>$pages)); ?></div>
+    <hr/>
+    <?php endif; ?>
 <?php endif; ?>
 </div>
 <?php else : ?>

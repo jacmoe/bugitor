@@ -692,9 +692,12 @@ dt.activity {margin:0 !important;}
 div.scroll {
     height: 200px;
     overflow: auto;
+    border:1px solid #ddd;
 }
 
 div.scroll_small {
+    background-color: white;
+    border:1px solid #ddd;
     height: 100px;
     overflow: auto;
 }
@@ -702,4 +705,5 @@ div.scroll_small {
 div.scroll_larger {
     height: 300px;
     overflow: auto;
+    border:1px solid #ddd;
 }
