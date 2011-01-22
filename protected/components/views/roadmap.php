@@ -36,12 +36,26 @@
 <?php $show_detail = $this->getDetailview(); ?>
 <?php foreach($versions as $version) : ?>
 <?php $show_version = $completed = false;
-if ((strtotime($version->effective_date) > strtotime(date("Y-m-d"))) && ($version->issueCountOpen > 0)) {
-    $show_version = true;
-    $completed = true;
-} else {
-    $show_version = false;
-} ?>
+if (strtotime($version->effective_date) > strtotime(date("Y-m-d"))) {
+    // if effective date is in the future..
+    if($version->issueCountOpen < 1) {
+        $completed = false;
+        $show_version = true;
+    } else {
+        $completed = false;
+        $show_version = true;
+    }
+} elseif (strtotime($version->effective_date) < strtotime(date("Y-m-d"))) {
+    // if effective date is in the past..
+    if($version->issueCountOpen < 1) {
+        $show_version = false;
+        $completed = true;
+    } else {
+        $show_version = true;
+        $completed = false;
+    }
+}
+?>
 <?php if($show_version): ?>
 <h3>
     <?php echo CHtml::link($version->name,
@@ -51,8 +65,8 @@ if ((strtotime($version->effective_date) > strtotime(date("Y-m-d"))) && ($versio
         )
     ); ?>
 </h3>
+<b>Deadline</b> (<?php echo $version->effective_date; ?>) - <span class="quiet"><?php echo ($completed) ? 'Completed' : Time::dueDateInWords($version->effective_date) ?></span><br/>
 <?php if( $version->issueCount > 0 ) : ?>
-<b>Deadline</b> (<?php echo $version->effective_date; ?>) - <span class="quiet"><?php echo ($completed) ? Time::dueDateInWords($version->effective_date) : 'Completed' ?></span><br/>
 <?php $num_actual_issues = $version->issueCount - $version->issueCountRejected; ?>
 <?php $open_percent = (($version->issueCountOpen / $num_actual_issues)*100); ?>
 <?php $closed_percent = (($version->issueCountResolved / $num_actual_issues)*100); ?>
