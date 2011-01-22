@@ -47,14 +47,7 @@ return CMap::mergeArray(
         ),
         // application components
         'components' => array(
-            'db' => array(
-                'connectionString' => 'mysql:host=127.0.0.1;dbname=ogitorbugs',
-                'emulatePrepare' => true,
-                'username' => 'root',
-                'tablePrefix' => 'bug_',
-                'password' => '',
-                'charset' => 'utf8',
-            ),
+            'db' => require(dirname(__FILE__) . '/db.php'),
             'mail' => array(
                 'class' => 'ext.yii-mail.YiiMail',
                 'transportType' => 'php',
