@@ -109,16 +109,16 @@ return array(
         ),
         'maintenanceMode' => array(
             'class' => 'ext.MaintenanceMode.MaintenanceMode',
-            'enabledMode' => false,
+            'enabledMode' => file_exists(dirname(__FILE__).'/.maintenance'),
             'message' => 'This site is currently undergoing maintenance. It should be up and running pretty soon.<br/>Thanks for your patience.',
             // or
             //'capUrl' => 'site/contact',
             // allowed users
             'users' => array('jacmoe', ),
             // allowed roles
-            'roles' => array('Administrator', ),
+            //'roles' => array('Administrator', ),
             // allowed urls
-            'urls' => array('/user/login', '/login', ),
+            //'urls' => array('/user/login', '/login', ),
         ),
         'config' => array(
             'class' => 'application.extensions.EConfig',

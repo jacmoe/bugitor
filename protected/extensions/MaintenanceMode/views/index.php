@@ -22,13 +22,6 @@
                 </div>
                 <div id="topmenu" class="span-8 last">
                     <span class="right">
-                        <?php
-                        $this->widget('BugitorMenu', array(
-                            'items' => array(
-                                array('url' => Yii::app()->getModule('user')->loginUrl, 'label' => Yii::app()->getModule('user')->t("Login"), 'visible' => Yii::app()->user->isGuest, 'id' => 'user/login/login'),
-                                array('url' => Yii::app()->getModule('user')->logoutUrl, 'label' => Yii::app()->getModule('user')->t("Logout") . ' (' . Yii::app()->user->name . ')', 'visible' => !Yii::app()->user->isGuest, 'id' => 'user/logout/logout'),
-                            ),
-                        )); ?>
                     </span>
                 </div>
             </div>
