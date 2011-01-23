@@ -42,6 +42,7 @@ class Roadmap extends CWidget {
     public $versions;
     public $identifier;
     public $detail_view = false;
+    public $show_all = false;
 
     public function getVersions() {
         return $this->versions;
@@ -53,6 +54,16 @@ class Roadmap extends CWidget {
 
     public function getDetailview() {
         return $this->detail_view;
+    }
+
+    public function getShowAllOverride() {
+        if(($this->getOwner()->getAction()->getId() === 'view') && (Yii::app()->controller->id === 'version' ) ) {
+            return true;
+        }
+        if(($this->getOwner()->getAction()->getId() === 'roadmap') && (Yii::app()->controller->id === 'project' ) ) {
+            return Yii::app()->user->getState('show_all_versions', false);
+        }
+        return $this->show_all;
     }
 
     public function run() {
