@@ -416,8 +416,6 @@ class Time {
 
             if( ( $yr_diff < 0 )||( $mon_diff < 0 )||( $day_diff < 0 ) ) {
                 $due = $due . ' (<b>Overdue!</b>)';
-            } elseif($due === 'Due in 1 day') {
-                $due = 'Due today';
             }
 
             return $due;

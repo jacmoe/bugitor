@@ -38,19 +38,23 @@ class ProjectMenu extends BugitorMenu
     public function init()
     {
         $this->items = $this->getMenu();
-        parent::init();
+        $this->htmlOptions['id']=$this->getId();
+        $route='';//$this->getController()->getRoute();
+        $this->items=$this->normalizeItems($this->items,$route,$hasActiveChild);
     }
     
     private function getMenu()
     {
-        $criteria = new CDbCriteria(array(
-                    'order' => 'menu_order ASC',
-                ));
+        $criteria = new CDbCriteria;
+        $criteria->order = 'position ASC';
+        if (isset($_GET['identifier'])) {
+            $criteria->compare('project_id', Project::model()->findByAttributes(array('identifier' => $_GET['identifier']))->id);
+        }
         $menu = array();
         $items = ProjectLink::model()->findAll($criteria);
         foreach ($items as $item)
         {
-            $menu[] = array('label'=>$item->title,'url'=>array($item->link));
+            $menu[] = array('label'=>$item->title,'url'=>array($item->url));
         }
         return $menu;
     }
