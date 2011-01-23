@@ -36,7 +36,7 @@
 <?php $show_detail = $this->getDetailview(); ?>
 <?php foreach($versions as $version) : ?>
 <?php $show_version = $completed = false;
-if (strtotime($version->effective_date) > strtotime(date("Y-m-d"))) {
+if (strtotime($version->effective_date) >= strtotime(date("Y-m-d"))) {
     // if effective date is in the future..
     if($version->issueCountOpen < 1) {
         $completed = false;
