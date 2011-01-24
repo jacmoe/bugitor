@@ -72,9 +72,15 @@ $app = Yii::createWebApplication($config);
 
 //Yii::app()->config->set('default_timezone', 'UTC');
 
+Yii::app()->config->set('logging_enabled', false);
+
+
 // we need to set this to UTC, regardless of default timezone 
 // which is only for display. UTC is what timestamps etc. are using.
 Yii::app()->setTimeZone("UTC");
+
+
+
 
 if(!Yii::app()->user->getState('pid'))
     Yii::app()->user->setState('pid', 'none');

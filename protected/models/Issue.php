@@ -556,12 +556,12 @@ class Issue extends CActiveRecord {
             $message = new YiiMailMessage;
             $message->view = 'issuechange';
             $message->setSubject(Bugitor::issue_subject($issue));
-            Yii::log('Sending notification emails for : ' . Bugitor::issue_subject($issue), 'info', 'bugitor.mail');
+            if(Yii::app()->config->get('logging_enabled')) Yii::log('Sending notification emails for : ' . Bugitor::issue_subject($issue), 'info', 'bugitor.mail');
             $message->setBody(array('issue'=>$issue, 'comment' => $comment), 'text/html');
             $message->setSender(array('ticket@tracker.ogitor.org' => 'Bugitor Issue Tracker'));
             $message->setFrom(array('ticket@tracker.ogitor.org' => 'Bugitor Issue Tracker'));
             foreach($emails as $email) {
-                Yii::log('Sending to ' . $email, 'info', 'bugitor.mail');
+                if(Yii::app()->config->get('logging_enabled')) Yii::log('Sending to ' . $email, 'info', 'bugitor.mail');
                 $message->addTo($email);
             }
             Yii::app()->mail->send($message);
@@ -576,7 +576,7 @@ class Issue extends CActiveRecord {
         if(isset($watchers)) {
             foreach($watchers as $watcher){
                 if($watcher->user->id !== $updated_by) {
-                    Yii::log('Watcher "' . $watcher->user->username . '" added.', 'info', 'bugitor.mail');
+                    if(Yii::app()->config->get('logging_enabled')) Yii::log('Watcher "' . $watcher->user->username . '" added.', 'info', 'bugitor.mail');
                     $emails[] = $watcher->user->email;
                 }
             }
