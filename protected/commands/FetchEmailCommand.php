@@ -38,7 +38,7 @@ require_once('mimeparser/mime_parser.php');
 require_once('mimeparser/body_fetcher.php');
 require_once('mimeparser/rfc822_addresses.php');
 
-class TestCommand extends CConsoleCommand {
+class FetchEmailCommand extends CConsoleCommand {
 
 public function parse_email ($email) {
 // Split header and message
