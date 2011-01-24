@@ -47,7 +47,12 @@
                 <?php if($model->isNewRecord) :?>
                 <?php echo $form->dropDownList($model, 'user_id', Project::getNonMembersList(),array('prompt' => '<None>')); ?>
                 <?php else: ?>
-		<?php echo CHtml::textField('the_user',$model->user->username,array('disabled' => true)); ?>
+
+                <?php $roles = Rights::getAssignedRoles($model->user_id); ?>
+                <?php foreach($roles as $role) : ?>
+                <?php echo $role->name; ?><br/>
+                <?php endforeach; ?>
+                <?php echo CHtml::textField('the_user',$model->user->username,array('disabled' => true)); ?>
                 <?php endif; ?>
 		<?php echo $form->error($model,'user_id'); ?>
 	</div>
