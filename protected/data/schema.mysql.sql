@@ -1,10 +1,9 @@
 # --------------------------------------------------------
 # Host:                         127.0.0.1
-# Database:                     ogitorbugs
 # Server version:               5.1.36-community-log
 # Server OS:                    Win32
-# HeidiSQL version:             5.0.0.3272
-# Date/time:                    2010-11-21 23:21:45
+# HeidiSQL version:             6.0.0.3603
+# Date/time:                    2011-01-24 17:50:08
 # --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -12,13 +11,14 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-# Dumping structure for table ogitorbugs.bug_action_log
+# Dumping structure for table ogitortracker.bug_action_log
+DROP TABLE IF EXISTS `bug_action_log`;
 CREATE TABLE IF NOT EXISTS `bug_action_log` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `type` varchar(32) NOT NULL,
   `author_id` int(10) NOT NULL,
   `when` datetime NOT NULL,
-  `url` varchar(50) NOT NULL,
+  `url` varchar(100) NOT NULL,
   `project_id` int(10) NOT NULL,
   `subject` varchar(155) NOT NULL,
   `description` tinytext NOT NULL,
@@ -33,7 +33,8 @@ CREATE TABLE IF NOT EXISTS `bug_action_log` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table ogitorbugs.bug_auth_assignment
+# Dumping structure for table ogitortracker.bug_auth_assignment
+DROP TABLE IF EXISTS `bug_auth_assignment`;
 CREATE TABLE IF NOT EXISTS `bug_auth_assignment` (
   `itemname` varchar(64) NOT NULL,
   `userid` varchar(64) NOT NULL,
@@ -46,7 +47,8 @@ CREATE TABLE IF NOT EXISTS `bug_auth_assignment` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table ogitorbugs.bug_auth_item
+# Dumping structure for table ogitortracker.bug_auth_item
+DROP TABLE IF EXISTS `bug_auth_item`;
 CREATE TABLE IF NOT EXISTS `bug_auth_item` (
   `name` varchar(64) NOT NULL,
   `type` int(11) NOT NULL,
@@ -59,7 +61,8 @@ CREATE TABLE IF NOT EXISTS `bug_auth_item` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table ogitorbugs.bug_auth_item_child
+# Dumping structure for table ogitortracker.bug_auth_item_child
+DROP TABLE IF EXISTS `bug_auth_item_child`;
 CREATE TABLE IF NOT EXISTS `bug_auth_item_child` (
   `parent` varchar(64) NOT NULL,
   `child` varchar(64) NOT NULL,
@@ -72,7 +75,8 @@ CREATE TABLE IF NOT EXISTS `bug_auth_item_child` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table ogitorbugs.bug_auth_item_weight
+# Dumping structure for table ogitortracker.bug_auth_item_weight
+DROP TABLE IF EXISTS `bug_auth_item_weight`;
 CREATE TABLE IF NOT EXISTS `bug_auth_item_weight` (
   `itemname` varchar(64) NOT NULL,
   `type` int(11) NOT NULL,
@@ -84,7 +88,50 @@ CREATE TABLE IF NOT EXISTS `bug_auth_item_weight` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table ogitorbugs.bug_comment
+# Dumping structure for table ogitortracker.bug_change
+DROP TABLE IF EXISTS `bug_change`;
+CREATE TABLE IF NOT EXISTS `bug_change` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `changeset_id` int(11) NOT NULL,
+  `action` varchar(50) NOT NULL,
+  `path` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_change_changeset_id` (`changeset_id`),
+  CONSTRAINT `fk_change_changeset_id` FOREIGN KEY (`changeset_id`) REFERENCES `bug_changeset` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+# Data exporting was unselected.
+
+
+# Dumping structure for table ogitortracker.bug_changeset
+DROP TABLE IF EXISTS `bug_changeset`;
+CREATE TABLE IF NOT EXISTS `bug_changeset` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `revision` varchar(50) NOT NULL,
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `scm_id` int(11) NOT NULL DEFAULT '0',
+  `commit_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `message` tinytext NOT NULL,
+  `short_rev` int(11) NOT NULL DEFAULT '0',
+  `parent` varchar(50) DEFAULT NULL,
+  `branch` varchar(50) DEFAULT NULL,
+  `tags` varchar(50) DEFAULT NULL,
+  `add` int(11) DEFAULT NULL,
+  `edit` int(11) DEFAULT NULL,
+  `del` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `revision` (`revision`),
+  KEY `fk_changeset_user_id` (`user_id`),
+  KEY `fk_changeset_repository` (`scm_id`),
+  CONSTRAINT `fk_changeset_repository` FOREIGN KEY (`scm_id`) REFERENCES `bug_repository` (`id`) ON DELETE NO ACTION,
+  CONSTRAINT `fk_changeset_user_id` FOREIGN KEY (`user_id`) REFERENCES `bug_users` (`id`) ON DELETE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+# Data exporting was unselected.
+
+
+# Dumping structure for table ogitortracker.bug_comment
+DROP TABLE IF EXISTS `bug_comment`;
 CREATE TABLE IF NOT EXISTS `bug_comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` text NOT NULL,
@@ -105,20 +152,22 @@ CREATE TABLE IF NOT EXISTS `bug_comment` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table ogitorbugs.bug_comment_detail
+# Dumping structure for table ogitortracker.bug_comment_detail
+DROP TABLE IF EXISTS `bug_comment_detail`;
 CREATE TABLE IF NOT EXISTS `bug_comment_detail` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `comment_id` int(10) NOT NULL,
-  `change` tinytext,
+  `change` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `comment_id` (`comment_id`),
+  KEY `bug_comment_detail_ibfk_1` (`comment_id`),
   CONSTRAINT `bug_comment_detail_ibfk_1` FOREIGN KEY (`comment_id`) REFERENCES `bug_comment` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Data exporting was unselected.
 
 
-# Dumping structure for table ogitorbugs.bug_config
+# Dumping structure for table ogitortracker.bug_config
+DROP TABLE IF EXISTS `bug_config`;
 CREATE TABLE IF NOT EXISTS `bug_config` (
   `key` varchar(100) COLLATE utf8_bin NOT NULL,
   `value` text COLLATE utf8_bin,
@@ -128,7 +177,8 @@ CREATE TABLE IF NOT EXISTS `bug_config` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table ogitorbugs.bug_issue
+# Dumping structure for table ogitortracker.bug_issue
+DROP TABLE IF EXISTS `bug_issue`;
 CREATE TABLE IF NOT EXISTS `bug_issue` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tracker_id` int(11) NOT NULL DEFAULT '0',
@@ -147,6 +197,7 @@ CREATE TABLE IF NOT EXISTS `bug_issue` (
   `closed` tinyint(1) NOT NULL DEFAULT '0',
   `pre_done_ratio` int(11) NOT NULL DEFAULT '0',
   `updated_by` int(11) DEFAULT NULL,
+  `last_comment` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_bug_issue_tracker_id` (`tracker_id`),
   KEY `fk_bug_issue_project_id` (`project_id`),
@@ -160,17 +211,18 @@ CREATE TABLE IF NOT EXISTS `bug_issue` (
   CONSTRAINT `fk_bug_issue_assigned_to` FOREIGN KEY (`assigned_to`) REFERENCES `bug_users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_bug_issue_category` FOREIGN KEY (`issue_category_id`) REFERENCES `bug_issue_category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_bug_issue_issue_priority` FOREIGN KEY (`issue_priority_id`) REFERENCES `bug_issue_priority` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_bug_issue_project` FOREIGN KEY (`project_id`) REFERENCES `bug_project` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `fk_bug_issue_tracker` FOREIGN KEY (`tracker_id`) REFERENCES `bug_tracker` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_bug_issue_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `bug_users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_bug_issue_user` FOREIGN KEY (`user_id`) REFERENCES `bug_users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_bug_issue_version` FOREIGN KEY (`version_id`) REFERENCES `bug_version` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_bug_issue_project` FOREIGN KEY (`project_id`) REFERENCES `bug_project` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+  CONSTRAINT `fk_bug_issue_version` FOREIGN KEY (`version_id`) REFERENCES `bug_version` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Data exporting was unselected.
 
 
-# Dumping structure for table ogitorbugs.bug_issue_category
+# Dumping structure for table ogitortracker.bug_issue_category
+DROP TABLE IF EXISTS `bug_issue_category`;
 CREATE TABLE IF NOT EXISTS `bug_issue_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
@@ -185,7 +237,8 @@ CREATE TABLE IF NOT EXISTS `bug_issue_category` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table ogitorbugs.bug_issue_priority
+# Dumping structure for table ogitortracker.bug_issue_priority
+DROP TABLE IF EXISTS `bug_issue_priority`;
 CREATE TABLE IF NOT EXISTS `bug_issue_priority` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
@@ -196,7 +249,8 @@ CREATE TABLE IF NOT EXISTS `bug_issue_priority` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table ogitorbugs.bug_member
+# Dumping structure for table ogitortracker.bug_member
+DROP TABLE IF EXISTS `bug_member`;
 CREATE TABLE IF NOT EXISTS `bug_member` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `project_id` int(10) NOT NULL,
@@ -212,7 +266,8 @@ CREATE TABLE IF NOT EXISTS `bug_member` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table ogitorbugs.bug_profiles
+# Dumping structure for table ogitortracker.bug_profiles
+DROP TABLE IF EXISTS `bug_profiles`;
 CREATE TABLE IF NOT EXISTS `bug_profiles` (
   `user_id` int(11) NOT NULL,
   `lastname` varchar(50) NOT NULL DEFAULT '',
@@ -226,7 +281,8 @@ CREATE TABLE IF NOT EXISTS `bug_profiles` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table ogitorbugs.bug_profiles_fields
+# Dumping structure for table ogitortracker.bug_profiles_fields
+DROP TABLE IF EXISTS `bug_profiles_fields`;
 CREATE TABLE IF NOT EXISTS `bug_profiles_fields` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `varname` varchar(50) NOT NULL,
@@ -251,7 +307,8 @@ CREATE TABLE IF NOT EXISTS `bug_profiles_fields` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table ogitorbugs.bug_project
+# Dumping structure for table ogitortracker.bug_project
+DROP TABLE IF EXISTS `bug_project`;
 CREATE TABLE IF NOT EXISTS `bug_project` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
@@ -269,7 +326,25 @@ CREATE TABLE IF NOT EXISTS `bug_project` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table ogitorbugs.bug_project_tracker
+# Dumping structure for table ogitortracker.bug_project_link
+DROP TABLE IF EXISTS `bug_project_link`;
+CREATE TABLE IF NOT EXISTS `bug_project_link` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `url` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `position` int(11) NOT NULL,
+  `project_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `project_id` (`project_id`),
+  CONSTRAINT `bug_project_link_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `bug_project` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# Data exporting was unselected.
+
+
+# Dumping structure for table ogitortracker.bug_project_tracker
+DROP TABLE IF EXISTS `bug_project_tracker`;
 CREATE TABLE IF NOT EXISTS `bug_project_tracker` (
   `project_id` int(11) NOT NULL,
   `tracker_id` int(11) NOT NULL,
@@ -283,7 +358,8 @@ CREATE TABLE IF NOT EXISTS `bug_project_tracker` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table ogitorbugs.bug_related_issue
+# Dumping structure for table ogitortracker.bug_related_issue
+DROP TABLE IF EXISTS `bug_related_issue`;
 CREATE TABLE IF NOT EXISTS `bug_related_issue` (
   `issue_from` int(11) NOT NULL,
   `issue_to` int(11) NOT NULL,
@@ -300,7 +376,8 @@ CREATE TABLE IF NOT EXISTS `bug_related_issue` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table ogitorbugs.bug_relation_type
+# Dumping structure for table ogitortracker.bug_relation_type
+DROP TABLE IF EXISTS `bug_relation_type`;
 CREATE TABLE IF NOT EXISTS `bug_relation_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
@@ -312,14 +389,15 @@ CREATE TABLE IF NOT EXISTS `bug_relation_type` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table ogitorbugs.bug_repository
+# Dumping structure for table ogitortracker.bug_repository
+DROP TABLE IF EXISTS `bug_repository`;
 CREATE TABLE IF NOT EXISTS `bug_repository` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `project_id` int(11) NOT NULL DEFAULT '0',
   `url` varchar(60) DEFAULT NULL,
-  `login` varchar(60) DEFAULT NULL,
-  `password` varchar(60) DEFAULT NULL,
+  `local_path` varchar(255) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
+  `identifier` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `repository_project_id` (`project_id`),
@@ -329,7 +407,8 @@ CREATE TABLE IF NOT EXISTS `bug_repository` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table ogitorbugs.bug_tracker
+# Dumping structure for table ogitortracker.bug_tracker
+DROP TABLE IF EXISTS `bug_tracker`;
 CREATE TABLE IF NOT EXISTS `bug_tracker` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
@@ -342,7 +421,8 @@ CREATE TABLE IF NOT EXISTS `bug_tracker` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table ogitorbugs.bug_users
+# Dumping structure for table ogitortracker.bug_users
+DROP TABLE IF EXISTS `bug_users`;
 CREATE TABLE IF NOT EXISTS `bug_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) NOT NULL,
@@ -363,7 +443,8 @@ CREATE TABLE IF NOT EXISTS `bug_users` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table ogitorbugs.bug_version
+# Dumping structure for table ogitortracker.bug_version
+DROP TABLE IF EXISTS `bug_version`;
 CREATE TABLE IF NOT EXISTS `bug_version` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `project_id` int(11) NOT NULL DEFAULT '0',
@@ -372,6 +453,7 @@ CREATE TABLE IF NOT EXISTS `bug_version` (
   `effective_date` date DEFAULT NULL,
   `created` timestamp NULL DEFAULT NULL,
   `modified` timestamp NULL DEFAULT NULL,
+  `version_order` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `versions_project_id` (`project_id`),
   KEY `name` (`name`),
@@ -381,7 +463,8 @@ CREATE TABLE IF NOT EXISTS `bug_version` (
 # Data exporting was unselected.
 
 
-# Dumping structure for table ogitorbugs.bug_watcher
+# Dumping structure for table ogitortracker.bug_watcher
+DROP TABLE IF EXISTS `bug_watcher`;
 CREATE TABLE IF NOT EXISTS `bug_watcher` (
   `issue_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
