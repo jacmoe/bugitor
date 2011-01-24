@@ -35,3 +35,57 @@
 $this->pageTitle = $model->name . ' - Code - ' . Yii::app()->name;
 ?>
 <h3 class="code">Code</h3>
+<div id="shortlogs-changes">
+<table class="maintable">
+          <thead>
+            <tr>
+              <th class="box">Author</th>
+              <th class="box">Age</th>
+              <th class="box">Message</th>
+              <th class="box">Added</th>
+              <th class="box">Modified</th>
+              <th class="box">Deleted</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <a href="/jacmoe" title="Jacob Moen">
+                  jacmoe
+                </a>
+                <img src="https://secure.gravatar.com/avatar/cddd845778affc94b6f5913c57d1e96b?d=identicon&amp;s=32" alt="">
+              </td>
+              <td>
+                91 seconds
+              </td>
+              <td>
+                <a href="/jacmoe/bugitor/changeset/a512d2a2f087">
+                  Project members: revoke previous roles and assign new role. Need to handle…
+                </a>
+              </td>
+              <td>-</td>
+              <td>3</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="/jacmoe" title="Jacob Moen">
+                  jacmoe
+                </a>
+                <img src="https://secure.gravatar.com/avatar/cddd845778affc94b6f5913c57d1e96b?d=identicon&amp;s=32" alt="">
+              </td>
+              <td>
+                91 seconds
+              </td>
+              <td>
+                <a href="/jacmoe/bugitor/changeset/a512d2a2f087">
+                  Project members: revoke previous roles and assign new role. Need to handle…
+                </a>
+              </td>
+              <td>-</td>
+              <td>3</td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+</div>

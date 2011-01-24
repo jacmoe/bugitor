@@ -703,3 +703,228 @@ div.scroll_larger {
     height: 300px;
     overflow: auto;
 }
+
+/* FULL WIDTH TABLE (used in Source and Overview) */
+table.maintable {
+    margin: 12px 0;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+}
+
+table.maintable th,
+table.maintable td {
+    border-style: solid;
+    border-color: #ddd;
+    padding: 0.75em 10px 0.75em 20px; /* cells should have 10px left and right padding...
+                                           except the leftmost, which should have 20 and 10...
+                                             and the rightmost, which should have 10 and 20 */
+}
+
+table.maintable th+th,
+table.maintable td+td {
+    padding-left: 10px;
+}
+
+table.maintable td {
+    font: 12px/1.5em "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, "Courier New", Courier, monospace;
+}
+
+#issues-list table.maintable td {
+    font: inherit;
+}
+
+#issues-list table.maintable a {
+    color: #525252;
+}
+
+table.maintable th {
+    font-weight: bold;
+    line-height: 18px;
+    text-shadow: 0 1px 0 #fff;
+}
+
+table.maintable thead tr {
+    background: #eee;
+}
+
+table.maintable tbody tr:nth-child(even) {
+    background: #fcfcfc;
+}
+
+table.maintable th, table.maintable td {
+    border-bottom: 1px solid #ddd;
+}
+
+/* SHORTLOG/OVERVIEW */
+#strip-repository th                    { width: 158px; }
+#strip-repository th+th                 { width: 80px; }
+#strip-repository th+th+th              { width: 480px; }
+#strip-repository th+th+th+th           { width: 110px; padding-right: 20px; }
+
+#shortlogs-changes th                   { width: 158px; }
+#shortlogs-changes th+th                { width: 80px; }
+#shortlogs-changes th+th+th             { width: 480px; }
+#shortlogs-changes th+th+th+th          { width: 32px; padding-left: 0; padding-right: 0; text-indent: -9999px; }
+#shortlogs-changes th+th+th+th       { background: url(../images/add.png) no-repeat 8px; }
+#shortlogs-changes th+th+th+th+th    { background-image: url(../images/edit.png); }
+#shortlogs-changes th+th+th+th+th+th { background-image: url(../images/delete.png); padding-right: 12px; }
+
+#shortlogs-changes td+td+td+td          { padding-left: 0; padding-right: 0; text-indent: -9999px; }
+#shortlogs-changes td+td+td+td       { text-indent: inherit; text-align: center; color: #282; }
+#shortlogs-changes td+td+td+td+td    { color: #b70; }
+#shortlogs-changes td+td+td+td+td+td { color: #c33; padding-right: 12px; }
+
+#strip-repository img,
+#shortlogs-changes img {
+    float: left;
+    margin: 0 9px 0 0;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #ddd;
+}
+
+#shortlogs-changes .commented {
+    background: url(../img/icons/fugue/balloon_left.png) no-repeat 50%;
+}
+
+#shortlogs-changes input[type="radio"] {
+    float: left;
+    margin: 3px 3px 3px -16px;
+}
+
+.diff-radio input {
+    margin: 0;
+    padding: 0;
+}
+
+.changes-added, .changes-modified, .changes-removed {
+    display: block;
+    float: right;
+    width: 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 0.75em;
+}
+
+.changes-added, .changes-modified {
+    border-right: 0 !important;
+}
+
+.changes-removed, .changes-modified {
+    border-left: 0 !important;
+}
+
+.changes-added {
+    background: #bfb;
+    text-align: center;
+}
+
+.changes-modified {
+    background: #fd8;
+    text-align: center;
+}
+
+.changes-removed {
+    background: #f88;
+    text-align: center;
+}
+
+/* CHANGESET */
+#changeset-changed {
+    font-size: 1.1em;
+}
+
+#changeset-diff {
+    font-size: 1.1em;
+}
+
+#changeset-diff div {
+    margin: 0 0 10px;
+    border: 1px solid #ddd;
+}
+
+#changeset-diff p {
+    padding: 15px 20px;
+}
+
+#changeset-diff .changeset-top-link {
+    background: url(../img/icons/fugue/arrow_skip_090.png) no-repeat left;
+    padding: 2px 0 2px 20px;
+}
+
+#changeset-diff table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1em !important;
+}
+
+#changeset-diff table td {
+    margin: 0;
+/*  padding: 0 3px;  */
+}
+
+#changeset-diff table td.linenr {
+    width: 25px;
+    background: #eee !important;
+    border-right: 1px solid #ddd;
+    padding-right: 5px;
+    padding-left: 5px;
+    text-align: right;
+}
+
+#changeset-diff table td:target + td.code, #changeset-diff table td:target + td + td.code {
+    background: #ffffbe !important;
+}
+
+#changeset-diff table td.hashnr {
+    width: 80px;
+    border-right: 1px solid #ddd;
+    padding-left: 2px;
+}
+
+#changeset-diff table td.linenr pre {
+    width: 25px;
+    text-align: right;
+    letter-spacing: -1px;
+    color: #747474;
+}
+
+#changeset-diff table td pre {
+    margin: 0;
+    padding: 0;
+    line-height: 1.5em;
+}
+
+#changeset-diff table td.linenr a {
+    color: inherit;
+}
+
+#changeset-diff tr.ellipsis {
+    background: #efefef;
+    text-align: center;
+}
+
+#changeset-diff tr.linecontext {
+    margin: 3px;
+    background: #dde7ef;
+    text-align: left !important;
+    font: 11px "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, "Courier New", Courier, monospace !important;
+    letter-spacing: -1px;
+    color: #747474 !important;
+}
+
+#changeset-diff tr.del {
+    background: #fdd;
+}
+
+#changeset-diff tr.add {
+    background: #dfd;
+}
+
+#changeset-diff ins, #changeset-diff del {
+    display: inline-block;
+    text-decoration: none;
+}
+#changeset-diff ins { background: #afa; }
+#changeset-diff del { background: #faa; }
