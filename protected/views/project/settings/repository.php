@@ -75,6 +75,7 @@ EOD
     <th width="20">Name</th>
     <th width="20">URL</th>
     <th width="20">Local Path</th>
+    <th width="20">Status</th>
     <th width="20">Actions</th>
   </tr>
   </thead>
@@ -84,6 +85,7 @@ EOD
     <td width="20"><?php echo CHtml::encode($repository->name); ?></td>
     <td width="20"><?php echo CHtml::encode($repository->url); ?></td>
     <td width="20"><?php echo CHtml::encode($repository->local_path); ?></td>
+    <td width="20"><?php echo CHtml::encode($repository->status ? 'OK' : 'Pending'); ?></td>
     <td width="20">
       <?php echo CHtml::link('Update',array('repository/update','id'=>$repository->id, 'identifier' => $_GET['identifier'])); ?>
       <?php echo CHtml::linkButton('Delete',array(

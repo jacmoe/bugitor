@@ -68,24 +68,9 @@ class RepositoryController extends Controller
 		{
 			$model->attributes=$_POST['Repository'];
                         $model->identifier = preg_replace( '/\s*/m', '', strtolower($model->name));
-                        Yii::app()->file->createDir(0754, 'repositories/'.$model->identifier);
-                        $directoryy = Yii::app()->file->set('repositories/'.$model->identifier, true);
-			$model->local_path = $directoryy->getRealPath();
+                        $directory = Yii::app()->file->set('repositories', true);
+			$model->local_path = $directory->getRealPath() . '/' . $model->identifier;
                         if($model->save()){
-                            if (PHP_OS === 'WINNT') {
-                                $commandString = 'start /b '.Yii::app()->config->get('hg_executable').' clone '.$model->url.' "'.$model->local_path.'"';
-                                pclose(popen($commandString, 'r'));
-                            } else { // we're on *nix
-                                if(Yii::app()->config->get('python_path'))
-                                    putenv(Yii::app()->config->get('python_path'));
-                                $commandString = Yii::app()->config->get('hg_executable').' clone '.$model->url.' "'.$model->local_path.'"';
-                                $PID = shell_exec("nohup $commandString > /dev/null 2> /dev/null & echo $!");
-                                //$PID = exec($commandString . ' > /dev/null &');
-                                Yii::app()->user->setState('pid', $PID);
-                            }
-                            //Yii::app()->scm->mtrack_run_tool('hg', 'read', array('init', 'C:/wamp/www/repositories/'.$model->name ));
-                            //Yii::app()->scm->mtrack_run_tool('hg', 'read', array('clone', $model->url, 'C:/wamp/www/repositories/'.$model->name ));
-                            
                             $this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'repositories'));
                         } else {
                             if (PHP_OS === 'WINNT') {

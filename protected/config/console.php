@@ -69,6 +69,9 @@ return array(
             'allowAutoLogin' => true,
             'loginUrl' => array('/user/login'),
         ),
+        'mutex' => array(
+            'class' => 'ext.EMutex',
+        ),
         'textile' => array(
             'class' => 'application.components.textile.Textilizer',
         ),

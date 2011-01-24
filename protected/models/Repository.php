@@ -42,6 +42,7 @@
  * @property string $local_path
  * @property string $name
  * @property string $identifier
+ * @property integer $status
  * @property Project $project
  */
 class Repository extends CActiveRecord
@@ -72,12 +73,12 @@ class Repository extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'required'),
-			array('project_id', 'numerical', 'integerOnly'=>true),
+			array('project_id, status', 'numerical', 'integerOnly'=>true),
 			array('url', 'length', 'max'=>60),
 			array('name, local_path, identifier', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, project_id, url, local_path, name, identifier', 'safe', 'on'=>'search'),
+			array('id, status, project_id, url, local_path, name, identifier', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -104,6 +105,7 @@ class Repository extends CActiveRecord
 			'url' => 'Url',
 			'local_path' => 'Local Path',
 			'name' => 'Name',
+                        'status' => 'Status',
 		);
 	}
 
@@ -120,6 +122,7 @@ class Repository extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('project_id',$this->project_id);
+                $criteria->compare('status', $this->status);
 		$criteria->compare('url',$this->url,true);
 		$criteria->compare('local_path',$this->local_path,true);
 		$criteria->compare('name',$this->name,true);

@@ -64,7 +64,7 @@
 	</div>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Update'); ?>
-                <?php echo CHtml::Button('Cancel',array('submit' => CHttpRequest::getUrlReferrer()));?>
+                <?php echo CHtml::Button('Cancel',array('submit' => Yii::app()->request->getUrlReferrer()));?>
 	</div>
 <?php $this->endWidget(); ?>
 </div><!-- form -->
