@@ -146,7 +146,7 @@ class Member extends CActiveRecord
       placed when being added to a project
      */
     public function getUserRoleOptions() {
-        $roles = array_filter(Rights::module()->getAuthorizer()->getRoles(), array($this, 'roleFilter'));
+        $roles = array_filter(Rights::getAuthorizer()->getRoles(false), array($this, 'roleFilter'));
         return CHtml::listData($roles,
                 'name', 'name');
     }

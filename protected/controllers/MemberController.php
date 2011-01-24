@@ -109,8 +109,24 @@ class MemberController extends Controller
 		if(isset($_POST['Member']))
 		{
 			$model->attributes=$_POST['Member'];
-			if($model->save())
-				$this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'members'));
+
+                        if($model->validate())
+                        {
+                            $roles = Rights::getAssignedRoles($model->user_id);
+                            //TODO: handle different roles in different projects!
+                            foreach($roles as $role) {
+                                if($role->name === 'Developer')
+                                    Rights::revoke($role->name, $model->user_id);
+                                if($role->name === 'Project Admin')
+                                    Rights::revoke($role->name, $model->user_id);
+                                if($role->name === 'Project Lead')
+                                    Rights::revoke($role->name, $model->user_id);
+                            }
+                            Rights::assign($model->role, $model->user_id);
+                            if($model->save())
+                                $this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'members'));
+                        }
+
 		}
 
 		$this->render('update',array(
