@@ -55,6 +55,7 @@
 	</div>
 
         <?php echo $form->hiddenField($model,'project_id', array('value' => Project::getProjectIdFromIdentifier($_GET['identifier']))); ?>
+        <?php echo $form->hiddenField($model,'status', array('value' => $model->isNewRecord ? 0 : $model->status)); ?>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
                 <?php echo CHtml::Button('Cancel',array('submit' => Yii::app()->request->getUrlReferrer()));?>

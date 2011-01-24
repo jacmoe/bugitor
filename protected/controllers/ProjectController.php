@@ -70,15 +70,19 @@ class ProjectController extends Controller {
         return $project_list;
     }
 
-   function is_process_running($PID)
-   {
-       exec("ps -p $PID", $ProcessState);
-       return(count($ProcessState) > 1);
-   }
+    public function is_clone_running(){
+        $directory = Yii::app()->file->set('repositories', true);
+        $lock_file = $directory->getRealPath() . '/lock';
+        //$lock_file = '/opt/lampp/htdocs/repositories/lock';
+        return file_exists($lock_file);
+    }
 
     public function actionWaitforclone() {
 
-        while($this->is_process_running((int)Yii::app()->user->getState('pid')))
+        $directory = Yii::app()->file->set('repositories', true);
+        $lock_file = $directory->getRealPath() . '/lock';
+        //$lock_file = '/opt/lampp/htdocs/repositories/lock';
+        while(file_exists($lock_file))
         {
             ob_flush();
             flush();
@@ -183,7 +187,7 @@ class ProjectController extends Controller {
 
     public function actionSettings($identifier) {
         if(!Yii::app()->user->getState('pid')=== 'none') {
-            if(!$this->is_process_running((int)Yii::app()->user->getState('pid'))) {
+            if(!$this->is_clone_running()) {
                 Yii::app()->user->setState('pid', 'none');
             }
         }
