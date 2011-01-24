@@ -344,15 +344,29 @@ class Time {
         //
         // please send comments and feedback to webmaster@lotekk.net
         public static function dueDateInWords($dateTime) {
-            // get the base date here (today)
-            $base_day		= date ("j");
-            $base_mon		= date ("n");
-            $base_yr		= date ("Y");
 
             $the_date = date_parse($dateTime);
-            $due_day = $the_date['day'];
-            $due_mon = $the_date['month'];
-            $due_yr = $the_date['year'];
+            
+            $overdue = false;
+            if(strtotime($dateTime) < strtotime(date("Y-m-d"))) {
+                $overdue = true;
+                $base_day = $the_date['day'];
+                $base_mon = $the_date['month'];
+                $base_yr = $the_date['year'];
+
+                $due_day = date ("j");
+                $due_mon = date ("n");
+                $due_yr = date ("Y");
+            } else {
+                // get the base date here (today)
+                $base_day		= date ("j");
+                $base_mon		= date ("n");
+                $base_yr		= date ("Y");
+
+                $due_day = $the_date['day'];
+                $due_mon = $the_date['month'];
+                $due_yr = $the_date['year'];
+            }
 
             // and now .... calculate the difference! :-)
 
@@ -407,15 +421,17 @@ class Time {
             if ($mon_diff == "-1") $months = "month";
 
             // here we go
-            $due = "Due in ";
+            $due = '';
             if($yr_diff <> 0)
                 $due = $due . $yr_diff." ".$years.", ";
             if($mon_diff <> 0)
                 $due = $due . $mon_diff." " .$months. " and ";
             $due = $due . $day_diff." ".$days;
 
-            if( ( $yr_diff < 0 )||( $mon_diff < 0 )||( $day_diff < 0 ) ) {
-                $due = $due . ' (<b>Overdue!</b>)';
+            if($overdue) {
+                $due = $due . ' <b>overdue</b>';
+            } else {
+                $due = "Due in " . $due;
             }
 
             return $due;
