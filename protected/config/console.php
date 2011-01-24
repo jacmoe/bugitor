@@ -119,14 +119,7 @@ return array(
                 'comment/feed'=>array('comment/feed', 'urlSuffix'=>'.xml', 'caseSensitive'=>false),
                 ),
         ),
-        'db' => array(
-            'connectionString' => 'mysql:host=mysql.ogitor.org;dbname=ogitortracker',
-            'emulatePrepare' => true,
-            'username' => 'ogitordbadmin',
-            'tablePrefix' => 'bug_',
-            'password' => 'Pevum2383',
-            'charset' => 'utf8',
-        ),
+        'db' => require(dirname(__FILE__) . '/db.php'),
         'errorHandler' => array(
             // use 'site/error' action to display errors
             'errorAction' => 'site/error',
