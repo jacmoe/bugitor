@@ -249,29 +249,35 @@ private function run_tool($toolname, $mode, $args = null)
                     putenv(Yii::app()->config->get('python_path'));
 
                 //echo ini_get('max_execution_time') . "\n";
-                $repositories =  Repository::model()->findAll();
-                foreach($repositories as $repository) {
-                    if($repository->status === '0') {
-                        $this->run_tool('hg', 'read', array('clone', $repository->url, $repository->local_path));
-                        $repository->status = 1;
-                        $repository->save();
-                    }
-                    $this->repopath = $repository->local_path;
-                    $this->hg('pull');
-                    $this->hg('update');
+                $projects = Project::model()->with(array('repositories'))->findAll();
+                foreach($projects as $project) {
+                    foreach($project->repositories as $repository) {
+                        if($repository->status === '0') {
+                            $this->run_tool('hg', 'read', array('clone', $repository->url, $repository->local_path));
+                            $repository->status = 1;
+                            $repository->save();
+                        }
+                        $this->repopath = $repository->local_path;
+                        $this->hg('pull');
+                        $this->hg('update');
 
-//                    $entries = $this->grabChanges(550, 'tip', 8);
-//                    foreach($entries as $entry) {
-//                        echo 'Revision : ' . $entry['short_rev'] . ':' . $entry['revision'] . "\n";
-//                        echo 'Date : ' . $entry['date'] . "\n";
-//                        foreach($entry['files'] as $file) {
-//                            echo 'File name : ' . $file['name'] . "\n";
-//                            echo 'File status : ' . $file['status'] . "\n";
+                        $fp = $this->run_tool('hg', 'read', array('log', '-r0', '-R', $repository->local_path, '--cwd', $repository->local_path, '--template', '{node}'));
+                        $unique_id = fgets($fp);
+                        echo $unique_id . "\n";
+
+//                        $entries = $this->grabChanges(550, 'tip', 8);
+//                        foreach($entries as $entry) {
+//                            echo 'Revision : ' . $entry['short_rev'] . ':' . $entry['revision'] . "\n";
+//                            echo 'Date : ' . $entry['date'] . "\n";
+//                            foreach($entry['files'] as $file) {
+//                                echo 'File name : ' . $file['name'] . "\n";
+//                                echo 'File status : ' . $file['status'] . "\n";
+//                            }
+//                            echo 'Author : ' . $entry['author'] . "\n";
+//                            echo 'Message : ' . $entry['message'] . "\n";
 //                        }
-//                        echo 'Author : ' . $entry['author'] . "\n";
-//                        echo 'Message : ' . $entry['message'] . "\n";
-//                    }
 
+                    }
                 }
 
                 // and after that release the lock...
