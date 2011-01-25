@@ -33,7 +33,7 @@
 ?>
 <?php
 
-class CreateRepositoriesCommand extends CConsoleCommand {
+class HandleRepositoriesCommand extends CConsoleCommand {
 
 function run_tool($toolname, $mode, $args = null)
 {
@@ -99,18 +99,18 @@ function run_tool($toolname, $mode, $args = null)
         if (Yii::app()->mutex->lock(__CLASS__, 600))
         {
             //echo ini_get('max_execution_time') . "\n";
-            $criteria = new CDbCriteria;
-            $criteria->compare('status', '0');
-            $repositories =  Repository::model()->findAll($criteria);
-
+            $repositories =  Repository::model()->findAll();
             foreach($repositories as $repository) {
-                if(Yii::app()->config->get('python_path') !== '')
-                    putenv(Yii::app()->config->get('python_path'));
-                $this->run_tool('hg', 'read', array('clone', $repository->url, $repository->local_path));
-                $repository->status = 1;
-                $repository->save();
+                if($repository->status === '0') {
+                    if(Yii::app()->config->get('python_path') !== '')
+                        putenv(Yii::app()->config->get('python_path'));
+                    $this->run_tool('hg', 'read', array('clone', $repository->url, $repository->local_path));
+                    $repository->status = 1;
+                    $repository->save();
+                }
+                //echo $this->run_tool('hg' , 'read', array('incoming', $repository->url, $repository->local_path));
             }
-            
+
             // and after that release the lock...
             Yii::app()->mutex->unlock();
         } else {
