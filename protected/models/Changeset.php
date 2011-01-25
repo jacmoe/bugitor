@@ -58,7 +58,9 @@
  */
 class Changeset extends CActiveRecord
 {
-	/**
+	public $maxRev;
+
+        /**
 	 * Returns the static model of the specified AR class.
 	 * @return Changeset the static model class
 	 */

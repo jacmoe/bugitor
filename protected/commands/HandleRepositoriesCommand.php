@@ -114,7 +114,7 @@ private function run_tool($toolname, $mode, $args = null)
         $fp = $this->hg('log',
                 '--rev', $start.':'.$end, '--template', $sep . '\n{node|short}\n{rev}\n{branches}\n{tags}\n{file_adds}\n{file_copies}\n{file_mods}\n{file_dels}\n{author|email}\n{date|hgdate}\n{desc}\n', '-l '.$limit);
 
-        echo fgets($fp); # discard leading $sep
+        fgets($fp); # discard leading $sep
 
         // corresponds to the file_adds, file_copies, file_modes, file_dels
         // in the template above
@@ -131,22 +131,26 @@ private function run_tool($toolname, $mode, $args = null)
             $branches = array();
             foreach (preg_split('/\s+/', trim(fgets($fp))) as $b) {
                 if (strlen($b)) {
-                    //FIXME: handle multiple branches
-                    $entry['branch'] = $b;
                     $branches[] = $b;
                 }
             }
             if (!count($branches)) {
-                $entry['branch'] = 'default';
+                $entry['branches'] = 'default';
+            } else {
+                    $entry['branches'] = implode(',', $branches);
             }
 
             $tags = array();
             foreach (preg_split('/\s+/', trim(fgets($fp))) as $t) {
                 if (strlen($t)) {
-                    //FIXME: handle multiple tags
-                    $entry['tag'] = $t;
-                    $tags[] = $t;
+                    if('tip' !== $t)
+                        $tags[] = $t;
                 }
+            }
+            if (!count($tags)) {
+                $entry['tags'] = '';
+            } else {
+                    $entry['tags'] = implode(',', $tags);
             }
 
             $files = array();
@@ -167,7 +171,7 @@ private function run_tool($toolname, $mode, $args = null)
             $entry['author'] = $changeby;
             list($ts) = preg_split('/\s+/', fgets($fp));
             //FIXME: format date the way we want the date
-            $entry['date'] = date("d-m-Y H:i:s", $ts);
+            $entry['date'] = date("Y-m-d H:i:s", $ts);
             $changelog = array();
             while (($line = fgets($fp)) !== false) {
                 $line = rtrim($line, "\r\n");
@@ -180,6 +184,7 @@ private function run_tool($toolname, $mode, $args = null)
 
             $entry['message'] = $thechangelog;
 
+            // add entry to array of entries
             $entries[] = $entry;
 
             if ($line === false) {
@@ -256,6 +261,9 @@ private function run_tool($toolname, $mode, $args = null)
                             $this->run_tool('hg', 'read', array('clone', $repository->url, $repository->local_path));
                             $repository->status = 1;
                             $repository->save();
+                            // just return after a clone
+                            Yii::app()->mutex->unlock();
+                            return;
                         }
                         $this->repopath = $repository->local_path;
                         $this->hg('pull');
@@ -263,19 +271,80 @@ private function run_tool($toolname, $mode, $args = null)
 
                         $fp = $this->run_tool('hg', 'read', array('log', '-r0', '-R', $repository->local_path, '--cwd', $repository->local_path, '--template', '{node}'));
                         $unique_id = fgets($fp);
-                        echo $unique_id . "\n";
+                        $fp = null;
 
-//                        $entries = $this->grabChanges(550, 'tip', 8);
-//                        foreach($entries as $entry) {
-//                            echo 'Revision : ' . $entry['short_rev'] . ':' . $entry['revision'] . "\n";
-//                            echo 'Date : ' . $entry['date'] . "\n";
-//                            foreach($entry['files'] as $file) {
-//                                echo 'File name : ' . $file['name'] . "\n";
-//                                echo 'File status : ' . $file['status'] . "\n";
-//                            }
-//                            echo 'Author : ' . $entry['author'] . "\n";
-//                            echo 'Message : ' . $entry['message'] . "\n";
-//                        }
+                        $fp = $this->run_tool('hg', 'read', array('log', '-r"tip"', '-R', $repository->local_path, '--cwd', $repository->local_path, '--template', '{rev}'));
+                        $last_revision = fgets($fp);
+                        $fp = null;
+
+                        $criteriac = new CDbCriteria();
+                        $criteriac->compare('scm_id', $repository->id);
+                        $criteriac->select='max(short_rev) as maxRev';
+                        $last_revision_stored = Changeset::model()->find($criteriac);
+                        //echo 'Last revision in db: ' . $last_revision_stored->maxRev . "\n";
+                        //return;
+
+                        $entries = $this->grabChanges(550, 'tip');
+
+                        foreach($entries as $entry) {
+
+                            $criteria = new CDbCriteria();
+                            $criteria->select = "unique_ident";
+                            $criteria->compare('unique_ident', $unique_id . $entry['revision']);
+
+                            if(!Changeset::model()->exists($criteria)) {
+
+                                $fp = $this->run_tool('hg', 'read', array('parents', '-r' . $entry['short_rev'], '-R', $repository->local_path, '--cwd', $repository->local_path, '--template', '{node|short}'));
+                                $parent = fgets($fp);
+                                $fp = null;
+
+                                $changeset = new Changeset;
+                                $changeset->unique_ident = $unique_id . $entry['revision'];
+                                $changeset->revision = $entry['revision'];
+                                $changeset->user_id = 1; //FIXME! $entry['author']
+                                $changeset->scm_id = $repository->id;
+                                $changeset->commit_date = $entry['date'];
+                                $changeset->message = $entry['message'];
+                                $changeset->short_rev = $entry['short_rev'];
+                                $changeset->branch = $entry['branches'];
+                                $changeset->tags = $entry['tags'];
+                                $changeset->parent = $parent;
+
+                                if($changeset->validate()) {
+                                    $changeset->save(false);
+
+                                    $change_edit = $change_del = $change_add = 0;
+                                    
+                                    foreach($entry['files'] as $file) {
+                                        $change = new Change;
+                                        $change->changeset_id = $changeset->id;
+                                        switch ($file['status']) {
+                                            case 'M':
+                                                $change_edit++;
+                                                break;
+                                            case 'A':
+                                                $change_add++;
+                                                break;
+                                            case 'D':
+                                                $change_del++;
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                        $change->path = $file['name'];
+                                        $change->action = $file['status'];
+                                        if($change->validate())
+                                            $change->save(false);
+                                    }
+                                    $changeset->add = $change_add;
+                                    $changeset->del = $change_del;
+                                    $changeset->edit = $change_edit;
+                                    $changeset->update();
+
+                                }
+                                
+                            }
+                        }
 
                     }
                 }
@@ -285,8 +354,7 @@ private function run_tool($toolname, $mode, $args = null)
 
             } catch (Exception $e) {
                 echo 'Exception caught: ',  $e->getMessage(), "\n";
-                if(Yii::app()->mutex->lock('HandleRepositoriesCommand'))
-                    Yii::app()->mutex->unlock();
+                Yii::app()->mutex->unlock();
             }
         } else {
             echo 'Nothing to. Exiting...';
