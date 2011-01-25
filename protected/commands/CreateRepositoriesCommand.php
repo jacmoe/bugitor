@@ -104,6 +104,8 @@ function run_tool($toolname, $mode, $args = null)
             $repositories =  Repository::model()->findAll($criteria);
 
             foreach($repositories as $repository) {
+                if(Yii::app()->config->get('python_path') !== '')
+                    putenv(Yii::app()->config->get('python_path'));
                 $this->run_tool('hg', 'read', array('clone', $repository->url, $repository->local_path));
                 $repository->status = 1;
                 $repository->save();
