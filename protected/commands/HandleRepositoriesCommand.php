@@ -35,7 +35,7 @@
 
 class HandleRepositoriesCommand extends CConsoleCommand {
 
-function run_tool($toolname, $mode, $args = null)
+private function run_tool($toolname, $mode, $args = null)
 {
     global $FORKS;
 
@@ -92,6 +92,18 @@ function run_tool($toolname, $mode, $args = null)
 //  ini_set('display_errors', false);
 //  set_time_limit(300);
 //}
+    private $repopath;
+
+    private function hg()
+    {
+        $args = func_get_args();
+        $a = array("-y", "-R", $this->repopath, "--cwd", $this->repopath);
+        foreach ($args as $arg) {
+            $a[] = $arg;
+        }
+
+        return $this->run_tool('hg', 'read', $a);
+    }
 
     public function run($args) {
         // Check if we have a lock already. If not set one which
@@ -108,6 +120,9 @@ function run_tool($toolname, $mode, $args = null)
                     $repository->status = 1;
                     $repository->save();
                 }
+                $this->repopath = $repository->local_path;
+                $this->hg('pull');
+                $this->hg('update');
                 //echo $this->run_tool('hg' , 'read', array('incoming', $repository->url, $repository->local_path));
             }
 
