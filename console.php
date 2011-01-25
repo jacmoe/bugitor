@@ -33,7 +33,7 @@
 ?>
 <?php
 
-$hostname = $_SERVER['SERVER_NAME'];
+//$hostname = /$_SERVER['SERVER_NAME'];
 // change the following paths if necessary
 $yii=dirname(__FILE__).'/../yii/framework/yii.php';
 
