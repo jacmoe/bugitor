@@ -397,7 +397,7 @@ private function run_tool($toolname, $mode, $args = null)
                     $issue_close->save(false);
 
                     $issue_close->addToActionLog($issue_close->id, $changeset->user_id, 'resolved', '/projects/'.$issue_close->project->identifier.'/issue/view/'.$issue_close->id.'#note-'.$issue_close->commentCount, $comment);
-                    $issue_close->sendNotifications($issue_close->id, $comment, $issue_close->updated_by);
+                    //$issue_close->sendNotifications($issue_close->id, $comment, $issue_close->updated_by);
 
                     $changeset_issue = new ChangesetIssue;
                     $changeset_issue->changeset_id = $changeset->id;

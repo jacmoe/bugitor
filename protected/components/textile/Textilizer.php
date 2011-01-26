@@ -91,7 +91,7 @@ class Textilizer extends CApplicationComponent
                     case 'rev':
                         $changeset = Changeset::model()->with('scm')->findByAttributes(array('revision' => $oid));
                         if($changeset)
-                            $link = CHtml::link('rev:' . $changeset->revision, Yii::app()->request->hostInfo.'/projects/'.$changeset->scm->project->identifier.'/changeset/view/'.$issue->id, array('title' => $changeset->message));
+                            $link = CHtml::link('rev:' . $changeset->revision, Yii::app()->request->hostInfo.'/projects/'.$changeset->scm->project->identifier.'/changeset/view/'.$changeset->id, array('title' => $changeset->message));
                         break;
                 }
             } // if sep = :
