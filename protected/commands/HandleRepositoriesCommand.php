@@ -416,7 +416,7 @@ private function run_tool($toolname, $mode, $args = null)
         
     }
 
-    public function addToChangeLog($changeset) {
+    public function addToActionLog($changeset) {
         $actionLog = new ActionLog;
         $actionLog->author_id = $changeset->user_id;
         $actionLog->project_id = $changeset->scm->project_id;
