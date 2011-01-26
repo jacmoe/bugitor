@@ -180,11 +180,10 @@ class Time {
                 $t = floor($ago / $seconds);
 
                 if ( $t > 0 ) {
-                    return $t . ' ' . $sufix[ $t>1 ? 1 : 0 ];// . ' ago';
+                    return '<acronym title="' . $date . '">' . $t . ' ' . $sufix[ $t>1 ? 1 : 0 ] . '</acronym>';
                 }
             }
-
-            return 'just now';
+                return '<acronym title="' . $date . '">Just now</acronym>';
         }
 
         public static function shortTimeAgo($date) {

@@ -330,6 +330,8 @@ private function run_tool($toolname, $mode, $args = null)
                 if($changeset->validate()) {
                     $changeset->save(false);
 
+                    $this->importChangeset($changeset);
+
                     $change_edit = $change_del = $change_add = 0;
 
                     foreach($entry['files'] as $file) {
@@ -369,6 +371,56 @@ private function run_tool($toolname, $mode, $args = null)
         return true;
     }
 
+    public function importChangeset($changeset) {
+        $preg_string_refs = '/(?:refs|ref|references|see) #?(\d+)(\#ic\d*){0,1}(( #?and|#?or|,) #?(\d+)(\#ic\d*){0,1}){0,}/';
+        $preg_string_closes = '/(?:fix(?:ed|es)|close(?:d|s)|fix|close) #?(\d+)(\#ic\d*){0,1}(( #?and|#?+or|,) #?(\d+)(\#ic\d*){0,1}){0,}/';
+
+        $issues_to_be_closed = array();
+        $num_closes = preg_match_all($preg_string_closes, strtolower($changeset->message), $matches_closes, PREG_SET_ORDER);
+        if($num_closes > 0) {
+            for ($i = 0; $i < count($matches_closes); $i++) {
+
+                if(count($matches_closes[$i]) == 6) {
+                    $issues_to_be_closed[] = $matches_closes[$i][1];
+                    $issues_to_be_closed[] = $matches_closes[$i][5];
+                }
+                else if(count($matches_closes[$i]) == 2) {
+                        $issues_to_be_closed[] = $matches_closes[$i][1];
+                    }
+            }
+        }
+        print_r($issues_to_be_closed);
+        echo '<br/>';
+
+        $issues_to_be_referenced = array();
+        $num_refs = preg_match_all($preg_string_refs, strtolower($changeset->message), $matches_refs, PREG_SET_ORDER);
+        if($num_refs > 0) {
+            for ($i = 0; $i < count($matches_refs); $i++) {
+
+                if(count($matches_refs[$i]) == 6) {
+                    $issues_to_be_referenced[] = $matches_refs[$i][1];
+                    $issues_to_be_referenced[] = $matches_refs[$i][5];
+                }
+                else if(count($matches_refs[$i]) == 2) {
+                        $issues_to_be_referenced[] = $matches_refs[$i][1];
+                    }
+            }
+        }
+        print_r($issues_to_be_referenced);
+        echo '<br/>';
+        
+    }
+
+//    function find_all_by_id($ids) {
+//        $this->recursive = -1;
+//        foreach($ids as $id) {
+//            $matches[] = $this->find('first', array('cache' => 'find_all_by_id_' . $id, 'conditions' => array('Issue.id' => $id)));
+//        }
+//        //pr('Found ' . count($matches) . 'issues :<br/> ' . $matches);
+//        return $matches;
+//    }
+
+
     public function run($args) {
         // Check if we have a lock already. If not set one which
         // expires automatically after 10 minutes.
@@ -399,12 +451,12 @@ private function run_tool($toolname, $mode, $args = null)
                         }
 
                         if($repository->status === '1') {
-                            echo 'User need to perform author user matching';
-                            $this->grabChanges(0, 'tip', 0);
-                            $this->fillUsersTable();
+                            // user need to check author_user table
                             Yii::app()->mutex->unlock();
                             return;
                         }
+
+                        // repository has been cloned and author_user table checked
 
                         $fp = $this->run_tool('hg', 'read', array('log', '-r0', '-R', $repository->local_path, '--cwd', $repository->local_path, '--template', '{node}'));
                         $unique_id = fgets($fp);
@@ -415,7 +467,7 @@ private function run_tool($toolname, $mode, $args = null)
                         $fp = null;
 
                         if($repository->status === '2') {
-                            echo 'performing initial import';
+                            // perform initial import
                             $this->doInitialImport($unique_id, $last_revision, $repository->id);
                             $repository->status = 3;
                             $repository->save();
@@ -423,6 +475,7 @@ private function run_tool($toolname, $mode, $args = null)
                             return;
                         }
 
+                        // repository status is OK (3)
                         // normal maintenance work ...
 
                         $this->hg('pull');
