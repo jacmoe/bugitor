@@ -330,6 +330,7 @@ private function run_tool($toolname, $mode, $args = null)
                 if($changeset->validate()) {
                     $changeset->save(false);
 
+                    $this->addToActionLog($changeset);
                     $this->importChangeset($changeset);
 
                     $change_edit = $change_del = $change_add = 0;
@@ -375,27 +376,6 @@ private function run_tool($toolname, $mode, $args = null)
         $preg_string_refs = '/(?:refs|ref|references|see) #?(\d+)(\#ic\d*){0,1}(( #?and|#?or|,) #?(\d+)(\#ic\d*){0,1}){0,}/';
         $preg_string_closes = '/(?:fix(?:ed|es)|close(?:d|s)|fix|close) #?(\d+)(\#ic\d*){0,1}(( #?and|#?+or|,) #?(\d+)(\#ic\d*){0,1}){0,}/';
 
-        $issues_to_be_closed = array();
-        $num_closes = preg_match_all($preg_string_closes, strtolower($changeset->message), $matches_closes, PREG_SET_ORDER);
-        if($num_closes > 0) {
-            for ($i = 0; $i < count($matches_closes); $i++) {
-
-                if(count($matches_closes[$i]) == 6) {
-                    $issues_to_be_closed[] = $matches_closes[$i][1];
-                    $issues_to_be_closed[] = $matches_closes[$i][5];
-                }
-                else if(count($matches_closes[$i]) == 2) {
-                        $issues_to_be_closed[] = $matches_closes[$i][1];
-                    }
-            }
-        }
-        $issues_to_close = Issue::model()->findAllByPk($issues_to_be_closed);
-        print_r($issues_to_be_closed);
-        echo"\n";
-        foreach($issues_to_close as $issue_close) {
-            echo 'Closing #'.$issue_close->id . ' ' . $issue_close->subject . "\n";
-        }
-
         $issues_to_be_referenced = array();
         $num_refs = preg_match_all($preg_string_refs, strtolower($changeset->message), $matches_refs, PREG_SET_ORDER);
         if($num_refs > 0) {
@@ -411,24 +391,43 @@ private function run_tool($toolname, $mode, $args = null)
             }
         }
         $issues_to_ref = Issue::model()->findAllByPk($issues_to_be_referenced);
-        print_r($issues_to_be_referenced);
-        echo"\n";
         foreach($issues_to_ref as $issue_ref) {
-            echo 'Closing #'.$issue_ref->id . ' ' . $issue_ref->subject . "\n";
+            //TODO: reference issue and add comment. Related changeset??
+        }
+
+        $issues_to_be_closed = array();
+        $num_closes = preg_match_all($preg_string_closes, strtolower($changeset->message), $matches_closes, PREG_SET_ORDER);
+        if($num_closes > 0) {
+            for ($i = 0; $i < count($matches_closes); $i++) {
+
+                if(count($matches_closes[$i]) == 6) {
+                    $issues_to_be_closed[] = $matches_closes[$i][1];
+                    $issues_to_be_closed[] = $matches_closes[$i][5];
+                }
+                else if(count($matches_closes[$i]) == 2) {
+                        $issues_to_be_closed[] = $matches_closes[$i][1];
+                    }
+            }
+        }
+        $issues_to_close = Issue::model()->findAllByPk($issues_to_be_closed);
+        foreach($issues_to_close as $issue_close) {
+            //TODO: close issue and add comment. Related changeset??
         }
         
     }
 
-//    function find_all_by_id($ids) {
-//        $this->recursive = -1;
-//        foreach($ids as $id) {
-//            $matches[] = $this->find('first', array('cache' => 'find_all_by_id_' . $id, 'conditions' => array('Issue.id' => $id)));
-//        }
-//        //pr('Found ' . count($matches) . 'issues :<br/> ' . $matches);
-//        return $matches;
-//    }
-
-
+    public function addToChangeLog($changeset) {
+        $actionLog = new ActionLog;
+        $actionLog->author_id = $changeset->user_id;
+        $actionLog->project_id = $changeset->scm->project_id;
+        $actionLog->description = $changeset->message;
+        $actionLog->subject = 'Revision ' . $changeset->revision . '(' . $changeset->scm->name . ')';
+        $actionLog->type = 'changeset';
+        $actionLog->when = $changeset->commit_date;
+        $actionLog->url = '/projects/'. $changeset->scm->project->identifier . '/changeset/view/' . $changeset->id;
+        if($actionLog->validate())
+            $actionLog->save(false);
+    }
     public function run($args) {
         // Check if we have a lock already. If not set one which
         // expires automatically after 10 minutes.
