@@ -172,7 +172,7 @@ class AuthorUserController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=AuthorUser::model()->findByPk((int)$id);
+		$model=AuthorUser::model()->with('user')->findByPk((int)$id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
