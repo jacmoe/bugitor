@@ -50,13 +50,14 @@ $this->pageTitle = $model->name . ' - Code - ' . Yii::app()->name;
                 </tr>
               </thead>
               <tbody>
-        <?php foreach($repository->changesets as $changeset) : ?>
+            <?php $changesets = array_reverse($repository->changesets); ?>
+            <?php foreach($changesets as $changeset) : ?>
                 <tr>
                   <td>
                     <?php echo Bugitor::gravatar($changeset->user, 16) . Bugitor::link_to_user($changeset->user) ?>
                   </td>
                   <td>
-                    <?php echo Time::shortTimeAgo($changeset->commit_date) ?>
+                    <?php echo Time::ago($changeset->commit_date) ?>
                   </td>
                   <td>
                     <?php echo CHtml::link($changeset->message, $this->createUrl('changeset/view', array('id' => $changeset->id, 'identifier' => $_GET['identifier']))) ?>
