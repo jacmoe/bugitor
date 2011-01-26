@@ -66,6 +66,7 @@
  * @property Version $version
  * @property RelatedIssue[] $relatedIssues
  * @property Users[] $bugUsers
+ * @property ChangesetIssue[] $changesetIssues
  */
 class Issue extends CActiveRecord {
 
@@ -270,6 +271,7 @@ class Issue extends CActiveRecord {
             'watchers' => array(self::MANY_MANY, 'User', '{{watcher}}(issue_id, user_id)'),
             'comments' => array(self::HAS_MANY, 'Comment', 'issue_id'),
             'commentCount' => array(self::STAT, 'Comment', 'issue_id'),
+            'changesetIssues' => array(self::HAS_MANY, 'ChangesetIssue', 'issue_id'),
         );
     }
 
