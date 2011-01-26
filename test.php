@@ -215,19 +215,18 @@ function hg() {
     $timepat = '(?:\s*\((?:spent|sp)\s*(-?[0-9]*(?:\.[0-9]+)?)\s*(?:hours?|hrs)?\s*\))?';
     $tktref = "(?:#|(?:(?:#|issue|bug):?\s*))([a-z]*[0-9]+)$timepat";
 
-    $pat = "(?P<action>(?:$cmds))\s*(?P<ticket>$tktref(?:(?:[, &]*|\s+and\s+)$tktref)*)";
+    $pat = "(?P<action>(?:$cmds))\s*(?P<ticket>$tktref(?:(?:[,]*|\s+and\s+)$tktref)*)";
 
     $M = array();
     $actions = array();
 
-    if (preg_match_all("/$pat/smi", $msg, $M, PREG_SET_ORDER)) {
+    if (preg_match_all("/$pat/", $msg, $M, PREG_SET_ORDER)) {
       foreach ($M as $match) {
         if (in_array($match['action'], $close)) {
-          $action = 'close';
+          $action['action'] = 'close';
         } else {
-          $action = 'ref';
+          $action['action'] = 'ref';
         }
-        $tickets = array();
         $T = array();
         if (preg_match_all("/$tktref/smi", $match['ticket'],
             $T, PREG_SET_ORDER)) {
@@ -235,18 +234,64 @@ function hg() {
           foreach ($T as $tmatch) {
             if (isset($tmatch[2])) {
               // [ action, ticket, spent ]
-              $actions[] = array($action, $tmatch[1], $tmatch[2]);
+              $action['ticket'] = $tmatch[2];
+                //$actions[] = array($action, $tmatch[1], $tmatch[2]);
             } else {
               // [ action, ticket ]
-              $actions[] = array($action, $tmatch[1]);
+              $action['ticket'] = $tmatch[1];
+              //$actions[] = array($action, $tmatch[1]);
             }
           }
         }
+        $actions[] = $action;
       }
     }
     return $actions;
   }
 
-  //print_r(parseCommitMessage('this is a commit which references #44 and closes #33, see #22 and #21, #56, #57, #58 and #59. Fixes #100. See #112'));
-?>
-<a href="http://<?php echo $_SERVER['HTTP_HOST'] ?>/user/profile">http://<?php echo $_SERVER['HTTP_HOST'] ?>/user/profile</a>
+  $message = 'this is a commit which references #44 and closes #33, see #22 and #21, Refs #56, #57, #58 and #59. Fixes #100. See #112, #133, fixed #156';
+
+  echo $message . '<br/>';
+
+  $tickets = parseCommitMessage($message);
+
+  foreach($tickets as $ticket) {
+      echo $ticket['action'] . ' #' .$ticket['ticket'] . "<br/>";
+  }
+
+    $preg_string_refs = '/(?:refs|ref|references|see) #?(\d+)(\#ic\d*){0,1}(( #?and|#?or|,) #?(\d+)(\#ic\d*){0,1}){0,}/';
+    $preg_string_closes = '/(?:fix(?:ed|es)|close(?:d|s)|fix|close) #?(\d+)(\#ic\d*){0,1}(( #?and|#?+or|,) #?(\d+)(\#ic\d*){0,1}){0,}/';
+
+    $issues_to_be_closed = array();
+    $num_closes = preg_match_all($preg_string_closes, strtolower($message), $matches_closes, PREG_SET_ORDER);
+    if($num_closes > 0) {
+        for ($i = 0; $i < count($matches_closes); $i++) {
+
+            if(count($matches_closes[$i]) == 6) {
+                $issues_to_be_closed[] = $matches_closes[$i][1];
+                $issues_to_be_closed[] = $matches_closes[$i][5];
+            }
+            else if(count($matches_closes[$i]) == 2) {
+                    $issues_to_be_closed[] = $matches_closes[$i][1];
+                }
+        }
+    }
+    print_r($issues_to_be_closed);
+    echo '<br/>';
+
+    $issues_to_be_referenced = array();
+    $num_refs = preg_match_all($preg_string_refs, strtolower($message), $matches_refs, PREG_SET_ORDER);
+    if($num_refs > 0) {
+        for ($i = 0; $i < count($matches_refs); $i++) {
+
+            if(count($matches_refs[$i]) == 6) {
+                $issues_to_be_referenced[] = $matches_refs[$i][1];
+                $issues_to_be_referenced[] = $matches_refs[$i][5];
+            }
+            else if(count($matches_refs[$i]) == 2) {
+                    $issues_to_be_referenced[] = $matches_refs[$i][1];
+                }
+        }
+    }
+    print_r($issues_to_be_referenced);
+    echo '<br/>';
