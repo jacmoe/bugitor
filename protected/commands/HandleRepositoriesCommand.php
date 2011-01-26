@@ -86,12 +86,6 @@ private function run_tool($toolname, $mode, $args = null)
     }
 }
 
-//if (php_sapi_name() != 'cli') {
-//  set_exception_handler('mtrack_last_chance_saloon');
-//  error_reporting(E_NOTICE|E_ERROR|E_WARNING);
-//  ini_set('display_errors', false);
-//  set_time_limit(300);
-//}
     private $repopath;
     private $arr_users;
 
@@ -114,8 +108,13 @@ private function run_tool($toolname, $mode, $args = null)
 
         $sep = uniqid();
 
-        $fp = $this->hg('log',
-                '--rev', $start.':'.$end, '--template', $sep . '\n{node|short}\n{rev}\n{branches}\n{tags}\n{file_adds}\n{file_copies}\n{file_mods}\n{file_dels}\n{author|email}\n{date|hgdate}\n{desc}\n', '-l '.$limit);
+        if(0 === $limit) {
+            $fp = $this->hg('log',
+                    '--rev', $start.':'.$end, '--template', $sep . '\n{node|short}\n{rev}\n{branches}\n{tags}\n{file_adds}\n{file_copies}\n{file_mods}\n{file_dels}\n{author|email}\n{date|hgdate}\n{desc}\n');
+        } else {
+            $fp = $this->hg('log',
+                    '--rev', $start.':'.$end, '--template', $sep . '\n{node|short}\n{rev}\n{branches}\n{tags}\n{file_adds}\n{file_copies}\n{file_mods}\n{file_dels}\n{author|email}\n{date|hgdate}\n{desc}\n', '-l '.$limit);
+        }
 
         fgets($fp); # discard leading $sep
 
@@ -263,18 +262,15 @@ private function run_tool($toolname, $mode, $args = null)
                 $author_user = new AuthorUser;
 
                 $author_user->author = $author;
-                echo 'Author: ' .$author_user->author . "\n";
 
                 $criteria_user = new CDbCriteria();
                 $criteria_user->compare('username', $author);
                 $user = User::model()->find($criteria_user);
                 if($user) {
                     $author_user->user_id = $user->id;
-                    echo 'User id: ' . $author_user->user_id . "\n";
                 }
                 if($author_user->validate(array('author'))) {
                     $author_user->save(false);
-                    echo 'author_user validate succeeded.' . "\n";
                 }
             }
         }
@@ -382,7 +378,6 @@ private function run_tool($toolname, $mode, $args = null)
                 if(Yii::app()->config->get('python_path') !== '')
                     putenv(Yii::app()->config->get('python_path'));
 
-                //echo ini_get('max_execution_time') . "\n";
                 $projects = Project::model()->with(array('repositories'))->findAll();
                 foreach($projects as $project) {
                     foreach($project->repositories as $repository) {
@@ -390,10 +385,23 @@ private function run_tool($toolname, $mode, $args = null)
                         $this->repopath = $repository->local_path;
 
                         if($repository->status === '0') {
+                            // clone repository
                             $this->run_tool('hg', 'read', array('clone', $repository->url, $repository->local_path));
                             $repository->status = 1;
                             $repository->save();
+                            // fill author user table
+                            $this->grabChanges(0, 'tip', 0);
+                            $this->fillUsersTable();
+
                             // just return after a clone
+                            Yii::app()->mutex->unlock();
+                            return;
+                        }
+
+                        if($repository->status === '1') {
+                            echo 'User need to perform author user matching';
+                            $this->grabChanges(0, 'tip', 0);
+                            $this->fillUsersTable();
                             Yii::app()->mutex->unlock();
                             return;
                         }
@@ -406,10 +414,10 @@ private function run_tool($toolname, $mode, $args = null)
                         $last_revision = fgets($fp);
                         $fp = null;
 
-                        if($repository->status === '1') {
+                        if($repository->status === '2') {
                             echo 'performing initial import';
                             $this->doInitialImport($unique_id, $last_revision, $repository->id);
-                            $repository->status = 2;
+                            $repository->status = 3;
                             $repository->save();
                             Yii::app()->mutex->unlock();
                             return;
