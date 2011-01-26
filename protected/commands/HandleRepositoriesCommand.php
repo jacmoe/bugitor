@@ -93,6 +93,7 @@ private function run_tool($toolname, $mode, $args = null)
 //  set_time_limit(300);
 //}
     private $repopath;
+    private $arr_users;
 
     private function hg()
     {
@@ -106,6 +107,8 @@ private function run_tool($toolname, $mode, $args = null)
     }
 
     function grabChanges($start = 0, $end = 'tip', $limit = 100){
+
+        $this->arr_users = array();
 
         $entries = array();
 
@@ -169,6 +172,8 @@ private function run_tool($toolname, $mode, $args = null)
 
             $changeby = trim(fgets($fp));
             $entry['author'] = $changeby;
+            $this->arr_users[] = $changeby;
+
             list($ts) = preg_split('/\s+/', fgets($fp));
             //FIXME: format date the way we want the date
             $entry['date'] = date("Y-m-d H:i:s", $ts);
@@ -244,6 +249,130 @@ private function run_tool($toolname, $mode, $args = null)
         return $actions;
     }
 
+    public function fillUsersTable() {
+        $authors = array();
+        foreach($this->arr_users as $key=>$val) {
+            $authors[$val] = true;
+        }
+        $authors = array_keys($authors);
+        
+        foreach($authors as $author) {
+            $criteria = new CDbCriteria();
+            $criteria->compare('author', $author);
+            if(!AuthorUser::model()->exists($criteria)) {
+                $author_user = new AuthorUser;
+
+                $author_user->author = $author;
+                echo 'Author: ' .$author_user->author . "\n";
+
+                $criteria_user = new CDbCriteria();
+                $criteria_user->compare('username', $author);
+                $user = User::model()->find($criteria_user);
+                if($user) {
+                    $author_user->user_id = $user->id;
+                    echo 'User id: ' . $author_user->user_id . "\n";
+                }
+                if($author_user->validate(array('author'))) {
+                    $author_user->save(false);
+                    echo 'author_user validate succeeded.' . "\n";
+                }
+            }
+        }
+    }
+
+    public function handleUser($author) {
+        $criteria_user = new CDbCriteria();
+        $criteria_user->compare('username', $author);
+        $author_user = AuthorUser::model()->find($criteria_user);
+        if($user) {
+            return $author_user->user_id;
+        }
+        return null;
+    }
+
+    public function doInitialImport($unique_id, $last_revision, $repository_id) {
+        $start_rev = 0;
+        while($start_rev < $last_revision) {
+            echo 'Importing  from revision "' . $start_rev . '" to "' . ($start_rev + 25) . "\"\n";
+            $this->importChanges($start_rev, $unique_id, $repository_id);
+            $start_rev = $start_rev + 25;
+            sleep(1);
+        }
+    }
+
+    public function importChanges($start_rev, $unique_id, $repository_id) {
+        
+        $entries = $this->grabChanges($start_rev, 'tip', 50);
+
+        $this->fillUsersTable();
+
+        foreach($entries as $entry) {
+
+            $criteria = new CDbCriteria();
+            $criteria->select = "unique_ident";
+            $criteria->compare('unique_ident', $unique_id . $entry['revision']);
+
+            if(!Changeset::model()->exists($criteria)) {
+
+                $fp = $this->run_tool('hg', 'read', array('parents', '-r' . $entry['short_rev'], '-R', $this->repopath, '--cwd', $this->repopath, '--template', '{node|short}'));
+                $parent = fgets($fp);
+                $fp = null;
+
+                $changeset = new Changeset;
+                $changeset->unique_ident = $unique_id . $entry['revision'];
+                $changeset->revision = $entry['revision'];
+                $changeset->author = $entry['author'];
+                $changeset->user_id = $this->handleUser($entry['author']);
+                $changeset->scm_id = $repository_id;
+                $changeset->commit_date = $entry['date'];
+                $changeset->message = $entry['message'];
+                $changeset->short_rev = $entry['short_rev'];
+                $changeset->branch = $entry['branches'];
+                $changeset->tags = $entry['tags'];
+                $changeset->parent = $parent;
+
+                if($changeset->validate()) {
+                    $changeset->save(false);
+
+                    $change_edit = $change_del = $change_add = 0;
+
+                    foreach($entry['files'] as $file) {
+                        $change = new Change;
+                        $change->changeset_id = $changeset->id;
+                        switch ($file['status']) {
+                            case 'M':
+                                $change_edit++;
+                                break;
+                            case 'A':
+                                $change_add++;
+                                break;
+                            case 'D':
+                                $change_del++;
+                                break;
+                            default:
+                                break;
+                        }
+                        $change->path = $file['name'];
+                        $change->action = $file['status'];
+                        if($change->validate()) {
+                            $change->save(false);
+                        } else {
+                            return false;
+                        }
+                    }
+                    $changeset->add = $change_add;
+                    $changeset->del = $change_del;
+                    $changeset->edit = $change_edit;
+                    $changeset->update();
+
+                } else { // changeset validate
+                    return false;
+                }
+            } // if changeset doesn't exist
+        } // foreach entries
+        return true;
+    }
+
     public function run($args) {
         // Check if we have a lock already. If not set one which
         // expires automatically after 10 minutes.
@@ -257,6 +386,9 @@ private function run_tool($toolname, $mode, $args = null)
                 $projects = Project::model()->with(array('repositories'))->findAll();
                 foreach($projects as $project) {
                     foreach($project->repositories as $repository) {
+
+                        $this->repopath = $repository->local_path;
+
                         if($repository->status === '0') {
                             $this->run_tool('hg', 'read', array('clone', $repository->url, $repository->local_path));
                             $repository->status = 1;
@@ -265,9 +397,6 @@ private function run_tool($toolname, $mode, $args = null)
                             Yii::app()->mutex->unlock();
                             return;
                         }
-                        $this->repopath = $repository->local_path;
-                        $this->hg('pull');
-                        $this->hg('update');
 
                         $fp = $this->run_tool('hg', 'read', array('log', '-r0', '-R', $repository->local_path, '--cwd', $repository->local_path, '--template', '{node}'));
                         $unique_id = fgets($fp);
@@ -277,74 +406,32 @@ private function run_tool($toolname, $mode, $args = null)
                         $last_revision = fgets($fp);
                         $fp = null;
 
+                        if($repository->status === '1') {
+                            echo 'performing initial import';
+                            $this->doInitialImport($unique_id, $last_revision, $repository->id);
+                            $repository->status = 2;
+                            $repository->save();
+                            Yii::app()->mutex->unlock();
+                            return;
+                        }
+
+                        // normal maintenance work ...
+
+                        $this->hg('pull');
+                        $this->hg('update');
+
                         $criteriac = new CDbCriteria();
                         $criteriac->compare('scm_id', $repository->id);
-                        $criteriac->select='max(short_rev) as maxRev';
+                        $criteriac->select ='max(short_rev) as maxRev';
                         $last_revision_stored = Changeset::model()->find($criteriac);
-                        //echo 'Last revision in db: ' . $last_revision_stored->maxRev . "\n";
-                        //return;
-
-                        $entries = $this->grabChanges(550, 'tip');
-
-                        foreach($entries as $entry) {
-
-                            $criteria = new CDbCriteria();
-                            $criteria->select = "unique_ident";
-                            $criteria->compare('unique_ident', $unique_id . $entry['revision']);
-
-                            if(!Changeset::model()->exists($criteria)) {
-
-                                $fp = $this->run_tool('hg', 'read', array('parents', '-r' . $entry['short_rev'], '-R', $repository->local_path, '--cwd', $repository->local_path, '--template', '{node|short}'));
-                                $parent = fgets($fp);
-                                $fp = null;
-
-                                $changeset = new Changeset;
-                                $changeset->unique_ident = $unique_id . $entry['revision'];
-                                $changeset->revision = $entry['revision'];
-                                $changeset->user_id = 1; //FIXME! $entry['author']
-                                $changeset->scm_id = $repository->id;
-                                $changeset->commit_date = $entry['date'];
-                                $changeset->message = $entry['message'];
-                                $changeset->short_rev = $entry['short_rev'];
-                                $changeset->branch = $entry['branches'];
-                                $changeset->tags = $entry['tags'];
-                                $changeset->parent = $parent;
-
-                                if($changeset->validate()) {
-                                    $changeset->save(false);
-
-                                    $change_edit = $change_del = $change_add = 0;
-                                    
-                                    foreach($entry['files'] as $file) {
-                                        $change = new Change;
-                                        $change->changeset_id = $changeset->id;
-                                        switch ($file['status']) {
-                                            case 'M':
-                                                $change_edit++;
-                                                break;
-                                            case 'A':
-                                                $change_add++;
-                                                break;
-                                            case 'D':
-                                                $change_del++;
-                                                break;
-                                            default:
-                                                break;
-                                        }
-                                        $change->path = $file['name'];
-                                        $change->action = $file['status'];
-                                        if($change->validate())
-                                            $change->save(false);
-                                    }
-                                    $changeset->add = $change_add;
-                                    $changeset->del = $change_del;
-                                    $changeset->edit = $change_edit;
-                                    $changeset->update();
-
-                                }
-                                
-                            }
+                        $start_rev = 0;
+                        if(null !== $last_revision_stored->maxRev) {
+                            //echo 'Last revision in db: ' . $last_revision_stored->maxRev . "\n";
+                            $start_rev = $last_revision_stored->maxRev + 1;
                         }
+
+                        if($start_rev < $last_revision)
+                            $this->importChanges($start_rev, $unique_id, $repository->id);
 
                     }
                 }
@@ -357,7 +444,7 @@ private function run_tool($toolname, $mode, $args = null)
                 Yii::app()->mutex->unlock();
             }
         } else {
-            echo 'Nothing to. Exiting...';
+            echo 'Nothing to do. Exiting...';
         }
     }
 
