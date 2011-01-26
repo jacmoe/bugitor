@@ -342,7 +342,10 @@ private function run_tool($toolname, $mode, $args = null)
                     }
             }
         }
-        $issues_to_ref = Issue::model()->findAllByPk($issues_to_be_referenced);
+        $criteria_ref = new CDbCriteria();
+        $criteria_ref->compare('project_id', $changeset->scm->project_id);
+        
+        $issues_to_ref = Issue::model()->findAllByPk($issues_to_be_referenced, $criteria_ref);
         foreach($issues_to_ref as $issue_ref) {
             //TODO: reference issue and add comment.
             $comment = new Comment;
@@ -382,7 +385,12 @@ private function run_tool($toolname, $mode, $args = null)
                     }
             }
         }
-        $issues_to_close = Issue::model()->findAllByPk($issues_to_be_closed);
+
+        $criteria_close = new CDbCriteria();
+        $criteria_close->compare('project_id', $changeset->scm->project_id);
+        $criteria_close->compare('closed', 0);
+        
+        $issues_to_close = Issue::model()->findAllByPk($issues_to_be_closed, $criteria_close);
         foreach($issues_to_close as $issue_close) {
             $comment = new Comment;
             $comment->content = 'Applied in rev:'.$changeset->revision;
