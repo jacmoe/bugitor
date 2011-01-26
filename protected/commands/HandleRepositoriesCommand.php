@@ -389,8 +389,10 @@ private function run_tool($toolname, $mode, $args = null)
                     }
             }
         }
-        print_r($issues_to_be_closed);
-        echo '<br/>';
+        $issues_to_close = Issue::model()->findAllByPk($issues_to_be_closed);
+        foreach($issues_to_close as $issue_close) {
+            echo 'Closing #'.$issue_close->id . ' ' . $issue_close->subject . "\n";
+        }
 
         $issues_to_be_referenced = array();
         $num_refs = preg_match_all($preg_string_refs, strtolower($changeset->message), $matches_refs, PREG_SET_ORDER);
@@ -406,8 +408,10 @@ private function run_tool($toolname, $mode, $args = null)
                     }
             }
         }
-        print_r($issues_to_be_referenced);
-        echo '<br/>';
+        $issues_to_ref = Issue::model()->findAllByPk($issues_to_be_referenced);
+        foreach($issues_to_ref as $issue_ref) {
+            echo 'Closing #'.$issue_ref->id . ' ' . $issue_ref->subject . "\n";
+        }
         
     }
 
