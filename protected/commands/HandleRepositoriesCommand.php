@@ -390,6 +390,8 @@ private function run_tool($toolname, $mode, $args = null)
             }
         }
         $issues_to_close = Issue::model()->findAllByPk($issues_to_be_closed);
+        print_r($issues_to_be_closed);
+        echo"\n";
         foreach($issues_to_close as $issue_close) {
             echo 'Closing #'.$issue_close->id . ' ' . $issue_close->subject . "\n";
         }
@@ -409,6 +411,8 @@ private function run_tool($toolname, $mode, $args = null)
             }
         }
         $issues_to_ref = Issue::model()->findAllByPk($issues_to_be_referenced);
+        print_r($issues_to_be_referenced);
+        echo"\n";
         foreach($issues_to_ref as $issue_ref) {
             echo 'Closing #'.$issue_ref->id . ' ' . $issue_ref->subject . "\n";
         }
