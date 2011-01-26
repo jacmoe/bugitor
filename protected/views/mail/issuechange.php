@@ -43,7 +43,7 @@ Issue #<?php echo $issue->id ?> has been updated by <?php echo Bugitor::format_u
 </ul>
 <?php endif; ?>
 <hr />
-<h1><?php echo Bugitor::link_to_issue($issue, true)?></h1>
+<h3><?php echo Bugitor::link_to_issue($issue, true)?></h3>
 <ul>
     <li>Author: <?php echo (isset($issue->user) ? Bugitor::format_username($issue->user) : ''); ?></li>
     <li>Status: <?php echo (isset($issue->status) ? $issue->getStatusLabel($issue->status) : ''); ?></li>
@@ -61,7 +61,7 @@ Issue #<?php echo $issue->id ?> has been updated by <?php echo Bugitor::format_u
 <h3 style="font-size: 1.1em; font-family: 'Trebuchet MS', Verdana, sans-serif; margin: 0px;">Bugitor Issue Tracker</h3>
 <span style="font-size: 0.8em; font-style: italic;">You have received this notification because you have either subscribed to it, or are involved in it.<br />
 To change your notification preferences, please click here:
-<a href="http://<?php echo $_SERVER['HTTP_HOST'] ?>/user/profile">http://<?php echo $_SERVER['HTTP_HOST'] ?>/user/profile</a>
+<a href="<?php echo Yii::app()->config->get('hostname') ?>user/profile"><?php echo Yii::app()->config->get('hostname') ?>user/profile</a>
 </span>
 </body>
 </html>

@@ -360,7 +360,7 @@ private function run_tool($toolname, $mode, $args = null)
                     $issue_ref->save(false);
 
                     $issue_ref->addToActionLog($issue_ref->id, $changeset->user_id, 'note', '/projects/'.$issue_ref->project->identifier.'/issue/view/'.$issue_ref->id.'#note-'.$issue_ref->commentCount, $comment);
-                    //$issue_ref->sendNotifications($issue_ref->id, $comment, $issue_ref->updated_by);
+                    $issue_ref->sendNotifications($issue_ref->id, $comment, $issue_ref->updated_by);
 
                     $changeset_issue = new ChangesetIssue;
                     $changeset_issue->changeset_id = $changeset->id;
@@ -388,7 +388,6 @@ private function run_tool($toolname, $mode, $args = null)
 
         $criteria_close = new CDbCriteria();
         $criteria_close->compare('project_id', $changeset->scm->project_id);
-        //$criteria_close->compare('closed', 0);
         
         $issues_to_close = Issue::model()->findAllByPk($issues_to_be_closed, $criteria_close);
         foreach($issues_to_close as $issue_close) {
@@ -415,7 +414,8 @@ private function run_tool($toolname, $mode, $args = null)
                     } else {
                         $issue_close->addToActionLog($issue_close->id, $changeset->user_id, 'note', '/projects/'.$issue_close->project->identifier.'/issue/view/'.$issue_close->id.'#note-'.$issue_close->commentCount, $comment);
                     }
-                    //$issue_close->sendNotifications($issue_close->id, $comment, $issue_close->updated_by);
+
+                    $issue_close->sendNotifications($issue_close->id, $comment, $issue_close->updated_by);
 
                     $changeset_issue = new ChangesetIssue;
                     $changeset_issue->changeset_id = $changeset->id;
