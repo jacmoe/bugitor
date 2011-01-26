@@ -31,18 +31,19 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
-<?php
-$this->breadcrumbs=array(
-	'Changesets'=>array('index'),
-	'Create',
-);
+<div class="view">
 
-$this->menu=array(
-	array('label'=>'List Changeset', 'url'=>array('index')),
-	array('label'=>'Manage Changeset', 'url'=>array('admin')),
-);
-?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
+	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
+	<br />
 
-<h1>Create Changeset</h1>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('user_id')); ?>:</b>
+	<?php echo CHtml::encode($data->user_id); ?>
+	<br />
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('author')); ?>:</b>
+	<?php echo CHtml::encode($data->author); ?>
+	<br />
+
+
+</div>

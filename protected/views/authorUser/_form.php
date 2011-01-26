@@ -31,18 +31,33 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
-<?php
-$this->breadcrumbs=array(
-	'Changesets'=>array('index'),
-	'Create',
-);
+<div class="form">
 
-$this->menu=array(
-	array('label'=>'List Changeset', 'url'=>array('index')),
-	array('label'=>'Manage Changeset', 'url'=>array('admin')),
-);
-?>
+<?php $form=$this->beginWidget('CActiveForm', array(
+	'id'=>'author-user-form',
+	'enableAjaxValidation'=>false,
+)); ?>
 
-<h1>Create Changeset</h1>
+	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+	<?php echo $form->errorSummary($model); ?>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'user_id'); ?>
+		<?php echo $form->textField($model,'user_id'); ?>
+		<?php echo $form->error($model,'user_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'author'); ?>
+		<?php echo $form->textField($model,'author',array('size'=>60,'maxlength'=>60)); ?>
+		<?php echo $form->error($model,'author'); ?>
+	</div>
+
+	<div class="row buttons">
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	</div>
+
+<?php $this->endWidget(); ?>
+
+</div><!-- form -->

@@ -33,16 +33,16 @@
 ?>
 <?php
 $this->breadcrumbs=array(
-	'Changesets'=>array('index'),
+	'Author Users'=>array('index'),
 	'Create',
 );
 
 $this->menu=array(
-	array('label'=>'List Changeset', 'url'=>array('index')),
-	array('label'=>'Manage Changeset', 'url'=>array('admin')),
+	array('label'=>'List AuthorUser', 'url'=>array('index')),
+	array('label'=>'Manage AuthorUser', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create Changeset</h1>
+<h1>Create AuthorUser</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

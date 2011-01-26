@@ -33,16 +33,18 @@
 ?>
 <?php
 $this->breadcrumbs=array(
-	'Changesets'=>array('index'),
-	'Create',
+	'Author Users',
 );
 
 $this->menu=array(
-	array('label'=>'List Changeset', 'url'=>array('index')),
-	array('label'=>'Manage Changeset', 'url'=>array('admin')),
+	array('label'=>'Create AuthorUser', 'url'=>array('create')),
+	array('label'=>'Manage AuthorUser', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create Changeset</h1>
+<h1>Author Users</h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->widget('zii.widgets.CListView', array(
+	'dataProvider'=>$dataProvider,
+	'itemView'=>'_view',
+)); ?>

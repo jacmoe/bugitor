@@ -31,18 +31,32 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
-<?php
-$this->breadcrumbs=array(
-	'Changesets'=>array('index'),
-	'Create',
-);
+<div class="wide form">
 
-$this->menu=array(
-	array('label'=>'List Changeset', 'url'=>array('index')),
-	array('label'=>'Manage Changeset', 'url'=>array('admin')),
-);
-?>
+<?php $form=$this->beginWidget('CActiveForm', array(
+	'action'=>Yii::app()->createUrl($this->route),
+	'method'=>'get',
+)); ?>
 
-<h1>Create Changeset</h1>
+	<div class="row">
+		<?php echo $form->label($model,'id'); ?>
+		<?php echo $form->textField($model,'id'); ?>
+	</div>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+	<div class="row">
+		<?php echo $form->label($model,'user_id'); ?>
+		<?php echo $form->textField($model,'user_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'author'); ?>
+		<?php echo $form->textField($model,'author',array('size'=>60,'maxlength'=>60)); ?>
+	</div>
+
+	<div class="row buttons">
+		<?php echo CHtml::submitButton('Search'); ?>
+	</div>
+
+<?php $this->endWidget(); ?>
+
+</div><!-- search-form -->

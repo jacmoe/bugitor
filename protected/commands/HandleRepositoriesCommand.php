@@ -282,9 +282,9 @@ private function run_tool($toolname, $mode, $args = null)
 
     public function handleUser($author) {
         $criteria_user = new CDbCriteria();
-        $criteria_user->compare('username', $author);
+        $criteria_user->compare('author', $author);
         $author_user = AuthorUser::model()->find($criteria_user);
-        if($user) {
+        if($author_user) {
             return $author_user->user_id;
         }
         return null;
@@ -430,7 +430,7 @@ private function run_tool($toolname, $mode, $args = null)
                             $start_rev = $last_revision_stored->maxRev + 1;
                         }
 
-                        if($start_rev < $last_revision)
+                        if($start_rev <= $last_revision)
                             $this->importChanges($start_rev, $unique_id, $repository->id);
 
                     }
