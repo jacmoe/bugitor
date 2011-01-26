@@ -88,7 +88,7 @@ class AuthorUser extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
+            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
         );
     }
 
@@ -115,8 +115,9 @@ class AuthorUser extends CActiveRecord
 
         $criteria=new CDbCriteria;
 
+        $criteria->with = array('user');
         $criteria->compare('id',$this->id);
-        $criteria->compare('user_id',$this->user_id);
+        $criteria->compare('user.username',$this->user_id);
         $criteria->compare('author',$this->author);
 
         return new CActiveDataProvider(get_class($this), array(
