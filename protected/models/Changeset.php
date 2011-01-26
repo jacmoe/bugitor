@@ -38,7 +38,9 @@
  *
  * The followings are the available columns in table '{{changeset}}':
  * @property integer $id
+ * @property integer $unique_ident
  * @property string $revision
+ * @property string $author
  * @property integer $user_id
  * @property integer $scm_id
  * @property string $commit_date
@@ -85,12 +87,12 @@ class Changeset extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('revision, commit_date, message', 'required'),
+			array('unique_ident, revision, commit_date, message', 'required'),
 			array('user_id, scm_id, short_rev, add, edit, del', 'numerical', 'integerOnly'=>true),
-			array('revision, parent, branch, tags', 'length', 'max'=>50),
+			array('author, revision, parent, branch, tags', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, revision, user_id, scm_id, commit_date, message, short_rev, parent, branch, tags, add, edit, del', 'safe', 'on'=>'search'),
+			array('id, revision, user_id, author, scm_id, commit_date, message, short_rev, parent, branch, tags, add, edit, del', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -116,7 +118,8 @@ class Changeset extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'revision' => 'Revision',
-			'user_id' => 'User',
+			'unique_ident' => 'Unique Identifier',
+                        'user_id' => 'User',
 			'scm_id' => 'Scm',
 			'commit_date' => 'Commit Date',
 			'message' => 'Message',
@@ -127,6 +130,7 @@ class Changeset extends CActiveRecord
 			'add' => 'Add',
 			'edit' => 'Edit',
 			'del' => 'Del',
+                        'author' => 'Author',
 		);
 	}
 
@@ -142,6 +146,7 @@ class Changeset extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
+		$criteria->compare('unique_ident',$this->unique_ident);
 		$criteria->compare('revision',$this->revision,true);
 		$criteria->compare('user_id',$this->user_id);
 		$criteria->compare('scm_id',$this->scm_id);
