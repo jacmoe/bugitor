@@ -245,7 +245,7 @@ class Issue extends CActiveRecord {
             array('tracker_id, project_id, issue_category_id, user_id, issue_priority_id, version_id, assigned_to, updated_by, done_ratio, pre_done_ratio, closed', 'numerical', 'integerOnly' => true),
             array('subject', 'length', 'max' => 255),
             array('status', 'SWValidator'),
-            array('created, modified, updated_by, version_id', 'safe'),
+            array('created, modified, updated_by, version_id, status', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, tracker_id, project_id, subject, description, issue_category_id, user_id, issue_priority_id, version_id, assigned_to, created, modified, done_ratio, pre_done_ratio, status, closed', 'safe', 'on' => 'search'),
