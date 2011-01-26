@@ -33,16 +33,26 @@
 ?>
 <?php
 $this->breadcrumbs=array(
-	'Changesets'=>array('index'),
-	'Create',
+	'Author Users'=>array('index'),
+	$model->id,
 );
 
 $this->menu=array(
-	array('label'=>'List Changeset', 'url'=>array('index')),
-	array('label'=>'Manage Changeset', 'url'=>array('admin')),
+	array('label'=>'List AuthorUser', 'url'=>array('index')),
+	array('label'=>'Create AuthorUser', 'url'=>array('create')),
+	array('label'=>'Update AuthorUser', 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>'Delete AuthorUser', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Manage AuthorUser', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create Changeset</h1>
+<h1>View AuthorUser #<?php echo $model->id; ?></h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->widget('zii.widgets.CDetailView', array(
+	'data'=>$model,
+	'attributes'=>array(
+		'id',
+		'user_id',
+		'author',
+	),
+)); ?>

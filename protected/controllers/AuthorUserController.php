@@ -33,7 +33,7 @@
 ?>
 <?php
 
-class ChangesetController extends Controller
+class AuthorUserController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -65,7 +65,7 @@ class ChangesetController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-	public function actionView($revision, $identifier)
+	public function actionView($id)
 	{
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
@@ -78,14 +78,14 @@ class ChangesetController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Changeset;
+		$model=new AuthorUser;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Changeset']))
+		if(isset($_POST['AuthorUser']))
 		{
-			$model->attributes=$_POST['Changeset'];
+			$model->attributes=$_POST['AuthorUser'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -107,9 +107,9 @@ class ChangesetController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Changeset']))
+		if(isset($_POST['AuthorUser']))
 		{
-			$model->attributes=$_POST['Changeset'];
+			$model->attributes=$_POST['AuthorUser'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -144,7 +144,7 @@ class ChangesetController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Changeset');
+		$dataProvider=new CActiveDataProvider('AuthorUser');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -155,10 +155,10 @@ class ChangesetController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Changeset('search');
+		$model=new AuthorUser('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Changeset']))
-			$model->attributes=$_GET['Changeset'];
+		if(isset($_GET['AuthorUser']))
+			$model->attributes=$_GET['AuthorUser'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -172,7 +172,7 @@ class ChangesetController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Changeset::model()->findByPk((int)$id);
+		$model=AuthorUser::model()->findByPk((int)$id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -184,7 +184,7 @@ class ChangesetController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='changeset-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='author-user-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

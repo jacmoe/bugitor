@@ -72,7 +72,7 @@ class AuthorUser extends CActiveRecord
         // will receive user inputs.
         return array(
             array('id, author', 'required'),
-            //array('id, user_id', 'numerical', 'integerOnly'=>true),
+            array('id, user_id', 'numerical', 'integerOnly'=>true),
             array('author', 'length', 'max'=>60),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -88,7 +88,7 @@ class AuthorUser extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            //'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
+            'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
         );
     }
 
