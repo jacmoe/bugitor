@@ -69,7 +69,7 @@ class Textilizer extends CApplicationComponent
                 case '':
                     $issue = Issue::model()->with(array('project', 'tracker'))->findByPk((int) $oid);
                     if ($issue) {
-                        $link = CHtml::link('#' . $issue->id,Yii::app()->request->hostInfo.'/projects/'.$issue->project->identifier.'/issue/view/'.$issue->id, array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue', 'title' => $issue->subject));
+                        $link = CHtml::link('#' . $issue->id, Yii::app()->request->hostInfo.'/projects/'.$issue->project->identifier.'/issue/view/'.$issue->id, array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue', 'title' => $issue->subject));
                     }
                     break;
                 }
@@ -89,7 +89,9 @@ class Textilizer extends CApplicationComponent
 //                    case 'attachment':
 //                        break;
                     case 'rev':
-                        $link = 'rev:' . $oid;
+                        $changeset = Changeset::model()->with('scm')->findByAttributes(array('revision' => $oid));
+                        if($changeset)
+                            $link = CHtml::link('rev:' . $changeset->revision, Yii::app()->request->hostInfo.'/projects/'.$changeset->scm->project->identifier.'/changeset/view/'.$issue->id, array('title' => $changeset->message));
                         break;
                 }
             } // if sep = :

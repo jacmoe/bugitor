@@ -34,38 +34,22 @@
 <?php
 
 /**
- * This is the model class for table "{{changeset}}".
+ * This is the model class for table "{{changeset_issue}}".
  *
- * The followings are the available columns in table '{{changeset}}':
+ * The followings are the available columns in table '{{changeset_issue}}':
  * @property integer $id
- * @property string $unique_ident
- * @property string $revision
- * @property string $author
- * @property integer $user_id
- * @property integer $scm_id
- * @property string $commit_date
- * @property string $message
- * @property integer $short_rev
- * @property string $parent
- * @property string $branch
- * @property string $tags
- * @property integer $add
- * @property integer $edit
- * @property integer $del
+ * @property integer $changeset_id
+ * @property integer $issue_id
  *
  * The followings are the available model relations:
- * @property Change[] $changes
- * @property Repository $scm
- * @property User $user
- * @property ChangesetIssue[] $changesetIssues
+ * @property Changeset $changeset
+ * @property Issue $issue
  */
-class Changeset extends CActiveRecord
+class ChangesetIssue extends CActiveRecord
 {
-	public $maxRev;
-
-        /**
+	/**
 	 * Returns the static model of the specified AR class.
-	 * @return Changeset the static model class
+	 * @return ChangesetIssue the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -77,7 +61,7 @@ class Changeset extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{changeset}}';
+		return '{{changeset_issue}}';
 	}
 
 	/**
@@ -88,12 +72,11 @@ class Changeset extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('unique_ident, revision, commit_date, message', 'required'),
-			array('user_id, scm_id, short_rev, add, edit, del', 'numerical', 'integerOnly'=>true),
-			array('author, revision, parent, branch, tags', 'length', 'max'=>50),
+			array('changeset_id, issue_id', 'required'),
+			array('changeset_id, issue_id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, revision, user_id, author, scm_id, commit_date, message, short_rev, parent, branch, tags, add, edit, del', 'safe', 'on'=>'search'),
+			array('id, changeset_id, issue_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -105,10 +88,8 @@ class Changeset extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'changes' => array(self::HAS_MANY, 'Change', 'changeset_id'),
-                        'scm' => array(self::BELONGS_TO, 'Repository', 'scm_id'),
-			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-                        'changesetIssues' => array(self::HAS_MANY, 'ChangesetIssue', 'changeset_id'),
+			'changeset' => array(self::BELONGS_TO, 'Changeset', 'changeset_id'),
+			'issue' => array(self::BELONGS_TO, 'Issue', 'issue_id'),
 		);
 	}
 
@@ -119,20 +100,8 @@ class Changeset extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'revision' => 'Revision',
-			'unique_ident' => 'Unique Identifier',
-                        'user_id' => 'User',
-			'scm_id' => 'Scm',
-			'commit_date' => 'Commit Date',
-			'message' => 'Message',
-			'short_rev' => 'Short Rev',
-			'parent' => 'Parent',
-			'branch' => 'Branch',
-			'tags' => 'Tags',
-			'add' => 'Add',
-			'edit' => 'Edit',
-			'del' => 'Del',
-                        'author' => 'Author',
+			'changeset_id' => 'Changeset',
+			'issue_id' => 'Issue',
 		);
 	}
 
@@ -148,19 +117,8 @@ class Changeset extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('unique_ident',$this->unique_ident);
-		$criteria->compare('revision',$this->revision,true);
-		$criteria->compare('user_id',$this->user_id);
-		$criteria->compare('scm_id',$this->scm_id);
-		$criteria->compare('commit_date',$this->commit_date,true);
-		$criteria->compare('message',$this->message,true);
-		$criteria->compare('short_rev',$this->short_rev);
-		$criteria->compare('parent',$this->parent,true);
-		$criteria->compare('branch',$this->branch,true);
-		$criteria->compare('tags',$this->tags,true);
-		$criteria->compare('add',$this->add);
-		$criteria->compare('edit',$this->edit);
-		$criteria->compare('del',$this->del);
+		$criteria->compare('changeset_id',$this->changeset_id);
+		$criteria->compare('issue_id',$this->issue_id);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,

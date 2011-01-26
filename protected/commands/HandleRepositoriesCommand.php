@@ -200,54 +200,6 @@ private function run_tool($toolname, $mode, $args = null)
         return $entries;
     }
 
-    function parseCommitMessage($msg) {
-        // Parse the commit message and look for commands;
-        // returns each recognized command and its args in an array
-
-        $close = array('resolves', 'resolved', 'close', 'closed',
-            'closes', 'fix', 'fixed', 'fixes',
-            'Resolves', 'Resolved', 'Close', 'Closed',
-            'Closes', 'Fix', 'Fixed', 'Fixes');
-        $refs = array('addresses', 'references', 'referenced',
-            'refs', 'ref', 'see', 're',
-            'Addresses', 'References', 'Referenced',
-            'Refs', 'Ref', 'See', 'Re');
-
-        $cmds = join('|', $close) . '|' . join('|', $refs);
-        $timepat = '(?:\s*\((?:spent|sp)\s*(-?[0-9]*(?:\.[0-9]+)?)\s*(?:hours?|hrs)?\s*\))?';
-        $tktref = "(?:#|(?:(?:#|issue|bug):?\s*))([a-z]*[0-9]+)$timepat";
-
-        $pat = "(?P<action>(?:$cmds))\s*(?P<ticket>$tktref(?:(?:[, &]*|\s+and\s+)$tktref)*)";
-
-        $M = array();
-        $actions = array();
-
-        if (preg_match_all("/$pat/smi", $msg, $M, PREG_SET_ORDER)) {
-            foreach ($M as $match) {
-                if (in_array($match['action'], $close)) {
-                    $action = 'close';
-                } else {
-                    $action = 'ref';
-                }
-                $tickets = array();
-                $T = array();
-                if (preg_match_all("/$tktref/smi", $match['ticket'],
-                $T, PREG_SET_ORDER)) {
-                    foreach ($T as $tmatch) {
-                        if (isset($tmatch[2])) {
-                            // [ action, ticket, spent ]
-                            $actions[] = array($action, $tmatch[1], $tmatch[2]);
-                        } else {
-                            // [ action, ticket ]
-                            $actions[] = array($action, $tmatch[1]);
-                        }
-                    }
-                }
-            }
-        }
-        return $actions;
-    }
-
     public function fillUsersTable() {
         $authors = array();
         foreach($this->arr_users as $key=>$val) {
@@ -392,8 +344,29 @@ private function run_tool($toolname, $mode, $args = null)
         }
         $issues_to_ref = Issue::model()->findAllByPk($issues_to_be_referenced);
         foreach($issues_to_ref as $issue_ref) {
-            //TODO: reference issue and add comment. Related changeset??
-        }
+            //TODO: reference issue and add comment.
+            $comment = new Comment;
+            $comment->content = 'Referenced in rev:'.$changeset->revision;
+            $comment->issue_id = $issue_ref->id;
+            $comment->create_user_id = $changeset->user_id;
+            $comment->update_user_id = $changeset->user_id;
+            if($comment->validate()) {
+                $comment->save(false);
+                $issue_ref->updated_by = $changeset->user_id;
+                if($issue_ref->validate()) {
+                    $issue_ref->save(false);
+
+                    $issue_ref->addToActionLog($issue_ref->id, $changeset->user_id, 'note', '/projects/'.$issue_ref->project->identifier.'/issue/view/'.$issue_ref->id.'#note-'.$issue_ref->commentCount, $comment);
+                    $issue_ref->sendNotifications($issue_ref->id, $comment, $issue_ref->updated_by);
+
+                    $changeset_issue = new ChangesetIssue;
+                    $changeset_issue->changeset_id = $changeset->id;
+                    $changeset_issue->issue_id = $issue_ref->id;
+                    if($changeset_issue->validate())
+                        $changeset_issue->save(false);
+                } // issue_ref validate
+            } // comment validate
+        } // foreach issues to reference
 
         $issues_to_be_closed = array();
         $num_closes = preg_match_all($preg_string_closes, strtolower($changeset->message), $matches_closes, PREG_SET_ORDER);
@@ -411,8 +384,29 @@ private function run_tool($toolname, $mode, $args = null)
         }
         $issues_to_close = Issue::model()->findAllByPk($issues_to_be_closed);
         foreach($issues_to_close as $issue_close) {
-            //TODO: close issue and add comment. Related changeset??
-        }
+            $comment = new Comment;
+            $comment->content = 'Applied in rev:'.$changeset->revision;
+            $comment->issue_id = $issue_close->id;
+            $comment->create_user_id = $changeset->user_id;
+            $comment->update_user_id = $changeset->user_id;
+            if($comment->validate()) {
+                $comment->save(false);
+                $issue_close->updated_by = $changeset->user_id;
+                $issue_close->status = 'swIssue/resolved';
+                if($issue_close->validate()) {
+                    $issue_close->save(false);
+
+                    $issue_close->addToActionLog($issue_close->id, $changeset->user_id, 'resolved', '/projects/'.$issue_close->project->identifier.'/issue/view/'.$issue_close->id.'#note-'.$issue_close->commentCount, $comment);
+                    $issue_close->sendNotifications($issue_close->id, $comment, $issue_close->updated_by);
+
+                    $changeset_issue = new ChangesetIssue;
+                    $changeset_issue->changeset_id = $changeset->id;
+                    $changeset_issue->issue_id = $issue_close->id;
+                    if($changeset_issue->validate())
+                        $changeset_issue->save(false);
+                } // issue_close validate
+            } // comment validate
+        } // foreach issue to close
         
     }
 
@@ -421,7 +415,7 @@ private function run_tool($toolname, $mode, $args = null)
         $actionLog->author_id = $changeset->user_id;
         $actionLog->project_id = $changeset->scm->project_id;
         $actionLog->description = $changeset->message;
-        $actionLog->subject = 'Revision ' . $changeset->revision . '(' . $changeset->scm->name . ')';
+        $actionLog->subject = 'Revision ' . $changeset->revision . ' (' . $changeset->scm->name . ')';
         $actionLog->type = 'changeset';
         $actionLog->when = $changeset->commit_date;
         $actionLog->url = '/projects/'. $changeset->scm->project->identifier . '/changeset/view/' . $changeset->id;
