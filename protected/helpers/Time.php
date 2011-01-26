@@ -161,7 +161,32 @@ class Time {
 		return date('m Y',self::makeUnix($date)) == date('m Y', time());
 	}
 
-	/**
+        public static function shortTimeAgo($date) {
+            $date_parsed = date_parse($date);
+            $date_timestamp = mktime(0,0,0, $date_parsed['month'], $date_parsed['day'], $date_parsed['year']);
+            $now_timestamp = time();
+            $timestamp_diff = $now_timestamp - $date_timestamp;
+            $nice_date = $date;
+            if ($timestamp_diff < (60*60*24*7)) {
+                $nice_date = floor($timestamp_diff/60/60/24)." Days";
+            }
+            elseif ($timestamp_diff < (60*60*24*7*4)) {
+                $nice_date = floor($timestamp_diff/60/60/24/7)." Weeks";
+            } else {
+                $total_months = $months = floor($timestamp_diff/60/60/24/30);
+                if($months >= 12) {
+                    $months = ($total_months % 12);
+                    $years  = ($total_months - $months)/12;
+                    $nice_date = $years . " Years ";
+                }
+                if($months > 0)
+                    $nice_date = $months . " Months";
+            }
+            return '<acronym title="' . $date . '">' . $nice_date . '</acronym>';
+            //return $nice_date;
+        }
+
+        /**
 	* Returns either a relative date or a formatted date depending
 	* on the difference between the current time and given datetime.
 	* $datetime should be in a <i>strtotime</i>-parsable format, like MySQL's datetime datatype.
