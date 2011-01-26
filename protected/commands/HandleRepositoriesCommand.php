@@ -388,23 +388,33 @@ private function run_tool($toolname, $mode, $args = null)
 
         $criteria_close = new CDbCriteria();
         $criteria_close->compare('project_id', $changeset->scm->project_id);
-        $criteria_close->compare('closed', 0);
+        //$criteria_close->compare('closed', 0);
         
         $issues_to_close = Issue::model()->findAllByPk($issues_to_be_closed, $criteria_close);
         foreach($issues_to_close as $issue_close) {
             $comment = new Comment;
-            $comment->content = 'Applied in rev:'.$changeset->revision;
+            if($issue_close->closed === 0) {
+                $comment->content = 'Applied in rev:'.$changeset->revision;
+            } else {
+                $comment->content = 'Referenced in rev:'.$changeset->revision;
+            }
             $comment->issue_id = $issue_close->id;
             $comment->create_user_id = $changeset->user_id;
             $comment->update_user_id = $changeset->user_id;
             if($comment->validate()) {
                 $comment->save(false);
                 $issue_close->updated_by = $changeset->user_id;
-                $issue_close->status = 'swIssue/resolved';
+                if($issue_close->closed !== 1) {
+                    $issue_close->status = 'swIssue/resolved';
+                }
                 if($issue_close->validate()) {
                     $issue_close->save(false);
 
-                    $issue_close->addToActionLog($issue_close->id, $changeset->user_id, 'resolved', '/projects/'.$issue_close->project->identifier.'/issue/view/'.$issue_close->id.'#note-'.$issue_close->commentCount, $comment);
+                    if($issue_close->closed === 0) {
+                        $issue_close->addToActionLog($issue_close->id, $changeset->user_id, 'resolved', '/projects/'.$issue_close->project->identifier.'/issue/view/'.$issue_close->id.'#note-'.$issue_close->commentCount, $comment);
+                    } else {
+                        $issue_close->addToActionLog($issue_close->id, $changeset->user_id, 'note', '/projects/'.$issue_close->project->identifier.'/issue/view/'.$issue_close->id.'#note-'.$issue_close->commentCount, $comment);
+                    }
                     //$issue_close->sendNotifications($issue_close->id, $comment, $issue_close->updated_by);
 
                     $changeset_issue = new ChangesetIssue;
