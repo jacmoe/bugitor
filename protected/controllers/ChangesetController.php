@@ -65,7 +65,7 @@ class ChangesetController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-	public function actionView($revision, $identifier)
+	public function actionView($id)
 	{
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
@@ -178,7 +178,15 @@ class ChangesetController extends Controller
 		return $model;
 	}
 
-	/**
+	public function loadModelbyRevision($revision)
+	{
+		$model=Changeset::model()->findByAttribute(array('revision' => $revision));
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
+
+        /**
 	 * Performs the AJAX validation.
 	 * @param CModel the model to be validated
 	 */

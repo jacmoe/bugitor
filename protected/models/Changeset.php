@@ -56,7 +56,7 @@
  * The followings are the available model relations:
  * Change[] $changes
  * @property Repository $scm
- * @property Users $user
+ * @property User $user
  */
 class Changeset extends CActiveRecord
 {
@@ -106,7 +106,7 @@ class Changeset extends CActiveRecord
 		return array(
 			'changes' => array(self::HAS_MANY, 'Change', 'changeset_id'),
                         'scm' => array(self::BELONGS_TO, 'Repository', 'scm_id'),
-			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
+			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 		);
 	}
 

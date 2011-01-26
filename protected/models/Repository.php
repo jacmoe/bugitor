@@ -36,6 +36,7 @@
 /**
  * This is the model class for table "{{repository}}".
  *
+ * The followings are the available columns in table '{{repository}}':
  * @property integer $id
  * @property integer $project_id
  * @property string $url
@@ -43,93 +44,93 @@
  * @property string $name
  * @property string $identifier
  * @property integer $status
+ *
+ * The followings are the available model relations:
+ * @property Changeset[] $changesets
  * @property Project $project
  */
-class Repository extends CActiveRecord
-{
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @return Repository the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+class Repository extends CActiveRecord {
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return '{{repository}}';
-	}
+    /**
+     * Returns the static model of the specified AR class.
+     * @return Repository the static model class
+     */
+    public static function model($className=__CLASS__) {
+        return parent::model($className);
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('name', 'required'),
-			array('project_id, status', 'numerical', 'integerOnly'=>true),
-			array('url', 'length', 'max'=>60),
-			array('name, local_path, identifier', 'length', 'max'=>255),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, status, project_id, url, local_path, name, identifier', 'safe', 'on'=>'search'),
-		);
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName() {
+        return '{{repository}}';
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
-		);
-	}
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules() {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('name, identifier', 'required'),
+            array('project_id, status', 'numerical', 'integerOnly' => true),
+            array('url', 'length', 'max' => 60),
+            array('local_path, name, identifier', 'length', 'max' => 255),
+            // The following rule is used by search().
+            // Please remove those attributes that should not be searched.
+            array('id, project_id, url, local_path, name, identifier, status', 'safe', 'on' => 'search'),
+        );
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'project_id' => 'Project',
-			'url' => 'Url',
-			'local_path' => 'Local Path',
-			'name' => 'Name',
-                        'status' => 'Status',
-		);
-	}
+    /**
+     * @return array relational rules.
+     */
+    public function relations() {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'changesets' => array(self::HAS_MANY, 'Changeset', 'scm_id'),
+            'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
+        );
+    }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels() {
+        return array(
+            'id' => 'ID',
+            'project_id' => 'Project',
+            'url' => 'Url',
+            'local_path' => 'Local Path',
+            'name' => 'Name',
+            'identifier' => 'Identifier',
+            'status' => 'Status',
+        );
+    }
 
-		$criteria=new CDbCriteria;
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search() {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('project_id',$this->project_id);
-                $criteria->compare('status', $this->status);
-		$criteria->compare('url',$this->url,true);
-		$criteria->compare('local_path',$this->local_path,true);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('identifier',$this->identifier,true);
+        $criteria = new CDbCriteria;
 
-		return new CActiveDataProvider(get_class($this), array(
-			'criteria'=>$criteria,
-		));
-	}
+        $criteria->compare('id', $this->id);
+        $criteria->compare('project_id', $this->project_id);
+        $criteria->compare('url', $this->url, true);
+        $criteria->compare('local_path', $this->local_path, true);
+        $criteria->compare('name', $this->name, true);
+        $criteria->compare('identifier', $this->identifier, true);
+        $criteria->compare('status', $this->status);
+
+        return new CActiveDataProvider(get_class($this), array(
+            'criteria' => $criteria,
+        ));
+    }
+
 }

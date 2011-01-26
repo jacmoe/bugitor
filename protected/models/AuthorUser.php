@@ -42,7 +42,7 @@
  * @property string $author
  *
  * The followings are the available model relations:
- * @property Users $user
+ * @property User $user
  */
 class AuthorUser extends CActiveRecord
 {

@@ -171,7 +171,7 @@ return array(
                 '/projects/<identifier>/version/<action:\w+>/<id:\d+>'   => 'version/<action>',
                 '/projects/<identifier>/repository/<action:\w+>/<id:\d+>'   => 'repository/<action>',
                 '/projects/<identifier>/issueCategory/<action:\w+>/<id:\d+>'   => 'issueCategory/<action>',
-                '/projects/<identifier>/changeset/<action:\w+>/<version:\w+>'   => 'changeset/<_a>',
+                '/projects/<identifier>/changeset/<action:\w+>/<id:\d+>'   => 'changeset/<action>',
                 '/projects/<identifier>/<_a:(activity|roadmap|code|settings)>'   => 'project/<_a>',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',

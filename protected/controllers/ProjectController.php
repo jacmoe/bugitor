@@ -178,7 +178,7 @@ class ProjectController extends Controller {
     }
 
     public function actionCode($identifier) {
-        $project = Project::model()->find('identifier=?', array($_GET['identifier']));
+        $project = Project::model()->with(array('repositories' => array('with' => 'changesets')))->find('t.identifier=?', array($_GET['identifier']));
         $_GET['projectname'] = $project->name;
         $this->render('code', array(
             'model' => $project,
