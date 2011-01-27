@@ -1037,3 +1037,19 @@ p {
     left: -65px;
     bottom: 35px;
 }
+
+/* CHANGE TYPES */
+.change-modified {
+    background: url(../images/edit.png) no-repeat left;
+    padding: 2px 0 2px 20px;
+}
+
+.change-added {
+    background: url(../images/add.png) no-repeat left;
+    padding: 2px 0 2px 20px;
+}
+
+.change-removed {
+    background: url(../images/delete.png) no-repeat left;
+    padding: 2px 0 2px 20px;
+}

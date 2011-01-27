@@ -31,9 +31,14 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
+<?php
+    if(Yii::app()->config->get('python_path') !== '')
+        putenv(Yii::app()->config->get('python_path'));
+    $hg_executable = Yii::app()->config->get('hg_executable');
+?>
 <?php $this->widget('application.components.HighlightDiffWidget.HighlightDiffWidget'); ?>
-<h3 class="code">View Changeset <?php echo $model->short_rev; ?>:<?php echo $model->revision; ?></h3>
 <a name="top"></a>
+<h3 class="code">View Changeset <?php echo $model->short_rev; ?>:<?php echo $model->revision; ?></h3>
 <div class="box">
 <div id="source-summary">
     <dl class="relations">
@@ -54,15 +59,36 @@
     </dl>
 </div>
 </div>
-<div id="changeset-changed" class="layout-box">
+<div id="changeset" class="layout-box">
+<h3>Changing <?php echo count($model->changes) ?> files:</h3>
+<div class="quiet"><?php echo ($model->add > 0) ? $model->add . ' added. ' : '' ?>
+<?php echo ($model->edit > 0) ? $model->edit . ' modified. ' : '' ?>
+<?php echo ($model->del > 0) ? $model->del . ' deleted. ' : '' ?></div>
 <?php foreach($model->changes as $change) : ?>
-<a class="change-modified" href="#<?php echo $change->path; ?>"><?php echo $change->path; ?></a><br/>
+<?php
+$change_class = '';
+switch ($change->action) {
+    case 'M':
+        $change_class = 'class="change-modified"';
+        break;
+    case 'A':
+        $change_class = 'class="change-added"';
+        break;
+    case 'D':
+        $change_class = 'class="change-removed"';
+        break;
+    default:
+        $change_class = 'class="change-modified"';
+        break;
+}
+?>
+    <a <?php echo $change_class; ?> href="#<?php echo $change->path; ?>"><?php echo $change->path; ?></a><br/>
 <?php endforeach; ?>
 </div>
 <?php foreach($model->changes as $change) : ?>
 <?php $rev = $model->short_rev - 1; ?>
 <a name="<?php echo $change->path; ?>"></a><div class="diff box">
-<?php echo htmlspecialchars(`/usr/bin/hg diff --git -r{$rev} -R /opt/lampp/htdocs/repositories/bugitor --cwd /opt/lampp/htdocs/repositories/bugitor {$change->path}`); ?>
+<?php echo htmlspecialchars(`{$hg_executable} diff --git -r{$rev} -R {$model->scm->local_path} --cwd {$model->scm->local_path} {$change->path}`); ?>
 </div>
 <a style="float: right;" href="#top">Up To File-list</a>
 <?php endforeach; ?>
