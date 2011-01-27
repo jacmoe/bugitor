@@ -360,7 +360,7 @@ private function run_tool($toolname, $mode, $args = null)
                 $issue_ref->updated_by = $changeset->user_id;
                 if($issue_ref->validate(array('updated_by', 'closed'))) {
                     //FIXME: should issue update_time be set to changeset time??
-                    if( Time::makeUnix($issue_ref->modified) > Time::makeUnix($changeset->commit_date))
+                    //if( Time::makeUnix($issue_ref->modified) > Time::makeUnix($changeset->commit_date))
                         $issue_ref->modified = $changeset->commit_date;
                     $issue_ref->save(false);
 
@@ -414,7 +414,7 @@ private function run_tool($toolname, $mode, $args = null)
                 }
                 if($issue_close->validate(array('updated_by', 'closed'))) {
                     //FIXME: should issue update_time be set to changeset time??
-                    if( Time::makeUnix($issue_close->modified) > Time::makeUnix($changeset->commit_date))
+                    //if( Time::makeUnix($issue_close->modified) > Time::makeUnix($changeset->commit_date))
                         $issue_close->modified = $changeset->commit_date;
                     $issue_close->save(false);
 
