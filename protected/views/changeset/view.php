@@ -31,22 +31,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
-<?php
-$this->breadcrumbs=array(
-	'Changesets'=>array('index'),
-	$model->id,
-);
-
-$this->menu=array(
-	array('label'=>'List Changeset', 'url'=>array('index')),
-	array('label'=>'Create Changeset', 'url'=>array('create')),
-	array('label'=>'Update Changeset', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Changeset', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Changeset', 'url'=>array('admin')),
-);
-?>
-
-<h1>View Changeset #<?php echo $model->id; ?></h1>
+<h3 class="code">View Changeset <?php echo $model->short_rev; ?>:<?php echo $model->revision; ?></h3>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
