@@ -6,10 +6,10 @@
  * The original PHP version of this code was written by Geoffrey T. Dairiki
  * <dairiki@dairiki.org>, and is used/adapted with his permission.
  *
- * $Horde: framework/Text_Diff/Diff.php,v 1.11.2.11 2008/02/24 10:57:46 jan Exp $
+ * $Horde: framework/Text_Diff/Diff.php,v 1.11.2.12 2009/01/06 15:23:41 jan Exp $
  *
  * Copyright 2004 Geoffrey T. Dairiki <dairiki@dairiki.org>
- * Copyright 2004-2008 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-license.php.
@@ -380,7 +380,7 @@ class Text_Diff_Op_copy extends Text_Diff_Op {
 
     function &reverse()
     {
-        $reverse = new Text_Diff_Op_copy($this->final, $this->orig);
+        $reverse = &new Text_Diff_Op_copy($this->final, $this->orig);
         return $reverse;
     }
 
@@ -402,7 +402,7 @@ class Text_Diff_Op_delete extends Text_Diff_Op {
 
     function &reverse()
     {
-        $reverse = new Text_Diff_Op_add($this->orig);
+        $reverse = &new Text_Diff_Op_add($this->orig);
         return $reverse;
     }
 
@@ -424,7 +424,7 @@ class Text_Diff_Op_add extends Text_Diff_Op {
 
     function &reverse()
     {
-        $reverse = new Text_Diff_Op_delete($this->final);
+        $reverse = &new Text_Diff_Op_delete($this->final);
         return $reverse;
     }
 
@@ -446,7 +446,7 @@ class Text_Diff_Op_change extends Text_Diff_Op {
 
     function &reverse()
     {
-        $reverse = new Text_Diff_Op_change($this->final, $this->orig);
+        $reverse = &new Text_Diff_Op_change($this->final, $this->orig);
         return $reverse;
     }
 
