@@ -46,7 +46,6 @@ class ProjectActivity extends CWidget {
 
     public function init() {
         $criteria2 = new CDbCriteria;
-        //$criteria2->select = array('id', 'type', 'author_id', 't.when', 'url', 'project_id', 'subject', 'description');
         $criteria2->select = array('id', 'type', 'author_id', 't.when', 'url', 'project_id', 'subject', 'description', 'DATE(t.when) as theday');
         $criteria2->condition = 'project_id = :project_id';
         $criteria2->together = true;
