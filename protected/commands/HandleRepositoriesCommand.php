@@ -466,6 +466,7 @@ private function run_tool($toolname, $mode, $args = null)
             $actionLog->save(false);
     }
     public function run($args) {
+        echo 'Welcome to your friendly repository handler.' . "\n";
         // Check if we have a lock already. If not set one which
         // expires automatically after 10 minutes.
         if (Yii::app()->mutex->lock('HandleRepositoriesCommand', 600))
@@ -489,15 +490,12 @@ private function run_tool($toolname, $mode, $args = null)
                             $this->grabChanges(0, 'tip', 0);
                             $this->fillUsersTable();
 
-                            // just return after a clone
-                            Yii::app()->mutex->unlock();
-                            return;
+                            continue;
                         }
 
                         if($repository->status === '1') {
                             // user need to check author_user table
-                            Yii::app()->mutex->unlock();
-                            return;
+                            continue;
                         }
 
                         // repository has been cloned and author_user table checked
@@ -506,7 +504,7 @@ private function run_tool($toolname, $mode, $args = null)
                         $unique_id = fgets($fp);
                         $fp = null;
 
-                        $fp = $this->run_tool('hg', 'read', array('log', '-r"tip"', '-R', $repository->local_path, '--cwd', $repository->local_path, '--template', '{rev}'));
+                        $fp = $this->run_tool('hg', 'read', array('log', '-rtip', '-R', $repository->local_path, '--cwd', $repository->local_path, '--template', '{rev}'));
                         $last_revision = fgets($fp);
                         $fp = null;
 
@@ -515,8 +513,7 @@ private function run_tool($toolname, $mode, $args = null)
                             $this->doInitialImport($unique_id, $last_revision, $repository->id);
                             $repository->status = 3;
                             $repository->save();
-                            Yii::app()->mutex->unlock();
-                            return;
+                            continue;
                         }
 
                         // repository status is OK (3)
