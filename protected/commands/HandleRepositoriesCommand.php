@@ -360,7 +360,7 @@ private function run_tool($toolname, $mode, $args = null)
 
                 $issue_ref->updated_by = $changeset->user_id;
 
-                $issue_ref->detachBehavior('swBehavior');
+                $issue_ref->detachBehavior('BugitorTimestampBehavior');
 
                 if($issue_ref->validate(array('updated_by', 'closed'))) {
                     $issue_ref->modified = $comment->modified;
