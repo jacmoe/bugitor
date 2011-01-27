@@ -46,7 +46,7 @@
             <?php echo CHtml::link($activity->subject, $activity->url) ?>
             <?php echo $activity->theday; ?>
         </dt>
-        <dd><span class="description"><?php echo Bugitor::format_activity_description(CHtml::encode($activity->description)); ?></span></dd>
+        <dd><span class="description"><?php echo Yii::app()->textile->textilize(Bugitor::format_activity_description(CHtml::encode($activity->description))); ?></span></dd>
     </dl>
     <?php endforeach; ?>
 </div>
