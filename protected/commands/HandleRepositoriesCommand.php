@@ -354,7 +354,7 @@ private function run_tool($toolname, $mode, $args = null)
             $comment->issue_id = $issue_ref->id;
             $comment->create_user_id = $changeset->user_id;
             $comment->update_user_id = $changeset->user_id;
-            if($comment->validate()) {
+            if($comment->validate(array('content', 'issue_id', 'create_user_id', 'update_user_id'))) {
                 $comment->created = $comment->modified = $changeset->commit_date;
                 $comment->save(false);
                 $issue_ref->updated_by = $changeset->user_id;
@@ -402,7 +402,7 @@ private function run_tool($toolname, $mode, $args = null)
             $comment->issue_id = $issue_close->id;
             $comment->create_user_id = $changeset->user_id;
             $comment->update_user_id = $changeset->user_id;
-            if($comment->validate()) {
+            if($comment->validate(array('content', 'issue_id', 'create_user_id', 'update_user_id'))) {
                 $comment->created = $comment->modified = $changeset->commit_date;
                 $comment->save(false);
                 $issue_close->updated_by = $changeset->user_id;
