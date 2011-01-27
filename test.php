@@ -44,7 +44,17 @@
   .code .keyword { color: #373; }
   .code .string { color: #c30; }
     </style>
-  </head>
+<link rel="stylesheet" type="text/css" href="/css/generic.css" />
+<link rel="stylesheet" type="text/css" href="/css/chaw.css" />
+<script type="text/javascript" src="/js/jquery-1.3.1.min.js"></script>
+<script type="text/javascript" src="/js/jquery.highlight_diff.min.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+$(document).ready(function(){
+	$(".diff").highlight_diff();
+});
+//]]>
+</script>  </head>
   <body>
 <?php
 /* SVN FILE: $Id: highlight.php 689 2008-11-05 10:30:07Z AD7six $ */
@@ -199,7 +209,252 @@ class highlighter {
 	}
 }
 
-$highl = new highlighter();
-echo $highl->process("<?php echo 'hello world!'; ?>"); ?>
+//$highl = new highlighter();
+//echo $highl->process("<?php echo 'hello world!'; ?>"); ?>
+<div id="container">
+<div id="content">
+<div id="page-content">
+<div class="commit view">
+		<div class="diff">
+		diff --git a/controllers/source_controller.php b/controllers/source_controller.php
+index 70cfc03..6e09eed 100644
+--- a/controllers/source_controller.php
++++ b/controllers/source_controller.php
+@@ -29,8 +29,7 @@ class SourceController extends AppController {
+ 	function beforeFilter() {
+ 		parent::beforeFilter();
+ 		$this-&gt;Auth-&gt;mapActions(array(
+-			&#039;branches&#039; =&gt; &#039;read&#039;,
+-			&#039;rebase&#039; =&gt; &#039;update&#039;
+
++			&#039;branches&#039; =&gt; &#039;read&#039;, &#039;rebase&#039; =&gt; &#039;update&#039;
+ 		));
+ 	}
+
+@@ -47,18 +46,14 @@ class SourceController extends AppController {
+ 		} else {
+ 			$this-&gt;Project-&gt;Repo-&gt;update();
+ 		}
+-
+ 		list($args, $path, $current) = $this-&gt;Source-&gt;initialize($this-&gt;Project-&gt;Repo, $args);
+
+ 		$title = $current;
+-
+ 		if (!empty($args)) {
+ 			$title = join(&#039;/&#039;, $args) . &#039;/&#039; . $current;
+ 		}
+ 		$this-&gt;set(&#039;title_for_layout&#039;, $title);
+-
+ 		$data = $this-&gt;Source-&gt;read($path);
+-
+ 		$this-&gt;set(compact(&#039;data&#039;, &#039;path&#039;, &#039;args&#039;, &#039;current&#039;));
+ 	}
+
+@@ -75,14 +70,12 @@ class SourceController extends AppController {
+ 		}
+ 		list($args, $path, $current) = $this-&gt;Source-&gt;initialize($this-&gt;Project-&gt;Repo, $args);
+
+-		$data = $this-&gt;Source-&gt;read($path);
+ 		$title = $current;
+-
+ 		if (!empty($args)) {
+ 			$title = join(&#039;/&#039;, $args) . &#039;/&#039; . $current;
+ 		}
+ 		$this-&gt;set(&#039;title_for_layout&#039;, $title);
+-
++		$data = $this-&gt;Source-&gt;read($path);
+ 		$branch = $this-&gt;Project-&gt;Repo-&gt;branch;
+ 		$this-&gt;set(compact(&#039;data&#039;, &#039;path&#039;, &#039;args&#039;, &#039;current&#039;, &#039;branch&#039;));
+ 		$this-&gt;render(&#039;index&#039;);
+diff --git a/models/comment.php b/models/comment.php
+index 0a42795..ef1ce1f 100644
+--- a/models/comment.php
++++ b/models/comment.php
+@@ -51,6 +51,7 @@ class Comment extends AppModel {
+ 		if ($created &amp;&amp; $this-&gt;addToTimeline &amp;&amp; !empty($this-&gt;data[&#039;Comment&#039;][&#039;project_id&#039;])) {
+ 			$Timeline = ClassRegistry::init(&#039;Timeline&#039;);
+ 			$timeline = array(&#039;Timeline&#039; =&gt; array(
++				&#039;user_id&#039; =&gt; $this-&gt;data[&#039;Comment&#039;][&#039;user_id&#039;],
+ 				&#039;project_id&#039; =&gt; $this-&gt;data[&#039;Comment&#039;][&#039;project_id&#039;],
+ 				&#039;model&#039; =&gt; &#039;Comment&#039;,
+ 				&#039;foreign_key&#039; =&gt; $this-&gt;id,
+diff --git a/models/source.php b/models/source.php
+index 0c29207..71bb28a 100644
+--- a/models/source.php
++++ b/models/source.php
+@@ -38,16 +38,25 @@ class Source extends Object {
+ 		$this-&gt;Repo =&amp; $Repo;
+
+ 		$path = join(DS, $args);
++
+ 		if ($this-&gt;Repo-&gt;type == &#039;git&#039;) {
+ 			if(empty($args) &amp;&amp; !$this-&gt;Repo-&gt;branch) {
+ 				$this-&gt;branches();
+ 				$this-&gt;Repo-&gt;branch = null;
++			} elseif (isset($args[0])) {
++				$branches = $this-&gt;Repo-&gt;find(&#039;branches&#039;);
++
++				if (in_array($args[0], $branches)) {
++					$this-&gt;Repo-&gt;branch(array_shift($args), true);
++					$path = join(DS, $args);
++				}
+ 			}
+ 			if ($this-&gt;Repo-&gt;branch) {
+ 				array_unshift($args, $this-&gt;Repo-&gt;branch);
+ 			}
+ 			array_unshift($args, &#039;branches&#039;);
+ 		}
++		$args = array_filter($args);
+
+ 		$current = null;
+ 		if (count($args) &gt; 0) {
+@@ -114,25 +123,21 @@ class Source extends Object {
+ 			$File = new File($this-&gt;Repo-&gt;working . DS .$path);
+ 			return array(&#039;Content&#039; =&gt; $File-&gt;read());
+ 		}
+-
+ 		$isRoot = false;
+-
+ 		$wwwPath = $base = null;
++
+ 		if ($path) {
+ 			$wwwPath = $base = join(&#039;/&#039;, explode(DS, $path)) . &#039;/&#039;;
+ 		}
+
+-		$Folder = new Folder($this-&gt;Repo-&gt;working . DS . $path);
++		$Folder = new Folder($this-&gt;Repo-&gt;working . &#039;/&#039; . $path);
+ 		$path = Folder::slashTerm($Folder-&gt;pwd());
+
+ 		if ($this-&gt;Repo-&gt;type == &#039;git&#039;) {
+ 			if ($this-&gt;Repo-&gt;branch == null) {
+ 				$isRoot = true;
+-			} else {
+-				$branch = basename($this-&gt;Repo-&gt;working);
+-				if ($branch != &#039;master&#039;) {
+-					$wwwPath = &#039;branches/&#039; . $branch . &#039;/&#039; . $base;
+-				}
++			} elseif ($this-&gt;Repo-&gt;branch != &#039;master&#039;) {
++				$wwwPath = &#039;branches/&#039; . $this-&gt;Repo-&gt;branch . &#039;/&#039; . $base;
+ 			}
+ 		}
+
+@@ -145,6 +150,7 @@ class Source extends Object {
+ 			$dir[$i][&#039;name&#039;] = $dirs[$i];
+ 			$lookup = $path . $dirs[$i];
+ 			$here = $wwwPath . $dirs[$i];
++
+ 			if ($dirs[$i] == &#039;master&#039;) {
+ 				$isRoot = true;
+ 			}
+diff --git a/models/ticket.php b/models/ticket.php
+index cd2272f..f77bae3 100644
+--- a/models/ticket.php
++++ b/models/ticket.php
+@@ -183,6 +183,13 @@ class Ticket extends AppModel {
+ 			unset($this-&gt;data[&#039;Ticket&#039;][&#039;version_id&#039;]);
+ 		}
+
++		if (empty($this-&gt;data[&#039;Ticket&#039;][&#039;user_id&#039;])) {
++			$this-&gt;data[&#039;Ticket&#039;][&#039;user_id&#039;] = null;
++			if (!empty($this-&gt;data[&#039;Ticket&#039;][&#039;reporter&#039;])) {
++				$this-&gt;data[&#039;Ticket&#039;][&#039;user_id&#039;] = $this-&gt;data[&#039;Ticket&#039;][&#039;reporter&#039;];
++			}
++		}
++
+ 		if ($this-&gt;id) {
+ 			$changes = array();
+ 			if (isset($this-&gt;data[&#039;Ticket&#039;][&#039;previous&#039;])) {
+@@ -243,6 +250,7 @@ class Ticket extends AppModel {
+ 		if ($created &amp;&amp; $this-&gt;addToTimeline) {
+ 			$Timeline = ClassRegistry::init(&#039;Timeline&#039;);
+ 			$timeline = array(&#039;Timeline&#039; =&gt; array(
++				&#039;user_id&#039; =&gt; $this-&gt;data[&#039;Ticket&#039;][&#039;user_id&#039;],
+ 				&#039;project_id&#039; =&gt; $this-&gt;data[&#039;Ticket&#039;][&#039;project_id&#039;],
+ 				&#039;model&#039; =&gt; &#039;Ticket&#039;,
+ 				&#039;foreign_key&#039; =&gt; $this-&gt;id,
+diff --git a/models/wiki.php b/models/wiki.php
+index 9c450d1..c091648 100644
+--- a/models/wiki.php
++++ b/models/wiki.php
+@@ -156,7 +156,9 @@ class Wiki extends AppModel {
+ 				&#039;Wiki.project_id&#039; =&gt; $this-&gt;data[&#039;Wiki&#039;][&#039;project_id&#039;],
+ 			));
+ 		}
+-
++		if (empty($this-&gt;data[&#039;Wiki&#039;][&#039;user_id&#039;])) {
++			$this-&gt;data[&#039;Wiki&#039;][&#039;user_id&#039;] = null;
++		}
+ 		return true;
+ 	}
+
+@@ -170,6 +172,7 @@ class Wiki extends AppModel {
+ 		if ($created &amp;&amp; $this-&gt;addToTimeline &amp;&amp; !empty($this-&gt;data[&#039;Wiki&#039;][&#039;active&#039;])) {
+ 			$Timeline = ClassRegistry::init(&#039;Timeline&#039;);
+ 			$timeline = array(&#039;Timeline&#039; =&gt; array(
++				&#039;user_id&#039; =&gt; $this-&gt;data[&#039;Wiki&#039;][&#039;user_id&#039;],
+ 				&#039;project_id&#039; =&gt; $this-&gt;data[&#039;Wiki&#039;][&#039;project_id&#039;],
+ 				&#039;model&#039; =&gt; &#039;Wiki&#039;,
+ 				&#039;foreign_key&#039; =&gt; $this-&gt;id,
+diff --git a/plugins/repo/models/git.php b/plugins/repo/models/git.php
+index 819c731..dfe4dfd 100644
+--- a/plugins/repo/models/git.php
++++ b/plugins/repo/models/git.php
+@@ -243,7 +243,7 @@ class Git extends Repo {
+ 	 */
+ 	function update($remote = null, $branch = null, $params = array()) {
+ 		$this-&gt;cd();
+- 		return $this-&gt;run(&#039;pull -q&#039;, array_merge($params, array($remote, $branch)), &#039;pass&#039;);
++ 		return $this-&gt;run(&#039;pull -q&#039;, array_merge($params, array($remote, $branch)), &#039;hide&#039;);
+ 	}
+
+ 	/**
+diff --git a/tests/cases/controllers/source_controller.test.php b/tests/cases/controllers/source_controller.test.php
+index e9f225d..f0f18a9 100644
+--- a/tests/cases/controllers/source_controller.test.php
++++ b/tests/cases/controllers/source_controller.test.php
+@@ -41,9 +41,9 @@ class SourceControllerTest extends CakeTestCase {
+ 		$this-&gt;Source-&gt;constructClasses();
+
+ 		Configure::write(&#039;Content.git&#039;, TMP . &#039;tests/git/&#039;);
+-
++
+ 		App::import(&#039;Model&#039;, &#039;Repo.Git&#039;, false);
+-
++
+ 		$this-&gt;Git =&amp; new Git(array(
+ 			&#039;class&#039; =&gt; &#039;Repo.Git&#039;,
+ 			&#039;type&#039; =&gt; &#039;git&#039;,
+diff --git a/views/source/index.ctp b/views/source/index.ctp
+index b6314bc..fed0fa1 100644
+--- a/views/source/index.ctp
++++ b/views/source/index.ctp
+@@ -15,7 +15,7 @@
+ 			$path .= $part . &#039;/&#039;;
+ 			echo &#039;/&#039; . $html-&gt;link(&#039; &#039; . $part . &#039; &#039;, array(&#039;action&#039; =&gt; &#039;index&#039;, $path));
+ 		endforeach;
+-		echo &#039;/ &#039; . $current;
++		echo &#039;/ &#039; . h($current);
+ 	?&gt;
+
+ &lt;/h2&gt;
+
+@@ -43,7 +43,8 @@
+ 			}
+ 	?&gt;
+ 			&lt;tr&lt;?php echo $class?&gt;&gt;
+-				&lt;td nowrap&gt;&lt;?php echo $html-&gt;link($item[&#039;name&#039;], array(&#039;action&#039; =&gt; &#039;index&#039;, $item[&#039;path&#039;]), array(&#039;class&#039; =&gt; &#039;folder&#039;));?&gt;&lt;/td&gt;
+
++				&lt;td nowrap&gt;&lt;?php echo $html-&gt;link($item[&#039;name&#039;],
++					array(&#039;action&#039; =&gt; &#039;index&#039;, $item[&#039;path&#039;]), array(&#039;class&#039; =&gt; &#039;folder&#039;));?&gt;&lt;/td&gt;
+
+ 				&lt;td nowrap&gt;&lt;?php echo $item[&#039;info&#039;][&#039;author&#039;];?&gt;&lt;/td&gt;
+ 				&lt;td class=&quot;message&quot;&gt;&lt;?php echo $item[&#039;info&#039;][&#039;message&#039;];?&gt;&lt;/td&gt;
+
+ 				&lt;td nowrap class=&quot;date&quot;&gt;&lt;?php echo (!empty($item[&#039;info&#039;][&#039;date&#039;])) ? date(&quot;F d Y&quot;, strtotime($item[&#039;info&#039;][&#039;date&#039;])) : null;?&gt;&lt;/td&gt;	
+</div>
+</div>
+</div>
+</div>
+</div>
   </body>
 </html>
