@@ -358,7 +358,10 @@ private function run_tool($toolname, $mode, $args = null)
                 $comment->created = $comment->modified = $changeset->commit_date;
                 $comment->save(false);
                 $issue_ref->updated_by = $changeset->user_id;
-                if($issue_ref->validate()) {
+                if($issue_ref->validate(array('updated_by', 'closed'))) {
+                    //FIXME: should issue update_time be set to changeset time??
+                    if( Time::makeUnix($issue_ref->modified) < Time::makeUnix($changeset->commit_date))
+                        $issue_ref->modified = $changeset->commit_date;
                     $issue_ref->save(false);
 
                     $issue_ref->addToActionLog($issue_ref->id, $changeset->user_id, 'note', '/projects/'.$issue_ref->project->identifier.'/issue/view/'.$issue_ref->id.'#note-'.$issue_ref->commentCount, $comment);
@@ -409,7 +412,10 @@ private function run_tool($toolname, $mode, $args = null)
                 if($issue_close->closed !== 1) {
                     $issue_close->status = 'swIssue/resolved';
                 }
-                if($issue_close->validate()) {
+                if($issue_close->validate(array('updated_by', 'closed'))) {
+                    //FIXME: should issue update_time be set to changeset time??
+                    if( Time::makeUnix($issue_close->modified) < Time::makeUnix($changeset->commit_date))
+                        $issue_close->modified = $changeset->commit_date;
                     $issue_close->save(false);
 
                     if($issue_close->closed === 0) {
