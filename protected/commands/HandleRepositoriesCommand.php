@@ -328,6 +328,8 @@ private function run_tool($toolname, $mode, $args = null)
     public function importChangeset($changeset) {
 
         $commit_date_in_seconds = Time::makeUnix($changeset->commit_date);
+        // offset initial by 1 second to make date later than associated changeset.
+        $commit_date_in_seconds++;
 
         $preg_string_refs = '/(?:refs|ref|references|see) #?(\d+)(\#ic\d*){0,1}(( #?and|#?or|,) #?(\d+)(\#ic\d*){0,1}){0,}/';
         $preg_string_closes = '/(?:fix(?:ed|es)|close(?:d|s)|fix|close) #?(\d+)(\#ic\d*){0,1}(( #?and|#?+or|,) #?(\d+)(\#ic\d*){0,1}){0,}/';
