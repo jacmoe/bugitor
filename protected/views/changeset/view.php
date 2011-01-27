@@ -31,23 +31,38 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
+<?php $this->widget('application.components.HighlightDiffWidget.HighlightDiffWidget'); ?>
 <h3 class="code">View Changeset <?php echo $model->short_rev; ?>:<?php echo $model->revision; ?></h3>
-
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'revision',
-		'user_id',
-		'scm_id',
-		'commit_date',
-		'message',
-		'short_rev',
-		'parent',
-		'branch',
-		'tags',
-		'add',
-		'edit',
-		'del',
-	),
-)); ?>
+<a name="top"></a>
+<div class="box">
+<div id="source-summary">
+    <dl class="relations">
+        <dt>commit <?php echo $model->short_rev; ?></dt>
+        <dd><?php echo $model->revision; ?></dd>
+        <dt>parent <?php echo $model->short_rev-1; ?></dt>
+        <dd><?php echo $model->parent; ?></dd>
+        <dt>branch</dt>
+        <dd><?php echo $model->branch; ?></dd>
+    </dl>
+    <div><?php echo Yii::app()->textile->textilize($model->message); ?></div>
+    <dl class="metadata">
+        <dt>Who</dt>
+        <dd><?php echo Bugitor::link_to_user($model->user); ?></dd>
+        <dd><?php echo Bugitor::gravatar($model->user); ?></dd>
+        <dt>When</dt>
+        <dd style="position: relative; left: -55px;"><?php echo Time::timeAgoInWords($model->commit_date); ?></dd>
+    </dl>
+</div>
+</div>
+<div id="changeset-changed" class="layout-box">
+<?php foreach($model->changes as $change) : ?>
+<a class="change-modified" href="#<?php echo $change->path; ?>"><?php echo $change->path; ?></a><br/>
+<?php endforeach; ?>
+</div>
+<?php foreach($model->changes as $change) : ?>
+<?php $rev = $model->short_rev - 1; ?>
+<a name="<?php echo $change->path; ?>"></a><div class="diff box">
+<?php echo htmlspecialchars(`/usr/bin/hg diff --git -r{$rev} -R /opt/lampp/htdocs/repositories/bugitor --cwd /opt/lampp/htdocs/repositories/bugitor {$change->path}`); ?>
+</div>
+<a style="float: right;" href="#top">Up To File-list</a>
+<?php endforeach; ?>

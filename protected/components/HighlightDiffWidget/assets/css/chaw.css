@@ -1,0 +1,58 @@
+
+/* Diff handling */
+.diff .file {
+	margin: 0px 0 20px 0;
+	padding: 4px 0 0 0;
+	overflow: auto;
+}
+.diff .file .name {
+	color: #000;
+	margin: 0;
+}
+.diff .file .line {
+	clear: both;
+	overflow: visible;
+	white-space: nowrap;
+	width: 100%;
+}
+.line:after {
+  content : '';
+  display: block;
+  clear:both;
+  height:0;
+  padding:0;
+  margin:0;
+}
+.diff .file .number {
+	float: left;
+	padding: 1px 2px;
+	min-width: 40px;
+	color: #A9A9A9;
+	background-color: #ECECEC;
+	border-right: 1px solid #DDDDDD;
+	text-align: right;
+	font-size: 11px;
+	line-height: 20px;
+}
+.diff .file .header {
+	background-color: #f7f7f7;
+	color: #bbb;
+}
+.diff .file .code {
+	float: left;
+	font-family: "Andale Mono", monospace;
+	white-space: pre;
+	width: 80%;
+	overflow: visible;
+	font-size: 12px;
+	line-height: 20px;
+}
+.diff .file .removed {
+	background-color: #FEE;
+	color: #B00;
+}
+
+.diff .file .added {
+	background-color: #DFD;
+	color: #080;
+}

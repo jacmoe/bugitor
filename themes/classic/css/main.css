@@ -756,6 +756,12 @@ table.maintable th, table.maintable td {
     border-bottom: 1px solid #ddd;
 }
 
+/* STANDARD LAYOUT-BOX */
+.layout-box {
+    border: 1px solid #ddd;
+    padding: 15px 24px;
+}
+
 /* SHORTLOG/OVERVIEW */
 #strip-repository th                    { width: 158px; }
 #strip-repository th+th                 { width: 80px; }
@@ -830,101 +836,204 @@ table.maintable th, table.maintable td {
     text-align: center;
 }
 
-/* CHANGESET */
-#changeset-changed {
+/* CHANGESETS */
+.changesets-date {
+    margin: 0 auto;
+    border-bottom: 0;
+    background: #fff url(../img/layout/bg_general.png) repeat-x left top;
+    padding: 10px 20px !important;
+    font-weight: bold;
     font-size: 1.1em;
 }
 
-#changeset-diff {
-    font-size: 1.1em;
+.changeset-description {
+    margin-bottom: 10px;
+    width: 710px;
+    white-space: pre-wrap;
 }
 
-#changeset-diff div {
-    margin: 0 0 10px;
-    border: 1px solid #ddd;
-}
-
-#changeset-diff p {
-    padding: 15px 20px;
-}
-
-#changeset-diff .changeset-top-link {
-    background: url(../img/icons/fugue/arrow_skip_090.png) no-repeat left;
-    padding: 2px 0 2px 20px;
-}
-
-#changeset-diff table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 1em !important;
-}
-
-#changeset-diff table td {
+#content h2.changesets {
     margin: 0;
-/*  padding: 0 3px;  */
+    padding: 12px 0 10px 20px;
 }
 
-#changeset-diff table td.linenr {
-    width: 25px;
-    background: #eee !important;
-    border-right: 1px solid #ddd;
-    padding-right: 5px;
-    padding-left: 5px;
+#changesets-graph {
+    float: left;
+    margin-top: 20px;
+    margin-left: -160px;
+    width: 160px;
+}
+
+#changesets-inner {
+    margin: 0 0 10px;
+}
+
+#changesets-inner h3 {
+    margin: -1px 0 0 !important;
+    border: 1px solid #ddd;
+    background: #eee;
+    padding: 10px 20px;
+}
+
+#changesets-inner>ol {
+    font: 12px/1.5em "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, "Courier New", Courier, monospace;
+}
+
+#changesets-inner>ol>li {
+    margin: -1px 0 0;
+    border: 1px solid #ddd;
+    padding: 10px 300px 10px 20px;
+}
+
+#changesets-inner>ol>li:nth-child(even) {
+    background: #fcfcfc;
+}
+
+.relations {
+    float: right;
+    margin: 0 0 0 0;
     text-align: right;
 }
 
-#changeset-diff table td:target + td.code, #changeset-diff table td:target + td + td.code {
-    background: #ffffbe !important;
-}
-
-#changeset-diff table td.hashnr {
-    width: 80px;
-    border-right: 1px solid #ddd;
-    padding-left: 2px;
-}
-
-#changeset-diff table td.linenr pre {
-    width: 25px;
+.relations dt {
+    clear: left;
+    float: left;
+    width: 100px;
     text-align: right;
-    letter-spacing: -1px;
     color: #747474;
 }
 
-#changeset-diff table td pre {
-    margin: 0;
-    padding: 0;
-    line-height: 1.5em;
+.relations dt:after {
+    content: ":";
 }
 
-#changeset-diff table td.linenr a {
-    color: inherit;
+.relations dd {
+    float: left;
+    margin: 0 0 0 0.5em;
 }
 
-#changeset-diff tr.ellipsis {
-    background: #efefef;
+#changesets-inner h4 {
+    position: absolute;
+    left: -9999px;
+}
+
+#content>.added,
+#content>.modified,
+#content>.removed {
+    float: right;
+    width: 32px;
+    height: 36px;
+}
+
+#content>.added                 { background: url(../images/add.png) no-repeat 50%; }
+#content>.modified              { background: url(../images/edit.png) no-repeat 50%; }
+#content>.removed               { background: url(../images/delete.png) no-repeat 50%; margin-right: 201px; }
+
+.files-affected {
+    float: right;
+    margin: 0 -100px 0 0;
+    width: 96px;
+    overflow: hidden;
+}
+
+.files-affected dt {
+    position: absolute;
+    left: -9999px;
+}
+
+.files-affected dd {
+    float: left;
+    width: 32px;
     text-align: center;
 }
 
-#changeset-diff tr.linecontext {
-    margin: 3px;
-    background: #dde7ef;
-    text-align: left !important;
-    font: 11px "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, "Courier New", Courier, monospace !important;
-    letter-spacing: -1px;
-    color: #747474 !important;
+.files-affected dd[title="Added"] {
+    color: #282;
 }
 
-#changeset-diff tr.del {
-    background: #fdd;
+.files-affected dd[title="Modified"] {
+    color: #b70;
 }
 
-#changeset-diff tr.add {
-    background: #dfd;
+.files-affected dd[title="Removed"] {
+    color: #c33;
 }
 
-#changeset-diff ins, #changeset-diff del {
-    display: inline-block;
-    text-decoration: none;
+#source-summary>p {
+    white-space: pre-wrap;
 }
-#changeset-diff ins { background: #afa; }
-#changeset-diff del { background: #faa; }
+
+#source-summary+p {
+    margin: 0 0 0 21px;
+}
+
+#changesets-inner p, #source-summary p {
+    margin: 0.25em 0 0.5em;
+    width: 600px;
+    line-height: inherit;
+}
+
+#changesets-inner .metadata, #source-summary .metadata {
+    position: relative;
+    margin: 0.5em 0 0;
+    min-height: 34px;
+    padding: 2px 0 2px 45px;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+#changesets-inner .metadata dt, #source-summary .metadata dt {
+    position: absolute;
+    left: -9999px;
+}
+
+#changesets-inner .metadata .avatar, #source-summary .metadata .avatar {
+    position: absolute;
+    left: -3px;
+    top: 0;
+}
+
+#changesets-inner .metadata dd[title], #source-summary .metadata dd:last-child {
+    color: #747474;
+}
+
+#changesets-inner li {
+    position: relative;
+}
+
+#changesets-inner .metadata+p {
+    position: absolute;
+    right: 220px;
+    bottom: 12px;
+    display: block;
+    width: auto;
+}
+
+.changesets-changeset {
+    margin: 0 auto -1px;
+    font: 12px/16px "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, "Courier New", Courier, monospace;
+}
+
+.changesets-changeset h4 {
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.changesets-changeset span {
+    font-family: "Lucida Grande", "Trebuchet MS", Tahoma, Arial, sans-serif;
+}
+
+#changesets-footer {
+    margin: 0 auto;
+}
+
+p {
+    line-height: 21px;
+}
+
+.metadata img.gravatar {
+    margin: 0 auto -1px;
+    float: left;
+    position: relative;
+    left: -65px;
+    bottom: 35px;
+}
