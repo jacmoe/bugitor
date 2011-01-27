@@ -328,7 +328,6 @@ private function run_tool($toolname, $mode, $args = null)
     public function importChangeset($changeset) {
 
         $commit_date_in_seconds = Time::makeUnix($changeset->commit_date);
-        $modified_commit_date = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds + 1));
 
         $preg_string_refs = '/(?:refs|ref|references|see) #?(\d+)(\#ic\d*){0,1}(( #?and|#?or|,) #?(\d+)(\#ic\d*){0,1}){0,}/';
         $preg_string_closes = '/(?:fix(?:ed|es)|close(?:d|s)|fix|close) #?(\d+)(\#ic\d*){0,1}(( #?and|#?+or|,) #?(\d+)(\#ic\d*){0,1}){0,}/';
@@ -353,24 +352,21 @@ private function run_tool($toolname, $mode, $args = null)
         $issues_to_ref = Issue::model()->findAllByPk($issues_to_be_referenced, $criteria_ref);
         foreach($issues_to_ref as $issue_ref) {
 
-            $commit_date_in_seconds = Time::makeUnix($modified_commit_date);
-            $modified_commit_date = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds + 1));
-
             $comment = new Comment;
             $comment->content = 'Referenced in rev:'.$changeset->revision;
             $comment->issue_id = $issue_ref->id;
             $comment->create_user_id = $changeset->user_id;
             $comment->update_user_id = $changeset->user_id;
             if($comment->validate(array('content', 'issue_id', 'create_user_id', 'update_user_id'))) {
-                $comment->created = $modified_commit_date;
-                $comment->modified = $modified_commit_date;
+                $comment->created = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds));
+                $comment->modified = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds));
                 $comment->save(false);
 
                 $issue_ref->detachBehavior('BugitorTimestampBehavior');
 
                 if($issue_ref->validate(array('updated_by', 'closed'))) {
                     if( Time::makeUnix($issue_ref->modified) < Time::makeUnix($changeset->commit_date)) {
-                        $issue_ref->modified = $comment->modified;
+                        $issue_ref->modified = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds));
                         $issue_ref->updated_by = $changeset->user_id;
                     }
 
@@ -387,6 +383,7 @@ private function run_tool($toolname, $mode, $args = null)
                         $changeset_issue->save(false);
                 } // issue_ref validate
             } // comment validate
+            $commit_date_in_seconds++;
         } // foreach issues to reference
 
         $issues_to_be_closed = array();
@@ -410,9 +407,6 @@ private function run_tool($toolname, $mode, $args = null)
         $issues_to_close = Issue::model()->findAllByPk($issues_to_be_closed, $criteria_close);
         foreach($issues_to_close as $issue_close) {
 
-            $commit_date_in_seconds = Time::makeUnix($modified_commit_date);
-            $modified_commit_date = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds + 1));
-
             $comment = new Comment;
             if($issue_close->closed === 0) {
                 $comment->content = 'Applied in rev:'.$changeset->revision;
@@ -424,8 +418,8 @@ private function run_tool($toolname, $mode, $args = null)
             $comment->update_user_id = $changeset->user_id;
 
             if($comment->validate(array('content', 'issue_id', 'create_user_id', 'update_user_id'))) {
-                $comment->created = $modified_commit_date;
-                $comment->modified = $modified_commit_date;
+                $comment->created = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds));
+                $comment->modified = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds));
                 $comment->save(false);
 
                 if($issue_close->closed !== 1) {
@@ -436,7 +430,7 @@ private function run_tool($toolname, $mode, $args = null)
 
                 if($issue_close->validate(array('updated_by', 'closed'))) {
                     if( Time::makeUnix($issue_close->modified) < Time::makeUnix($changeset->commit_date)) {
-                        $issue_close->modified = $modified_commit_date;
+                        $issue_close->modified = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds));
                         $issue_close->updated_by = $changeset->user_id;
                     }
 
@@ -457,6 +451,7 @@ private function run_tool($toolname, $mode, $args = null)
                         $changeset_issue->save(false);
                 } // issue_close validate
             } // comment validate
+            $commit_date_in_seconds++;
         } // foreach issue to close
         
     }
@@ -474,7 +469,6 @@ private function run_tool($toolname, $mode, $args = null)
             $actionLog->save(false);
     }
     public function run($args) {
-        echo 'Welcome to your friendly repository handler.' . "\n";
         // Check if we have a lock already. If not set one which
         // expires automatically after 10 minutes.
         if (Yii::app()->mutex->lock('HandleRepositoriesCommand', 600))
