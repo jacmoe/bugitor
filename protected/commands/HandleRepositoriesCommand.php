@@ -326,6 +326,10 @@ private function run_tool($toolname, $mode, $args = null)
     }
 
     public function importChangeset($changeset) {
+
+        $commit_date_in_seconds = self::makeUnix($changeset->commit_date);
+        $modified_commit_date = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds + 1));
+
         $preg_string_refs = '/(?:refs|ref|references|see) #?(\d+)(\#ic\d*){0,1}(( #?and|#?or|,) #?(\d+)(\#ic\d*){0,1}){0,}/';
         $preg_string_closes = '/(?:fix(?:ed|es)|close(?:d|s)|fix|close) #?(\d+)(\#ic\d*){0,1}(( #?and|#?+or|,) #?(\d+)(\#ic\d*){0,1}){0,}/';
 
@@ -354,8 +358,8 @@ private function run_tool($toolname, $mode, $args = null)
             $comment->create_user_id = $changeset->user_id;
             $comment->update_user_id = $changeset->user_id;
             if($comment->validate(array('content', 'issue_id', 'create_user_id', 'update_user_id'))) {
-                $comment->created = $changeset->commit_date;
-                $comment->modified = $changeset->commit_date;
+                $comment->created = $modified_commit_date;
+                $comment->modified = $modified_commit_date;
                 $comment->save(false);
 
                 $issue_ref->detachBehavior('BugitorTimestampBehavior');
@@ -412,8 +416,8 @@ private function run_tool($toolname, $mode, $args = null)
             $comment->update_user_id = $changeset->user_id;
 
             if($comment->validate(array('content', 'issue_id', 'create_user_id', 'update_user_id'))) {
-                $comment->created = $changeset->commit_date;
-                $comment->modified = $changeset->commit_date;
+                $comment->created = $modified_commit_date;
+                $comment->modified = $modified_commit_date;
                 $comment->save(false);
 
                 if($issue_close->closed !== 1) {
@@ -424,7 +428,7 @@ private function run_tool($toolname, $mode, $args = null)
 
                 if($issue_close->validate(array('updated_by', 'closed'))) {
                     if( Time::makeUnix($issue_close->modified) < Time::makeUnix($changeset->commit_date)) {
-                        $issue_close->modified = $changeset->commit_date;
+                        $issue_close->modified = $modified_commit_date;
                         $issue_close->updated_by = $changeset->user_id;
                     }
 
