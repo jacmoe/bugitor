@@ -86,6 +86,8 @@ class BugitorMenu extends CMenu {
         if (isset($item['id'])) {
             if($route === $item['id'])
                 return true;
+            if(($route === 'changeset/view')&&($item['id'] === 'project/code'))
+                return true;
             if(($route === 'version/view')&&($item['id'] === 'project/roadmap'))
                 return true;
             if(($route === 'issue/view')&&($item['id'] === 'issue/index'))
