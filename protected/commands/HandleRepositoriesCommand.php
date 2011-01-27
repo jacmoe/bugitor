@@ -363,7 +363,8 @@ private function run_tool($toolname, $mode, $args = null)
                 $issue_ref->detachBehavior('BugitorTimestampBehavior');
 
                 if($issue_ref->validate(array('updated_by', 'closed'))) {
-                    $issue_ref->modified = $comment->modified;
+                    if( Time::makeUnix($issue_ref->modified) < Time::makeUnix($changeset->commit_date))
+                        $issue_ref->modified = $comment->modified;
                     $issue_ref->save(false);
 
                     $issue_ref->addToActionLog($issue_ref->id, $changeset->user_id, 'note', '/projects/'.$issue_ref->project->identifier.'/issue/view/'.$issue_ref->id.'#note-'.$issue_ref->commentCount, $comment);
@@ -407,6 +408,7 @@ private function run_tool($toolname, $mode, $args = null)
             $comment->issue_id = $issue_close->id;
             $comment->create_user_id = $changeset->user_id;
             $comment->update_user_id = $changeset->user_id;
+
             if($comment->validate(array('content', 'issue_id', 'create_user_id', 'update_user_id'))) {
                 $comment->created = $comment->modified = $changeset->commit_date;
                 $comment->save(false);
@@ -414,9 +416,11 @@ private function run_tool($toolname, $mode, $args = null)
                 if($issue_close->closed !== 1) {
                     $issue_close->status = 'swIssue/resolved';
                 }
+
+                $issue_close->detachBehavior('BugitorTimestampBehavior');
+
                 if($issue_close->validate(array('updated_by', 'closed'))) {
-                    //FIXME: should issue update_time be set to changeset time??
-                    //if( Time::makeUnix($issue_close->modified) > Time::makeUnix($changeset->commit_date))
+                    if( Time::makeUnix($issue_close->modified) < Time::makeUnix($changeset->commit_date))
                         $issue_close->modified = $changeset->commit_date;
                     $issue_close->save(false);
 
