@@ -1,93 +1,205 @@
-<?php
-header("Content-type: text/html; charset=utf-8");
-error_reporting(E_ERROR);
-require_once 'libs/diff/diff.php';
-require_once 'libs/diff/renderer.php';
-require_once 'libs/diff/renderer/context.php';
-require_once 'libs/diff/renderer/inline.php';
-require_once 'libs/diff/renderer/unified.php';
-$left='/home/jacmoe/HandleRepositoriesCommand@647.php';
-$right='/home/jacmoe/HandleRepositoriesCommand@646.php';
-
-$f1 = htmlspecialchars(file_get_contents($left));
-$f2 = htmlspecialchars(file_get_contents($right));
-$lines1 = explode("\n",$f1);
-$lines2 = explode("\n",$f2);
-
-$diff     = new Text_Diff('auto', array($lines1, $lines2));
-$r = new Text_Diff_Renderer(
-    array(
-        'leading_context_lines' => 0,
-        'trailing_context_lines' => 0
-    )
-);
-
-$r_context = new Text_Diff_Renderer_context(
-    array(
-        'leading_context_lines' => 1,
-        'trailing_context_lines' => 1,
-        'chg_prefix' => '<span class="change">',
-        'chg_suffix' => '</span>'
-    )
-);
-
-$r_inline = new Text_Diff_Renderer_inline(
-    array(
-        'leading_context_lines' => 1,
-        'trailing_context_lines' => 1,
-        'ins_prefix' => '<span class="added">',
-        'ins_suffix' => '</span>',
-        'del_prefix' => '<span class="deleted">',
-        'del_suffix' => '</span>'
-    )
-);
-
-$r_unified = new Text_Diff_Renderer_unified(
-    array(
-        'leading_context_lines' => 1,
-        'trailing_context_lines' => 1,
-        'ins_prefix' => '<span class="added">',
-        'ins_suffix' => '</span>',
-        'del_prefix' => '<span class="deleted">',
-        'del_suffix' => '</span>'
-    )
-);
-?>
 <html>
   <head>
     <title>diff</title>
     <style type="text/css">
-      .deleted {background-color:#ffdddd;}
-      .added {background-color:#ddffdd;}
-      .context {background-color: #ffffff;}
-      .change {background-color:#ffffdd;}
-      .new-block {border-top: 10px solid #ffffff;}
-      table {border-width: 0; border-collapse:collapse; font-family: Monospace;}
-      td {vertical-align: top;}
+  body {
+    margin: 2em;
+    padding: 0;
+    border: 0;
+    font: 1em verdana, helvetica, sans-serif;
+    color: #000;
+    background: #fff;
+    text-align: center;
+  }
+  ol.code {
+    width: 90%;
+    margin: 0 5%;
+    padding: 0;
+    font-size: 0.75em;
+    line-height: 1.8em;
+    overflow: hidden;
+    color: #939399;
+    text-align: left;
+    list-style-position: inside;
+    border: 1px solid #d3d3d0;
+  }
+  ol.code li {
+    float: left;
+    clear: both;
+    width: 99%;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0 0 0 1%;
+    background: #fff;
+  }
+  ol.code li.even { background: #f3f3f0; }
+  ol.code li code {
+    font: 1.2em courier, monospace;
+    color: #c30;
+    white-space: pre;
+    padding-left: 0.5em;
+  }
+  .code .comment { color: #939399; }
+  .code .default { color: #44c; }
+  .code .keyword { color: #373; }
+  .code .string { color: #c30; }
     </style>
   </head>
   <body>
-    <h1>Default-Diff</h1>
-    <pre>
-<?php echo $r->render($diff); ?>
-    </pre>
-    <br>
-    <br>
-    <h1>Context-Diff</h1>
-    <pre>
-<?php echo $r_context->render($diff); ?>
-    </pre>
-    <br>
-    <br>
-    <h1>Inline-Diff</h1>
-    <pre>
-<?php echo$r_inline->render($diff); ?>
-    </pre>
-    <br>
-    <br>
-    <h1>Unified-Diff</h1>
-    <pre>
-<?php echo $r_unified->render($diff);?>
-    </pre>
+<?php
+/* SVN FILE: $Id: highlight.php 689 2008-11-05 10:30:07Z AD7six $ */
+
+/**
+ * Class to style php code as an ordered list.
+ *
+ * Originally from http://shiflett.org/blog/oct/formatting-and-highlighting-php-code-listings
+ * Some minor modifications to allow it to work with php4.
+ *
+ * PHP versions 4 and 5
+ *
+ * @filesource
+ * @package       vendors
+ * @since         Noswad site version 3
+ * @version       $Revision: 689 $
+ * @created      26/01/2007
+ * @modifiedby    $LastChangedBy: AD7six $
+ * @lastmodified  $Date: 2008-11-05 11:30:07 +0100 (Wed, 05 Nov 2008) $
+ */
+
+/*
+ * Default CSS to follow:
+  body {
+    margin: 2em;
+    padding: 0;
+    border: 0;
+    font: 1em verdana, helvetica, sans-serif;
+    color: #000;
+    background: #fff;
+    text-align: center;
+  }
+  ol.code {
+    width: 90%;
+    margin: 0 5%;
+    padding: 0;
+    font-size: 0.75em;
+    line-height: 1.8em;
+    overflow: hidden;
+    color: #939399;
+    text-align: left;
+    list-style-position: inside;
+    border: 1px solid #d3d3d0;
+  }
+  ol.code li {
+    float: left;
+    clear: both;
+    width: 99%;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0 0 0 1%;
+    background: #fff;
+  }
+  ol.code li.even { background: #f3f3f0; }
+  ol.code li code {
+    font: 1.2em courier, monospace;
+    color: #c30;
+    white-space: pre;
+    padding-left: 0.5em;
+  }
+  .code .comment { color: #939399; }
+  .code .default { color: #44c; }
+  .code .keyword { color: #373; }
+  .code .string { color: #c30; }
+ */
+class highlighter {
+
+	function highlight () {
+		$this->__construct();
+	}
+
+	function __construct() {
+		ini_set('highlight.comment', 'comment');
+		ini_set('highlight.default', 'default');
+		ini_set('highlight.keyword', 'keyword');
+		ini_set('highlight.string', 'string');
+		ini_set('highlight.html', 'html');
+	}
+
+	function process($code= "") {
+		$code= highlight_string($code, TRUE);
+                $code= substr($code, 33, -15);
+                $code= str_replace('<span style="color: ', '<span class="', $code);
+		$code= str_replace('&nbsp;', ' ', $code);
+		$code= str_replace('&amp;', '&#38;', $code);
+		$code= str_replace('<br />', "\n", $code);
+		$code= trim($code);
+
+		/* Normalize Newlines */
+		$code= str_replace("\r", "\n", $code);
+		$code= preg_replace("!\n\n+!", "\n", $code);
+
+		$lines= explode("\n", $code);
+		while(strip_tags($lines[count($lines) -1]) == '') {
+			$lines[count($lines) -2] .= $lines[count($lines) -1];
+			unset($lines[count($lines) -1]);
+		}
+
+		/* Previous Style */
+		$previous= FALSE;
+
+		/* Output Listing */
+		$return= "  <ol class=\"code\">\n";
+		foreach ($lines as $key => $line) {
+			if (substr($line, 0, 7) == '</span>') {
+				$previous= FALSE;
+				$line= substr($line, 7);
+			}
+
+			if (empty ($line)) {
+				$line= '&#160;';
+			}
+
+			if ($previous) {
+				$line= "<span class=\"$previous\">" . $line;
+			}
+
+			/* Set Previous Style */
+			if (strpos($line, '<span') !== FALSE) {
+				switch (substr($line, strrpos($line, '<span') + 13, 1)) {
+					case 'c' :
+						$previous= 'comment';
+						break;
+					case 'd' :
+						$previous= 'default';
+						break;
+					case 'k' :
+						$previous= 'keyword';
+						break;
+					case 's' :
+						$previous= 'string';
+						break;
+				}
+			}
+
+			/* Unset Previous Style Unless Span Continues */
+			if (substr($line, -7) == '</span>') {
+				$previous= FALSE;
+			}
+			elseif ($previous) {
+				$line .= '</span>';
+			}
+
+			if ($key % 2) {
+				$return .= "    <li class=\"even\"><code>$line</code></li>\n";
+			} else {
+				$return .= "    <li><code>$line</code></li>\n";
+			}
+		}
+		$return .= "  </ol>\n";
+		return $return;
+	}
+}
+
+$highl = new highlighter();
+echo $highl->process("<?php echo 'hello world!'; ?>"); ?>
   </body>
 </html>
