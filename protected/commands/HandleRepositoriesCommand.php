@@ -383,7 +383,7 @@ private function run_tool($toolname, $mode, $args = null)
                         $changeset_issue->save(false);
                 } // issue_ref validate
             } // comment validate
-            $commit_date_in_seconds++;
+            $commit_date_in_seconds += 60;
         } // foreach issues to reference
 
         $issues_to_be_closed = array();
@@ -451,7 +451,7 @@ private function run_tool($toolname, $mode, $args = null)
                         $changeset_issue->save(false);
                 } // issue_close validate
             } // comment validate
-            $commit_date_in_seconds++;
+            $commit_date_in_seconds += 60;
         } // foreach issue to close
         
     }
