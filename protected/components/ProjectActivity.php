@@ -46,12 +46,14 @@ class ProjectActivity extends CWidget {
 
     public function init() {
         $criteria2 = new CDbCriteria;
+        //$criteria2->select = array('id', 'type', 'author_id', 't.when', 'url', 'project_id', 'subject', 'description');
         $criteria2->select = array('id', 'type', 'author_id', 't.when', 'url', 'project_id', 'subject', 'description', 'DATE(t.when) as theday');
         $criteria2->condition = 'project_id = :project_id';
         $criteria2->together = true;
         $criteria2->params = array('project_id' => $this->projectId);
-        $criteria2->order = 'theday DESC, t.when DESC';
-        $criteria2->group = 'theday, t.when';
+        $criteria2->order = 't.when DESC';
+//        $criteria2->order = 'theday DESC, t.when DESC';
+//        $criteria2->group = 'theday, t.when';
         if($this->displayLimit > 0) {
             $criteria2->limit = $this->displayLimit;
         } else {
