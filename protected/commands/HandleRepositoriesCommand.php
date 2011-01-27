@@ -352,6 +352,10 @@ private function run_tool($toolname, $mode, $args = null)
         
         $issues_to_ref = Issue::model()->findAllByPk($issues_to_be_referenced, $criteria_ref);
         foreach($issues_to_ref as $issue_ref) {
+
+            $commit_date_in_seconds = Time::makeUnix($modified_commit_date);
+            $modified_commit_date = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds + 1));
+
             $comment = new Comment;
             $comment->content = 'Referenced in rev:'.$changeset->revision;
             $comment->issue_id = $issue_ref->id;
@@ -373,7 +377,7 @@ private function run_tool($toolname, $mode, $args = null)
                     $issue_ref->save(false);
 
                     $issue_ref = Issue::model()->findByPk($issue_ref->id);
-                    $issue_ref->addToActionLog($issue_ref->id, $changeset->user_id, 'note', '/projects/'.$issue_ref->project->identifier.'/issue/view/'.$issue_ref->id, $comment);
+                    $issue_ref->addToActionLog($issue_ref->id, $changeset->user_id, 'note', '/projects/'.$issue_ref->project->identifier.'/issue/view/'.$issue_ref->id.'#note-'.$issue_close->commentCount, $comment);
                     $issue_ref->sendNotifications($issue_ref->id, $comment, $issue_ref->updated_by);
 
                     $changeset_issue = new ChangesetIssue;
@@ -405,6 +409,10 @@ private function run_tool($toolname, $mode, $args = null)
         
         $issues_to_close = Issue::model()->findAllByPk($issues_to_be_closed, $criteria_close);
         foreach($issues_to_close as $issue_close) {
+
+            $commit_date_in_seconds = Time::makeUnix($modified_commit_date);
+            $modified_commit_date = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds + 1));
+
             $comment = new Comment;
             if($issue_close->closed === 0) {
                 $comment->content = 'Applied in rev:'.$changeset->revision;
