@@ -358,14 +358,12 @@ private function run_tool($toolname, $mode, $args = null)
                 $comment->created = $comment->modified = $changeset->commit_date;
                 $comment->save(false);
 
+                $issue_ref->updated_by = $changeset->user_id;
+
                 $issue_ref->detachBehavior('swBehavior');
 
                 if($issue_ref->validate(array('updated_by', 'closed'))) {
-                        $issue_ref->updated_by = $changeset->user_id;
-                    //FIXME: should issue update_time be set to changeset time??
-                    if( Time::makeUnix($issue_ref->modified) < Time::makeUnix($changeset->commit_date)) {
-                        $issue_ref->modified = $changeset->commit_date;
-                    }
+                    $issue_ref->modified = $comment->modified;
                     $issue_ref->save(false);
 
                     $issue_ref->addToActionLog($issue_ref->id, $changeset->user_id, 'note', '/projects/'.$issue_ref->project->identifier.'/issue/view/'.$issue_ref->id.'#note-'.$issue_ref->commentCount, $comment);
