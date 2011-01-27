@@ -84,7 +84,7 @@ class Bugitor {
 
     public static function link_to_issue($issue, $absolute = false) {
         if($absolute) {
-            return CHtml::link($issue->tracker->name . ' #' . $issue->id . ': ' . $issue->subject,Yii::app()->request->hostInfo.'/projects/'.$issue->project->identifier.'/issue/view/'.$issue->id, array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue'));
+            return CHtml::link($issue->tracker->name . ' #' . $issue->id . ': ' . $issue->subject, Yii::app()->config->get('hostname').'projects/'.$issue->project->identifier.'/issue/view/'.$issue->id, array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue'));
         } else {
             return CHtml::link($issue->tracker->name . ' #' . $issue->id . ': ' . $issue->subject,array('/issue/view', "id" => $issue->id, 'identifier' => $issue->project->identifier), array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue'));
         }
@@ -92,7 +92,7 @@ class Bugitor {
 
     public static function short_link_to_issue($issue, $absolute = false) {
         if($absolute) {
-            return CHtml::link($issue->tracker->name . ' #' . $issue->id,Yii::app()->request->hostInfo.'/projects/'.$issue->project->identifier.'/issue/view/'.$issue->id, array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue')) . ': ' . $issue->subject;
+            return CHtml::link($issue->tracker->name . ' #' . $issue->id, Yii::app()->config->get('hostname').'projects/'.$issue->project->identifier.'/issue/view/'.$issue->id, array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue')) . ': ' . $issue->subject;
         } else {
             return CHtml::link($issue->tracker->name . ' #' . $issue->id,array('/issue/view', "id" => $issue->id, 'identifier' => $issue->project->identifier), array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue')) . ': ' . $issue->subject;
         }
