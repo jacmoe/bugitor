@@ -369,7 +369,7 @@ private function run_tool($toolname, $mode, $args = null)
 
                     $issue_ref->save(false);
 
-                    $issue_ref->addToActionLog($issue_ref->id, $changeset->user_id, 'note', '/projects/'.$issue_ref->project->identifier.'/issue/view/'.$issue_ref->id.'#note-'.$issue_ref->commentCount, $comment);
+                    $issue_ref->addToActionLog($issue_ref->id, $changeset->user_id, 'note', '/projects/'.$issue_ref->project->identifier.'/issue/view/'.$issue_ref->id, $comment);
                     $issue_ref->sendNotifications($issue_ref->id, $comment, $issue_ref->updated_by);
 
                     $changeset_issue = new ChangesetIssue;
