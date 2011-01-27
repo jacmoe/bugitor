@@ -327,7 +327,7 @@ private function run_tool($toolname, $mode, $args = null)
 
     public function importChangeset($changeset) {
 
-        $commit_date_in_seconds = self::makeUnix($changeset->commit_date);
+        $commit_date_in_seconds = Time::makeUnix($changeset->commit_date);
         $modified_commit_date = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds + 1));
 
         $preg_string_refs = '/(?:refs|ref|references|see) #?(\d+)(\#ic\d*){0,1}(( #?and|#?or|,) #?(\d+)(\#ic\d*){0,1}){0,}/';
