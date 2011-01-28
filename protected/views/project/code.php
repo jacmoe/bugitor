@@ -50,8 +50,7 @@ $this->pageTitle = $model->name . ' - Code - ' . Yii::app()->name;
                 </tr>
               </thead>
               <tbody>
-            <?php $changesets = array_reverse($repository->changesets); ?>
-            <?php foreach($changesets as $changeset) : ?>
+            <?php foreach($repository->changesets as $changeset) : ?>
                 <tr>
                   <td>
                     <?php echo Bugitor::gravatar($changeset->user, 16) . Bugitor::link_to_user($changeset->user) ?>
