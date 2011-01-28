@@ -178,7 +178,19 @@ class ProjectController extends Controller {
     }
 
     public function actionCode($identifier) {
-        $project = Project::model()->with(array('repositories' => array('with' => 'changesets')))->find('t.identifier=?', array($_GET['identifier']));
+        $criteria = new CDbCriteria();
+        $criteria->compare('t.identifier', array($_GET['identifier']));
+        $criteria->limit = 25;
+        $criteria->order = 'changesets.commit_date DESC';
+
+        $project = Project::model()->with(
+                array('repositories' =>
+                    array('with' => 'changesets')
+                    )
+                )->together()->find($criteria);
+
+        
+
         $_GET['projectname'] = $project->name;
         $this->render('code', array(
             'model' => $project,
