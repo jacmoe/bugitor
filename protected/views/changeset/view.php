@@ -37,8 +37,20 @@
     $hg_executable = Yii::app()->config->get('hg_executable');
 ?>
 <?php $this->widget('application.components.HighlightDiffWidget.HighlightDiffWidget'); ?>
+<h3 class="code">Code</h3>
 <a name="top"></a>
-<h3 class="code">View Changeset <?php echo $model->short_rev; ?>:<?php echo $model->revision; ?></h3>
+<div id="changelog">
+<div id="codemenu" class="box">
+    <?php
+    $this->widget('BugitorMenu', array(
+        'items' => array(
+            array('label' => 'Overview', 'url' => array('/projects/' . $_GET['identifier'] . '/code'), 'id' => 'notused'),
+            array('label' => 'Changesets', 'url' => array('/projects/' . $_GET['identifier'] . '/changesets'), 'id' => 'changeset/index'),
+//            array('label' => 'Source', 'url' => array('/projects/' . $_GET['identifier'] . '/code'), 'id' => 'project/index'),
+        ),
+    )); ?>
+</div>
+<div id="changesets-inner"><h3>Changeset <?php echo $model->short_rev; ?>:<?php echo $model->revision; ?></h3></div>
 <div class="box">
 <div id="source-summary">
     <dl class="relations">
@@ -52,10 +64,10 @@
     <div><?php echo Yii::app()->textile->textilize($model->message); ?></div>
     <dl class="metadata">
         <dt>Who</dt>
-        <dd><?php echo Bugitor::link_to_user($model->user); ?></dd>
+        <dd style="position: relative; left: 18px;"><?php echo Bugitor::link_to_user($model->user); ?></dd>
         <dd><?php echo Bugitor::gravatar($model->user); ?></dd>
         <dt>When</dt>
-        <dd style="position: relative; left: -55px;"><?php echo Time::timeAgoInWords($model->commit_date); ?></dd>
+        <dd style="position: relative; left: -35px;"><?php echo Time::timeAgoInWords($model->commit_date); ?></dd>
     </dl>
 </div>
 </div>
@@ -92,3 +104,4 @@ switch ($change->action) {
 </div>
 <a style="float: right;" href="#top">Up To File-list</a>
 <?php endforeach; ?>
+</div>
