@@ -35,9 +35,20 @@
 $this->pageTitle = $model->name . ' - Code - ' . Yii::app()->name;
 ?>
 <h3 class="code">Code</h3>
+<div id="changelog">
+<div id="codemenu" class="box">
+    <?php
+    $this->widget('BugitorMenu', array(
+        'items' => array(
+            array('label' => 'Overview', 'url' => array('/projects/' . $_GET['identifier'] . '/code'), 'id' => 'project/code'),
+            array('label' => 'Changesets', 'url' => array('/projects/' . $_GET['identifier'] . '/changesets'), 'id' => 'changeset/index'),
+//            array('label' => 'Source', 'url' => array('/projects/' . $_GET['identifier'] . '/code'), 'id' => 'project/index'),
+        ),
+    )); ?>
+</div>
 <div id="shortlogs-changes">
     <?php foreach($model->repositories as $repository) : ?>
-    <h3 class="box"><?php echo ucfirst($repository->name) ?></h3>
+    <div id="changesets-inner"><h3><?php echo ucfirst($repository->name) ?></h3></div>
     <table class="maintable">
               <thead>
                 <tr>
@@ -75,4 +86,5 @@ $this->pageTitle = $model->name . ' - Code - ' . Yii::app()->name;
               </tbody>
             </table>
     <?php endforeach ?>
+</div>
 </div>

@@ -160,6 +160,7 @@ return array(
                 '/projects/' => 'project/index',
                 '/projects/<identifier>' => 'project/view',
                 '/projects/<identifier>/issues' => 'issue/index',
+                '/projects/<identifier>/changesets' => 'changeset/index',
                 '/projects/<identifier>/issue/<_a:(create)>'   => 'issue/<_a>',
                 '/projects/<identifier>/member/<_a:(create)>'   => 'member/<_a>',
                 '/projects/<identifier>/version/<_a:(create)>'   => 'version/<_a>',

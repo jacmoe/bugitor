@@ -1,3 +1,22 @@
+#changelog>html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+/*	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;*/
+	vertical-align: baseline;
+}
+
+
 #sidebar
 {
     padding: 20px 20px 20px 0;
@@ -8,6 +27,56 @@
     padding: 4px 10px 2px 10px;
     background-color:#507AAA;
     margin: 0;
+}
+
+#codemenu
+{
+    padding: 4px 10px 2px 10px;
+/*    background-color:#507AAA;*/
+    margin: 0;
+}
+#codemenu ul
+{
+    margin:0px;
+    margin: 0;
+    bottom: 0px;
+    padding-top: 6.0px !important;
+    padding-bottom: 6.0px !important;
+}
+#codemenu ul li
+{
+    padding: 0;
+    display: inline;
+    margin: 0;
+    bottom: 0px;
+}
+#codemenu ul li a
+{
+/*    color:#ffffff;*/
+/*    background-color:#507AAA;*/
+    font-size:1.2em;
+/*    font-weight:bold;*/
+    text-decoration:none;
+    padding:5px 8px;
+    padding-top: 6.0px !important;
+    padding-bottom: 6px !important;
+    bottom: 0px;
+}
+#codemenu ul li.active a
+{
+/*    color: #6399cd;*/
+/*    background-color:#EFF4FA;*/
+    font-weight:bold;
+    text-decoration:none;
+    bottom: 0px;
+    padding-bottom: 6px !important;
+}
+#codemenu ul li a:hover
+{
+/*    color: #fff;*/
+/*    background-color:#759FCF;*/
+    text-decoration:underline;
+    bottom: 0px;
 }
 
 #topmenu
@@ -59,6 +128,7 @@
     padding-bottom: 6px !important;
     bottom: 0px;
 }
+
 #topmenu ul li a
 {
     color:#ffffff;
@@ -889,6 +959,29 @@ table.maintable th, table.maintable td {
     background: #fcfcfc;
 }
 
+.shortlog_relations {
+    float: right;
+    margin: 0 -280px 0 0;
+    text-align: right;
+}
+
+.shortlog_relations dt {
+    clear: left;
+    float: left;
+    width: 100px;
+    text-align: right;
+    color: #747474;
+}
+
+.shortlog_relations dt:after {
+    content: ":";
+}
+
+.shortlog_relations dd {
+    float: left;
+    margin: 0 0 0 0.5em;
+}
+
 .relations {
     float: right;
     margin: 0 0 0 0;
@@ -915,6 +1008,115 @@ table.maintable th, table.maintable td {
 #changesets-inner h4 {
     position: absolute;
     left: -9999px;
+}
+
+#changelog>.added,
+#changelog>.modified,
+#changelog>.removed {
+    float: right;
+    width: 32px;
+    height: 36px;
+}
+
+#changelog>.added                 { background: url(../images/add.png) no-repeat 50%; }
+#changelog>.modified              { background: url(../images/edit.png) no-repeat 50%; }
+#changelog>.removed               { background: url(../images/delete.png) no-repeat 50%; margin-right: 201px; }
+
+.files-affected {
+    float: right;
+    margin: 0 -100px 0 0;
+    width: 96px;
+    overflow: hidden;
+}
+
+.files-affected dt {
+    position: absolute;
+    left: -9999px;
+}
+
+.files-affected dd {
+    float: left;
+    width: 32px;
+    text-align: center;
+}
+
+.files-affected dd[title="Added"] {
+    color: #282;
+}
+
+.files-affected dd[title="Modified"] {
+    color: #b70;
+}
+
+.files-affected dd[title="Removed"] {
+    color: #c33;
+}
+
+#source-summary>p {
+    white-space: pre-wrap;
+}
+
+#source-summary+p {
+    margin: 0 0 0 21px;
+}
+
+#changesets-inner p, #source-summary p {
+    margin: 0.25em 0 0.5em;
+    width: 600px;
+    line-height: inherit;
+}
+
+#changesets-inner .metadata, #source-summary .metadata {
+    position: relative;
+    margin: 0.5em 0 0;
+    min-height: 34px;
+    padding: 2px 0 2px 45px;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+#changesets-inner .metadata dt, #source-summary .metadata dt {
+    position: absolute;
+    left: -9999px;
+}
+
+#changesets-inner .metadata .avatar, #source-summary .metadata .avatar {
+    position: absolute;
+    left: -3px;
+    top: 0;
+}
+
+#changesets-inner .metadata dd[title], #source-summary .metadata dd:last-child {
+    color: #747474;
+}
+
+#changesets-inner li {
+    position: relative;
+}
+
+#changesets-inner .metadata+p {
+    position: absolute;
+    right: 220px;
+    bottom: 12px;
+    display: block;
+    width: auto;
+}
+
+.changesets-changeset {
+    margin: 0 auto -1px;
+    font: 12px/16px "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, "Courier New", Courier, monospace;
+}
+
+.changesets-changeset h4 {
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.changesets-changeset span {
+    font-family: "Lucida Grande", "Trebuchet MS", Tahoma, Arial, sans-serif;
+}
+
+#changesets-footer {
+    margin: 0 auto;
 }
 
 #content>.added,
@@ -1026,6 +1228,19 @@ table.maintable th, table.maintable td {
     margin: 0 auto;
 }
 
+ol, ul {
+	list-style: none;
+}
+
+#changelog, #introduction>div {
+    margin: 0 auto;
+    width: 930px;
+}
+
+#source-summary table td, .changesets-changeset table td {
+    padding: 0 4px 4px;
+}
+
 p {
     line-height: 21px;
 }
@@ -1034,7 +1249,7 @@ p {
     margin: 0 auto -1px;
     float: left;
     position: relative;
-    left: -65px;
+    left: -45px;
     bottom: 35px;
 }
 

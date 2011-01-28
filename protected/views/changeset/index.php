@@ -32,19 +32,196 @@
  */
 ?>
 <?php
-$this->breadcrumbs=array(
-	'Changesets',
-);
-
-$this->menu=array(
-	array('label'=>'Create Changeset', 'url'=>array('create')),
-	array('label'=>'Manage Changeset', 'url'=>array('admin')),
-);
+//$this->pageTitle = $model->name . ' - Code - ' . Yii::app()->name;
 ?>
+<h3 class="code">Code</h3>
+<div class="repo-desc-hidden" id="changelog">
+<div id="codemenu" class="box">
+    <?php
+    $this->widget('BugitorMenu', array(
+        'items' => array(
+            array('label' => 'Overview', 'url' => array('/projects/' . $_GET['identifier'] . '/code'), 'id' => 'notused'),
+            array('label' => 'Changesets', 'url' => array('/projects/' . $_GET['identifier'] . '/changesets'), 'id' => 'changeset/index'),
+//            array('label' => 'Source', 'url' => array('/projects/' . $_GET['identifier'] . '/code'), 'id' => 'project/index'),
+        ),
+    )); ?>
+</div>
 
-<h1>Changesets</h1>
-
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-)); ?>
+<?php //$this->widget('zii.widgets.CListView', array(
+//	'dataProvider'=>$dataProvider,
+//	'itemView'=>'_view',
+//)); ?>
+            <div class="removed"></div><div class="modified"></div><div class="added"></div>
+            <div style="height: 1579px;" id="changesets-graph"><canvas id="graph" width="160" height="1579"></canvas></div>
+            <div id="changesets-inner">
+                <h3 class="box">Changelog</h3>
+                <ol>
+                    <li id="chg_0">
+                        <dl class="shortlog_relations">
+                            <dt>commit</dt>
+                            <dd><a href="#">606dd2a169a8</a></dd>
+                            <dt>parent</dt>
+                            <dd><a href="#">parent</a></dd>
+                        </dl>
+                        <h4>Files affected</h4>
+                        <dl class="files-affected">
+                            <dt>Added</dt>
+                            <dd title="Added">-</dd>
+                            <dt>Modified</dt>
+                            <dd title="Modified">-</dd>
+                            <dt>Removed</dt>
+                            <dd title="Removed">-</dd>
+                        </dl>
+                        <h4>Tags</h4>
+                        <ul class="tags">
+                            <li class="default">branch</li>
+                            <li class="tip">tag</li>
+                        </ul>
+                        <a href="#"><p>message</p></a>
+                        <dl class="metadata">
+                            <dt>Who</dt>
+                            <dd>username</dd>
+                            <dd>gravatar</dd>
+                            <dt>When</dt>
+                            <dd>time ago</dd>
+                        </dl>
+                    </li>
+                    <li id="chg_1">
+                        <dl class="shortlog_relations">
+                            <dt>commit</dt>
+                            <dd><a href="#">fd0ea86d2bf4</a></dd>
+                            <dt>parent</dt>
+                            <dd><a href="#">parent</a></dd>
+                        </dl>
+                        <h4>Files affected</h4>
+                        <dl class="files-affected">
+                            <dt>Added</dt>
+                            <dd title="Added">-</dd>
+                            <dt>Modified</dt>
+                            <dd title="Modified">-</dd>
+                            <dt>Removed</dt>
+                            <dd title="Removed">-</dd>
+                        </dl>
+                        <h4>Tags</h4>
+                        <ul class="tags">
+                            <li class="default">branch</li>
+                            <li class="tip">tag</li>
+                        </ul>
+                        <a href="#"><p>message</p></a>
+                        <dl class="metadata">
+                            <dt>Who</dt>
+                            <dd>username</dd>
+                            <dd>gravatar</dd>
+                            <dt>When</dt>
+                            <dd>time ago</dd>
+                        </dl>
+                    </li>
+                    <li id="chg_2">
+                        <dl class="shortlog_relations">
+                            <dt>commit</dt>
+                            <dd><a href="#">e4483bbdc31e</a></dd>
+                            <dt>parent</dt>
+                            <dd><a href="#">parent</a></dd>
+                        </dl>
+                        <h4>Files affected</h4>
+                        <dl class="files-affected">
+                            <dt>Added</dt>
+                            <dd title="Added">-</dd>
+                            <dt>Modified</dt>
+                            <dd title="Modified">-</dd>
+                            <dt>Removed</dt>
+                            <dd title="Removed">-</dd>
+                        </dl>
+                        <h4>Tags</h4>
+                        <ul class="tags">
+                            <li class="default">branch</li>
+                            <li class="tip">tag</li>
+                        </ul>
+                        <a href="#"><p>message</p></a>
+                        <dl class="metadata">
+                            <dt>Who</dt>
+                            <dd>username</dd>
+                            <dd>gravatar</dd>
+                            <dt>When</dt>
+                            <dd>time ago</dd>
+                        </dl>
+                    </li>
+                    <li id="chg_3">
+                        <dl class="shortlog_relations">
+                            <dt>commit</dt>
+                            <dd><a href="#">356df4e16854</a></dd>
+                            <dt>parent</dt>
+                            <dd><a href="#">parent</a></dd>
+                        </dl>
+                        <h4>Files affected</h4>
+                        <dl class="files-affected">
+                            <dt>Added</dt>
+                            <dd title="Added">-</dd>
+                            <dt>Modified</dt>
+                            <dd title="Modified">-</dd>
+                            <dt>Removed</dt>
+                            <dd title="Removed">-</dd>
+                        </dl>
+                        <h4>Tags</h4>
+                        <ul class="tags">
+                            <li class="default">branch</li>
+                            <li class="tip">tag</li>
+                        </ul>
+                        <a href="#"><p>message</p></a>
+                        <dl class="metadata">
+                            <dt>Who</dt>
+                            <dd>username</dd>
+                            <dd>gravatar</dd>
+                            <dt>When</dt>
+                            <dd>time ago</dd>
+                        </dl>
+                    </li>
+                </ol>
+            </div>
+            <script type="text/javascript">
+                jQuery(document).ready(function () {
+                    var graph = $('<div id="changesets-graph"></div>'),
+                    inner = $('#changesets-inner'),
+                    h = inner.height();
+                    graph.height(h).insertBefore(inner);
+                    $('<canvas/>').attr('height', h).attr('width', graph.width()).attr('id', 'graph').appendTo(graph);
+                });
+            </script>
+            <?php /*
+             * node id, color
+             * start end color
+             */ ?>
+<!--<script type="text/javascript">
+        jQuery(document).ready(function () {
+            (new BranchRenderer()).render(
+            [
+                ["41a0c3a96fb1", [0, 1], [[0, 0, 1], [0, 1, 1]]],
+                ["0944b053e101", [0, 1], [[0, 0, 1], [1, 1, 2]]],
+                ["58bd9146fb3d", [1, 2], [[0, 0, 1], [1, 1, 2]]],
+                ["c55c2dd8c106", [0, 1], [[0, 0, 1], [1, 0, 2]]],
+                ["e018bb87535b", [0, 2], [[0, 0, 2]]],
+                ["1e8ede4b6ba3", [0, 2], [[0, 0, 2]]],
+                ["e4ed5cefc94c", [0, 2], [[0, 0, 2]]],
+                ["ec743e9918ef", [0, 2], [[0, 0, 2]]],
+                ["cae4f8c70e77", [0, 2], [[0, 0, 2]]],
+                ["fe1cc8ecd4c6", [0, 2], [[0, 0, 2]]],
+                ["85e6cce0d7ad", [0, 2], [[0, 0, 2]]],
+                ["c414b09f10de", [0, 2], [[0, 0, 2]]],
+                ["8403ca424845", [0, 2], [[0, 0, 2]]],
+                ["0f8a7d042730", [0, 2], [[0, 0, 2]]],
+                ["b77af7571dfb", [0, 2], [[0, 0, 2]]]]);
+        });
+</script>-->
+            <script type="text/javascript">
+                jQuery(document).ready(function () {
+                    (new BranchRenderer()).render(
+                    [
+                        ["606dd2a169a8", [0, 1], [[0, 0, 1], [0, 1, 2]]],
+                        ["fd0ea86d2bf4", [0, 1], [[0, 0, 1], [1, 1, 2]]],
+                        ["e4483bbdc31e", [1, 2], [[0, 0, 1], [1, 1, 2]]],
+                        ["356df4e16854", [0, 1], [[0, 0, 1], [1, 0, 2]]],
+                        ["692c276a5553", [0, 2], [[0, 0, 2]]],
+                        ["cb20deeded8e", [0, 1], [[0, 0, 1]]], ["219de43562aa", [0, 1], [[0, 0, 1]]], ["7b9bb493ea84", [0, 1], [[0, 0, 1]]], ["e53d7d16c450", [0, 1], [[0, 0, 1]]], ["5b56c9c0fcaf", [0, 1], [[0, 0, 1]]], ["3cdaf4949278", [0, 1], [[0, 0, 1]]], ["e3d97fd94adf", [0, 1], [[0, 0, 1]]], ["3a482a6010d8", [0, 1], [[0, 0, 1]]], ["f24631f4687e", [0, 1], [[0, 0, 1]]], ["8feb9baf04ee", [0, 1], [[0, 0, 1]]]]);
+                });
+            </script>
+        </div>
