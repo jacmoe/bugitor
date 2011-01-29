@@ -769,6 +769,11 @@ div.scroll_small {
     overflow: auto;
 }
 
+div.scroll_code {
+    max-height: 100px;
+    overflow: auto;
+}
+
 div.scroll_larger {
     height: 300px;
     overflow: auto;
