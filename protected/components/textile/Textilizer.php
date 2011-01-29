@@ -88,6 +88,9 @@ class Textilizer extends CApplicationComponent
 //                        break;
 //                    case 'attachment':
 //                        break;
+                    case 'http':
+                        $link = "<a href=\"http:{$oid}\">http:{$oid}</a>";
+                        break;
                     case 'rev':
                         $changeset = Changeset::model()->with('scm')->findByAttributes(array('revision' => $oid));
                         if($changeset)
@@ -107,7 +110,7 @@ class Textilizer extends CApplicationComponent
 
     public function textilize($content, $parseSmilies = true) {
         $text = $this->getTextile()->TextileThis($content);
-        $text = preg_replace_callback('{([\s\(,\-\>]|^)(!)?(attachment|document|version|commit|source|export|message|rev)?((#|rev\:)([A-z0-9]+)|(:)([^"\s<>][^\s<>]*?|"[^"]+?"))(?=(?=[[:punct:]]\W)|\s|<|$)}',
+        $text = preg_replace_callback('{([\s\(,\-\>]|^)(!)?(attachment|document|version|commit|source|export|message|http|rev)?((#|rev\:)([A-z0-9]+)|(:)([^"\s<>][^\s<>]*?|"[^"]+?"))(?=(?=[[:punct:]]\W)|\s|<|$)}',
                     array($this, '_replaceBugitorLinks'),
                     $text);
         if($parseSmilies) {
