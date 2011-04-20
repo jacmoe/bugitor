@@ -51,7 +51,10 @@ class IssueController extends Controller {
     }
 
     public function allowedActions() {
-        return 'view, index';
+        return 'view, index, upload';
+    }
+
+    public function actionUpload(){
     }
 
     public function actionWatch() {
