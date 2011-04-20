@@ -220,7 +220,7 @@ project_id=:projectId AND user_id=:userId";
         $members = Member::model()->findAll();
         $criteria = new CDbCriteria;
         $criteria->addNotInCondition('user_id', $members);
-        $criteria1->addInCondition('project_id', Project::getProjectIdFromIdentifier($_GET['identifier']));
+        $criteria->addInCondition('project_id', Project::getProjectIdFromIdentifier($_GET['identifier']));
         return User::model()->findAll($criteria);
     }
 

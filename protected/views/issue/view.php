@@ -125,8 +125,15 @@ Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Time::tim
 <div id="watchers">
 <?php $this->renderPartial('_watchers', array('watchers' => $model->getWatchers())); ?>
 </div>
+<?php //foreach($model->getNonWatchersList() as $the_user) : ?>
+    <?php //echo $the_user; ?><br/>
+<?php //endforeach; ?>
+<hr/>
+<h4>Attachments</h4>
+<div id="attachments">
+<?php $this->renderPartial('_attachments', array('attachments' => $model->getAttachments())); ?>
 </div>
-<?php ?>
+</div>
 <div class="span-16" id="comments">
 <?php if($model->commentCount>=1): ?>
 <?php $this->renderPartial('_comments',array('comments'=>$model->comments,)); ?>

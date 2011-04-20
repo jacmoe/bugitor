@@ -137,11 +137,39 @@ class Issue extends CActiveRecord {
         }
     }
 
+    public function getNonWatchersList() {
+        $members = Member::model()->findAll();
+        $criteria1 = new CDbCriteria();
+        $criteria1->select = "user_id";
+        $criteria1->compare('issue_id', $this->id);
+        $watchers = Watcher::model()->findAll($criteria1);
+        $watcher_list = array();
+        foreach ($watchers as $watcher) {
+            $watcher_list[] = $watcher->user_id;
+        }
+        $criteria2 = new CDbCriteria;
+        $criteria2->addNotInCondition('id', $watcher_list);
+        $criteria2->order = 'username ASC';
+        $results =  User::model()->findAll($criteria2);
+        $user_list = array();
+        foreach ($results as $result) {
+            $user_list[$result->id] = $result->username;
+        }
+        return $user_list;
+    }
+
     public function getWatchers() {
         $criteria = new CDbCriteria();
         $criteria->compare('issue_id', $this->id);
         $watchers = Watcher::model()->with('user')->findAll($criteria);
         return $watchers;
+    }
+
+    public function getAttachments() {
+        $criteria = new CDbCriteria();
+        $criteria->compare('issue_id', $this->id);
+        $attachments = Attachment::model()->findAll($criteria);
+        return $attachments;
     }
 
     public function watchedBy() {
@@ -200,9 +228,6 @@ class Issue extends CActiveRecord {
         return false;
     }
 
-    /**
-     * Prepares create_time, create_user_id, update_time and update_user_id attributes before performing validation.
-     */
     protected function beforeValidate() {
         if(($this->assigned_to) && ($this->status === 'swIssue/new')) {
             $this->status = 'swIssue/assigned';
