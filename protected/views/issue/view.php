@@ -131,7 +131,7 @@ Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Time::tim
 <hr/>
 <h4>Attachments</h4>
 <div id="attachments">
-<?php $this->renderPartial('_attachments', array('attachments' => $model->getAttachments())); ?>
+<?php $this->renderPartial('_attachments', array('attachments' => $model->getAttachments(), 'attachfile' => $attachfile)); ?>
 </div>
 </div>
 <div class="span-16" id="comments">
