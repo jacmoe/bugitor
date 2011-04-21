@@ -55,6 +55,28 @@ class IssueController extends Controller {
     }
 
     public function actionUpload(){
+      if(isset($_POST['UploadForm']))
+      {
+//        $picture_file = CUploadedFile::getInstance($model, 'image');
+//	$picture_name = $this->createPictureName($picture_file);
+//        $model->attributes=$_POST['UploadForm'];
+//	$model->image =$picture_name;
+//
+//	//$model->save();
+//
+//	$tmpPicture = Yii::getPathOfAlias('webroot.uploads') .'/'. $picture_name;
+//	$picture_file->saveAs($tmpPicture);
+//
+//	$thumbFactory = PhpThumbFactory::create($tmpPicture);
+//	$thumbFactory->resize(300)
+//	  ->save(Yii::getPathOfAlias('webroot.uploads.thumbs') .'/'.
+//	    $picture_name);
+//
+//	Yii::app()->user->setFlash('success', $picture_name . ' was  successfully uploaded and processed.');
+
+	$this->redirect('manage');
+
+      }
     }
 
     public function actionWatch() {
@@ -152,8 +174,10 @@ class IssueController extends Controller {
         }
         $this->layout = '//layouts/column1';
         $issue = Issue::model()->with(array('comments','tracker','user', 'issueCategory', 'issuePriority', 'version', 'assignedTo', 'updatedBy','project'))->findByPk((int) $id);//$this->loadModel($id, true);
+        $attachfile = new UploadForm;
         $this->render('view', array(
             'model' => $issue,
+            'attachfile' => $attachfile,
         ));
     }
 
