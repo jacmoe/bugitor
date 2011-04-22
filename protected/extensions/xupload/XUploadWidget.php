@@ -65,6 +65,8 @@ class XUploadWidget extends CJuiInputWidget {
 		if( !isset($this->htmlOptions['id']) ){
 			$this->htmlOptions['id'] = get_class($model)."_form";
 		}
+                //if(isset($this->htmlOptions['filetypes'])) {
+                    $this->options['beforeSend'] = $this->_getBeforeSend();
 
 		$options=CJavaScript::encode($this->options);
 		CVarDumper::dumpAsString($options, 10, true);
@@ -142,4 +144,31 @@ js:function (file) {
 EOD;
 		return $js;
 	}
+
+	private function _getBeforeSend(){
+		$js = <<<EOD
+js:function (event, files, index, xhr, handler, callBack) {
+        var regexp = /\.(png)|(jpg)|(gif)|(txt)|(patch)|(diff)|(bmp)|(log)|(zip)|(tgz)|(tar\.bz2)|(tar)|(tar\.gz)|(gz)$/i;
+        // Using the filename extension for our test,
+        // as legacy browsers don't report the mime type
+        if (!regexp.test(files[index].name)) {
+            handler.uploadRow.find('.file_upload_progress').html('FAILURE: Only jpg, gif, png, txt, patch, diff, bmp, log, zip, tgz, tar.bz2, bz2, tar, tar.gz and gz allowed!');
+            setTimeout(function () {
+                handler.removeNode(handler.uploadRow);
+            }, 10000);
+            return;
+        }
+        if (files[index].size > 2000000) {
+            handler.uploadRow.find('.file_upload_progress').html('FAILURE: File too big - must be smaller than 2MB!');
+            setTimeout(function () {
+                handler.removeNode(handler.uploadRow);
+            }, 10000);
+            return;
+        }
+        callBack();
+    }
+EOD;
+		return $js;
+	}
+
 }
