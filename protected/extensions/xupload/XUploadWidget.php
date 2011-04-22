@@ -158,7 +158,8 @@ js:function (event, files, index, xhr, handler, callBack) {
             }, 10000);
             return;
         }
-        if (files[index].size > 2000000) {
+        callBack();
+        if (files[index].size > 2097152) {
             handler.uploadRow.find('.file_upload_progress').html('FAILURE: File too big - must be smaller than 2MB!');
             setTimeout(function () {
                 handler.removeNode(handler.uploadRow);
