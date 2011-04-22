@@ -499,6 +499,18 @@ class Issue extends CActiveRecord {
                 if($actionLog->validate())
                     $actionLog->save(false);
                 break;
+            case 'attachment':
+                $actionLog = new ActionLog;
+                $actionLog->author_id = $user_id;
+                $actionLog->project_id = $issue->project_id;
+                $actionLog->description = $comment->content;
+                $actionLog->subject = $issue->tracker->name.' #'.$issue->id.' : '.$issue->subject;
+                $actionLog->type = 'issue-attachment';
+                $actionLog->when = $comment->created;
+                $actionLog->url = $url;
+                if($actionLog->validate())
+                    $actionLog->save(false);
+                break;
             default:
                 break;
         }

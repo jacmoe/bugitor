@@ -55,11 +55,7 @@ class IssueController extends Controller {
     }
 
     public function actionUpload($parent_id){
-        //$parent_id = Yii::app()->request->getQuery("parent_id", 1);
         $model = new UploadForm;
-        /*if(!isset($_POST["UploadForm"])){
-                $model->attributes =$_POST["UploadForm"];
-        }*/
         $model->file = CUploadedFile::getInstance($model, 'file');
         $model->parent_id = $parent_id;
         $model->mime_type = $model->file->getType();
@@ -78,10 +74,22 @@ class IssueController extends Controller {
                 $attachment->size = $model->size;
                 $attachment->created = date("Y-m-d\TH:i:s\Z", time());
                 $attachment->user_id = Yii::app()->user->id;
-                $attachment->path = $path;
                 if($attachment->validate())
                 {
                     $attachment->save(false);
+                    $issue = $this->loadModel($parent_id, true);
+                    $issue->updated_by = Yii::app()->user->id;
+                    if($issue->validate()) {
+                        $comment = new Comment();
+                        $comment->issue_id = $parent_id;
+                        $comment->content = 'A file was attached: '.$attachment->name;
+                        $comment->create_user_id = Yii::app()->user->id;
+                        if($comment->validate())
+                            $comment->save(false);
+                        $issue->addToActionLog($issue->id, Yii::app()->user->id, 'attachment', $this->createUrl('issue/view', array('id' => $issue->id, 'identifier' => $issue->project->identifier, '#' => 'note-'.$issue->commentCount)), $comment);
+                    }
+                    $issue->save(false);
+
                 }
                 echo json_encode(array("name" => $model->name,"type" => $model->mime_type,"size"=> $model->getReadableFileSize()));
         } else {
