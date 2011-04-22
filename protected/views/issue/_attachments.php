@@ -33,16 +33,16 @@
 ?>
 <?php if(count($attachments)>0) : ?>
     <?php foreach($attachments as $attachment): ?>
-        <?php echo $attachment->name; ?>
+        <?php echo CHtml::link($attachment->name, Yii::app()->baseUrl . '/uploads/'.$parent_id.'/'.$attachment->name); ?> <i>(<?php echo Bugitor::getReadableFileSize($attachment->size); ?>)</i> - Added by <?php echo Bugitor::link_to_user($attachment->user) ?> <?php echo Time::timeAgoInWords($attachment->created); ?><br/>
     <?php endforeach; ?>
 <?php endif; ?>
 <a href="#" onClick="$('#add_attach').toggle();">Add Attachment</a>
 <div class="issues" id="add_attach" style="display: none;">
-<div class="form">
-    <?php echo CHtml::form('','post',array('enctype'=>'multipart/form-data')); ?>
-        <?php echo CHtml::activeLabel($attachfile,'attachment'); ?>
-        <?php echo CHtml::activeFileField($attachfile, 'attachment'); ?>
-        <?php echo CHtml::submitButton('Upload'); ?>
-    <?php echo CHtml::endForm(); ?>
-</div><!-- form -->
+<?php
+$this->widget('ext.xupload.XUploadWidget', array(
+					'url' => Yii::app()->createUrl("issue/upload", array("parent_id" => $parent_id)),
+                    'model' => $attachfile,
+                    'attribute' => 'file',
+));
+?>
 </div>

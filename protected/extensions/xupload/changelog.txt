@@ -1,0 +1,7 @@
+Changelog
+=========
+
+v 0.1 Mon Mar 21 14:51:13 COT 2011
+----------------------------
+
+- The widget now extends from CJuiInputWidget (AsgarothBelem)
