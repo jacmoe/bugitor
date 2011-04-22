@@ -720,6 +720,7 @@ dt.issue-change { background-image: url(../images/ticket_edit.png); }
 dt.issue-resolved { background-image: url(../images/ticket_checked.png); }
 dt.issue-rejected { background-image: url(../images/ticket_crossed.png); }
 dt.issue-note { background-image: url(../images/ticket_note.png); }
+dt.issue-attachment { background-image: url(../images/attachment.png); }
 dt.changeset { background-image: url(../images/changeset.png); }
 dt.news { background-image: url(../images/news.png); }
 dt.message { background-image: url(../images/message.png); }

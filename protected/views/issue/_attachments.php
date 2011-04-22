@@ -32,9 +32,14 @@
  */
 ?>
 <?php if(count($attachments)>0) : ?>
+<ul>
     <?php foreach($attachments as $attachment): ?>
-        <?php echo CHtml::link($attachment->name, Yii::app()->baseUrl . '/uploads/'.$parent_id.'/'.$attachment->name); ?> <i>(<?php echo Bugitor::getReadableFileSize($attachment->size); ?>)</i> - Added by <?php echo Bugitor::link_to_user($attachment->user) ?> <?php echo Time::timeAgoInWords($attachment->created); ?><br/>
+        <li class="icon icon-attachment"><?php echo CHtml::link($attachment->name, Yii::app()->baseUrl . '/uploads/'.$parent_id.'/'.$attachment->name); ?>
+            <small><i>(<?php echo Bugitor::getReadableFileSize($attachment->size); ?>)</i></small>
+            - Added by <?php echo Bugitor::link_to_user($attachment->user) ?>
+            <?php echo Time::timeAgoInWords($attachment->created); ?></li>
     <?php endforeach; ?>
+</ul>
 <?php endif; ?>
 <a href="#" onClick="$('#add_attach').toggle();">Add Attachment</a>
 <div class="issues" id="add_attach" style="display: none;">

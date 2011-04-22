@@ -10,7 +10,6 @@
  * @property string $name
  * @property integer $size
  * @property string $created
- * @property string $path
  *
  * The followings are the available model relations:
  * @property Issue $issue
@@ -43,12 +42,12 @@ class Attachment extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('issue_id, user_id, name, size, created, path', 'required'),
+			array('issue_id, user_id, name, size, created', 'required'),
 			array('issue_id, user_id, size', 'numerical', 'integerOnly'=>true),
-			array('name, path', 'length', 'max'=>255),
+			array('name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, issue_id, user_id, name, size, created, path', 'safe', 'on'=>'search'),
+			array('id, issue_id, user_id, name, size, created', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -77,7 +76,6 @@ class Attachment extends CActiveRecord
 			'name' => 'Name',
 			'size' => 'Size',
 			'created' => 'Created',
-			'path' => 'Path',
 		);
 	}
 
@@ -98,7 +96,6 @@ class Attachment extends CActiveRecord
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('size',$this->size);
 		$criteria->compare('created',$this->created,true);
-		$criteria->compare('path',$this->path,true);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
