@@ -41,6 +41,7 @@
     <?php endforeach; ?>
 </ul>
 <?php endif; ?>
+<?php if(Yii::app()->user->checkAccess('Issue.Update')) : ?>
 <a href="#" onClick="$('#add_attach').toggle();">Add Attachment</a>
 <div class="issues" id="add_attach" style="display: none;">
 <?php
@@ -51,3 +52,4 @@ $this->widget('ext.xupload.XUploadWidget', array(
 ));
 ?>
 </div>
+<?php endif; ?>
