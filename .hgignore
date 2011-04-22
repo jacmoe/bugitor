@@ -15,3 +15,5 @@ glob:.buildpath
 glob:.project
 glob:.settings/org.eclipse.php.core.prefs
 glob:protected/config/db.php
+syntax: glob
+uploads/*

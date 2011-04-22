@@ -54,29 +54,41 @@ class IssueController extends Controller {
         return 'view, index, upload';
     }
 
-    public function actionUpload(){
-      if(isset($_POST['UploadForm']))
-      {
-//        $picture_file = CUploadedFile::getInstance($model, 'image');
-//	$picture_name = $this->createPictureName($picture_file);
-//        $model->attributes=$_POST['UploadForm'];
-//	$model->image =$picture_name;
-//
-//	//$model->save();
-//
-//	$tmpPicture = Yii::getPathOfAlias('webroot.uploads') .'/'. $picture_name;
-//	$picture_file->saveAs($tmpPicture);
-//
-//	$thumbFactory = PhpThumbFactory::create($tmpPicture);
-//	$thumbFactory->resize(300)
-//	  ->save(Yii::getPathOfAlias('webroot.uploads.thumbs') .'/'.
-//	    $picture_name);
-//
-//	Yii::app()->user->setFlash('success', $picture_name . ' was  successfully uploaded and processed.');
+    public function actionUpload($parent_id){
+        //$parent_id = Yii::app()->request->getQuery("parent_id", 1);
+        $model = new UploadForm;
+        /*if(!isset($_POST["UploadForm"])){
+                $model->attributes =$_POST["UploadForm"];
+        }*/
+        $model->file = CUploadedFile::getInstance($model, 'file');
+        $model->parent_id = $parent_id;
+        $model->mime_type = $model->file->getType();
+        $model->size = $model->file->getSize();
+        $model->name = $model->file->getName();
 
-	$this->redirect('manage');
-
-      }
+        if ($model->validate()) {
+                $path = Yii::getPathOfAlias('webroot.uploads') .'/'.$parent_id.'/';
+                if(!is_dir($path)){
+                        mkdir($path);
+                }
+                $model->file->saveAs($path.$model->name);
+                $attachment = new Attachment;
+                $attachment->issue_id = $parent_id;
+                $attachment->name = $model->name;
+                $attachment->size = $model->size;
+                $attachment->created = date("Y-m-d\TH:i:s\Z", time());
+                $attachment->user_id = Yii::app()->user->id;
+                $attachment->path = $path;
+                if($attachment->validate())
+                {
+                    $attachment->save(false);
+                }
+                echo json_encode(array("name" => $model->name,"type" => $model->mime_type,"size"=> $model->getReadableFileSize()));
+        } else {
+                echo CVarDumper::dumpAsString($model->getErrors());
+                Yii::log("FileUpload: ".CVarDumper::dumpAsString($model->getErrors()), CLogger::LEVEL_ERROR, "application.controllers.SiteController");
+                throw new CHttpException(500, "Could not upload file");
+        }
     }
 
     public function actionWatch() {
