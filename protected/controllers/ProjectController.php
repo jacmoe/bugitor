@@ -105,7 +105,7 @@ class ProjectController extends Controller {
                 'link' => CHtml::encode(Yii::app()->getRequest()->getHostInfo('').$activity->url),
                 'guid' => CHtml::encode(Yii::app()->getRequest()->getHostInfo('').$activity->url),
                 'description' => CHtml::encode(ucfirst($activity->author->username)) . ' : ' . CHtml::encode($activity->description),
-                'lastUpdate' => strtotime($activity->when),
+                'lastUpdate' => strtotime($activity->theDate),
                 'dc:creator' => $activity->author->username,
             );
         }
