@@ -114,7 +114,7 @@ js:function (files, index) {
     	'<td class="file_upload_progress"><div><\/div><\/td>' +
     	'<td class="filesize">'+files.size+'</td>' +
         '<td class="file_upload_cancel">' +
-        '<button class="ui-state-default ui-corner-all" title="Cancel">' +
+        '<button title="Cancel">' +
         '<span class="ui-icon ui-icon-cancel">Cancel<\/span>' +
         '<\/button><\/td><\/tr>');
 }
@@ -130,7 +130,7 @@ js:function (file) {
 		'<td class="filesize">'+file[0].name+'</td>'+
 		'<td class="file_upload_progress"><div></div></td>'+
 		'<td class="file_upload_start" style="display:none">'+
-			'<button class="ui-state-default ui-corner-all" title="Start Upload">'+
+			'<button title="Start Upload">'+
 				'<span class="ui-icon ui-icon-circle-arrow-e">Start Upload</span>'+
 			'</button>'+
 		'</td>'+
@@ -158,7 +158,6 @@ js:function (event, files, index, xhr, handler, callBack) {
             }, 10000);
             return;
         }
-        callBack();
         if (files[index].size > 2097152) {
             handler.uploadRow.find('.file_upload_progress').html('FAILURE: File too big - must be smaller than 2MB!');
             setTimeout(function () {

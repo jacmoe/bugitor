@@ -40,7 +40,7 @@
  * @property integer $id
  * @property string $type
  * @property integer $author_id
- * @property string $when
+ * @property string $theDate
  * @property string $url
  * @property integer $project_id
  * @property string $subject
@@ -79,14 +79,14 @@ class ActionLog extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('type, author_id, when, url, project_id, subject, description', 'required'),
+			array('type, author_id, theDate, url, project_id, subject, description', 'required'),
 			array('author_id, project_id', 'numerical', 'integerOnly'=>true),
 			array('type', 'length', 'max'=>32),
 			array('url', 'length', 'max'=>100),
-                        array('when', 'safe'),
+                        array('theDate', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, type, author_id, when, url, project_id, subject, description', 'safe', 'on'=>'search'),
+			array('id, type, author_id, theDate, url, project_id, subject, description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -112,7 +112,7 @@ class ActionLog extends CActiveRecord
 			'id' => 'ID',
 			'type' => 'Type',
 			'author_id' => 'Author',
-			'when' => 'When',
+			'theDate' => 'When',
 			'url' => 'Url',
 			'project_id' => 'Project',
 			'subject' => 'Subject',
@@ -122,14 +122,14 @@ class ActionLog extends CActiveRecord
 
         public function findRecentEntries($number = 30, $projectId = null) {
             $criteria2 = new CDbCriteria;
-            $criteria2->select = array('id', 'type', 'author_id', 't.when', 'url', 'project_id', 'subject', 'description', 'DATE(t.when) as theday');
+            $criteria2->select = array('id', 'type', 'author_id', 't.theDate', 'url', 'project_id', 'subject', 'description', 'DATE(t.theDate) as theday');
             if(null !== $projectId) {
                 $criteria2->condition = 'project_id = :project_id';
                 $criteria2->params = array('project_id' => $projectId);
             }
-            $criteria2->order = 't.when DESC';
-//            $criteria2->order = 'theday DESC, t.when DESC';
-//            $criteria2->group = 'theday, t.when';
+            $criteria2->order = 't.theDate DESC';
+//            $criteria2->order = 'theday DESC, t.theDate DESC';
+//            $criteria2->group = 'theday, t.theDate';
             $criteria2->limit = $number;
             return self::model()->findAll($criteria2);
         }
@@ -148,7 +148,7 @@ class ActionLog extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('type',$this->type,true);
 		$criteria->compare('author_id',$this->author_id);
-		$criteria->compare('when',$this->when,true);
+		$criteria->compare('theDate',$this->theDate,true);
 		$criteria->compare('url',$this->url,true);
 		$criteria->compare('project_id',$this->project_id);
 		$criteria->compare('subject',$this->subject,true);
