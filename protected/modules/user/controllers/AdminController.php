@@ -7,6 +7,13 @@ class AdminController extends Controller
 	private $_model;
 
 	/**
+	* Initializes the controller.
+	*/
+	public function init()
+	{
+            $this->layout = $this->module->layout;
+	}
+	/**
 	 * @return array action filters
 	 */
 	public function filters()
