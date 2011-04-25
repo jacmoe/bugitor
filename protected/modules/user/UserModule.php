@@ -21,6 +21,15 @@ class UserModule extends CWebModule
 	public $hash='md5';
 	
 	/**
+	* @property string the path to the layout file to use for displaying Rights.
+	*/
+	public $layout = 'user.views.layouts.main';
+	/**
+	* @property string the path to the application layout file.
+	*/
+	public $appLayout = 'application.modules.admin.views.layouts.main';
+
+        /**
 	 * @var boolean
 	 * @desc use email for activation user account
 	 */
