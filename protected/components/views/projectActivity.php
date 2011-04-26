@@ -41,7 +41,7 @@
 <div id="activity" class="quiet">
     <?php foreach ($activities as $activity): ?>
     <?php if($curr_day != date('d Y', Time::makeUnix($activity->theDate))) : ?>
-    <h3><?php echo (Time::isToday($activity->theDate) ? 'Today' : date('Y-m-d', Time::makeUnix($activity->theDate))) ; ?></h3>
+    <h3><?php echo (Time::isToday($activity->theDate) ? 'Today' : Yii::app()->dateFormatter->formatDateTime($activity->theDate, 'medium', null)) ; ?></h3>
     <?php $curr_day = date('d Y', Time::makeUnix($activity->theDate)); ?>
     <?php endif; ?>
     <dl>
