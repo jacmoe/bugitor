@@ -5,8 +5,8 @@
 <br/>
 <div class="splitcontentleft">
     <ul>
-        <li>Registered on: <?php echo date("d.m.Y H:i:s",$model->createtime); ?></li>
-        <li>Last connection: <?php echo (($model->lastvisit)?date("d.m.Y H:i:s",$model->lastvisit):UserModule::t('Never')) ?></li>
+        <li>Registered on: <?php echo Yii::app()->dateFormatter->formatDateTime($model->createtime, 'medium', null); ?></li>
+        <li>Last connection: <?php echo (($model->lastvisit)?Yii::app()->dateFormatter->formatDateTime($model->lastvisit, 'medium', null):UserModule::t('Never')) ?></li>
     </ul>
     <br/>
 <!--    <h3>Projects</h3>
