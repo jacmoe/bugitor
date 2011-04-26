@@ -42,6 +42,8 @@ return array(
     'name' => 'Bugitor',
     'theme' => 'classic',
     'defaultController' => 'site',
+    'sourceLanguage' => 'en_gb',
+    'language' => 'en_US',
     'preload' => array('log', 'maintenanceMode'),
     // autoloading model and component classes
     'import' => array(

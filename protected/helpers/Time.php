@@ -180,10 +180,10 @@ class Time {
                 $t = floor($ago / $seconds);
 
                 if ( $t > 0 ) {
-                    return '<acronym title="' . $date . '">' . $t . ' ' . $sufix[ $t>1 ? 1 : 0 ] . '</acronym>';
+                    return '<acronym title="' . Yii::app()->dateFormatter->formatDateTime($date) . '">' . $t . ' ' . $sufix[ $t>1 ? 1 : 0 ] . '</acronym>';
                 }
             }
-                return '<acronym title="' . $date . '">Just now</acronym>';
+                return '<acronym title="' . Yii::app()->dateFormatter->formatDateTime($date) . '">Just now</acronym>';
         }
 
         public static function shortTimeAgo($date) {
@@ -210,7 +210,7 @@ class Time {
             if ($timestamp_diff < (60*60*24*2)) {
                 $nice_date = $date;
             }
-            return '<acronym title="' . $date . '">' . $nice_date . '</acronym>';
+            return '<acronym title="' . Yii::app()->dateFormatter->formatDateTime($date) . '">' . $nice_date . '</acronym>';
             //return $nice_date;
         }
 
@@ -383,7 +383,7 @@ class Time {
 				$relativeDate = sprintf('%s ago', $relativeDate);
 			}
 		}
-		return '<acronym title="' . $dateTime . $title_extra . '">' . $relativeDate . '</acronym>';
+		return '<acronym title="' . Yii::app()->dateFormatter->formatDateTime($dateTime) . $title_extra . '">' . $relativeDate . '</acronym>';
 	}
 
         // This is a simple script to calculate the difference between two dates

@@ -67,7 +67,7 @@
                 )
             ); ?>
         </h3>
-        <b>Deadline</b> (<?php echo $version->effective_date; ?>) - <span class="quiet"><?php echo ($completed) ? 'Completed' : Time::dueDateInWords($version->effective_date) ?></span><br/>
+        <b>Deadline</b> (<?php echo Yii::app()->dateFormatter->formatDateTime($version->effective_date, 'medium', null); ?>) - <span class="quiet"><?php echo ($completed) ? 'Completed' : Time::dueDateInWords($version->effective_date) ?></span><br/>
         <?php if( $version->issueCount > 0 ) : ?>
             <?php $num_actual_issues = $version->issueCount - $version->issueCountRejected; ?>
             <?php $open_percent = (($version->issueCountOpen / $num_actual_issues)*100); ?>
