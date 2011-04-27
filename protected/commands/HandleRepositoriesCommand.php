@@ -465,7 +465,7 @@ private function run_tool($toolname, $mode, $args = null)
         $actionLog->description = $changeset->message;
         $actionLog->subject = 'Revision ' . $changeset->revision . ' (' . $changeset->scm->name . ')';
         $actionLog->type = 'changeset';
-        $actionLog->when = $changeset->commit_date;
+        $actionLog->theDate = $changeset->commit_date;
         $actionLog->url = '/projects/'. $changeset->scm->project->identifier . '/changeset/view/' . $changeset->id;
         if($actionLog->validate())
             $actionLog->save(false);
