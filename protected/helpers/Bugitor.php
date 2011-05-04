@@ -82,6 +82,14 @@ class Bugitor {
         return preg_replace('/<(pre|code)>.*$/', '...', $out);
     }
 
+    public static function link_to_version($version, $absolute = false) {
+        if($absolute) {
+            return CHtml::link($version->name, Yii::app()->config->get('hostname').'projects/'.$version->project->identifier.'/version/view/'.$version->id);
+        } else {
+            return CHtml::link($version->name ,array('/version/view', "id" => $version->id, 'identifier' => $version->project->identifier));
+        }
+    }
+
     public static function link_to_issue($issue, $absolute = false) {
         if($absolute) {
             return CHtml::link($issue->tracker->name . ' #' . $issue->id . ': ' . $issue->subject, Yii::app()->config->get('hostname').'projects/'.$issue->project->identifier.'/issue/view/'.$issue->id, array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue'));
