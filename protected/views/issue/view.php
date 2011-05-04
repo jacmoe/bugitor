@@ -97,7 +97,7 @@ Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Time::tim
         <td class="fixed-version"><b>Version:</b></td>
         <td>
             <?php if(isset($model->version)) : ?>
-                    <?php echo $model->version->name; ?>
+                    <?php echo Bugitor::link_to_version($model->version); ?>
             <?php endif; ?>
         </td>
     </tr>
