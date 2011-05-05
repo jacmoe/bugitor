@@ -37,11 +37,12 @@
 // Yii::setPathOfAlias('local','path/to/local-folder');
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
-return array(
+
+$out = array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'Bugitor',
     'theme' => 'classic',
-    'defaultController' => 'site',
+    'defaultController' => (file_exists(dirname(__FILE__).'/db.php') ? 'site' : 'site'),
     'sourceLanguage' => 'en_gb',
     'language' => 'en_US',
     'preload' => array('log', 'maintenanceMode'),
@@ -183,7 +184,6 @@ return array(
                 '/issues/' => 'issue/index',
                 ),
         ),
-        'db' => require(dirname(__FILE__) . '/db.php'),
         'errorHandler' => array(
             // use 'site/error' action to display errors
             'errorAction' => 'site/error',
@@ -196,3 +196,16 @@ return array(
         'adminEmail' => 'tracker@tracker.ogitor.org',
     ),
 );
+
+if(file_exists(dirname(__FILE__).'/db.php')) {
+    return CMap::mergeArray(
+        $out,
+        array(
+            'components' => array(
+            'db' => require(dirname(__FILE__) . '/db.php'),
+                ),
+        )
+    );
+} else {
+    return $out;
+}
