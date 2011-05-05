@@ -33,7 +33,7 @@
 ?>
 <?php
 
-return CMap::mergeArray(
+$out = CMap::mergeArray(
     require(dirname(__FILE__) . '/main.php'),
     array(
         'import' => array(
@@ -47,7 +47,6 @@ return CMap::mergeArray(
         ),
         // application components
         'components' => array(
-            'db' => require(dirname(__FILE__) . '/db.php'),
             'mail' => array(
                 'class' => 'ext.yii-mail.YiiMail',
                 'transportType' => 'php',
@@ -78,3 +77,16 @@ return CMap::mergeArray(
         ),
     )
 );
+
+if(file_exists(dirname(__FILE__).'/db.php')) {
+    return CMap::mergeArray(
+        $out,
+        array(
+            'components' => array(
+            'db' => require(dirname(__FILE__) . '/db.php'),
+                ),
+        )
+    );
+} else {
+    return $out;
+}
