@@ -42,7 +42,7 @@ $out = array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'Bugitor',
     'theme' => 'classic',
-    'defaultController' => (file_exists(dirname(__FILE__).'/db.php') ? 'site' : 'site'),
+    'defaultController' => (file_exists(dirname(__FILE__).'/db.php') ? 'site' : 'installer/default'),
     'sourceLanguage' => 'en_gb',
     'language' => 'en_US',
     'preload' => array('log', 'maintenanceMode'),
@@ -61,6 +61,7 @@ $out = array(
     ),
     'modules' => array(
         'admin',
+        'installer',
         'rights' => array(
             'install' => false,
             'appLayout'=>'application.modules.admin.views.layouts.main',
