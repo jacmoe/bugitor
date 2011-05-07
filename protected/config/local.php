@@ -33,7 +33,7 @@
 ?>
 <?php
 
-$out = CMap::mergeArray(
+return CMap::mergeArray(
     require(dirname(__FILE__) . '/main.php'),
     array(
         'import' => array(
@@ -77,16 +77,3 @@ $out = CMap::mergeArray(
         ),
     )
 );
-
-if(file_exists(dirname(__FILE__).'/db.php')) {
-    return CMap::mergeArray(
-        $out,
-        array(
-            'components' => array(
-            'db' => require(dirname(__FILE__) . '/db.php'),
-                ),
-        )
-    );
-} else {
-    return $out;
-}

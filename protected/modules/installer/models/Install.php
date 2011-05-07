@@ -38,43 +38,15 @@
  * ContactForm is the data structure for keeping
  * contact form data. It is used by the 'contact' action of 'SiteController'.
  */
-class DbinstallForm extends CFormModel
+class Install extends CFormModel
 {
-	public $name;
-	public $email;
-
-	/**
-	 * Declares the validation rules.
-	 */
-	public function rules()
-	{
-		return array(
-			// name, email, subject and body are required
-			array('name, email', 'required'),
-			// email has to be a valid email address
-			array('email', 'email'),
-		);
-	}
-
 	public function getForm() {
 		return new CForm(array(
 			'showErrorSummary'=>true,
-			'elements'=>array(
-				'name'=>array(
-					'hint'=>'6-12 characters; letters, numbers, and underscore'
-				),
-				'email'=>array(
-					'hint'=>'Your e-mail address'
-				)
-			),
 			'buttons'=>array(
-				'previous'=>array(
-					'type'=>'submit',
-					'label'=>'Previous'
-				),
 				'submit'=>array(
 					'type'=>'submit',
-					'label'=>'Next'
+					'label'=>'Start'
 				),
 			)
 		), $this);
