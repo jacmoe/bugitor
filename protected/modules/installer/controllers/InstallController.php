@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of
  *     ____              _ __
@@ -33,96 +34,98 @@
 ?>
 <?php
 
-class InstallController extends Controller
-{
-        var $layout = 'main';
-       
-	public function beforeAction($action) {
-		$config = array();
-				$config = array(
-					'steps'=>array('user', 'userProfile', 'contactDetails', 'paymentDetails'),
-					'events'=>array(
-						'onStart'=>'wizardStart',
-						'onProcessStep'=>'installationWizardProcessStep',
-						'onFinished'=>'wizardFinished',
-						'onInvalidStep'=>'wizardInvalidStep',
-					),
-					'menuLastItem'=>'Installation Finished'
-				);
-		if (!empty($config)) {
-			$config['class']='installer.components.WizardBehavior';
-			$this->attachBehavior('wizard', $config);
-		}
-		return parent::beforeAction($action);
-	}
-        /**
-	 * This is the default 'index' action that is invoked
-	 * when an action is not explicitly requested by users.
-	 */
-	public function actionIndex()
-	{
-		// renders the view file 'protected/views/site/index.php'
-		// using the default layout 'protected/views/layouts/main.php'
-                $this->render('index');
-	}
+class InstallController extends CController {
 
-	public function actionInstallation($step=null) {
-		$this->pageTitle = 'Installation Wizard';
-		$this->process($step);
-	}
+    var $layout = 'main';
 
-	// Wizard Behavior Event Handlers
-	/**
-	* Raised when the wizard starts; before any steps are processed.
-	* MUST set $event->handled=true for the wizard to continue.
-	* Leaving $event->handled===false causes the onFinished event to be raised.
-	* @param WizardEvent The event
-	*/
-	public function wizardStart($event) {
-		$event->handled = true;
-	}
-        
-	/**
-	* Raised when the wizard detects an invalid step
-	* @param WizardEvent The event
-	*/
-	public function wizardInvalidStep($event) {
-		Yii::app()->getUser()->setFlash('notice', $event->step.' is not a vaild step in this wizard');
-	}
+    /**
+     * Initializes the controller.
+     */
+    public function init() {
+        // Register the scripts
+        $this->module->registerScripts();
+    }
 
-	/**
-	* The wizard has finished; use $event->step to find out why.
-	* Normally on successful completion ($event->step===true) data would be saved
-	* to permanent storage; the demo just displays it
-	* @param WizardEvent The event
-	*/
-	public function wizardFinished($event) {
+    public function beforeAction($action) {
+        $config = array();
+        $config = array(
+            'steps' => array('install', 'database'),
+            'events' => array(
+                'onStart' => 'wizardStart',
+                'onProcessStep' => 'installationWizardProcessStep',
+                'onFinished' => 'wizardFinished',
+                'onInvalidStep' => 'wizardInvalidStep',
+            ),
+            'menuLastItem' => 'Installation Finished'
+        );
+        if (!empty($config)) {
+            $config['class'] = 'installer.components.WizardBehavior';
+            $this->attachBehavior('wizard', $config);
+        }
+        return parent::beforeAction($action);
+    }
+
+    /**
+     * This is the default 'index' action that is invoked
+     * when an action is not explicitly requested by users.
+     */
+    public function actionIndex() {
+        // renders the view file 'protected/views/site/index.php'
+        // using the default layout 'protected/views/layouts/main.php'
+        $this->render('index');
+    }
+
+    public function actionInstallation($step=null) {
+        $this->pageTitle = 'Installation Wizard';
+        $this->process($step);
+    }
+
+    // Wizard Behavior Event Handlers
+    /**
+     * Raised when the wizard starts; before any steps are processed.
+     * MUST set $event->handled=true for the wizard to continue.
+     * Leaving $event->handled===false causes the onFinished event to be raised.
+     * @param WizardEvent The event
+     */
+    public function wizardStart($event) {
+        $event->handled = true;
+    }
+
+    /**
+     * Raised when the wizard detects an invalid step
+     * @param WizardEvent The event
+     */
+    public function wizardInvalidStep($event) {
+        Yii::app()->getUser()->setFlash('notice', $event->step . ' is not a vaild step in this wizard');
+    }
+
+    /**
+     * The wizard has finished; use $event->step to find out why.
+     * Normally on successful completion ($event->step===true) data would be saved
+     * to permanent storage; the demo just displays it
+     * @param WizardEvent The event
+     */
+    public function wizardFinished($event) {
 //		if ($event->step===true)
 //			$this->render('completed', compact('event'));
 //		else
-//			$this->render('finished', compact('event'));
-//
-//		$event->sender->reset();
-		//Yii::app()->end();
-	}
-	
-        /**
-	* Process wizard steps.
-	* The event handler must set $event->handled=true for the wizard to continue
-	* @param WizardEvent The event
-	*/
-	public function installationWizardProcessStep($event) {
-//		$modelName = ucfirst($event->step);
-		$model = new DbinstallForm();
-		$model->attributes = $event->data;
-		$form = $model->getForm();
-//
-//		// Note that we also allow sumission via the Save button
-		if (($form->submitted()||$form->submitted('save_draft')) && $form->validate()) {
-			$event->sender->save($model->attributes);
-			$event->handled = true;
-		}
-		else
-			$this->render('form', compact('event','form'));
-	}
+        $this->render('finished', compact('event'));
+
+        $event->sender->reset();
+        Yii::app()->end();
+    }
+
+    /**
+     * Process wizard steps.
+     * The event handler must set $event->handled=true for the wizard to continue
+     * @param WizardEvent The event
+     */
+    public function installationWizardProcessStep($event) {
+        $modelName = ucfirst($event->step);
+        $model = new $modelName();
+        $model->attributes = $event->data;
+        $form = $model->getForm();
+        $this->render('form', compact('event', 'form'));
+    }
+
 }

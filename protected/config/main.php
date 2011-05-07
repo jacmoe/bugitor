@@ -38,11 +38,11 @@
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 
-$out = array(
+return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'Bugitor',
     'theme' => 'classic',
-    'defaultController' => (file_exists(dirname(__FILE__).'/db.php') ? 'site' : 'installer/default'),
+    'defaultController' => 'site',
     'sourceLanguage' => 'en_gb',
     'language' => 'en_US',
     'preload' => array('log', 'maintenanceMode'),
@@ -79,6 +79,7 @@ $out = array(
             'allowAutoLogin' => true,
             'loginUrl' => array('/user/login'),
         ),
+        'db' => require(dirname(__FILE__) . '/db.php'),
         'mail' => array(
             'class' => 'ext.yii-mail.YiiMail',
             'transportType' => 'php',
@@ -197,16 +198,3 @@ $out = array(
         'adminEmail' => 'tracker@tracker.ogitor.org',
     ),
 );
-
-if(file_exists(dirname(__FILE__).'/db.php')) {
-    return CMap::mergeArray(
-        $out,
-        array(
-            'components' => array(
-            'db' => require(dirname(__FILE__) . '/db.php'),
-                ),
-        )
-    );
-} else {
-    return $out;
-}
