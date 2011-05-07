@@ -37,6 +37,8 @@
 class InstallController extends CController {
 
     var $layout = 'main';
+    
+    var $defaultAction = 'installation';
 
     /**
      * Initializes the controller.
@@ -49,7 +51,7 @@ class InstallController extends CController {
     public function beforeAction($action) {
         $config = array();
         $config = array(
-            'steps' => array('install', 'database'),
+            'steps' => array('install', 'database', 'stuff'),
             'events' => array(
                 'onStart' => 'wizardStart',
                 'onProcessStep' => 'installationWizardProcessStep',
@@ -125,7 +127,13 @@ class InstallController extends CController {
         $model = new $modelName();
         $model->attributes = $event->data;
         $form = $model->getForm();
-        $this->render('form', compact('event', 'form'));
+
+        if ($form->submitted() && $form->validate()) {
+            $event->sender->save($model->attributes);
+            $event->handled = true;
+        } else {
+            $this->render('form', compact('event', 'form'));
+        }
     }
 
 }
