@@ -58,7 +58,7 @@ return array(
         'migrate'=>array(
             'class'=>'system.cli.commands.MigrateCommand',
             'migrationPath'=>'application.migrations',
-            'migrationTable'=>'bug_migration',
+            'migrationTable'=>'{{migration}}',
             'connectionID'=>'db',
         ),
     ),
@@ -92,7 +92,7 @@ return array(
         ),
         'config' => array(
             'class' => 'application.extensions.EConfig',
-            'configTableName' => 'bug_config',
+            'configTableName' => '{{config}}',
             'autoCreateConfigTable' => true,
             'strictMode' => false,
         ),
@@ -105,13 +105,13 @@ return array(
             // The database component used
             'connectionID' => 'db',
             // The itemTable name (default: AuthItem)
-            'itemTable' => 'bug_auth_item',
+            'itemTable' => '{{auth_item}}',
             // The assignmentTable name (default: AuthAssignment)
-            'assignmentTable' => 'bug_auth_assignment',
+            'assignmentTable' => '{{auth_assignment}}',
             // The itemChildTable name (default: AuthItemChild)
-            'itemChildTable' => 'bug_auth_item_child',
+            'itemChildTable' => '{{auth_item_child}}',
             // The itemWeightTable (default: AuthItemWeight)
-            'rightsTable' => 'bug_auth_item_weight',
+            'rightsTable' => '{{auth_item_weight}}',
         ),
         'urlManager' => array(
             'urlFormat' => 'path',

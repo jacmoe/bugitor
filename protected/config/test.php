@@ -44,7 +44,7 @@ return CMap::mergeArray(
 				'connectionString' => 'mysql:host=localhost;dbname=ogitorbugs_test',
 				'emulatePrepare' => true,
 				'username' => 'superadmin',
-							'tablePrefix' => 'bug_',
+							'tablePrefix' => 'bugitor_',
 				'password' => 'jake2383',
 				'charset' => 'utf8',
 			),

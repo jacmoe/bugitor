@@ -4,7 +4,7 @@ class m110507_101301_initial extends CDbMigration
 {
     public function safeUp()
     {
-        //CREATE TABLE IF NOT EXISTS `bug_action_log` (
+        //CREATE TABLE IF NOT EXISTS `{{action_log}}` (
         //  `id` int(10) NOT NULL AUTO_INCREMENT,
         //  `type` varchar(32) NOT NULL,
         //  `author_id` int(10) NOT NULL,
@@ -18,7 +18,7 @@ class m110507_101301_initial extends CDbMigration
         //  KEY `fk_action_log_user_id` (`author_id`),
         //  KEY `fk_action_log_project_id` (`project_id`)
         //) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3255 ;
-        $this->createTable('bug_action_log',
+        $this->createTable('{{action_log}}',
                 array(
                     'id' => 'pk',
                     'type' => 'string NOT NULL',
@@ -29,11 +29,11 @@ class m110507_101301_initial extends CDbMigration
                     'subject' => 'string NOT NULL',
                     'description' => 'text NOT NULL',
                 ));
-        $this->createIndex('type', 'bug_action_log', 'type');
-        $this->createIndex('fk_action_log_user_id', 'bug_action_log', 'author_id');
-        $this->createIndex('fk_action_log_project_id', 'bug_action_log', 'project_id');
+        $this->createIndex('type', '{{action_log}}', 'type');
+        $this->createIndex('fk_action_log_user_id', '{{action_log}}', 'author_id');
+        $this->createIndex('fk_action_log_project_id', '{{action_log}}', 'project_id');
 
-        //CREATE TABLE IF NOT EXISTS `bug_attachment` (
+        //CREATE TABLE IF NOT EXISTS `{{attachment}}` (
         //  `id` int(11) NOT NULL AUTO_INCREMENT,
         //  `issue_id` int(11) NOT NULL,
         //  `user_id` int(11) NOT NULL,
@@ -45,7 +45,7 @@ class m110507_101301_initial extends CDbMigration
         //  KEY `user_id` (`user_id`),
         //  KEY `name` (`name`)
         //) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
-        $this->createTable('bug_attachment',
+        $this->createTable('{{attachment}}',
                 array(
                     'id' => 'pk',
                     'issue_id' => 'integer NOT NULL',
@@ -55,11 +55,11 @@ class m110507_101301_initial extends CDbMigration
                     'created' => 'timestamp NOT NULL',
                 )
                 );
-        $this->createIndex('issue_id', 'bug_attachment', 'issue_id');
-        $this->createIndex('user_id', 'bug_attachment', 'user_id');
-        $this->createIndex('name', 'bug_attachment', 'name');
+        $this->createIndex('issue_id', '{{attachment}}', 'issue_id');
+        $this->createIndex('user_id', '{{attachment}}', 'user_id');
+        $this->createIndex('name', '{{attachment}}', 'name');
 
-        //CREATE TABLE IF NOT EXISTS `bug_author_user` (
+        //CREATE TABLE IF NOT EXISTS `{{author_user}}` (
         //  `id` int(11) NOT NULL AUTO_INCREMENT,
         //  `user_id` int(11) DEFAULT NULL,
         //  `author` varchar(60) NOT NULL,
@@ -67,24 +67,24 @@ class m110507_101301_initial extends CDbMigration
         //  UNIQUE KEY `author` (`author`),
         //  KEY `user_id` (`user_id`)
         //) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
-        $this->createTable('bug_author_user',
+        $this->createTable('{{author_user}}',
                 array(
                     'id' => 'pk',
                     'user_id' => 'integer',
                     'author' => 'string NOT NULL',
                 )
                 );
-        $this->createIndex('author', 'bug_author_user', 'author', true);
-        $this->createIndex('user_id', 'bug_author_user', 'user_id');
+        $this->createIndex('author', '{{author_user}}', 'author', true);
+        $this->createIndex('user_id', '{{author_user}}', 'user_id');
         
-        //CREATE TABLE IF NOT EXISTS `bug_auth_assignment` (
+        //CREATE TABLE IF NOT EXISTS `{{auth_assignment}}` (
         //  `itemname` varchar(64) NOT NULL,
         //  `userid` varchar(64) NOT NULL,
         //  `bizrule` text,
         //  `data` text,
         //  PRIMARY KEY (`itemname`,`userid`)
         //) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-        $this->createTable('bug_auth_assignment',
+        $this->createTable('{{auth_assignment}}',
                 array(
                     'itemname' => 'string NOT NULL',
                     'userid' => 'string NOT NULL',
@@ -94,7 +94,7 @@ class m110507_101301_initial extends CDbMigration
                 )
                 );
         
-        //CREATE TABLE IF NOT EXISTS `bug_auth_item` (
+        //CREATE TABLE IF NOT EXISTS `{{auth_item}}` (
         //  `name` varchar(64) NOT NULL,
         //  `type` int(11) NOT NULL,
         //  `description` text,
@@ -102,7 +102,7 @@ class m110507_101301_initial extends CDbMigration
         //  `data` text,
         //  PRIMARY KEY (`name`)
         //) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-        $this->createTable('bug_auth_item',
+        $this->createTable('{{auth_item}}',
                 array(
                     'name' => 'string NOT NULL',
                     'type' => 'integer NOT NULL',
@@ -113,28 +113,28 @@ class m110507_101301_initial extends CDbMigration
                 )
                 );
         
-        //CREATE TABLE IF NOT EXISTS `bug_auth_item_child` (
+        //CREATE TABLE IF NOT EXISTS `{{auth_item_child}}` (
         //  `parent` varchar(64) NOT NULL,
         //  `child` varchar(64) NOT NULL,
         //  PRIMARY KEY (`parent`,`child`),
         //  KEY `child` (`child`)
         //) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-        $this->createTable('bug_auth_item_child',
+        $this->createTable('{{auth_item_child}}',
                 array(
                     'parent' => 'string NOT NULL',
                     'child' => 'string NOT NULL',
                     'PRIMARY KEY (`parent`,`child`)'
                 )
                 );
-        $this->createIndex('child', 'bug_auth_item_child', 'child');
+        $this->createIndex('child', '{{auth_item_child}}', 'child');
 
-        //CREATE TABLE IF NOT EXISTS `bug_auth_item_weight` (
+        //CREATE TABLE IF NOT EXISTS `{{auth_item_weight}}` (
         //  `itemname` varchar(64) NOT NULL,
         //  `type` int(11) NOT NULL,
         //  `weight` int(11) DEFAULT NULL,
         //  PRIMARY KEY (`itemname`)
         //) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-        $this->createTable('bug_auth_item_weight',
+        $this->createTable('{{auth_item_weight}}',
                 array(
                     'itemname' => 'string NOT NULL',
                     'type' => 'integer NOT NULL',
@@ -143,7 +143,7 @@ class m110507_101301_initial extends CDbMigration
                 )
                 );
         
-        //CREATE TABLE IF NOT EXISTS `bug_change` (
+        //CREATE TABLE IF NOT EXISTS `{{change}}` (
         //  `id` int(11) NOT NULL AUTO_INCREMENT,
         //  `changeset_id` int(11) NOT NULL,
         //  `action` varchar(50) NOT NULL,
@@ -151,7 +151,7 @@ class m110507_101301_initial extends CDbMigration
         //  PRIMARY KEY (`id`),
         //  KEY `fk_change_changeset_id` (`changeset_id`)
         //) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=26716 ;
-        $this->createTable('bug_change',
+        $this->createTable('{{change}}',
             array(
                 'id' => 'pk',
                 'changeset_id' => 'integer NOT NULL',
@@ -159,9 +159,9 @@ class m110507_101301_initial extends CDbMigration
                 'path' => 'string NOT NULL',
             )
         );
-        $this->createIndex('fk_change_changeset_id', 'bug_change', 'changeset_id');
+        $this->createIndex('fk_change_changeset_id', '{{change}}', 'changeset_id');
 
-        //CREATE TABLE IF NOT EXISTS `bug_changeset` (
+        //CREATE TABLE IF NOT EXISTS `{{changeset}}` (
         //  `id` int(10) NOT NULL AUTO_INCREMENT,
         //  `unique_ident` varchar(60) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
         //  `revision` varchar(20) NOT NULL,
@@ -182,7 +182,7 @@ class m110507_101301_initial extends CDbMigration
         //  KEY `fk_changeset_user_id` (`user_id`),
         //  KEY `fk_changeset_repository` (`scm_id`)
         //) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2431 ;
-        $this->createTable('bug_changeset',
+        $this->createTable('{{changeset}}',
             array(
                 'id' => 'pk',
                 'unique_ident' => 'string NOT NULL',
@@ -201,11 +201,11 @@ class m110507_101301_initial extends CDbMigration
                 'del' => 'integer DEFAULT NULL',
             )
         );
-        $this->createIndex('unique_ident', 'bug_changeset', 'unique_ident', true);
-        $this->createIndex('fk_changeset_user_id', 'bug_changeset', 'user_id');
-        $this->createIndex('fk_changeset_repository', 'bug_changeset', 'scm_id');
+        $this->createIndex('unique_ident', '{{changeset}}', 'unique_ident', true);
+        $this->createIndex('fk_changeset_user_id', '{{changeset}}', 'user_id');
+        $this->createIndex('fk_changeset_repository', '{{changeset}}', 'scm_id');
         
-        //CREATE TABLE IF NOT EXISTS `bug_changeset_issue` (
+        //CREATE TABLE IF NOT EXISTS `{{changeset_issue}}` (
         //  `id` int(11) NOT NULL AUTO_INCREMENT,
         //  `changeset_id` int(11) NOT NULL,
         //  `issue_id` int(11) NOT NULL,
@@ -213,17 +213,17 @@ class m110507_101301_initial extends CDbMigration
         //  KEY `issue_id` (`issue_id`),
         //  KEY `changeset_id` (`changeset_id`)
         //) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=198 ;
-        $this->createTable("bug_changeset_issue",
+        $this->createTable("{{changeset_issue}}",
             array(
                 "id"=>"pk",
                 "changeset_id"=>"integer NOT NULL",
                 "issue_id"=>"integer NOT NULL",
             )
         );
-        $this->createIndex('issue_id', 'bug_changeset_issue', 'issue_id');
-        $this->createIndex('changeset_id', 'bug_changeset_issue', 'changeset_id');
+        $this->createIndex('issue_id', '{{changeset_issue}}', 'issue_id');
+        $this->createIndex('changeset_id', '{{changeset_issue}}', 'changeset_id');
         
-        //CREATE TABLE IF NOT EXISTS `bug_comment` (
+        //CREATE TABLE IF NOT EXISTS `{{comment}}` (
         //  `id` int(11) NOT NULL AUTO_INCREMENT,
         //  `content` text NOT NULL,
         //  `issue_id` int(11) NOT NULL,
@@ -236,7 +236,7 @@ class m110507_101301_initial extends CDbMigration
         //  KEY `FK_comment_author` (`create_user_id`),
         //  KEY `FK_comment_updater` (`update_user_id`)
         //) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2213 ;
-        $this->createTable("bug_comment", 
+        $this->createTable("{{comment}}", 
             array(
                 "id"=>"pk",
                 "content"=>"text NOT NULL",
@@ -247,32 +247,32 @@ class m110507_101301_initial extends CDbMigration
                 "update_user_id"=>"integer DEFAULT NULL",
             )
         );
-        $this->createIndex('FK_comment_issue', 'bug_comment', 'issue_id');
-        $this->createIndex('FK_comment_author', 'bug_comment', 'create_user_id');
-        $this->createIndex('FK_comment_updater', 'bug_comment', 'update_user_id');
+        $this->createIndex('FK_comment_issue', '{{comment}}', 'issue_id');
+        $this->createIndex('FK_comment_author', '{{comment}}', 'create_user_id');
+        $this->createIndex('FK_comment_updater', '{{comment}}', 'update_user_id');
         
-        //CREATE TABLE IF NOT EXISTS `bug_comment_detail` (
+        //CREATE TABLE IF NOT EXISTS `{{comment_detail}}` (
         //  `id` int(10) NOT NULL AUTO_INCREMENT,
         //  `comment_id` int(10) NOT NULL,
         //  `change` varchar(255) DEFAULT NULL,
         //  PRIMARY KEY (`id`),
         //  KEY `bug_comment_detail_ibfk_1` (`comment_id`)
         //) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1703 ;
-        $this->createTable("bug_comment_detail",
+        $this->createTable("{{comment_detail}}",
             array(
                 "id"=>"pk",
                 "comment_id"=>"integer NOT NULL",
                 "change"=>"string DEFAULT NULL",
             )
         );
-        $this->createIndex('bug_comment_detail_ibfk_1', 'bug_comment_detail', 'comment_id');
+        $this->createIndex('comment_detail_ibfk_1', '{{comment_detail}}', 'comment_id');
 
-        //CREATE TABLE IF NOT EXISTS `bug_config` (
+        //CREATE TABLE IF NOT EXISTS `{{config}}` (
         //  `key` varchar(100) COLLATE utf8_bin NOT NULL,
         //  `value` text COLLATE utf8_bin,
         //  PRIMARY KEY (`key`)
         //) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-        $this->createTable("bug_config",
+        $this->createTable("{{config}}",
             array(
                 "key"=>"string COLLATE utf8_bin",
                 "value"=>"text COLLATE utf8_bin",
@@ -280,7 +280,7 @@ class m110507_101301_initial extends CDbMigration
             )
         );
         
-        //CREATE TABLE IF NOT EXISTS `bug_issue` (
+        //CREATE TABLE IF NOT EXISTS `{{issue}}` (
         //  `id` int(11) NOT NULL AUTO_INCREMENT,
         //  `tracker_id` int(11) NOT NULL DEFAULT '0',
         //  `project_id` int(11) NOT NULL DEFAULT '0',
@@ -300,17 +300,17 @@ class m110507_101301_initial extends CDbMigration
         //  `updated_by` int(11) DEFAULT NULL,
         //  `last_comment` int(10) DEFAULT NULL,
         //  PRIMARY KEY (`id`),
-        //  KEY `fk_bug_issue_tracker_id` (`tracker_id`),
-        //  KEY `fk_bug_issue_project_id` (`project_id`),
-        //  KEY `fk_bug_issue_category_id` (`issue_category_id`),
-        //  KEY `fk_bug_issue_prority_id` (`issue_priority_id`),
-        //  KEY `fk_bug_issue_user_id` (`user_id`),
-        //  KEY `fk_bug_issue_version_id` (`version_id`),
-        //  KEY `fk_bug_issue_assigned_to_id` (`assigned_to`),
-        //  KEY `fk_bug_issue_updated_by` (`updated_by`),
+        //  KEY `fk_issue_tracker_id` (`tracker_id`),
+        //  KEY `fk_issue_project_id` (`project_id`),
+        //  KEY `fk_issue_category_id` (`issue_category_id`),
+        //  KEY `fk_issue_prority_id` (`issue_priority_id`),
+        //  KEY `fk_issue_user_id` (`user_id`),
+        //  KEY `fk_issue_version_id` (`version_id`),
+        //  KEY `fk_issue_assigned_to_id` (`assigned_to`),
+        //  KEY `fk_issue_updated_by` (`updated_by`),
         //  KEY `closed` (`closed`)
         //) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=701 ;
-        $this->createTable("bug_issue", 
+        $this->createTable("{{issue}}", 
             array(
                 "id"=>"pk",
                 "tracker_id"=>"integer NOT NULL",
@@ -332,17 +332,17 @@ class m110507_101301_initial extends CDbMigration
                 "last_comment"=>"integer",
             )
         );
-        $this->createIndex('fk_bug_issue_tracker_id', 'bug_issue', 'tracker_id');
-        $this->createIndex('fk_bug_issue_project_id', 'bug_issue', 'project_id');
-        $this->createIndex('fk_bug_issue_category_id', 'bug_issue', 'issue_category_id');
-        $this->createIndex('fk_bug_issue_prority_id', 'bug_issue', 'issue_priority_id');
-        $this->createIndex('fk_bug_issue_user_id', 'bug_issue', 'user_id');
-        $this->createIndex('fk_bug_issue_version_id', 'bug_issue', 'version_id');
-        $this->createIndex('fk_bug_issue_assigned_to_id', 'bug_issue', 'assigned_to');
-        $this->createIndex('fk_bug_issue_updated_by', 'bug_issue', 'updated_by');
-        $this->createIndex('closed', 'bug_issue', 'closed');
+        $this->createIndex('fk_issue_tracker_id', '{{issue}}', 'tracker_id');
+        $this->createIndex('fk_issue_project_id', '{{issue}}', 'project_id');
+        $this->createIndex('fk_issue_category_id', '{{issue}}', 'issue_category_id');
+        $this->createIndex('fk_issue_prority_id', '{{issue}}', 'issue_priority_id');
+        $this->createIndex('fk_issue_user_id', '{{issue}}', 'user_id');
+        $this->createIndex('fk_issue_version_id', '{{issue}}', 'version_id');
+        $this->createIndex('fk_issue_assigned_to_id', '{{issue}}', 'assigned_to');
+        $this->createIndex('fk_issue_updated_by', '{{issue}}', 'updated_by');
+        $this->createIndex('closed', '{{issue}}', 'closed');
         
-        //CREATE TABLE IF NOT EXISTS `bug_issue_category` (
+        //CREATE TABLE IF NOT EXISTS `{{issue_category}}` (
         //  `id` int(11) NOT NULL AUTO_INCREMENT,
         //  `name` varchar(45) NOT NULL,
         //  `project_id` int(10) NOT NULL,
@@ -351,7 +351,7 @@ class m110507_101301_initial extends CDbMigration
         //  KEY `project_id` (`project_id`),
         //  KEY `name_UNIQUE` (`name`)
         //) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
-        $this->createTable("bug_issue_category",
+        $this->createTable("{{issue_category}}",
             array(
                 "id"=>"pk",
                 "name"=>"string NOT NULL",
@@ -359,24 +359,24 @@ class m110507_101301_initial extends CDbMigration
                 "description"=>"string DEFAULT NULL",
             )
         );
-        $this->createIndex('project_id', 'bug_issue_category', 'project_id');
-        $this->createIndex('name_UNIQUE', 'bug_issue_category', 'name');
+        $this->createIndex('project_id', '{{issue_category}}', 'project_id');
+        $this->createIndex('name_UNIQUE', '{{issue_category}}', 'name');
         
-        //CREATE TABLE IF NOT EXISTS `bug_issue_priority` (
+        //CREATE TABLE IF NOT EXISTS `{{issue_priority}}` (
         //  `id` int(11) NOT NULL AUTO_INCREMENT,
         //  `name` varchar(45) NOT NULL,
         //  PRIMARY KEY (`id`),
         //  UNIQUE KEY `name_UNIQUE` (`name`)
         //) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
-        $this->createTable("bug_issue_priority",
+        $this->createTable("{{issue_priority}}",
             array(
                 "id"=>"pk",
                 "name"=>"string NOT NULL",
             )
         );
-        $this->createIndex('name_UNIQUE', 'bug_issue_priority', 'name', true);
+        $this->createIndex('name_UNIQUE', '{{issue_priority}}', 'name', true);
         
-        //CREATE TABLE IF NOT EXISTS `bug_member` (
+        //CREATE TABLE IF NOT EXISTS `{{member}}` (
         //  `id` int(10) NOT NULL AUTO_INCREMENT,
         //  `project_id` int(10) NOT NULL,
         //  `user_id` int(10) NOT NULL,
@@ -385,7 +385,7 @@ class m110507_101301_initial extends CDbMigration
         //  KEY `FK_member_user` (`user_id`),
         //  KEY `FK_member_project` (`project_id`)
         //) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
-        $this->createTable("bug_member",
+        $this->createTable("{{member}}",
             array(
                 "id"=>"pk",
                 "project_id"=>"integer NOT NULL",
@@ -393,10 +393,10 @@ class m110507_101301_initial extends CDbMigration
                 "role"=>"string NOT NULL",
             )
         );
-        $this->createIndex('FK_member_user', 'bug_member', 'user_id');
-        $this->createIndex('FK_member_project', 'bug_member', 'project_id');
+        $this->createIndex('FK_member_user', '{{member}}', 'user_id');
+        $this->createIndex('FK_member_project', '{{member}}', 'project_id');
 
-        //CREATE TABLE IF NOT EXISTS `bug_profiles` (
+        //CREATE TABLE IF NOT EXISTS `{{profiles}}` (
         //  `user_id` int(11) NOT NULL,
         //  `lastname` varchar(50) NOT NULL DEFAULT '',
         //  `firstname` varchar(50) NOT NULL DEFAULT '',
@@ -405,7 +405,7 @@ class m110507_101301_initial extends CDbMigration
         //  `locale` varchar(32) NOT NULL DEFAULT 'en_gb',
         //  PRIMARY KEY (`user_id`)
         //) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-        $this->createTable("bug_profiles",
+        $this->createTable("{{profiles}}",
             array(
                 "user_id"=>"pk",
                 "lastname"=>"varchar(50) NOT NULL",
@@ -416,7 +416,7 @@ class m110507_101301_initial extends CDbMigration
             )
         );
         
-        //CREATE TABLE IF NOT EXISTS `bug_profiles_fields` (
+        //CREATE TABLE IF NOT EXISTS `{{profiles_fields}}` (
         //  `id` int(10) NOT NULL AUTO_INCREMENT,
         //  `varname` varchar(50) NOT NULL,
         //  `title` varchar(255) NOT NULL,
@@ -436,7 +436,7 @@ class m110507_101301_initial extends CDbMigration
         //  PRIMARY KEY (`id`),
         //  KEY `varname` (`varname`,`widget`,`visible`)
         //) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
-        $this->createTable("bug_profiles_fields",
+        $this->createTable("{{profiles_fields}}",
             array(
                 "id"=>"pk",
                 "varname"=>"varchar(50) NOT NULL",
@@ -457,7 +457,7 @@ class m110507_101301_initial extends CDbMigration
             )
         );
         
-        //CREATE TABLE IF NOT EXISTS `bug_project` (
+        //CREATE TABLE IF NOT EXISTS `{{project}}` (
         //  `id` int(11) NOT NULL AUTO_INCREMENT,
         //  `name` varchar(30) NOT NULL,
         //  `description` text,
@@ -470,7 +470,7 @@ class m110507_101301_initial extends CDbMigration
         //  UNIQUE KEY `identifier` (`identifier`),
         //  KEY `public` (`public`)
         //) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
-        $this->createTable("bug_project",
+        $this->createTable("{{project}}",
             array(
                 "id"=>"pk",
                 "name"=>"varchar(30) NOT NULL",
@@ -482,10 +482,10 @@ class m110507_101301_initial extends CDbMigration
                 "identifier"=>"varchar(20) DEFAULT NULL",
             )
         );
-        $this->createIndex('identifier', 'bug_project', 'identifier', true);
-        $this->createIndex('public', 'bug_project', 'public');
+        $this->createIndex('identifier', '{{project}}', 'identifier', true);
+        $this->createIndex('public', '{{project}}', 'public');
         
-        //CREATE TABLE IF NOT EXISTS `bug_project_link` (
+        //CREATE TABLE IF NOT EXISTS `{{project_link}}` (
         //  `id` int(11) NOT NULL AUTO_INCREMENT,
         //  `url` varchar(255) NOT NULL,
         //  `title` varchar(255) NOT NULL,
@@ -495,7 +495,7 @@ class m110507_101301_initial extends CDbMigration
         //  PRIMARY KEY (`id`),
         //  KEY `project_id` (`project_id`)
         //) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-        $this->createTable("bug_project_link",
+        $this->createTable("{{project_link}}",
             array(
                 "id"=>"pk",
                 "url"=>"string NOT NULL",
@@ -505,26 +505,26 @@ class m110507_101301_initial extends CDbMigration
                 "project_id"=>"integer NOT NULL",
             )
         );
-        $this->createIndex('project_id', 'bug_project_link', 'project_id');
+        $this->createIndex('project_id', '{{project_link}}', 'project_id');
         
-        //CREATE TABLE IF NOT EXISTS `bug_project_tracker` (
+        //CREATE TABLE IF NOT EXISTS `{{project_tracker}}` (
         //  `project_id` int(11) NOT NULL,
         //  `tracker_id` int(11) NOT NULL,
         //  PRIMARY KEY (`project_id`,`tracker_id`),
         //  KEY `fk_project_tracker_project_id` (`project_id`),
         //  KEY `fk_project_tracker_tracker_id` (`tracker_id`)
         //) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-        $this->createTable("bug_project_tracker",
+        $this->createTable("{{project_tracker}}",
             array(
                 "project_id"=>"integer NOT NULL",
                 "tracker_id"=>"integer NOT NULL",
                 "PRIMARY KEY (`project_id`,`tracker_id`)",
             )
         );
-        $this->createIndex('fk_project_tracker_project_id', 'bug_project_tracker', 'project_id');
-        $this->createIndex('fk_project_tracker_tracker_id', 'bug_project_tracker', 'tracker_id');
+        $this->createIndex('fk_project_tracker_project_id', '{{project_tracker}}', 'project_id');
+        $this->createIndex('fk_project_tracker_tracker_id', '{{project_tracker}}', 'tracker_id');
         
-        //CREATE TABLE IF NOT EXISTS `bug_related_issue` (
+        //CREATE TABLE IF NOT EXISTS `{{related_issue}}` (
         //  `issue_from` int(11) NOT NULL,
         //  `issue_to` int(11) NOT NULL,
         //  `relation_type_id` int(11) NOT NULL,
@@ -533,7 +533,7 @@ class m110507_101301_initial extends CDbMigration
         //  KEY `fk_related_issue_issue_to_id` (`issue_to`),
         //  KEY `fk_related_issue_relation_type_id` (`relation_type_id`)
         //) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-        $this->createTable("bug_related_issue",
+        $this->createTable("{{related_issue}}",
             array(
                 "issue_from" => "integer NOT NULL",
                 "issue_to" => "integer NOT NULL",
@@ -541,27 +541,27 @@ class m110507_101301_initial extends CDbMigration
                 "PRIMARY KEY (`issue_from`,`issue_to`)",
             )
         );
-        $this->createIndex('fk_related_issue_issue_from_id', 'bug_related_issue', 'issue_from');
-        $this->createIndex('fk_related_issue_issue_to_id', 'bug_related_issue', 'issue_to');
-        $this->createIndex('fk_related_issue_relation_type_id', 'bug_related_issue', 'relation_type_id');
+        $this->createIndex('fk_related_issue_issue_from_id', '{{related_issue}}', 'issue_from');
+        $this->createIndex('fk_related_issue_issue_to_id', '{{related_issue}}', 'issue_to');
+        $this->createIndex('fk_related_issue_relation_type_id', '{{related_issue}}', 'relation_type_id');
         
-        //CREATE TABLE IF NOT EXISTS `bug_relation_type` (
+        //CREATE TABLE IF NOT EXISTS `{{relation_type}}` (
         //  `id` int(11) NOT NULL AUTO_INCREMENT,
         //  `name` varchar(45) NOT NULL,
         //  `description` varchar(65) NOT NULL,
         //  PRIMARY KEY (`id`),
         //  UNIQUE KEY `name_UNIQUE` (`name`)
         //) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
-        $this->createTable("bug_relation_type",
+        $this->createTable("{{relation_type}}",
             array(
                 "id"=>"pk",
                 "name"=>"varchar(45) NOT NULL",
                 "description"=>"varchar(65) NOT NULL",
             )
         );
-        $this->createIndex('name_UNIQUE', 'bug_relation_type', 'name', true);
+        $this->createIndex('name_UNIQUE', '{{relation_type}}', 'name', true);
 
-        //CREATE TABLE IF NOT EXISTS `bug_repository` (
+        //CREATE TABLE IF NOT EXISTS `{{repository}}` (
         //  `id` int(11) NOT NULL AUTO_INCREMENT,
         //  `project_id` int(11) NOT NULL DEFAULT '0',
         //  `url` varchar(60) DEFAULT NULL,
@@ -573,7 +573,7 @@ class m110507_101301_initial extends CDbMigration
         //  UNIQUE KEY `name` (`name`),
         //  KEY `repository_project_id` (`project_id`)
         //) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
-        $this->createTable("bug_repository",
+        $this->createTable("{{repository}}",
             array(
                 "id"=>"pk",
                 "project_id"=>"int(11) NOT NULL",
@@ -584,10 +584,10 @@ class m110507_101301_initial extends CDbMigration
                 "status"=>"int(11) NOT NULL DEFAULT '0'",
             )
         );
-        $this->createIndex('name', 'bug_repository', 'name', true);
-        $this->createIndex('repository_project_id', 'bug_repository', 'project_id');
+        $this->createIndex('name', '{{repository}}', 'name', true);
+        $this->createIndex('repository_project_id', '{{repository}}', 'project_id');
 
-        //CREATE TABLE IF NOT EXISTS `bug_tracker` (
+        //CREATE TABLE IF NOT EXISTS `{{tracker}}` (
         //  `id` int(11) NOT NULL AUTO_INCREMENT,
         //  `name` varchar(45) NOT NULL,
         //  `is_in_chlog` int(1) NOT NULL DEFAULT '1',
@@ -595,7 +595,7 @@ class m110507_101301_initial extends CDbMigration
         //  `position` int(11) NOT NULL DEFAULT '1',
         //  PRIMARY KEY (`id`)
         //) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
-        $this->createTable("bug_tracker",
+        $this->createTable("{{tracker}}",
             array(
                 "id"=>"pk",
                 "name"=>"varchar(45) NOT NULL",
@@ -605,7 +605,7 @@ class m110507_101301_initial extends CDbMigration
             )
         );
         
-        //CREATE TABLE IF NOT EXISTS `bug_users` (
+        //CREATE TABLE IF NOT EXISTS `{{users}}` (
         //  `id` int(11) NOT NULL AUTO_INCREMENT,
         //  `username` varchar(20) NOT NULL,
         //  `password` varchar(128) NOT NULL,
@@ -621,7 +621,7 @@ class m110507_101301_initial extends CDbMigration
         //  KEY `status` (`status`),
         //  KEY `superuser` (`superuser`)
         //) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=45 ;
-        $this->createTable("bug_users",
+        $this->createTable("{{users}}",
             array(
                 "id"=>"pk",
                 "username"=>"varchar(20) NOT NULL",
@@ -634,12 +634,12 @@ class m110507_101301_initial extends CDbMigration
                 "status"=>"int(1) NOT NULL DEFAULT '0'",
             )
         );
-        $this->createIndex('username', 'bug_users', 'username', true);
-        $this->createIndex('email', 'bug_users', 'email', true);
-        $this->createIndex('status', 'bug_users', 'status');
-        $this->createIndex('superuser', 'bug_users', 'superuser');
+        $this->createIndex('username', '{{users}}', 'username', true);
+        $this->createIndex('email', '{{users}}', 'email', true);
+        $this->createIndex('status', '{{users}}', 'status');
+        $this->createIndex('superuser', '{{users}}', 'superuser');
         
-        //CREATE TABLE IF NOT EXISTS `bug_version` (
+        //CREATE TABLE IF NOT EXISTS `{{version}}` (
         //  `id` int(11) NOT NULL AUTO_INCREMENT,
         //  `project_id` int(11) NOT NULL DEFAULT '0',
         //  `name` varchar(255) NOT NULL,
@@ -652,7 +652,7 @@ class m110507_101301_initial extends CDbMigration
         //  KEY `versions_project_id` (`project_id`),
         //  KEY `name` (`name`)
         //) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=48 ;
-        $this->createTable("bug_version",
+        $this->createTable("{{version}}",
             array(
                 "id"=>"pk",
                 "project_id"=>"int(11) NOT NULL DEFAULT '0'",
@@ -664,58 +664,58 @@ class m110507_101301_initial extends CDbMigration
                 "version_order"=>"int(11) DEFAULT NULL",
             )
         );
-        $this->createIndex('versions_project_id', 'bug_version', 'project_id');
-        $this->createIndex('name', 'bug_version', 'name');
+        $this->createIndex('versions_project_id', '{{version}}', 'project_id');
+        $this->createIndex('name', '{{version}}', 'name');
         
-        //CREATE TABLE IF NOT EXISTS `bug_watcher` (
+        //CREATE TABLE IF NOT EXISTS `{{watcher}}` (
         //  `issue_id` int(11) NOT NULL,
         //  `user_id` int(11) NOT NULL,
         //  PRIMARY KEY (`issue_id`,`user_id`),
         //  KEY `fk_watcher_user_id` (`user_id`),
         //  KEY `fk_watcher_issue_id` (`issue_id`)
         //) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-        $this->createTable("bug_watcher",
+        $this->createTable("{{watcher}}",
             array(
                 "issue_id"=>"integer NOT NULL",
                 "user_id"=>"integer NOT NULL",
                 "PRIMARY KEY (`issue_id`,`user_id`)",
             )
         );
-        $this->createIndex('fk_watcher_user_id', 'bug_watcher', 'user_id');
-        $this->createIndex('fk_watcher_issue_id', 'bug_watcher', 'issue_id');
+        $this->createIndex('fk_watcher_user_id', '{{watcher}}', 'user_id');
+        $this->createIndex('fk_watcher_issue_id', '{{watcher}}', 'issue_id');
     }
 
     public function safeDown()
     {
-        $this->dropTable("bug_action_log");
-        $this->dropTable("bug_attachment");
-        $this->dropTable("bug_auth_assignment");
-        $this->dropTable("bug_auth_item");
-        $this->dropTable("bug_auth_item_child");
-        $this->dropTable("bug_auth_item_weight");
-        $this->dropTable("bug_author_user");
-        $this->dropTable("bug_change");
-        $this->dropTable("bug_changeset");
-        $this->dropTable("bug_changeset_issue");
-        $this->dropTable("bug_comment");
-        $this->dropTable("bug_comment_detail");
-        $this->dropTable("bug_config");
-        $this->dropTable("bug_issue");
-        $this->dropTable("bug_issue_category");
-        $this->dropTable("bug_issue_priority");
-        $this->dropTable("bug_member");
-        $this->dropTable("bug_profiles");
-        $this->dropTable("bug_profiles_fields");
-        $this->dropTable("bug_project");
-        $this->dropTable("bug_project_link");
-        $this->dropTable("bug_project_tracker");
-        $this->dropTable("bug_related_issue");
-        $this->dropTable("bug_relation_type");
-        $this->dropTable("bug_repository");
-        $this->dropTable("bug_tracker");
-        $this->dropTable("bug_users");
-        $this->dropTable("bug_version");
-        $this->dropTable("bug_watcher");
+        $this->dropTable("{{action_log}}");
+        $this->dropTable("{{attachment}}");
+        $this->dropTable("{{auth_assignment}}");
+        $this->dropTable("{{auth_item}}");
+        $this->dropTable("{{auth_item_child}}");
+        $this->dropTable("{{auth_item_weight}}");
+        $this->dropTable("{{author_user}}");
+        $this->dropTable("{{change}}");
+        $this->dropTable("{{changeset}}");
+        $this->dropTable("{{changeset_issue}}");
+        $this->dropTable("{{comment}}");
+        $this->dropTable("{{comment_detail}}");
+        $this->dropTable("{{config}}");
+        $this->dropTable("{{issue}}");
+        $this->dropTable("{{issue_category}}");
+        $this->dropTable("{{issue_priority}}");
+        $this->dropTable("{{member}}");
+        $this->dropTable("{{profiles}}");
+        $this->dropTable("{{profiles_fields}}");
+        $this->dropTable("{{project}}");
+        $this->dropTable("{{project_link}}");
+        $this->dropTable("{{project_tracker}}");
+        $this->dropTable("{{related_issue}}");
+        $this->dropTable("{{relation_type}}");
+        $this->dropTable("{{repository}}");
+        $this->dropTable("{{tracker}}");
+        $this->dropTable("{{users}}");
+        $this->dropTable("{{version}}");
+        $this->dropTable("{{watcher}}");
     }
 
     /*
