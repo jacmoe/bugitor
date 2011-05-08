@@ -1,1 +1,1 @@
-/usr/local/php5/bin/php /home/stealth977/tracker.ogitor.org/console.php handlerepositories >> /dev/null 2>&1
+/full/path/to/php /full/path/to/bugitor/console.php handlerepositories >> /dev/null 2>&1
