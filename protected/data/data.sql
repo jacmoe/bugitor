@@ -1,11 +1,11 @@
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
-INSERT INTO `bug_auth_assignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES
+INSERT INTO `{{auth_assignment}}` (`itemname`, `userid`, `bizrule`, `data`) VALUES
 ('Admin', '1', 'NULL', 'N'),
 ('Project Lead', '1', NULL, 'N;'),
 ('User', '1', NULL, 'N;');
 
-INSERT INTO `bug_auth_item` (`name`, `type`, `description`, `bizrule`, `data`) VALUES
+INSERT INTO `{{auth_item}}` (`name`, `type`, `description`, `bizrule`, `data`) VALUES
 ('ActionLog.*', 0, NULL, NULL, 'N;'),
 ('ActionLog.Admin', 0, NULL, NULL, 'N;'),
 ('ActionLog.Create', 0, NULL, NULL, 'N;'),
@@ -183,7 +183,7 @@ INSERT INTO `bug_auth_item` (`name`, `type`, `description`, `bizrule`, `data`) V
 ('Version.Update', 0, NULL, NULL, 'N;'),
 ('Version.View', 0, NULL, NULL, 'N;');
 
-INSERT INTO `bug_auth_item_child` (`parent`, `child`) VALUES
+INSERT INTO `{{auth_item_child}}` (`parent`, `child`) VALUES
 ('Project Admin', 'Comment.Admin'),
 ('User', 'Comment.Create'),
 ('Developer', 'Comment.Delete'),
@@ -246,14 +246,14 @@ INSERT INTO `bug_auth_item_child` (`parent`, `child`) VALUES
 ('Developer', 'Version.Delete'),
 ('Developer', 'Version.Update');
 
-INSERT INTO `bug_auth_item_weight` (`itemname`, `type`, `weight`) VALUES
+INSERT INTO `{{auth_item_weight}}` (`itemname`, `type`, `weight`) VALUES
 ('Admin', 2, 0),
 ('Developer', 2, 1),
 ('Guest', 2, 2),
 ('Project Admin', 2, 4),
 ('User', 2, 3);
 
-INSERT INTO `bug_config` (`key`, `value`) VALUES
+INSERT INTO `{{config}}` (`key`, `value`) VALUES
 ('HostName', 'N;'),
 ('SiteName', 's:7:"Bugitor";'),
 ('defaultPagesize', 's:2:"20";'),
@@ -264,29 +264,29 @@ INSERT INTO `bug_config` (`key`, `value`) VALUES
 ('logging_enabled', 'b:0;'),
 ('python_path', 's:4:"none";');
 
-INSERT INTO `bug_issue_priority` (`id`, `name`) VALUES
+INSERT INTO `{{issue_priority}}` (`id`, `name`) VALUES
 (3, 'High'),
 (1, 'Low'),
 (2, 'Normal');
 
-INSERT INTO `bug_profiles` (`user_id`, `lastname`, `firstname`, `birthday`, `timezone`, `locale`) VALUES
+INSERT INTO `{{profiles}}` (`user_id`, `lastname`, `firstname`, `birthday`, `timezone`, `locale`) VALUES
 (1, 'Istrator', 'Admin', '0000-00-00', 'Europe/London', 'en_gb');
 
-INSERT INTO `bug_profiles_fields` (`id`, `varname`, `title`, `field_type`, `field_size`, `field_size_min`, `required`, `match`, `range`, `error_message`, `other_validator`, `default`, `widget`, `widgetparams`, `position`, `visible`) VALUES
+INSERT INTO `{{profiles_fields}}` (`id`, `varname`, `title`, `field_type`, `field_size`, `field_size_min`, `required`, `match`, `range`, `error_message`, `other_validator`, `default`, `widget`, `widgetparams`, `position`, `visible`) VALUES
 (1, 'lastname', 'Last Name', 'VARCHAR', 50, 2, 1, '', '', 'Incorrect Last Name (length between 3 and 50 characters).', '', '', '', '', 1, 3),
 (2, 'firstname', 'First Name', 'VARCHAR', 50, 2, 1, '', '', 'Incorrect First Name (length between 3 and 50 characters).', '', '', '', '', 0, 3),
 (3, 'birthday', 'Birthday', 'DATE', 0, 0, 0, '', '', '', '', '0000-00-00', 'UWjuidate', '{"ui-theme":"redmond"}', 3, 2),
 (4, 'timezone', 'TimeZone', 'VARCHAR', 32, 0, 0, '', '', '', '', 'Europe/London', '', '', 2, 2),
 (5, 'locale', 'Locale', 'VARCHAR', 32, 0, 0, '', '', '', '', 'en_gb', '', '', 5, 2);
 
-INSERT INTO `bug_relation_type` (`id`, `name`, `description`) VALUES
+INSERT INTO `{{relation_type}}` (`id`, `name`, `description`) VALUES
 (1, 'related', 'is related to'),
 (2, 'duplicates', 'is a duplicate of'),
 (3, 'closes', 'is closed by');
 
-INSERT INTO `bug_tracker` (`id`, `name`, `is_in_chlog`, `is_in_roadmap`, `position`) VALUES
+INSERT INTO `{{tracker}}` (`id`, `name`, `is_in_chlog`, `is_in_roadmap`, `position`) VALUES
 (1, 'Bug', 1, 1, 1),
 (2, 'Feature', 1, 1, 1);
 
-INSERT INTO `bug_users` (`id`, `username`, `password`, `email`, `activkey`, `createtime`, `lastvisit`, `superuser`, `status`) VALUES
+INSERT INTO `{{users}}` (`id`, `username`, `password`, `email`, `activkey`, `createtime`, `lastvisit`, `superuser`, `status`) VALUES
 (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.admin', 'ce6d412bf936c1a13c537f36aee869f2', 1258492953, 1304882823, 1, 1);

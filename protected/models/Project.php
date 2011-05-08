@@ -175,7 +175,7 @@ class Project extends CActiveRecord {
             $project = Project::model()->find('identifier=?', array($identifier));
             $name = $project->name;
             $cacheDependency = new CDbCacheDependency("
-               SELECT `modified` FROM `bug_project`
+               SELECT `modified` FROM `{{project}}`
                   WHERE `id` = {$project->id} LIMIT 1
             ");
             Yii::app()->cache->set($cacheKey, $name, 0, $cacheDependency);
@@ -190,7 +190,7 @@ class Project extends CActiveRecord {
             $project = Project::model()->find('identifier=?', array($identifier));
             $id = $project->id;
             $cacheDependency = new CDbCacheDependency("
-               SELECT `modified` FROM `bug_project`
+               SELECT `modified` FROM `{{project}}`
                   WHERE `id` = {$project->id} LIMIT 1
             ");
             Yii::app()->cache->set($cacheKey, $id, 0, $cacheDependency);
@@ -202,7 +202,7 @@ class Project extends CActiveRecord {
      * Determines whether or not a user is already part of a project
      */
     public function isUserInProject($user) {
-        $sql = "SELECT user_id FROM bug_member WHERE
+        $sql = "SELECT user_id FROM {{member}} WHERE
 project_id=:projectId AND user_id=:userId";
         $command = Yii::app()->db->createCommand($sql);
         $command->bindValue(":projectId", $this->id, PDO::PARAM_INT);
