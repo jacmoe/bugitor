@@ -135,5 +135,5 @@ class InstallController extends CController {
             $this->render('form', compact('event', 'form'));
         }
     }
-
+    
 }

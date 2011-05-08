@@ -54,6 +54,15 @@ return array(
         'application.extensions.simpleWorkflow.*',
         'ext.yii-mail.YiiMailMessage',
     ),
+    'commandMap'=>array(
+        'migrate'=>array(
+            'class'=>'system.cli.commands.MigrateCommand',
+            'migrationPath'=>'application.migrations',
+            'migrationTable'=>'bug_migration',
+            'connectionID'=>'db',
+        ),
+    ),
+    
     'modules' => array(
         // uncomment the following to enable the Gii tool
         'rights' => array(
@@ -65,7 +74,7 @@ return array(
     'components' => array(
         'user' => array(
             // enable cookie-based authentication
-            'class' => 'RightsWebUser',
+            'class' => 'RWebUser',
             'allowAutoLogin' => true,
             'loginUrl' => array('/user/login'),
         ),
@@ -92,7 +101,7 @@ return array(
         ),
         'authManager' => array(
             // The authorization manager (default: CDbAuthManager)
-            'class' => 'RightsAuthManager',
+            'class' => 'RDbAuthManager',
             // The database component used
             'connectionID' => 'db',
             // The itemTable name (default: AuthItem)
@@ -102,24 +111,35 @@ return array(
             // The itemChildTable name (default: AuthItemChild)
             'itemChildTable' => 'bug_auth_item_child',
             // The itemWeightTable (default: AuthItemWeight)
-            'itemWeightTable' => 'bug_auth_item_weight',
+            'rightsTable' => 'bug_auth_item_weight',
         ),
         'urlManager' => array(
             'urlFormat' => 'path',
             'showScriptName' => false,
             'rules' => array(
+                '/welcome/' => 'site/index',
                 '/projects/' => 'project/index',
-                '/projects/<name>' => 'project/view',
-                '/issues/' => 'issue/index',
-                '/projects/<name>/issues' => 'issue/index',
-                '/projects/<name>/issue/<_a:(create)>'   => 'issue/<_a>',
-                '/projects/<name>/issue/<action:\w+>/<id:\d+>'   => 'issue/<action>',
-                '/projects/<name>/<_a:(activity|roadmap|issues|newissue|code|settings)>'   => 'project/<_a>',
-                '/projects/<name>/issue/<action:\w+>/<id:\d+>/' => 'issue/<action>',
+                '/projects/<identifier>' => 'project/view',
+                '/projects/<identifier>/issues' => 'issue/index',
+                '/projects/<identifier>/changesets' => 'changeset/index',
+                '/projects/<identifier>/issue/<_a:(create)>'   => 'issue/<_a>',
+                '/projects/<identifier>/member/<_a:(create)>'   => 'member/<_a>',
+                '/projects/<identifier>/version/<_a:(create)>'   => 'version/<_a>',
+                '/projects/<identifier>/repository/<_a:(create)>'   => 'repository/<_a>',
+                '/projects/<identifier>/issueCategory/<_a:(create)>'   => 'issueCategory/<_a>',
+                '/projects/<identifier>/issue/<action:\w+>/<id:\d+>'   => 'issue/<action>',
+                '/projects/<identifier>/issues/<action:\w+>/<id:\d+>'   => 'issue/<action>',
+                '/projects/<identifier>/member/<action:\w+>/<id:\d+>'   => 'member/<action>',
+                '/projects/<identifier>/version/<action:\w+>/<id:\d+>'   => 'version/<action>',
+                '/projects/<identifier>/repository/<action:\w+>/<id:\d+>'   => 'repository/<action>',
+                '/projects/<identifier>/issueCategory/<action:\w+>/<id:\d+>'   => 'issueCategory/<action>',
+                '/projects/<identifier>/changeset/<action:\w+>/<id:\d+>'   => 'changeset/<action>',
+                '/projects/<identifier>/<_a:(activity|roadmap|code|settings)>'   => 'project/<_a>',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
-                'comment/feed'=>array('comment/feed', 'urlSuffix'=>'.xml', 'caseSensitive'=>false),
+                'projects/<identifier>/feed'=>array('project/feed', 'urlSuffix'=>'.xml', 'caseSensitive'=>false),
+                '/issues/' => 'issue/index',
                 ),
         ),
         'db' => require(dirname(__FILE__) . '/db.php'),
