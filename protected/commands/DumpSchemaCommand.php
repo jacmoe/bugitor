@@ -5,7 +5,7 @@ class DumpSchemaCommand extends CConsoleCommand
 
     public function run($args) {
         $schema = $args[0];
-        $tables = Yii::app()->db->schema->getTables($schema);
+        $tables = Yii::app()->db->schema->getTables(/*$schema*/);
         $result = '';
         foreach ($tables as $def) {
             $result .= '$this->createTable("' . $def->name . '", array(' . "\n";
