@@ -108,9 +108,9 @@ class InstallController extends CController {
      * @param WizardEvent The event
      */
     public function wizardFinished($event) {
-//		if ($event->step===true)
-//			$this->render('completed', compact('event'));
-//		else
+		if ($event->step===true)
+			$this->render('completed', compact('event'));
+		else
         $this->render('finished', compact('event'));
 
         $event->sender->reset();
@@ -127,12 +127,51 @@ class InstallController extends CController {
         $model = new $modelName();
         $model->attributes = $event->data;
         $form = $model->getForm();
-
+        
+        $message = '';
+        switch ($event->sender->currentStep) {
+            case '1':
+                $message = 'Welcome';
+                break;
+            default:
+            case '2':
+                $message = 'Please enter your database information';
+                break;
+            case '3':
+                $config = require(dirname(__FILE__).'/../../../config/db.php');
+                $connection=new CDbConnection($config['connectionString'],$config['username'],$config['password']);
+                try {
+                    $connection->active=true;
+                } catch (Exception $e) {
+                    $message .= 'Connection failed - Please go back and enter the database details again!<br/>';
+                }
+                if($connection->active){
+                    $message .= 'Connection was succesful!<br/>';
+                    $cmd = dirname(__FILE__)."/../../../yiic migrate --interactive=0";
+                    $output = stream_get_contents(popen($cmd, 'r'));
+                    $output = stream_get_contents(popen($cmd, 'r'));
+                    if (preg_match("/Your system is up-to-date/i", $output)) {
+                        $message .= "Migration successfully applied.";
+                    } else {
+                        $message .= "An error occurred - here be dragons..";
+                    }
+                    echo $output;
+                }
+                break;
+        }
+        
         if ($form->submitted() && $form->validate()) {
             $event->sender->save($model->attributes);
             $event->handled = true;
+            switch ($event->sender->currentStep) {
+                case '2':
+                    $model->save();
+                    break;
+                default:
+                    break;
+            }
         } else {
-            $this->render('form', compact('event', 'form'));
+            $this->render('form', compact('message', 'event', 'form'));
         }
     }
     
