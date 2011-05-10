@@ -38,7 +38,7 @@
  * ContactForm is the data structure for keeping
  * contact form data. It is used by the 'contact' action of 'SiteController'.
  */
-class Stuff extends CFormModel
+class Three extends CFormModel
 {
 	public function getForm() {
 		return new CForm(array(
@@ -50,7 +50,7 @@ class Stuff extends CFormModel
 				),
 				'submit'=>array(
 					'type'=>'submit',
-					'label'=>'Next'
+					'label'=>'Finish'
 				),
 			)
 		), $this);

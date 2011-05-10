@@ -51,7 +51,7 @@ class InstallController extends CController {
     public function beforeAction($action) {
         $config = array();
         $config = array(
-            'steps' => array('install', 'database', 'stuff'),
+            'steps' => array('Start Installation' => 'one', 'Database Connection' => 'two', 'Install Schema and Data' => 'three'),
             'events' => array(
                 'onStart' => 'wizardStart',
                 'onProcessStep' => 'installationWizardProcessStep',
@@ -123,56 +123,85 @@ class InstallController extends CController {
      * @param WizardEvent The event
      */
     public function installationWizardProcessStep($event) {
+        $name = 'process'.ucfirst($event->step);
+        if (method_exists($this, $name)) {
+            $event->handled = call_user_func(array($this,$name), $event);
+        } else {
+            throw new CException(Yii::t('yii','{class} does not have a method named "{name}".', 
+                array('{class}'=>get_class($this), '{name}'=>$name)));
+        }
+    }
+
+    // Check that systems are online and prepare for install
+    // Also check that installation is not locked
+    public function processOne($event) {
         $modelName = ucfirst($event->step);
         $model = new $modelName();
         $model->attributes = $event->data;
         $form = $model->getForm();
-        
-        $message = '';
-        switch ($event->sender->currentStep) {
-            case '1':
-                $message = 'Welcome';
-                break;
-            default:
-            case '2':
-                $message = 'Please enter your database information';
-                break;
-            case '3':
-                $config = require(dirname(__FILE__).'/../../../config/db.php');
-                $connection=new CDbConnection($config['connectionString'],$config['username'],$config['password']);
-                try {
-                    $connection->active=true;
-                } catch (Exception $e) {
-                    $message .= 'Connection failed - Please go back and enter the database details again!<br/>';
-                }
-                if($connection->active){
-                    $message .= 'Connection was succesful!<br/>';
-                    $cmd = dirname(__FILE__)."/../../../yiic migrate --interactive=0";
-                    $output = stream_get_contents(popen($cmd, 'r'));
-                    $output = stream_get_contents(popen($cmd, 'r'));
-                    if (preg_match("/Your system is up-to-date/i", $output)) {
-                        $message .= "Migration successfully applied.";
-                    } else {
-                        $message .= "An error occurred - here be dragons..";
-                    }
-                    echo $output;
-                }
-                break;
-        }
-        
+        $message = 'Welcome here!';
         if ($form->submitted() && $form->validate()) {
             $event->sender->save($model->attributes);
-            $event->handled = true;
-            switch ($event->sender->currentStep) {
-                case '2':
-                    $model->save();
-                    break;
-                default:
-                    break;
+            return true;
+        } else {
+            $this->render('form', compact('message', 'event', 'form'));
+        }
+        
+    }
+    
+    // Get database connection string and credentials from user
+    // Should test connection as part of validation?
+    public function processTwo($event) {
+        $modelName = ucfirst($event->step);
+        $model = new $modelName();
+        $model->attributes = $event->data;
+        $form = $model->getForm();
+        $message = 'Enter your database details';
+        if ($form->submitted() && $form->validate()) {
+            $event->sender->save($model->attributes);
+            return true;
+            $model->save();
+        } else {
+            $this->render('form', compact('message', 'event', 'form'));
+        }
+        
+    }
+    
+    // Test that the database connection is valid (should be moved to previous step?)
+    // Apply database migrations
+    public function processThree($event) {
+        $modelName = ucfirst($event->step);
+        $model = new $modelName();
+        $model->attributes = $event->data;
+        $form = $model->getForm();
+        $message = 'Testing connection.';
+        
+        $config = require(dirname(__FILE__).'/../../../config/db.php');
+        $connection=new CDbConnection($config['connectionString'],$config['username'],$config['password']);
+        try {
+            $connection->active=true;
+        } catch (Exception $e) {
+            $message .= 'Connection failed - Please go back and enter the database details again!<br/>';
+        }
+        if($connection->active){
+            $message .= 'Connection was succesful!<br/>';
+            $cmd = dirname(__FILE__)."/../../../yiic migrate --interactive=0";
+            // Run the command twice - second time around it should
+            // output that our system is up-to-date.
+            $output = stream_get_contents(popen($cmd, 'r'));
+            $output = stream_get_contents(popen($cmd, 'r'));
+            if (preg_match("/Your system is up-to-date/i", $output)) {
+                $message .= "Migration successfully applied.";
+            } else {
+                // TODO: handle this.
+                $message .= "An error occurred - here be dragons..";
             }
+        }        
+        if ($form->submitted() && $form->validate()) {
+            $event->sender->save($model->attributes);
+            return true;
         } else {
             $this->render('form', compact('message', 'event', 'form'));
         }
     }
-    
 }
