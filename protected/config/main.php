@@ -59,9 +59,9 @@ return array(
         'ext.scm.*',
         'ext.yii-mail.YiiMailMessage',
     ),
+    'onBeginRequest' => array('Bootstrap', 'beginRequest'),
     'modules' => array(
         'admin',
-        'installer',
         'rights' => array(
             'install' => false,
             'appLayout'=>'application.modules.admin.views.layouts.main',

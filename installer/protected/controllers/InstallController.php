@@ -36,8 +36,6 @@
 
 class InstallController extends CController {
 
-    var $layout = 'main';
-    
     var $defaultAction = 'installation';
 
     /**
@@ -45,7 +43,7 @@ class InstallController extends CController {
      */
     public function init() {
         // Register the scripts
-        $this->module->registerScripts();
+        //$this->module->registerScripts();
     }
 
     public function beforeAction($action) {
@@ -61,20 +59,10 @@ class InstallController extends CController {
             'menuLastItem' => 'Installation Finished'
         );
         if (!empty($config)) {
-            $config['class'] = 'installer.components.WizardBehavior';
+            $config['class'] = 'WizardBehavior';
             $this->attachBehavior('wizard', $config);
         }
         return parent::beforeAction($action);
-    }
-
-    /**
-     * This is the default 'index' action that is invoked
-     * when an action is not explicitly requested by users.
-     */
-    public function actionIndex() {
-        // renders the view file 'protected/views/site/index.php'
-        // using the default layout 'protected/views/layouts/main.php'
-        $this->render('index');
     }
 
     public function actionInstallation($step=null) {
@@ -114,7 +102,8 @@ class InstallController extends CController {
         $this->render('finished', compact('event'));
 
         $event->sender->reset();
-        Yii::app()->end();
+        unlink(dirname(__FILE__).'/../../../protected/config/installation_lock');
+        $this->redirect($this->createUrl('/'));
     }
 
     /**
@@ -160,6 +149,7 @@ class InstallController extends CController {
         $message = 'Enter your database details';
         if ($form->submitted() && $form->validate()) {
             $event->sender->save($model->attributes);
+            touch(dirname(__FILE__).'/../../../protected/config/installation_lock');
             $model->save();
             return true;
         } else {
@@ -177,26 +167,30 @@ class InstallController extends CController {
         $form = $model->getForm();
         $message = 'Testing connection...<br/><br/>';
         
-        $config = require(dirname(__FILE__).'/../../../config/db.php');
-        $connection=new CDbConnection($config['connectionString'],$config['username'],$config['password']);
-        try {
-            $connection->active=true;
-        } catch (Exception $e) {
-            $message .= '<font color="red">Error:</font> Could not connect to database. Please go back to the previous step and check your database settings.';
-        }
-        if($connection->active){
-            $failed = false;
-            $message .= '<font color="green">Success:</font> Connection was succesful!<br/>';
-            $cmd = dirname(__FILE__)."/../../../yiic migrate --interactive=0";
-            // Run the command twice - second time around it should
-            // output that our system is up-to-date.
-            $output = stream_get_contents(popen($cmd, 'r'));
-            $output = stream_get_contents(popen($cmd, 'r'));
-            if (preg_match("/Your system is up-to-date/i", $output)) {
-                $message .= '<font color="green">Success:</font> Migration successfully applied.';
+        if(file_exists(dirname(__FILE__).'/../../../protected/config/db.php')) {
+            $config = require(dirname(__FILE__).'/../../../protected/config/db.php');
+            $connection=new CDbConnection($config['connectionString'],$config['username'],$config['password']);
+            try {
+                $connection->active=true;
+            } catch (Exception $e) {
+                $message .= '<font color="red">Error:</font> Could not connect to database. Please go back to the previous step and check your database settings.';
+            }
+            if($connection->active){
+                $failed = false;
+                $message .= '<font color="green">Success:</font> Connection was succesful!<br/>';
+                $cmd = dirname(__FILE__)."/../../../protected/yiic migrate --interactive=0";
+                // Run the command twice - second time around it should
+                // output that our system is up-to-date.
+                $output = stream_get_contents(popen($cmd, 'r'));
+                $output = stream_get_contents(popen($cmd, 'r'));
+                if (preg_match("/Your system is up-to-date/i", $output)) {
+                    $message .= '<font color="green">Success:</font> Migration successfully applied.';
+                } else {
+                    // TODO: handle this.
+                    $message .= '<font color="red">Error:</font>An error occurred - here be dragons..';
+                }
             } else {
-                // TODO: handle this.
-                $message .= '<font color="red">Error:</font>An error occurred - here be dragons..';
+                $failed = true;
             }
         } else {
             $failed = true;

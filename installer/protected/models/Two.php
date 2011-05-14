@@ -110,7 +110,7 @@ class Two extends CFormModel {
     }
 
     public function save() {
-        $db_config = file_get_contents(dirname(__FILE__).'/../../../config/db.in.php');
+        $db_config = file_get_contents(dirname(__FILE__).'/../../../protected/config/db.in.php');
         $db_config = str_replace('{host_in}', $this->host, $db_config);
         $db_config = str_replace('{dbname_in}', $this->dbname, $db_config);
         $db_config = str_replace('{username_in}', $this->username, $db_config);
@@ -118,10 +118,10 @@ class Two extends CFormModel {
         $db_config = str_replace('{password_in}', $this->password, $db_config);
         $db_config = str_replace('{charset_in}', $this->charset, $db_config);
         
-        $fd = fopen(dirname(__FILE__).'/../../../config/db.php', "w");
+        $fd = fopen(dirname(__FILE__).'/../../../protected/config/db.php', "w");
         fwrite($fd, $db_config);
         fclose($fd);
-        @chmod(dirname(__FILE__).'/../../../config/db.php',0775);
+        @chmod(dirname(__FILE__).'/../../../protected/config/db.php',0775);
         return true;
     }
 }
