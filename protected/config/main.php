@@ -59,7 +59,6 @@ return array(
         'ext.scm.*',
         'ext.yii-mail.YiiMailMessage',
     ),
-    'onBeginRequest' => array('Bootstrap', 'beginRequest'),
     'modules' => array(
         'admin',
         'rights' => array(
