@@ -46,7 +46,8 @@ class One extends CFormModel
 			'buttons'=>array(
 				'submit'=>array(
 					'type'=>'submit',
-					'label'=>'Install'
+					'label'=>'Install',
+                                        'id' => 'installButton',
 				),
 			)
 		), $this);
