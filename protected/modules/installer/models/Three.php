@@ -50,7 +50,8 @@ class Three extends CFormModel
 				),
 				'submit'=>array(
 					'type'=>'submit',
-					'label'=>'Finish'
+					'label'=>'Finish',
+                                        'id' => 'migrateButton',
 				),
 			)
 		), $this);

@@ -140,11 +140,12 @@ class InstallController extends CController {
         $model->attributes = $event->data;
         $form = $model->getForm();
         $message = 'Welcome here!';
+        $failed = false;
         if ($form->submitted() && $form->validate()) {
             $event->sender->save($model->attributes);
             return true;
         } else {
-            $this->render('form', compact('message', 'event', 'form'));
+            $this->render('systemcheck', compact('message', 'event', 'failed', 'form'));
         }
         
     }
@@ -159,8 +160,8 @@ class InstallController extends CController {
         $message = 'Enter your database details';
         if ($form->submitted() && $form->validate()) {
             $event->sender->save($model->attributes);
-            return true;
             $model->save();
+            return true;
         } else {
             $this->render('form', compact('message', 'event', 'form'));
         }
@@ -174,34 +175,37 @@ class InstallController extends CController {
         $model = new $modelName();
         $model->attributes = $event->data;
         $form = $model->getForm();
-        $message = 'Testing connection.';
+        $message = 'Testing connection...<br/><br/>';
         
         $config = require(dirname(__FILE__).'/../../../config/db.php');
         $connection=new CDbConnection($config['connectionString'],$config['username'],$config['password']);
         try {
             $connection->active=true;
         } catch (Exception $e) {
-            $message .= 'Connection failed - Please go back and enter the database details again!<br/>';
+            $message .= '<font color="red">Error:</font> Could not connect to database. Please go back to the previous step and check your database settings.';
         }
         if($connection->active){
-            $message .= 'Connection was succesful!<br/>';
+            $failed = false;
+            $message .= '<font color="green">Success:</font> Connection was succesful!<br/>';
             $cmd = dirname(__FILE__)."/../../../yiic migrate --interactive=0";
             // Run the command twice - second time around it should
             // output that our system is up-to-date.
             $output = stream_get_contents(popen($cmd, 'r'));
             $output = stream_get_contents(popen($cmd, 'r'));
             if (preg_match("/Your system is up-to-date/i", $output)) {
-                $message .= "Migration successfully applied.";
+                $message .= '<font color="green">Success:</font> Migration successfully applied.';
             } else {
                 // TODO: handle this.
-                $message .= "An error occurred - here be dragons..";
+                $message .= '<font color="red">Error:</font>An error occurred - here be dragons..';
             }
-        }        
+        } else {
+            $failed = true;
+        }
         if ($form->submitted() && $form->validate()) {
             $event->sender->save($model->attributes);
             return true;
         } else {
-            $this->render('form', compact('message', 'event', 'form'));
+            $this->render('dbcheckinstall', compact('message', 'event', 'failed', 'form'));
         }
     }
 }
