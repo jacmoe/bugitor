@@ -57,9 +57,13 @@
                 <br/>
                 <br/>
             </div><!-- header -->
-            <h1 class="quiet">Bugitor Installer</h1>
+            <div><?php echo CHtml::image(Yii::app()->request->baseUrl . '/images/bugitor_64.png',
+                    'Bugitor - The Yii-powered issue tracker', array(
+                        'title' => 'Bugitor - The Yii-powered issue tracker')) ?><font style="font-size: 2em; position: relative; bottom: 20px;" class="quiet">Bugitor Installer</font></div>
             <hr/>
-            <?php echo $content; ?>
+            <div id="content">
+                <?php echo $content; ?>
+            </div><!-- content -->
             <br/>
             <div class="span-24 alt"><div align="center" class="quiet">
                     <hr/>
