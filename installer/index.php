@@ -12,5 +12,9 @@ if(file_exists(dirname(__FILE__).'/lock')) {
     die("<font color=\"red\">Attention:</font> Installer has been locked.<br/>
         Please remove the lock file in the installer directory and try again.");
 }
+// remove the following lines when in production mode
+defined('YII_DEBUG') or define('YII_DEBUG',true);
+// specify how many levels of call stack should be shown in each log message
+defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',2);
 require_once($yii);
 Yii::createWebApplication($config)->run();

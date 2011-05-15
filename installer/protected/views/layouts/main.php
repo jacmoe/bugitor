@@ -64,7 +64,7 @@
             <div class="span-24 alt"><div align="center" class="quiet">
                     <hr/>
                     Powered by <a class="noicon" title="Bugitor - The Yii-powered issue tracker" href="http://bitbucket.org/jacmoe/bugitor">Bugitor</a> &copy; 2010 - 2011 by Bugitor Team.<br/>
-                    <a class="noicon" href="http://www.yiiframework.com/" rel="external"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/yii_power_lightblue_white.gif" alt="Made with Yii Framework" title="Made with Yii Framework"/></a>
+                    <a class="noicon" href="http://www.yiiframework.com/" rel="external"><img src="<?php echo Yii::app()->request->baseUrl ?>/images/yii_power_lightblue_white.gif" alt="Made with Yii Framework" title="Made with Yii Framework"/></a>
                     <hr/>
                 </div>
             </div><!-- page -->
