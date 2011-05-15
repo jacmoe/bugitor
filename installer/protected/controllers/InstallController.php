@@ -38,14 +38,6 @@ class InstallController extends CController {
 
     var $defaultAction = 'installation';
 
-    /**
-     * Initializes the controller.
-     */
-    public function init() {
-        // Register the scripts
-        //$this->module->registerScripts();
-    }
-
     public function beforeAction($action) {
         $config = array();
         $config = array(
@@ -65,6 +57,20 @@ class InstallController extends CController {
         return parent::beforeAction($action);
     }
 
+    /**
+     * This is the action to handle external exceptions.
+     */
+    public function actionError()
+    {
+        if($error=Yii::app()->errorHandler->error)
+        {
+            if(Yii::app()->request->isAjaxRequest)
+                    echo $error['message'];
+            else
+                    $this->render('error', $error);
+        }
+    }
+    
     public function actionInstallation($step=null) {
         $this->pageTitle = 'Installation Wizard';
         $this->process($step);
@@ -96,13 +102,13 @@ class InstallController extends CController {
      * @param WizardEvent The event
      */
     public function wizardFinished($event) {
-		if ($event->step===true)
-			$this->render('completed', compact('event'));
-		else
-        $this->render('finished', compact('event'));
-
+        if ($event->step === true) {
+            $this->render('completed', compact('event'));
+        } else {
+            $this->render('finished', compact('event'));
+            //touch(dirname(__FILE__).'/../../lock');
+        }
         $event->sender->reset();
-        touch(dirname(__FILE__).'/../../lock');
         Yii::app()->end();
     }
 
@@ -112,12 +118,11 @@ class InstallController extends CController {
      * @param WizardEvent The event
      */
     public function installationWizardProcessStep($event) {
-        $name = 'process'.ucfirst($event->step);
+        $name = 'process' . ucfirst($event->step);
         if (method_exists($this, $name)) {
-            $event->handled = call_user_func(array($this,$name), $event);
+            $event->handled = call_user_func(array($this, $name), $event);
         } else {
-            throw new CException(Yii::t('yii','{class} does not have a method named "{name}".', 
-                array('{class}'=>get_class($this), '{name}'=>$name)));
+            throw new CException(Yii::t('yii', '{class} does not have a method named "{name}".', array('{class}' => get_class($this), '{name}' => $name)));
         }
     }
 
@@ -128,17 +133,27 @@ class InstallController extends CController {
         $model = new $modelName();
         $model->attributes = $event->data;
         $form = $model->getForm();
-        $message = 'Welcome here!';
+        
+        $status = $this->checkPermissions();
+        $message = $status['message'];
+        $message .= '<br/>';
         $failed = false;
+        if($status['error'] > 0) {
+            $failed = true;
+            $message .= "There were {$status['error']} errors.<br/>";
+            $message .= 'Please adjust permissions so that the above entries are writable by the Apache process.<br/>';
+        } else {
+            $message .= 'Everything seems to be <b><font color="green">OK.</font></b><br/><br/>';
+            $message .= 'The installation can proceed.<br/><br/>';
+        }
         if ($form->submitted() && $form->validate()) {
             $event->sender->save($model->attributes);
             return true;
         } else {
             $this->render('systemcheck', compact('message', 'event', 'failed', 'form'));
         }
-        
     }
-    
+
     // Get database connection string and credentials from user
     // Should test connection as part of validation?
     public function processTwo($event) {
@@ -154,9 +169,8 @@ class InstallController extends CController {
         } else {
             $this->render('form', compact('message', 'event', 'form'));
         }
-        
     }
-    
+
     // Test that the database connection is valid (should be moved to previous step?)
     // Apply database migrations
     public function processThree($event) {
@@ -165,19 +179,19 @@ class InstallController extends CController {
         $model->attributes = $event->data;
         $form = $model->getForm();
         $message = 'Testing connection...<br/><br/>';
-        
-        if(file_exists(dirname(__FILE__).'/../../../protected/config/db.php')) {
-            $config = require(dirname(__FILE__).'/../../../protected/config/db.php');
-            $connection=new CDbConnection($config['connectionString'],$config['username'],$config['password']);
+
+        if (file_exists(dirname(__FILE__) . '/../../../protected/config/db.php')) {
+            $config = require(dirname(__FILE__) . '/../../../protected/config/db.php');
+            $connection = new CDbConnection($config['connectionString'], $config['username'], $config['password']);
             try {
-                $connection->active=true;
+                $connection->active = true;
             } catch (Exception $e) {
                 $message .= '<font color="red">Error:</font> Could not connect to database. Please go back to the previous step and check your database settings.';
             }
-            if($connection->active){
+            if ($connection->active) {
                 $failed = false;
                 $message .= '<font color="green">Success:</font> Connection was succesful!<br/>';
-                $cmd = dirname(__FILE__)."/../../../protected/yiic migrate --interactive=0";
+                $cmd = dirname(__FILE__) . "/../../../protected/yiic migrate --interactive=0";
                 // Run the command twice - second time around it should
                 // output that our system is up-to-date.
                 $output = stream_get_contents(popen($cmd, 'r'));
@@ -200,5 +214,50 @@ class InstallController extends CController {
         } else {
             $this->render('dbcheckinstall', compact('message', 'event', 'failed', 'form'));
         }
+    }
+
+    protected function checkPermissions()
+    {
+        $out = array();
+        $message = '';
+        $error = 0;
+        if(is_writable(dirname(__FILE__).'/../../../assets')) {
+            $message .= 'assets directory is <b><font color="green">writable</font></b><br/>';
+        } else
+        {
+            $message .= 'assets directory is not writable - <b><font color="red">error!</font></b><br/>';
+            $error += 1;
+        }
+        if(is_writable(dirname(__FILE__).'/../../../uploads')) {
+            $message .= 'uploads directory is <b><font color="green">writable</font></b><br/>';
+        } else
+        {
+            $message .= 'uploads directory is not writable - <b><font color="red">error!</font></b><br/>';
+            $error += 1;
+        }
+        if(is_writable(dirname(__FILE__).'/../../../repositories')) {
+            $message .= 'repositories directory is <b><font color="green">writable</font></b><br/>';
+        } else
+        {
+            $message .= 'repositories directory is not writable - <b><font color="red">error!</font></b><br/>';
+            $error += 1;
+        }
+        if(is_writable(dirname(__FILE__).'/../../../protected/runtime')) {
+            $message .= 'protected/runtime directory is <b><font color="green">writable</font></b><br/>';
+        } else
+        {
+            $message .= 'protected/runtime directory is not writable - <b><font color="red">error!</font></b><br/>';
+            $error += 1;
+        }
+        if(is_writable(dirname(__FILE__).'/../../../protected/config')) {
+            $message .= 'protected/config directory is <b><font color="green">writable</font></b><br/>';
+        } else
+        {
+            $message .= 'protected/config directory is not writable - <b><font color="red">error!</font></b><br/>';
+            $error += 1;
+        }
+        $out['message'] = $message;
+        $out['error'] = $error;
+        return $out;
     }
 }
