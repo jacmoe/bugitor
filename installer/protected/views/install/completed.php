@@ -1,14 +1,9 @@
 <?php
 echo $event->sender->menu->run();
-echo CHtml::tag('p', array(), 'Data collected is:');
-foreach ($event->data as $step=>$data):
-        $modelName = ucfirst($step);
-	$model = new $modelName();
-	echo CHtml::tag('h2', array(), $event->sender->getStepLabel($step));
-	echo ('<ul>');
-	foreach ($data as $k=>$v)
-		echo '<li>'.$model->getAttributeLabel($k).": $v</li>";
-	echo ('</ul>');
-endforeach;
-echo CHtml::link('Run installer', 'installation');
-
+echo '<br/>';
+echo 'Installation finished succesfully.<br/>';
+echo '<br/>';
+echo '<font color="red">Important:</font> Log in using username <em>admin</em> and password <em>admin</em><br/>';
+echo 'Be sure to change both username and password upon logging in for the first time!<br/><br/>';
+echo 'Enjoy Bugitor. :)<br/><br/>';
+echo CHtml::link('Exit Installer', '../../user/login');
