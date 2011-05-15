@@ -41,11 +41,17 @@
  */
 class Two extends CFormModel {
 
+//    public $host = 'localhost';
+//    public $dbname = 'bugitor';
+//    public $username;
+//    public $tablePrefix = 'bugitor_';
+//    public $password;
+//    public $charset = 'utf8';
     public $host = 'localhost';
-    public $dbname = 'bugitor';
-    public $username;
+    public $dbname = 'migratetest';
+    public $username = 'webuser';
     public $tablePrefix = 'bugitor_';
-    public $password;
+    public $password = 'jake2383';
     public $charset = 'utf8';
 
     /**

@@ -102,8 +102,8 @@ class InstallController extends CController {
         $this->render('finished', compact('event'));
 
         $event->sender->reset();
-        unlink(dirname(__FILE__).'/../../../protected/config/installation_lock');
-        $this->redirect($this->createUrl('/'));
+        touch(dirname(__FILE__).'/../../lock');
+        Yii::app()->end();
     }
 
     /**
@@ -149,7 +149,6 @@ class InstallController extends CController {
         $message = 'Enter your database details';
         if ($form->submitted() && $form->validate()) {
             $event->sender->save($model->attributes);
-            touch(dirname(__FILE__).'/../../../protected/config/installation_lock');
             $model->save();
             return true;
         } else {

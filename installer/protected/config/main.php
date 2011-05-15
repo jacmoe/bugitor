@@ -1,10 +1,5 @@
 <?php
 
-// uncomment the following to define a path alias
-// Yii::setPathOfAlias('local','path/to/local-folder');
-
-// This is the main Web application configuration. Any writable
-// CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
         'name' => 'Bugitor Installer',
@@ -40,8 +35,7 @@ return array(
             'showScriptName' => false
 		),
 		'errorHandler'=>array(
-			// use 'site/error' action to display errors
-            'errorAction'=>'site/error',
+            'errorAction'=>'install/error',
         ),
 		'log'=>array(
 			'class'=>'CLogRouter',
@@ -50,20 +44,7 @@ return array(
 					'class'=>'CFileLogRoute',
 					'levels'=>'error, warning',
 				),
-				// uncomment the following to show log messages on web pages
-				/*
-				array(
-					'class'=>'CWebLogRoute',
-				),
-				*/
 			),
 		),
-	),
-
-	// application-level parameters that can be accessed
-	// using Yii::app()->params['paramName']
-	'params'=>array(
-		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',
 	),
 );
