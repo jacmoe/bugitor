@@ -109,18 +109,11 @@
             <?php else : ?>
                 <?php echo Bugitor::small_progress_bar(array($closed_percent, $done_ratio, $open_ratio), array('width' => '250px', 'legend' => number_format($closed_percent + $done_ratio) . '%')); ?><br/>
             <?php endif; ?>
-            <?php if($show_detail) : ?>
                 <?php echo Yii::app()->textile->textilize($version->description); ?>
-                    <?php if($this->controller->id === 'project') : ?>
-                        <fieldset id="version_related_<?php echo $version->id ?>_fieldset" class="collapsible collapsed related-issues">
-                        <legend onclick="$('#description_row').toggle();$('#version_related_issues_<?php echo $version->id ?>').toggle();$('#version_related_<?php echo $version->id ?>_fieldset').toggleClass('collapsed')">
-                        <?php echo 'Related issues'; ?><small> (Click to toggle)</small></legend>
-                        <div class="issues" id="version_related_issues_<?php echo $version->id ?>" style="display: none;">
-                    <?php else : ?>
+                    <?php if($this->controller->id === 'version') : ?>
                         <fieldset class="related-issues">
                         <legend><?php echo 'Related issues'; ?></legend>
                         <div class="issues">
-                    <?php endif; ?>
                     <ul>
                         <?php foreach($version->issues as $issue) : ?>
                             <li>
@@ -130,8 +123,9 @@
                     </ul>
                     </div>
                     </fieldset>
-            <?php endif; ?>
+                <?php endif; ?>
         <?php else : ?>
+                <?php echo Yii::app()->textile->textilize($version->description); ?>
             <p class="nodata"><?php echo 'No issues for this version'; ?></p>
         <?php endif; // is issues ?>
     <?php endif; // if show version ?>

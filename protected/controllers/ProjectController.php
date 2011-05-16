@@ -143,7 +143,11 @@ class ProjectController extends Controller {
         $criteria = new CDbCriteria;
         $criteria->condition = 'identifier = :identifier';
         $criteria->params = array('identifier' => $_GET['identifier']);
-        $project = Project::model()->with('activities')->find($criteria);
+        
+        // Sourceforge does not like 'with activities' ...
+        //$project = Project::model()->with('activities')->find($criteria);
+        $project = Project::model()->find($criteria);
+        
         $_GET['projectname'] = $project->name;
         
         Yii::app()->clientScript->registerLinkTag(
@@ -163,11 +167,17 @@ class ProjectController extends Controller {
         $criteria = new CDbCriteria();
         $criteria->condition = 'identifier = :identifier';
         $criteria->params = array('identifier' => $_GET['identifier']);
-        $criteria->group = 'versions.effective_date, issues.closed, issues.id';
-        $criteria->order = 'versions.effective_date, issues.closed, issues.id DESC';
+        //$criteria->group = 'versions.effective_date, issues.closed, issues.id';
+        //$criteria->order = 'versions.effective_date, issues.closed, issues.id DESC';
+        $criteria->group = 'versions.effective_date';
+        $criteria->order = 'versions.effective_date';
 
+        // Sourceforge dies on versions with issues..
+        //$project = Project::model()->with(
+        //        array('versions' => array('with' => array('issues')))
+        //        )->find($criteria);
         $project = Project::model()->with(
-                array('versions' => array('with' => array('issues')))
+                array('versions')
                 )->find($criteria);
 
         $_GET['projectname'] = $project->name;
