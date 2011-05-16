@@ -40,7 +40,9 @@ class InstallController extends CController {
     public function beforeAction($action) {
         $config = array();
         $config = array(
-            'steps' => array('Start Installation' => 'one', 'Database Connection' => 'two', 'Install Schema and Data' => 'three'),
+            'steps' => array('Start Installation/Upgrade' => 'prepare', 
+                array('dbcon' => array('Setup Database Connection' => 'connectiondetails')),
+                'Database Migration' => 'migrate'),
             'events' => array(
                 'onStart' => 'wizardStart',
                 'onProcessStep' => 'installationWizardProcessStep',
@@ -83,6 +85,27 @@ class InstallController extends CController {
      * @param WizardEvent The event
      */
     public function wizardStart($event) {
+        
+        if (file_exists(dirname(__FILE__) . '/../../../protected/config/db.php')) {
+            $config = require(dirname(__FILE__) . '/../../../protected/config/db.php');
+            $connection = new CDbConnection($config['connectionString'], $config['username'], $config['password']);
+            try {
+                $connection->active = true;
+            } catch (Exception $e) {
+                $event->sender->branch(array(
+                    'shit' => WizardBehavior::BRANCH_SELECT,
+                ));
+            }
+            if ($connection->active) {
+                $event->sender->branch(array(
+                    'Connection Details' => WizardBehavior::BRANCH_SKIP,
+                ));
+            }
+        } else {
+                $event->sender->branch(array(
+                    'shit' => WizardBehavior::BRANCH_SELECT,
+                ));
+        }
         $event->handled = true;
     }
 
@@ -127,7 +150,31 @@ class InstallController extends CController {
 
     // Check that systems are online and prepare for install
     // Also check that installation is not locked
-    public function processOne($event) {
+    public function processPrepare($event) {
+        $existing_message = '';
+        if (file_exists(dirname(__FILE__) . '/../../../protected/config/db.php')) {
+            $config = require(dirname(__FILE__) . '/../../../protected/config/db.php');
+            $connection = new CDbConnection($config['connectionString'], $config['username'], $config['password']);
+            try {
+                $connection->active = true;
+            } catch (Exception $e) {
+                $event->sender->branch(array(
+                    'dbcon' => WizardBehavior::BRANCH_SELECT,
+                ));
+            }
+            if ($connection->active) {
+                $event->sender->branch(array(
+                    'dbcon' => WizardBehavior::BRANCH_SKIP,
+                ));
+                $existing_message .= '<div class="box"><font style="color: blue;font-size: 1.2em;"><b>Attention:</b></font>.<br/>';
+                $existing_message .= '<font style="font-size: 1.2em;">An existing database configuration was found.</font><br/>';
+                $existing_message .= 'If you wish to reconfigure that connection, simply delete <em>db.php</em> in BUGITOR/protected/config.</div><br/><br/>';
+            }
+        } else {
+                $event->sender->branch(array(
+                    'dbcon' => WizardBehavior::BRANCH_SELECT,
+                ));
+        }
         $modelName = ucfirst($event->step);
         $model = new $modelName();
         $model->attributes = $event->data;
@@ -144,6 +191,7 @@ class InstallController extends CController {
         } else {
             $message .= 'Everything seems to be <b><font color="green">OK.</font></b><br/><br/>';
             $message .= 'The installation can proceed.<br/><br/>';
+            $message .= $existing_message;
         }
         if ($form->submitted() && $form->validate()) {
             $event->sender->save($model->attributes);
@@ -155,7 +203,7 @@ class InstallController extends CController {
 
     // Get database connection string and credentials from user
     // Should test connection as part of validation?
-    public function processTwo($event) {
+    public function processConnectiondetails($event) {
         $modelName = ucfirst($event->step);
         $model = new $modelName();
         $model->attributes = $event->data;
@@ -172,7 +220,7 @@ class InstallController extends CController {
 
     // Test that the database connection is valid (should be moved to previous step?)
     // Apply database migrations
-    public function processThree($event) {
+    public function processMigrate($event) {
         $modelName = ucfirst($event->step);
         $model = new $modelName();
         $model->attributes = $event->data;

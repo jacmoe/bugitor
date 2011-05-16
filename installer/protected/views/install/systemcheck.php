@@ -35,6 +35,13 @@
 echo $event->sender->menu->run();
 echo '<div>Step '.$event->sender->currentStep.' of '.$event->sender->stepCount;
 echo '<h3>'.$event->sender->getStepLabel($event->step).'</h3>';
+echo '<div class="box">';
+echo'<font style="font-size: 1.2em;">Welcome to the Bugitor installer/upgrader.</font><br/><br/>';
+echo'This installer will either install or upgrade an existing installation.<br/>';
+echo 'The installer is non-destructive. But please: make a backup of your database, just in case.<br/>';
+echo '<br/>';
+echo 'If you wish to completely re-install, you need to empty the database manually.<br/><br/>';
+echo '</div>';
 echo 'Checking permissions..<br/><br/>';
 echo $message;
 if($failed) {

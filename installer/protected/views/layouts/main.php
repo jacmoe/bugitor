@@ -59,7 +59,7 @@
             </div><!-- header -->
             <div><?php echo CHtml::image(Yii::app()->request->baseUrl . '/images/bugitor_64.png',
                     'Bugitor - The Yii-powered issue tracker', array(
-                        'title' => 'Bugitor - The Yii-powered issue tracker')) ?><font style="font-size: 2em; position: relative; bottom: 20px;" class="quiet">Bugitor Installer</font></div>
+                        'title' => 'Bugitor - The Yii-powered issue tracker')) ?><font style="font-size: 2em; position: relative; bottom: 20px;" class="quiet">Bugitor Installer/Upgrader</font></div>
             <hr/>
             <div id="content">
                 <?php echo $content; ?>

@@ -52,7 +52,7 @@ class WizardBehavior extends CBehavior {
 	* @property boolean If true, the first "non-skipped" branch in a group will be
 	* used if a branch has not been specifically selected.
 	*/
-	public $defaultBranch = true;
+	public $defaultBranch = false;
 	/**
 	* @property boolean Whether the wizard should go to the next step if the
 	* current step expires. If true the wizard continues, if false the wizard is
