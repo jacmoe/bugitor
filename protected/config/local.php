@@ -61,6 +61,11 @@ return CMap::mergeArray(
                         'levels' => 'error, warning, trace',
                     ),
                     array(
+                        'class'=>'CProfileLogRoute',
+                        'levels'=>'profile',
+                        'enabled'=>true,
+                    ),
+                    array(
                         'class' => 'CFileLogRoute',
                         'levels' => 'info, error, warning, trace',
                         'categories' => 'bugitor',

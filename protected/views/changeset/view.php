@@ -32,8 +32,8 @@
  */
 ?>
 <?php
-    if(Yii::app()->config->get('python_path') !== '')
-        putenv(Yii::app()->config->get('python_path'));
+//    if(Yii::app()->config->get('python_path') !== '')
+//        putenv(Yii::app()->config->get('python_path'));
     $hg_executable = Yii::app()->config->get('hg_executable');
 ?>
 <?php $this->widget('application.components.HighlightDiffWidget.HighlightDiffWidget'); ?>
@@ -100,8 +100,11 @@ switch ($change->action) {
 <?php foreach($model->changes as $change) : ?>
 <?php $rev = $model->short_rev - 1; ?>
 <a name="<?php echo $change->path; ?>"></a><div class="diff box">
-<?php echo htmlspecialchars(`{$hg_executable} diff --git -r{$rev} -R {$model->scm->local_path} --cwd {$model->scm->local_path} {$change->path}`); ?>
+<?php $cmd = "{$hg_executable} diff --git -r{$rev} -R {$model->scm->local_path} --cwd {$model->scm->local_path} {$change->path}"; ?>
 </div>
+<?php echo htmlspecialchars($cmd); ?>
+<?php $yeah = fgets(popen($cmd, 'r')); ?>
+<?php echo htmlspecialchars($yeah); ?>
 <a style="float: right;" href="#top">Up To File-list</a>
 <?php endforeach; ?>
 </div>

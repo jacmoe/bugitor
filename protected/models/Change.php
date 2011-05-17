@@ -41,6 +41,7 @@
  * @property integer $changeset_id
  * @property string $action
  * @property string $path
+ * @property string $diff
  *
  * The followings are the available model relations:
  * @property Changeset $changeset

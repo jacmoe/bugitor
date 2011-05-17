@@ -6,6 +6,8 @@ return array(
             'tablePrefix' => '{tablePrefix_in}',
             'password' => '{password_in}',
             'charset' => '{charset_in}',
-            'nullConversion' => PDO::NULL_EMPTY_STRING,
+            //'nullConversion' => PDO::NULL_EMPTY_STRING,
+	    //'enableProfiling'=>true,
+	    //'enableParamLogging' => true,
         );
 

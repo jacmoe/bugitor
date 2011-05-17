@@ -306,6 +306,10 @@ private function run_tool($toolname, $mode, $args = null)
                         }
                         $change->path = $file['name'];
                         $change->action = $file['status'];
+                        $fp = $this->run_tool('hg', 'read', array('diff', '--git','-r' . $entry['short_rev'], '-R', $this->repopath, '--cwd', $this->repopath, $file['name']));
+                        $diff = fgets($fp);
+                        $change->diff = $diff;
+                        $fp = null;
                         if($change->validate()) {
                             $change->save(false);
                         } else {
@@ -476,8 +480,8 @@ private function run_tool($toolname, $mode, $args = null)
         if (Yii::app()->mutex->lock('HandleRepositoriesCommand', 600))
         {
             try {
-                if(Yii::app()->config->get('python_path') !== '')
-                    putenv(Yii::app()->config->get('python_path'));
+//                if(Yii::app()->config->get('python_path') !== '')
+//                    putenv(Yii::app()->config->get('python_path'));
 
                 $projects = Project::model()->with(array('repositories'))->findAll();
                 foreach($projects as $project) {
