@@ -101,6 +101,7 @@ switch ($change->action) {
 <?php $rev = $model->short_rev - 1; ?>
 <a name="<?php echo $change->path; ?>"></a><div class="diff box">
 <?php $cmd = "{$hg_executable} diff --git -r{$rev} -R {$model->scm->local_path} --cwd {$model->scm->local_path} {$change->path}"; ?>
+<?php echo htmlspecialchars($change->diff); ?>
 </div>
 <?php echo htmlspecialchars($cmd); ?>
 <?php $yeah = fgets(popen($cmd, 'r')); ?>
