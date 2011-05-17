@@ -306,7 +306,7 @@ private function run_tool($toolname, $mode, $args = null)
                         }
                         $change->path = $file['name'];
                         $change->action = $file['status'];
-                        $fp = $this->run_tool('hg', 'read', array('diff','--git', '-r' . $entry['short_rev'], '-R', $this->repopath, '--cwd', $this->repopath, $file['name']));
+                        $fp = $this->run_tool('hg', 'read', array('diff','--git', '-r' . $entry['short_rev'], '-R', $this->repopath, '--cwd', $this->repopath, ' ', $file['name']));
                         $diff = fgets($fp);
                         echo $diff;
                         $change->diff = $diff;
