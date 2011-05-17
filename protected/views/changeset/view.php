@@ -101,12 +101,13 @@ switch ($change->action) {
 <?php $rev = $model->short_rev - 1; ?>
 <a name="<?php echo $change->path; ?>"></a><div class="diff box">
 <?php $cmd = `{$hg_executable} diff --git -r{$rev} -R {$model->scm->local_path} --cwd {$model->scm->local_path} {$change->path}`; ?>
-<?php echo htmlspecialchars($change->diff); ?>
+<?php echo htmlspecialchars(unserialize($change->diff)); ?>
 <?php //echo htmlspecialchars($cmd); ?>
 </div>
 <?php //echo htmlspecialchars($cmd); ?>
 <?php $cmd = "{$hg_executable} diff --git -r{$rev} -R {$model->scm->local_path} --cwd {$model->scm->local_path} {$change->path}"; ?>
 <?php //echo $cmd; ?>
+<?php echo htmlspecialchars(unserialize($change->diff)); ?>
 <hr/>
 <?php $yeah = stream_get_contents(popen($cmd, 'r')); ?>
 <?php //echo htmlspecialchars($yeah); ?>

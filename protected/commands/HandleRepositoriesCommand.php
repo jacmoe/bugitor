@@ -312,7 +312,7 @@ private function run_tool($toolname, $mode, $args = null)
 //                        $fp = $this->run_tool('hg', 'read', array('diff', '-r' . $changeset->short_rev, '-R', $this->repopath, '--cwd', $this->repopath, '--git', $change->path));
 //                        $diff = fgets($fp);
                         echo $diff;
-                        $change->diff = $diff;
+                        $change->diff = serialize($diff);
                         $fp = null;
                         if($change->validate()) {
                             $change->save(false);
