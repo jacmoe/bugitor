@@ -107,7 +107,8 @@ switch ($change->action) {
 <?php //echo htmlspecialchars($cmd); ?>
 <?php $cmd = "{$hg_executable} diff --git -r{$rev} -R {$model->scm->local_path} --cwd {$model->scm->local_path} {$change->path}"; ?>
 <?php //echo $cmd; ?>
-<?php echo htmlspecialchars(unserialize($change->diff)); ?>
+<?php $what = unserialize($change->diff); ?>
+<?php echo $what; ?>
 <hr/>
 <?php $yeah = stream_get_contents(popen($cmd, 'r')); ?>
 <?php //echo htmlspecialchars($yeah); ?>
