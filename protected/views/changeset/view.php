@@ -32,6 +32,7 @@
  */
 ?>
 <?php
+// TODO: need to deal with Python path on some machines!!
 //    if(Yii::app()->config->get('python_path') !== '')
 //        putenv(Yii::app()->config->get('python_path'));
     $hg_executable = Yii::app()->config->get('hg_executable');
