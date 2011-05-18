@@ -70,8 +70,9 @@
 </div>
 <div id="changeset" class="layout-box">
 <h3>Changing <?php echo count($model->changes) ?> files:</h3>
-<div class="quiet"><?php echo ($model->add > 0) ? $model->add . ' added. ' : '' ?>
+<div class="quiet">
 <?php echo ($model->edit > 0) ? $model->edit . ' modified. ' : '' ?>
+<?php echo ($model->add > 0) ? $model->add . ' added. ' : '' ?>
 <?php echo ($model->del > 0) ? $model->del . ' deleted. ' : '' ?></div>
 <?php foreach($model->changes as $change) : ?>
 <?php

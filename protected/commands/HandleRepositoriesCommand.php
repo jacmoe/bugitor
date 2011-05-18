@@ -308,12 +308,18 @@ private function run_tool($toolname, $mode, $args = null)
                 $changeset->short_rev = $entry['short_rev'];
                 $changeset->branches = $entry['branches'];
                 $changeset->tags = $entry['tags'];
-                $changeset->parents = $entry['parents'];
                 $changeset->children = $entry['children'];
                 $changeset->branch_count = $entry['branch_count'];
                 $changeset->tag_count = $entry['tag_count'];
-                $changeset->parent_count = $entry['parent_count'];
                 $changeset->child_count = $entry['child_count'];
+                $changeset->parent_count = $entry['parent_count'] + 1;
+                if($entry['parent_count'] === 0) {
+                    $fp = $this->run_tool('hg', 'read', array('parents', '-r' . $entry['short_rev'], '-R', $this->repopath, '--cwd', $this->repopath, '--template', '{rev}:{node|short}'));
+                    $changeset->parents = fgets($fp);
+                    $fp = null;
+                } else {
+                    $changeset->parents = $entry['parents'];
+                }
 
                 if($changeset->validate()) {
                     $changeset->save(false);
