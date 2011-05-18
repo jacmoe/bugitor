@@ -60,8 +60,8 @@
                         <dl class="shortlog_relations">
                             <dt>commit</dt>
                             <dd><a href="#">606dd2a169a8</a></dd>
-                            <dt>parent</dt>
-                            <dd><a href="#">parent</a></dd>
+                            <dt>parents</dt>
+                            <dd><a href="#">parents</a></dd>
                         </dl>
                         <h4>Files affected</h4>
                         <dl class="files-affected">
@@ -74,7 +74,7 @@
                         </dl>
                         <h4>Tags</h4>
                         <ul class="tags">
-                            <li class="default">branch</li>
+                            <li class="default">branches</li>
                             <li class="tip">tag</li>
                         </ul>
                         <a href="#"><p>message</p></a>
@@ -90,8 +90,8 @@
                         <dl class="shortlog_relations">
                             <dt>commit</dt>
                             <dd><a href="#">fd0ea86d2bf4</a></dd>
-                            <dt>parent</dt>
-                            <dd><a href="#">parent</a></dd>
+                            <dt>parents</dt>
+                            <dd><a href="#">parents</a></dd>
                         </dl>
                         <h4>Files affected</h4>
                         <dl class="files-affected">
@@ -104,7 +104,7 @@
                         </dl>
                         <h4>Tags</h4>
                         <ul class="tags">
-                            <li class="default">branch</li>
+                            <li class="default">branches</li>
                             <li class="tip">tag</li>
                         </ul>
                         <a href="#"><p>message</p></a>
@@ -120,8 +120,8 @@
                         <dl class="shortlog_relations">
                             <dt>commit</dt>
                             <dd><a href="#">e4483bbdc31e</a></dd>
-                            <dt>parent</dt>
-                            <dd><a href="#">parent</a></dd>
+                            <dt>parents</dt>
+                            <dd><a href="#">parents</a></dd>
                         </dl>
                         <h4>Files affected</h4>
                         <dl class="files-affected">
@@ -134,7 +134,7 @@
                         </dl>
                         <h4>Tags</h4>
                         <ul class="tags">
-                            <li class="default">branch</li>
+                            <li class="default">branches</li>
                             <li class="tip">tag</li>
                         </ul>
                         <a href="#"><p>message</p></a>
@@ -150,8 +150,8 @@
                         <dl class="shortlog_relations">
                             <dt>commit</dt>
                             <dd><a href="#">356df4e16854</a></dd>
-                            <dt>parent</dt>
-                            <dd><a href="#">parent</a></dd>
+                            <dt>parents</dt>
+                            <dd><a href="#">parents</a></dd>
                         </dl>
                         <h4>Files affected</h4>
                         <dl class="files-affected">
@@ -164,7 +164,7 @@
                         </dl>
                         <h4>Tags</h4>
                         <ul class="tags">
-                            <li class="default">branch</li>
+                            <li class="default">branches</li>
                             <li class="tip">tag</li>
                         </ul>
                         <a href="#"><p>message</p></a>
