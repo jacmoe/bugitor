@@ -102,9 +102,6 @@ switch ($change->action) {
 <a name="<?php echo $change->path; ?>"></a><div class="diff box">
 <?php echo htmlspecialchars(unserialize($change->diff)); ?>
 </div>
-<?php $what = unserialize($change->diff); ?>
-<?php echo $what; ?>
-<hr/>
 <a style="float: right;" href="#top">Up To File-list</a>
 <?php endforeach; ?>
 </div>
