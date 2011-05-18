@@ -262,6 +262,27 @@ private function run_tool($toolname, $mode, $args = null)
         }
     }
 
+    public function workPendingChangesets() {
+        $pending_changesets = PendingChangeset::model()->findAll();
+        if($pending_changesets) {
+            foreach($pending_changesets as $pending_changeset) {
+                $changeset = Changeset::model()->findByPk((int)$pending_changeset->changeset_id);
+                if($changeset) {
+                    $user_id = $this->handleUser($changeset->author);
+                    if($user_id) {
+                        $changeset->user_id = $user_id;
+                        if($changeset->validate()) {
+                            $changeset->save(false);
+                            $this->importChangeset($changeset);
+                            $this->addToActionLog($changeset);
+                            $pending_changeset->delete();
+                        };
+                    } // if there is a user_id for the pending changeset
+                } // if it exists
+            } // foreach pending changeset
+        } // if pending changesets
+    }
+    
     public function handleUser($author) {
         $criteria_user = new CDbCriteria();
         $criteria_user->compare('author', $author);
@@ -274,13 +295,12 @@ private function run_tool($toolname, $mode, $args = null)
 
     public function doInitialImport($unique_id, $last_revision, $repository_id) {
         $start_rev = 0;
+        while($start_rev < $last_revision) {
+            echo 'Importing  from revision "' . $start_rev . '" to "' . ($start_rev + 25) . "\"\n";
             $this->importChanges($start_rev, $unique_id, $repository_id);
-//        while($start_rev < $last_revision) {
-//            echo 'Importing  from revision "' . $start_rev . '" to "' . ($start_rev + 25) . "\"\n";
-//            $this->importChanges($start_rev, $unique_id, $repository_id);
-//            $start_rev = $start_rev + 25;
-//            sleep(1);
-//        }
+            $start_rev = $start_rev + 25;
+            sleep(1);
+        }
     }
 
     public function importChanges($start_rev, $unique_id, $repository_id) {
@@ -316,7 +336,11 @@ private function run_tool($toolname, $mode, $args = null)
                 if($entry['parent_count'] === 0) {
                     $fp = $this->run_tool('hg', 'read', array('parents', '-r' . $entry['short_rev'], '-R', $this->repopath, '--cwd', $this->repopath, '--template', '{rev}:{node|short}'));
                     $changeset->parents = fgets($fp);
-                    $changeset->parent_count = 1;
+                    if($changeset->parents == '') {
+                        $changeset->parent_count = 0;
+                    } else {
+                        $changeset->parent_count = 1;
+                    }
                     $fp = null;
                 } else {
                     $changeset->parents = $entry['parents'];
@@ -325,8 +349,17 @@ private function run_tool($toolname, $mode, $args = null)
                 if($changeset->validate()) {
                     $changeset->save(false);
 
-                    $this->addToActionLog($changeset);
-                    $this->importChangeset($changeset);
+                    //TODO: If user_id is not present,
+                    // do not add and import
+                    // add the changeset->id to a to-be-done table instead
+                    if(null != $changeset->user_id) {
+                        $this->addToActionLog($changeset);
+                        $this->importChangeset($changeset);
+                    } else {
+                        $pending = new PendingChangeset();
+                        $pending->changeset_id = $changeset->id;
+                        $pending->save();
+                    }
 
                     $change_edit = $change_del = $change_add = 0;
 
@@ -348,14 +381,14 @@ private function run_tool($toolname, $mode, $args = null)
                         }
                         $change->path = $file['name'];
                         $change->action = $file['status'];
-                        //if('M' === $change->action) {
+                        if('M' === $change->action) {
                             $hg_executable = Yii::app()->config->get('hg_executable');
                             $cmd = "{$hg_executable} diff --git -c{$changeset->short_rev} -R {$this->repopath} --cwd {$this->repopath} {$change->path}";
                             $diff = stream_get_contents(popen($cmd, 'r'));
-                            $change->diff = serialize($diff);
-                        //} else {
-                        //    $change->diff = null;
-                        //}
+                            $change->diff = $diff;
+                        } else {
+                            $change->diff = '';
+                        }
                         $fp = null;
                         if($change->validate()) {
                             $change->save(false);
@@ -461,7 +494,7 @@ private function run_tool($toolname, $mode, $args = null)
         foreach($issues_to_close as $issue_close) {
 
             $comment = new Comment;
-            if($issue_close->closed === 0) {
+            if($issue_close->closed == 0) {
                 $comment->content = 'Applied in rev:'.$changeset->revision;
             } else {
                 $comment->content = 'Referenced in rev:'.$changeset->revision;
@@ -475,7 +508,7 @@ private function run_tool($toolname, $mode, $args = null)
                 $comment->modified = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds));
                 $comment->save(false);
 
-                if($issue_close->closed !== 1) {
+                if($issue_close->closed != 1) {
                     $issue_close->status = 'swIssue/resolved';
                 }
 
@@ -489,7 +522,7 @@ private function run_tool($toolname, $mode, $args = null)
 
                     $issue_close->save(false);
 
-                    if($issue_close->closed === 0) {
+                    if($issue_close->closed == 0) {
                         $issue_close->addToActionLog($issue_close->id, $changeset->user_id, 'resolved', '/projects/'.$issue_close->project->identifier.'/issue/view/'.$issue_close->id.'#note-'.$issue_close->commentCount, $comment);
                     } else {
                         $issue_close->addToActionLog($issue_close->id, $changeset->user_id, 'note', '/projects/'.$issue_close->project->identifier.'/issue/view/'.$issue_close->id.'#note-'.$issue_close->commentCount, $comment);
@@ -527,6 +560,7 @@ private function run_tool($toolname, $mode, $args = null)
         if (Yii::app()->mutex->lock('HandleRepositoriesCommand', 600))
         {
             try {
+//TODO: handle python_path!
 //                if(Yii::app()->config->get('python_path') !== '')
 //                    putenv(Yii::app()->config->get('python_path'));
 
@@ -550,6 +584,7 @@ private function run_tool($toolname, $mode, $args = null)
 
                         if($repository->status === '1') {
                             // user need to check author_user table
+                            //TODO: put a link so that the user can set progress
                             continue;
                         }
 
@@ -574,6 +609,8 @@ private function run_tool($toolname, $mode, $args = null)
                         // repository status is OK (3)
                         // normal maintenance work ...
 
+                        $this->workPendingChangesets();
+                        
                         $this->hg('pull');
                         $this->hg('update');
 
