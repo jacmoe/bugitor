@@ -171,4 +171,10 @@ class Changeset extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        
+        public static function changesetFromRevision($revision)
+        {
+            $changeset = Changeset::model()->findByAttributes(array('revision' => $revision));
+            return $changeset;
+        }
 }

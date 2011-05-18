@@ -90,6 +90,15 @@ class Bugitor {
         }
     }
 
+    public static function link_to_changeset($changeset, $absolute = false) {
+        if(!isset($changeset)) return '';
+        if($absolute) {
+            return CHtml::link($changeset->revision, Yii::app()->config->get('hostname').'projects/'.$changeset->scm->project->identifier.'/changeset/view/'.$changeset->id);
+        } else {
+            return CHtml::link($changeset->revision ,array('/changeset/view', "id" => $changeset->id, 'identifier' => $changeset->scm->project->identifier));
+        }
+    }
+    
     public static function link_to_issue($issue, $absolute = false) {
         if($absolute) {
             return CHtml::link($issue->tracker->name . ' #' . $issue->id . ': ' . $issue->subject, Yii::app()->config->get('hostname').'projects/'.$issue->project->identifier.'/issue/view/'.$issue->id, array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue'));
