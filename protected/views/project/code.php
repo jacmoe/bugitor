@@ -64,7 +64,7 @@ $this->pageTitle = $model->name . ' - Code - ' . Yii::app()->name;
             <?php foreach($repository->changesets as $changeset) : ?>
                 <tr>
                   <td>
-                    <?php echo Bugitor::gravatar($changeset->user, 16) . Bugitor::link_to_user($changeset->user) ?>
+                    <?php echo Bugitor::gravatar($changeset->user, 16) . Bugitor::link_to_user_author($changeset->user, $changeset->author) ?>
                   </td>
                   <td>
                     <?php echo Time::ago($changeset->commit_date) ?>

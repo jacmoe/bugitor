@@ -41,6 +41,33 @@ class Bugitor {
         }
     }
 
+    public static function link_to_user_author($user, $author) {
+        if(isset($user)) {
+            return CHtml::link(ucfirst($user->username),array('/user/user/view', "id" => $user->id));
+        } elseif($author) {
+            $authorUser = AuthorUser::model()->findByAttributes(array('author' => $author));
+            if($authorUser) {
+                if(isset($authorUser->user_id)) {
+                    $user_id = AuthorUser::model()->findByAttributes(array('user_id' => $authorUser->user_id));
+                    if($user_id) {
+                        $user = User::model()->findByPk((int)$user_id);
+                    }
+                    if($user) {
+                        return CHtml::link(ucfirst($user->username),array('/user/user/view', "id" => $user->id));
+                    } else {
+                        return $author . CHtml::link('?',array('/authorUser/update', "id" => $authorUser->id), array('style' => 'font-size: 1.5em;'));
+                    }
+                } else {
+                    return $author . CHtml::link('?',array('/authorUser/update', "id" => $authorUser->id), array('style' => 'font-size: 1.5em;'));
+                }
+            } else {
+                return $author;
+            }
+        } else {
+            return '?';
+        }
+    }
+    
     public static function format_username($user) {
         if(true) {
             return ucfirst($user->username);
@@ -179,6 +206,8 @@ class Bugitor {
     }
 
     public static function gravatar($user, $size = 48) {
+        //TODO: default gravatar?
+        if(!$user) return '';
         $grav_url = "http://www.gravatar.com/avatar.php?gravatar_id=" .
         md5($user->email) . "&size=" . $size;
         return CHtml::link('<img title="'.ucfirst($user->username).'" class="gravatar" src="'.$grav_url.'"/>', array('/user/user/view', "id" => $user->id));

@@ -61,9 +61,14 @@
                 <?php $count++; ?>
             <?php endwhile; ?>
         <?php else : ?>
-            <?php list($parent_short, $parent_rev) = explode(":", $model->parents); ?>
-            <dt>parent <?php echo $parent_short; ?></dt>
-            <dd><?php echo Bugitor::link_to_changeset(Changeset::changesetFromRevision($parent_rev)); ?></dd>
+            <?php if($model->parent_count == 0) : ?>
+                <dt>parent</dt>
+                <dd>none</dd>
+            <?php else : ?>
+                <?php list($parent_short, $parent_rev) = explode(":", $model->parents); ?>
+                <dt>parent <?php echo $parent_short; ?></dt>
+                <dd><?php echo Bugitor::link_to_changeset(Changeset::changesetFromRevision($parent_rev)); ?></dd>
+            <?php endif; ?>
         <?php endif; ?>
         <?php if($model->child_count > 1) : ?>
             <?php $children = explode(",", $model->children) ?>
@@ -85,7 +90,7 @@
     <div><?php echo Yii::app()->textile->textilize($model->message); ?></div>
     <dl class="metadata">
         <dt>Who</dt>
-        <dd style="position: relative; left: 18px;"><?php echo Bugitor::link_to_user($model->user); ?></dd>
+        <dd style="position: relative; left: 18px;"><?php echo Bugitor::link_to_user_author($model->user, $model->author); ?></dd>
         <dd><?php echo Bugitor::gravatar($model->user); ?></dd>
         <dt>When</dt>
         <dd style="position: relative; left: -35px;"><?php echo Time::timeAgoInWords($model->commit_date); ?></dd>
@@ -123,7 +128,7 @@ switch ($change->action) {
     <?php if(('A' != $change->action) && ('D' != $change->action)) : ?>
         <?php $rev = $model->short_rev - 1; ?>
         <a name="<?php echo $change->path; ?>"></a><div class="diff box">
-        <?php echo htmlspecialchars(unserialize($change->diff)); ?>
+        <?php echo htmlspecialchars($change->diff); ?>
         </div>
         <a style="float: right;" href="#top">Up To File-list</a>
     <?php endif; ?>

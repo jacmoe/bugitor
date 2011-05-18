@@ -75,12 +75,11 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'id',
                 array(
                     'name' => 'user_id',
                     'header' => 'User',
                     'type' => 'raw',
-                    'value' => 'Bugitor::gravatar($data->user,16) . " " . ucfirst($data->user->username)',
+                    'value' => '(($data->user) ? Bugitor::gravatar($data->user,16) . " " . ucfirst($data->user->username) : "")',
                 ),
 		'author',
 		array(
