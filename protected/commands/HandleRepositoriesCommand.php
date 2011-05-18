@@ -111,17 +111,17 @@ private function run_tool($toolname, $mode, $args = null)
 
         if(0 === $limit) {
             $fp = $this->hg('log',
-                    '--rev', $start.':'.$end, '--template', $sep . '\n{node|short}\n{rev}\n{branches}\n{tags}\n{file_adds}\n{file_copies}\n{file_mods}\n{file_dels}\n{author|email}\n{date|hgdate}\n{desc}\n');
+                    '--rev', $start.':'.$end, '--template', $sep . '\n{node|short}\n{rev}\n{branches}\n{tags}\n{parents}\n{children}\n{file_mods}\n{file_copies}\n{file_adds}\n{file_dels}\n{author|email}\n{date|hgdate}\n{desc}\n');
         } else {
             $fp = $this->hg('log',
-                    '--rev', $start.':'.$end, '--template', $sep . '\n{node|short}\n{rev}\n{branches}\n{tags}\n{file_adds}\n{file_copies}\n{file_mods}\n{file_dels}\n{author|email}\n{date|hgdate}\n{desc}\n', '-l '.$limit);
+                    '--rev', $start.':'.$end, '--template', $sep . '\n{node|short}\n{rev}\n{branches}\n{tags}\n{parents}\n{children}\n{file_mods}\n{file_copies}\n{file_adds}\n{file_dels}\n{author|email}\n{date|hgdate}\n{desc}\n', '-l '.$limit);
         }
 
         fgets($fp); # discard leading $sep
 
         // corresponds to the file_adds, file_copies, file_modes, file_dels
         // in the template above
-        static $file_status_order = array('A', 'C', 'M', 'D');
+        static $file_status_order = array('M', 'C', 'A', 'D');
 
         $count = 0;
         while (true) {
@@ -139,8 +139,10 @@ private function run_tool($toolname, $mode, $args = null)
             }
             if (!count($branches)) {
                 $entry['branches'] = 'default';
+                $entry['branch_count'] = 1;
             } else {
                     $entry['branches'] = implode(',', $branches);
+                    $entry['branch_count'] = count($branches);
             }
 
             $tags = array();
@@ -152,10 +154,40 @@ private function run_tool($toolname, $mode, $args = null)
             }
             if (!count($tags)) {
                 $entry['tags'] = '';
+                $entry['tag_count'] = 0;
             } else {
                     $entry['tags'] = implode(',', $tags);
+                    $entry['tag_count'] = count($tags);
             }
 
+            $parents = array();
+            foreach (preg_split('/\s+/', trim(fgets($fp))) as $t) {
+                if (strlen($t)) {
+                    $parents[] = $t;
+                }
+            }
+            if (!count($parents)) {
+                $entry['parents'] = '';
+                $entry['parent_count'] = 0;
+            } else {
+                    $entry['parents'] = implode(',', $parents);
+                    $entry['parent_count'] = count($parents);
+            }
+
+            $children = array();
+            foreach (preg_split('/\s+/', trim(fgets($fp))) as $t) {
+                if (strlen($t)) {
+                    $children[] = $t;
+                }
+            }
+            if (!count($children)) {
+                $entry['children'] = '';
+                $entry['child_count'] = 0;
+            } else {
+                    $entry['children'] = implode(',', $children);
+                    $entry['child_count'] = count($children);
+            }
+            
             $files = array();
             foreach ($file_status_order as $status) {
                 foreach (preg_split('/\s+/', trim(fgets($fp))) as $t) {
@@ -177,6 +209,7 @@ private function run_tool($toolname, $mode, $args = null)
             list($ts) = preg_split('/\s+/', fgets($fp));
             //FIXME: format date the way we want the date
             $entry['date'] = date("Y-m-d H:i:s", $ts);
+            
             $changelog = array();
             while (($line = fgets($fp)) !== false) {
                 $line = rtrim($line, "\r\n");
@@ -241,12 +274,13 @@ private function run_tool($toolname, $mode, $args = null)
 
     public function doInitialImport($unique_id, $last_revision, $repository_id) {
         $start_rev = 0;
-        while($start_rev < $last_revision) {
-            echo 'Importing  from revision "' . $start_rev . '" to "' . ($start_rev + 25) . "\"\n";
             $this->importChanges($start_rev, $unique_id, $repository_id);
-            $start_rev = $start_rev + 25;
-            sleep(1);
-        }
+//        while($start_rev < $last_revision) {
+//            echo 'Importing  from revision "' . $start_rev . '" to "' . ($start_rev + 25) . "\"\n";
+//            $this->importChanges($start_rev, $unique_id, $repository_id);
+//            $start_rev = $start_rev + 25;
+//            sleep(1);
+//        }
     }
 
     public function importChanges($start_rev, $unique_id, $repository_id) {
@@ -263,10 +297,6 @@ private function run_tool($toolname, $mode, $args = null)
 
             if(!Changeset::model()->exists($criteria)) {
 
-                $fp = $this->run_tool('hg', 'read', array('parents', '-r' . $entry['short_rev'], '-R', $this->repopath, '--cwd', $this->repopath, '--template', '{node|short}'));
-                $parent = fgets($fp);
-                $fp = null;
-
                 $changeset = new Changeset;
                 $changeset->unique_ident = $unique_id . $entry['revision'];
                 $changeset->revision = $entry['revision'];
@@ -276,9 +306,14 @@ private function run_tool($toolname, $mode, $args = null)
                 $changeset->commit_date = $entry['date'];
                 $changeset->message = $entry['message'];
                 $changeset->short_rev = $entry['short_rev'];
-                $changeset->branch = $entry['branches'];
+                $changeset->branches = $entry['branches'];
                 $changeset->tags = $entry['tags'];
-                $changeset->parent = $parent;
+                $changeset->parents = $entry['parents'];
+                $changeset->children = $entry['children'];
+                $changeset->branch_count = $entry['branch_count'];
+                $changeset->tag_count = $entry['tag_count'];
+                $changeset->parent_count = $entry['parent_count'];
+                $changeset->child_count = $entry['child_count'];
 
                 if($changeset->validate()) {
                     $changeset->save(false);
@@ -306,11 +341,14 @@ private function run_tool($toolname, $mode, $args = null)
                         }
                         $change->path = $file['name'];
                         $change->action = $file['status'];
-                        $hg_executable = Yii::app()->config->get('hg_executable');
-                        $rev = $changeset->short_rev - 1;
-                        $cmd = "{$hg_executable} diff --git -r{$rev} -R {$this->repopath} --cwd {$this->repopath} {$change->path}";
-                        $diff = stream_get_contents(popen($cmd, 'r'));
-                        $change->diff = serialize($diff);
+                        //if('M' === $change->action) {
+                            $hg_executable = Yii::app()->config->get('hg_executable');
+                            $cmd = "{$hg_executable} diff --git -c{$changeset->short_rev} -R {$this->repopath} --cwd {$this->repopath} {$change->path}";
+                            $diff = stream_get_contents(popen($cmd, 'r'));
+                            $change->diff = serialize($diff);
+                        //} else {
+                        //    $change->diff = null;
+                        //}
                         $fp = null;
                         if($change->validate()) {
                             $change->save(false);

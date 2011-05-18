@@ -46,9 +46,13 @@
  * @property string $commit_date
  * @property string $message
  * @property integer $short_rev
- * @property string $parent
- * @property string $branch
+ * @property string $parents
+ * @property string $branches
  * @property string $tags
+ * @property integer $branch_count
+ * @property integer $tag_count
+ * @property integer $parent_count
+ * @property integer $child_count
  * @property integer $add
  * @property integer $edit
  * @property integer $del
@@ -89,11 +93,11 @@ class Changeset extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('unique_ident, revision, commit_date, message', 'required'),
-			array('user_id, scm_id, short_rev, add, edit, del', 'numerical', 'integerOnly'=>true),
-			array('author, revision, parent, branch, tags', 'length', 'max'=>50),
+			array('user_id, scm_id, short_rev, add, edit, del, branch_count, tag_count, parent_count, child_count', 'numerical', 'integerOnly'=>true),
+			array('author, revision, parents, branches, tags, children', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, revision, user_id, author, scm_id, commit_date, message, short_rev, parent, branch, tags, add, edit, del', 'safe', 'on'=>'search'),
+			array('id, revision, user_id, author, scm_id, commit_date, message, short_rev, parents, branches, tags, add, edit, del', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -126,8 +130,9 @@ class Changeset extends CActiveRecord
 			'commit_date' => 'Commit Date',
 			'message' => 'Message',
 			'short_rev' => 'Short Rev',
-			'parent' => 'Parent',
-			'branch' => 'Branch',
+			'parents' => 'Parents',
+			'children' => 'Children',
+			'branches' => 'Branches',
 			'tags' => 'Tags',
 			'add' => 'Add',
 			'edit' => 'Edit',
@@ -155,8 +160,8 @@ class Changeset extends CActiveRecord
 		$criteria->compare('commit_date',$this->commit_date,true);
 		$criteria->compare('message',$this->message,true);
 		$criteria->compare('short_rev',$this->short_rev);
-		$criteria->compare('parent',$this->parent,true);
-		$criteria->compare('branch',$this->branch,true);
+		$criteria->compare('parents',$this->parents,true);
+		$criteria->compare('branches',$this->branches,true);
 		$criteria->compare('tags',$this->tags,true);
 		$criteria->compare('add',$this->add);
 		$criteria->compare('edit',$this->edit);

@@ -74,13 +74,13 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'parent'); ?>
-		<?php echo $form->textField($model,'parent',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->label($model,'parents'); ?>
+		<?php echo $form->textField($model,'parents',array('size'=>50,'maxlength'=>50)); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'branch'); ?>
-		<?php echo $form->textField($model,'branch',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->label($model,'branches'); ?>
+		<?php echo $form->textField($model,'branches',array('size'=>50,'maxlength'=>50)); ?>
 	</div>
 
 	<div class="row">

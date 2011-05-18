@@ -79,15 +79,15 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'parent'); ?>
-		<?php echo $form->textField($model,'parent',array('size'=>50,'maxlength'=>50)); ?>
-		<?php echo $form->error($model,'parent'); ?>
+		<?php echo $form->labelEx($model,'parents'); ?>
+		<?php echo $form->textField($model,'parents',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->error($model,'parents'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'branch'); ?>
-		<?php echo $form->textField($model,'branch',array('size'=>50,'maxlength'=>50)); ?>
-		<?php echo $form->error($model,'branch'); ?>
+		<?php echo $form->labelEx($model,'branches'); ?>
+		<?php echo $form->textField($model,'branches',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->error($model,'branches'); ?>
 	</div>
 
 	<div class="row">

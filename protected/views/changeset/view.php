@@ -31,12 +31,6 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
-<?php
-// TODO: need to deal with Python path on some machines!!
-//    if(Yii::app()->config->get('python_path') !== '')
-//        putenv(Yii::app()->config->get('python_path'));
-    $hg_executable = Yii::app()->config->get('hg_executable');
-?>
 <?php $this->widget('application.components.HighlightDiffWidget.HighlightDiffWidget'); ?>
 <h3 class="code">Code</h3>
 <a name="top"></a>
@@ -57,10 +51,12 @@
     <dl class="relations">
         <dt>commit <?php echo $model->short_rev; ?></dt>
         <dd><?php echo $model->revision; ?></dd>
-        <dt>parent <?php echo $model->short_rev-1; ?></dt>
-        <dd><?php echo $model->parent; ?></dd>
-        <dt>branch</dt>
-        <dd><?php echo $model->branch; ?></dd>
+        <dt>parents</dt>
+        <dd><?php echo $model->parents; ?></dd>
+        <dt>children</dt>
+        <dd><?php echo $model->children; ?></dd>
+        <dt>branches</dt>
+        <dd><?php echo $model->branches; ?></dd>
     </dl>
     <div><?php echo Yii::app()->textile->textilize($model->message); ?></div>
     <dl class="metadata">
@@ -99,10 +95,12 @@ switch ($change->action) {
 <?php endforeach; ?>
 </div>
 <?php foreach($model->changes as $change) : ?>
-<?php $rev = $model->short_rev - 1; ?>
-<a name="<?php echo $change->path; ?>"></a><div class="diff box">
-<?php echo htmlspecialchars(unserialize($change->diff)); ?>
-</div>
-<a style="float: right;" href="#top">Up To File-list</a>
+    <?php if(('A' != $change->action) && ('D' != $change->action)) : ?>
+        <?php $rev = $model->short_rev - 1; ?>
+        <a name="<?php echo $change->path; ?>"></a><div class="diff box">
+        <?php echo htmlspecialchars(unserialize($change->diff)); ?>
+        </div>
+        <a style="float: right;" href="#top">Up To File-list</a>
+    <?php endif; ?>
 <?php endforeach; ?>
 </div>

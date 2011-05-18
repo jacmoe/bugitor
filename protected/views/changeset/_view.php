@@ -62,12 +62,12 @@
 	<br />
 
 	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('parent')); ?>:</b>
-	<?php echo CHtml::encode($data->parent); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('parents')); ?>:</b>
+	<?php echo CHtml::encode($data->parents); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('branch')); ?>:</b>
-	<?php echo CHtml::encode($data->branch); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('branches')); ?>:</b>
+	<?php echo CHtml::encode($data->branches); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('tags')); ?>:</b>
