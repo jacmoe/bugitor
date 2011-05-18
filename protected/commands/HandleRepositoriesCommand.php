@@ -309,10 +309,8 @@ private function run_tool($toolname, $mode, $args = null)
                         $hg_executable = Yii::app()->config->get('hg_executable');
                         $cmd = "{$hg_executable} diff --git -r{$changeset->short_rev} -R {$this->repopath} --cwd {$this->repopath} {$change->path}";
                         $diff = stream_get_contents(popen($cmd, 'r'));
-//                        $fp = $this->run_tool('hg', 'read', array('diff', '-r' . $changeset->short_rev, '-R', $this->repopath, '--cwd', $this->repopath, '--git', $change->path));
-//                        $diff = fgets($fp);
                         echo $diff;
-                        $change->diff = $diff;
+                        $change->diff = serialize($diff);
                         $fp = null;
                         if($change->validate()) {
                             $change->save(false);
@@ -563,3 +561,4 @@ private function run_tool($toolname, $mode, $args = null)
     }
 
 }
+

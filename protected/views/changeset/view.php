@@ -100,9 +100,10 @@ switch ($change->action) {
 <?php foreach($model->changes as $change) : ?>
 <?php $rev = $model->short_rev - 1; ?>
 <a name="<?php echo $change->path; ?>"></a><div class="diff box">
-<?php echo htmlspecialchars($change->diff); ?>
+<?php echo htmlspecialchars(unserialize($change->diff)); ?>
 </div>
-<?php echo htmlspecialchars($change->diff); ?>
+<?php $what = unserialize($change->diff); ?>
+<?php echo $what; ?>
 <hr/>
 <a style="float: right;" href="#top">Up To File-list</a>
 <?php endforeach; ?>
