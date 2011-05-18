@@ -51,11 +51,35 @@
     <dl class="relations">
         <dt>commit <?php echo $model->short_rev; ?></dt>
         <dd><?php echo $model->revision; ?></dd>
-        <dt>parents</dt>
-        <dd><?php echo $model->parents; ?></dd>
-        <dt>children</dt>
-        <dd><?php echo $model->children; ?></dd>
-        <dt>branches</dt>
+        <?php if($model->parent_count > 1) : ?>
+            <?php $parents = explode(",", $model->parents) ?>
+            <?php $count = 0; ?>
+            <?php while($count < $model->parent_count) : ?>
+                <?php list($parent_short, $parent_rev) = explode(":", $parents[$count]); ?>
+                <dt>parent <?php echo $parent_short; ?></dt>
+                <dd><?php echo $parent_rev; ?></dd>
+                <?php $count++; ?>
+            <?php endwhile; ?>
+        <?php else : ?>
+            <?php list($parent_short, $parent_rev) = explode(":", $model->parents); ?>
+            <dt>parent <?php echo $parent_short; ?></dt>
+            <dd><?php echo $parent_rev; ?></dd>
+        <?php endif; ?>
+        <?php if($model->child_count > 1) : ?>
+            <?php $children = explode(",", $model->children) ?>
+            <?php $count = 0; ?>
+            <?php while($count < $model->child_count) : ?>
+                <?php list($child_short, $child_rev) = explode(":", $children[$count]); ?>
+                <dt>child <?php echo $child_short; ?></dt>
+                <dd><?php echo $child_rev; ?></dd>
+                <?php $count++; ?>
+            <?php endwhile; ?>
+        <?php else : ?>
+            <?php list($child_short, $child_rev) = explode(":", $model->children); ?>
+            <dt>child <?php echo $child_short; ?></dt>
+            <dd><?php echo $child_rev; ?></dd>
+        <?php endif; ?>
+        <dt>branch</dt>
         <dd><?php echo $model->branches; ?></dd>
     </dl>
     <div><?php echo Yii::app()->textile->textilize($model->message); ?></div>

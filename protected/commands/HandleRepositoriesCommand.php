@@ -312,10 +312,11 @@ private function run_tool($toolname, $mode, $args = null)
                 $changeset->branch_count = $entry['branch_count'];
                 $changeset->tag_count = $entry['tag_count'];
                 $changeset->child_count = $entry['child_count'];
-                $changeset->parent_count = $entry['parent_count'] + 1;
+                $changeset->parent_count = $entry['parent_count'];
                 if($entry['parent_count'] === 0) {
                     $fp = $this->run_tool('hg', 'read', array('parents', '-r' . $entry['short_rev'], '-R', $this->repopath, '--cwd', $this->repopath, '--template', '{rev}:{node|short}'));
                     $changeset->parents = fgets($fp);
+                    $changeset->parent_count = 1;
                     $fp = null;
                 } else {
                     $changeset->parents = $entry['parents'];
