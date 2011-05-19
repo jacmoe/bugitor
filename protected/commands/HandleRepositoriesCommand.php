@@ -493,9 +493,11 @@ private function run_tool($toolname, $mode, $args = null)
         $issues_to_close = Issue::model()->findAllByPk($issues_to_be_closed, $criteria_close);
         foreach($issues_to_close as $issue_close) {
 
+            $was_closed_by_commit = false;
             $comment = new Comment;
             if($issue_close->closed == 0) {
                 $comment->content = 'Applied in rev:'.$changeset->revision;
+                $was_closed_by_commit = true;
             } else {
                 $comment->content = 'Referenced in rev:'.$changeset->revision;
             }
@@ -522,7 +524,7 @@ private function run_tool($toolname, $mode, $args = null)
 
                     $issue_close->save(false);
 
-                    if($issue_close->closed == 0) {
+                    if($was_closed_by_commit) {
                         $issue_close->addToActionLog($issue_close->id, $changeset->user_id, 'resolved', '/projects/'.$issue_close->project->identifier.'/issue/view/'.$issue_close->id.'#note-'.$issue_close->commentCount, $comment);
                     } else {
                         $issue_close->addToActionLog($issue_close->id, $changeset->user_id, 'note', '/projects/'.$issue_close->project->identifier.'/issue/view/'.$issue_close->id.'#note-'.$issue_close->commentCount, $comment);
