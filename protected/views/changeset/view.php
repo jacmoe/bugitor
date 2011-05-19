@@ -80,9 +80,14 @@
                 <?php $count++; ?>
             <?php endwhile; ?>
         <?php else : ?>
-            <?php list($child_short, $child_rev) = explode(":", $model->children); ?>
-            <dt>child <?php echo $child_short; ?></dt>
-            <dd><?php echo Bugitor::link_to_changeset(Changeset::changesetFromRevision($child_rev)); ?></dd>
+            <?php if($model->child_count == 0) : ?>
+                <dt>child</dt>
+                <dd>none</dd>
+            <?php else : ?>
+                <?php list($child_short, $child_rev) = explode(":", $model->children); ?>
+                <dt>child <?php echo $child_short; ?></dt>
+                <dd><?php echo Bugitor::link_to_changeset(Changeset::changesetFromRevision($child_rev)); ?></dd>
+            <?php endif; ?>
         <?php endif; ?>
         <dt>branch</dt>
         <dd><?php echo $model->branches; ?></dd>
