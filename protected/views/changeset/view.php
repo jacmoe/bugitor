@@ -109,29 +109,30 @@
 <?php echo ($model->add > 0) ? $model->add . ' added. ' : '' ?>
 <?php echo ($model->del > 0) ? $model->del . ' deleted. ' : '' ?></div>
 <?php foreach($model->changes as $change) : ?>
-<?php
-$change_class = '';
-switch ($change->action) {
-    case 'M':
-        $change_class = 'class="change-modified"';
-        break;
-    case 'A':
-        $change_class = 'class="change-added"';
-        break;
-    case 'D':
-        $change_class = 'class="change-removed"';
-        break;
-    default:
-        $change_class = 'class="change-modified"';
-        break;
-}
-?>
-    <a <?php echo $change_class; ?> href="#<?php echo $change->path; ?>"><?php echo $change->path; ?></a><br/>
+    <?php
+    $change_class = '';
+    switch ($change->action) {
+        case 'M':
+            $change_class = 'class="change-modified"';
+            break;
+        case 'A':
+            $change_class = 'class="change-added"';
+            break;
+        case 'D':
+            $change_class = 'class="change-removed"';
+            break;
+        default:
+            $change_class = 'class="change-modified"';
+            break;
+    }
+    ?>
+    <?php if($change->action != 'C') : ?>
+        <a <?php echo $change_class; ?> href="#<?php echo $change->path; ?>"><?php echo $change->path; ?></a><br/>
+    <?php endif; ?>
 <?php endforeach; ?>
 </div>
 <?php foreach($model->changes as $change) : ?>
-    <?php if(('A' != $change->action) && ('D' != $change->action)) : ?>
-        <?php $rev = $model->short_rev - 1; ?>
+    <?php if('M' == $change->action) : ?>
         <a name="<?php echo $change->path; ?>"></a><div class="diff box">
         <?php echo htmlspecialchars($change->diff); ?>
         </div>
