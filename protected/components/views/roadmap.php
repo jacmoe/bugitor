@@ -76,7 +76,7 @@
             <?php $open_ratio = $open_percent - $done_ratio; ?>
             <?php if($show_detail) : ?>
                 <?php echo Bugitor::big_progress_bar(array($closed_percent, $done_ratio, $open_ratio), array('width' => '500px', 'legend' => number_format($closed_percent + $done_ratio) . '%')); ?><br/>
-                <p class="big_progress-info quiet">
+                <div class="big_progress-info quiet">
                 <?php if($version->issueCountResolved > 0) : ?>
                     <?php echo CHtml::link($version->issueCountResolved. ' ' . Yii::t('Bugitor','closed'),
                         array('issue/index', 'identifier' => $identifier,
@@ -105,7 +105,7 @@
                 <?php else : ?>
                      0 rejected
                 <?php endif; ?>
-                </p>
+                </div>
             <?php else : ?>
                 <?php echo Bugitor::small_progress_bar(array($closed_percent, $done_ratio, $open_ratio), array('width' => '250px', 'legend' => number_format($closed_percent + $done_ratio) . '%')); ?><br/>
             <?php endif; ?>
