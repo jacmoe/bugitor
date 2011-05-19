@@ -173,7 +173,7 @@ class Bugitor {
         $out .= ($pcts[1] > 0) ? '<td style="width: '.$pcts[1].'%;" class="done" />' : '';
         $out .= ($pcts[2] > 0) ? '<td style="width: '.$pcts[2].'%;" class="todo" />' : '';
         $out .= '</tr></tbody></table>';
-        $out .= '<p class="pourcent">'.$legend.'</p>';
+        //$out .= '<p class="pourcent">'.$legend.'</p>';
         return $out;
     }
 
@@ -187,7 +187,7 @@ class Bugitor {
         $out .= ($pcts[1] > 0) ? '<td style="width: '.$pcts[1].'%;" class="done" />' : '';
         $out .= ($pcts[2] > 0) ? '<td style="width: '.$pcts[2].'%;" class="todo" />' : '';
         $out .= '</tr></tbody></table>';
-        $out .= '<p class="big_pourcent">'.$legend.'</p>';
+        //$out .= '<p class="big_pourcent">'.$legend.'</p>';
         return $out;
     }
 
@@ -201,7 +201,7 @@ class Bugitor {
         $out .= ($pcts[1] > 0) ? '<td style="width: '.$pcts[1].'%;" class="done" />' : '';
         $out .= ($pcts[2] > 0) ? '<td style="width: '.$pcts[2].'%;" class="todo" />' : '';
         $out .= '</tr></tbody></table>';
-        $out .= '<p class="pourcent">'.$legend.'</p>';
+        //$out .= '<p class="pourcent">'.$legend.'</p>';
         return $out;
     }
 

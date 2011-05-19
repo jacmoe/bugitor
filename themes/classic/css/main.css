@@ -13,7 +13,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	font-style: inherit;
 	font-size: 100%;
 	font-family: inherit;*/
-	vertical-align: baseline;
+/*	vertical-align: baseline;*/
 }
 
 
@@ -479,7 +479,8 @@ table.big_progress td.closed { background: /*#99cc66*/#BAE0BA none repeat scroll
 table.big_progress td.done { background: #fdee99/*#DEF0DE*/ none repeat scroll 0%; }
 table.big_progress td.open { background: #FFF none repeat scroll 0%; }
 p.big_pourcent {font-size: 100%;}
-p.big_progress-info {clear: left; font-style: italic; font-size: 90%; position: relative; bottom: 18px; }
+/*div.big_progress-info {clear: left; font-style: italic; font-size: 90%; position: relative; bottom: 38px; }*/
+div.big_progress-info {clear: left; font-style: italic; font-size: 90%; }
 
 /***** Icons *****/
 .icon {
@@ -1248,9 +1249,9 @@ ol, ul {
     padding: 0 4px 4px;
 }
 
-p {
+/*p {
     line-height: 21px;
-}
+}*/
 
 .metadata img.gravatar {
     margin: 0 auto -1px;
