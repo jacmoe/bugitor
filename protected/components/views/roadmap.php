@@ -34,7 +34,12 @@
 <?php $versions = $this->getVersions(); ?>
 <?php $identifier = $this->getIdentifier(); ?>
 <?php $show_detail = $this->getDetailview(); ?>
+<?php $ver_count = 0; ?>
 <?php foreach($versions as $version) : ?>
+    <?php if(!$show_detail) {
+            if($ver_count > 2) break;
+            $ver_count++;
+    } ?>
     <?php $show_version = $completed = false;
     if (strtotime($version->effective_date) >= strtotime(date("Y-m-d"))) {
         // if effective date is in the future..
