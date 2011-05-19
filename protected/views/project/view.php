@@ -40,7 +40,7 @@ $this->pageTitle = $model->name . ' - Overview - ' . Yii::app()->name;
 <?php $this->widget('ProjectBox', array('project' => $model)) ?>
 </div>
 <div class="roadmap box">
-<h3>Roadmap</h3>
+    <h3>Roadmap <font style="font-style: italic; font-size: 0.5em;">(Showing 2 versions out of <?php echo $model->versionCount; ?>)</font></h3>
 <?php $this->widget('Roadmap', array('versions' => $model->versions, 'identifier' => $model->identifier)) ?>
 </div>
 <div class="members box">

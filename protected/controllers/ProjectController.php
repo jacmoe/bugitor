@@ -167,9 +167,6 @@ class ProjectController extends Controller {
         $criteria = new CDbCriteria();
         $criteria->condition = 'identifier = :identifier';
         $criteria->params = array('identifier' => $_GET['identifier']);
-        //$criteria->group = 'versions.effective_date, issues.closed, issues.id';
-        //$criteria->order = 'versions.effective_date, issues.closed, issues.id DESC';
-        $criteria->group = 'versions.effective_date';
         $criteria->order = 'versions.effective_date';
 
         // Sourceforge dies on versions with issues..

@@ -109,6 +109,7 @@ class Project extends CActiveRecord {
             'members' => array(self::MANY_MANY, 'Member', 'project_id'),
             'repositories' => array(self::HAS_MANY, 'Repository', 'project_id'),
             'versions' => array(self::HAS_MANY, 'Version', 'project_id'),
+            'versionCount' => array(self::STAT, 'Version', 'project_id'),
             'issueCategories' => array(self::HAS_MANY, 'IssueCategory', 'project_id'),
             'activities' => array(self::HAS_MANY, 'ActionLog', 'project_id'),
         );
