@@ -54,7 +54,7 @@ class AdminModule extends CWebModule
 		{
 			// this method is called before any module controller action is performed
 			// you may place customized code here
-                        $controller->layout = 'main';
+                        $controller->layout = 'admin.views.layouts.main1';
                         return true;
 		}
 		else

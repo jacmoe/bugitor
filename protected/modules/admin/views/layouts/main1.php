@@ -31,7 +31,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
-<?php $this->beginContent('//layouts/main'); ?>
+<?php $this->beginContent('admin.views.layouts.main'); ?>
 	<div id="content">
 		<?php echo $content; ?>
 	</div><!-- content -->

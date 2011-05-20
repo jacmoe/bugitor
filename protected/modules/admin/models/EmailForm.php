@@ -31,26 +31,48 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
-<div class="form">
-<?php if(!isset($message)) : ?>
-<?php $form=$this->beginWidget('CActiveForm'); ?>
-	<?php echo $form->errorSummary($model); ?>
-        <div class="row">
-		<?php echo $form->labelEx($model,'subject'); ?>
-		<?php echo $form->textField($model,'subject',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'subject'); ?>
-	</div>
-        <div class="row">
-		<?php echo $form->labelEx($model,'message'); ?>
-		<?php echo $form->textField($model,'message',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'message'); ?>
-	</div>
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Send Test Email'); ?>
-                <?php echo CHtml::Button('Cancel');?>
-	</div>
-<?php $this->endWidget(); ?>
-</div><!-- form -->
-<?php else : ?>
-<?php echo $message; ?><br/><br class="clearfix"/>
-<?php endif; ?>
+<?php
+
+/**
+ * ConfigForm class.
+ * ConfigForm is the data structure for keeping
+ * config form data. It is used by the 'settings' action of 'admin/DefaultController'.
+ */
+class EmailForm extends CFormModel
+{
+	public $subject = 'This is an email test';
+        public $message = 'Just testing that email works';
+
+	/**
+	 * Declares the validation rules.
+	 */
+	public function rules()
+	{
+		return array(
+			array('subject, message', 'required'),
+		);
+	}
+
+	/**
+	 * Declares customized attribute labels.
+	 * If not declared here, an attribute would have a label that is
+	 * the same as its name with the first letter in upper case.
+	 */
+	public function attributeLabels()
+	{
+            return array(
+                'subject'=>'Subject',
+                'message' => 'Message',
+            );
+	}
+        public function save() {
+            $message = new YiiMailMessage;
+            $message->setSubject($this->subject);
+            $message->setBody($this->message, 'text/html');
+            $message->setSender(array('ticket@tracker.ogitor.org' => 'Bugitor Issue Tracker'));
+            $message->setFrom(array('ticket@tracker.ogitor.org' => 'Bugitor Issue Tracker'));
+            $message->addTo('jacmoe@mail.dk');
+            Yii::app()->mail->send($message);
+            return true;
+        }
+}
