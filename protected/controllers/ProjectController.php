@@ -59,21 +59,27 @@ class ProjectController extends Controller {
         return 'index, view, activity, roadmap, issues, code, waitforclone, feed';
     }
 
-    public function beforeAction($action) {
-        $cmd = Yii::app()->getBasePath() . "/yiic handlerepositories 2 nolock";
-        $fake_cron_last_exec_time = Yii::app()->config->get('fake_cron_last_exec_time');
-        if($fake_cron_last_exec_time) {
+/*    public function beforeAction($action) {
+        $fake_cron_last_exec_time = Yii::app()->config->get('fakecron_last_exec_time');
+        if(isset($fake_cron_last_exec_time)) {
                 
-            if(time() - $fake_cron_last_exec_time >= 60) {
-                pclose(popen($cmd, 'r'));
+            if((time() - $fake_cron_last_exec_time) >= 200) {
+                $cmd = dirname(__FILE__)."/../protected/yiic handlerepositories 2 nolock";
+                //$cmd = "nohup ".(dirname(__FILE__) . "/../protected/yiic handlerepositories 2 nolock > /dev/null 2>&1 &";
+                //exec($cmd);
+		$output = stream_get_contents(popen($cmd, 'r'));
+		echo $out;
+		//pclose(popen($cmd, 'r'));
                 Yii::app()->config->set('fakecron_last_exec_time', time());
+            } else {
+                //echo Yii::app()->config->get('basepath') . '<br/>';
+                echo 'Elapsed time: '.(time() - $fake_cron_last_exec_time) . '<br/>';
             }
         } else {
-            pclose(popen($cmd, 'r'));
             Yii::app()->config->set('fakecron_last_exec_time', time());
         }
         return parent::beforeAction($action);
-    }
+    }*/
     
     public function getProjects() {
         $Criteria = new CDbCriteria();
