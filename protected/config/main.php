@@ -79,12 +79,7 @@ return array(
             'loginUrl' => array('/user/login'),
         ),
         'db' => require(dirname(__FILE__) . '/db.php'),
-        'mail' => array(
-            'class' => 'ext.yii-mail.YiiMail',
-            'transportType' => 'php',
-            'viewPath' => 'application.views.mail',
-            'dryRun' => false,
-        ),
+        'mail' => require(dirname(__FILE__) . '/mail.php'),
         'log'=>array(
             'class'=>'CLogRouter',
             'routes'=>array(
@@ -160,7 +155,6 @@ return array(
             'urlFormat' => 'path',
             'showScriptName' => false,
             'rules' => array(
-                '/welcome/' => 'site/index',
                 '/projects/' => 'project/index',
                 '/projects/<identifier>' => 'project/view',
                 '/projects/<identifier>/issues' => 'issue/index',
