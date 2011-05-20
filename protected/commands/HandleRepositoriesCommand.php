@@ -619,9 +619,12 @@ class HandleRepositoriesCommand extends CConsoleCommand {
         // Check if we have a lock already. If not set one which
         // expires automatically after 10 minutes.
         $run = false;
-        if($args[1]) {
+        $locks = true;
+        if(isset($args[1])) {
             if($args[1] == 'nolock') {
                 $run = true;
+                $locks = false;
+                echo "no locks set\n";
             }
         } else {
             $run = Yii::app()->mutex->lock('HandleRepositoriesCommand', 600);
@@ -656,10 +659,10 @@ class HandleRepositoriesCommand extends CConsoleCommand {
                 }
 
                 // and after that release the lock...
-                if($args[1] != 'nolock') Yii::app()->mutex->unlock();
+                if($locks) Yii::app()->mutex->unlock();
             } catch (Exception $e) {
                 echo 'Exception caught: ', $e->getMessage(), "\n";
-                if($args[1] != 'nolock') Yii::app()->mutex->unlock();
+                if($locks) Yii::app()->mutex->unlock();
             }
         } else {
             echo 'Nothing to do. Exiting...';
