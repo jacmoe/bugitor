@@ -62,7 +62,8 @@
     }
     ?>
     <?php //TODO: Yii::app()->user->setState('show_all_versions', false); ?>
-    <?php if($this->getShowAllOverride()) $show_version = true; ?>
+    <?php if(isset($_GET['showcompleted'])) $show_version = true; ?>
+    <?php //if($this->getShowAllOverride()) $show_version = true; ?>
     <?php if($show_version): ?>
         <h3>
             <?php echo CHtml::link($version->name. ' - ' . $version->title,
