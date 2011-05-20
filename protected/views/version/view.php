@@ -34,6 +34,6 @@
 <?php
     $this->pageTitle = $model->project->name . ' - Version ' . $model->name . ' - ' . Yii::app()->name;
 ?>
-<h3 class="roadmap">View Version <i>"<?php echo $model->name; ?>"</i></h3>
+<h3 class="roadmap">View Version</h3>
 <?php $versions[] = $model; ?>
 <?php $this->widget('Roadmap', array('versions' => $versions, 'identifier' => $model->project->identifier, 'detail_view' => true)) ?>

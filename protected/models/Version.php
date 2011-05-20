@@ -40,12 +40,11 @@
  * @property integer $id
  * @property integer $project_id
  * @property string $name
+ * @property string $title
  * @property string $description
  * @property string $effective_date
  * @property string $created
  * @property string $modified
- *
- * The followings are the available model relations:
  * @property Issue[] $issues
  * @property Project $project
  */
@@ -73,9 +72,9 @@ class Version extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name', 'required'),
+            array('name, title', 'required'),
             array('project_id', 'numerical', 'integerOnly' => true),
-            array('name, description', 'length', 'max' => 255),
+            array('name, title, description', 'length', 'max' => 255),
             array('name', 'isinproject'),
             array('effective_date, created, modified', 'safe'),
             // The following rule is used by search().
@@ -120,6 +119,7 @@ class Version extends CActiveRecord {
             'id' => 'ID',
             'project_id' => 'Project',
             'name' => 'Name',
+            'title' => 'Title',
             'description' => 'Description',
             'effective_date' => 'Effective Date',
             'created' => 'Created',
