@@ -54,8 +54,8 @@
                     <?php
                     $this->widget('BugitorMenu', array(
                         'items' => array(
-                            array('label' => 'Home', 'url' => array('/site/index'), 'id' => 'site/index', 'visible' => Yii::app()->user->checkAccess('Issue.Create')),
-                            array('label' => 'Projects', 'url' => array('/projects/'), 'id' => 'project/index'),
+                            //array('label' => 'Home', 'url' => array('/site/index'), 'id' => 'site/index', 'visible' => Yii::app()->user->checkAccess('Issue.Create')),
+                            array('label' => 'Home', 'url' => array('/projects/'), 'id' => 'project/index'),
                             array('label' => 'Administration', 'url' => array('/admin'), 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
                         ),
                     )); ?>
@@ -131,7 +131,7 @@
                     <?php
                                         $this->widget('BugitorMenu', array(
                                             'items' => array(
-                                                array('label' => 'Welcome', 'url' => array('/site/index'), 'id' => 'site/index', 'visible' => Yii::app()->user->checkAccess('Issue.Create')),
+                                                //array('label' => 'Welcome', 'url' => array('/site/index'), 'id' => 'site/index', 'visible' => Yii::app()->user->checkAccess('Issue.Create')),
                                                 array('label' => 'Projects', 'url' => array('/projects/'), 'id' => 'project/index'),
                                             ),
                                         )); ?>

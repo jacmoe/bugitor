@@ -54,8 +54,8 @@
                     <?php
                     $this->widget('BugitorMenu', array(
                         'items' => array(
-                            array('label' => 'Home', 'url' => array('/site/index'), 'id' => 'site/index'),
-                            array('label' => 'Projects', 'url' => array('/projects/'), 'id' => 'project/index'),
+                            //array('label' => 'Home', 'url' => array('/site/index'), 'id' => 'site/index'),
+                            array('label' => 'Home', 'url' => array('/projects/'), 'id' => 'project/index'),
                             array('label' => 'Administration', 'url' => array('/admin'), 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
                         ),
                     )); ?>

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of
  *     ____              _ __
@@ -36,62 +37,60 @@
 class HandleRepositoriesCommand extends CConsoleCommand {
 
 // function courtesy of the mtrack project
-private function run_tool($toolname, $mode, $args = null)
-{
-    global $FORKS;
+    private function run_tool($toolname, $mode, $args = null) {
+        global $FORKS;
 
-    $tool = Yii::app()->config->get('hg_executable');
-    if (!strlen($tool)) {
-        $tool = $toolname;
-    }
-    if (PHP_OS == 'Windows' && strpos($tool, ' ') !== false) {
-        $tool = '"' . $tool . '"';
-    }
-    $cmd = $tool;
-    if (is_array($args)) {
-        foreach ($args as $arg) {
-            if (is_array($arg)) {
-                foreach ($arg as $a) {
-                    $cmd .= ' ' . escapeshellarg($a);
+        $tool = Yii::app()->config->get('hg_executable');
+        if (!strlen($tool)) {
+            $tool = $toolname;
+        }
+        if (PHP_OS == 'Windows' && strpos($tool, ' ') !== false) {
+            $tool = '"' . $tool . '"';
+        }
+        $cmd = $tool;
+        if (is_array($args)) {
+            foreach ($args as $arg) {
+                if (is_array($arg)) {
+                    foreach ($arg as $a) {
+                        $cmd .= ' ' . escapeshellarg($a);
+                    }
+                } else {
+                    $cmd .= ' ' . escapeshellarg($arg);
                 }
-            } else {
-                $cmd .= ' ' . escapeshellarg($arg);
             }
         }
-    }
-    if (!isset($FORKS[$cmd])) {
-        $FORKS[$cmd] = 0;
-    }
-    $FORKS[$cmd]++;
-    if (false) {
-        if (php_sapi_name() == 'cli') {
-            echo $cmd, "\n";
-        } else {
-            //error_log($cmd);
-            //echo htmlentities($cmd) . "<br>\n";
+        if (!isset($FORKS[$cmd])) {
+            $FORKS[$cmd] = 0;
+        }
+        $FORKS[$cmd]++;
+        if (false) {
+            if (php_sapi_name() == 'cli') {
+                echo $cmd, "\n";
+            } else {
+                //error_log($cmd);
+                //echo htmlentities($cmd) . "<br>\n";
+            }
+        }
+
+        switch ($mode) {
+            case 'read': return popen($cmd, 'r');
+            case 'write': return popen($cmd, 'w');
+            case 'string': return stream_get_contents(popen($cmd, 'r'));
+            case 'proc':
+                $pipedef = array(
+                    0 => array('pipe', 'r'),
+                    1 => array('pipe', 'w'),
+                    2 => array('pipe', 'w'),
+                );
+                $proc = proc_open($cmd, $pipedef, $pipes);
+                return array($proc, $pipes);
         }
     }
-
-    switch ($mode) {
-    case 'read': return popen($cmd, 'r');
-    case 'write': return popen($cmd, 'w');
-    case 'string': return stream_get_contents(popen($cmd, 'r'));
-    case 'proc':
-        $pipedef = array(
-            0 => array('pipe', 'r'),
-             1 => array('pipe', 'w'),
-             2 => array('pipe', 'w'),
-        );
-        $proc = proc_open($cmd, $pipedef, $pipes);
-        return array($proc, $pipes);
-    }
-}
 
     private $repopath;
     private $arr_users;
 
-    private function hg()
-    {
+    private function hg() {
         $args = func_get_args();
         $a = array("-y", "-R", $this->repopath, "--cwd", $this->repopath);
         foreach ($args as $arg) {
@@ -101,7 +100,7 @@ private function run_tool($toolname, $mode, $args = null)
         return $this->run_tool('hg', 'read', $a);
     }
 
-    function grabChanges($start = 0, $end = 'tip', $limit = 100){
+    function grabChanges($start = 0, $end = 'tip', $limit = 100) {
 
         $this->arr_users = array();
 
@@ -109,16 +108,13 @@ private function run_tool($toolname, $mode, $args = null)
 
         $sep = uniqid();
 
-        if(0 === $limit) {
-            $fp = $this->hg('log',
-                    '--rev', $start.':'.$end, '--template', $sep . '\n{node|short}\n{rev}\n{branches}\n{tags}\n{parents}\n{children}\n{file_mods}\n{file_copies}\n{file_adds}\n{file_dels}\n{author|email}\n{date|hgdate}\n{desc}\n');
+        if (0 === $limit) {
+            $fp = $this->hg('log', '--rev', $start . ':' . $end, '--template', $sep . '\n{node|short}\n{rev}\n{branches}\n{tags}\n{parents}\n{children}\n{file_mods}\n{file_copies}\n{file_adds}\n{file_dels}\n{author|email}\n{date|hgdate}\n{desc}\n');
         } else {
-            $fp = $this->hg('log',
-                    '--rev', $start.':'.$end, '--template', $sep . '\n{node|short}\n{rev}\n{branches}\n{tags}\n{parents}\n{children}\n{file_mods}\n{file_copies}\n{file_adds}\n{file_dels}\n{author|email}\n{date|hgdate}\n{desc}\n', '-l '.$limit);
+            $fp = $this->hg('log', '--rev', $start . ':' . $end, '--template', $sep . '\n{node|short}\n{rev}\n{branches}\n{tags}\n{parents}\n{children}\n{file_mods}\n{file_copies}\n{file_adds}\n{file_dels}\n{author|email}\n{date|hgdate}\n{desc}\n', '-l ' . $limit);
         }
 
         fgets($fp); # discard leading $sep
-
         // corresponds to the file_adds, file_copies, file_modes, file_dels
         // in the template above
         static $file_status_order = array('M', 'C', 'A', 'D');
@@ -141,14 +137,14 @@ private function run_tool($toolname, $mode, $args = null)
                 $entry['branches'] = 'default';
                 $entry['branch_count'] = 1;
             } else {
-                    $entry['branches'] = implode(',', $branches);
-                    $entry['branch_count'] = count($branches);
+                $entry['branches'] = implode(',', $branches);
+                $entry['branch_count'] = count($branches);
             }
 
             $tags = array();
             foreach (preg_split('/\s+/', trim(fgets($fp))) as $t) {
                 if (strlen($t)) {
-                    if('tip' !== $t)
+                    if ('tip' !== $t)
                         $tags[] = $t;
                 }
             }
@@ -156,8 +152,8 @@ private function run_tool($toolname, $mode, $args = null)
                 $entry['tags'] = '';
                 $entry['tag_count'] = 0;
             } else {
-                    $entry['tags'] = implode(',', $tags);
-                    $entry['tag_count'] = count($tags);
+                $entry['tags'] = implode(',', $tags);
+                $entry['tag_count'] = count($tags);
             }
 
             $parents = array();
@@ -170,8 +166,8 @@ private function run_tool($toolname, $mode, $args = null)
                 $entry['parents'] = '';
                 $entry['parent_count'] = 0;
             } else {
-                    $entry['parents'] = implode(',', $parents);
-                    $entry['parent_count'] = count($parents);
+                $entry['parents'] = implode(',', $parents);
+                $entry['parent_count'] = count($parents);
             }
 
             $children = array();
@@ -184,10 +180,10 @@ private function run_tool($toolname, $mode, $args = null)
                 $entry['children'] = '';
                 $entry['child_count'] = 0;
             } else {
-                    $entry['children'] = implode(',', $children);
-                    $entry['child_count'] = count($children);
+                $entry['children'] = implode(',', $children);
+                $entry['child_count'] = count($children);
             }
-            
+
             $files = array();
             foreach ($file_status_order as $status) {
                 foreach (preg_split('/\s+/', trim(fgets($fp))) as $t) {
@@ -209,7 +205,7 @@ private function run_tool($toolname, $mode, $args = null)
             list($ts) = preg_split('/\s+/', fgets($fp));
             //FIXME: format date the way we want the date
             $entry['date'] = date("Y-m-d H:i:s", $ts);
-            
+
             $changelog = array();
             while (($line = fgets($fp)) !== false) {
                 $line = rtrim($line, "\r\n");
@@ -236,15 +232,15 @@ private function run_tool($toolname, $mode, $args = null)
 
     public function fillUsersTable() {
         $authors = array();
-        foreach($this->arr_users as $key=>$val) {
+        foreach ($this->arr_users as $key => $val) {
             $authors[$val] = true;
         }
         $authors = array_keys($authors);
-        
-        foreach($authors as $author) {
+
+        foreach ($authors as $author) {
             $criteria = new CDbCriteria();
             $criteria->compare('author', $author);
-            if(!AuthorUser::model()->exists($criteria)) {
+            if (!AuthorUser::model()->exists($criteria)) {
                 $author_user = new AuthorUser;
 
                 $author_user->author = $author;
@@ -252,10 +248,10 @@ private function run_tool($toolname, $mode, $args = null)
                 $criteria_user = new CDbCriteria();
                 $criteria_user->compare('username', $author);
                 $user = User::model()->find($criteria_user);
-                if($user) {
+                if ($user) {
                     $author_user->user_id = $user->id;
                 }
-                if($author_user->validate(array('author'))) {
+                if ($author_user->validate(array('author'))) {
                     $author_user->save(false);
                 }
             }
@@ -264,14 +260,14 @@ private function run_tool($toolname, $mode, $args = null)
 
     public function workPendingChangesets() {
         $pending_changesets = PendingChangeset::model()->findAll();
-        if($pending_changesets) {
-            foreach($pending_changesets as $pending_changeset) {
-                $changeset = Changeset::model()->findByPk((int)$pending_changeset->changeset_id);
-                if($changeset) {
+        if ($pending_changesets) {
+            foreach ($pending_changesets as $pending_changeset) {
+                $changeset = Changeset::model()->findByPk((int) $pending_changeset->changeset_id);
+                if ($changeset) {
                     $user_id = $this->handleUser($changeset->author);
-                    if($user_id) {
+                    if ($user_id) {
                         $changeset->user_id = $user_id;
-                        if($changeset->validate()) {
+                        if ($changeset->validate()) {
                             $changeset->save(false);
                             $this->importChangeset($changeset);
                             $this->addToActionLog($changeset);
@@ -282,12 +278,12 @@ private function run_tool($toolname, $mode, $args = null)
             } // foreach pending changeset
         } // if pending changesets
     }
-    
+
     public function handleUser($author) {
         $criteria_user = new CDbCriteria();
         $criteria_user->compare('author', $author);
         $author_user = AuthorUser::model()->find($criteria_user);
-        if($author_user) {
+        if ($author_user) {
             return $author_user->user_id;
         }
         return null;
@@ -295,7 +291,7 @@ private function run_tool($toolname, $mode, $args = null)
 
     public function doInitialImport($unique_id, $last_revision, $repository_id) {
         $start_rev = 0;
-        while($start_rev < $last_revision) {
+        while ($start_rev < $last_revision) {
             echo 'Importing  from revision "' . $start_rev . '" to "' . ($start_rev + 25) . "\"\n";
             $this->importChanges($start_rev, $unique_id, $repository_id);
             $start_rev = $start_rev + 25;
@@ -304,18 +300,20 @@ private function run_tool($toolname, $mode, $args = null)
     }
 
     public function importChanges($start_rev, $unique_id, $repository_id) {
-        
+
+        echo 'Importing  from revision "' . $start_rev . '" to "' . ($start_rev + 50) . "\"\n";
+
         $entries = $this->grabChanges($start_rev, 'tip', 50);
 
         $this->fillUsersTable();
 
-        foreach($entries as $entry) {
+        foreach ($entries as $entry) {
 
             $criteria = new CDbCriteria();
             $criteria->select = "unique_ident";
             $criteria->compare('unique_ident', $unique_id . $entry['revision']);
 
-            if(!Changeset::model()->exists($criteria)) {
+            if (!Changeset::model()->exists($criteria)) {
 
                 $changeset = new Changeset;
                 $changeset->unique_ident = $unique_id . $entry['revision'];
@@ -333,10 +331,10 @@ private function run_tool($toolname, $mode, $args = null)
                 $changeset->tag_count = $entry['tag_count'];
                 $changeset->child_count = $entry['child_count'];
                 $changeset->parent_count = $entry['parent_count'];
-                if($entry['parent_count'] === 0) {
+                if ($entry['parent_count'] === 0) {
                     $fp = $this->run_tool('hg', 'read', array('parents', '-r' . $entry['short_rev'], '-R', $this->repopath, '--cwd', $this->repopath, '--template', '{rev}:{node|short}'));
                     $changeset->parents = fgets($fp);
-                    if($changeset->parents == '') {
+                    if ($changeset->parents == '') {
                         $changeset->parent_count = 0;
                     } else {
                         $changeset->parent_count = 1;
@@ -346,13 +344,13 @@ private function run_tool($toolname, $mode, $args = null)
                     $changeset->parents = $entry['parents'];
                 }
 
-                if($changeset->validate()) {
+                if ($changeset->validate()) {
                     $changeset->save(false);
 
                     //TODO: If user_id is not present,
                     // do not add and import
                     // add the changeset->id to a to-be-done table instead
-                    if(null != $changeset->user_id) {
+                    if (null != $changeset->user_id) {
                         $this->addToActionLog($changeset);
                         $this->importChangeset($changeset);
                     } else {
@@ -363,7 +361,7 @@ private function run_tool($toolname, $mode, $args = null)
 
                     $change_edit = $change_del = $change_add = 0;
 
-                    foreach($entry['files'] as $file) {
+                    foreach ($entry['files'] as $file) {
                         $change = new Change;
                         $change->changeset_id = $changeset->id;
                         switch ($file['status']) {
@@ -381,7 +379,7 @@ private function run_tool($toolname, $mode, $args = null)
                         }
                         $change->path = $file['name'];
                         $change->action = $file['status'];
-                        if('M' === $change->action) {
+                        if ('M' === $change->action) {
                             $hg_executable = Yii::app()->config->get('hg_executable');
                             $cmd = "{$hg_executable} diff --git -c{$changeset->short_rev} -R {$this->repopath} --cwd {$this->repopath} {$change->path}";
                             $diff = stream_get_contents(popen($cmd, 'r'));
@@ -390,7 +388,7 @@ private function run_tool($toolname, $mode, $args = null)
                             $change->diff = '';
                         }
                         $fp = null;
-                        if($change->validate()) {
+                        if ($change->validate()) {
                             $change->save(false);
                         } else {
                             return false;
@@ -400,7 +398,6 @@ private function run_tool($toolname, $mode, $args = null)
                     $changeset->del = $change_del;
                     $changeset->edit = $change_edit;
                     $changeset->update();
-
                 } else { // changeset validate
                     return false;
                 }
@@ -420,38 +417,37 @@ private function run_tool($toolname, $mode, $args = null)
 
         $issues_to_be_referenced = array();
         $num_refs = preg_match_all($preg_string_refs, strtolower($changeset->message), $matches_refs, PREG_SET_ORDER);
-        if($num_refs > 0) {
+        if ($num_refs > 0) {
             for ($i = 0; $i < count($matches_refs); $i++) {
 
-                if(count($matches_refs[$i]) == 6) {
+                if (count($matches_refs[$i]) == 6) {
                     $issues_to_be_referenced[] = $matches_refs[$i][1];
                     $issues_to_be_referenced[] = $matches_refs[$i][5];
+                } else if (count($matches_refs[$i]) == 2) {
+                    $issues_to_be_referenced[] = $matches_refs[$i][1];
                 }
-                else if(count($matches_refs[$i]) == 2) {
-                        $issues_to_be_referenced[] = $matches_refs[$i][1];
-                    }
             }
         }
         $criteria_ref = new CDbCriteria();
         $criteria_ref->compare('project_id', $changeset->scm->project_id);
-        
+
         $issues_to_ref = Issue::model()->findAllByPk($issues_to_be_referenced, $criteria_ref);
-        foreach($issues_to_ref as $issue_ref) {
+        foreach ($issues_to_ref as $issue_ref) {
 
             $comment = new Comment;
-            $comment->content = 'Referenced in rev:'.$changeset->revision;
+            $comment->content = 'Referenced in rev:' . $changeset->revision;
             $comment->issue_id = $issue_ref->id;
             $comment->create_user_id = $changeset->user_id;
             $comment->update_user_id = $changeset->user_id;
-            if($comment->validate(array('content', 'issue_id', 'create_user_id', 'update_user_id'))) {
+            if ($comment->validate(array('content', 'issue_id', 'create_user_id', 'update_user_id'))) {
                 $comment->created = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds));
                 $comment->modified = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds));
                 $comment->save(false);
 
                 $issue_ref->detachBehavior('BugitorTimestampBehavior');
 
-                if($issue_ref->validate(array('updated_by', 'closed'))) {
-                    if( Time::makeUnix($issue_ref->modified) < Time::makeUnix($changeset->commit_date)) {
+                if ($issue_ref->validate(array('updated_by', 'closed'))) {
+                    if (Time::makeUnix($issue_ref->modified) < Time::makeUnix($changeset->commit_date)) {
                         $issue_ref->modified = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds));
                         $issue_ref->updated_by = $changeset->user_id;
                     }
@@ -459,13 +455,13 @@ private function run_tool($toolname, $mode, $args = null)
                     $issue_ref->save(false);
 
                     $issue_ref = Issue::model()->findByPk($issue_ref->id);
-                    $issue_ref->addToActionLog($issue_ref->id, $changeset->user_id, 'note', '/projects/'.$issue_ref->project->identifier.'/issue/view/'.$issue_ref->id.'#note-'.$issue_ref->commentCount, $comment);
+                    $issue_ref->addToActionLog($issue_ref->id, $changeset->user_id, 'note', '/projects/' . $issue_ref->project->identifier . '/issue/view/' . $issue_ref->id . '#note-' . $issue_ref->commentCount, $comment);
                     $issue_ref->sendNotifications($issue_ref->id, $comment, $issue_ref->updated_by);
 
                     $changeset_issue = new ChangesetIssue;
                     $changeset_issue->changeset_id = $changeset->id;
                     $changeset_issue->issue_id = $issue_ref->id;
-                    if($changeset_issue->validate())
+                    if ($changeset_issue->validate())
                         $changeset_issue->save(false);
                 } // issue_ref validate
             } // comment validate
@@ -474,60 +470,59 @@ private function run_tool($toolname, $mode, $args = null)
 
         $issues_to_be_closed = array();
         $num_closes = preg_match_all($preg_string_closes, strtolower($changeset->message), $matches_closes, PREG_SET_ORDER);
-        if($num_closes > 0) {
+        if ($num_closes > 0) {
             for ($i = 0; $i < count($matches_closes); $i++) {
 
-                if(count($matches_closes[$i]) == 6) {
+                if (count($matches_closes[$i]) == 6) {
                     $issues_to_be_closed[] = $matches_closes[$i][1];
                     $issues_to_be_closed[] = $matches_closes[$i][5];
+                } else if (count($matches_closes[$i]) == 2) {
+                    $issues_to_be_closed[] = $matches_closes[$i][1];
                 }
-                else if(count($matches_closes[$i]) == 2) {
-                        $issues_to_be_closed[] = $matches_closes[$i][1];
-                    }
             }
         }
 
         $criteria_close = new CDbCriteria();
         $criteria_close->compare('project_id', $changeset->scm->project_id);
-        
+
         $issues_to_close = Issue::model()->findAllByPk($issues_to_be_closed, $criteria_close);
-        foreach($issues_to_close as $issue_close) {
+        foreach ($issues_to_close as $issue_close) {
 
             $was_closed_by_commit = false;
             $comment = new Comment;
-            if($issue_close->closed == 0) {
-                $comment->content = 'Applied in rev:'.$changeset->revision;
+            if ($issue_close->closed == 0) {
+                $comment->content = 'Applied in rev:' . $changeset->revision;
                 $was_closed_by_commit = true;
             } else {
-                $comment->content = 'Referenced in rev:'.$changeset->revision;
+                $comment->content = 'Referenced in rev:' . $changeset->revision;
             }
             $comment->issue_id = $issue_close->id;
             $comment->create_user_id = $changeset->user_id;
             $comment->update_user_id = $changeset->user_id;
 
-            if($comment->validate(array('content', 'issue_id', 'create_user_id', 'update_user_id'))) {
+            if ($comment->validate(array('content', 'issue_id', 'create_user_id', 'update_user_id'))) {
                 $comment->created = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds));
                 $comment->modified = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds));
                 $comment->save(false);
 
-                if($issue_close->closed != 1) {
+                if ($issue_close->closed != 1) {
                     $issue_close->status = 'swIssue/resolved';
                 }
 
                 $issue_close->detachBehavior('BugitorTimestampBehavior');
 
-                if($issue_close->validate(array('updated_by', 'closed'))) {
-                    if( Time::makeUnix($issue_close->modified) < Time::makeUnix($changeset->commit_date)) {
+                if ($issue_close->validate(array('updated_by', 'closed'))) {
+                    if (Time::makeUnix($issue_close->modified) < Time::makeUnix($changeset->commit_date)) {
                         $issue_close->modified = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds));
                         $issue_close->updated_by = $changeset->user_id;
                     }
 
                     $issue_close->save(false);
 
-                    if($was_closed_by_commit) {
-                        $issue_close->addToActionLog($issue_close->id, $changeset->user_id, 'resolved', '/projects/'.$issue_close->project->identifier.'/issue/view/'.$issue_close->id.'#note-'.$issue_close->commentCount, $comment);
+                    if ($was_closed_by_commit) {
+                        $issue_close->addToActionLog($issue_close->id, $changeset->user_id, 'resolved', '/projects/' . $issue_close->project->identifier . '/issue/view/' . $issue_close->id . '#note-' . $issue_close->commentCount, $comment);
                     } else {
-                        $issue_close->addToActionLog($issue_close->id, $changeset->user_id, 'note', '/projects/'.$issue_close->project->identifier.'/issue/view/'.$issue_close->id.'#note-'.$issue_close->commentCount, $comment);
+                        $issue_close->addToActionLog($issue_close->id, $changeset->user_id, 'note', '/projects/' . $issue_close->project->identifier . '/issue/view/' . $issue_close->id . '#note-' . $issue_close->commentCount, $comment);
                     }
 
                     $issue_close->sendNotifications($issue_close->id, $comment, $issue_close->updated_by);
@@ -535,13 +530,12 @@ private function run_tool($toolname, $mode, $args = null)
                     $changeset_issue = new ChangesetIssue;
                     $changeset_issue->changeset_id = $changeset->id;
                     $changeset_issue->issue_id = $issue_close->id;
-                    if($changeset_issue->validate())
+                    if ($changeset_issue->validate())
                         $changeset_issue->save(false);
                 } // issue_close validate
             } // comment validate
             $commit_date_in_seconds++;
         } // foreach issue to close
-        
     }
 
     public function addToActionLog($changeset) {
@@ -552,91 +546,110 @@ private function run_tool($toolname, $mode, $args = null)
         $actionLog->subject = 'Revision ' . $changeset->revision . ' (' . $changeset->scm->name . ')';
         $actionLog->type = 'changeset';
         $actionLog->theDate = $changeset->commit_date;
-        $actionLog->url = '/projects/'. $changeset->scm->project->identifier . '/changeset/view/' . $changeset->id;
-        if($actionLog->validate())
+        $actionLog->url = '/projects/' . $changeset->scm->project->identifier . '/changeset/view/' . $changeset->id;
+        if ($actionLog->validate())
             $actionLog->save(false);
     }
+
+    public function processRepository($repository) {
+
+        $this->repopath = $repository->local_path;
+
+        if ($repository->status === '0') {
+            // clone repository
+            $this->run_tool('hg', 'read', array('clone', $repository->url, $repository->local_path));
+            $repository->status = 1;
+            $repository->save();
+            // fill author user table
+            $this->grabChanges(0, 'tip', 0);
+            $this->fillUsersTable();
+
+            continue;
+        }
+
+        if ($repository->status === '1') {
+            // user need to check author_user table
+            //TODO: put a link so that the user can set progress
+            continue;
+        }
+
+        // repository has been cloned and author_user table checked
+
+        $fp = $this->run_tool('hg', 'read', array('log', '-r0', '-R', $repository->local_path, '--cwd', $repository->local_path, '--template', '{node}'));
+        $unique_id = fgets($fp);
+        $fp = null;
+
+        $fp = $this->run_tool('hg', 'read', array('log', '-rtip', '-R', $repository->local_path, '--cwd', $repository->local_path, '--template', '{rev}'));
+        $last_revision = fgets($fp);
+        $fp = null;
+
+        if ($repository->status === '2') {
+            // perform initial import
+            //TODO: this consumes too much memory!
+            //$this->hg('pull');
+            //$this->hg('update');
+            //$this->doInitialImport($unique_id, $last_revision, $repository->id);
+            $repository->status = 3;
+            $repository->save();
+            //continue;
+        }
+
+        // repository status is OK (3)
+        // normal maintenance work ...
+
+        $this->workPendingChangesets();
+
+        $this->hg('pull');
+        $this->hg('update');
+
+        $criteriac = new CDbCriteria();
+        $criteriac->compare('scm_id', $repository->id);
+        $criteriac->select = 'max(short_rev) as maxRev';
+        $last_revision_stored = Changeset::model()->find($criteriac);
+        $start_rev = 0;
+        if (null !== $last_revision_stored->maxRev) {
+            //echo 'Last revision in db: ' . $last_revision_stored->maxRev . "\n";
+            $start_rev = $last_revision_stored->maxRev + 1;
+        }
+
+        if ($start_rev <= $last_revision)
+            $this->importChanges($start_rev, $unique_id, $repository->id);
+    }
+
     public function run($args) {
+
         // Check if we have a lock already. If not set one which
         // expires automatically after 10 minutes.
-        if (Yii::app()->mutex->lock('HandleRepositoriesCommand', 600))
-        {
+        if (Yii::app()->mutex->lock('HandleRepositoriesCommand', 600)) {
             try {
-//TODO: handle python_path!
-//                if(Yii::app()->config->get('python_path') !== '')
-//                    putenv(Yii::app()->config->get('python_path'));
+                //TODO: handle python_path!
+                //if(Yii::app()->config->get('python_path') !== '')
+                //  putenv(Yii::app()->config->get('python_path'));
 
-                $projects = Project::model()->with(array('repositories'))->findAll();
-                foreach($projects as $project) {
-                    foreach($project->repositories as $repository) {
-
-                        $this->repopath = $repository->local_path;
-
-                        if($repository->status === '0') {
-                            // clone repository
-                            $this->run_tool('hg', 'read', array('clone', $repository->url, $repository->local_path));
-                            $repository->status = 1;
-                            $repository->save();
-                            // fill author user table
-                            $this->grabChanges(0, 'tip', 0);
-                            $this->fillUsersTable();
-
-                            continue;
+                if(count($args) > 0) {
+                    $project = Project::model()->findByPk((int)$args[0]);
+                    if($project) {
+                        echo 'Handling repositories for ' . $project->name . "\n";
+                        foreach ($project->repositories as $repository) {
+                            $this->processRepository($repository);
                         }
-
-                        if($repository->status === '1') {
-                            // user need to check author_user table
-                            //TODO: put a link so that the user can set progress
-                            continue;
+                    } else {
+                        echo "Invalid project ID\n";
+                    }
+                } else {
+                    $projects = Project::model()->with(array('repositories'))->findAll();
+                    foreach ($projects as $project) {
+                        echo 'Handling repositories for ' . $project->name . "\n";
+                        foreach ($project->repositories as $repository) {
+                            $this->processRepository($repository);
                         }
-
-                        // repository has been cloned and author_user table checked
-
-                        $fp = $this->run_tool('hg', 'read', array('log', '-r0', '-R', $repository->local_path, '--cwd', $repository->local_path, '--template', '{node}'));
-                        $unique_id = fgets($fp);
-                        $fp = null;
-
-                        $fp = $this->run_tool('hg', 'read', array('log', '-rtip', '-R', $repository->local_path, '--cwd', $repository->local_path, '--template', '{rev}'));
-                        $last_revision = fgets($fp);
-                        $fp = null;
-
-                        if($repository->status === '2') {
-                            // perform initial import
-                            $this->doInitialImport($unique_id, $last_revision, $repository->id);
-                            $repository->status = 3;
-                            $repository->save();
-                            continue;
-                        }
-
-                        // repository status is OK (3)
-                        // normal maintenance work ...
-
-                        $this->workPendingChangesets();
-                        
-                        $this->hg('pull');
-                        $this->hg('update');
-
-                        $criteriac = new CDbCriteria();
-                        $criteriac->compare('scm_id', $repository->id);
-                        $criteriac->select ='max(short_rev) as maxRev';
-                        $last_revision_stored = Changeset::model()->find($criteriac);
-                        $start_rev = 0;
-                        if(null !== $last_revision_stored->maxRev) {
-                            //echo 'Last revision in db: ' . $last_revision_stored->maxRev . "\n";
-                            $start_rev = $last_revision_stored->maxRev + 1;
-                        }
-
-                        if($start_rev <= $last_revision)
-                            $this->importChanges($start_rev, $unique_id, $repository->id);
-
                     }
                 }
 
                 // and after that release the lock...
                 Yii::app()->mutex->unlock();
-
             } catch (Exception $e) {
-                echo 'Exception caught: ',  $e->getMessage(), "\n";
+                echo 'Exception caught: ', $e->getMessage(), "\n";
                 Yii::app()->mutex->unlock();
             }
         } else {
