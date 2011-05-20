@@ -74,7 +74,7 @@ class Version extends CActiveRecord {
         return array(
             array('name, title', 'required'),
             array('project_id', 'numerical', 'integerOnly' => true),
-            array('name, title, description', 'length', 'max' => 255),
+            array('name, title', 'length', 'max' => 255),
             array('name', 'isinproject'),
             array('effective_date, created, modified', 'safe'),
             // The following rule is used by search().

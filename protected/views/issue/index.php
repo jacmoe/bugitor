@@ -128,7 +128,8 @@ Show:
                 array(
                     'name' => 'version_id',
                     'header' => 'Version',
-                    'value' => '(($data->version)?$data->version->name:"")',
+                    'type' => 'raw',
+                    'value' => '(($data->version)?CHtml::tag("acronym", array("title" => $data->version->title), $data->version->name):"")',
                     'filter' => $this->getVersionFilter(),
                     'htmlOptions'=>array('width'=>'10'),
                 ),
