@@ -52,7 +52,7 @@ class ConfigForm extends CFormModel
 	public function rules()
 	{
 		return array(
-			array('pagesize, hg_executable, python_path, default_scm, default_timezone', 'required'),
+			array('pagesize, hg_executable, default_scm, default_timezone', 'required'),
 		);
 	}
 

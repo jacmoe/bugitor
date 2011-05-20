@@ -9,10 +9,10 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/print.css" media="print" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/ie.css" media="screen, projection" />
 
-        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/plugins/fancy-type/screen.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/main.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/form.css" />
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+        <script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl; ?>/js/branch_renderer.js"></script>
     </head>
     <body>
 <?php
@@ -54,7 +54,7 @@
                     <?php
                     $this->widget('BugitorMenu', array(
                         'items' => array(
-                            //array('label' => 'Home', 'url' => array('/site/index'), 'id' => 'site/index'),
+                            //array('label' => 'Home', 'url' => array('/site/index'), 'id' => 'site/index', 'visible' => Yii::app()->user->checkAccess('Issue.Create')),
                             array('label' => 'Home', 'url' => array('/projects/'), 'id' => 'project/index'),
                             array('label' => 'Administration', 'url' => array('/admin'), 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
                         ),
@@ -62,7 +62,7 @@
                 </div>
                 <div id="topmenu" class="span-8 last">
                     <span class="right">
-                        <?php
+                    <?php
                         $this->widget('BugitorMenu', array(
                             'items' => array(
                                 array('url' => Yii::app()->getModule('user')->loginUrl, 'label' => Yii::app()->getModule('user')->t("Login"), 'visible' => Yii::app()->user->isGuest, 'id' => 'user/login/login'),
@@ -77,12 +77,20 @@
             <div id="mainmenu" class="span-24">
                 <div id="header" class="span-24">
                     <div id="logo" class="span-2">
-                        <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/bugitor_64.png','Powered by Bugitor', array('title' => 'Powered by Bugitor')) ?>
+                        <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/bugitor_64.png','Bugitor - The Yii-powered issue tracker', array('title' => 'Bugitor - The Yii-powered issue tracker')) ?>
                     </div>
                     <div id="header" class="span-14 alt">
                         <div>
-                        <?php if (((Yii::app()->controller->id === 'project') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) : ?>
-                            <h1 class="alt"><?php echo CHtml::encode($_GET['identifier']); ?></h1>
+                        <?php if (
+                                ((Yii::app()->controller->id === 'project')
+                                || (Yii::app()->controller->id === 'issue')
+                                || (Yii::app()->controller->id === 'member')
+                                || (Yii::app()->controller->id === 'changeset')
+                                || (Yii::app()->controller->id === 'version')
+                                || (Yii::app()->controller->id === 'issueCategory')
+                                || (Yii::app()->controller->id === 'repository')
+                                        ) && (isset($_GET['projectname']))) : ?>
+                            <h1 class="alt"><?php echo CHtml::encode($_GET['projectname']); ?></h1>
                         <?php else : ?>
                             <h1 class="alt"><?php echo CHtml::encode(Yii::app()->name); ?></h1>
                         <?php endif; ?>
@@ -100,27 +108,47 @@
                         </div>
                     </div>
                     <div id="mainmenu" class="span-20 last">
-                    <?php
-                                        $this->widget('BugitorMenu', array(
-                                            'items' => array(
-                                                array('label' => 'Admin Home', 'url' => array('/admin/default/index'), 'id' => 'admin/default/index', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
-                                                array('label' => 'Projects', 'url' => array('/admin'), 'id' => '/admin/projecs', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
-                                                array('label' => 'Users', 'url' => array('/user/admin'), 'id' => 'user', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
-                                                array('label' => 'Roles and Rights', 'url' => array('/rights'), 'id' => 'rights', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
-                                                array('label' => 'Global Settings', 'url' => array('/admin/settings/index'), 'id' => 'admin/settings/index', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
-                                                array('label' => 'Information', 'url' => array('/admin'), 'id' => '/admin/information', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
-                                            ),
-                                        )); ?>
-                                    </div>
+                        <?php
+                        $this->widget('BugitorMenu', array(
+                            'items' => array(
+                                array('label' => 'Admin Home', 'url' => array('/admin/default/index'), 'id' => 'admin/default/index', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
+                                array('label' => 'Projects', 'url' => array('/admin'), 'id' => '/admin/projecs', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
+                                array('label' => 'Users', 'url' => array('/user/admin'), 'id' => 'user', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
+                                array('label' => 'Roles and Rights', 'url' => array('/rights'), 'id' => 'rights', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
+                                array('label' => 'Global Settings', 'url' => array('/admin/settings/index'), 'id' => 'admin/settings/index', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
+                                array('label' => 'Information', 'url' => array('/admin'), 'id' => '/admin/information', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
+                            ),
+                        ));
+                        ?>
+                    </div>
                                 </div>
-                                    <br/>
-                                    <div class="break"></div>
-            <?php echo $content; ?>
+                                <div class="clear"></div>
+                                <?php
+                                Yii::app()->clientScript->registerScript(
+                                   'myHideEffect',
+                                   '$(".info").animate({opacity: 1.0}, 4000).fadeOut("slow");',
+                                   CClientScript::POS_READY
+                                );
+                                ?>
+                                <?php
+                                    $user=Yii::app()->getUser();
+                                    foreach($user->getFlashKeys() as $key):
+                                        if($user->hasFlash($key)): ?>
+                                        <br/>
+                                        <div class="info flash-<?php echo $key; ?>">
+                                            <?php echo $user->getFlash($key); ?>
+                                        </div>
+                                <?php
+                                        endif;
+                                    endforeach; ?>
+                                <?php echo $content; ?>
                                         <div class="span-24 alt"><div align="center" class="quiet">
                                         <hr/>
-                                                Powered by <a href="http://bitbucket.org/jacmoe/bugitor">Bugitor</a> &copy; 2010 by Bugitor Team.<br/>
-                                                <a href="http://www.yiiframework.com/" rel="external"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/yii_power_lightblue_white.gif" alt="Made with Yii Framework" title="Made with Yii Framework"/></a>
-<hr/></div>
+                                                Powered by <a class="noicon" title="Bugitor - The Yii-powered issue tracker" href="http://bitbucket.org/jacmoe/bugitor">Bugitor</a> &copy; 2010 - 2011 by Bugitor Team.<br/>
+                                                <a class="noicon" href="http://www.yiiframework.com/" rel="external"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/yii_power_lightblue_white.gif" alt="Made with Yii Framework" title="Made with Yii Framework"/></a>
+                                                <hr/>
+                                                <a href="http://sourceforge.net/projects/bugitor"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=542384&amp;type=10" width="80" height="15" alt="Get Bugitor at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a>
+                                        </div>
             </div>
         </div>
     </body>

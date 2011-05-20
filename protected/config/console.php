@@ -84,12 +84,7 @@ return array(
         'textile' => array(
             'class' => 'application.components.textile.Textilizer',
         ),
-        'mail' => array(
-            'class' => 'ext.yii-mail.YiiMail',
-            'transportType' => 'php',
-            'viewPath' => 'application.views.mail',
-            'dryRun' => false,
-        ),
+        'mail' => require(dirname(__FILE__) . '/mail.php'),
         'config' => array(
             'class' => 'application.extensions.EConfig',
             'configTableName' => '{{config}}',
@@ -117,7 +112,6 @@ return array(
             'urlFormat' => 'path',
             'showScriptName' => false,
             'rules' => array(
-                '/welcome/' => 'site/index',
                 '/projects/' => 'project/index',
                 '/projects/<identifier>' => 'project/view',
                 '/projects/<identifier>/issues' => 'issue/index',
