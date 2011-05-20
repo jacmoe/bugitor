@@ -69,8 +69,13 @@ class EmailForm extends CFormModel
             $message = new YiiMailMessage;
             $message->setSubject($this->subject);
             $message->setBody($this->message, 'text/html');
-            $message->setSender(array('ticket@tracker.ogitor.org' => 'Bugitor Issue Tracker'));
-            $message->setFrom(array('ticket@tracker.ogitor.org' => 'Bugitor Issue Tracker'));
+            if($_SERVER['SERVER_NAME'] == 'localhost') {
+                $message->setSender(array('jacmoe@mail.dk' => 'Jacob Moen'));
+                $message->setFrom(array('jacmoe@mail.dk' => 'Jacob Moen'));
+            } else {
+                $message->setSender(array('ticket@tracker.ogitor.org' => 'Bugitor Issue Tracker'));
+                $message->setFrom(array('ticket@tracker.ogitor.org' => 'Bugitor Issue Tracker'));
+            }
             $message->addTo('jacmoe@mail.dk');
             Yii::app()->mail->send($message);
             return true;
