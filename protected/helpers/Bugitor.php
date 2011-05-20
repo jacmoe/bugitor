@@ -111,12 +111,20 @@ class Bugitor {
 
     public static function link_to_version($version, $absolute = false) {
         if($absolute) {
-            return CHtml::link($version->name, Yii::app()->config->get('hostname').'projects/'.$version->project->identifier.'/version/view/'.$version->id);
+            return CHtml::link($version->name . ' - ' . $version->title, Yii::app()->config->get('hostname').'projects/'.$version->project->identifier.'/version/view/'.$version->id);
         } else {
-            return CHtml::link($version->name ,array('/version/view', "id" => $version->id, 'identifier' => $version->project->identifier));
+            return CHtml::link($version->name . ' - ' . $version->title ,array('/version/view', "id" => $version->id, 'identifier' => $version->project->identifier));
         }
     }
 
+    public static function short_link_to_version($version, $absolute = false) {
+        if($absolute) {
+            return CHtml::link($version->name . ' - ' . $version->title, Yii::app()->config->get('hostname').'projects/'.$version->project->identifier.'/version/view/'.$version->id);
+        } else {
+            return CHtml::link($version->name . ' - ' . $version->title ,array('/version/view', "id" => $version->id, 'identifier' => $version->project->identifier));
+        }
+    }
+    
     public static function link_to_changeset($changeset, $absolute = false) {
         if(!isset($changeset)) return '';
         if($absolute) {
