@@ -60,8 +60,18 @@ class ProjectController extends Controller {
     }
 
     public function beforeAction($action) {
-        $cmd = "nohup ".dirname(__FILE__) . "/../import_changesets.sh > /dev/null 2>&1 &";
-        exec($cmd);
+        $cmd = Yii::app()->getBasePath() . "/yiic handlerepositories 2 nolock";
+        $fake_cron_last_exec_time = Yii::app()->config->get('fake_cron_last_exec_time');
+        if($fake_cron_last_exec_time) {
+                
+            if(time() - $fake_cron_last_exec_time >= 60) {
+                pclose(popen($cmd, 'r'));
+                Yii::app()->config->set('fakecron_last_exec_time', time());
+            }
+        } else {
+            pclose(popen($cmd, 'r'));
+            Yii::app()->config->set('fakecron_last_exec_time', time());
+        }
         return parent::beforeAction($action);
     }
     

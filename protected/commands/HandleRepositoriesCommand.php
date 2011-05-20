@@ -618,7 +618,17 @@ class HandleRepositoriesCommand extends CConsoleCommand {
 
         // Check if we have a lock already. If not set one which
         // expires automatically after 10 minutes.
-        if (Yii::app()->mutex->lock('HandleRepositoriesCommand', 600)) {
+        $run = false;
+        if($args[1]) {
+            if($args[1] == 'nolock') {
+                $run = true;
+            }
+        } else {
+            $run = Yii::app()->mutex->lock('HandleRepositoriesCommand', 600);
+        }
+        
+        
+        if ($run) {
             try {
                 //TODO: handle python_path!
                 //if(Yii::app()->config->get('python_path') !== '')
@@ -646,10 +656,10 @@ class HandleRepositoriesCommand extends CConsoleCommand {
                 }
 
                 // and after that release the lock...
-                Yii::app()->mutex->unlock();
+                if($args[1] != 'nolock') Yii::app()->mutex->unlock();
             } catch (Exception $e) {
                 echo 'Exception caught: ', $e->getMessage(), "\n";
-                Yii::app()->mutex->unlock();
+                if($args[1] != 'nolock') Yii::app()->mutex->unlock();
             }
         } else {
             echo 'Nothing to do. Exiting...';
