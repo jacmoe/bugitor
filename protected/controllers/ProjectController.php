@@ -59,6 +59,12 @@ class ProjectController extends Controller {
         return 'index, view, activity, roadmap, issues, code, waitforclone, feed';
     }
 
+    public function beforeAction($action) {
+        $cmd = "nohup ".dirname(__FILE__) . "/../import_changesets.sh > /dev/null 2>&1 &";
+        exec($cmd);
+        return parent::beforeAction($action);
+    }
+    
     public function getProjects() {
         $Criteria = new CDbCriteria();
         $Criteria->select = "name, identifier";

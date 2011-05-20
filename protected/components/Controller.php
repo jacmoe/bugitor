@@ -56,11 +56,4 @@ class Controller extends RController {
      */
     public $breadcrumbs = array();
 
-    public function beforeAction($action) {
-        $cmd = "/usr/bin/php /var/www/bugitor/console.php handlerepositories 2";
-        pclose(popen($cmd, 'r'));
-        
-        return parent::beforeAction($action);
-    }
-
 }
