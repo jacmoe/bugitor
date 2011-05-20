@@ -43,6 +43,7 @@
 
   <tr>
     <th width="20">Version</th>
+    <th width="20">Title</th>
     <th width="20">Description</th>
     <th width="20">Due Date</th>
     <th width="20">Actions</th>
@@ -52,6 +53,7 @@
 <?php foreach($model as $n=>$version): ?>
   <tr class="<?php echo $n%2?'even':'odd';?>">
     <td width="20"><?php echo CHtml::encode($version->name); ?></td>
+    <td width="20"><?php echo CHtml::encode($version->title); ?></td>
     <td width="20"><?php echo CHtml::encode($version->description); ?></td>
     <td width="20"><?php echo CHtml::encode($version->effective_date); ?></td>
     <td width="20">

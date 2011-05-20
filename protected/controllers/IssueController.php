@@ -592,7 +592,7 @@ class IssueController extends Controller {
 
     public function getVersionSelectList($filter = false, $version_id = 0) {
         $Criteria = new CDbCriteria();
-        $Criteria->select = "name, id, effective_date";
+        $Criteria->select = "name, title, id, effective_date";
         $Criteria->order = 'effective_date';
         if (isset($_GET['identifier'])) {
             $Criteria->compare('project_id', $this->getProject($_GET['identifier']), true);
@@ -603,9 +603,9 @@ class IssueController extends Controller {
         foreach ($results as $result) {
             if($filter) {
                 if((strtotime($result->effective_date) > strtotime(date("Y-m-d")))||($version_id === $result->id))
-                    $version_list[$result->id] = $result->name;
+                    $version_list[$result->id] = $result->name . ' : ' . $result->title;
             } else {
-                $version_list[$result->id] = $result->name;
+                $version_list[$result->id] = $result->name . ' : ' . $result->title;
             }
         }
         return $version_list;

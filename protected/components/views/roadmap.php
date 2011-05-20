@@ -65,14 +65,15 @@
     <?php if($this->getShowAllOverride()) $show_version = true; ?>
     <?php if($show_version): ?>
         <h3>
-            <?php echo CHtml::link($version->name,
+            <?php echo CHtml::link($version->name. ' - ' . $version->title,
                 array('version/view',
                     'id' => $version->id,
                     'identifier' => $identifier,
                 )
             ); ?>
         </h3>
-        <b>Deadline</b> (<?php echo Yii::app()->dateFormatter->formatDateTime($version->effective_date, 'medium', null); ?>) - <span class="quiet"><?php echo ($completed) ? 'Completed' : Time::dueDateInWords($version->effective_date) ?></span><br/>
+        <b>Deadline</b> (<?php echo Yii::app()->dateFormatter->formatDateTime($version->effective_date, 'medium', null); ?>) - <span class="quiet"><?php echo ($completed) ? 'Completed' : Time::dueDateInWords($version->effective_date) ?></span>
+        <br/>
         <?php if( $version->issueCount > 0 ) : ?>
             <?php $num_actual_issues = $version->issueCount - $version->issueCountRejected; ?>
             <?php $open_percent = (($version->issueCountOpen / $num_actual_issues)*100); ?>
@@ -111,11 +112,14 @@
                      0 rejected
                 <?php endif; ?>
                 </div>
-            <?php else : ?>
-                <?php echo Bugitor::small_progress_bar(array($closed_percent, $done_ratio, $open_ratio), array('width' => '250px', 'legend' => number_format($closed_percent + $done_ratio) . '%')); ?><br/>
-            <?php endif; ?>
                 <?php echo Yii::app()->textile->textilize($version->description); ?>
+            <?php else : ?>
+                <?php echo Bugitor::small_progress_bar(array($closed_percent, $done_ratio, $open_ratio), array('width' => '250px', 'legend' => number_format($closed_percent + $done_ratio) . '%')); ?><br/><br/>
+            <?php endif; ?>
                     <?php if($this->controller->id === 'version') : ?>
+                        <?php if(Yii::app()->user->checkAccess('Version.Update')) : ?>
+                            <?php echo CHtml::link('Edit Version',array('version/update','id'=>$version->id, 'identifier' => $_GET['identifier'])); ?><br/><br/>
+                        <?php endif; ?>
                         <fieldset class="related-issues">
                         <legend><?php echo 'Related issues'; ?></legend>
                         <div class="issues">
@@ -130,7 +134,14 @@
                     </fieldset>
                 <?php endif; ?>
         <?php else : ?>
+            <?php if($show_detail) : ?>
                 <?php echo Yii::app()->textile->textilize($version->description); ?>
+                <?php if(($this->controller->id === 'version')&&(Yii::app()->user->checkAccess('Version.Update'))) : ?>
+                    <?php echo CHtml::link('Edit Version',array('version/update','id'=>$version->id, 'identifier' => $_GET['identifier'])); ?><br/><br/>
+                <?php endif; ?>
+            <?php else : ?>
+                <p></p>
+            <?php endif; ?>
             <p class="nodata"><?php echo 'No issues for this version'; ?></p>
         <?php endif; // is issues ?>
     <?php endif; // if show version ?>

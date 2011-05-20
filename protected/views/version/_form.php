@@ -49,8 +49,19 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'title'); ?>
+		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'title'); ?>
+	</div>
+	
+        <div class="row">
 		<?php echo $form->labelEx($model,'description'); ?>
-		<?php echo $form->textField($model,'description',array('size'=>60,'maxlength'=>255)); ?>
+		<?php $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
+			'model' => $model,
+			'attribute' => 'description',
+                        'settings' => 'textile',
+                        'htmlOptions'=>array('style'=>'height:150px;')
+		))?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
 
