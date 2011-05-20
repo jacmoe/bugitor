@@ -72,7 +72,7 @@ class Version extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, title', 'required'),
+            array('name, title, description', 'required'),
             array('project_id', 'numerical', 'integerOnly' => true),
             array('name, title', 'length', 'max' => 255),
             array('name', 'isinproject'),
