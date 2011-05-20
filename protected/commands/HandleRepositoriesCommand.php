@@ -326,10 +326,8 @@ class HandleRepositoriesCommand extends CConsoleCommand {
                 $changeset->short_rev = $entry['short_rev'];
                 $changeset->branches = $entry['branches'];
                 $changeset->tags = $entry['tags'];
-                $changeset->children = $entry['children'];
                 $changeset->branch_count = $entry['branch_count'];
                 $changeset->tag_count = $entry['tag_count'];
-                $changeset->child_count = $entry['child_count'];
                 $changeset->parent_count = $entry['parent_count'];
                 if ($entry['parent_count'] === 0) {
                     $fp = $this->run_tool('hg', 'read', array('parents', '-r' . $entry['short_rev'], '-R', $this->repopath, '--cwd', $this->repopath, '--template', '{rev}:{node|short}'));
@@ -637,6 +635,7 @@ class HandleRepositoriesCommand extends CConsoleCommand {
                         echo "Invalid project ID\n";
                     }
                 } else {
+                    echo "Processing repositories for all projects..\n";
                     $projects = Project::model()->with(array('repositories'))->findAll();
                     foreach ($projects as $project) {
                         echo 'Handling repositories for ' . $project->name . "\n";

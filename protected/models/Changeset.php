@@ -52,12 +52,9 @@
  * @property integer $branch_count
  * @property integer $tag_count
  * @property integer $parent_count
- * @property integer $child_count
  * @property integer $add
  * @property integer $edit
  * @property integer $del
- *
- * The followings are the available model relations:
  * @property Change[] $changes
  * @property Repository $scm
  * @property User $user
@@ -93,8 +90,8 @@ class Changeset extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('unique_ident, revision, commit_date, message', 'required'),
-			array('user_id, scm_id, short_rev, add, edit, del, branch_count, tag_count, parent_count, child_count', 'numerical', 'integerOnly'=>true),
-			array('author, revision, parents, branches, tags, children', 'length', 'max'=>255),
+			array('user_id, scm_id, short_rev, add, edit, del, branch_count, tag_count, parent_count', 'numerical', 'integerOnly'=>true),
+			array('author, revision, parents, branches, tags', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, revision, user_id, author, scm_id, commit_date, message, short_rev, parents, branches, tags, add, edit, del', 'safe', 'on'=>'search'),
@@ -131,7 +128,6 @@ class Changeset extends CActiveRecord
 			'message' => 'Message',
 			'short_rev' => 'Short Rev',
 			'parents' => 'Parents',
-			'children' => 'Children',
 			'branches' => 'Branches',
 			'tags' => 'Tags',
 			'add' => 'Add',

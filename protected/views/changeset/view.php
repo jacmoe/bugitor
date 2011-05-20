@@ -70,25 +70,6 @@
                 <dd><?php echo Bugitor::link_to_changeset(Changeset::changesetFromRevision($parent_rev)); ?></dd>
             <?php endif; ?>
         <?php endif; ?>
-        <?php if($model->child_count > 1) : ?>
-            <?php $children = explode(",", $model->children) ?>
-            <?php $count = 0; ?>
-            <?php while($count < $model->child_count) : ?>
-                <?php list($child_short, $child_rev) = explode(":", $children[$count]); ?>
-                <dt>child <?php echo $child_short; ?></dt>
-                <dd><?php echo Bugitor::link_to_changeset(Changeset::changesetFromRevision($child_rev)); ?></dd>
-                <?php $count++; ?>
-            <?php endwhile; ?>
-        <?php else : ?>
-            <?php if($model->child_count == 0) : ?>
-                <dt>child</dt>
-                <dd>none</dd>
-            <?php else : ?>
-                <?php list($child_short, $child_rev) = explode(":", $model->children); ?>
-                <dt>child <?php echo $child_short; ?></dt>
-                <dd><?php echo Bugitor::link_to_changeset(Changeset::changesetFromRevision($child_rev)); ?></dd>
-            <?php endif; ?>
-        <?php endif; ?>
         <dt>branch</dt>
         <dd><?php echo $model->branches; ?></dd>
     </dl>
