@@ -56,11 +56,21 @@ class Controller extends RController {
      */
     public $breadcrumbs = array();
 
-//    public function beforeAction($action) {
-//        if(!file_exists(dirname(__FILE__).'/../config/db.php')) {
-//            $this->redirect($this->createUrl('//installer/install'));
-//        }
-//        return parent::beforeAction($action);
-//    }
+    public function beforeAction($action) {
+        $cmd = dirname(__FILE__) . "/../yiic handlerepositories";
+        $fake_cron_last_exec_time = Yii::app()->config->get('fake_cron_last_exec_time');
+        if($fake_cron_last_exec_time) {
+            if($fake_cron_last_exec_time <= date('Y-m-d', time() - 900).' 00:00:00') {
+                pclose(popen($cmd, 'r'));
+                Yii::app()->config->set('fakecron_last_exec_time', date('Y-m-d').' 00:00:00');
+            }
+        } else
+        {
+            pclose(popen($cmd, 'r'));
+            Yii::app()->config->set('fakecron_last_exec_time', date('Y-m-d').' 00:00:00');
+        }
+        
+        return parent::beforeAction($action);
+    }
 
 }
