@@ -530,7 +530,7 @@ class HandleRepositoriesCommand extends CConsoleCommand {
         $actionLog->subject = 'Revision ' . $changeset->revision . ' (' . $changeset->scm->name . ')';
         $actionLog->type = 'changeset';
         $actionLog->theDate = $changeset->commit_date;
-        $actionLog->url = '/projects/' . $changeset->scm->project->identifier . '/changeset/view/' . $changeset->id;
+        $actionLog->url = Yii::app()->config->get('hostname').'projects/' . $changeset->scm->project->identifier . '/changeset/view/' . $changeset->id;
         if ($actionLog->validate())
             $actionLog->save(false);
     }

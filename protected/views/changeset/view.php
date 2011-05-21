@@ -31,7 +31,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
-<?php $this->widget('application.components.HighlightDiffWidget.HighlightDiffWidget'); ?>
+<?php $this->widget('application.widgets.HighlightDiffWidget.HighlightDiffWidget'); ?>
 <h3 class="code">Code</h3>
 <a name="top"></a>
 <div id="changelog">

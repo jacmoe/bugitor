@@ -111,8 +111,6 @@ return array(
             'class' => 'ext.MaintenanceMode.MaintenanceMode',
             'enabledMode' => file_exists(dirname(__FILE__).'/.maintenance'),
             'message' => 'This site is currently undergoing maintenance. It should be up and running pretty soon.<br/>Thanks for your patience.',
-            // or
-            //'capUrl' => 'site/contact',
             // allowed users
             'users' => array('jacmoe', ),
             // allowed roles
