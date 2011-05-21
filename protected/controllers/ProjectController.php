@@ -59,27 +59,31 @@ class ProjectController extends Controller {
         return 'index, view, activity, roadmap, issues, code, waitforclone, feed';
     }
 
-/*    public function beforeAction($action) {
+    private function runStuff() {
+        $commandPath = Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'commands';
+        $runner=new CConsoleCommandRunner();
+        $runner->addCommands($commandPath);
+        $args = array('handlerepositories', '2', 'nolock');
+        $command = $runner->createCommand($args[0]);
+        array_shift($args);
+        $command->run($args);
+    }
+    
+    public function beforeAction($action) {
+        $time = 20;
         $fake_cron_last_exec_time = Yii::app()->config->get('fakecron_last_exec_time');
         if(isset($fake_cron_last_exec_time)) {
-                
-            if((time() - $fake_cron_last_exec_time) >= 200) {
-                $cmd = dirname(__FILE__)."/../protected/yiic handlerepositories 2 nolock";
-                //$cmd = "nohup ".(dirname(__FILE__) . "/../protected/yiic handlerepositories 2 nolock > /dev/null 2>&1 &";
-                //exec($cmd);
-		$output = stream_get_contents(popen($cmd, 'r'));
-		echo $out;
-		//pclose(popen($cmd, 'r'));
+            if((time() - $fake_cron_last_exec_time) >= $time) {
+                $this->runStuff();
                 Yii::app()->config->set('fakecron_last_exec_time', time());
             } else {
-                //echo Yii::app()->config->get('basepath') . '<br/>';
-                echo 'Elapsed time: '.(time() - $fake_cron_last_exec_time) . '<br/>';
+                echo 'Time until next run: '. ($time - (time() - $fake_cron_last_exec_time)) . '<br/>';
             }
         } else {
             Yii::app()->config->set('fakecron_last_exec_time', time());
         }
         return parent::beforeAction($action);
-    }*/
+    }
     
     public function getProjects() {
         $Criteria = new CDbCriteria();
