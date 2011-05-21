@@ -79,6 +79,7 @@ class SettingsController extends Controller {
         $model->python_path = Yii::app()->config->get('python_path');
         $model->default_scm = Yii::app()->config->get('default_scm');
         $model->default_timezone = Yii::app()->config->get('default_timezone');
+        $model->hostname = Yii::app()->config->get('hostname');
         return $model;
     }
 

@@ -1,4 +1,4 @@
-<html>
+<!--<html>
   <head>
     <title>diff</title>
 <link rel="stylesheet" type="text/css" href="reset.css">
@@ -226,7 +226,7 @@
              * node id, color
              * start end color
              */ ?>
-<!--<script type="text/javascript">
+<script type="text/javascript">
         jQuery(document).ready(function () {
             (new BranchRenderer()).render(
             [
@@ -246,7 +246,7 @@
                 ["0f8a7d042730", [0, 2], [[0, 0, 2]]],
                 ["b77af7571dfb", [0, 2], [[0, 0, 2]]]]);
         });
-</script>-->
+</script>
             <script type="text/javascript">
                 jQuery(document).ready(function () {
                     (new BranchRenderer()).render(
@@ -262,4 +262,5 @@
         </div>
     </div>
 </body>
-</html>
+</html>-->
+<?php            phpinfo();
