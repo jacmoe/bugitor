@@ -54,6 +54,7 @@ class ConfigForm extends CFormModel
 	{
 		return array(
 			array('pagesize, hg_executable, default_scm, default_timezone, hostname', 'required'),
+                        array('python_path', 'safe'),
 		);
 	}
 
