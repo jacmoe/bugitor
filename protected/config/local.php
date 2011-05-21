@@ -47,12 +47,6 @@ return CMap::mergeArray(
         ),
         // application components
         'components' => array(
-//            'mail' => array(
-//                'class' => 'ext.yii-mail.YiiMail',
-//                'transportType' => 'php',
-//                'viewPath' => 'application.views.mail',
-//                'dryRun' => false,
-//            ),
             'log' => array(
                 'class' => 'CLogRouter',
                 'routes' => array(
