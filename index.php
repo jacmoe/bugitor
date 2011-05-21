@@ -60,7 +60,6 @@ $app = Yii::createWebApplication($config);
 // which is only for display. UTC is what timestamps etc. are using.
 Yii::app()->setTimeZone("UTC");
 
-// TODO: make this be part of initial data
 if(Yii::app()->config->get('hostname') == 'not_set')
     Yii::app()->config->set('hostname', 'http://' . $_SERVER['HTTP_HOST'] . '/');
 
