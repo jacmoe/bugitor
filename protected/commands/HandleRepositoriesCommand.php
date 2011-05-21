@@ -109,9 +109,9 @@ class HandleRepositoriesCommand extends CConsoleCommand {
         $sep = uniqid();
 
         if (0 === $limit) {
-            $fp = $this->hg('log', '--rev', $start . ':' . $end, '--template', $sep . '\n{node|short}\n{rev}\n{branches}\n{tags}\n{parents}\n{children}\n{file_mods}\n{file_copies}\n{file_adds}\n{file_dels}\n{author|email}\n{date|hgdate}\n{desc}\n');
+            $fp = $this->hg('log', '--rev', $start . ':' . $end, '--template', $sep . '\n{node|short}\n{rev}\n{branches}\n{tags}\n{parents}\n{file_mods}\n{file_copies}\n{file_adds}\n{file_dels}\n{author|email}\n{date|hgdate}\n{desc}\n');
         } else {
-            $fp = $this->hg('log', '--rev', $start . ':' . $end, '--template', $sep . '\n{node|short}\n{rev}\n{branches}\n{tags}\n{parents}\n{children}\n{file_mods}\n{file_copies}\n{file_adds}\n{file_dels}\n{author|email}\n{date|hgdate}\n{desc}\n', '-l ' . $limit);
+            $fp = $this->hg('log', '--rev', $start . ':' . $end, '--template', $sep . '\n{node|short}\n{rev}\n{branches}\n{tags}\n{parents}\n{file_mods}\n{file_copies}\n{file_adds}\n{file_dels}\n{author|email}\n{date|hgdate}\n{desc}\n', '-l ' . $limit);
         }
 
         fgets($fp); # discard leading $sep
@@ -168,20 +168,6 @@ class HandleRepositoriesCommand extends CConsoleCommand {
             } else {
                 $entry['parents'] = implode(',', $parents);
                 $entry['parent_count'] = count($parents);
-            }
-
-            $children = array();
-            foreach (preg_split('/\s+/', trim(fgets($fp))) as $t) {
-                if (strlen($t)) {
-                    $children[] = $t;
-                }
-            }
-            if (!count($children)) {
-                $entry['children'] = '';
-                $entry['child_count'] = 0;
-            } else {
-                $entry['children'] = implode(',', $children);
-                $entry['child_count'] = count($children);
             }
 
             $files = array();
@@ -269,7 +255,7 @@ class HandleRepositoriesCommand extends CConsoleCommand {
                         $changeset->user_id = $user_id;
                         if ($changeset->validate()) {
                             $changeset->save(false);
-                            $this->importChangeset($changeset);
+                            $this->processChangeset($changeset);
                             $this->addToActionLog($changeset);
                             $pending_changeset->delete();
                         };
@@ -293,13 +279,13 @@ class HandleRepositoriesCommand extends CConsoleCommand {
         $start_rev = 0;
         while ($start_rev < $last_revision) {
             echo 'Importing  from revision "' . $start_rev . '" to "' . ($start_rev + 25) . "\"\n";
-            $this->importChanges($start_rev, $unique_id, $repository_id);
+            $this->importChangesets($start_rev, $unique_id, $repository_id);
             $start_rev = $start_rev + 25;
             sleep(1);
         }
     }
 
-    public function importChanges($start_rev, $unique_id, $repository_id) {
+    public function importChangesets($start_rev, $unique_id, $repository_id) {
 
         echo 'Importing  from revision "' . $start_rev . '" to "' . ($start_rev + 50) . "\"\n";
 
@@ -345,12 +331,12 @@ class HandleRepositoriesCommand extends CConsoleCommand {
                 if ($changeset->validate()) {
                     $changeset->save(false);
 
-                    //TODO: If user_id is not present,
+                    // If user_id is not present,
                     // do not add and import
                     // add the changeset->id to a to-be-done table instead
                     if (null != $changeset->user_id) {
                         $this->addToActionLog($changeset);
-                        $this->importChangeset($changeset);
+                        $this->processChangeset($changeset);
                     } else {
                         $pending = new PendingChangeset();
                         $pending->changeset_id = $changeset->id;
@@ -404,7 +390,7 @@ class HandleRepositoriesCommand extends CConsoleCommand {
         return true;
     }
 
-    public function importChangeset($changeset) {
+    public function processChangeset($changeset) {
 
         $commit_date_in_seconds = Time::makeUnix($changeset->commit_date);
         // offset initial by 1 second to make date later than associated changeset.
@@ -611,7 +597,7 @@ class HandleRepositoriesCommand extends CConsoleCommand {
         }
 
         if ($start_rev <= $last_revision)
-            $this->importChanges($start_rev, $unique_id, $repository->id);
+            $this->importChangesets($start_rev, $unique_id, $repository->id);
     }
 
     public function run($args) {

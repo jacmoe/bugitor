@@ -69,8 +69,8 @@ class ProjectController extends Controller {
         $command->run($args);
     }
     
-    public function beforeAction($action) {
-        $time = 20;
+/*    public function beforeAction($action) {
+        $time = 600;
         $fake_cron_last_exec_time = Yii::app()->config->get('fakecron_last_exec_time');
         if(isset($fake_cron_last_exec_time)) {
             if((time() - $fake_cron_last_exec_time) >= $time) {
@@ -83,7 +83,7 @@ class ProjectController extends Controller {
             Yii::app()->config->set('fakecron_last_exec_time', time());
         }
         return parent::beforeAction($action);
-    }
+    }*/
     
     public function getProjects() {
         $Criteria = new CDbCriteria();
