@@ -602,6 +602,8 @@ class HandleRepositoriesCommand extends CConsoleCommand {
 
     public function run($args) {
 
+        Yii::app()->setTimeZone("UTC");
+        
         // Check if we have a lock already. If not set one which
         // expires automatically after 10 minutes.
         $run = false;
