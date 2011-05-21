@@ -71,6 +71,13 @@
 <td><?php echo CHtml::encode($model->default_timezone); ?>
 </td>
 </tr>
+<tr>
+<th class="label">
+<?php echo CHtml::encode($model->getAttributeLabel('hostname')); ?>
+</th>
+<td><?php echo CHtml::encode($model->hostname); ?>
+</td>
+</tr>
 </table>
 <?php echo CHtml::link('Change Settings', array('update')); ?>
 <br/>

@@ -62,6 +62,11 @@
 		<?php echo $form->textField($model,'default_timezone',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'default_timezone'); ?>
 	</div>
+        <div class="row">
+		<?php echo $form->labelEx($model,'hostname'); ?>
+		<?php echo $form->textField($model,'hostname',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'hostname'); ?>
+	</div>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Update'); ?>
                 <?php echo CHtml::Button('Cancel',array('submit' => Yii::app()->request->getUrlReferrer()));?>

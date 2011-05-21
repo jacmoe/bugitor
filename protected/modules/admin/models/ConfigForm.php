@@ -45,6 +45,7 @@ class ConfigForm extends CFormModel
         public $python_path;
         public $default_scm;
         public $default_timezone;
+        public $hostname;
 
 	/**
 	 * Declares the validation rules.
@@ -52,7 +53,7 @@ class ConfigForm extends CFormModel
 	public function rules()
 	{
 		return array(
-			array('pagesize, hg_executable, default_scm, default_timezone', 'required'),
+			array('pagesize, hg_executable, default_scm, default_timezone, hostname', 'required'),
 		);
 	}
 
@@ -69,6 +70,7 @@ class ConfigForm extends CFormModel
                 'python_path' => 'Python path environment variable',
                 'default_scm' => 'Default Source Control Provider',
                 'default_timezone' => 'Default Timezone',
+                'hostname' => 'Host Name',
             );
 	}
         public function save() {
@@ -77,6 +79,7 @@ class ConfigForm extends CFormModel
             Yii::app()->config->set('python_path', $this->python_path);
             Yii::app()->config->set('default_timezone', $this->default_timezone);
             Yii::app()->config->set('default_scm', $this->default_scm);
+            Yii::app()->config->set('hostname', $this->hostname);
             return true;
         }
 }

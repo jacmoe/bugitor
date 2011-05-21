@@ -254,15 +254,14 @@ INSERT INTO `{{auth_item_weight}}` (`itemname`, `type`, `weight`) VALUES
 ('User', 2, 3);
 
 INSERT INTO `{{config}}` (`key`, `value`) VALUES
-('HostName', 'N;'),
 ('SiteName', 's:7:"Bugitor";'),
 ('defaultPagesize', 's:2:"20";'),
 ('default_scm', 's:2:"hg";'),
 ('default_timezone', 's:13:"Europe/London";'),
 ('hg_executable', 's:11:"/usr/bin/hg";'),
-('hostname', 's:17:"http://localhost/";'),
+('hostname', 's:7:"not_set";'),
 ('logging_enabled', 'b:0;'),
-('python_path', 's:4:"none";');
+('python_path', 'N;');
 
 INSERT INTO `{{issue_priority}}` (`id`, `name`) VALUES
 (3, 'High'),
