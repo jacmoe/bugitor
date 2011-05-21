@@ -34,6 +34,7 @@
 <?php
 
 $hostname = $_SERVER['SERVER_NAME'];
+
 // change the following paths if necessary
 $yii=dirname(__FILE__).'/../yii/framework/yii.php';
 
@@ -55,31 +56,12 @@ default:
 require_once($yii);
 $app = Yii::createWebApplication($config);
 
-//if (PHP_OS === 'WINNT') {
-//    Yii::app()->config->set('hg_executable', 'hg');
-//    Yii::app()->config->set('python_path', null);
-//} else {
-//    Yii::app()->config->set('hg_executable', '/home/stealth977/bin/hg');
-//    Yii::app()->config->set('python_path', 'PYTHONPATH=/home/stealth977/.packages/lib/python');
-//}
-
-//$allowed_scm = array('hg' => 'SCMHg',);
-//Yii::app()->config->set('allowed_scm', $allowed_scm);
-
-//Yii::app()->config->set('default_scm', 'hg');
-
-//Yii::app()->config->set('default_timezone', 'UTC');
-
-//Yii::app()->config->set('hostname', 'http://' . $_SERVER['HTTP_HOST'] . '/');
-
-//Yii::app()->config->set('logging_enabled', false);
-
-
 // we need to set this to UTC, regardless of default timezone 
 // which is only for display. UTC is what timestamps etc. are using.
 Yii::app()->setTimeZone("UTC");
 
-if(!Yii::app()->user->getState('pid'))
-    Yii::app()->user->setState('pid', 'none');
+// TODO: make this be part of initial data
+if(Yii::app()->config->get('hostname') == 'not_set')
+    Yii::app()->config->set('hostname', 'http://' . $_SERVER['HTTP_HOST'] . '/');
 
 $app->run();
