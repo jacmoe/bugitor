@@ -58,7 +58,8 @@ class FetchEmailCommand extends CConsoleCommand {
                 if ('U' == $header->Unseen) {   //This message is unread
                     echo "got an unseen message\n";
                     $messages[] = imap_fetchheader($mbox, $jj) . "\r\n" . imap_body($mbox, $jj);
-                    imap_setflag_full($mbox, $jj, "\\Seen"); // mark as read
+                    // Looks like it's flagged as read already
+                    //imap_setflag_full($mbox, $jj, "\\Seen"); // mark as read
                 } else {
                     echo "No unseen messages\n";
                 }
@@ -87,10 +88,6 @@ class FetchEmailCommand extends CConsoleCommand {
                 );
                 if (!$mime->Decode($parameters, $decoded)) {
                     //echo 'MIME message decoding error: ' . $mime->error . ' at position ' . $mime->error_position;
-                    if ($mime->track_lines
-                            && $mime->GetPositionLine($mime->error_position, $line, $column))
-                        echo ' line ' . $line . ' column ' . $column;
-                    echo "\n";
                 }
                 else {
                     for ($message = 0; $message < count($decoded); $message++) {
@@ -112,7 +109,7 @@ class FetchEmailCommand extends CConsoleCommand {
                                         //TODO: fail!?
                                         // Find a html stripping tool..
                                         $incoming_message = "";
-                                        return;
+                                        continue;
                                     }
                                 } else {
                                     $incoming_message = $results['Data'];
@@ -208,40 +205,40 @@ class FetchEmailCommand extends CConsoleCommand {
                                 echo "Message: " . $pass_this['message'];
 
                                 // Now, get the email into Bugitor..
-                            $criteria = new CDbCriteria();
-                            $criteria->compare('email', $pass_this['from'], true);
-                            $user = User::model()->find($criteria);
-                            if (null === $user) {
-                                return;
-                            }
-
-                            $issue = Issue::model()->findByPk($pass_this['issue']);
-                            if (null === $issue) {
-                                return;
-                            }
-
-                            $new_comment = new Comment;
-                            $new_comment->content = $pass_this['message'];
-                            $new_comment->create_user_id = $user->id;
-                            $new_comment->update_user_id = $user->id;
-                            $new_comment->issue_id = (int) $pass_this['issue'];
-                            $new_comment->created = $new_comment->modified = date("Y-m-d\TH:i:s\Z", time());
-                            if ($new_comment->validate()) {
-                                $new_comment->save(false);
-                            }
-
-                            $issue->updated_by = $user->id;
-                            if ($issue->validate()) {
-                                $issue->save(false);
-                                $issue->addToActionLog($issue->id, $user->id, 'note', '/projects/' . $issue->project->identifier . '/issue/view/' . $issue->id . '#note-' . $issue->commentCount, $new_comment);
-                                $issue->sendNotifications($issue->id, $new_comment, $issue->updated_by);
-                            }
+//                            $criteria = new CDbCriteria();
+//                            $criteria->compare('email', $pass_this['from'], true);
+//                            $user = User::model()->find($criteria);
+//                            if (null === $user) {
+//                                continue;
+//                            }
+//
+//                            $issue = Issue::model()->findByPk($pass_this['issue']);
+//                            if (null === $issue) {
+//                                continue;
+//                            }
+//
+//                            $new_comment = new Comment;
+//                            $new_comment->content = $pass_this['message'];
+//                            $new_comment->create_user_id = $user->id;
+//                            $new_comment->update_user_id = $user->id;
+//                            $new_comment->issue_id = (int) $pass_this['issue'];
+//                            $new_comment->created = $new_comment->modified = date("Y-m-d\TH:i:s\Z", time());
+//                            if ($new_comment->validate()) {
+//                                $new_comment->save(false);
+//                            }
+//
+//                            $issue->updated_by = $user->id;
+//                            if ($issue->validate()) {
+//                                $issue->save(false);
+//                                $issue->addToActionLog($issue->id, $user->id, 'note', '/projects/' . $issue->project->identifier . '/issue/view/' . $issue->id . '#note-' . $issue->commentCount, $new_comment);
+//                                $issue->sendNotifications($issue->id, $new_comment, $issue->updated_by);
+//                            }
                                 // Done :)
                             } else {
                                 echo 'MIME message analyse error: ' . $mime->error . "\n";
                             }
                         } // if decode bodies
-                    } // foreach message
+                    } // for each message
 
                     for ($warning = 0, Reset($mime->warnings); $warning < count($mime->warnings); Next($mime->warnings), $warning++) {
                         $w = Key($mime->warnings);
