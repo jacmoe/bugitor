@@ -17,6 +17,7 @@ class User extends CActiveRecord
 	 * @var string $password
 	 * @var string $email
 	 * @var string $activkey
+	 * @var string $apikey
 	 * @var integer $createtime
 	 * @var integer $lastvisit
 	 * @var integer $superuser
@@ -52,6 +53,7 @@ class User extends CActiveRecord
 			array('username', 'length', 'max'=>20, 'min' => 3,'message' => UserModule::t("Incorrect username (length between 3 and 20 characters).")),
 			array('password', 'length', 'max'=>128, 'min' => 4,'message' => UserModule::t("Incorrect password (minimal length 4 symbols).")),
 			array('email', 'email'),
+                        array('apikey', 'safe'),
 			array('username', 'unique', 'message' => UserModule::t("This user's name already exists.")),
 			array('email', 'unique', 'message' => UserModule::t("This user's email adress already exists.")),
 			array('username', 'match', 'pattern' => '/^[A-Za-z0-9_]+$/u','message' => UserModule::t("Incorrect symbols (A-z0-9).")),
@@ -91,6 +93,7 @@ class User extends CActiveRecord
 			'lastvisit' => UserModule::t("Last visit"),
 			'superuser' => UserModule::t("Superuser"),
 			'status' => UserModule::t("Status"),
+			'apikey' => "API Key",
 		);
 	}
 	
@@ -134,7 +137,7 @@ public function avatar( $size = '0' ) {
 	public function defaultScope()
     {
         return array(
-            'select' => 'id, username, email, createtime, lastvisit, superuser, status',
+            'select' => 'id, username, email, createtime, lastvisit, superuser, status, apikey',
         );
     }
 	
