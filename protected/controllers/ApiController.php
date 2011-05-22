@@ -91,8 +91,8 @@ class ApiController extends Controller {
 
         switch ($_GET['model']) {
             // Get an instance of the respective model
-            case 'what':
-                $model = new Issue;
+            case 'comment':
+                $model = new Comment;
                 break;
             default:
                 $this->_sendResponse(501, sprintf('Mode <b>create</b> is not implemented for model <b>%s</b>', $_GET['model']));
@@ -114,7 +114,12 @@ class ApiController extends Controller {
             $this->_sendResponse(200, $this->_getObjectEncoded($_GET['model'], $model->attributes));
         } else {
             // Errors occurred
-            $msg = "<h1>Error</h1>";
+            $msg = '';
+            foreach ($_POST as $var => $value) {
+            $msg .= 'Var: ' . $var . '<br/>';
+            $msg .= 'Value: ' . $value . '<br/>';
+            }
+            $msg .= "<h1>Error</h1>";
             $msg .= sprintf("Couldn't create model <b>%s</b>", $_GET['model']);
             $msg .= "<ul>";
             foreach ($model->errors as $attribute => $attr_errors) {
