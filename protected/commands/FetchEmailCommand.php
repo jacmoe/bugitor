@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of
  *     ____              _ __
@@ -35,302 +36,224 @@
 
 Yii::import('application.vendors.*');
 require_once('mimeparser/mime_parser.php');
-require_once('mimeparser/body_fetcher.php');
 require_once('mimeparser/rfc822_addresses.php');
 
 class FetchEmailCommand extends CConsoleCommand {
 
-public function parse_email ($email) {
-// Split header and message
-$header = array();
-$message = array();
-
-$is_header = true;
-foreach ($email as $line) {
-if ($line == '<HEADER> ' . "\r\n") continue;
-if ($line == '<MESSAGE> ' . "\r\n") continue;
-if ($line == '</MESSAGE> ' . "\r\n") continue;
-if ($line == '</HEADER> ' . "\r\n") { $is_header = false; continue; }
-
-if ($is_header == true) {
-$header[] = $line;
-} else {
-$message[] = $line;
-}
-}
-
-// Parse headers
-$headers = array();
-
-foreach ($header as $line) {
-$colon_pos = strpos($line, ':');
-$space_pos = strpos($line, ' ');
-
-if ($colon_pos === false OR $space_pos < $colon_pos) {
-// attach to previous
-$previous .= "\r\n" . $line;
-continue;
-}
-
-// Get key
-$key = substr($line, 0, $colon_pos);
-
-// Get value
-$value = substr($line, $colon_pos+2);
-$headers[$key] = $value;
-
-$previous =& $headers[$key];
-}
-// Parse message
-$message = implode('', $message);
-
-// Return array
-$email = array();
-$email['message'] = $message;
-$email['headers'] = $headers;
-/* echo "<pre>";
-echo print_r($message);;
-echo "<pre> message$id";
-*/ return $email;
-}
-
     public function run($args) {
-		// debug file
-		//$debugFile = "/home/stealth977/debug_dump.txt";
-		//$debugfh = fopen($debugFile, 'w');
-		//fwrite($debugfh,"alright\r\n");
+
+        require(Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'config/email_connect.php');
         
-		$email = '';
-        $fd = fopen("php://stdin", "r");
-        //$fd = fopen("/home/stealth977/email.txt", "r");
-        if($fd) {
-            while (!feof($fd)) {
-                $email .= fread($fd, 1024);
-            }
-            fclose($fd);
-        }
-        
-        // handle email
-        $lines = explode("\n", $email);
+        $message_data = null;
+        $message_file = null;
 
-        // empty vars
-        $from = "";
-        $subject = "";
-        $headers = "";
-        $message_plain = "";
-        $splittingheaders = true;
+        $messages = array();
 
-        for ($i=0; $i < count($lines); $i++) {
-            if ($splittingheaders) {
-                // this is a header
-                $headers .= $lines[$i]."\n";
-
-                // look out for special headers
-                if (preg_match("/^Subject: (.*)/", $lines[$i], $matches)) {
-                    $subject = $matches[1];
-                }
-                if (preg_match("/^From: (.*)/", $lines[$i], $matches)) {
-                    $from = $matches[1];
-                }
-            } elseif ($splittingmessage) {
-
-            } else {
-                //If message has some HTML headers.
-                if (strstr($lines[$i + 1],"Content-Type: text/html;")) {
-                    break;
+//        if ($mbox = imap_open("{" . $mailserver . ":" . $port . "/pop3/notls}INBOX", $user, $pass)) {
+        if ($mbox = imap_open("{" . $mailserver . ":" . $port . "/imap/ssl/novalidate-cert}INBOX", $user, $pass)) {
+            $numMessages = imap_num_msg($mbox);
+            if($numMessages == 0) echo "No messages found\n";
+            for ($jj = $numMessages; $jj > 0; $jj--) {   //always have to go backwards, since message ID is dynamic
+                $header = imap_header($mbox, $jj);
+                if ('U' == $header->Unseen) {   //This message is unread
+                    echo "got an unseen message\n";
+                    $messages[] = imap_fetchheader($mbox, $jj) . "\r\n" . imap_body($mbox, $jj);
+                    imap_setflag_full($mbox, $jj, "\\Seen"); // mark as read
                 } else {
-                    // not a header, but message
-                    $message_plain .= $lines[$i]."\n";
+                    echo "No unseen messages\n";
                 }
-                //If message has some HTML headers.
-                if (strstr($lines[$i],"Content-Type: text/plain;")) {
-                    $message_plain = "";
-                    $splittingmessage = true;
-                }
-
             }
-
-            if (trim($lines[$i])=="") {
-                // empty line, header section has ended
-                $splittingheaders = false;
-                $splittingmessage = false;
-            }
+            imap_close($mbox);
+        } else {
+            //echo 'Error connecting!';
+            return;
         }
 
-        if ($email !== '') {
-			//fwrite($debugfh,"email exists\r\n");
-			
-			/* Create a new instance of MimeParser - just for the body in plain text */
-            //$parse = new MimeParser($email);
-
-            /* Create a new instance of Parser */
-            $mime = new mime_parser_class;
-            $mime->mbox = 0;
-            $mime->decode_bodies = 1;
-            $mime->ignore_syntax_errors = 1;
-            $mime->track_lines = 1;
-            $parameters = array('Data' => $email, 'SkipBody' => 0,);
-
-            $mime->Decode($parameters, $decoded);
-			//fwrite($debugfh,"email was decoded\r\n");
-
+        foreach ($messages as $message_data) {
+            //$message_file = "/home/jacmoe/test4.eml";
             $pass_this = array();
-            for ($message = 0; $message < count($decoded); $message++) {
-                if ($mime->decode_bodies) {
-					//fwrite($debugfh,"mime decode bodies\r\n");
-                    
-					if ($mime->Analyze($decoded[$message], $results)) {
-						//fwrite($debugfh,"mime analyze\r\n");
-                        foreach ($results['From'] as $senders) {
-                            $pass_this['from'] = $senders['address'];
-                        }
-						//fwrite($debugfh,"Got a sender\r\n");
-						//fwrite($debugfh,$pass_this['from'] . "\r\n");
 
-                        $pass_this['subject'] = $results['Subject'];
-						//fwrite($debugfh,"Got a subject\r\n");
-						//fwrite($debugfh,$pass_this['subject'] . "\r\n");
-                        
-						$incoming_message = $message_plain;//$parse->message['plain'];
-                        if(strlen($incoming_message)) {
-							//fwrite($debugfh,"incoming message is not empty\r\n");
-							//fwrite($debugfh, $incoming_message . "\r\n");
-						}
-						
-						$incoming_message = iconv("windows-1256", "UTF-8", $incoming_message);
-						//fwrite($debugfh,"utf8 encoded message\r\n");
-                        // Clean out 'quoted-printable' rubbish
-                        $quoted = strpos($incoming_message, 'quoted-printable');
-                        if ($quoted !== false) {
-                            $quoted_parts = explode('quoted-printable', $parse->message['plain']);
-                            $incoming_message = $quoted_parts[1];
-                        }
-						//fwrite($debugfh,"first clean\r\n");
-                        // Clean out 'Content-Transfer-Encoding: 8bit' rubbish
-                        $quoted2 = strpos($incoming_message, 'Content-Transfer-Encoding: 8bit');
-                        if ($quoted2 !== false) {
-                            $quoted_parts2 = explode('Content-Transfer-Encoding: 8bit', $parse->message['plain']);
-                            $incoming_message = $quoted_parts2[1];
-                        }
-						//fwrite($debugfh,"second clean\r\n");
-                        // Clean out 'Content-Transfer-Encoding: 7bit' rubbish
-                        $quoted3 = strpos($incoming_message, 'Content-Transfer-Encoding: 7bit');
-                        if ($quoted3 !== false) {
-                            $quoted_parts3 = explode('Content-Transfer-Encoding: 7bit', $parse->message['plain']);
-                            $incoming_message = $quoted_parts3[1];
-                        }
-						//fwrite($debugfh,"third clean\r\n");
-                        // Remove 'original message'
-                        $pos = strpos($incoming_message, '----- Original Message -----');
-                        $pos2 = strpos($incoming_message, '---------');
-                        $pos3 = strpos($incoming_message, '-------');
-                        if ($pos !== false) {
-                            $orig_message_parts = explode('----- Original Message -----', $incoming_message);
-                            $pass_this['message'] = trim($orig_message_parts[0]);
-                        } elseif ($pos2 !== false) {
-                            $orig_message_parts = explode('---------', $incoming_message);
-                            $pass_this['message'] = trim($orig_message_parts[0]);
-                        } elseif ($pos3 !== false) {
-                            $orig_message_parts = explode('-------', $incoming_message);
-                            $pass_this['message'] = trim($orig_message_parts[0]);
-                        } else {
-                            $pass_this['message'] = trim($incoming_message);
-                        }
-                        $exploding = explode('--',$pass_this['message']);
-                        $pass_this['message'] = $exploding[0];
-
-						//fwrite($debugfh,"just before On wrote clean\r\n");
-                        // /On(.*)wrote\:/iU
-
-                        $cleaned_mess = preg_match('/On(.*)wrote\:/iU',$pass_this['message'],$patterns);
-						//fwrite($debugfh,"got cleaned mess\r\n");
-                        if(strlen($patterns[0])) {
-							$exploded_mess = explode($patterns[0],$pass_this['message']);
-							//fwrite($debugfh,"got exploded mess\r\n");
-							$pass_this['message'] = $exploded_mess[0];
-						}
-
-                        $cleaned_mess2 = preg_match('/Von(.*)\:/iU',$pass_this['message'],$patterns2);
-						//fwrite($debugfh,"got cleaned2 mess\r\n");
-                        if(strlen($patterns2[0])) {
-							$exploded_mess2 = explode($patterns2[0],$pass_this['message']);
-							//fwrite($debugfh,"got exploded2 mess\r\n");
-							$pass_this['message'] = $exploded_mess2[0];
-						}
-						
-                        $pass_this['message'] = preg_replace('/\=20/',"\r\n", $pass_this['message']);
-						
-						//fwrite($debugfh,"Message:\r\n");
-						//fwrite($debugfh, $pass_this['message'] . "\r\n");
-						
-						$the_attachments = array();
-                        $count = 0;
-						//fwrite($debugfh,"Done here\r\n");
-//                    foreach($results['Attachments'] as $attachment) {
-//                        $file_id = uniqid();
-//                        $the_attachments[$count]['FileID'] = $file_id;
-//                        $the_attachments[$count]['FileName'] = $attachment['FileName'];
-//                        $count++;
-//                    }
-//                    $pass_this['attachments'] = $the_attachments;
-                    }
+            if ($message_data) {
+                $mime = new mime_parser_class;
+                $mime->mbox = 0;
+                $mime->decode_bodies = 1;
+                $mime->ignore_syntax_errors = 1;
+                $mime->track_lines = 1;
+                $mime->use_part_file_names = 0;
+                $parameters = array(
+//                'File' => $message_file,
+                    'Data' => $message_data,
+                    'SkipBody' => 0,
+                );
+                if (!$mime->Decode($parameters, $decoded)) {
+                    //echo 'MIME message decoding error: ' . $mime->error . ' at position ' . $mime->error_position;
+                    if ($mime->track_lines
+                            && $mime->GetPositionLine($mime->error_position, $line, $column))
+                        echo ' line ' . $line . ' column ' . $column;
+                    echo "\n";
                 }
-            }
-            $pass_this['project'] = '';
-            $pass_this['issue'] = 0;
+                else {
+                    for ($message = 0; $message < count($decoded); $message++) {
+                        //var_dump($decoded[$message]);
+                        //echo $decoded[$message]['Parts'][0]['Body'];
+                        if ($mime->decode_bodies) {
+                            if ($mime->Analyze($decoded[$message], $results)) {
+                                foreach ($results['From'] as $senders) {
+                                    $pass_this['from'] = $senders['address'];
+                                }
+                                $pass_this['subject'] = $results['Subject'];
 
-			//fwrite($debugfh,"Starting to pass on parsed\r\n");
-            $subject_regex = '/^(Re: \[)([^0-9][A-z0-9]+)( - )(Bug|Feature) #?(\d+)(\#ic\d*){0,1}/';
-            $num_closes = preg_match($subject_regex, $pass_this['subject'], $matches_closes, PREG_OFFSET_CAPTURE);
-            if ($num_closes > 0) {
-                $pass_this['project'] = $matches_closes[2][0];
-                $pass_this['issue'] = $matches_closes[5][0];
-            } else {
-				// German .. tsk..
-				$subject_regex = '/^(AW: \[)([^0-9][A-z0-9]+)( - )(Bug|Feature) #?(\d+)(\#ic\d*){0,1}/';
-				$num_closes = preg_match($subject_regex, $pass_this['subject'], $matches_closes, PREG_OFFSET_CAPTURE);
-				if ($num_closes > 0) {
-					$pass_this['project'] = $matches_closes[2][0];
-					$pass_this['issue'] = $matches_closes[5][0];
-				}
-			}
+                                //var_dump($results); die();
 
-            $criteria = new CDbCriteria();
-            $criteria->compare('email', $pass_this['from'], true);
-            $user = User::model()->find($criteria);
-            if(null === $user) {
-				//fwrite($debugfh,"user is null\r\n");
-				//fclose($debugfh);
-                return;
-            }
-			//fwrite($debugfh,"user found\r\n");
+                                if ($results['Type'] == 'html') {
+                                    if (isset($results['Alternative'][0]['Data'])) {
+                                        $incoming_message = $results['Alternative'][0]['Data'];
+                                    } else {
+                                        //TODO: fail!?
+                                        // Find a html stripping tool..
+                                        $incoming_message = "";
+                                        return;
+                                    }
+                                } else {
+                                    $incoming_message = $results['Data'];
+                                }
 
-            $issue = Issue::model()->findByPk($pass_this['issue']);
-            if(null === $issue){
-				//fwrite($debugfh,"issue is null\r\n");
-				//fclose($debugfh);
-                return;
-            }
-			//fwrite($debugfh,"issue found\r\n");
+                                // Convert message to utf-8 if not
+                                if ($results['Encoding'] != 'utf-8') {
+                                    $incoming_message = iconv($results['Encoding'], "UTF-8", $incoming_message);
+                                }
 
-            $new_comment = new Comment;
-            $new_comment->content = $pass_this['message'];
-            $new_comment->create_user_id = $user->id;
-            $new_comment->update_user_id = $user->id;
-            $new_comment->issue_id = (int)$pass_this['issue'];
-            $new_comment->created = $new_comment->modified = date("Y-m-d\TH:i:s\Z", time());
-            if($new_comment->validate()){
-                $new_comment->save(false);
-            }
+                                // Clean out 'quoted-printable' rubbish
+                                $quoted = strpos($incoming_message, 'quoted-printable');
+                                if ($quoted !== false) {
+                                    $quoted_parts = explode('quoted-printable', $incoming_message);
+                                    $incoming_message = $quoted_parts[1];
+                                }
+                                // Clean out 'Content-Transfer-Encoding: 8bit' rubbish
+                                $quoted2 = strpos($incoming_message, 'Content-Transfer-Encoding: 8bit');
+                                if ($quoted2 !== false) {
+                                    $quoted_parts2 = explode('Content-Transfer-Encoding: 8bit', $incoming_message);
+                                    $incoming_message = $quoted_parts2[1];
+                                }
+                                // Clean out 'Content-Transfer-Encoding: 7bit' rubbish
+                                $quoted3 = strpos($incoming_message, 'Content-Transfer-Encoding: 7bit');
+                                if ($quoted3 !== false) {
+                                    $quoted_parts3 = explode('Content-Transfer-Encoding: 7bit', $incoming_message);
+                                    $incoming_message = $quoted_parts3[1];
+                                }
+                                // Remove 'original message'
+                                $pos = strpos($incoming_message, '----- Original Message -----');
+                                $pos2 = strpos($incoming_message, '---------');
+                                $pos3 = strpos($incoming_message, '-------');
+                                if ($pos !== false) {
+                                    $orig_message_parts = explode('----- Original Message -----', $incoming_message);
+                                    $pass_this['message'] = trim($orig_message_parts[0]);
+                                } elseif ($pos2 !== false) {
+                                    $orig_message_parts = explode('---------', $incoming_message);
+                                    $pass_this['message'] = trim($orig_message_parts[0]);
+                                } elseif ($pos3 !== false) {
+                                    $orig_message_parts = explode('-------', $incoming_message);
+                                    $pass_this['message'] = trim($orig_message_parts[0]);
+                                } else {
+                                    $pass_this['message'] = trim($incoming_message);
+                                }
+                                $exploding = explode('--', $pass_this['message']);
+                                $pass_this['message'] = $exploding[0];
+                                // /On(.*)wrote\:/iU
+                                $cleaned_mess = preg_match('/On(.*)wrote\:/iU', $pass_this['message'], $patterns);
+                                if ($cleaned_mess > 0) {
+                                    if (strlen($patterns[0])) {
+                                        $exploded_mess = explode($patterns[0], $pass_this['message']);
+                                        $pass_this['message'] = $exploded_mess[0];
+                                    }
+                                }
+                                // /Am(.*)schrieb\:/iU
+                                $cleaned_mess1 = preg_match('/Am(.*)schrieb(.*)\:/iU', $pass_this['message'], $patterns);
+                                if ($cleaned_mess1 > 0) {
+                                    if (strlen($patterns[0])) {
+                                        $exploded_mess1 = explode($patterns[0], $pass_this['message']);
+                                        $pass_this['message'] = $exploded_mess1[0];
+                                    }
+                                }
+                                $cleaned_mess2 = preg_match('/Von(.*)\:/iU', $pass_this['message'], $patterns2);
+                                if ($cleaned_mess2 > 0) {
+                                    if (strlen($patterns2[0])) {
+                                        $exploded_mess2 = explode($patterns2[0], $pass_this['message']);
+                                        $pass_this['message'] = $exploded_mess2[0];
+                                    }
+                                }
+                                $pass_this['message'] = preg_replace('/\=20/', "\r\n", $pass_this['message']);
 
-            $issue->updated_by = $user->id;
-            if($issue->validate()){
-                $issue->save(false);
-                $issue->addToActionLog($issue->id, $user->id, 'note', '/projects/'.$issue->project->identifier.'/issue/view/'.$issue->id.'#note-'.$issue->commentCount, $new_comment);
-                $issue->sendNotifications($issue->id, $new_comment, $issue->updated_by);
-            }
-        }
-		//fclose($debugfh);
+                                $pass_this['project'] = '';
+                                $pass_this['issue'] = 0;
+
+                                $subject_regex = '/^(Re: \[)([^0-9][A-z0-9]+)( - )(Bug|Feature) #?(\d+)(\#ic\d*){0,1}/';
+                                $num_closes = preg_match($subject_regex, $pass_this['subject'], $matches_closes, PREG_OFFSET_CAPTURE);
+                                if ($num_closes > 0) {
+                                    $pass_this['project'] = $matches_closes[2][0];
+                                    $pass_this['issue'] = $matches_closes[5][0];
+                                } else {
+                                    // German .. tsk..
+                                    $subject_regex = '/^(AW: \[)([^0-9][A-z0-9]+)( - )(Bug|Feature) #?(\d+)(\#ic\d*){0,1}/';
+                                    $num_closes = preg_match($subject_regex, $pass_this['subject'], $matches_closes, PREG_OFFSET_CAPTURE);
+                                    if ($num_closes > 0) {
+                                        $pass_this['project'] = $matches_closes[2][0];
+                                        $pass_this['issue'] = $matches_closes[5][0];
+                                    }
+                                }
+                                // Email parsed
+
+                                echo "From: " . $pass_this['from'] . "\n";
+                                echo "Subject: " . $pass_this['subject'] . "\n";
+                                echo "Message: " . $pass_this['message'];
+
+                                // Now, get the email into Bugitor..
+                            $criteria = new CDbCriteria();
+                            $criteria->compare('email', $pass_this['from'], true);
+                            $user = User::model()->find($criteria);
+                            if (null === $user) {
+                                return;
+                            }
+
+                            $issue = Issue::model()->findByPk($pass_this['issue']);
+                            if (null === $issue) {
+                                return;
+                            }
+
+                            $new_comment = new Comment;
+                            $new_comment->content = $pass_this['message'];
+                            $new_comment->create_user_id = $user->id;
+                            $new_comment->update_user_id = $user->id;
+                            $new_comment->issue_id = (int) $pass_this['issue'];
+                            $new_comment->created = $new_comment->modified = date("Y-m-d\TH:i:s\Z", time());
+                            if ($new_comment->validate()) {
+                                $new_comment->save(false);
+                            }
+
+                            $issue->updated_by = $user->id;
+                            if ($issue->validate()) {
+                                $issue->save(false);
+                                $issue->addToActionLog($issue->id, $user->id, 'note', '/projects/' . $issue->project->identifier . '/issue/view/' . $issue->id . '#note-' . $issue->commentCount, $new_comment);
+                                $issue->sendNotifications($issue->id, $new_comment, $issue->updated_by);
+                            }
+                                // Done :)
+                            } else {
+                                echo 'MIME message analyse error: ' . $mime->error . "\n";
+                            }
+                        } // if decode bodies
+                    } // foreach message
+
+                    for ($warning = 0, Reset($mime->warnings); $warning < count($mime->warnings); Next($mime->warnings), $warning++) {
+                        $w = Key($mime->warnings);
+                        echo 'Warning: ', $mime->warnings[$w], ' at position ', $w;
+                        if ($mime->track_lines
+                                && $mime->GetPositionLine($w, $line, $column))
+                            echo ' line ' . $line . ' column ' . $column;
+                        echo "\n";
+                    }
+                } // if email decoding was successful
+            } // if there is a message
+        } // foreach message in messages
     }
 
 }
