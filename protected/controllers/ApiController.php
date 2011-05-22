@@ -35,7 +35,7 @@
 
 class ApiController extends Controller {
     
-    // Key which has to be in HTTP USERNAME and PASSWORD headers 
+    // Key which has to be in HTTP USERNAME and APIKEY headers 
     Const APPLICATION_ID = 'BUGITOR';
 
     private $format = 'json';
@@ -74,6 +74,9 @@ class ApiController extends Controller {
             case 'issue':
                 $model = Issue::model()->findByPk((int) $_GET['id']);
                 break;
+            case 'comment':
+                $model = Comment::model()->findByPk((int) $_GET['id']);
+                break;
             default:
                 $this->_sendResponse(501, sprintf('Mode <b>view</b> is not implemented for model <b>%s</b>', $_GET['model']));
                 exit;
@@ -102,24 +105,44 @@ class ApiController extends Controller {
         foreach ($_POST as $var => $value) {
             // Does the model have this attribute?
             if ($model->hasAttribute($var)) {
-                $model->$var = $value;
+                if($var == 'content') {
+                    $model->$var = base64_decode($value);
+                } else {
+                    $model->$var = $value;
+                }
+                $user = $this->_getUser();
+                if($user) {
+                    $model->create_user_id = $model->update_user_id = $user->id;
+                }
             } else {
                 // No, raise an error
                 $this->_sendResponse(500, sprintf('Parameter <b>%s</b> is not allowed for model <b>%s</b>', $var, $_GET['model']));
             }
         }
-        // Try to save the model
-        if ($model->save()) {
+        
+        $success = false;
+        
+        if($model->validate()) {
+            $issue = Issue::model()->with(array('project'))->findByPk((int) $model->issue_id);
+            if($issue) {
+                $issue->updated_by = $model->create_user_id;
+                
+                if($issue->save()) {
+                    $issue->sendNotifications($issue->id, $model, $issue->updated_by);
+                    $issue->addToActionLog($issue->id,$issue->updated_by,'note', $this->createUrl('issue/view', array('id' => $issue->id, 'identifier' => $issue->project->identifier, '#' => 'note-'.$issue->commentCount)), $model);
+                    
+                    $model->save(false);
+                    $success = true;
+                }
+            } // if valid issue
+        } // if model validate
+        
+        if ($success) {
             // Saving was OK
             $this->_sendResponse(200, $this->_getObjectEncoded($_GET['model'], $model->attributes));
         } else {
             // Errors occurred
-            $msg = '';
-            foreach ($_POST as $var => $value) {
-            $msg .= 'Var: ' . $var . '<br/>';
-            $msg .= 'Value: ' . $value . '<br/>';
-            }
-            $msg .= "<h1>Error</h1>";
+            $msg = "<h1>Error</h1>";
             $msg .= sprintf("Couldn't create model <b>%s</b>", $_GET['model']);
             $msg .= "<ul>";
             foreach ($model->errors as $attribute => $attr_errors) {
@@ -323,21 +346,28 @@ class ApiController extends Controller {
         return (isset($codes[$status])) ? $codes[$status] : '';
     }
 
+    private function _getUser() {
+        $username = $_SERVER['HTTP_X_' . self::APPLICATION_ID . '_USERNAME'];
+        $user = User::model()->findByAttributes(array('username' => $username));
+        if(!$user) return null;
+        return $user;
+    }
+
     // Checks if a request is authorized
     private function _checkAuth() {
-        // Check if we have the USERNAME and PASSWORD HTTP headers set?
-        if (!(isset($_SERVER['HTTP_X_' . self::APPLICATION_ID . '_USERNAME']) and isset($_SERVER['HTTP_X_' . self::APPLICATION_ID . '_PASSWORD']))) {
+        // Check if we have the USERNAME and APIKEY HTTP headers set?
+        if (!(isset($_SERVER['HTTP_X_' . self::APPLICATION_ID . '_USERNAME']) and isset($_SERVER['HTTP_X_' . self::APPLICATION_ID . '_APIKEY']))) {
             // Error: Unauthorized
             $this->_sendResponse(401);
         }
         $username = $_SERVER['HTTP_X_' . self::APPLICATION_ID . '_USERNAME'];
-        $password = $_SERVER['HTTP_X_' . self::APPLICATION_ID . '_PASSWORD'];
+        $api_key = $_SERVER['HTTP_X_' . self::APPLICATION_ID . '_APIKEY'];
         // Find the user
         $user = User::model()->findByAttributes(array('username' => $username));
         if ($user === null) {
             // Error: Unauthorized
-            $this->_sendResponse(401, 'Error: User Name is invalid');
-        } else if ($user->apikey !== $password) {
+            $this->_sendResponse(401, 'Error: invalid username');
+        } else if ($user->apikey !== $api_key) {
             // Error: Unauthorized
             $this->_sendResponse(401, 'Error: invalid API key');
         }
