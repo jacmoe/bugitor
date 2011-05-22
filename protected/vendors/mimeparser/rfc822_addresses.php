@@ -2,7 +2,7 @@
 /*
  * rfc822_addresses.php
  *
- * @(#) $Id: rfc822_addresses.php,v 1.12 2008/12/13 02:46:09 mlemos Exp $
+ * @(#) $Id: rfc822_addresses.php,v 1.14 2011/03/25 04:57:38 mlemos Exp $
  *
  */
 
@@ -12,7 +12,7 @@
 
 	<package>net.manuellemos.mimeparser</package>
 
-	<version>@(#) $Id: rfc822_addresses.php,v 1.12 2008/12/13 02:46:09 mlemos Exp $</version>
+	<version>@(#) $Id: rfc822_addresses.php,v 1.14 2011/03/25 04:57:38 mlemos Exp $</version>
 	<copyright>Copyright © (C) Manuel Lemos 2006 - 2008</copyright>
 	<title>RFC 822 e-mail addresses parser</title>
 	<author>Manuel Lemos</author>
@@ -239,6 +239,7 @@ class rfc822_addresses_class
 					return($this->SetPositionedWarning('Q-encoding '.$type.' is not yet supported', $p + $c));
 			}
 			$s += 2;
+			$s += strspn($value, " \t", $s);
 		}
 		$value = $decoded;
 		$encoding = $charset;
@@ -871,8 +872,9 @@ class rfc822_addresses_class
 		$addresses[] = $address;
 		while($p < $l)
 		{
-			if(strcmp($v[$p], ','))
-				return($this->SetPositionedError('multiple addresses must be separated by commas: ', $p));
+			if(strcmp($v[$p], ',')
+			&& !$this->SetPositionedWarning('multiple addresses must be separated by commas: ', $p))
+				return(0);
 			++$p;
 			if(!$this->ParseAddress($p, $address))
 				return(0);

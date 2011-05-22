@@ -69,7 +69,7 @@ return CMap::mergeArray(
                         'class' => 'XWebDebugRouter',
                         'config' => 'alignRight, opaque, runInDebug, fixedPos, collapsed, yamlStyle',
                         'levels' => 'error, warning, trace, profile, info',
-                        'allowedIPs' => array('127.0.0.1', '192.168.1.54'),
+                        'allowedIPs' => array('127.0.0.1'),
                     ),
                 ),
             ),
