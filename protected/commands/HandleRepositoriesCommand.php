@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of
  *     ____              _ __
@@ -396,7 +395,7 @@ class HandleRepositoriesCommand extends CConsoleCommand {
         // offset initial by 1 second to make date later than associated changeset.
         $commit_date_in_seconds++;
 
-        $preg_string_refs = '/(?:refs|ref|references|see) #?(\d+)(\#ic\d*){0,1}(( #?and|#?or|,) #?(\d+)(\#ic\d*){0,1}){0,}/';
+        $preg_string_refs =   '/(?:refs|ref|references|see) #?(\d+)(\#ic\d*){0,1}(( #?and|#?+or|,) #?(\d+)(\#ic\d*){0,1}){0,}/';
         $preg_string_closes = '/(?:fix(?:ed|es)|close(?:d|s)|fix|close) #?(\d+)(\#ic\d*){0,1}(( #?and|#?+or|,) #?(\d+)(\#ic\d*){0,1}){0,}/';
 
         $issues_to_be_referenced = array();
