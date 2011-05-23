@@ -86,7 +86,7 @@ class IssueController extends Controller {
                         $comment->create_user_id = Yii::app()->user->id;
                         if($comment->validate())
                             $comment->save(false);
-                        $issue->addToActionLog($issue->id, Yii::app()->user->id, 'attachment', $this->createUrl('issue/view', array('id' => $issue->id, 'identifier' => $issue->project->identifier, '#' => 'note-'.$issue->commentCount)), $comment);
+                        $issue->addToActionLog($issue->id, Yii::app()->user->id, 'attachment', $this->createUrl('issue/view', array('id' => $issue->id, 'identifier' => $issue->project->identifier, '#' => 'note-'.$issue->commentCount)), $comment->id);
                     }
                     $issue->save(false);
 
@@ -135,7 +135,7 @@ class IssueController extends Controller {
                                     $comment->save(false);
 
                                 $issue->buildCommentDetails($comment->id);
-                                $issue->addToActionLog($issue->id, Yii::app()->user->id, 'change', $this->createUrl('issue/view', array('id' => $issue->id, 'identifier' => $issue->project->identifier, '#' => 'note-'.$issue->commentCount)), $comment);
+                                $issue->addToActionLog($issue->id, Yii::app()->user->id, 'change', $this->createUrl('issue/view', array('id' => $issue->id, 'identifier' => $issue->project->identifier, '#' => 'note-'.$issue->commentCount)), $comment->id);
 
                                 $issue->save(false);
                             }
@@ -153,7 +153,7 @@ class IssueController extends Controller {
                                     $comment->save(false);
 
                                 $issue->buildCommentDetails($comment->id);
-                                $issue->addToActionLog($issue->id, Yii::app()->user->id, 'change', $this->createUrl('issue/view', array('id' => $issue->id, 'identifier' => $issue->project->identifier, '#' => 'note-'.$issue->commentCount)), $comment);
+                                $issue->addToActionLog($issue->id, Yii::app()->user->id, 'change', $this->createUrl('issue/view', array('id' => $issue->id, 'identifier' => $issue->project->identifier, '#' => 'note-'.$issue->commentCount)), $comment->id);
 
                                 $issue->save(false);
                             }
@@ -171,7 +171,7 @@ class IssueController extends Controller {
                                     $comment->save(false);
 
                                 $issue->buildCommentDetails($comment->id);
-                                $issue->addToActionLog($issue->id, Yii::app()->user->id, 'change', $this->createUrl('issue/view', array('id' => $issue->id, 'identifier' => $issue->project->identifier, '#' => 'note-'.$issue->commentCount)), $comment);
+                                $issue->addToActionLog($issue->id, Yii::app()->user->id, 'change', $this->createUrl('issue/view', array('id' => $issue->id, 'identifier' => $issue->project->identifier, '#' => 'note-'.$issue->commentCount)), $comment->id);
 
                                 $issue->save(false);
                             }
@@ -277,7 +277,7 @@ class IssueController extends Controller {
 
                         $project = Project::model()->findByPk((int)$model->project_id);
                         $model->buildCommentDetails($comment->id);
-                        $model->addToActionLog($model->id,Yii::app()->user->id,'change', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $project->identifier, '#' => 'note-'.$model->commentCount)), $comment);
+                        $model->addToActionLog($model->id,Yii::app()->user->id,'change', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $project->identifier, '#' => 'note-'.$model->commentCount)), $comment->id);
 
                         Yii::app()->user->setFlash('success',"Issue was succesfully moved");
 
@@ -347,14 +347,14 @@ class IssueController extends Controller {
 
                     if($has_details) {
                         if($model->status == 'swIssue/resolved') {
-                            $model->addToActionLog($model->id,Yii::app()->user->id,'resolved', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment);
+                            $model->addToActionLog($model->id,Yii::app()->user->id,'resolved', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment->id);
                         } elseif($model->status == 'swIssue/rejected') {
-                            $model->addToActionLog($model->id,Yii::app()->user->id,'rejected', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment);
+                            $model->addToActionLog($model->id,Yii::app()->user->id,'rejected', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment->id);
                         } else {
-                            $model->addToActionLog($model->id,Yii::app()->user->id,'change', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment);
+                            $model->addToActionLog($model->id,Yii::app()->user->id,'change', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment->id);
                         }
                     } else {
-                        $model->addToActionLog($model->id,Yii::app()->user->id,'note', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment);
+                        $model->addToActionLog($model->id,Yii::app()->user->id,'note', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment->id);
                     }
 
                     Yii::app()->user->setFlash('success',"Issue was succesfully updated");
@@ -428,14 +428,14 @@ class IssueController extends Controller {
 
                     if($has_details) {
                         if($model->status == 'swIssue/resolved') {
-                            $model->addToActionLog($model->id,Yii::app()->user->id,'resolved', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment);
+                            $model->addToActionLog($model->id,Yii::app()->user->id,'resolved', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment->id);
                         } elseif($model->status == 'swIssue/rejected') {
-                            $model->addToActionLog($model->id,Yii::app()->user->id,'rejected', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment);
+                            $model->addToActionLog($model->id,Yii::app()->user->id,'rejected', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment->id);
                         } else {
-                            $model->addToActionLog($model->id,Yii::app()->user->id,'change', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment);
+                            $model->addToActionLog($model->id,Yii::app()->user->id,'change', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment->id);
                         }
                     } else {
-                        $model->addToActionLog($model->id,Yii::app()->user->id,'note', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment);
+                        $model->addToActionLog($model->id,Yii::app()->user->id,'note', $this->createUrl('issue/view', array('id' => $model->id, 'identifier' => $model->project->identifier, '#' => 'note-'.$model->commentCount)), $comment->id);
                     }
 
                     Yii::app()->user->setFlash('success',"Issue was succesfully updated");

@@ -129,7 +129,7 @@ class ApiController extends Controller {
                 
                 if($issue->save()) {
                     $issue->sendNotifications($issue->id, $model, $issue->updated_by);
-                    $issue->addToActionLog($issue->id,$issue->updated_by,'note', $this->createUrl('issue/view', array('id' => $issue->id, 'identifier' => $issue->project->identifier, '#' => 'note-'.$issue->commentCount)), $model);
+                    $issue->addToActionLog($issue->id,$issue->updated_by,'note', $this->createUrl('issue/view', array('id' => $issue->id, 'identifier' => $issue->project->identifier, '#' => 'note-'.$issue->commentCount)), $model->id);
                     
                     $model->save(false);
                     $success = true;
