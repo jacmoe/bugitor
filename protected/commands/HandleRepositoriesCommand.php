@@ -440,7 +440,7 @@ class HandleRepositoriesCommand extends CConsoleCommand {
 
                     $issue_ref = Issue::model()->findByPk($issue_ref->id);
                     $issue_ref->addToActionLog($issue_ref->id, $changeset->user_id, 'note', '/projects/' . $issue_ref->project->identifier . '/issue/view/' . $issue_ref->id . '#note-' . $issue_ref->commentCount, $comment->id);
-                    $issue_ref->addNotifications($issue_ref->id, $comment->id, $issue_ref->updated_by);
+                    $issue_ref->addNotification($issue_ref->id, $comment->id, $issue_ref->updated_by);
 
                     $changeset_issue = new ChangesetIssue;
                     $changeset_issue->changeset_id = $changeset->id;

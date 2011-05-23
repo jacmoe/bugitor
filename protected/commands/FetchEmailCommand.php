@@ -231,7 +231,7 @@ class FetchEmailCommand extends CConsoleCommand {
 //                            if ($issue->validate()) {
 //                                $issue->save(false);
 //                                $issue->addToActionLog($issue->id, $user->id, 'note', '/projects/' . $issue->project->identifier . '/issue/view/' . $issue->id . '#note-' . $issue->commentCount, $new_comment->id);
-//                                $issue->addNotifications($issue->id, $new_comment->id, $issue->updated_by);
+//                                $issue->addNotification($issue->id, $new_comment->id, $issue->updated_by);
 //                            }
                                 // Done :)
                             } else {
