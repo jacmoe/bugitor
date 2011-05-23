@@ -559,7 +559,8 @@ class HandleRepositoriesCommand extends CConsoleCommand {
         // repository has been cloned and author_user table checked
 
         $this->hg('pull');
-        $this->hg('update');
+        //TODO: do we really need hg update?
+        //$this->hg('update');
         
         $fp = $this->run_tool('hg', 'read', array('log', '-r0', '-R', $repository->local_path, '--cwd', $repository->local_path, '--template', '{node}'));
         $unique_id = fgets($fp);
