@@ -343,7 +343,7 @@ class IssueController extends Controller {
                     $model->save(false);
 
 
-                    $model->sendNotifications($model->id, $comment, $model->updated_by);
+                    $model->addNotifications($model->id, $comment->id, $model->updated_by);
 
                     if($has_details) {
                         if($model->status == 'swIssue/resolved') {
@@ -424,7 +424,7 @@ class IssueController extends Controller {
                     $model->save(false);
 
                     
-                    $model->sendNotifications($model->id, $comment, $model->updated_by);
+                    $model->addNotifications($model->id, $comment->id, $model->updated_by);
 
                     if($has_details) {
                         if($model->status == 'swIssue/resolved') {
