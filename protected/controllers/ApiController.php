@@ -43,7 +43,7 @@ class ApiController extends Controller {
     public function actionList() {
         $this->_checkAuth();
         switch ($_GET['model']) {
-            case 'issues': // {{{ 
+            case 'issues':
                 $models = Issue::model()->findAll();
                 break;
             default:
@@ -88,6 +88,22 @@ class ApiController extends Controller {
         }
     }
 
+    public function actionExecute() {
+        switch ($_POST['action']) {
+            case 'sendnotifications':
+                break;
+            default;
+                $this->_sendResponse(501, sprintf('Mode <b>execute</b> is not implemented for action <b>%s</b>', $_POST['action']));
+                break;
+        }
+        $success = true;
+        if ($success){
+            $this->_sendResponse(200, sprintf("Action <b>%s</b> has been executed.", $_POST['action']));
+        } else {
+            $this->_sendResponse(500, sprintf("Error: action <b>%s</b> could not be executed.", $_POST['action']));
+        }
+    }
+    
     // Creates a new item
     public function actionCreate() {
         $this->_checkAuth();
