@@ -128,7 +128,7 @@ class ApiController extends Controller {
                 $issue->updated_by = $model->create_user_id;
                 
                 if($issue->save()) {
-                    $issue->addNotification($issue->id, $model->id, $issue->updated_by);
+                    $issue->sendNotification($issue->id, $model->id, $issue->updated_by);
                     $issue->addToActionLog($issue->id,$issue->updated_by,'note', $this->createUrl('issue/view', array('id' => $issue->id, 'identifier' => $issue->project->identifier, '#' => 'note-'.$issue->commentCount)), $model->id);
                     
                     $model->save(false);
