@@ -593,8 +593,17 @@ class Issue extends CActiveRecord {
         return $changed;
     }
 
-    public function sendNotifications($id, $comment, $updated_by) {
-        $issue = Issue::model()->findByPk((int) $id);
+    public function addNotification($issue_id, $comment_id, $updated_by) {
+        $notification = new Notification();
+        $notification->issue_id = $issue_id;
+        $notification->comment_id = $comment_id;
+        $notification->updated_by = $updated_by;
+        $notification->save();
+    }
+    
+    public function sendNotification($issue_id, $comment_id, $updated_by) {
+        $issue = Issue::model()->findByPk($issue_id);
+        $comment = Comment::model()->findByPk($comment_id);
         $emails = $issue->getWatcherEmails($id, $updated_by);
         if(null != $emails) {
             $message = new YiiMailMessage;
