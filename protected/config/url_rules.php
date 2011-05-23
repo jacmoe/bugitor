@@ -4,6 +4,7 @@ return array(
     array('api/list', 'pattern' => 'api/<model:\w+>', 'verb' => 'GET'),
     array('api/view', 'pattern' => 'api/<model:\w+>/<id:\d+>', 'verb' => 'GET'),
     array('api/update', 'pattern' => 'api/<model:\w+>/<id:\d+>', 'verb' => 'PUT'),
+    array('api/execute', 'pattern' => 'api/execute', 'verb' => 'POST'),
     array('api/delete', 'pattern' => 'api/<model:\w+>/<id:\d+>', 'verb' => 'DELETE'),
     array('api/create', 'pattern' => 'api/<model:\w+>', 'verb' => 'POST'),
     '/projects/' => 'project/index',
