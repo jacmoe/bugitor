@@ -89,13 +89,13 @@ class ApiController extends Controller {
     }
 
     public function actionExecute() {
+        $this->_checkAuth();
         switch ($_POST['action']) {
             case 'sendnotifications':
                 break;
             case 'fetchchangesets':
-                $command = '/usr/bin/php var/www/bugitor/console.php handlerepositories 2 nolock > /dev/null 2>&1 &';
-                exec($command);
-                //pclose(popen($command, 'r'));
+                $command = '/usr/bin/php /var/www/bugitor/console.php handlerepositories 2 > /var/www/bugitor/assets/handlerepositories.log 2>&1 &';
+                pclose(popen($command, 'r'));
                 break;
             default;
                 $this->_sendResponse(501, sprintf('Mode <b>execute</b> is not implemented for action <b>%s</b>', $_POST['action']));
