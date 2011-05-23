@@ -94,7 +94,7 @@ class ApiController extends Controller {
             case 'sendnotifications':
                 break;
             case 'fetchchangesets':
-                $command = '/usr/bin/php /var/www/bugitor/console.php handlerepositories 2 > /var/www/bugitor/assets/handlerepositories.log 2>&1 &';
+                $command = '/usr/bin/php '.Yii::app()->getBasePath().'/console.php handlerepositories 2 > '.Yii::app()->getBasePath().'/assets/handlerepositories.log 2>&1 &';
                 pclose(popen($command, 'r'));
                 break;
             default;
