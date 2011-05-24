@@ -125,7 +125,7 @@ class YiiMailMessage extends CComponent {
      * @param string content type optional. For html, set to 'html/text'
      * @param string charset optional
      */
-    public function setBody($body = '', $contentType = null, $charset = null) {
+    public function setHtml($body) {
         if ($this->view !== null) {
             if (!is_array($body))
                 $body = array('body' => $body);
@@ -139,7 +139,10 @@ class YiiMailMessage extends CComponent {
             $viewPath = Yii::getPathOfAlias(Yii::app()->mail->viewPath . '.' . $this->view) . '.php';
             $body = $controller->renderInternal($viewPath, array_merge($body, array('mail' => $this)), true);
         }
-        return $this->message->setBody($body, $contentType, $charset);
+        return $this->message->addPart($body, 'text/html');
     }
 
+    public function setText($body) {
+        return $this->message->setBody($body, 'text/plain');
+    }
 }

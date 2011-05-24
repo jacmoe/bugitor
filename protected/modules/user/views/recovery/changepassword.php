@@ -5,7 +5,7 @@ $this->breadcrumbs=array(
 );
 ?>
 
-<h1><?php echo UserModule::t("Change Password"); ?></h1>
+<h1><?php echo UserModule::t("Change User Password"); ?></h1>
 
 
 <div class="form">

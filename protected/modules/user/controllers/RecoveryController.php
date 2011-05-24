@@ -47,7 +47,7 @@ class RecoveryController extends Controller
 			    					array(
 			    						'{site_name}'=>Yii::app()->name,
 			    					));
-			    			$message = UserModule::t("<h3>{site_name} Password Recovery</h3>You are receiving this message because you (or someone pretending to be you) have requested a password reset.<br/>To receive a new password, go to <a href=\"{activation_url}\">{activation_url}</a>.",
+			    			$message = UserModule::t("{site_name} Password Recovery\n\nYou are receiving this message because you (or someone pretending to be you) have requested a password reset.\n\nTo receive a new password, go to {activation_url}\n",
 			    					array(
 			    						'{site_name}'=>Yii::app()->name,
 			    						'{activation_url}'=>$activation_url,
