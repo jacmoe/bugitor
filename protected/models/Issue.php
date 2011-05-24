@@ -606,13 +606,16 @@ class Issue extends CActiveRecord {
         $comment = Comment::model()->findByPk($comment_id);
         $emails = $issue->getWatcherEmails($id, $updated_by);
         if(null != $emails) {
+            $adminEmail = Yii::app()->params['adminEmail'];
+            $adminEmailText = Yii::app()->params['adminEmailText'];
             $message = new YiiMailMessage;
             $message->view = 'issuechange';
             $message->setSubject(Bugitor::issue_subject($issue));
             if(Yii::app()->config->get('logging_enabled')) Yii::log('Sending notification emails for : ' . Bugitor::issue_subject($issue), 'info', 'bugitor.mail');
-            $message->setBody(array('issue'=>$issue, 'comment' => $comment), 'text/html');
-            $message->setSender(array('ticket@tracker.ogitor.org' => 'Bugitor Issue Tracker'));
-            $message->setFrom(array('ticket@tracker.ogitor.org' => 'Bugitor Issue Tracker'));
+            $message->setHtml(array('issue'=>$issue, 'comment' => $comment));
+            $message->setText($this->getEmailText($issue, $comment));
+            $message->setSender(array($adminEmail => $adminEmailText));
+            $message->setFrom(array($adminEmail => $adminEmailText));
             foreach($emails as $email) {
                 if(Yii::app()->config->get('logging_enabled')) Yii::log('Sending to ' . $email, 'info', 'bugitor.mail');
                 $message->addTo($email);
@@ -621,6 +624,39 @@ class Issue extends CActiveRecord {
         }
     }
 
+    private function getEmailText($issue, $comment) {
+        $comment_author = Bugitor::format_username($comment->author);
+        $text = "Issue # {$issue->id} has been updated by {$comment_author}";
+        if($comment->details) {
+            foreach($comment->details as $detail) {
+                $text .= "* ";
+                $detail->change;
+                $text .= "\n";
+            }
+        }
+        $text .= "----------------------------------------------------------\n";
+        $text .= Bugitor::link_to_issue($issue, true)."\n";
+        $text .= "\n";
+        $text .= "* Author: ".(isset($issue->user) ? Bugitor::format_username($issue->user) : '')."\n";
+        $text .= "* Status: ".(isset($issue->status) ? $issue->getStatusLabel($issue->status) : '')."\n";
+        $text .= "* Priority: ".(isset($issue->issuePriority) ? $issue->issuePriority->name : '')."\n";
+        $text .= "* Owner: ".(isset($issue->assignedTo) ? Bugitor::format_username($issue->assignedTo) : '')."\n";
+        $text .= "* Category: ".(isset($issue->issueCategory) ? $issue->issueCategory->name : '')."\n";
+        $text .= "* Version: ".(isset($issue->version) ? $issue->version->name : '')."\n";
+        $text .= "* Project: ".(isset($issue->project) ? $issue->project->name : '')."\n";
+        $text .= "\n";
+        $text .= $comment->content;
+        $text .= "\n";
+        $text .= "\n";
+        $text .= "----------------------------------------------------------\n";
+        $text .= "Bugitor Issue Tracker\n";
+        $text .= "----------------------------------------------------------\n";
+        $text .= "You have received this notification because you have either subscribed to it, or are involved in it.\n";
+        $text .= "To change your notification preferences, please visit this link:\n";
+        $text .= Yii::app()->config->get('hostname')."user/profile\n";
+        return $text;
+    }
+    
     public function getWatcherEmails($id, $updated_by) {
         $criteria = new CDbCriteria();
         $criteria->compare('issue_id', $id, true);

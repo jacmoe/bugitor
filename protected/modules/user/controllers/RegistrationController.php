@@ -51,7 +51,7 @@ class RegistrationController extends Controller
 
 							if (Yii::app()->controller->module->sendActivationMail) {
 								$activation_url = 'http://' . $_SERVER['HTTP_HOST'].$this->createUrl('/user/activation/activation',array("activkey" => $model->activkey, "email" => $model->email));
-								UserModule::sendMail($model->email,UserModule::t("{site_name} : Account Registration.",array('{site_name}'=>Yii::app()->name)),UserModule::t("You (or someone pretending to be you) has registered an account at Bugitor BugTracker.<br/>To activate your account, please go to <a href=\"{activation_url}\">{activation_url}</a>",array('{activation_url}'=>$activation_url)));
+								UserModule::sendMail($model->email,UserModule::t("{site_name} : Account Registration.",array('{site_name}'=>Yii::app()->name)),UserModule::t("You (or someone pretending to be you) has registered an account at Bugitor BugTracker.\n\nTo activate your account, please go to {activation_url}",array('{activation_url}'=>$activation_url)));
 							}
 							
 							if ((Yii::app()->controller->module->loginNotActiv||(Yii::app()->controller->module->activeAfterRegister&&Yii::app()->controller->module->sendActivationMail==false))&&Yii::app()->controller->module->autoLogin) {
