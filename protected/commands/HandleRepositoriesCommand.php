@@ -439,7 +439,7 @@ class HandleRepositoriesCommand extends CConsoleCommand {
 
                     $issue_ref = Issue::model()->findByPk($issue_ref->id);
                     $issue_ref->addToActionLog($issue_ref->id, $changeset->user_id, 'note', '/projects/' . $issue_ref->project->identifier . '/issue/view/' . $issue_ref->id . '#note-' . $issue_ref->commentCount, $comment->id);
-                    $issue_ref->addNotification($issue_ref->id, $comment->id, $issue_ref->updated_by);
+                    $issue_ref->sendNotification($issue_ref->id, $comment->id, $issue_ref->updated_by);
 
                     $changeset_issue = new ChangesetIssue;
                     $changeset_issue->changeset_id = $changeset->id;
@@ -508,7 +508,7 @@ class HandleRepositoriesCommand extends CConsoleCommand {
                         $issue_close->addToActionLog($issue_close->id, $changeset->user_id, 'note', '/projects/' . $issue_close->project->identifier . '/issue/view/' . $issue_close->id . '#note-' . $issue_close->commentCount, $comment->id);
                     }
 
-                    $issue_close->addNotification($issue_close->id, $comment->id, $issue_close->updated_by);
+                    $issue_close->sendNotification($issue_close->id, $comment->id, $issue_close->updated_by);
 
                     $changeset_issue = new ChangesetIssue;
                     $changeset_issue->changeset_id = $changeset->id;
@@ -547,13 +547,13 @@ class HandleRepositoriesCommand extends CConsoleCommand {
             $this->grabChanges(0, 'tip', 0);
             $this->fillUsersTable();
 
-            continue;
+            return;
         }
 
         if ($repository->status === '1') {
             // user need to check author_user table
             //TODO: put a link so that the user can set progress
-            continue;
+            return;
         }
 
         // repository has been cloned and author_user table checked

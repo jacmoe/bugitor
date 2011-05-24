@@ -28,7 +28,7 @@ class m110507_101301_initial extends CDbMigration
                     'project_id' => 'integer NOT NULL',
                     'subject' => 'string NOT NULL',
                     'description' => 'text NOT NULL',
-                ));
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         $this->createIndex('type', '{{action_log}}', 'type');
         $this->createIndex('fk_action_log_user_id', '{{action_log}}', 'author_id');
         $this->createIndex('fk_action_log_project_id', '{{action_log}}', 'project_id');
@@ -53,8 +53,7 @@ class m110507_101301_initial extends CDbMigration
                     'name' => 'string NOT NULL',
                     'size' => 'integer NOT NULL',
                     'created' => 'timestamp NOT NULL',
-                )
-                );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         $this->createIndex('issue_id', '{{attachment}}', 'issue_id');
         $this->createIndex('user_id', '{{attachment}}', 'user_id');
         $this->createIndex('name', '{{attachment}}', 'name');
@@ -72,8 +71,7 @@ class m110507_101301_initial extends CDbMigration
                     'id' => 'pk',
                     'user_id' => 'integer',
                     'author' => 'string NOT NULL',
-                )
-                );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         $this->createIndex('author', '{{author_user}}', 'author', true);
         $this->createIndex('user_id', '{{author_user}}', 'user_id');
         
@@ -91,8 +89,7 @@ class m110507_101301_initial extends CDbMigration
                     'bizrule' => 'text',
                     'data' => 'text',
                     'PRIMARY KEY (`itemname`,`userid`)'
-                )
-                );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         
         //CREATE TABLE IF NOT EXISTS `{{auth_item}}` (
         //  `name` varchar(64) NOT NULL,
@@ -110,8 +107,7 @@ class m110507_101301_initial extends CDbMigration
                     'bizrule' => 'text',
                     'data' => 'text',
                     'PRIMARY KEY (`name`)'
-                )
-                );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         
         //CREATE TABLE IF NOT EXISTS `{{auth_item_child}}` (
         //  `parent` varchar(64) NOT NULL,
@@ -124,8 +120,7 @@ class m110507_101301_initial extends CDbMigration
                     'parent' => 'string NOT NULL',
                     'child' => 'string NOT NULL',
                     'PRIMARY KEY (`parent`,`child`)'
-                )
-                );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         $this->createIndex('child', '{{auth_item_child}}', 'child');
 
         //CREATE TABLE IF NOT EXISTS `{{auth_item_weight}}` (
@@ -140,8 +135,7 @@ class m110507_101301_initial extends CDbMigration
                     'type' => 'integer NOT NULL',
                     'weight' => 'integer DEFAULT NULL',
                     'PRIMARY KEY (`itemname`)'
-                )
-                );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         
         //CREATE TABLE IF NOT EXISTS `{{change}}` (
         //  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -157,8 +151,7 @@ class m110507_101301_initial extends CDbMigration
                 'changeset_id' => 'integer NOT NULL',
                 'action' => 'string NOT NULL',
                 'path' => 'string NOT NULL',
-            )
-        );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         $this->createIndex('fk_change_changeset_id', '{{change}}', 'changeset_id');
 
         //CREATE TABLE IF NOT EXISTS `{{changeset}}` (
@@ -199,8 +192,7 @@ class m110507_101301_initial extends CDbMigration
                 'add' => 'integer DEFAULT NULL',
                 'edit' => 'integer DEFAULT NULL',
                 'del' => 'integer DEFAULT NULL',
-            )
-        );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         $this->createIndex('unique_ident', '{{changeset}}', 'unique_ident', true);
         $this->createIndex('fk_changeset_user_id', '{{changeset}}', 'user_id');
         $this->createIndex('fk_changeset_repository', '{{changeset}}', 'scm_id');
@@ -218,8 +210,7 @@ class m110507_101301_initial extends CDbMigration
                 "id"=>"pk",
                 "changeset_id"=>"integer NOT NULL",
                 "issue_id"=>"integer NOT NULL",
-            )
-        );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         $this->createIndex('issue_id', '{{changeset_issue}}', 'issue_id');
         $this->createIndex('changeset_id', '{{changeset_issue}}', 'changeset_id');
         
@@ -245,8 +236,7 @@ class m110507_101301_initial extends CDbMigration
                 "create_user_id"=>"integer DEFAULT NULL",
                 "modified"=>"datetime DEFAULT NULL",
                 "update_user_id"=>"integer DEFAULT NULL",
-            )
-        );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         $this->createIndex('FK_comment_issue', '{{comment}}', 'issue_id');
         $this->createIndex('FK_comment_author', '{{comment}}', 'create_user_id');
         $this->createIndex('FK_comment_updater', '{{comment}}', 'update_user_id');
@@ -263,8 +253,7 @@ class m110507_101301_initial extends CDbMigration
                 "id"=>"pk",
                 "comment_id"=>"integer NOT NULL",
                 "change"=>"string DEFAULT NULL",
-            )
-        );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         $this->createIndex('comment_detail_ibfk_1', '{{comment_detail}}', 'comment_id');
 
         //CREATE TABLE IF NOT EXISTS `{{config}}` (
@@ -277,8 +266,7 @@ class m110507_101301_initial extends CDbMigration
                 "key"=>"string COLLATE utf8_bin",
                 "value"=>"text COLLATE utf8_bin",
                 'PRIMARY KEY (`key`)'
-            )
-        );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         
         //CREATE TABLE IF NOT EXISTS `{{issue}}` (
         //  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -330,8 +318,7 @@ class m110507_101301_initial extends CDbMigration
                 "pre_done_ratio"=>"integer NOT NULL",
                 "updated_by"=>"integer",
                 "last_comment"=>"integer",
-            )
-        );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         $this->createIndex('fk_issue_tracker_id', '{{issue}}', 'tracker_id');
         $this->createIndex('fk_issue_project_id', '{{issue}}', 'project_id');
         $this->createIndex('fk_issue_category_id', '{{issue}}', 'issue_category_id');
@@ -357,8 +344,7 @@ class m110507_101301_initial extends CDbMigration
                 "name"=>"string NOT NULL",
                 "project_id"=>"integer NOT NULL",
                 "description"=>"string DEFAULT NULL",
-            )
-        );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         $this->createIndex('project_id', '{{issue_category}}', 'project_id');
         $this->createIndex('name_UNIQUE', '{{issue_category}}', 'name');
         
@@ -372,8 +358,7 @@ class m110507_101301_initial extends CDbMigration
             array(
                 "id"=>"pk",
                 "name"=>"string NOT NULL",
-            )
-        );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         $this->createIndex('name_UNIQUE', '{{issue_priority}}', 'name', true);
         
         //CREATE TABLE IF NOT EXISTS `{{member}}` (
@@ -391,8 +376,7 @@ class m110507_101301_initial extends CDbMigration
                 "project_id"=>"integer NOT NULL",
                 "user_id"=>"integer NOT NULL",
                 "role"=>"string NOT NULL",
-            )
-        );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         $this->createIndex('FK_member_user', '{{member}}', 'user_id');
         $this->createIndex('FK_member_project', '{{member}}', 'project_id');
 
@@ -413,8 +397,7 @@ class m110507_101301_initial extends CDbMigration
                 "birthday"=>"date NOT NULL DEFAULT '0000-00-00'",
                 "timezone"=>"varchar(65) NOT NULL",
                 "locale"=>"varchar(32) NOT NULL DEFAULT 'en_gb'",
-            )
-        );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         
         //CREATE TABLE IF NOT EXISTS `{{profiles_fields}}` (
         //  `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -454,8 +437,7 @@ class m110507_101301_initial extends CDbMigration
                 "widgetparams"=>"varchar(5000) NOT NULL",
                 "position"=>"int(3) NOT NULL",
                 "visible"=>"int(1) NOT NULL",
-            )
-        );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         
         //CREATE TABLE IF NOT EXISTS `{{project}}` (
         //  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -480,8 +462,7 @@ class m110507_101301_initial extends CDbMigration
                 "created"=>"timestamp NULL DEFAULT NULL",
                 "modified"=>"timestamp NULL DEFAULT NULL",
                 "identifier"=>"varchar(20) DEFAULT NULL",
-            )
-        );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         $this->createIndex('identifier', '{{project}}', 'identifier', true);
         $this->createIndex('public', '{{project}}', 'public');
         
@@ -503,8 +484,7 @@ class m110507_101301_initial extends CDbMigration
                 "description"=>"string NOT NULL",
                 "position"=>"integer NOT NULL",
                 "project_id"=>"integer NOT NULL",
-            )
-        );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         $this->createIndex('project_id', '{{project_link}}', 'project_id');
         
         //CREATE TABLE IF NOT EXISTS `{{project_tracker}}` (
@@ -519,8 +499,7 @@ class m110507_101301_initial extends CDbMigration
                 "project_id"=>"integer NOT NULL",
                 "tracker_id"=>"integer NOT NULL",
                 "PRIMARY KEY (`project_id`,`tracker_id`)",
-            )
-        );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         $this->createIndex('fk_project_tracker_project_id', '{{project_tracker}}', 'project_id');
         $this->createIndex('fk_project_tracker_tracker_id', '{{project_tracker}}', 'tracker_id');
         
@@ -539,8 +518,7 @@ class m110507_101301_initial extends CDbMigration
                 "issue_to" => "integer NOT NULL",
                 "relation_type_id" => "integer NOT NULL",
                 "PRIMARY KEY (`issue_from`,`issue_to`)",
-            )
-        );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         $this->createIndex('fk_related_issue_issue_from_id', '{{related_issue}}', 'issue_from');
         $this->createIndex('fk_related_issue_issue_to_id', '{{related_issue}}', 'issue_to');
         $this->createIndex('fk_related_issue_relation_type_id', '{{related_issue}}', 'relation_type_id');
@@ -557,8 +535,7 @@ class m110507_101301_initial extends CDbMigration
                 "id"=>"pk",
                 "name"=>"varchar(45) NOT NULL",
                 "description"=>"varchar(65) NOT NULL",
-            )
-        );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         $this->createIndex('name_UNIQUE', '{{relation_type}}', 'name', true);
 
         //CREATE TABLE IF NOT EXISTS `{{repository}}` (
@@ -582,8 +559,7 @@ class m110507_101301_initial extends CDbMigration
                 "name"=>"varchar(255) NOT NULL",
                 "identifier"=>"varchar(255) NOT NULL",
                 "status"=>"int(11) NOT NULL DEFAULT '0'",
-            )
-        );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         $this->createIndex('name', '{{repository}}', 'name', true);
         $this->createIndex('repository_project_id', '{{repository}}', 'project_id');
 
@@ -602,8 +578,7 @@ class m110507_101301_initial extends CDbMigration
                 "is_in_chlog"=>"int(1) NOT NULL DEFAULT '1'",
                 "is_in_roadmap"=>"int(1) NOT NULL DEFAULT '1'",
                 "position"=>"int(11) NOT NULL DEFAULT '1'",
-            )
-        );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         
         //CREATE TABLE IF NOT EXISTS `{{users}}` (
         //  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -632,8 +607,7 @@ class m110507_101301_initial extends CDbMigration
                 "lastvisit"=>"int(10) NOT NULL DEFAULT '0'",
                 "superuser"=>"int(1) NOT NULL DEFAULT '0'",
                 "status"=>"int(1) NOT NULL DEFAULT '0'",
-            )
-        );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         $this->createIndex('username', '{{users}}', 'username', true);
         $this->createIndex('email', '{{users}}', 'email', true);
         $this->createIndex('status', '{{users}}', 'status');
@@ -662,8 +636,7 @@ class m110507_101301_initial extends CDbMigration
                 "created"=>"timestamp NULL DEFAULT NULL",
                 "modified"=>"timestamp NULL DEFAULT NULL",
                 "version_order"=>"int(11) DEFAULT NULL",
-            )
-        );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         $this->createIndex('versions_project_id', '{{version}}', 'project_id');
         $this->createIndex('name', '{{version}}', 'name');
         
@@ -679,8 +652,7 @@ class m110507_101301_initial extends CDbMigration
                 "issue_id"=>"integer NOT NULL",
                 "user_id"=>"integer NOT NULL",
                 "PRIMARY KEY (`issue_id`,`user_id`)",
-            )
-        );
+                ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         $this->createIndex('fk_watcher_user_id', '{{watcher}}', 'user_id');
         $this->createIndex('fk_watcher_issue_id', '{{watcher}}', 'issue_id');
     }
