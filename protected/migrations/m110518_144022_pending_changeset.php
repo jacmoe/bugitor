@@ -1,6 +1,6 @@
 <?php
 
-class m110518_144022_changeset_no_userid extends CDbMigration
+class m110518_144022_pending_changeset extends CDbMigration
 {
     public function up()
     {
@@ -8,8 +8,7 @@ class m110518_144022_changeset_no_userid extends CDbMigration
             array(
                 'id' => 'pk',
                 'changeset_id' => 'integer NOT NULL',
-            )
-        );
+            ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
         
         $this->createIndex('fk_pending_changeset_id', '{{pending_changeset}}', 'changeset_id');
         
@@ -23,7 +22,7 @@ class m110518_144022_changeset_no_userid extends CDbMigration
 
     public function down()
     {
-            echo "m110518_144022_changeset_no_userid does not support migration down.\n";
+            echo "m110518_144022_pending_changeset does not support migration down.\n";
             return false;
     }
 
