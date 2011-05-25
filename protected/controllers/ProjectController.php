@@ -346,6 +346,8 @@ class ProjectController extends Controller {
      * Manages all models.
      */
     public function actionAdmin() {
+        $this->layout = 'admin.views.layouts.main';
+        
         $model = new Project('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Project']))
