@@ -308,6 +308,7 @@ class HandleRepositoriesCommand extends CConsoleCommand {
                 $changeset->scm_id = $repository_id;
                 $changeset->commit_date = $entry['date'];
                 $changeset->message = $entry['message'];
+                if(!$changeset->message) $changeset->message = 'No message.';
                 $changeset->short_rev = $entry['short_rev'];
                 $changeset->branches = $entry['branches'];
                 $changeset->tags = $entry['tags'];
