@@ -127,7 +127,7 @@
                     <ul>
                         <?php foreach($version->issues as $issue) : ?>
                             <li>
-                                <?php echo Bugitor::short_link_to_issue($issue) ?>
+                                <?php echo Bugitor::progress_bar($issue->done_ratio, array("width"=>"60px;"));?> <?php echo Bugitor::short_link_to_issue($issue) ?>
                             </li>
                         <?php endforeach; ?>
                     </ul>
