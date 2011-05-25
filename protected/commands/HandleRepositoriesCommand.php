@@ -623,8 +623,8 @@ class HandleRepositoriesCommand extends CConsoleCommand {
         if ($run) {
             try {
                 //TODO: handle python_path!
-                //if(Yii::app()->config->get('python_path') !== '')
-                //  putenv(Yii::app()->config->get('python_path'));
+                if(Yii::app()->config->get('python_path'))
+                  putenv(Yii::app()->config->get('python_path'));
 
                 if(count($args) > 0) {
                     $project = Project::model()->findByPk((int)$args[0]);
