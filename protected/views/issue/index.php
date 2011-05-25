@@ -122,7 +122,7 @@ Show:
                     'header' => '% Done',
                     'type' => 'raw',
                     'filter' => '',
-                    'value' => '(($data->done_ratio)?Bugitor::progress_bar($data->done_ratio, array("width"=>"100%")):"")',
+                    'value' => 'Bugitor::progress_bar($data->done_ratio, array("width"=>"100%"))',
                     'htmlOptions'=>array('width'=>'6%','class'=>'progress'),
                 ),
                 array(
