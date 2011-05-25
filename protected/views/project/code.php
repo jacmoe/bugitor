@@ -70,7 +70,15 @@ $this->pageTitle = $model->name . ' - Code - ' . Yii::app()->name;
                     <?php echo Time::ago($changeset->commit_date) ?>
                   </td>
                   <td>
-                    <?php echo CHtml::link($changeset->message, $this->createUrl('changeset/view', array('id' => $changeset->id, 'identifier' => $_GET['identifier']))) ?>
+                    <?php $this->beginWidget('ext.jtruncate.JTruncate', array(
+                        "id"=>"jTruncate_example{$changeset->id}",
+                        'length'=> 200,
+                        'minTrail'=> 0,
+                        'moreText'=> "[see entire message]",
+                        'lessText'=> "[hide extra]",
+                        )); ?>
+                        <?php echo CHtml::link($changeset->message, $this->createUrl('changeset/view', array('id' => $changeset->id, 'identifier' => $_GET['identifier']))) ?>
+                    <?php $this->endWidget('ext.jtruncate.JTruncate'); ?>
                   </td>
                   <td>
                     <?php echo $changeset->add ?>
