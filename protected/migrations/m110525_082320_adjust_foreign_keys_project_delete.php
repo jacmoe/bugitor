@@ -4,20 +4,20 @@ class m110525_082320_adjust_foreign_keys_project_delete extends CDbMigration
 {
     public function up()
     {
-        $this->dropForeignKey('fk_issue_category_id',
+        $this->dropForeignKey('fk_issue_category',
             '{{issue}}');
         
-        $this->dropForeignKey('fk_issue_version_id',
+        $this->dropForeignKey('fk_issue_version',
             '{{issue}}');
         
-        $this->addForeignKey('fk_issue_category_id',
+        $this->addForeignKey('fk_issue_category',
             '{{issue}}',
             'issue_category_id',
             '{{issue_category}}', 'id',
             'SET NULL', 'NO ACTION'
         );
         
-        $this->addForeignKey('fk_issue_version_id',
+        $this->addForeignKey('fk_issue_version',
             '{{issue}}',
             'version_id',
             '{{version}}', 'id',
