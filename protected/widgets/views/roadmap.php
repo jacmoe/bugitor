@@ -36,9 +36,6 @@
 <?php $show_detail = $this->getDetailview(); ?>
 <?php $ver_count = 0; ?>
 <?php foreach($versions as $version) : ?>
-    <?php if(!$show_detail) {
-            $ver_count++;
-    } ?>
     <?php $show_version = $completed = false;
     if (strtotime($version->effective_date) >= strtotime(date("Y-m-d"))) {
         // if effective date is in the future..
@@ -64,7 +61,10 @@
     <?php if(isset($_GET['showcompleted'])) $show_version = true; ?>
     <?php //if($this->getShowAllOverride()) $show_version = true; ?>
     <?php if($show_version): ?>
-    <?php if($ver_count > 2) break; ?>
+    <?php if(!$show_detail) {
+            $ver_count++;
+            if($ver_count > 2) break;
+    } ?>
         <h3>
             <?php echo CHtml::link($version->name. ' - ' . $version->title,
                 array('version/view',
