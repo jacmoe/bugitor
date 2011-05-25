@@ -112,7 +112,7 @@
                         $this->widget('BugitorMenu', array(
                             'items' => array(
                                 array('label' => 'Admin Home', 'url' => array('/admin/default/index'), 'id' => 'admin/default/index', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
-                                array('label' => 'Projects', 'url' => array('/admin'), 'id' => '/admin/projecs', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
+                                array('label' => 'Projects', 'url' => array('/project/admin'), 'id' => 'project/admin', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
                                 array('label' => 'Users', 'url' => array('/user/admin'), 'id' => 'user', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
                                 array('label' => 'Roles and Rights', 'url' => array('/rights'), 'id' => 'rights', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
                                 array('label' => 'Global Settings', 'url' => array('/admin/settings/index'), 'id' => 'admin/settings/index', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
