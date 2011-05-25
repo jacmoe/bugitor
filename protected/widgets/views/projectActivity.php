@@ -32,6 +32,7 @@
  */
 ?>
 <?php $activities = $this->getActivities(); ?>
+<?php if(null !== $pages) : ?>
 <?php $pages = $this->getPages(); ?>
 <?php $curr_day = 0; ?>
 <?php if(null !== $pages) : ?>
@@ -57,5 +58,6 @@
 <?php if(null !== $pages) : ?>
 <hr/>
 <div class="small" style="float:right;"><?php $this->widget('CustomLinkPager',array('pages'=>$pages)); ?></div>
+<?php endif; ?>
 <?php endif; ?>
 
