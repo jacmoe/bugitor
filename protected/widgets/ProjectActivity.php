@@ -51,9 +51,10 @@ class ProjectActivity extends CWidget {
         $criteria2->together = true;
         $criteria2->params = array('project_id' => $this->projectId);
         $criteria2->order = 'theDate DESC';
+        $model = ActionLog::model()->findAll();
         if($this->displayLimit > 0) {
             $criteria2->limit = $this->displayLimit;
-        } else {
+        } elseif(null != $model) {
             $this->_pages = new CPagination(ActionLog::model()->find()->count($criteria2));
             $this->_pages->pageSize = 25;
             $this->_pages->applyLimit($criteria2);

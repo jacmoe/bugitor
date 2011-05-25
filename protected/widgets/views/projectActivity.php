@@ -32,7 +32,7 @@
  */
 ?>
 <?php $activities = $this->getActivities(); ?>
-<?php if(null !== $pages) : ?>
+<?php if(null !== $activities) : ?>
 <?php $pages = $this->getPages(); ?>
 <?php $curr_day = 0; ?>
 <?php if(null !== $pages) : ?>
