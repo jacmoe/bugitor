@@ -35,6 +35,9 @@
 $this->pageTitle = $model->name . ' - Overview - ' . Yii::app()->name;
 ?>
 <h3 class="overview">Overview</h3>
+<div class="contextual">
+<?php if(Yii::app()->user->checkAccess('Project.Delete')) echo CHtml::link('Delete Project', '#', array('submit' => array('delete','id' => $model->id), 'confirm' => 'Are you sure you want to delete this project? Cannot be undone!!', 'class' => 'icon icon-del')); ?>
+</div>
 <div class="splitcontentleft">
 <div class="project box">
 <?php $this->widget('ProjectBox', array('project' => $model)) ?>
