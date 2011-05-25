@@ -274,7 +274,7 @@ class ProjectController extends Controller {
             $model->attributes = $_POST['Project'];
             $model->identifier = preg_replace( '/\s*/m', '', strtolower($model->name));
             if ($model->save())
-                $this->redirect(array('view', 'identifier' => $model->identifier));
+                $this->redirect(array('view', 'id' => $model->id, 'identifier' => $model->identifier));
         }
 
         $this->render('create', array(
@@ -318,7 +318,7 @@ class ProjectController extends Controller {
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('project/index'));
         }
         else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');

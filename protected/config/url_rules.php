@@ -8,6 +8,7 @@ return array(
     array('api/delete', 'pattern' => 'api/<model:\w+>/<id:\d+>', 'verb' => 'DELETE'),
     array('api/create', 'pattern' => 'api/<model:\w+>', 'verb' => 'POST'),
     '/projects/' => 'project/index',
+    '/project/<_a:(create)>' => 'project/<_a>',
     '/projects/<identifier>' => 'project/view',
     '/projects/<identifier>/issues' => 'issue/index',
     '/projects/<identifier>/changesets' => 'changeset/index',
