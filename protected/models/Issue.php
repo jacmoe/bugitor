@@ -604,7 +604,7 @@ class Issue extends CActiveRecord {
     public function sendNotification($issue_id, $comment_id, $updated_by) {
         $issue = Issue::model()->findByPk($issue_id);
         $comment = Comment::model()->findByPk($comment_id);
-        $emails = $issue->getWatcherEmails($id, $updated_by);
+        $emails = $issue->getWatcherEmails($issue_id, $updated_by);
         if(null != $emails) {
             $adminEmail = Yii::app()->params['adminEmail'];
             $adminEmailText = Yii::app()->params['adminEmailText'];
@@ -659,7 +659,7 @@ class Issue extends CActiveRecord {
     
     public function getWatcherEmails($id, $updated_by) {
         $criteria = new CDbCriteria();
-        $criteria->compare('issue_id', $id, true);
+        $criteria->compare('issue_id', $id);
         $watchers = Watcher::model()->with('user')->findAll($criteria);
         $emails = array();
         if(isset($watchers)) {
