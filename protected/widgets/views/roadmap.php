@@ -77,9 +77,9 @@
         <br/>
         <?php if( $version->issueCount > 0 ) : ?>
             <?php $num_actual_issues = $version->issueCount - $version->issueCountRejected; ?>
-            <?php $open_percent = (($version->issueCountOpen / $num_actual_issues)*100); ?>
-            <?php $closed_percent = (($version->issueCountResolved / $num_actual_issues)*100); ?>
-            <?php $done_ratio = ((($version->issueCountDone / 100) * $version->issueCountOpen) / $num_actual_issues) * 100; ?>
+            <?php $open_percent = (($num_actual_issues != 0) ? (($version->issueCountOpen / $num_actual_issues)*100) : 0); ?>
+            <?php $closed_percent = (($num_actual_issues != 0) ? (($version->issueCountResolved / $num_actual_issues)*100) : 0); ?>
+            <?php $done_ratio = (($num_actual_issues != 0) ? ((($version->issueCountDone / 100) * $version->issueCountOpen) / $num_actual_issues) * 100 : 0); ?>
             <?php $open_ratio = $open_percent - $done_ratio; ?>
             <?php if($show_detail) : ?>
                 <?php echo Bugitor::big_progress_bar(array($closed_percent, $done_ratio, $open_ratio), array('width' => '500px', 'legend' => number_format($closed_percent + $done_ratio) . '%')); ?><br/>
