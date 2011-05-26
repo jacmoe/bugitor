@@ -39,7 +39,11 @@
 </div>
 <div class="span-5 last">
     <div id="sidebar">
-        <?php echo 'roadmap sidebar'; ?>
+        <?php if(isset($_GET['showcompleted'])) : ?>
+            <?php echo CHtml::link('Hide completed versions', array('/project/roadmap', 'identifier' => $_GET['identifier'])); ?>
+        <?php else : ?>
+            <?php echo CHtml::link('Show completed versions', array('/project/roadmap', 'showcompleted' => '1', 'identifier' => $_GET['identifier'])); ?>
+        <?php endif; ?>
     </div><!-- sidebar -->
 </div>
 <?php $this->endContent(); ?>
