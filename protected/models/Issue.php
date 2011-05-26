@@ -238,6 +238,9 @@ class Issue extends CActiveRecord {
         if((!$this->assigned_to) && ($this->status === 'swIssue/assigned')) {
             $this->status = 'swIssue/unassigned';
         }
+        if(($this->done_ratio === '100') && (($this->status !== 'swIssue/resolved') || ($this->status !== 'swIssue/rejected')) ) {
+            $this->status = 'swIssue/resolved';
+        }
         return parent::beforeValidate();
     }
 
