@@ -134,11 +134,16 @@ Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Time::tim
 <?php $this->renderPartial('_attachments', array('attachments' => $model->getAttachments(), 'attachfile' => $attachfile, 'parent_id' => $model->id)); ?>
 </div>
 </div>
-<div class="span-16" id="comments">
+<!--<div class="span-16-last" id="changeset">-->
+<?php if($model->changesetIssueCount>=1): ?>
+<?php $this->renderPartial('_changesets',array('changeset_issues'=>$model->changesetIssues, 'changeset_issue_count' => $model->changesetIssueCount )); ?>
+<?php endif; ?>
+<!--</div>-->
+<!--<div class="span-16" id="comments">-->
 <?php if($model->commentCount>=1): ?>
 <?php $this->renderPartial('_comments',array('comments'=>$model->comments,)); ?>
 <?php endif; ?>
-</div>
+<!--</div>-->
 <?php else : ?>
 No such issue.
 <?php endif; ?>

@@ -300,6 +300,7 @@ class Issue extends CActiveRecord {
             'comments' => array(self::HAS_MANY, 'Comment', 'issue_id'),
             'commentCount' => array(self::STAT, 'Comment', 'issue_id'),
             'changesetIssues' => array(self::HAS_MANY, 'ChangesetIssue', 'issue_id'),
+            'changesetIssueCount' => array(self::STAT, 'ChangesetIssue', 'issue_id'),
         );
     }
 

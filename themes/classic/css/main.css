@@ -506,6 +506,7 @@ div.big_progress-info {clear: left; font-style: italic; font-size: 90%; }
 .icon-move { background-image: url(../images/move.png); }
 .icon-save { background-image: url(../images/save.png); }
 .icon-cancel { background-image: url(../images/cancel.png); }
+.icon-changeset { background-image: url(../images/changeset.png); }
 .icon-file { background-image: url(../images/file.png); }
 .icon-folder { background-image: url(../images/folder.png); }
 .open .icon-folder { background-image: url(../images/folder_open.png); }

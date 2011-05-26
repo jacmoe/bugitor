@@ -31,32 +31,30 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
-<?php //TODO: check if the user wants the comments in cronological order?  ?>
+<?php //TODO: check if the user wants the comments in cronological order?   ?>
 <?php $comments = array_reverse($comments); ?>
 <?php $comment_count = count($comments); ?>
 <div id="history">
     <h3>History</h3>
-<?php foreach($comments as $comment): ?>
-<div id="change-1210" class="journal">
-<h4><div style="float:right;">
-<?php echo CHtml::link('#'.$comment_count, '#note-'.$comment_count); ?>
-<?php echo CHtml::tag('a', array('name' => 'note-'.$comment_count),'.'); ?>
-</div>
-Updated by <?php echo Bugitor::link_to_user($comment->author); ?>
- <?php echo Time::timeAgoInWords($comment->created); ?></h4>
-<table><tr><td style="width:10%;vertical-align:top;">
-<span><?php echo Bugitor::gravatar($comment->author); ?></span>
-</td><td style="width:90%">
-<?php if($comment->details) : ?>
-<ul>
-<?php foreach($comment->details as $detail): ?>
-<li><?php echo $detail->change; ?></li>
-<?php endforeach; ?>
-</ul>
-<?php endif; ?>
-<?php echo Yii::app()->textile->textilize($comment->content); ?>
-</td></tr></table>
-</div>
-<?php $comment_count--; ?>
-<?php endforeach; ?>
+    <?php foreach ($comments as $comment): ?>
+        <div id="change-1210" class="journal">
+            <h4><div style="float:right;">
+                    <?php echo CHtml::link('#' . $comment_count, '#note-' . $comment_count); ?>
+                    <?php echo CHtml::tag('a', array('name' => 'note-' . $comment_count), '.'); ?>
+                </div>
+                Updated by <?php echo Bugitor::link_to_user($comment->author); ?>
+                <?php echo Time::timeAgoInWords($comment->created); ?></h4>
+            <span><?php echo Bugitor::gravatar($comment->author); ?></span>
+            <?php if ($comment->details) : ?>
+                <ul>
+                    <?php foreach ($comment->details as $detail): ?>
+                        <li><?php echo $detail->change; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+            <?php echo Yii::app()->textile->textilize($comment->content); ?>
+        </div>
+        <br class="clearfix"/>
+        <?php $comment_count--; ?>
+    <?php endforeach; ?>
 </div>
