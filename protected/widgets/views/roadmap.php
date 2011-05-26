@@ -143,7 +143,7 @@
             <?php else : ?>
                 <p></p>
             <?php endif; ?>
-            <p class="nodata"><?php echo 'No issues for this version'; ?></p>
+            <p class="nodata" style="width: 500px;"><?php echo 'No issues for this version'; ?></p>
         <?php endif; // is issues ?>
     <?php endif; // if show version ?>
 <?php endforeach; ?>

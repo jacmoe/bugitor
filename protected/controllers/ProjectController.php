@@ -166,6 +166,9 @@ class ProjectController extends Controller {
     }
 
     public function actionActivity($identifier) {
+        
+        $this->layout = '//layouts/activity2';
+        
         $criteria = new CDbCriteria;
         $criteria->condition = 'identifier = :identifier';
         $criteria->params = array('identifier' => $_GET['identifier']);
@@ -188,7 +191,7 @@ class ProjectController extends Controller {
 
     public function actionRoadmap($identifier) {
 
-        //$this->layout = '//layouts/column2';
+        $this->layout = '//layouts/roadmap2';
 
         $criteria = new CDbCriteria();
         $criteria->condition = 'identifier = :identifier';

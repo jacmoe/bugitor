@@ -180,6 +180,11 @@ table, caption, tbody, tfoot, thead, tr, th, td {
     font-size: 13px;
     padding: 20px;
 }
+#content-with-sidebar {
+    font-size: 13px;
+    padding: 20px;
+    border-right: 2px solid #e4e4e4;
+}
 
 div.flash-error, div.flash-notice, div.flash-success
 {
