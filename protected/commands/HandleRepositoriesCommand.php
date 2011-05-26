@@ -530,7 +530,9 @@ class HandleRepositoriesCommand extends CConsoleCommand {
         $actionLog->subject = 'Revision ' . $changeset->revision . ' (' . $changeset->scm->name . ')';
         $actionLog->type = 'changeset';
         $actionLog->theDate = $changeset->commit_date;
-        $actionLog->url = Yii::app()->config->get('hostname').'projects/' . $changeset->scm->project->identifier . '/changeset/view/' . $changeset->id;
+        $actionLog->url = '/projects/' . $changeset->scm->project->identifier . '/changeset/view/' . $changeset->id;
+        //TODO: fix url when in subdirectory
+        //$actionLog->url = Yii::app()->config->get('hostname').'projects/' . $changeset->scm->project->identifier . '/changeset/view/' . $changeset->id;
         if ($actionLog->validate())
             $actionLog->save(false);
     }
@@ -605,8 +607,6 @@ class HandleRepositoriesCommand extends CConsoleCommand {
 
         Yii::app()->setTimeZone("UTC");
         
-        // Check if we have a lock already. If not set one which
-        // expires automatically after 10 minutes.
         $run = false;
         $locks = true;
         if(isset($args[1])) {
@@ -622,7 +622,6 @@ class HandleRepositoriesCommand extends CConsoleCommand {
         
         if ($run) {
             try {
-                //TODO: handle python_path!
                 if(Yii::app()->config->get('python_path'))
                   putenv(Yii::app()->config->get('python_path'));
 
@@ -647,7 +646,6 @@ class HandleRepositoriesCommand extends CConsoleCommand {
                     }
                 }
 
-                // and after that release the lock...
                 if($locks) Yii::app()->mutex->unlock();
             } catch (Exception $e) {
                 echo 'Exception caught: ', $e->getMessage(), "\n";
