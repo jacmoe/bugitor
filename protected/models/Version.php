@@ -83,7 +83,25 @@ class Version extends CActiveRecord {
         );
     }
 
-        public function isinproject($attribute, $params) {
+    public static function getOpenVersionCount($project_id) {
+        $criteria = new CDbCriteria();
+        $criteria->condition = 'project_id = :project_id';
+        $criteria->params = array('project_id' => $project_id);
+        $versions = Version::model()->with(array('issueCountOpen'))->findAll($criteria);
+        $count = 0;
+        foreach ($versions as $version) {
+            if (strtotime($version->effective_date) >= strtotime(date("Y-m-d"))) {
+                $count++;
+            } elseif (strtotime($version->effective_date) < strtotime(date("Y-m-d"))) {
+                if($version->issueCountOpen > 0) {
+                    $count++;
+                }
+            }
+        }
+        return $count;
+    }
+    
+    public function isinproject($attribute, $params) {
             if($this->isNewRecord) {
                 $criteria = new CDbCriteria;
                 $criteria->compare('project_id', $this->project_id, true);

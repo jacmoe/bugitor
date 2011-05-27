@@ -39,13 +39,8 @@
     <?php $show_version = $completed = false;
     if (strtotime($version->effective_date) >= strtotime(date("Y-m-d"))) {
         // if effective date is in the future..
-        if($version->issueCountOpen < 1) {
-            $completed = false;
-            $show_version = true;
-        } else {
-            $completed = false;
-            $show_version = true;
-        }
+        $completed = false;
+        $show_version = true;
     } elseif (strtotime($version->effective_date) < strtotime(date("Y-m-d"))) {
         // if effective date is in the past..
         if($version->issueCountOpen < 1) {
