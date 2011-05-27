@@ -44,7 +44,7 @@ $this->pageTitle = $model->name . ' - Overview - ' . Yii::app()->name;
 </div>
 <div class="roadmap box">
     <?php $version_limit = 2; ?>
-    <?php if(Version::getOpenVersionCount($model->id) < 2) $version_limit = Version::getOpenVersionCount($model->id); ?><br/>
+    <?php if(Version::getOpenVersionCount($model->id) < 2) $version_limit = Version::getOpenVersionCount($model->id); ?>
     <h3>Roadmap <font style="font-style: italic; font-size: 0.5em;">(Showing 2 versions out of <?php echo Version::getOpenVersionCount($model->id); ?> open)</font></h3>
 <?php $this->widget('Roadmap', array('versions' => $model->versions, 'identifier' => $model->identifier)) ?>
 </div>

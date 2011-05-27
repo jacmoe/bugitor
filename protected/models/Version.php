@@ -84,6 +84,7 @@ class Version extends CActiveRecord {
     }
 
     public static function getOpenVersionCount($project_id) {
+        //FIXME: this should be cached
         $criteria = new CDbCriteria();
         $criteria->condition = 'project_id = :project_id';
         $criteria->params = array('project_id' => $project_id);
