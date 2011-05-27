@@ -44,6 +44,8 @@
         <?php else : ?>
             <?php echo CHtml::link('Show completed versions', array('/project/roadmap', 'showcompleted' => '1', 'identifier' => $_GET['identifier'])); ?>
         <?php endif; ?>
+        <ol id="toc"></ol>
+        <?php $this->widget('ext.ETableOfContents.ETableOfContents', array('scope_id' => 'roadmap', 'startLevel' => '3', 'topLinks' => '<span style="font-size: 0.1em;color: grey;">(^ Top of page)</span>')); ?>
     </div><!-- sidebar -->
 </div>
 <?php $this->endContent(); ?>
