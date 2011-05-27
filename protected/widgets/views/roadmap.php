@@ -57,9 +57,8 @@
         }
     }
     ?>
-    <?php //TODO: Yii::app()->user->setState('show_all_versions', false); ?>
     <?php if(isset($_GET['showcompleted'])) $show_version = true; ?>
-    <?php //if($this->getShowAllOverride()) $show_version = true; ?>
+    <?php if((isset($_GET['id'])) && ($this->controller->id === 'version')) $show_version = true; ?>
     <?php if($show_version): ?>
     <?php if(!$show_detail) {
             $ver_count++;
