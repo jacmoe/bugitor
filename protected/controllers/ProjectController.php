@@ -167,7 +167,7 @@ class ProjectController extends Controller {
 
     public function actionActivity($identifier) {
         
-        $this->layout = '//layouts/activity2';
+        //$this->layout = '//layouts/activity2';
         
         $criteria = new CDbCriteria;
         $criteria->condition = 'identifier = :identifier';
