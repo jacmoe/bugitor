@@ -109,18 +109,15 @@ class Issue extends CActiveRecord {
         $this->done_ratio = $this->pre_done_ratio;
     }
     
-    public function getCurrentVersion() {
+    public function getCurrentVersion($project_id) {
         $Criteria = new CDbCriteria();
-        $Criteria->select = "name, id, effective_date";
+        $Criteria->select = "name, id, effective_date, project_id";
         $Criteria->order = 'effective_date';
-        if (isset($_GET['identifier'])) {
-            $project = Project::model()->findByAttributes(array('identifier' => $_GET['identifier']));
-            $Criteria->compare('project_id', $project->id, true);
-        }
+        $Criteria->compare('project_id', $project_id);
 
         $results = Version::model()->findAll($Criteria);
         foreach ($results as $result) {
-            if(strtotime($result->effective_date) > strtotime(date("Y-m-d")))
+            if(strtotime($result->effective_date) >= strtotime(date("Y-m-d")))
                 return $result;
         }
         return null;
@@ -128,7 +125,7 @@ class Issue extends CActiveRecord {
 
     public function markAsClosed($rejected = false) {
         $this->closed = 1;
-        $this->version_id = $this->getCurrentVersion()->id;
+        $this->version_id = $this->getCurrentVersion($this->project_id)->id;
         $this->pre_done_ratio = $this->done_ratio;
         if($rejected) {
             $this->done_ratio = 0;
@@ -564,10 +561,10 @@ class Issue extends CActiveRecord {
                     $detail->save(false);
 
                 if(('Resolved' === $this->getNamefromRowValue($name, $value))||('Rejected' === $this->getNamefromRowValue($name, $value))) {
-                    if($this->getCurrentVersion()->id !== $this->version_id) {
+                    if($this->getCurrentVersion($this->project_id)->id !== $this->version_id) {
                         $detail1 = new CommentDetail();
                         $detail1->comment_id = $comment_id;
-                        $detail1->change = '<b>Version</b> changed from <i>' . $this->version->name . '</i> to <i>' . $this->getCurrentVersion()->name.'</i>';
+                        $detail1->change = '<b>Version</b> changed from <i>' . $this->version->name . '</i> to <i>' . $this->getCurrentVersion($this->project_id)->name.'</i>';
                         if($detail1->validate())
                             $detail1->save(false);
                     }
