@@ -483,6 +483,8 @@ class Time {
 
             if($overdue) {
                 $due = $due . ' <b>overdue</b>';
+            } elseif('0 days' == $due) {
+                $due = "Due today";
             } else {
                 $due = "Due in " . $due;
             }
