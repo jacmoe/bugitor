@@ -160,7 +160,7 @@ Show:
             <?php
             echo CHtml::dropDownList('versionDrop',
                     0,
-                    $this->getVersionSelectList(),
+                    $this->getVersionSelectList($model->project_id),
                     array('empty' => 'No Version'));
             ?>
             &nbsp;|-&gt;&nbsp;<?php
