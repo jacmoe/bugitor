@@ -193,8 +193,8 @@ class HandleRepositoriesCommand extends CConsoleCommand {
 
             $changelog = array();
             while (($line = fgets($fp)) !== false) {
-                //$line = rtrim($line, "\r\n");
-                $line = rtrim($line, "\n");
+                $line = rtrim($line, "\r\n");
+                //$line = rtrim($line, "\n");
                 if ($line == $sep) {
                     break;
                 }
