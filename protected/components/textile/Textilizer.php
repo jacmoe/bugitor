@@ -109,13 +109,22 @@ class Textilizer extends CApplicationComponent
         return $result;
     }
 
-    public function textilize($content, $parseSmilies = true) {
-        $text = $this->getTextile()->TextileThis($content);
+    public function textilize($content, $parseSmilies = true, $use_textile = true) {
+        $text = '';
+        if(!$use_textile) {
+            $text_lines = explode("\n", $content);
+            $text = implode('<br/>', $text_lines);
+        } else {
+            $text = $this->getTextile()->TextileThis($content);
+        }
         $text = preg_replace_callback('{([\s\(,\-\>]|^)(!)?(attachment|document|version|commit|source|export|message|http|rev)?((#|rev\:)([A-z0-9]+)|(:)([^"\s<>][^\s<>]*?|"[^"]+?"))(?=(?=[[:punct:]]\W)|\s|<|$)}',
                     array($this, '_replaceBugitorLinks'),
                     $text);
         if($parseSmilies) {
             $text = $this->smiley($text);
+        }
+        if(!$use_textile) {
+            $text .= '<br/><br/>';
         }
         return $text;
     }
