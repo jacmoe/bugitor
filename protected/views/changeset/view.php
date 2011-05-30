@@ -73,7 +73,7 @@
         <dt>branch</dt>
         <dd><?php echo $model->branches; ?></dd>
     </dl>
-    <div><?php echo Yii::app()->textile->textilize($model->message); ?></div>
+    <div><?php echo Yii::app()->textile->textilize($model->message, true, false); ?></div>
     <dl class="metadata">
         <dt>Who</dt>
         <dd style="position: relative; left: 18px;"><?php echo Bugitor::link_to_user_author($model->user, $model->author); ?></dd>
