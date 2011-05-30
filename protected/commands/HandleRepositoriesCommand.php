@@ -193,15 +193,14 @@ class HandleRepositoriesCommand extends CConsoleCommand {
 
             $changelog = array();
             while (($line = fgets($fp)) !== false) {
-                //TODO: check if this is needed
                 //$line = rtrim($line, "\r\n");
+                $line = rtrim($line, "\n");
                 if ($line == $sep) {
                     break;
                 }
                 $changelog[] = $line;
             }
-            //$thechangelog = join("\n", $changelog);
-            $thechangelog = join("", $changelog);
+            $thechangelog = join("\n", $changelog);
 
             $entry['message'] = $thechangelog;
 
