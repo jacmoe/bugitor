@@ -67,7 +67,13 @@ class ChangesetController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
+                $criteria = new CDbCriteria;
+                $criteria->condition = 'identifier = :identifier';
+                $criteria->params = array('identifier' => $_GET['identifier']);
+                $project = Project::model()->find($criteria);
+                $_GET['projectname'] = $project->name;
+		
+                $this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
 	}
@@ -144,7 +150,13 @@ class ChangesetController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Changeset');
+                $criteria = new CDbCriteria;
+                $criteria->condition = 'identifier = :identifier';
+                $criteria->params = array('identifier' => $_GET['identifier']);
+                $project = Project::model()->find($criteria);
+                $_GET['projectname'] = $project->name;
+		
+                $dataProvider=new CActiveDataProvider('Changeset');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
