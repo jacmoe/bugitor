@@ -200,7 +200,8 @@ class HandleRepositoriesCommand extends CConsoleCommand {
                 }
                 $changelog[] = $line;
             }
-            $thechangelog = join("\n", $changelog);
+            //$thechangelog = join("\n", $changelog);
+            $thechangelog = join("", $changelog);
 
             $entry['message'] = $thechangelog;
 
