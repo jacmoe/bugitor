@@ -41,8 +41,6 @@ class ETableOfContents extends CWidget {
         else
             $cs->registerScriptFile($baseUrl . '/js/jquery.tableofcontents.min.js');
 
-        $cs->registerCssFile($baseUrl.'/css/layout.css');
-        
         $options = $this->getClientOptions();
         CVarDumper::dumpAsString($options, 10, true);
         $options = $options === array() ? '' : CJavaScript::encode($options);

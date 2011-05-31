@@ -34,10 +34,20 @@
 <?php
 $this->pageTitle = $model->name . ' - Overview - ' . Yii::app()->name;
 ?>
+<div class="contextual">
+            <?php
+            if (((Yii::app()->controller->id === 'project') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) {
+                if (('issue/view' !== $this->route) && ('issue/update' !== $this->route) && ('issue/create' !== $this->route)) {
+                    $this->widget('DropDownRedirect', array(
+                        'data' => Yii::app()->controller->getProjects(),
+                        'url' => $this->createUrl($this->route, array_merge($_GET, array('identifier' => '__value__'))),
+                        'select' => $_GET['identifier'], //the preselected value
+                    ));
+                }
+            }
+            ?>
+</div>
 <h3 class="overview">Overview</h3>
-<!--<div class="contextual">
-<?php //if(Yii::app()->user->checkAccess('Project.Delete')) echo CHtml::link('Delete Project', '#', array('submit' => array('delete','id' => $model->id), 'confirm' => 'Are you sure you want to delete this project? Cannot be undone!!', 'class' => 'icon icon-del')); ?>
-</div>-->
 <div class="splitcontentleft">
 <div class="project box">
 <?php $this->widget('ProjectBox', array('project' => $model)) ?>
