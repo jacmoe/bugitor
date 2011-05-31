@@ -67,6 +67,11 @@
 		<?php echo $form->textField($model,'hostname',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'hostname'); ?>
 	</div>
+        <div class="row">
+		<?php echo $form->labelEx($model,'logging_enabled'); ?>
+		<?php echo $form->checkBox($model,'logging_enabled'); ?>
+		<?php echo $form->error($model,'logging_enabled'); ?>
+	</div>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Update'); ?>
                 <?php echo CHtml::Button('Cancel',array('submit' => Yii::app()->request->getUrlReferrer()));?>

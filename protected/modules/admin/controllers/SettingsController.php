@@ -80,6 +80,7 @@ class SettingsController extends Controller {
         $model->default_scm = Yii::app()->config->get('default_scm');
         $model->default_timezone = Yii::app()->config->get('default_timezone');
         $model->hostname = Yii::app()->config->get('hostname');
+        $model->logging_enabled = Yii::app()->config->get('logging_enabled');
         return $model;
     }
 
