@@ -16,6 +16,10 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 /*	vertical-align: baseline;*/
 }
 
+#header
+{
+    background-color:#507AAA;
+}
 
 #sidebar
 {
@@ -86,12 +90,21 @@ table, caption, tbody, tfoot, thead, tr, th, td {
     margin: 0;
 }
 
+#topmenu1
+{
+    background-color:black !important;
+}
+#topmenu2
+{
+    background-color:black !important;
+}
+
 #mainmenu ul
 {
     margin:0px;
     margin: 0;
     bottom: 0px;
-    padding-bottom: 0px !important;
+    padding-bottom: 1px !important;
 }
 
 #topmenu ul
@@ -99,6 +112,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
     margin:0px;
     margin: 0;
     bottom: 0px;
+    padding-bottom: 1px !important;
 }
 
 #mainmenu ul li
@@ -125,7 +139,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
     font-weight:bold;
     text-decoration:none;
     padding:5px 8px;
-    padding-bottom: 6px !important;
+    /*padding-bottom: 3px !important;*/
     bottom: 0px;
 }
 
@@ -146,7 +160,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
     background-color:#EFF4FA;
     text-decoration:none;
     bottom: 0px;
-    padding-bottom: 6px !important;
+    /*padding-bottom: 6px !important;*/
 }
 
 #topmenu ul li.active a
