@@ -107,7 +107,7 @@
             </div>
         </div>
         <div id="mainmenu" class='container'>
-            <div class='column span-24'>
+            <div class='column span-20-last'>
                 <?php
                 if (((Yii::app()->controller->id === 'project')
                         || (Yii::app()->controller->id === 'changeset')
@@ -151,7 +151,7 @@
                         'data' => Yii::app()->controller->getProjects(),
                         'url' => $this->createUrl($this->route, array_merge($_GET, array('identifier' => '__value__'))),
                         'select' => $_GET['identifier'], //the preselected value
-                        'htmlOptions' => array('class' => 'floatright')
+                        'htmlOptions' => array('class' => 'right')
                     ));
                 }
             }
@@ -175,6 +175,8 @@
 endforeach;
 ?>
 <?php echo $content; ?>
+</div>
+        <div id="footer" class='container'>
             <div class="span-24 alt"><div align="center" class="quiet">
                     <hr/>
 						Powered by <a class="noicon" title="Bugitor - The Yii-powered issue tracker" href="http://bitbucket.org/jacmoe/bugitor">Bugitor</a> &copy; 2010 - 2011 by Bugitor Team.<br/>
@@ -183,6 +185,6 @@ endforeach;
                     <a href="http://sourceforge.net/projects/bugitor"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=542384&amp;type=10" width="80" height="15" alt="Get Bugitor at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a>
                 </div>
             </div>
-            </div>
+		</div>
     </body>
 </html>
