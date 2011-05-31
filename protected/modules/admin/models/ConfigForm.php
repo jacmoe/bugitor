@@ -46,6 +46,7 @@ class ConfigForm extends CFormModel
         public $default_scm;
         public $default_timezone;
         public $hostname;
+        public $logging_enabled;
 
 	/**
 	 * Declares the validation rules.
@@ -53,7 +54,8 @@ class ConfigForm extends CFormModel
 	public function rules()
 	{
 		return array(
-			array('pagesize, hg_executable, default_scm, default_timezone, hostname', 'required'),
+			array('pagesize, hg_executable, default_scm, default_timezone, hostname, logging_enabled', 'required'),
+                        array('logging_enabled', 'boolean'),
                         array('python_path', 'safe'),
 		);
 	}
@@ -72,6 +74,7 @@ class ConfigForm extends CFormModel
                 'default_scm' => 'Default Source Control Provider',
                 'default_timezone' => 'Default Timezone',
                 'hostname' => 'Host Name',
+                'logging_enabled' => 'Logging Enabled',
             );
 	}
         public function save() {
@@ -81,6 +84,7 @@ class ConfigForm extends CFormModel
             Yii::app()->config->set('default_timezone', $this->default_timezone);
             Yii::app()->config->set('default_scm', $this->default_scm);
             Yii::app()->config->set('hostname', $this->hostname);
+            Yii::app()->config->set('logging_enabled', $this->logging_enabled);
             return true;
         }
 }

@@ -78,6 +78,13 @@
 <td><?php echo CHtml::encode($model->hostname); ?>
 </td>
 </tr>
+<tr>
+<th class="label">
+<?php echo CHtml::encode($model->getAttributeLabel('logging_enabled')); ?>
+</th>
+<td><?php echo Yii::app()->format->boolean($model->logging_enabled); ?>
+</td>
+</tr>
 </table>
 <?php echo CHtml::link('Change Settings', array('update')); ?>
 <br/>
