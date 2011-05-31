@@ -32,11 +32,11 @@
  */
 ?>
 <?php $this->beginContent('//layouts/main'); ?>
-<div id="page" class="container">
-<div class="column span-19">
+<div id="content" class="container">
+<div class="column span-18">
         <?php echo $content; ?>
 </div>
-<div class="column span-4 colborder box last">
+<div class="column span-5 colborder box last">
         <?php if(isset($_GET['showcompleted'])) : ?>
             <?php echo CHtml::link('Hide completed versions', array('/project/roadmap', 'identifier' => $_GET['identifier'])); ?>
         <?php else : ?>

@@ -34,5 +34,18 @@
 <?php
 $this->pageTitle = $model->name . ' - Activity - ' . Yii::app()->name;
 ?>
+<div class="contextual">
+            <?php
+            if (((Yii::app()->controller->id === 'project') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) {
+                if (('issue/view' !== $this->route) && ('issue/update' !== $this->route) && ('issue/create' !== $this->route)) {
+                    $this->widget('DropDownRedirect', array(
+                        'data' => Yii::app()->controller->getProjects(),
+                        'url' => $this->createUrl($this->route, array_merge($_GET, array('identifier' => '__value__'))),
+                        'select' => $_GET['identifier'], //the preselected value
+                    ));
+                }
+            }
+            ?>
+</div>
 <h3 class="activity">Activity</h3>
 <?php $this->widget('ProjectActivity', array('projectId' => $model->id)); ?>

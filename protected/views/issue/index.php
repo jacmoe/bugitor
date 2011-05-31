@@ -35,9 +35,21 @@
     $this->pageTitle = isset($_GET['projectname']) ? $_GET['projectname'] . '- Issues - ' . Yii::app()->name : Yii::app()->name . ' - Issues';
     $pageSize=Yii::app()->user->getState('pageSize',Yii::app()->params['defaultPageSize']);
 ?>
+<div class="contextual">
+            <?php
+            if (((Yii::app()->controller->id === 'project') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) {
+                if (('issue/view' !== $this->route) && ('issue/update' !== $this->route) && ('issue/create' !== $this->route)) {
+                    $this->widget('DropDownRedirect', array(
+                        'data' => Yii::app()->controller->getProjects(),
+                        'url' => $this->createUrl($this->route, array_merge($_GET, array('identifier' => '__value__'))),
+                        'select' => $_GET['identifier'], //the preselected value
+                    ));
+                }
+            }
+            ?>
+</div>
 <h3 class="issues">Issues</h3>
 <?php echo CHtml::form('issues','get', array('class' => 'floatrightup')); ?>
-Show:
 <?php echo CHtml::dropDownList('issueFilter',
     isset($_GET['issueFilter'])?(int)$_GET['issueFilter']:1,
     $issueFilter,
