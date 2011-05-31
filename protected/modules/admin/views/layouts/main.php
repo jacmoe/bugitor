@@ -15,99 +15,99 @@
         <script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl; ?>/js/branch_renderer.js"></script>
     </head>
     <body>
-<?php
-/*
- * This file is part of
- *     ____              _ __
- *    / __ )__  ______ _(_) /_____  _____
- *   / __  / / / / __ `/ / __/ __ \/ ___/
- *  / /_/ / /_/ / /_/ / / /_/ /_/ / /
- * /_____/\__,_/\__, /_/\__/\____/_/
- *             /____/
- * A Yii powered issue tracker
- * http://bitbucket.org/jacmoe/bugitor/
- *
- * Copyright (C) 2009 - 2011 Bugitor Team
- *
- * Permission is hereby granted, free of charge, to any person
- * obtaining a copy of this software and associated documentation files
- * (the "Software"), to deal in the Software without restriction,
- * including without limitation the rights to use, copy, modify, merge,
- * publish, distribute, sublicense, and/or sell copies of the Software,
- * and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
- * The above copyright notice and this permission notice shall be included
- * in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
- * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
- * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
- * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
- * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-?>
-        <div class="container" id="page">
-            <div id="topmenu" class="span-24">
-                <div id="topmenu" class="span-15">
+        <?php
+        /*
+         * This file is part of
+         *     ____              _ __
+         *    / __ )__  ______ _(_) /_____  _____
+         *   / __  / / / / __ `/ / __/ __ \/ ___/
+         *  / /_/ / /_/ / /_/ / / /_/ /_/ / /
+         * /_____/\__,_/\__, /_/\__/\____/_/
+         *             /____/
+         * A Yii powered issue tracker
+         * http://bitbucket.org/jacmoe/bugitor/
+         *
+         * Copyright (C) 2009 - 2011 Bugitor Team
+         *
+         * Permission is hereby granted, free of charge, to any person
+         * obtaining a copy of this software and associated documentation files
+         * (the "Software"), to deal in the Software without restriction,
+         * including without limitation the rights to use, copy, modify, merge,
+         * publish, distribute, sublicense, and/or sell copies of the Software,
+         * and to permit persons to whom the Software is furnished to do so,
+         * subject to the following conditions:
+         * The above copyright notice and this permission notice shall be included
+         * in all copies or substantial portions of the Software.
+         *
+         * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+         * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+         * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+         * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+         * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+         * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
+         * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+         */
+        ?>
+        <div id="topmenu" class='container'>
+            <div class='column span-12'>
+                <?php
+                $this->widget('BugitorMenu', array(
+                    'items' => array(
+                        //array('label' => 'Home', 'url' => array('/site/index'), 'id' => 'site/index', 'visible' => Yii::app()->user->checkAccess('Issue.Create')),
+                        array('label' => 'Home', 'url' => array('/projects/'), 'id' => 'project/index'),
+                        array('label' => 'Administration', 'url' => array('/admin'), 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
+                    ),
+                ));
+                ?>
+            </div>
+            <div class='column span-12 last'>
+                <span class="right">
                     <?php
                     $this->widget('BugitorMenu', array(
                         'items' => array(
-                            //array('label' => 'Home', 'url' => array('/site/index'), 'id' => 'site/index', 'visible' => Yii::app()->user->checkAccess('Issue.Create')),
-                            array('label' => 'Home', 'url' => array('/projects/'), 'id' => 'project/index'),
-                            array('label' => 'Administration', 'url' => array('/admin'), 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
+                            array('url' => Yii::app()->getModule('user')->loginUrl, 'label' => Yii::app()->getModule('user')->t("Login"), 'visible' => Yii::app()->user->isGuest, 'id' => 'user/login/login'),
+                            array('url' => Yii::app()->getModule('user')->registrationUrl, 'label' => Yii::app()->getModule('user')->t("Register"), 'visible' => Yii::app()->user->isGuest, 'id' => 'user/registration/registration'),
+                            array('url' => Yii::app()->getModule('user')->profileUrl, 'label' => Yii::app()->getModule('user')->t("Profile"), 'visible' => !Yii::app()->user->isGuest, 'id' => 'user/profile/profile'),
+                            array('url' => Yii::app()->getModule('user')->logoutUrl, 'label' => Yii::app()->getModule('user')->t("Logout") . ' (' . Yii::app()->user->name . ')', 'visible' => !Yii::app()->user->isGuest, 'id' => 'user/logout/logout'),
                         ),
-                    )); ?>
-                </div>
-                <div id="topmenu" class="span-8 last">
-                    <span class="right">
-                    <?php
-                        $this->widget('BugitorMenu', array(
-                            'items' => array(
-                                array('url' => Yii::app()->getModule('user')->loginUrl, 'label' => Yii::app()->getModule('user')->t("Login"), 'visible' => Yii::app()->user->isGuest, 'id' => 'user/login/login'),
-                                array('url' => Yii::app()->getModule('user')->registrationUrl, 'label' => Yii::app()->getModule('user')->t("Register"), 'visible' => Yii::app()->user->isGuest, 'id' => 'user/registration/registration'),
-                                array('url' => Yii::app()->getModule('user')->profileUrl, 'label' => Yii::app()->getModule('user')->t("Profile"), 'visible' => !Yii::app()->user->isGuest, 'id' => 'user/profile/profile'),
-                                array('url' => Yii::app()->getModule('user')->logoutUrl, 'label' => Yii::app()->getModule('user')->t("Logout") . ' (' . Yii::app()->user->name . ')', 'visible' => !Yii::app()->user->isGuest, 'id' => 'user/logout/logout'),
-                            ),
-                        )); ?>
-                    </span>
+                    ));
+                    ?>
+                </span>
+            </div>
+        </div>
+        <div id="mainmenu" class='container'>
+            <div id="logo" class='column span-2'>
+                <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/bugitor_64.png', 'Bugitor - The Yii-powered issue tracker', array('title' => 'Bugitor - The Yii-powered issue tracker')) ?>
+            </div>
+            <div id="header" class='column span-19 alt'>
+                <?php
+                if (
+                        ((Yii::app()->controller->id === 'project')
+                        || (Yii::app()->controller->id === 'issue')
+                        || (Yii::app()->controller->id === 'member')
+                        || (Yii::app()->controller->id === 'changeset')
+                        || (Yii::app()->controller->id === 'version')
+                        || (Yii::app()->controller->id === 'issueCategory')
+                        || (Yii::app()->controller->id === 'repository')
+                        ) && (isset($_GET['projectname']))) :
+                    ?>
+                    <h1 class="alt"><?php echo CHtml::encode($_GET['projectname']); ?></h1>
+<?php else : ?>
+                    <h1 class="alt"><?php echo CHtml::encode(Yii::app()->name); ?></h1>
+                    <?php endif; ?>
+            </div>
+            <div id="gravatar" class='column last span-3'>
+                <div class="right">
+                    <?php if (!Yii::app()->user->isGuest): ?>
+                        <?php
+                        $this->widget('application.extensions.VGGravatarWidget', array('email' => Yii::app()->getModule('user')->user()->email));
+                        ?>
+<?php endif; ?>
                 </div>
             </div>
-            <div id="mainmenu" class="span-24">
-                <div id="header" class="span-24">
-                    <div id="logo" class="span-2">
-                        <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/bugitor_64.png','Bugitor - The Yii-powered issue tracker', array('title' => 'Bugitor - The Yii-powered issue tracker')) ?>
-                    </div>
-                    <div id="header" class="span-14 alt">
-                        <div>
-                        <?php if (
-                                ((Yii::app()->controller->id === 'project')
-                                || (Yii::app()->controller->id === 'issue')
-                                || (Yii::app()->controller->id === 'member')
-                                || (Yii::app()->controller->id === 'changeset')
-                                || (Yii::app()->controller->id === 'version')
-                                || (Yii::app()->controller->id === 'issueCategory')
-                                || (Yii::app()->controller->id === 'repository')
-                                        ) && (isset($_GET['projectname']))) : ?>
-                            <h1 class="alt"><?php echo CHtml::encode($_GET['projectname']); ?></h1>
-                        <?php else : ?>
-                            <h1 class="alt"><?php echo CHtml::encode(Yii::app()->name); ?></h1>
-                        <?php endif; ?>
-                        </div>
-                    </div>
-                    <div id="gravatar" class="span-8 last">
-                        <div class="right">
-                            <?php if (!Yii::app()->user->isGuest): ?>
-                            <?php
-                                $this->widget('application.extensions.VGGravatarWidget',
-                                        array('email' => Yii::app()->getModule('user')->user()->email));
-                            ?>
-                            <?php endif; ?>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="mainmenu" class="span-20 last">
+        </div>
+        <div id="mainmenu" class='container'>
+            <div class='column span-20-last'>
                         <?php
                         $this->widget('BugitorMenu', array(
                             'items' => array(
@@ -120,36 +120,38 @@
                             ),
                         ));
                         ?>
-                    </div>
-                                </div>
-                                <div class="clear"></div>
-                                <?php
-                                Yii::app()->clientScript->registerScript(
-                                   'myHideEffect',
-                                   '$(".info").animate({opacity: 1.0}, 4000).fadeOut("slow");',
-                                   CClientScript::POS_READY
-                                );
-                                ?>
-                                <?php
-                                    $user=Yii::app()->getUser();
-                                    foreach($user->getFlashKeys() as $key):
-                                        if($user->hasFlash($key)): ?>
-                                        <br/>
-                                        <div class="info flash-<?php echo $key; ?>">
-                                            <?php echo $user->getFlash($key); ?>
-                                        </div>
-                                <?php
-                                        endif;
-                                    endforeach; ?>
-                                <?php echo $content; ?>
-                                        <div class="span-24 alt"><div align="center" class="quiet">
-                                        <hr/>
-                                                Powered by <a class="noicon" title="Bugitor - The Yii-powered issue tracker" href="http://bitbucket.org/jacmoe/bugitor">Bugitor</a> &copy; 2010 - 2011 by Bugitor Team.<br/>
-                                                <a class="noicon" href="http://www.yiiframework.com/" rel="external"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/yii_power_lightblue_white.gif" alt="Made with Yii Framework" title="Made with Yii Framework"/></a>
-                                                <hr/>
-                                                <a href="http://sourceforge.net/projects/bugitor"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=542384&amp;type=10" width="80" height="15" alt="Get Bugitor at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a>
-                                        </div>
             </div>
         </div>
+        <div class="container" id="page">
+            <?php
+            Yii::app()->clientScript->registerScript(
+                    'myHideEffect', '$(".info").animate({opacity: 1.0}, 4000).fadeOut("slow");', CClientScript::POS_READY
+            );
+            ?>
+                <?php
+                $user = Yii::app()->getUser();
+                foreach ($user->getFlashKeys() as $key):
+                    if ($user->hasFlash($key)):
+                        ?>
+                    <br/>
+                    <div class="info flash-<?php echo $key; ?>">
+                            <?php echo $user->getFlash($key); ?>
+                    </div>
+        <?php
+    endif;
+endforeach;
+?>
+<?php echo $content; ?>
+</div>
+        <div id="footer" class='container'>
+            <div class="span-24 alt"><div align="center" class="quiet">
+                    <hr/>
+						Powered by <a class="noicon" title="Bugitor - The Yii-powered issue tracker" href="http://bitbucket.org/jacmoe/bugitor">Bugitor</a> &copy; 2010 - 2011 by Bugitor Team.<br/>
+                    <a class="noicon" href="http://www.yiiframework.com/" rel="external"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/yii_power_lightblue_white.gif" alt="Made with Yii Framework" title="Made with Yii Framework"/></a>
+                    <hr/>
+                    <a href="http://sourceforge.net/projects/bugitor"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=542384&amp;type=10" width="80" height="15" alt="Get Bugitor at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a>
+                </div>
+            </div>
+		</div>
     </body>
 </html>
