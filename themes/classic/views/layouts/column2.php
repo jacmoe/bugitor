@@ -32,13 +32,11 @@
  */
 ?>
 <?php $this->beginContent('//layouts/main'); ?>
-<div class="span-19">
-    <div id="content">
-        <?php echo $content; ?>
-    </div><!-- content -->
+<div id="page" class="content container">
+<div class="span-16">
+	<?php echo $content; ?>
 </div>
-<div class="span-5 last">
-    <div id="sidebar">
+<div class="span-6 last>
         <?php
         if (((Yii::app()->controller->id === 'project')||(Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) {
             $this->widget('DropDownRedirect', array(
@@ -57,6 +55,6 @@
         ));
         $this->endWidget();
         ?>
-    </div><!-- sidebar -->
+</div>
 </div>
 <?php $this->endContent(); ?>

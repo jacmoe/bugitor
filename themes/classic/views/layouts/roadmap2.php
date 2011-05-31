@@ -32,13 +32,11 @@
  */
 ?>
 <?php $this->beginContent('//layouts/main'); ?>
-<div class="span-19">
-    <div id="content-with-sidebar">
+<div id="page" class="container">
+<div class="column span-19">
         <?php echo $content; ?>
-    </div><!-- content -->
 </div>
-<div class="span-5 last">
-    <div id="sidebar">
+<div class="column span-4 colborder box last">
         <?php if(isset($_GET['showcompleted'])) : ?>
             <?php echo CHtml::link('Hide completed versions', array('/project/roadmap', 'identifier' => $_GET['identifier'])); ?>
         <?php else : ?>
@@ -50,6 +48,6 @@
             'startLevel' => '3', 
             'topLinks' => '<span style="font-size: 0.5em; color: grey;">(^ Top of page)</span>'
         )); ?>
-    </div><!-- sidebar -->
+</div>
 </div>
 <?php $this->endContent(); ?>
