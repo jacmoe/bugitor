@@ -31,7 +31,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
-<?php //TODO: check if the user wants the comments in cronological order?   ?>
+<?php //TODO: check if the user wants the comments in cronological order?    ?>
 <?php $comments = array_reverse($comments); ?>
 <?php $comment_count = count($comments); ?>
 <div id="history">
@@ -44,15 +44,18 @@
                 </div>
                 Updated by <?php echo Bugitor::link_to_user($comment->author); ?>
                 <?php echo Time::timeAgoInWords($comment->created); ?></h4>
-            <span><?php echo Bugitor::gravatar($comment->author); ?></span>
-            <?php if ($comment->details) : ?>
-                <ul>
-                    <?php foreach ($comment->details as $detail): ?>
-                        <li><?php echo $detail->change; ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php endif; ?>
-            <?php echo Yii::app()->textile->textilize($comment->content); ?>
+            <dl><dt>
+                <?php echo Bugitor::gravatar($comment->author); ?>
+                </dt><dd style="margin-left: 75px;">
+                    <?php if ($comment->details) : ?>
+                        <ul>
+                            <?php foreach ($comment->details as $detail): ?>
+                                <li><?php echo $detail->change; ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php endif; ?>
+                    <?php echo Yii::app()->textile->textilize($comment->content); ?>
+                </dd></dl>
         </div>
         <br class="clearfix"/>
         <?php $comment_count--; ?>
