@@ -14,16 +14,23 @@ class Textilizer extends CApplicationComponent
 
 
     protected function smiley($msg) {
-        $msg = preg_replace("/:\)/",":smile:", $msg);
-        $msg = preg_replace("/:D/",":big_grin:", $msg);
-        $msg = preg_replace("/;\)/",":wink:", $msg);
-        $msg = preg_replace("/:P/",":razz:", $msg);
-        $msg = preg_replace("/:p/",":razz:", $msg);
-        $msg = preg_replace("/:\(/",":sad:", $msg);
+        $msg = preg_replace("/[\s|\.]:\)/",":smile:", $msg);
+        $msg = preg_replace("/[\s|\.]:D/",":big_grin:", $msg);
+        $msg = preg_replace("/[\s|\.];\)/",":wink:", $msg);
+        $msg = preg_replace("/[\s|\.]:P/",":razz:", $msg);
+        $msg = preg_replace("/[\s|\.]:p/",":razz:", $msg);
+        $msg = preg_replace("/[\s|\.]:\(/",":sad:", $msg);
+//        $msg = preg_replace("/\W:\)/",":smile:", $msg);
+//        $msg = preg_replace("/\W:D/",":big_grin:", $msg);
+//        $msg = preg_replace("/\W;\)/",":wink:", $msg);
+//        $msg = preg_replace("/\W:P/",":razz:", $msg);
+//        $msg = preg_replace("/\W:p/",":razz:", $msg);
+//        $msg = preg_replace("/\W:\(/",":sad:", $msg);
         $msg = preg_replace("/:smile:/","<img src='".Yii::app()->theme->baseUrl."/images/smilies/icon_smile.gif' title='Smile' alt='Smile'>", $msg);
         $msg = preg_replace("/:wink:/","<img src='".Yii::app()->theme->baseUrl."/images/smilies/icon_wink.gif' title='Wink' alt='Wink'>", $msg);
         $msg = preg_replace("/\=P/","<img src='".Yii::app()->theme->baseUrl."/images/smilies/icon_razz.gif' title='p' alt='p'>", $msg);
-        $msg = preg_replace("/\:P/","<img src='".Yii::app()->theme->baseUrl."/images/smilies/icon_razz.gif' title='p' alt='p'>", $msg);
+        $msg = preg_replace("/[\s|\.]\:P/","<img src='".Yii::app()->theme->baseUrl."/images/smilies/icon_razz.gif' title='p' alt='p'>", $msg);
+//        $msg = preg_replace("/\W\:P/","<img src='".Yii::app()->theme->baseUrl."/images/smilies/icon_razz.gif' title='p' alt='p'>", $msg);
         $msg = preg_replace("/:razz:/","<img src='".Yii::app()->theme->baseUrl."/images/smilies/icon_razz.gif' title='p' alt='p'>", $msg);
         $msg = preg_replace("/:big_grin:/", "<img src='".Yii::app()->theme->baseUrl."/images/smilies/icon_biggrin.gif' title='Big Grin' alt='Big Grin'>", $msg);
         $msg = preg_replace("/:cheesy_grin:/", "<img src='".Yii::app()->theme->baseUrl."/images/smilies/icon_cheesygrin.gif' title='Cheesy Grin' alt='Cheesy Grin'>", $msg);
