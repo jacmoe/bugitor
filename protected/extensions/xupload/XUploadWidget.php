@@ -95,7 +95,7 @@ class XUploadWidget extends CJuiInputWidget {
 	}
 
 	public function publishAssets() {
-		$assets = dirname(__FILE__) . '/assets';
+		$assets = dirname(__FILE__) . '/eassets';
 		$baseUrl = Yii::app()->assetManager->publish($assets);
 		if (is_dir($assets)) {
 			Yii::app()->clientScript->registerScriptFile($baseUrl . '/fileupload-ui/jquery.fileupload.js', CClientScript::POS_END);

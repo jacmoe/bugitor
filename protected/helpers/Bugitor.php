@@ -105,7 +105,7 @@ class Bugitor {
     }
 
     public static function format_activity_description($text, $length = 120) {
-        $out = Bugitor::truncate($text, $length);
+        $out = Bugitor::truncate_single_line($text, $length);
         return preg_replace('/<(pre|code)>.*$/', '...', $out);
     }
 
