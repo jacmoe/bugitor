@@ -55,7 +55,7 @@
     $issueFilter,
     array('empty'=>'All Issues', 'submit'=>'')); ?>
 <?php echo CHtml::endForm(); ?>
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php $this->widget('ext.rrviews.RRGridView', array(
 	'id'=>'issue-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
