@@ -50,15 +50,7 @@
         ?>
         <div id="topmenu" class='container'>
             <div class='column span-12'>
-                <?php
-                $this->widget('BugitorMenu', array(
-                    'items' => array(
-                        //array('label' => 'Home', 'url' => array('/site/index'), 'id' => 'site/index', 'visible' => Yii::app()->user->checkAccess('Issue.Create')),
-                        array('label' => 'Home', 'url' => array('/projects/'), 'id' => 'project/index'),
-                        array('label' => 'Administration', 'url' => array('/admin'), 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
-                    ),
-                ));
-                ?>
+                <?php $this->widget('LinkMenu'); ?>
             </div>
             <div class='column span-12 last'>
                 <span class="right">
@@ -87,6 +79,7 @@
                         || (Yii::app()->controller->id === 'member')
                         || (Yii::app()->controller->id === 'changeset')
                         || (Yii::app()->controller->id === 'version')
+                        || (Yii::app()->controller->id === 'projectLink')
                         || (Yii::app()->controller->id === 'issueCategory')
                         || (Yii::app()->controller->id === 'repository')
                         ) && (isset($_GET['projectname']))) :
@@ -113,6 +106,7 @@
                         || (Yii::app()->controller->id === 'changeset')
                         || (Yii::app()->controller->id === 'version')
                         || (Yii::app()->controller->id === 'member')
+                        || (Yii::app()->controller->id === 'projectLink')
                         || (Yii::app()->controller->id === 'repository')
                         || (Yii::app()->controller->id === 'issueCategory')
                         || (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) :
