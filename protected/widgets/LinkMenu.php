@@ -39,13 +39,15 @@ class LinkMenu extends BugitorMenu
         $menu[] = array('label'=>'Home','url'=>array('/projects/'));
         $menu[] = array('label'=>'Administration','url'=>array('/admin'), 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName));
         
-        $items = ProjectLink::model()->findAll($criteria);
-        if($items) {
-            $menu[] = array('label'=>'|','url'=>array());
-        }
-        foreach ($items as $item)
-        {
-            $menu[] = array('label'=>$item->title,'url'=> $item->url);
+        if(isset($_GET['identifier'])) {
+            $items = ProjectLink::model()->findAll($criteria);
+            if($items) {
+                $menu[] = array('label'=>'|','url'=>array());
+            }
+            foreach ($items as $item)
+            {
+                $menu[] = array('label'=>$item->title,'url'=> $item->url, 'linkOptions' => array('title' => $item->description));
+            }
         }
         return $menu;
     }

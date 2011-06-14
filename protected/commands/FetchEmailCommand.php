@@ -85,10 +85,7 @@ class FetchEmailCommand extends CConsoleCommand {
                                 if (isset($results['Alternative'][0]['Data'])) {
                                     $incoming_message = $results['Alternative'][0]['Data'];
                                 } else {
-                                    //TODO: fail!?
-                                    // Find a html stripping tool..
-                                    $incoming_message = "";
-                                    continue;
+                                    $incoming_message = html_entity_decode(strip_tags($results['Data']));
                                 }
                             } else {
                                 $incoming_message = $results['Data'];
