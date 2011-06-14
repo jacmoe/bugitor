@@ -122,6 +122,9 @@ class ProjectController extends Controller {
 
     public function actionFeed($identifier) {
         $project = Project::model()->find('identifier=?', array($_GET['identifier']));
+        if(null === $project){
+            throw new CHttpException(404,'The requested project does not exist.');
+        }
         $activities = ActionLog::model()->findRecentEntries(20, $project->id);
         //convert from an array of comment AR class instances to a name=>value array for Zend
         $entries = array();
@@ -152,6 +155,9 @@ class ProjectController extends Controller {
      */
     public function actionView($identifier) {
         $project = Project::model()->with(array('issueOpenBugCount', 'issueBugCount', 'issueOpenFeatureCount', 'issueFeatureCount'))->find('identifier=?', array($_GET['identifier']));
+        if(null === $project){
+            throw new CHttpException(404,'The requested project does not exist.');
+        }
         $_GET['projectname'] = $project->name;
 
         Yii::app()->clientScript->registerLinkTag(
@@ -176,6 +182,9 @@ class ProjectController extends Controller {
         // Sourceforge does not like 'with activities' ...
         //$project = Project::model()->with('activities')->find($criteria);
         $project = Project::model()->find($criteria);
+        if(null === $project){
+            throw new CHttpException(404,'The requested project does not exist.');
+        }
         
         $_GET['projectname'] = $project->name;
         
@@ -206,6 +215,10 @@ class ProjectController extends Controller {
                 array('versions')
                 )->find($criteria);
 
+        if(null === $project){
+            throw new CHttpException(404,'The requested project does not exist.');
+        }
+        
         $_GET['projectname'] = $project->name;
 
         $this->render('roadmap', array(
@@ -225,6 +238,9 @@ class ProjectController extends Controller {
                     )
                 )->together()->find($criteria);
 
+        if(null === $project){
+            throw new CHttpException(404,'The requested project does not exist.');
+        }
         
 
         $_GET['projectname'] = $project->name;
@@ -246,9 +262,11 @@ class ProjectController extends Controller {
         $versions = $information->getVersions();
         $categories = $information->getCategories();
         $repositories = $information->getRepositories();
+        $links = $information->getLinks();
 
         $tabs = array(
                 array('name' => 'information', 'partial' => 'update', 'label' =>  'Information'),
+                array('name' => 'links', 'partial' => 'settings/links', 'label' =>  'Links'),
                 array('name' =>  'members', 'partial' =>  'settings/members', 'label' =>  'Members'),
                 array('name' =>  'versions', 'partial' =>  'settings/versions', 'label' => 'Versions'),
                 array('name' =>  'categories', 'partial' =>  'settings/issue_categories', 'label' =>  'Issue categories'),
@@ -260,7 +278,7 @@ class ProjectController extends Controller {
         }
 
         $this->render('settings', compact('information', 'tabs', 'selected_tab',
-                'members', 'versions', 'categories', 'repositories'));
+                'members', 'versions', 'categories', 'repositories', 'links'));
     }
 
     /**

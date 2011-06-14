@@ -35,46 +35,17 @@
 
 class ProjectLinkController extends Controller
 {
-	/**
-	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-	 * using two-column layout. See 'protected/views/layouts/column2.php'.
-	 */
-	public $layout='//layouts/column2';
 
-	/**
-	 * @return array action filters
-	 */
 	public function filters()
 	{
 		return array(
-			'accessControl', // perform access control for CRUD operations
+			'rights', // perform access control for CRUD operations
 		);
 	}
 
-	/**
-	 * Specifies the access control rules.
-	 * This method is used by the 'accessControl' filter.
-	 * @return array access control rules
-	 */
-	public function accessRules()
+	public function allowedActions()
 	{
-		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
-			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
+		return 'index, view';
 	}
 
 	/**
@@ -92,9 +63,11 @@ class ProjectLinkController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($identifier)
 	{
-		$model=new ProjectLink;
+                $_GET['projectname'] = Project::getProjectNameFromIdentifier($identifier);
+		
+                $model=new ProjectLink;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -102,8 +75,9 @@ class ProjectLinkController extends Controller
 		if(isset($_POST['ProjectLink']))
 		{
 			$model->attributes=$_POST['ProjectLink'];
+                        $model->project_id = Project::getProjectIdFromIdentifier($_GET['identifier']);
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+                            $this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'links'));
 		}
 
 		$this->render('create',array(
@@ -116,8 +90,9 @@ class ProjectLinkController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate($id)
+	public function actionUpdate($id, $identifier)
 	{
+                $_GET['projectname'] = Project::getProjectNameFromIdentifier($identifier);
 		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
@@ -127,7 +102,7 @@ class ProjectLinkController extends Controller
 		{
 			$model->attributes=$_POST['ProjectLink'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'links'));
 		}
 
 		$this->render('update',array(
@@ -140,7 +115,7 @@ class ProjectLinkController extends Controller
 	 * If deletion is successful, the browser will be redirected to the 'index' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionDelete($id)
+	public function actionDelete($id, $identifier)
 	{
 		if(Yii::app()->request->isPostRequest)
 		{
@@ -149,7 +124,7 @@ class ProjectLinkController extends Controller
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+				$this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'links'));
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');

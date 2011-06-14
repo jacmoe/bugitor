@@ -292,5 +292,10 @@ project_id=:projectId AND user_id=:userId";
         $criteria->compare('project_id', $this->id, true);
         return Repository::model()->findAll($criteria);
     }
+    public function getLinks() {
+        $criteria = new CDbCriteria;
+        $criteria->compare('project_id', $this->id, true);
+        return ProjectLink::model()->findAll($criteria);
+    }
 
 }

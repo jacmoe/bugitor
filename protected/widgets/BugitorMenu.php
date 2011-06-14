@@ -119,6 +119,9 @@ class BugitorMenu extends CMenu {
             if((Yii::app()->controller->id === 'repository')&&($item['id'] === 'project/settings')) {
                 return true;
             }
+            if((Yii::app()->controller->id === 'projectLink')&&($item['id'] === 'project/settings')) {
+                return true;
+            }
             return false;
         }
         return false;
