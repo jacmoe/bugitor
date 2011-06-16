@@ -170,7 +170,7 @@
                 <div class="row">
                     <?php echo $form->labelEx($model, 'version_id'); ?>
                     <?php if(Yii::app()->user->checkAccess('Issue.Delete')) : ?>
-                        <?php echo $form->dropDownList($model, 'version_id', $this->getVersionSelectList($model->project_id, true), array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'prompt' => '<None>')); ?>
+                        <?php echo $form->dropDownList($model, 'version_id', $this->getVersionSelectList(Project::getProjectIdFromIdentifier($_GET['identifier']), true), array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'prompt' => '<None>')); ?>
                         <?php echo $form->error($model, 'version_id'); ?>
                     <?php else : ?>
                         <?php if(isset($model->version)) : ?>
