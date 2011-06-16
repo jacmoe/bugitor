@@ -427,6 +427,12 @@ class Issue extends CActiveRecord {
             case 'swIssue/reassigned':
                 return 'Reassigned';
                 break;
+            case 'swIssue/unassigned':
+                return 'Unassigned';
+                break;
+            case 'swIssue/feedback':
+                return 'Feedback';
+                break;
             default:
                 return $status;
                 break;

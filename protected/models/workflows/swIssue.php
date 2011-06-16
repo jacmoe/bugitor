@@ -61,12 +61,21 @@ return array(
                 'label' => 'Assigned',
                 'transition' => array(
                     'unassigned',
+                    'feedback',
                     'resolved' => '$this->markAsClosed()',
                     'rejected' => '$this->markAsClosed(true)',
                 )
             ),
             array('id' => 'unassigned',
                 'label' => 'Unassigned',
+                'transition' => array(
+                    'assigned',
+                    'resolved' => '$this->markAsClosed()',
+                    'rejected' => '$this->markAsClosed(true)',
+                )
+            ),
+            array('id' => 'feedback',
+                'label' => 'Feedback',
                 'transition' => array(
                     'assigned',
                     'resolved' => '$this->markAsClosed()',

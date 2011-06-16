@@ -511,6 +511,7 @@ class IssueController extends Controller {
     public function getUserFilter() {
         $Criteria = new CDbCriteria();
         $Criteria->select = "username";
+        $Criteria->order = 'username';
         $results = User::model()->findAll($Criteria);
         $user_list = array();
         foreach ($results as $result) {
@@ -537,6 +538,7 @@ class IssueController extends Controller {
     public function getCategoryFilter() {
         $Criteria = new CDbCriteria();
         $Criteria->select = "name";
+        $Criteria->order = 'name';
         if (isset($_GET['identifier'])) {
             $Criteria->compare('project_id', $this->getProject($_GET['identifier']), true);
         }
@@ -582,6 +584,7 @@ class IssueController extends Controller {
     public function getUserSelectList() {
         $Criteria = new CDbCriteria();
         $Criteria->select = "username, id";
+        $Criteria->order = 'username';
         $results = User::model()->findAll($Criteria);
         $user_list = array();
         foreach ($results as $result) {
@@ -611,6 +614,7 @@ class IssueController extends Controller {
     public function getCategorySelectList() {
         $Criteria = new CDbCriteria();
         $Criteria->select = "name, id";
+        $Criteria->order = 'name';
         if (isset($_GET['identifier'])) {
             $Criteria->compare('project_id', $this->getProject($_GET['identifier']), true);
         }
