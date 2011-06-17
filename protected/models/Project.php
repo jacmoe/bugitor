@@ -214,6 +214,7 @@ project_id=:projectId AND user_id=:userId";
     public function getMembers() {
         $criteria = new CDbCriteria;
         $criteria->compare('project_id', $this->id, true);
+        $criteria->order = 'user.username';
         return Member::model()->with('user')->findAll($criteria);
     }
 
@@ -222,6 +223,7 @@ project_id=:projectId AND user_id=:userId";
         $criteria = new CDbCriteria;
         $criteria->addNotInCondition('user_id', $members);
         $criteria->addInCondition('project_id', Project::getProjectIdFromIdentifier($_GET['identifier']));
+        $criteria->order = 'username';
         return User::model()->findAll($criteria);
     }
 
@@ -266,6 +268,7 @@ project_id=:projectId AND user_id=:userId";
         }
         $criteria2 = new CDbCriteria;
         $criteria2->addNotInCondition('id', $member_list);
+        $criteria2->order = 'username';
         $results =  User::model()->findAll($criteria2);
         $user_list = array();
         foreach ($results as $result) {
@@ -284,6 +287,7 @@ project_id=:projectId AND user_id=:userId";
     public function getCategories() {
         $criteria = new CDbCriteria;
         $criteria->compare('project_id', $this->id, true);
+        $criteria->order = 'name';
         return IssueCategory::model()->findAll($criteria);
     }
 
@@ -295,6 +299,7 @@ project_id=:projectId AND user_id=:userId";
     public function getLinks() {
         $criteria = new CDbCriteria;
         $criteria->compare('project_id', $this->id, true);
+        $criteria->order = 'position';
         return ProjectLink::model()->findAll($criteria);
     }
 
