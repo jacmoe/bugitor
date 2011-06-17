@@ -62,7 +62,7 @@
                 <?php if (!$model->isNewRecord) : ?>
                     <div class="row" id="subject_row" style="display: none;">
                         <?php echo $form->labelEx($model, 'subject'); ?>
-                        <?php echo $form->textField($model, 'subject', array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'size' => 85, 'maxlength' => 255)); ?>
+                        <?php echo $form->textField($model, 'subject', array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'size' => '79%', 'maxlength' => 255)); ?>
                         <?php echo $form->error($model, 'subject'); ?>
                     </div>
                     <div class="row" id="description_row" style="display: none;">
@@ -72,7 +72,7 @@
                                     $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
                                         'model' => $model,
                                         'attribute' => 'description',
-                                        'htmlOptions' => array('style' => 'height:150px;')
+                                        'htmlOptions' => array('style' => 'height:150px;width:80%;')
                                     )) ?>
                         <?php else : ?>
                             <?php echo $form->textArea($model, 'description', array('disabled' => true, 'style' => 'height:150px;width:98%;')); ?>
@@ -82,7 +82,7 @@
                     <div class="row">
                         <?php $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
                                 'name' => 'Comment',
-                                'htmlOptions'=>array('style'=>'height:150px;')
+                                'htmlOptions'=>array('style'=>'height:150px;width:80%;')
                         ))?>
                     </div>
                 <?php else : ?>
@@ -97,7 +97,7 @@
                             $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
                                 'model' => $model,
                                 'attribute' => 'description',
-                                'htmlOptions' => array('style' => 'height:150px;')
+                                'htmlOptions' => array('style' => 'height:150px;width:80%;')
                             ))
                         ?>
                         <?php echo $form->error($model, 'description'); ?>
@@ -194,13 +194,13 @@
                                         'slide' => 'js:function(event, ui) { $("#done_ratio").val(ui.value);}',
                                     ),
                                     'htmlOptions' => array(
-                                        'style' => 'height:8px;width:144px;',
+                                        'style' => 'height:8px;width:140px;',
                                         Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true,
                                     ),
                                 ));
                             ?>
                         <?php endif; ?>
-                        <?php echo $form->textField($model, 'done_ratio', array('id' => 'done_ratio', 'readonly' => true, 'size' => 16, 'maxlength' => 16)); ?>
+                        <?php echo $form->textField($model, 'done_ratio', array('id' => 'done_ratio', 'readonly' => true, 'size' => 18, 'maxlength' => 18)); ?>
                         <?php echo $form->error($model, 'done_ratio'); ?>
                     <?php else : ?>
                         <?php if(isset($model->done_ratio)) : ?>
