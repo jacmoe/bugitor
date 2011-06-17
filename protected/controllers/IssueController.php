@@ -520,6 +520,15 @@ class IssueController extends Controller {
         return $user_list;
     }
 
+    public function getMemberFilter() {
+        $results = Project::model()->findByAttributes(array('identifier' => $_GET['identifier']))->getMembers();
+        $user_list = array();
+        foreach ($results as $result) {
+            $user_list[$result->user->username] = $result->user->username;
+        }
+        return $user_list;
+    }
+    
     public function getVersionFilter() {
         $Criteria = new CDbCriteria();
         $Criteria->select = "name,  effective_date";

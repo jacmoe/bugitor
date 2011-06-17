@@ -126,7 +126,7 @@
                     'header' => 'Owner',
                     'type' => 'raw',
                     'value' => '(($data->assignedTo)?Bugitor::gravatar($data->assignedTo,16):"")',
-                    'filter' => $this->getUserFilter(),
+                    'filter' => $this->getMemberFilter(),
                     'htmlOptions'=>array('width'=>'10'),
                 ),
                 array(
