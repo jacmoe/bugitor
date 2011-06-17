@@ -397,6 +397,16 @@ class IssueController extends Controller {
                 $comment->issue_id = $model->id;
                 $comment->create_user_id = Yii::app()->user->id;
                 $comment->update_user_id = Yii::app()->user->id;
+                
+                //TODO: check if the user wants to be
+                // a watcher of issues where they comment!
+                if(!$model->watchedBy()) {
+                    $watcher = new Watcher();
+                    $watcher->issue_id = $model->id;
+                    $watcher->user_id = Yii::app()->user->id;
+                    $watcher->save();
+                }
+                
                 $comment_made = true;
             }
             if($model->wasModified()||($comment_made)) {
