@@ -32,7 +32,7 @@
  */
 ?>
 <?php
-    $this->pageTitle = $_GET['projectname'] . ' - New Version - ' . Yii::app()->name;
+    $this->pageTitle = $_GET['projectname'] . ' - New Milestone - ' . Yii::app()->name;
 ?>
-<h3>Create Version</h3>
+<h3>Create Milestone</h3>
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -90,7 +90,7 @@ class BugitorMenu extends CMenu {
                 return true;
             if(($route === 'changeset/index')&&($item['id'] === 'project/code'))
                 return true;
-            if(($route === 'version/view')&&($item['id'] === 'project/roadmap'))
+            if(($route === 'milestone/view')&&($item['id'] === 'project/roadmap'))
                 return true;
             if(($route === 'issue/view')&&($item['id'] === 'issue/index'))
                 return true;
@@ -106,8 +106,8 @@ class BugitorMenu extends CMenu {
                 if((Yii::app()->controller->module->id === 'user')&&($item['id'] === 'user'))
                     return true;
             }
-            if((Yii::app()->controller->id === 'version')&&($item['id'] === 'project/settings')) {
-                if(!($route === 'version/view'))
+            if((Yii::app()->controller->id === 'milestone')&&($item['id'] === 'project/settings')) {
+                if(!($route === 'milestone/view'))
                     return true;
             }
             if((Yii::app()->controller->id === 'issueCategory')&&($item['id'] === 'project/settings')) {

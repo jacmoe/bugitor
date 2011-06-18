@@ -172,13 +172,13 @@
                     <?php endif; ?>
                 </div>
                 <div class="row">
-                    <?php echo $form->labelEx($model, 'version_id'); ?>
+                    <?php echo $form->labelEx($model, 'milestone_id'); ?>
                     <?php if(Yii::app()->user->checkAccess('Issue.Delete')) : ?>
-                        <?php echo $form->dropDownList($model, 'version_id', $this->getVersionSelectList(Project::getProjectIdFromIdentifier($_GET['identifier']), true), array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'prompt' => '<None>')); ?>
-                        <?php echo $form->error($model, 'version_id'); ?>
+                        <?php echo $form->dropDownList($model, 'milestone_id', $this->getmilestoneSelectList(Project::getProjectIdFromIdentifier($_GET['identifier']), true), array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'prompt' => '<None>')); ?>
+                        <?php echo $form->error($model, 'milestone_id'); ?>
                     <?php else : ?>
-                        <?php if(isset($model->version)) : ?>
-                                <?php echo $model->version->name; ?>
+                        <?php if(isset($model->milestone)) : ?>
+                                <?php echo $model->milestone->name; ?>
                         <?php endif; ?>
                     <?php endif; ?>
                 </div>
@@ -226,7 +226,7 @@
                         <?php endif; ?>
                         <?php echo $form->hiddenField($model, 'issue_category_id', array('value' => $model->issue_category_id)); ?>
                         <?php echo $form->hiddenField($model, 'assigned_to', array('value' => $model->assigned_to)); ?>
-                        <?php echo $form->hiddenField($model, 'version_id', array('value' => $model->version_id)); ?>
+                        <?php echo $form->hiddenField($model, 'milestone_id', array('value' => $model->milestone_id)); ?>
                         <?php echo $form->hiddenField($model, 'done_ratio', array('value' => $model->done_ratio)); ?>
                     <?php endif; ?>
                     <?php echo $form->hiddenField($model, 'project_id', array('value' => Project::getProjectIdFromIdentifier($_GET['identifier']))); ?>

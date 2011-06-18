@@ -175,13 +175,13 @@ INSERT INTO `{{auth_item}}` (`name`, `type`, `description`, `bizrule`, `data`) V
 ('User.User.*', 0, NULL, NULL, 'N;'),
 ('User.User.Index', 0, NULL, NULL, 'N;'),
 ('User.User.View', 0, NULL, NULL, 'N;'),
-('Version.*', 0, NULL, NULL, 'N;'),
-('Version.Admin', 0, NULL, NULL, 'N;'),
-('Version.Create', 0, NULL, NULL, 'N;'),
-('Version.Delete', 0, NULL, NULL, 'N;'),
-('Version.Index', 0, NULL, NULL, 'N;'),
-('Version.Update', 0, NULL, NULL, 'N;'),
-('Version.View', 0, NULL, NULL, 'N;');
+('Milestone.*', 0, NULL, NULL, 'N;'),
+('Milestone.Admin', 0, NULL, NULL, 'N;'),
+('Milestone.Create', 0, NULL, NULL, 'N;'),
+('Milestone.Delete', 0, NULL, NULL, 'N;'),
+('Milestone.Index', 0, NULL, NULL, 'N;'),
+('Milestone.Update', 0, NULL, NULL, 'N;'),
+('Milestone.View', 0, NULL, NULL, 'N;');
 
 INSERT INTO `{{auth_item_child}}` (`parent`, `child`) VALUES
 ('Project Admin', 'Comment.Admin'),
@@ -242,9 +242,9 @@ INSERT INTO `{{auth_item_child}}` (`parent`, `child`) VALUES
 ('Developer', 'Project.Update'),
 ('Guest', 'Project.View'),
 ('Developer', 'User'),
-('Developer', 'Version.Create'),
-('Developer', 'Version.Delete'),
-('Developer', 'Version.Update');
+('Developer', 'Milestone.Create'),
+('Developer', 'Milestone.Delete'),
+('Developer', 'Milestone.Update');
 
 INSERT INTO `{{auth_item_weight}}` (`itemname`, `type`, `weight`) VALUES
 ('Admin', 2, 0),

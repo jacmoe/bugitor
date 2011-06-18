@@ -38,9 +38,9 @@
 </div>
 <div class="column span-5 colborder box last">
         <?php if(isset($_GET['showcompleted'])) : ?>
-            <?php echo CHtml::link('Hide completed versions', array('/project/roadmap', 'identifier' => $_GET['identifier'])); ?>
+            <?php echo CHtml::link('Hide completed milestones', array('/project/roadmap', 'identifier' => $_GET['identifier'])); ?>
         <?php else : ?>
-            <?php echo CHtml::link('Show completed versions', array('/project/roadmap', 'showcompleted' => '1', 'identifier' => $_GET['identifier'])); ?>
+            <?php echo CHtml::link('Show completed milestones', array('/project/roadmap', 'showcompleted' => '1', 'identifier' => $_GET['identifier'])); ?>
         <?php endif; ?>
         <ol id="toc"></ol>
         <?php $this->widget('ext.ETableOfContents.ETableOfContents', array(

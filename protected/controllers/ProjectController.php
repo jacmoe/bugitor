@@ -205,14 +205,14 @@ class ProjectController extends Controller {
         $criteria = new CDbCriteria();
         $criteria->condition = 'identifier = :identifier';
         $criteria->params = array('identifier' => $_GET['identifier']);
-        $criteria->order = 'versions.effective_date';
+        $criteria->order = 'milestones.effective_date';
 
-        // Sourceforge dies on versions with issues..
+        // Sourceforge dies on milestones with issues..
         //$project = Project::model()->with(
-        //        array('versions' => array('with' => array('issues')))
+        //        array('milestones' => array('with' => array('issues')))
         //        )->find($criteria);
         $project = Project::model()->with(
-                array('versions')
+                array('milestones')
                 )->find($criteria);
 
         if(null === $project){
@@ -259,7 +259,7 @@ class ProjectController extends Controller {
         $information = Project::model()->find('identifier=?', array($_GET['identifier']));
         $_GET['projectname'] = $information->name;
         $members = $information->getMembers();
-        $versions = $information->getVersions();
+        $milestones = $information->getMilestones();
         $categories = $information->getCategories();
         $repositories = $information->getRepositories();
         $links = $information->getLinks();
@@ -268,7 +268,7 @@ class ProjectController extends Controller {
                 array('name' => 'information', 'partial' => 'update', 'label' =>  'Information'),
                 array('name' => 'links', 'partial' => 'settings/links', 'label' =>  'Links'),
                 array('name' =>  'members', 'partial' =>  'settings/members', 'label' =>  'Members'),
-                array('name' =>  'versions', 'partial' =>  'settings/versions', 'label' => 'Versions'),
+                array('name' =>  'milestones', 'partial' =>  'settings/milestones', 'label' => 'Milestones'),
                 array('name' =>  'categories', 'partial' =>  'settings/issue_categories', 'label' =>  'Issue categories'),
                 array('name' =>  'repositories', 'partial' =>  'settings/repository', 'label' =>  'Repositories'),
         );
@@ -278,7 +278,7 @@ class ProjectController extends Controller {
         }
 
         $this->render('settings', compact('information', 'tabs', 'selected_tab',
-                'members', 'versions', 'categories', 'repositories', 'links'));
+                'members', 'milestones', 'categories', 'repositories', 'links'));
     }
 
     /**

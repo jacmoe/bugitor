@@ -79,7 +79,7 @@ class Textilizer extends CApplicationComponent
                 switch ($prefix) {
 //                    case 'document':
 //                        break;
-//                    case 'version':
+//                    case 'milestone':
 //                        break;
 //                    case 'commit':
 //                        break;
@@ -117,7 +117,7 @@ class Textilizer extends CApplicationComponent
         } else {
             $text = $this->getTextile()->TextileThis($content);
         }
-        $text = preg_replace_callback('{([\s\(,\-\>]|^)(!)?(attachment|document|version|commit|source|export|message|http|rev)?((#|rev\:)([A-z0-9]+)|(:)([^"\s<>][^\s<>]*?|"[^"]+?"))(?=(?=[[:punct:]]\W)|\s|<|$)}',
+        $text = preg_replace_callback('{([\s\(,\-\>]|^)(!)?(attachment|document|milestone|commit|source|export|message|http|rev)?((#|rev\:)([A-z0-9]+)|(:)([^"\s<>][^\s<>]*?|"[^"]+?"))(?=(?=[[:punct:]]\W)|\s|<|$)}',
                     array($this, '_replaceBugitorLinks'),
                     $text);
         if($parseSmilies) {

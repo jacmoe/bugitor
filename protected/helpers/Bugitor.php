@@ -109,19 +109,19 @@ class Bugitor {
         return preg_replace('/<(pre|code)>.*$/', '...', $out);
     }
 
-    public static function link_to_version($version, $absolute = false) {
+    public static function link_to_milestone($milestone, $absolute = false) {
         if($absolute) {
-            return CHtml::link($version->name . ' - ' . $version->title, Yii::app()->config->get('hostname').'projects/'.$version->project->identifier.'/version/view/'.$version->id);
+            return CHtml::link($milestone->name . ' - ' . $milestone->title, Yii::app()->config->get('hostname').'projects/'.$milestone->project->identifier.'/milestone/view/'.$milestone->id);
         } else {
-            return CHtml::link($version->name . ' - ' . $version->title ,array('/version/view', "id" => $version->id, 'identifier' => $version->project->identifier));
+            return CHtml::link($milestone->name . ' - ' . $milestone->title ,array('/milestone/view', "id" => $milestone->id, 'identifier' => $milestone->project->identifier));
         }
     }
 
-    public static function short_link_to_version($version, $absolute = false) {
+    public static function short_link_to_milestone($milestone, $absolute = false) {
         if($absolute) {
-            return CHtml::link($version->name . ' - ' . $version->title, Yii::app()->config->get('hostname').'projects/'.$version->project->identifier.'/version/view/'.$version->id);
+            return CHtml::link($milestone->name . ' - ' . $milestone->title, Yii::app()->config->get('hostname').'projects/'.$milestone->project->identifier.'/milestone/view/'.$milestone->id);
         } else {
-            return CHtml::link($version->name . ' - ' . $version->title ,array('/version/view', "id" => $version->id, 'identifier' => $version->project->identifier));
+            return CHtml::link($milestone->name . ' - ' . $milestone->title ,array('/milestone/view', "id" => $milestone->id, 'identifier' => $milestone->project->identifier));
         }
     }
     

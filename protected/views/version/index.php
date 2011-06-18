@@ -33,16 +33,16 @@
 ?>
 <?php
 $this->breadcrumbs=array(
-	'Versions',
+	'Milestones',
 );
 
 $this->menu=array(
-	array('label'=>'Create Version', 'url'=>array('create')),
-	array('label'=>'Manage Version', 'url'=>array('admin')),
+	array('label'=>'Create Milestone', 'url'=>array('create')),
+	array('label'=>'Manage Milestone', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Versions</h1>
+<h1>Milestones</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

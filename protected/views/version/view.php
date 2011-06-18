@@ -32,8 +32,8 @@
  */
 ?>
 <?php
-    $this->pageTitle = $model->project->name . ' - Version ' . $model->name . ' - ' . Yii::app()->name;
+    $this->pageTitle = $model->project->name . ' - Milestone ' . $model->name . ' - ' . Yii::app()->name;
 ?>
-<h3 class="roadmap">View Version</h3>
-<?php $versions[] = $model; ?>
-<?php $this->widget('Roadmap', array('versions' => $versions, 'identifier' => $model->project->identifier, 'detail_view' => true)) ?>
+<h3 class="roadmap">View Milestone</h3>
+<?php $milestones[] = $model; ?>
+<?php $this->widget('Roadmap', array('milestones' => $milestones, 'identifier' => $model->project->identifier, 'detail_view' => true)) ?>

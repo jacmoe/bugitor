@@ -34,9 +34,9 @@
 <?php
 
 /**
- * This is the model class for table "{{version}}".
+ * This is the model class for table "{{milestone}}".
  *
- * The followings are the available columns in table '{{version}}':
+ * The followings are the available columns in table '{{milestone}}':
  * @property integer $id
  * @property integer $project_id
  * @property string $name
@@ -48,11 +48,11 @@
  * @property Issue[] $issues
  * @property Project $project
  */
-class Version extends CActiveRecord {
+class Milestone extends CActiveRecord {
 
     /**
      * Returns the static model of the specified AR class.
-     * @return Version the static model class
+     * @return Milestone the static model class
      */
     public static function model($className=__CLASS__) {
         return parent::model($className);
@@ -62,7 +62,7 @@ class Version extends CActiveRecord {
      * @return string the associated database table name
      */
     public function tableName() {
-        return '{{version}}';
+        return '{{milestone}}';
     }
 
     /**
@@ -83,18 +83,18 @@ class Version extends CActiveRecord {
         );
     }
 
-    public static function getOpenVersionCount($project_id) {
+    public static function getOpenMilestoneCount($project_id) {
         //FIXME: this should be cached
         $criteria = new CDbCriteria();
         $criteria->condition = 'project_id = :project_id';
         $criteria->params = array('project_id' => $project_id);
-        $versions = Version::model()->with(array('issueCountOpen'))->findAll($criteria);
+        $milestones = Milestone::model()->with(array('issueCountOpen'))->findAll($criteria);
         $count = 0;
-        foreach ($versions as $version) {
-            if (strtotime($version->effective_date) >= strtotime(date("Y-m-d"))) {
+        foreach ($milestones as $milestone) {
+            if (strtotime($milestone->effective_date) >= strtotime(date("Y-m-d"))) {
                 $count++;
-            } elseif (strtotime($version->effective_date) < strtotime(date("Y-m-d"))) {
-                if($version->issueCountOpen > 0) {
+            } elseif (strtotime($milestone->effective_date) < strtotime(date("Y-m-d"))) {
+                if($milestone->issueCountOpen > 0) {
                     $count++;
                 }
             }
@@ -107,9 +107,9 @@ class Version extends CActiveRecord {
                 $criteria = new CDbCriteria;
                 $criteria->compare('project_id', $this->project_id, true);
                 $criteria->compare('name', $this->name, true);
-                $results = Version::model()->findAll($criteria);
+                $results = Milestone::model()->findAll($criteria);
                 if($results)
-                    $this->addError($attribute, 'There is already a version of that name in this project.');
+                    $this->addError($attribute, 'There is already a milestone of that name in this project.');
             }
         }
     /**
@@ -119,14 +119,14 @@ class Version extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'issues' => array(self::HAS_MANY, 'Issue', 'version_id'),
+            'issues' => array(self::HAS_MANY, 'Issue', 'milestone_id'),
             'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
-            'issueCount' => array(self::STAT, 'Issue', 'version_id'),
-            'issueCountClosed' => array(self::STAT, 'Issue', 'version_id', 'condition' => 'closed=1'),
-            'issueCountOpen' => array(self::STAT, 'Issue', 'version_id', 'condition' => 'closed=0'),
-            'issueCountDone' => array(self::STAT, 'Issue', 'version_id', 'condition' => 'closed=0', 'select' => 'AVG(done_ratio)'),
-            'issueCountResolved' => array(self::STAT, 'Issue', 'version_id', 'condition' => 'status="swIssue/resolved" AND closed=1'),
-            'issueCountRejected' => array(self::STAT, 'Issue', 'version_id', 'condition' => 'status="swIssue/rejected" AND closed=1'),
+            'issueCount' => array(self::STAT, 'Issue', 'milestone_id'),
+            'issueCountClosed' => array(self::STAT, 'Issue', 'milestone_id', 'condition' => 'closed=1'),
+            'issueCountOpen' => array(self::STAT, 'Issue', 'milestone_id', 'condition' => 'closed=0'),
+            'issueCountDone' => array(self::STAT, 'Issue', 'milestone_id', 'condition' => 'closed=0', 'select' => 'AVG(done_ratio)'),
+            'issueCountResolved' => array(self::STAT, 'Issue', 'milestone_id', 'condition' => 'status="swIssue/resolved" AND closed=1'),
+            'issueCountRejected' => array(self::STAT, 'Issue', 'milestone_id', 'condition' => 'status="swIssue/rejected" AND closed=1'),
         );
     }
 

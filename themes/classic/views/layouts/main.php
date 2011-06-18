@@ -78,7 +78,7 @@
                         || (Yii::app()->controller->id === 'issue')
                         || (Yii::app()->controller->id === 'member')
                         || (Yii::app()->controller->id === 'changeset')
-                        || (Yii::app()->controller->id === 'version')
+                        || (Yii::app()->controller->id === 'milestone')
                         || (Yii::app()->controller->id === 'projectLink')
                         || (Yii::app()->controller->id === 'issueCategory')
                         || (Yii::app()->controller->id === 'repository')
@@ -104,7 +104,7 @@
                 <?php
                 if (((Yii::app()->controller->id === 'project')
                         || (Yii::app()->controller->id === 'changeset')
-                        || (Yii::app()->controller->id === 'version')
+                        || (Yii::app()->controller->id === 'milestone')
                         || (Yii::app()->controller->id === 'member')
                         || (Yii::app()->controller->id === 'projectLink')
                         || (Yii::app()->controller->id === 'repository')

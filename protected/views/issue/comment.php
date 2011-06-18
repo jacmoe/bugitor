@@ -72,10 +72,10 @@ $this->pageTitle = $model->project->name . ' - Comment on ' . $model->tracker->n
                                     <?php echo $model->issuePriority->name; ?>
                             <?php endif; ?>
                         </td>
-                        <td class="fixed-version"><b>Version:</b></td>
+                        <td class="fixed-version"><b>Milestone:</b></td>
                         <td>
-                            <?php if(isset($model->version)) : ?>
-                                    <?php echo $model->version->name; ?>
+                            <?php if(isset($model->milestone)) : ?>
+                                    <?php echo $model->milestone->name; ?>
                             <?php endif; ?>
                         </td>
                     </tr>
@@ -119,7 +119,7 @@ $this->pageTitle = $model->project->name . ' - Comment on ' . $model->tracker->n
                     <?php echo $form->hiddenField($model, 'status', array('value' => $model->status)); ?>
                     <?php echo $form->hiddenField($model, 'issue_category_id', array('value' => $model->issue_category_id)); ?>
                     <?php echo $form->hiddenField($model, 'assigned_to', array('value' => $model->assigned_to)); ?>
-                    <?php echo $form->hiddenField($model, 'version_id', array('value' => $model->version_id)); ?>
+                    <?php echo $form->hiddenField($model, 'milestone_id', array('value' => $model->milestone_id)); ?>
                     <?php echo $form->hiddenField($model, 'done_ratio', array('value' => $model->done_ratio)); ?>
                     <?php echo $form->hiddenField($model, 'user_id', array('value' => $model->user_id)); ?>
                     <?php echo $form->hiddenField($model, 'project_id', array('value' => Project::getProjectIdFromIdentifier($_GET['identifier']))); ?>

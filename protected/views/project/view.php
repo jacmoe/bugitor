@@ -53,11 +53,11 @@ $this->pageTitle = $model->name . ' - Overview - ' . Yii::app()->name;
 <?php $this->widget('ProjectBox', array('project' => $model)) ?>
 </div>
 <div class="roadmap box">
-    <?php $version_limit = 2; ?>
-    <?php $open_version_count = Version::getOpenVersionCount($model->id); ?>
-    <?php if($open_version_count < 2) $version_limit = $open_version_count; ?>
-    <h3>Roadmap <font style="font-style: italic; font-size: 0.5em;">(Showing <?php echo $version_limit; ?> <?php echo ((1 == $open_version_count) ? 'version' : 'versions') ?> out of <?php echo $open_version_count; ?> open)</font></h3>
-<?php $this->widget('Roadmap', array('versions' => $model->versions, 'identifier' => $model->identifier)) ?>
+    <?php $milestone_limit = 2; ?>
+    <?php $open_milestone_count = Milestone::getOpenMilestoneCount($model->id); ?>
+    <?php if($open_milestone_count < 2) $milestone_limit = $open_milestone_count; ?>
+    <h3>Roadmap <font style="font-style: italic; font-size: 0.5em;">(Showing <?php echo $milestone_limit; ?> <?php echo ((1 == $open_milestone_count) ? 'milestone' : 'milestones') ?> out of <?php echo $open_milestone_count; ?> open)</font></h3>
+<?php $this->widget('Roadmap', array('milestones' => $model->milestones, 'identifier' => $model->identifier)) ?>
 </div>
 <div class="members box">
 <h3>Members</h3>
