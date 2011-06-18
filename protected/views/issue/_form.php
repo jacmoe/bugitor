@@ -31,12 +31,16 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
+<?php if (!$model->isNewRecord) : ?>
+    <div class="notice">To edit subject or description you need to click the Toggle Subject/Description link to make it visible.</div>
+<?php endif; ?> <!-- if is new record //-->
 <div class="issue">
     <fieldset id="subject_description_fieldset" class="collapsible collapsed">
         <?php if (!$model->isNewRecord) : ?>
             <legend class="alt" onclick="$('#description_row').toggle();$('#subject_row').toggle();$('#subject_description_fieldset').toggleClass('collapsed')">
                 <small>Toggle Subject/Description</small>
             </legend>
+            <hr class="space"/>
         <?php endif; ?> <!-- if is new record //-->
         <div class="form">
             <?php

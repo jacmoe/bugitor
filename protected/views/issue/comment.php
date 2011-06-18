@@ -95,6 +95,8 @@ $this->pageTitle = $model->project->name . ' - Comment on ' . $model->tracker->n
                         </td>
                     </tr>
                 </tbody></table>
+                <br class="clearfix"/>
+                <hr class="space"/>
                 <hr/>
                 <b>Description:</b><br/>
                 <?php echo Yii::app()->textile->textilize($model->description); ?>
