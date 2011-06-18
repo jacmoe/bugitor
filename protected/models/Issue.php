@@ -45,7 +45,7 @@
  * @property integer $issue_category_id
  * @property integer $user_id
  * @property integer $issue_priority_id
- * @property integer $version_id
+ * @property integer $milestone_id
  * @property integer $assigned_to
  * @property integer $updated_by
  * @property string $created
@@ -63,7 +63,7 @@
  * @property IssuePriority $issuePriority
  * @property Tracker $tracker
  * @property User $user
- * @property Version $version
+ * @property Milestone $milestone
  * @property RelatedIssue[] $relatedIssues
  * @property Users[] $bugUsers
  * @property ChangesetIssue[] $changesetIssues
@@ -113,13 +113,13 @@ class Issue extends CActiveRecord {
         }
     }
     
-    public function getCurrentVersion($project_id) {
+    public function getCurrentMilestone($project_id) {
         $Criteria = new CDbCriteria();
         $Criteria->select = "name, id, effective_date, project_id";
         $Criteria->order = 'effective_date';
         $Criteria->compare('project_id', $project_id);
 
-        $results = Version::model()->findAll($Criteria);
+        $results = Milestone::model()->findAll($Criteria);
         foreach ($results as $result) {
             if(strtotime($result->effective_date) >= strtotime(date("Y-m-d")))
                 return $result;
@@ -129,7 +129,7 @@ class Issue extends CActiveRecord {
 
     public function markAsClosed($rejected = false) {
         $this->closed = 1;
-        $this->version_id = $this->getCurrentVersion($this->project_id)->id;
+        $this->milestone_id = $this->getCurrentMilestone($this->project_id)->id;
         $this->pre_done_ratio = $this->done_ratio;
         if($rejected) {
             $this->done_ratio = 0;
@@ -276,13 +276,13 @@ class Issue extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('subject, description, user_id, status, issue_priority_id, tracker_id', 'required'),
-            array('tracker_id, project_id, issue_category_id, user_id, issue_priority_id, version_id, assigned_to, updated_by, done_ratio, pre_done_ratio, closed', 'numerical', 'integerOnly' => true),
+            array('tracker_id, project_id, issue_category_id, user_id, issue_priority_id, milestone_id, assigned_to, updated_by, done_ratio, pre_done_ratio, closed', 'numerical', 'integerOnly' => true),
             array('subject', 'length', 'max' => 255),
             array('status', 'SWValidator'),
-            array('created, modified, updated_by, version_id, status', 'safe'),
+            array('created, modified, updated_by, milestone_id, status', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, tracker_id, project_id, subject, description, issue_category_id, user_id, issue_priority_id, version_id, assigned_to, created, modified, done_ratio, pre_done_ratio, status, closed', 'safe', 'on' => 'search'),
+            array('id, tracker_id, project_id, subject, description, issue_category_id, user_id, issue_priority_id, milestone_id, assigned_to, created, modified, done_ratio, pre_done_ratio, status, closed', 'safe', 'on' => 'search'),
         );
     }
 
@@ -300,7 +300,7 @@ class Issue extends CActiveRecord {
             'issuePriority' => array(self::BELONGS_TO, 'IssuePriority', 'issue_priority_id'),
             'tracker' => array(self::BELONGS_TO, 'Tracker', 'tracker_id'),
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-            'version' => array(self::BELONGS_TO, 'Version', 'version_id'),
+            'Milestone' => array(self::BELONGS_TO, 'Milestone', 'milestone_id'),
             'relatedIssues' => array(self::HAS_MANY, 'RelatedIssue', 'issue_to'),
             'watchers' => array(self::MANY_MANY, 'User', '{{watcher}}(issue_id, user_id)'),
             'comments' => array(self::HAS_MANY, 'Comment', 'issue_id'),
@@ -323,7 +323,7 @@ class Issue extends CActiveRecord {
             'issue_category_id' => 'Issue Category',
             'user_id' => 'Author',
             'issue_priority_id' => 'Issue Priority',
-            'version_id' => 'Version',
+            'milestone_id' => 'Milestone',
             'assigned_to' => 'Owner',
             'updated_by' => 'Updated by',
             'created' => 'Created',
@@ -345,7 +345,7 @@ class Issue extends CActiveRecord {
 
         $criteria = new CDbCriteria;
 
-        $criteria->with = array('user', 'project', 'tracker', 'issuePriority', 'assignedTo', 'updatedBy', 'version', 'issueCategory');
+        $criteria->with = array('user', 'project', 'tracker', 'issuePriority', 'assignedTo', 'updatedBy', 'Milestone', 'issueCategory');
         $criteria->compare('id', $this->id);
         $criteria->compare('tracker.name', $this->tracker_id);
         $criteria->compare('user.username', $this->user_id);
@@ -354,7 +354,7 @@ class Issue extends CActiveRecord {
         $criteria->compare('description', $this->description, true);
         $criteria->compare('issueCategory.name', $this->issue_category_id);
         $criteria->compare('issuePriority.name', $this->issue_priority_id);
-        $criteria->compare('version.name', $this->version_id);
+        $criteria->compare('Milestone.name', $this->milestone_id);
         $criteria->compare('assignedTo.username', $this->assigned_to);
         $criteria->compare('updatedBy.username', $this->updated_by);
         $criteria->compare('created', $this->created, true);
@@ -396,8 +396,8 @@ class Issue extends CActiveRecord {
             case 'tracker_id':
                 $returned_name = Tracker::model()->findByPk($value)->name;
                 break;
-            case 'version_id':
-                $returned_name = Version::model()->findByPk($value)->name;
+            case 'milestone_id':
+                $returned_name = Milestone::model()->findByPk($value)->name;
                 break;
             case 'issue_category_id':
                 $returned_name = IssueCategory::model()->findByPk($value)->name;
@@ -576,10 +576,10 @@ class Issue extends CActiveRecord {
                     $detail->save(false);
 
                 if(('Resolved' === $this->getNamefromRowValue($name, $value))||('Rejected' === $this->getNamefromRowValue($name, $value))) {
-                    if($this->getCurrentVersion($this->project_id)->id !== $this->version_id) {
+                    if($this->getCurrentMilestone($this->project_id)->id !== $this->milestone_id) {
                         $detail1 = new CommentDetail();
                         $detail1->comment_id = $comment_id;
-                        $detail1->change = '<b>Version</b> changed from <i>' . $this->version->name . '</i> to <i>' . $this->getCurrentVersion($this->project_id)->name.'</i>';
+                        $detail1->change = '<b>Milestone</b> changed from <i>' . $this->Milestone->name . '</i> to <i>' . $this->getCurrentMilestone($this->project_id)->name.'</i>';
                         if($detail1->validate())
                             $detail1->save(false);
                     }
@@ -658,7 +658,7 @@ class Issue extends CActiveRecord {
         $text .= "* Priority: ".(isset($issue->issuePriority) ? $issue->issuePriority->name : '')."\n";
         $text .= "* Owner: ".(isset($issue->assignedTo) ? Bugitor::format_username($issue->assignedTo) : '')."\n";
         $text .= "* Category: ".(isset($issue->issueCategory) ? $issue->issueCategory->name : '')."\n";
-        $text .= "* Version: ".(isset($issue->version) ? $issue->version->name : '')."\n";
+        $text .= "* Milestone: ".(isset($issue->Milestone) ? $issue->Milestone->name : '')."\n";
         $text .= "* Project: ".(isset($issue->project) ? $issue->project->name : '')."\n";
         $text .= "\n";
         $text .= $comment->content;

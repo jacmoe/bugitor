@@ -138,11 +138,11 @@
                     'htmlOptions'=>array('width'=>'6%','class'=>'progress'),
                 ),
                 array(
-                    'name' => 'version_id',
-                    'header' => 'Version',
+                    'name' => 'milestone_id',
+                    'header' => 'Milestone',
                     'type' => 'raw',
-                    'value' => '(($data->version)?CHtml::tag("acronym", array("title" => $data->version->title), $data->version->name):"")',
-                    'filter' => $this->getVersionFilter(),
+                    'value' => '(($data->milestone)?CHtml::tag("acronym", array("title" => $data->milestone->title), $data->milestone->name):"")',
+                    'filter' => $this->getMilestoneFilter(),
                     'htmlOptions'=>array('width'=>'10'),
                 ),
                 array(
@@ -170,16 +170,16 @@
             </legend>
             <div id="quick_admin" style="display: none;">
             <?php
-            echo CHtml::dropDownList('versionDrop',
+            echo CHtml::dropDownList('milestoneDrop',
                     0,
-                    $this->getVersionSelectList($model->project_id),
-                    array('empty' => 'No Version'));
+                    $this->getMilestoneSelectList($model->project_id),
+                    array('empty' => 'No Milestone'));
             ?>
             &nbsp;|-&gt;&nbsp;<?php
-            echo CHtml::ajaxLink("Set Version",
+            echo CHtml::ajaxLink("Set Milestone",
                     $this->createUrl('massEdit'),
                     array("type" => "post",
-                        "data" => "js:{ids:$.fn.yiiGridView.getSelection('issue-grid'),val:$('#versionDrop').val(),type:'version'}"
+                        "data" => "js:{ids:$.fn.yiiGridView.getSelection('issue-grid'),val:$('#milestoneDrop').val(),type:'milestone'}"
                     ), array("onClick" => "js:{location.reload()}")); ?>
             <br/>
 <?php

@@ -39,13 +39,13 @@
  */
 class Roadmap extends CWidget {
 
-    public $versions;
+    public $milestones;
     public $identifier;
     public $detail_view = false;
     public $show_all = false;
 
-    public function getVersions() {
-        return $this->versions;
+    public function getMilestones() {
+        return $this->milestones;
     }
 
     public function getIdentifier() {
@@ -57,11 +57,11 @@ class Roadmap extends CWidget {
     }
 
     public function getShowAllOverride() {
-        if(($this->getOwner()->getAction()->getId() === 'view') && (Yii::app()->controller->id === 'version' ) ) {
+        if(($this->getOwner()->getAction()->getId() === 'view') && (Yii::app()->controller->id === 'milestone' ) ) {
             return true;
         }
         if(($this->getOwner()->getAction()->getId() === 'roadmap') && (Yii::app()->controller->id === 'project' ) ) {
-            return Yii::app()->user->getState('show_all_versions', false);
+            return Yii::app()->user->getState('show_all_milestons', false);
         }
         return $this->show_all;
     }

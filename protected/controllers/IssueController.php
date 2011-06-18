@@ -140,9 +140,9 @@ class IssueController extends Controller {
                                 $issue->save(false);
                             }
                             break;
-                        case 'version':
+                        case 'milestone':
                             $issue = $this->loadModel($val, true);
-                            $issue->version_id = $_POST['val'];
+                            $issue->milestone_id = $_POST['val'];
                             $issue->updated_by = Yii::app()->user->id;
                             if($issue->validate()) {
                                 $comment = new Comment();
@@ -193,7 +193,7 @@ class IssueController extends Controller {
             $_GET['projectname'] = Project::getProjectNameFromIdentifier($_GET['identifier']);
         }
         $this->layout = '//layouts/column1';
-        $issue = Issue::model()->with(array('comments','tracker','user', 'issueCategory', 'issuePriority', 'version', 'assignedTo', 'updatedBy','project'))->findByPk((int) $id);//$this->loadModel($id, true);
+        $issue = Issue::model()->with(array('comments','tracker','user', 'issueCategory', 'issuePriority', 'milestone', 'assignedTo', 'updatedBy','project'))->findByPk((int) $id);//$this->loadModel($id, true);
         $attachfile = new UploadForm;
         $this->render('view', array(
             'model' => $issue,
@@ -255,9 +255,9 @@ class IssueController extends Controller {
         $_GET['projectname'] = $model->project->name;
         if (isset($_POST['Issue'])) {
             $model->project_id = $_POST['Issue']['project_id'];
-            // version and category are connected to project
+            // milestone and category are connected to project
             // they need to be set to null
-            $model->version_id = null;
+            $model->milestone_id = null;
             $model->issue_category_id = null;
             if($model->wasModified()) {
                 if($model->validate()) {
@@ -300,7 +300,7 @@ class IssueController extends Controller {
     public function actionComment($id) {
         $this->layout = '//layouts/column1';
 
-        $model = Issue::model()->with(array('comments','tracker','user', 'issueCategory', 'issuePriority', 'version', 'assignedTo', 'updatedBy', 'project'))->findByPk((int) $id);
+        $model = Issue::model()->with(array('comments','tracker','user', 'issueCategory', 'issuePriority', 'milestone', 'assignedTo', 'updatedBy', 'project'))->findByPk((int) $id);
 
         $_GET['projectname'] = $model->project->name;
 
@@ -381,7 +381,7 @@ class IssueController extends Controller {
     public function actionUpdate($id) {
         $this->layout = '//layouts/column1';
         
-        $model = Issue::model()->with(array('comments','tracker','user', 'issueCategory', 'issuePriority', 'version', 'assignedTo', 'updatedBy', 'project'))->findByPk((int) $id);
+        $model = Issue::model()->with(array('comments','tracker','user', 'issueCategory', 'issuePriority', 'milestone', 'assignedTo', 'updatedBy', 'project'))->findByPk((int) $id);
 
         $_GET['projectname'] = $model->project->name;
 
@@ -539,19 +539,19 @@ class IssueController extends Controller {
         return $user_list;
     }
     
-    public function getVersionFilter() {
+    public function getMilestoneFilter() {
         $Criteria = new CDbCriteria();
         $Criteria->select = "name,  effective_date";
         $Criteria->order = 'effective_date';
         if (isset($_GET['identifier'])) {
             $Criteria->compare('project_id', $this->getProject($_GET['identifier']), true);
         }
-        $results = Version::model()->findAll($Criteria);
-        $version_list = array();
+        $results = Milestone::model()->findAll($Criteria);
+        $milestone_list = array();
         foreach ($results as $result) {
-            $version_list[$result->name] = $result->name;
+            $milestone_list[$result->name] = $result->name;
         }
-        return $version_list;
+        return $milestone_list;
     }
 
     public function getCategoryFilter() {
@@ -612,22 +612,22 @@ class IssueController extends Controller {
         return $user_list;
     }
 
-    public function getVersionSelectList($project_id, $filter = false) {
+    public function getMilestoneSelectList($project_id, $filter = false) {
         $Criteria = new CDbCriteria();
         $Criteria->select = "name, title, id, effective_date, project_id";
         $Criteria->order = 'effective_date';
         $Criteria->compare('project_id', $project_id);
-        $version_list = array();
-        $results = Version::model()->findAll($Criteria);
+        $milestone_list = array();
+        $results = Milestone::model()->findAll($Criteria);
         foreach ($results as $result) {
             if($filter) {
                 if(strtotime($result->effective_date) >= strtotime(date("Y-m-d")))
-                    $version_list[$result->id] = $result->name . ' : ' . $result->title;
+                    $milestone_list[$result->id] = $result->name . ' : ' . $result->title;
             } else {
-                $version_list[$result->id] = $result->name . ' : ' . $result->title;
+                $milestone_list[$result->id] = $result->name . ' : ' . $result->title;
             }
         }
-        return $version_list;
+        return $milestone_list;
     }
 
     public function getCategorySelectList() {

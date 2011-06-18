@@ -50,7 +50,7 @@ Issue #<?php echo $issue->id ?> has been updated by <?php echo Bugitor::format_u
     <li>Priority: <?php echo (isset($issue->issuePriority) ? $issue->issuePriority->name : ''); ?></li>
     <li>Owner: <?php echo (isset($issue->assignedTo) ? Bugitor::format_username($issue->assignedTo) : ''); ?></li>
     <li>Category: <?php echo (isset($issue->issueCategory) ? $issue->issueCategory->name : ''); ?></li>
-    <li>Version: <?php echo (isset($issue->version) ? $issue->version->name : ''); ?></li>
+    <li>Milestone: <?php echo (isset($issue->milestone) ? $issue->milestone->name : ''); ?></li>
     <li>Project: <?php echo (isset($issue->project) ? $issue->project->name : ''); ?></li>
 </ul>
 <?php echo Yii::app()->textile->textilize($comment->content, false); ?>

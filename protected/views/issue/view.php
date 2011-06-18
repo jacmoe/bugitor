@@ -94,10 +94,10 @@ Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Time::tim
                     <?php echo $model->issuePriority->name; ?>
             <?php endif; ?>
         </td>
-        <td class="fixed-version"><b>Version:</b></td>
+        <td class="fixed-version"><b>Milestone:</b></td>
         <td>
-            <?php if(isset($model->version)) : ?>
-                    <?php echo Bugitor::link_to_version($model->version); ?>
+            <?php if(isset($model->milestone)) : ?>
+                    <?php echo Bugitor::link_to_milestone($model->milestone); ?>
             <?php endif; ?>
         </td>
     </tr>

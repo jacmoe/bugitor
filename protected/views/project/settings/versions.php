@@ -31,18 +31,18 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
-<h3>Versions</h3>
+<h3>Milestones</h3>
 <?php if (!empty($model)) : ?>
 <table class="list" width="60%">
   <thead width="60">
   <tr>
       <td colspan="4">
-      Project Versions
+      Project Milestones
       </td>
   </tr>
 
   <tr>
-    <th width="20">Version</th>
+    <th width="20">Milestone</th>
     <th width="20">Title</th>
     <th width="20">Description</th>
     <th width="20">Due Date</th>
@@ -50,17 +50,17 @@
   </tr>
   </thead>
   <tbody>
-<?php foreach($model as $n=>$version): ?>
+<?php foreach($model as $n=>$milestone): ?>
   <tr class="<?php echo $n%2?'even':'odd';?>">
-    <td width="20"><?php echo CHtml::encode($version->name); ?></td>
-    <td width="20"><?php echo CHtml::encode($version->title); ?></td>
-    <td width="20"><?php echo CHtml::encode($version->description); ?></td>
-    <td width="20"><?php echo CHtml::encode($version->effective_date); ?></td>
+    <td width="20"><?php echo CHtml::encode($milestone->name); ?></td>
+    <td width="20"><?php echo CHtml::encode($milestone->title); ?></td>
+    <td width="20"><?php echo CHtml::encode($milestone->description); ?></td>
+    <td width="20"><?php echo CHtml::encode($milestone->effective_date); ?></td>
     <td width="20">
-      <?php echo CHtml::link('Update',array('version/update','id'=>$version->id, 'identifier' => $_GET['identifier'])); ?>
+      <?php echo CHtml::link('Update',array('milestone/update','id'=>$milestone->id, 'identifier' => $_GET['identifier'])); ?>
       <?php echo CHtml::linkButton('Delete',array(
-      	  'submit'=>array('/version/delete', 'id' => $version->id, 'identifier' => $_GET['identifier']),
-      	  'confirm'=>"Are you sure you want to delete {$version->name}?")); ?>
+      	  'submit'=>array('/milestone/delete', 'id' => $milestone->id, 'identifier' => $_GET['identifier']),
+      	  'confirm'=>"Are you sure you want to delete {$milestone->name}?")); ?>
 	</td>
   </tr>
 <?php endforeach; ?>
@@ -69,4 +69,4 @@
 <?php else: ?>
 <p class="nodata"><?php echo 'No data to display'; ?></p>
 <?php endif; ?>
-<?php echo CHtml::link('New Version',array('version/create','identifier'=>$_GET['identifier'])); ?>
+<?php echo CHtml::link('New Milestone',array('milestone/create','identifier'=>$_GET['identifier'])); ?>

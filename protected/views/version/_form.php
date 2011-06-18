@@ -34,7 +34,7 @@
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'version-form',
+	'id'=>'milestone-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 

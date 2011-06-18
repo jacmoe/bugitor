@@ -50,7 +50,7 @@
  * @property Issue[] $issues
  * @property Tracker[] $bugTrackers
  * @property Repository[] $repositories
- * @property Version[] $versions
+ * @property Milestone[] $milestones
  * @property IssueCategory[] $issueCategories
  * @property ActionLog[] $activities
  */
@@ -108,8 +108,8 @@ class Project extends CActiveRecord {
             'bugTrackers' => array(self::MANY_MANY, 'Tracker', '{{project_tracker}}(project_id, tracker_id)'),
             'members' => array(self::MANY_MANY, 'Member', 'project_id'),
             'repositories' => array(self::HAS_MANY, 'Repository', 'project_id'),
-            'versions' => array(self::HAS_MANY, 'Version', 'project_id'),
-            'versionCount' => array(self::STAT, 'Version', 'project_id'),
+            'milestones' => array(self::HAS_MANY, 'Milestone', 'project_id'),
+            'milestoneCount' => array(self::STAT, 'Milestone', 'project_id'),
             'issueCategories' => array(self::HAS_MANY, 'IssueCategory', 'project_id'),
             'activities' => array(self::HAS_MANY, 'ActionLog', 'project_id'),
         );
@@ -277,11 +277,11 @@ project_id=:projectId AND user_id=:userId";
         return $user_list;
     }
 
-    public function getVersions() {
+    public function getMilestones() {
         $criteria = new CDbCriteria;
         $criteria->order = 'effective_date';
         $criteria->compare('project_id', $this->id, true);
-        return Version::model()->findAll($criteria);
+        return Milestone::model()->findAll($criteria);
     }
 
     public function getCategories() {

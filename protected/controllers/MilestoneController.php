@@ -33,7 +33,7 @@
 ?>
 <?php
 
-class VersionController extends Controller
+class MilestoneController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -70,7 +70,7 @@ class VersionController extends Controller
             $criteria->params = array('id' => $id);
             $criteria->group = 'issues.closed, issues.id';
             $criteria->order = 'issues.closed, issues.id DESC';
-            $model = Version::model()->with(array('project', 'issues'))->find($criteria);
+            $model = Milestone::model()->with(array('project', 'issues'))->find($criteria);
             $this->render('view',array(
                 'model'=>$model,
             ));
@@ -84,16 +84,16 @@ class VersionController extends Controller
 	{
                 $_GET['projectname'] = Project::getProjectNameFromIdentifier($identifier);
 
-                $model=new Version;
+                $model=new Milestone;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Version']))
+		if(isset($_POST['Milestone']))
 		{
-			$model->attributes=$_POST['Version'];
+			$model->attributes=$_POST['Milestone'];
 			if($model->save())
-				$this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'versions'));
+				$this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'milestones'));
 		}
 
 		$this->render('create',array(
@@ -115,11 +115,11 @@ class VersionController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Version']))
+		if(isset($_POST['Milestone']))
 		{
-			$model->attributes=$_POST['Version'];
+			$model->attributes=$_POST['Milestone'];
 			if($model->save())
-				$this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'versions'));
+				$this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'milestones'));
 		}
 
 		$this->render('update',array(
@@ -137,17 +137,17 @@ class VersionController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			//TODO: check if the version is in use!!
-                        $issue = Issue::model()->findByAttributes(array('version_id' => $id));
+			//TODO: check if the milestone is in use!!
+                        $issue = Issue::model()->findByAttributes(array('milestone_id' => $id));
                         if(!$issue) {
                             $this->loadModel($id)->delete();
                         } else {
-                            Yii::app()->user->setFlash('info',"Version is in use");
+                            Yii::app()->user->setFlash('info',"Milestone is in use");
                         }
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
-				$this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'versions'));
+				$this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'milestones'));
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
@@ -158,7 +158,7 @@ class VersionController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Version');
+		$dataProvider=new CActiveDataProvider('Milestone');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -169,10 +169,10 @@ class VersionController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Version('search');
+		$model=new Milestone('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Version']))
-			$model->attributes=$_GET['Version'];
+		if(isset($_GET['Milestone']))
+			$model->attributes=$_GET['Milestone'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -186,9 +186,9 @@ class VersionController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Version::model()->findByPk((int)$id);
+		$model=Milestone::model()->findByPk((int)$id);
 		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
+			throw new CHttpException(404,'The requested milestone does not exist.');
 		return $model;
 	}
 
@@ -198,7 +198,7 @@ class VersionController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='version-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='milestone-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
