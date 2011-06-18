@@ -106,7 +106,11 @@ class Issue extends CActiveRecord {
 
     public function reopen() {
         $this->closed = 0;
-        $this->done_ratio = $this->pre_done_ratio;
+        if($this->pre_done_ratio < 100) {
+            $this->done_ratio = $this->pre_done_ratio;
+        } else {
+            $this->done_ratio = $this->pre_done_ratio = 0;
+        }
     }
     
     public function getCurrentVersion($project_id) {
@@ -225,6 +229,14 @@ class Issue extends CActiveRecord {
         return false;
     }
 
+    protected function afterSave(){
+        if(($this->done_ratio === '100') && (($this->status !== 'swIssue/resolved') || ($this->status !== 'swIssue/rejected')) ) {
+            $this->status = 'swIssue/resolved';
+            $this->save();
+        }
+        return parent::afterSave();
+    }
+    
     protected function beforeValidate() {
         if(($this->assigned_to) && ($this->status === 'swIssue/new')) {
             $this->status = 'swIssue/assigned';
@@ -234,9 +246,6 @@ class Issue extends CActiveRecord {
         }
         if((!$this->assigned_to) && ($this->status === 'swIssue/assigned')) {
             $this->status = 'swIssue/unassigned';
-        }
-        if(($this->done_ratio === '100') && (($this->status !== 'swIssue/resolved') || ($this->status !== 'swIssue/rejected')) ) {
-            $this->status = 'swIssue/resolved';
         }
         return parent::beforeValidate();
     }
