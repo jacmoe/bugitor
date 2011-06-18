@@ -5,7 +5,7 @@ class m110618_223117_version_to_milestone extends CDbMigration {
     public function up() {
         $this->dropForeignKey('fk_issue_version',
             '{{issue}}');
-        $this->dropIndex('fk_issue_version',
+        $this->dropIndex('fk_issue_version_id',
             '{{issue}}');
         
         $this->renameTable('{{version}}','{{milestone}}');
