@@ -300,7 +300,7 @@ class Issue extends CActiveRecord {
             'issuePriority' => array(self::BELONGS_TO, 'IssuePriority', 'issue_priority_id'),
             'tracker' => array(self::BELONGS_TO, 'Tracker', 'tracker_id'),
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-            'Milestone' => array(self::BELONGS_TO, 'Milestone', 'milestone_id'),
+            'milestone' => array(self::BELONGS_TO, 'Milestone', 'milestone_id'),
             'relatedIssues' => array(self::HAS_MANY, 'RelatedIssue', 'issue_to'),
             'watchers' => array(self::MANY_MANY, 'User', '{{watcher}}(issue_id, user_id)'),
             'comments' => array(self::HAS_MANY, 'Comment', 'issue_id'),
@@ -345,7 +345,7 @@ class Issue extends CActiveRecord {
 
         $criteria = new CDbCriteria;
 
-        $criteria->with = array('user', 'project', 'tracker', 'issuePriority', 'assignedTo', 'updatedBy', 'Milestone', 'issueCategory');
+        $criteria->with = array('user', 'project', 'tracker', 'issuePriority', 'assignedTo', 'updatedBy', 'milestone', 'issueCategory');
         $criteria->compare('id', $this->id);
         $criteria->compare('tracker.name', $this->tracker_id);
         $criteria->compare('user.username', $this->user_id);
@@ -354,7 +354,7 @@ class Issue extends CActiveRecord {
         $criteria->compare('description', $this->description, true);
         $criteria->compare('issueCategory.name', $this->issue_category_id);
         $criteria->compare('issuePriority.name', $this->issue_priority_id);
-        $criteria->compare('Milestone.name', $this->milestone_id);
+        $criteria->compare('milestone.name', $this->milestone_id);
         $criteria->compare('assignedTo.username', $this->assigned_to);
         $criteria->compare('updatedBy.username', $this->updated_by);
         $criteria->compare('created', $this->created, true);
