@@ -48,9 +48,9 @@ class Connectiondetails extends CFormModel {
 //    public $password;
 //    public $charset = 'utf8';
     public $host = 'localhost';
-    public $dbname = 'migratetest';
-    public $username = 'webuser';
-    public $tablePrefix = 'bugitor_';
+    public $dbname = 'jacmoes';
+    public $username = 'root';
+    public $tablePrefix = 'blog_';
     public $password = 'jake2383';
     public $charset = 'utf8';
 
