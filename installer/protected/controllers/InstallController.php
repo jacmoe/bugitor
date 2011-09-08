@@ -32,6 +32,7 @@
  */
 ?>
 <?php
+Yii::import('application.extensions.EInstallMigrateCommand');
 
 class InstallController extends CController {
 
@@ -126,9 +127,10 @@ class InstallController extends CController {
     public function wizardFinished($event) {
         if ($event->step === true) {
             $this->render('completed', compact('event'));
+            touch(Yii::app()->basePath.'/../lock');
         } else {
             $this->render('finished', compact('event'));
-            //touch(dirname(__FILE__).'/../../lock');
+            touch(Yii::app()->basePath.'/../lock');
         }
         $event->sender->reset();
         Yii::app()->end();
@@ -218,6 +220,19 @@ class InstallController extends CController {
         }
     }
 
+
+    private function runMigrationTool() {
+        $commandPath = Yii::getPathOfAlias('ext');
+        $runner = new CConsoleCommandRunner();
+        $runner->addCommands($commandPath);
+        $commandPath = Yii::getFrameworkPath() . DIRECTORY_SEPARATOR . 'cli' . DIRECTORY_SEPARATOR . 'commands';
+        $runner->addCommands($commandPath);
+        $args = array('yiic', 'einstallmigrate', '--interactive=0');
+        ob_start();
+        $runner->run($args);
+        return htmlentities(ob_get_clean(), null, Yii::app()->charset);
+    }
+    
     // Test that the database connection is valid (should be moved to previous step?)
     // Apply database migrations
     public function processMigrate($event) {
@@ -230,6 +245,8 @@ class InstallController extends CController {
         if (file_exists(dirname(__FILE__) . '/../../../protected/config/db.php')) {
             $config = require(dirname(__FILE__) . '/../../../protected/config/db.php');
             $connection = new CDbConnection($config['connectionString'], $config['username'], $config['password']);
+            $db = array('db' => $config);
+            Yii::app()->setComponents($db);
             try {
                 $connection->active = true;
             } catch (Exception $e) {
@@ -238,15 +255,14 @@ class InstallController extends CController {
             if ($connection->active) {
                 $failed = false;
                 $message .= '<font color="green">Success:</font> Connection was succesful!<br/>';
-                $cmd = dirname(__FILE__) . "/../../../protected/yiic migrate --interactive=0";
-                // Run the command twice - second time around it should
-                // output that our system is up-to-date.
-                $output = stream_get_contents(popen($cmd, 'r'));
-                $output = stream_get_contents(popen($cmd, 'r'));
+                $output = $this->runMigrationTool();
                 if (preg_match("/Your system is up-to-date/i", $output)) {
+                    $message .= '<font color="green">Success:</font> System is up to date: Nothing to apply.';
+                } elseif(preg_match("/Migrated up successfully/i", $output)) {
                     $message .= '<font color="green">Success:</font> Migration successfully applied.';
                 } else {
                     // TODO: handle this.
+                    $message .= $output . '<br/>';
                     $message .= '<font color="red">Error:</font>An error occurred - here be dragons..';
                 }
             } else {
@@ -275,20 +291,20 @@ class InstallController extends CController {
             $message .= 'assets directory is not writable - <b><font color="red">error!</font></b><br/>';
             $error += 1;
         }
-        if(is_writable(dirname(__FILE__).'/../../../uploads')) {
-            $message .= 'uploads directory is <b><font color="green">writable</font></b><br/>';
-        } else
-        {
-            $message .= 'uploads directory is not writable - <b><font color="red">error!</font></b><br/>';
-            $error += 1;
-        }
-        if(is_writable(dirname(__FILE__).'/../../../repositories')) {
-            $message .= 'repositories directory is <b><font color="green">writable</font></b><br/>';
-        } else
-        {
-            $message .= 'repositories directory is not writable - <b><font color="red">error!</font></b><br/>';
-            $error += 1;
-        }
+//        if(is_writable(dirname(__FILE__).'/../../../uploads')) {
+//            $message .= 'uploads directory is <b><font color="green">writable</font></b><br/>';
+//        } else
+//        {
+//            $message .= 'uploads directory is not writable - <b><font color="red">error!</font></b><br/>';
+//            $error += 1;
+//        }
+//        if(is_writable(dirname(__FILE__).'/../../../repositories')) {
+//            $message .= 'repositories directory is <b><font color="green">writable</font></b><br/>';
+//        } else
+//        {
+//            $message .= 'repositories directory is not writable - <b><font color="red">error!</font></b><br/>';
+//            $error += 1;
+//        }
         if(is_writable(dirname(__FILE__).'/../../../protected/runtime')) {
             $message .= 'protected/runtime directory is <b><font color="green">writable</font></b><br/>';
         } else
@@ -296,13 +312,13 @@ class InstallController extends CController {
             $message .= 'protected/runtime directory is not writable - <b><font color="red">error!</font></b><br/>';
             $error += 1;
         }
-        if(is_writable(dirname(__FILE__).'/../../../protected/config')) {
-            $message .= 'protected/config directory is <b><font color="green">writable</font></b><br/>';
-        } else
-        {
-            $message .= 'protected/config directory is not writable - <b><font color="red">error!</font></b><br/>';
-            $error += 1;
-        }
+//        if(is_writable(dirname(__FILE__).'/../../../protected/config')) {
+//            $message .= 'protected/config directory is <b><font color="green">writable</font></b><br/>';
+//        } else
+//        {
+//            $message .= 'protected/config directory is not writable - <b><font color="red">error!</font></b><br/>';
+//            $error += 1;
+//        }
         $out['message'] = $message;
         $out['error'] = $error;
         return $out;
