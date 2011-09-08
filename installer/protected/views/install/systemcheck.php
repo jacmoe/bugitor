@@ -36,7 +36,7 @@ echo $event->sender->menu->run();
 echo '<div>Step '.$event->sender->currentStep.' of '.$event->sender->stepCount;
 echo '<h3>'.$event->sender->getStepLabel($event->step).'</h3>';
 echo '<div class="box">';
-echo'<font style="font-size: 1.2em;">Welcome to the installer/upgrader for Jacmoes blogging software.</font><br/><br/>';
+echo'<font style="font-size: 1.2em;">Welcome to the installer/upgrader for the Bugitor Issue Tracker.</font><br/><br/>';
 echo'This installer will either install or upgrade an existing installation.<br/>';
 echo 'The installer is non-destructive. But please: make a backup of your database, just in case.<br/>';
 echo '<br/>';
