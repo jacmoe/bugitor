@@ -256,6 +256,8 @@ class InstallController extends CController {
                 $failed = false;
                 $message .= '<font color="green">Success:</font> Connection was succesful!<br/>';
                 $output = $this->runMigrationTool();
+				if(Yii::app()->config->get('hostname') == 'not_set')
+				    Yii::app()->config->set('hostname', 'http://' . $_SERVER['HTTP_HOST'] . '/');
                 if (preg_match("/Your system is up-to-date/i", $output)) {
                     $message .= '<font color="green">Success:</font> System is up to date: Nothing to apply.';
                 } elseif(preg_match("/Migrated up successfully/i", $output)) {
@@ -291,20 +293,20 @@ class InstallController extends CController {
             $message .= 'assets directory is not writable - <b><font color="red">error!</font></b><br/>';
             $error += 1;
         }
-//        if(is_writable(dirname(__FILE__).'/../../../uploads')) {
-//            $message .= 'uploads directory is <b><font color="green">writable</font></b><br/>';
-//        } else
-//        {
-//            $message .= 'uploads directory is not writable - <b><font color="red">error!</font></b><br/>';
-//            $error += 1;
-//        }
-//        if(is_writable(dirname(__FILE__).'/../../../repositories')) {
-//            $message .= 'repositories directory is <b><font color="green">writable</font></b><br/>';
-//        } else
-//        {
-//            $message .= 'repositories directory is not writable - <b><font color="red">error!</font></b><br/>';
-//            $error += 1;
-//        }
+        if(is_writable(dirname(__FILE__).'/../../../uploads')) {
+            $message .= 'uploads directory is <b><font color="green">writable</font></b><br/>';
+        } else
+        {
+            $message .= 'uploads directory is not writable - <b><font color="red">error!</font></b><br/>';
+            $error += 1;
+        }
+        if(is_writable(dirname(__FILE__).'/../../../repositories')) {
+            $message .= 'repositories directory is <b><font color="green">writable</font></b><br/>';
+        } else
+        {
+            $message .= 'repositories directory is not writable - <b><font color="red">error!</font></b><br/>';
+            $error += 1;
+        }
         if(is_writable(dirname(__FILE__).'/../../../protected/runtime')) {
             $message .= 'protected/runtime directory is <b><font color="green">writable</font></b><br/>';
         } else
@@ -312,13 +314,13 @@ class InstallController extends CController {
             $message .= 'protected/runtime directory is not writable - <b><font color="red">error!</font></b><br/>';
             $error += 1;
         }
-//        if(is_writable(dirname(__FILE__).'/../../../protected/config')) {
-//            $message .= 'protected/config directory is <b><font color="green">writable</font></b><br/>';
-//        } else
-//        {
-//            $message .= 'protected/config directory is not writable - <b><font color="red">error!</font></b><br/>';
-//            $error += 1;
-//        }
+        if(is_writable(dirname(__FILE__).'/../../../protected/config')) {
+            $message .= 'protected/config directory is <b><font color="green">writable</font></b><br/>';
+        } else
+        {
+            $message .= 'protected/config directory is not writable - <b><font color="red">error!</font></b><br/>';
+            $error += 1;
+        }
         $out['message'] = $message;
         $out['error'] = $error;
         return $out;

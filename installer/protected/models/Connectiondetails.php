@@ -41,17 +41,11 @@
  */
 class Connectiondetails extends CFormModel {
 
-//    public $host = 'localhost';
-//    public $dbname = 'bugitor';
-//    public $username;
-//    public $tablePrefix = 'bugitor_';
-//    public $password;
-//    public $charset = 'utf8';
     public $host = 'localhost';
-    public $dbname = 'jacmoes';
-    public $username = 'root';
-    public $tablePrefix = 'blog_';
-    public $password = 'jake2383';
+    public $dbname = 'bugitor';
+    public $username;
+    public $tablePrefix = 'bugitor_';
+    public $password;
     public $charset = 'utf8';
 
     /**

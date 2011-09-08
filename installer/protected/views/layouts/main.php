@@ -1,59 +1,76 @@
-<?php
-/* /////////////////////////////////////////////////////////////////////////
-  // This file is part of
-  //      _
-  //     | | __ _  ___ _ __ ___   ___   ___  ___
-  //  _  | |/ _` |/ __| '_ ` _ \ / _ \ / _ \/ __|
-  // | |_| | (_| | (__| | | | | | (_) |  __/\__ \
-  //  \___/ \__,_|\___|_| |_| |_|\___/ \___||___/
-  //                                             personal blogging software
-  // Copyright (c) 2010-2011 by Jacob 'jacmoe' Moen
-  // License: GNU General Public License (GPL) - see root_dir/license.txt for details
-  // Credits: see root_dir/credits.txt
-  // Homepage: http://www.jacmoe.dk/page/jacmoes
-  // Repository: http://bitbucket.org/jacmoe/jacmoes
-  ///////////////////////////////////////////////////////////////////////// */
-?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="language" content="en" />
-        <!-- Framework CSS -->
-        <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" type="text/css" media="screen, projection"/>
-        <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection"/>
-        <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" type="text/css" media="print"/>
-        <!--[if lt IE 8]><link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" type="text/css" media="screen, projection"/><![endif]-->
-        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/yii_style.css" media="screen, projection" />
-        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/menu.css" media="screen, projection" />
+
+        <!-- blueprint CSS framework -->
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
+        <!--[if lt IE 8]>
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
+	<![endif]-->
+
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/wizard.css" />
+
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
-    <body id="toc-top">
-        <div class="container">
-                <div class="column span-24">
-                    <div id="title">
-                        <hr/>
-                            <?php $grav_url = "http://www.gravatar.com/avatar.php?gravatar_id=" .
-                                md5('jacmoe@mail.dk') . "&size=" . '64';
-                            echo '<img class="big_gravatar" title="'.Yii::app()->name . ' ' . Yii::app()->params['description'] . '" src="'.$grav_url.'"/>'; ?>
-                            <h1><?php echo CHtml::link(CHtml::encode(Yii::app()->name), $this->createUrl('/post/index'), array('class' => 'title')) ?> <span class="alt"><?php echo Yii::app()->params['description'] ?></span></h1>
-                        <hr/>
-                    </div>
-                </div><!-- header -->
-                <hr class="space"/>
-            <?php echo $content; ?>
-            <div class="block">
-                <div class="column span-24 last">
-                    <hr class="space"/>
+
+    <body>
+        <?php
+        /*
+         * This file is part of
+         *     ____              _ __
+         *    / __ )__  ______ _(_) /_____  _____
+         *   / __  / / / / __ `/ / __/ __ \/ ___/
+         *  / /_/ / /_/ / /_/ / / /_/ /_/ / /
+         * /_____/\__,_/\__, /_/\__/\____/_/
+         *             /____/
+         * A Yii powered issue tracker
+         * http://bitbucket.org/jacmoe/bugitor/
+         *
+         * Copyright (C) 2009 - 2011 Bugitor Team
+         *
+         * Permission is hereby granted, free of charge, to any person
+         * obtaining a copy of this software and associated documentation files
+         * (the "Software"), to deal in the Software without restriction,
+         * including without limitation the rights to use, copy, modify, merge,
+         * publish, distribute, sublicense, and/or sell copies of the Software,
+         * and to permit persons to whom the Software is furnished to do so,
+         * subject to the following conditions:
+         * The above copyright notice and this permission notice shall be included
+         * in all copies or substantial portions of the Software.
+         *
+         * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+         * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+         * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+         * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+         * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+         * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
+         * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+         */
+        ?>
+        <div class="container" id="page">
+            <div id="header">
+                <br/>
+                <br/>
+            </div><!-- header -->
+            <div><?php echo CHtml::image(Yii::app()->request->baseUrl . '/images/bugitor_64.png',
+                    'Bugitor - The Yii-powered issue tracker', array(
+                        'title' => 'Bugitor - The Yii-powered issue tracker')) ?><font style="font-size: 2em; position: relative; bottom: 20px;" class="quiet">Bugitor Installer/Upgrader</font></div>
+            <hr/>
+            <div id="content">
+                <?php echo $content; ?>
+            </div><!-- content -->
+            <br/>
+            <div class="span-24 alt"><div align="center" class="quiet">
                     <hr/>
-                    <div style="text-align:center;">
-                        <a href="http://www.jacmoe.dk/page/jacmoes"><img title="Powered by jacmoes" alt="Powered by jacmoes" src="<?php echo Yii::app()->request->baseUrl ?>/images/jacmoes.png"/></a><br/>
-                        <div style="font-size: 75%;font-style: italic;">Copyright &copy; 2010-2011 by Jacob 'jacmoe' Moen<br/>All Rights Reserved.<br/></div>
-                        <a href="http://www.yiiframework.com"><img title="Powered by Yii Framework" alt="Powered by Yii Framework" src="<?php echo Yii::app()->request->baseUrl ?>/images/yii-powered.png"/></a>
-                    </div>
+                    Powered by <a class="noicon" title="Bugitor - The Yii-powered issue tracker" href="http://bitbucket.org/jacmoe/bugitor">Bugitor</a> &copy; 2010 - 2011 by Bugitor Team.<br/>
+                    <a class="noicon" href="http://www.yiiframework.com/" rel="external"><img src="<?php echo Yii::app()->request->baseUrl ?>/images/yii_power_lightblue_white.gif" alt="Made with Yii Framework" title="Made with Yii Framework"/></a>
+                    <hr/>
                 </div>
-            </div>
-        </div>
+            </div><!-- page -->
     </body>
 </html>

@@ -138,7 +138,7 @@ return array(
         'config' => array(
             'class' => 'application.extensions.EConfig',
             'configTableName' => '{{config}}',
-            'autoCreateConfigTable' => true,
+            'autoCreateConfigTable' => false,
             'strictMode' => false,
         ),
         

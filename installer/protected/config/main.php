@@ -62,6 +62,12 @@ return array(
         'errorHandler' => array(
             'errorAction' => 'install/error',
         ),
+        'config' => array(
+            'class' => 'application.extensions.EConfig',
+            'configTableName' => '{{config}}',
+            'autoCreateConfigTable' => false,
+            'strictMode' => false,
+        ),
         'log' => array(
             'class' => 'CLogRouter',
             'routes' => array(
