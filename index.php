@@ -41,6 +41,7 @@ $yii=dirname(__FILE__).'/../yii/framework/yii.php';
 switch ( strtolower($hostname))
 {
 case 'localhost':
+case 'jacmoe':
 case '127.0.0.1':
     $config=dirname(__FILE__).'/protected/config/local.php';
     // remove the following lines when in production mode
