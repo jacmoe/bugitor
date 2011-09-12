@@ -19,3 +19,4 @@ syntax: glob
 uploads/*
 protected/config/mail.php
 protected/config/email_connect.php
+installer/lock
