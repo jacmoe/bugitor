@@ -17,6 +17,5 @@ glob:.settings/org.eclipse.php.core.prefs
 glob:protected/config/db.php
 syntax: glob
 uploads/*
-protected/config/mail.php
 protected/config/email_connect.php
 installer/lock
