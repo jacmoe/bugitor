@@ -54,14 +54,6 @@ return array(
         'application.extensions.simpleWorkflow.*',
         'ext.yii-mail.YiiMailMessage',
     ),
-    'commandMap'=>array(
-        'migrate'=>array(
-            'class'=>'system.cli.commands.MigrateCommand',
-            'migrationPath'=>'application.migrations',
-            'migrationTable'=>'{{migration}}',
-            'connectionID'=>'db',
-        ),
-    ),
     
     'modules' => array(
         // uncomment the following to enable the Gii tool
