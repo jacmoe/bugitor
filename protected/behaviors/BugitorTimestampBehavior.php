@@ -146,6 +146,6 @@ class BugitorTimestampBehavior extends CActiveRecordBehavior {
 	*/
 	protected function getTimestampByColumnType($columnType) {
 		//return isset(self::$map[$columnType]) ? new CDbExpression(self::$map[$columnType]) : time();
-                return date("Y-m-d\TH:i:s\Z", time());//
+                return date("Y-m-d H:i:s", time());//
 	}
 }
