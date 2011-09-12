@@ -72,7 +72,7 @@ class IssueController extends Controller {
                 $attachment->issue_id = $parent_id;
                 $attachment->name = $model->name;
                 $attachment->size = $model->size;
-                $attachment->created = date("Y-m-d\TH:i:s\Z", time());
+                $attachment->created = date("Y-m-d H:i:s", time());
                 $attachment->user_id = Yii::app()->user->id;
                 if($attachment->validate())
                 {

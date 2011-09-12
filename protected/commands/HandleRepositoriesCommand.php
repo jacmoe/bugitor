@@ -425,15 +425,15 @@ class HandleRepositoriesCommand extends CConsoleCommand {
             $comment->create_user_id = $changeset->user_id;
             $comment->update_user_id = $changeset->user_id;
             if ($comment->validate(array('content', 'issue_id', 'create_user_id', 'update_user_id'))) {
-                $comment->created = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds));
-                $comment->modified = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds));
+                $comment->created = date("Y-m-d H:i:s", ($commit_date_in_seconds));
+                $comment->modified = date("Y-m-d H:i:s", ($commit_date_in_seconds));
                 $comment->save(false);
 
                 $issue_ref->detachBehavior('BugitorTimestampBehavior');
 
                 if ($issue_ref->validate(array('updated_by', 'closed'))) {
                     if (Time::makeUnix($issue_ref->modified) < Time::makeUnix($changeset->commit_date)) {
-                        $issue_ref->modified = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds));
+                        $issue_ref->modified = date("Y-m-d H:i:s", ($commit_date_in_seconds));
                         $issue_ref->updated_by = $changeset->user_id;
                     }
 
@@ -486,8 +486,8 @@ class HandleRepositoriesCommand extends CConsoleCommand {
             $comment->update_user_id = $changeset->user_id;
 
             if ($comment->validate(array('content', 'issue_id', 'create_user_id', 'update_user_id'))) {
-                $comment->created = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds));
-                $comment->modified = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds));
+                $comment->created = date("Y-m-d H:i:s", ($commit_date_in_seconds));
+                $comment->modified = date("Y-m-d H:i:s", ($commit_date_in_seconds));
                 $comment->save(false);
 
                 if ($issue_close->closed != 1) {
@@ -498,7 +498,7 @@ class HandleRepositoriesCommand extends CConsoleCommand {
 
                 if ($issue_close->validate(array('updated_by', 'closed'))) {
                     if (Time::makeUnix($issue_close->modified) < Time::makeUnix($changeset->commit_date)) {
-                        $issue_close->modified = date("Y-m-d\TH:i:s\Z", ($commit_date_in_seconds));
+                        $issue_close->modified = date("Y-m-d H:i:s", ($commit_date_in_seconds));
                         $issue_close->updated_by = $changeset->user_id;
                     }
 

@@ -198,7 +198,7 @@ class FetchEmailCommand extends CConsoleCommand {
                             $new_comment->create_user_id = $user->id;
                             $new_comment->update_user_id = $user->id;
                             $new_comment->issue_id = (int) $pass_this['issue'];
-                            $new_comment->created = $new_comment->modified = date("Y-m-d\TH:i:s\Z", time());
+                            $new_comment->created = $new_comment->modified = date("Y-m-d H:i:s", time());
                             if ($new_comment->validate()) {
                                 $new_comment->save(false);
                             }
