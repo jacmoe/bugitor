@@ -104,7 +104,7 @@ class SWActiveRecordBehavior extends CBehavior {
 	 * @return bool TRUE if workflow events are fired, FALSE if not.
 	 */
 	protected function canFireEvent($owner,$className){
-		return is_a($owner, $className);
+		return ($owner instanceof $className);
 	}	
 	/**
 	 * If the owner component is inserted into a workflow, this method returns the SWNode object
@@ -156,7 +156,7 @@ class SWActiveRecordBehavior extends CBehavior {
 	 * @param SWnode $SWNode internal status is set to this node
 	 */
 	private function _updateStatus($SWNode){
-		if(!is_a($SWNode,'SWNode'))
+		if(!($SWNode instanceof SWNode))
 			throw new SWException(Yii::t(self::SW_I8N_CATEGORY,'SWNode object expected'),SWException::SW_ERR_WRONG_TYPE);
 		Yii::trace('_updateStatus : '.$SWNode->toString(),self::SW_LOG_CATEGORY);
 		$this->_status=$SWNode;
@@ -217,7 +217,7 @@ class SWActiveRecordBehavior extends CBehavior {
 	 */
 	protected function initialize(){
 		Yii::trace(__CLASS__.'.'.__FUNCTION__,self::SW_LOG_CATEGORY);
-		if(is_a($this->getOwner(), 'CActiveRecord')){
+		if(($this->getOwner() instanceof CActiveRecord)){
 			
 			$statusAttributeCol = $this->getOwner()->getTableSchema()->getColumn($this->statusAttribute);
 			if(!isset($statusAttributeCol) || $statusAttributeCol->type != 'string' )
@@ -439,7 +439,7 @@ class SWActiveRecordBehavior extends CBehavior {
 	 */
 	private function _runTransition($sourceSt,$destSt,$event=null){
 		Yii::trace(__CLASS__.'.'.__FUNCTION__,self::SW_LOG_CATEGORY);
-		if(!is_null($sourceSt) and is_a($sourceSt,'SWNode')){
+		if(!is_null($sourceSt) and ($sourceSt instanceof SWNode)){
 			$tr=$sourceSt->getTransition($destSt);
 			Yii::trace('transition process = '.$tr,self::SW_LOG_CATEGORY);
 			if(!is_null($tr)){
@@ -506,24 +506,34 @@ class SWActiveRecordBehavior extends CBehavior {
 	 * Validate the status attribute stored in the owner model. This attribute is valid if : <br/>
 	 * <ul>
 	 * 	<li>it is not empty</li>
-	 * 	<li>it contains a valide status name</li>
+	 * 	<li>it contains a valid status name</li>
 	 * 	<li>this status can be reached from the current status</li>
 	 * 	<li>or it is equal to the current status (no status change)</li>
 	 * </ul>
-	 *  
+	 * @param string $attribute status attribute name (by default 'status')
+	 * @param mixed $value current value of the status attribute provided as a string or a SWNode object
+	 * @return boolean TRUE if the status attribute contains a valid value, FALSE otherwise
 	 */
 	public function swValidate($attribute, $value){
         Yii::trace(__CLASS__.'.'.__FUNCTION__,self::SW_LOG_CATEGORY);
+        $bResult=false;
         try{	        			
-        	$swNode=$this->swCreateNode($value);	        
+        	if(($value instanceof SWNode)){
+        		$swNode=$value;
+        	}else {
+        		$swNode=$this->swCreateNode($value);
+        	}  
 			if($this->swIsNextStatus($value)==false and $swNode->equals($this->swGetStatus()) == false){
 				$this->getOwner()->addError($attribute,Yii::t(self::SW_I8N_CATEGORY,'not a valid next status'));
+			}else {
+				$bResult=true;
 			}          	
         }catch(SWException $e){
         	$this->getOwner()->addError($attribute,Yii::t(self::SW_I8N_CATEGORY,'value {node} is not a valid status',array(
         		'{node}'=>$value)
         	));
         }		
+        return $bResult;
 	}		
 	/**
 	 * 
@@ -606,7 +616,7 @@ class SWActiveRecordBehavior extends CBehavior {
 		// this behavior could be attached to a CComponent based class other
 		// than CActiveRecord.
 		
-		if(is_a($this->getOwner(), 'CActiveRecord')){
+		if(($this->getOwner() instanceof CActiveRecord)){
 			$ev=array(
 				'onBeforeSave'=> 'beforeSave',
 				'onAfterSave' => 'afterSave',

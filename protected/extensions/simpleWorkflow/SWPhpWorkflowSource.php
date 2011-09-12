@@ -93,8 +93,10 @@ class SWPhpWorkflowSource extends SWWorkflowSource {
 		// checks that initialnode is set
 		 
 		if(!isset($wfDefinition['swInitialNode']))
-			throw new SWException(Yii::t('simpleWorkflow','initial node not found'),
-				SWException::SW_ERR_IN_WORKFLOW);
+			throw new SWException(Yii::t('simpleWorkflow','missing initial status for workflow {workflow}',
+				array('{workflow}'=>$wfId)),
+				SWException::SW_ERR_IN_WORKFLOW
+			);
 		
 		return $wfDefinition;
 	}

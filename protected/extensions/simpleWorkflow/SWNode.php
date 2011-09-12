@@ -47,7 +47,7 @@ class SWNode {
 	 */
 	public function __construct($node, $defaultWorkflowId=null, $key=null){
 		$st=array();
-		if(is_a($node,'SWNode')){
+		if($node instanceof SWNode){
 			// copy constructor
 			$st['workflow']=$node->getWorkflowId();
 			$st['node']=$node->getId();
@@ -187,7 +187,7 @@ class SWNode {
 	public function getNext(){return $this->_tr;}
 	public function getConstraint(){return $this->_constraint;}
 	public function getTransition($swNodeEnd){
-		if( !is_a($swNodeEnd,'SWnode'))
+		if( !($swNodeEnd instanceof SWnode))
 			throw new SWException(Yii::t('simpleWorkflow','SWNode object expected'));
 		if( $this->_tr == null or 
 			count($this->_tr)==0 or
@@ -202,7 +202,7 @@ class SWNode {
 	 * 
 	 */
 	public function equals($status){
-		if( is_a($status,'SWnode') and 
+		if( ($status instanceof SWnode) and 
 			$status->getWorkflowId() == $this->getWorkflowId() and
 			$status->getId() == $this->getId())
 		{
