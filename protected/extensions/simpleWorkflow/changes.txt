@@ -1,3 +1,9 @@
+==== 0.0.0.6 : RC2
+	- fix : replace 'split' with 'explode' (got 2 doodle)
+	- enh : SWActiveRecordBehavior->swValidate now returns boolean 
+	- enh : Workflow Driven Model Validation. It is now possible to define validators which are only
+	executed upon specific transitions (this is done by defining specific scenario names).
+	 
 ==== 0.0.0.5 : RC1
 	- demo
 	
