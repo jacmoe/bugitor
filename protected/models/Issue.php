@@ -585,7 +585,11 @@ class Issue extends CActiveRecord {
                         if($cm->id !== $this->milestone_id) {
                             $detail1 = new CommentDetail();
                             $detail1->comment_id = $comment_id;
-                            $detail1->change = '<b>Milestone</b> changed from <i>' .  $this->Milestone->name . '</i> to <i>' . $this->getCurrentMilestone($this->project_id)->name.'</i>';
+                            if($this->milestone == null) {
+                                $detail1->change = '<b>Milestone</b> set to <i>' . $cm->name.'</i>';
+                            } else {
+                                $detail1->change = '<b>Milestone</b> changed from <i>' .  $this->milestone->name . '</i> to <i>' . $cm->name.'</i>';
+                            }
                             if($detail1->validate())
                                 $detail1->save(false);
                         }
