@@ -46,3 +46,26 @@ Repository: https://bitbucket.org/jacmoe/bugitor
 		password:	admin
 5. Please not forget to change your login/password
 6. Welcome to bugitor!
+
+# Mercurial repository support
+1. Bugitor currently requires that the 'hg' executable is present on the server on which it runs.
+2. The user which runs php-cli should be the same user who runs the apache php process, otherwise you need to
+   edit the hgrc for the server Mercurial installation and add the Apache user to the list of trusted users.
+3. Bugitor creates a local clone of each repository in the 'repositories' directory.
+4. After the repository has been created, you need to go to /authorUser/admin and edit the mappings between
+   Bugitor users and Mercurial authors. After that you need to set the status field of the repository table to '2'
+   (Will remove this part when it's been integrated into the user interface)
+5. The 'handlerepositories' console command will examine the repository and import the changesets.
+   Look in bugitor/protected/commands for a sample cron entry if you want to schedule the command.
+6. The script fetches 50 entries each run, so you might want to run the 'handlerepositories' command manually
+   if you are importing a larger, existing repository.
+7. Later, support for the Bitbucket API will be implemented which will eliminate the need to keep a local
+   repository clone.
+8. Support for SVN and Git is planned (including Github API).
+
+# Issue reply by Email
+1. A sample postfix file is available in bugitor/protected/commands - which will pipe incoming emails to the 'FetchEmailCommand'
+   script. It is designed to parse emails where the subject is of the form: "Re: [project_name - issue_type #issue_number] issue_subject"
+   The email address of the sender identifies the user.
+2. To make this work on a host, for example Dreamhost, you need to forward email to a shell account and place to postfix
+   script at the root of the home directory (rename it .forward.postfix)
