@@ -32,16 +32,37 @@
  */
 ?>
 <?php
+$message = '';
+
+if (!file_exists(dirname(__FILE__) . '/protected/config/db.php')) {
+    $message .= '<h1>Error</h1>';
+    $message .= '<h3>Database connection does not seem to have been configured</h3>';
+    $message .= '<p><tt>Please run the <a href="/installer">Bugitor Installer</a> to configure database instance</tt></p>';
+    die($message);
+}
 
 $hostname = $_SERVER['SERVER_NAME'];
 
 // change the following paths if necessary
 $yii=dirname(__FILE__).'/../yii/framework/yii.php';
+if (!file_exists($yii)) {
+    $message .= '<h1>Error</h1>';
+    $message .= '<h3>Yii Framework cannot be found</h3>';
+    $message .= "<p><tt><i>\"{$yii}\"</i> is not a valid path.</tt></p>";
+    $message .= "<p><tt>Please review - and edit - the following files:</tt></p>";
+    $message .= "<ul>";
+    $message .= "<li>BUGITOR/index.php</li>";
+    $message .= "<li>BUGITOR/protected/yiic.php</li>";
+    $message .= "<li>BUGITOR/installer/index.php</li>";
+    $message .= "<li>BUGITOR/installer/protected/yiic.php</li>";
+    $message .= "</ul>";
+    die($message);
+}
 
 switch ( strtolower($hostname))
 {
 case 'localhost':
-case 'jacmoe':
+case 'bugitor.localhost':
 case '127.0.0.1':
     $config=dirname(__FILE__).'/protected/config/local.php';
     // remove the following lines when in production mode
