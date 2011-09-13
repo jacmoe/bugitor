@@ -129,7 +129,10 @@ class Issue extends CActiveRecord {
 
     public function markAsClosed($rejected = false) {
         $this->closed = 1;
-        $this->milestone_id = $this->getCurrentMilestone($this->project_id)->id;
+        $cm = $this->getCurrentMilestone($this->project_id);
+        if($cm !== null) {
+            $this->milestone_id = $this->getCurrentMilestone($this->project_id)->id;
+        }
         $this->pre_done_ratio = $this->done_ratio;
         if($rejected) {
             $this->done_ratio = 0;
@@ -576,12 +579,16 @@ class Issue extends CActiveRecord {
                     $detail->save(false);
 
                 if(('Resolved' === $this->getNamefromRowValue($name, $value))||('Rejected' === $this->getNamefromRowValue($name, $value))) {
-                    if($this->getCurrentMilestone($this->project_id)->id !== $this->milestone_id) {
-                        $detail1 = new CommentDetail();
-                        $detail1->comment_id = $comment_id;
-                        $detail1->change = '<b>Milestone</b> changed from <i>' . $this->Milestone->name . '</i> to <i>' . $this->getCurrentMilestone($this->project_id)->name.'</i>';
-                        if($detail1->validate())
-                            $detail1->save(false);
+                    $cm = $this->getCurrentMilestone($this->project_id);
+                    if($cm !== null)
+                    {
+                        if($cm->id !== $this->milestone_id) {
+                            $detail1 = new CommentDetail();
+                            $detail1->comment_id = $comment_id;
+                            $detail1->change = '<b>Milestone</b> changed from <i>' .  $this->Milestone->name . '</i> to <i>' . $this->getCurrentMilestone($this->project_id)->name.'</i>';
+                            if($detail1->validate())
+                                $detail1->save(false);
+                        }
                     }
                 }
             }
