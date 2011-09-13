@@ -163,7 +163,6 @@ endforeach;
 						Powered by <a class="noicon" title="Bugitor - The Yii-powered issue tracker" href="http://bitbucket.org/jacmoe/bugitor">Bugitor</a> &copy; 2010 - 2011 by Bugitor Team.<br/>
                     <a class="noicon" href="http://www.yiiframework.com/" rel="external"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/yii_power_lightblue_white.gif" alt="Made with Yii Framework" title="Made with Yii Framework"/></a>
                     <hr/>
-                    <a href="http://sourceforge.net/projects/bugitor"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=542384&amp;type=10" width="80" height="15" alt="Get Bugitor at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a>
                 </div>
             </div>
 		</div>
