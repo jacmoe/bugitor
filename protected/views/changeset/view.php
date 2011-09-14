@@ -79,7 +79,7 @@
         <dd style="position: relative; left: 18px;"><?php echo Bugitor::link_to_user_author($model->user, $model->author); ?></dd>
         <dd><?php echo Bugitor::gravatar($model->user); ?></dd>
         <dt>When</dt>
-        <dd style="position: relative; left: -35px;"><?php echo Time::timeAgoInWords($model->commit_date); ?></dd>
+        <dd style="position: relative; left: -35px;"><?php echo Bugitor::timeAgoInWords($model->commit_date); ?></dd>
     </dl>
 </div>
 </div>

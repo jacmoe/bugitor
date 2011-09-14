@@ -37,7 +37,7 @@
         <li class="icon icon-attachment"><?php echo CHtml::link($attachment->name, Yii::app()->baseUrl . '/uploads/'.$parent_id.'/'.$attachment->name); ?>
             <small><i>(<?php echo Bugitor::getReadableFileSize($attachment->size); ?>)</i></small>
             - Added by <?php echo Bugitor::link_to_user($attachment->user) ?>
-            <?php echo Time::timeAgoInWords($attachment->created); ?></li>
+            <?php echo Bugitor::timeAgoInWords($attachment->created); ?></li>
     <?php endforeach; ?>
 </ul>
 <?php endif; ?>

@@ -43,7 +43,7 @@
                     <?php echo CHtml::tag('a', array('name' => 'note-' . $comment_count), '.'); ?>
                 </div>
                 Updated by <?php echo Bugitor::link_to_user($comment->author); ?>
-                <?php echo Time::timeAgoInWords($comment->created); ?></h4>
+                <?php echo Bugitor::timeAgoInWords($comment->created); ?></h4>
             <dl><dt>
                 <?php echo Bugitor::gravatar($comment->author); ?>
                 </dt><dd style="margin-left: 75px;">

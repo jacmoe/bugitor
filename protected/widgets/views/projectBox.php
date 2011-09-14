@@ -37,4 +37,4 @@
 <?php if($project->homepage != ''): ?>
 Homepage: <?php echo CHtml::link($project->homepage, $project->homepage); ?>
 <?php endif; ?>
-<div class="alt" style="font-size:smaller;">Created : <?php echo Time::timeAgoInWords($project->created); ?></div>
+<div class="alt" style="font-size:smaller;">Created : <?php echo Bugitor::timeAgoInWords($project->created); ?></div>
