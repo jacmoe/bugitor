@@ -55,24 +55,38 @@ return CMap::mergeArray(
                         'levels' => 'error, warning, trace',
                     ),
                     array(
-                        'class'=>'CProfileLogRoute',
-                        'levels'=>'profile',
-                        'enabled'=>true,
+                        'class'=>'CWebLogRoute',
+                        'categories'=>'system.db.CDbCommand',
+                        'showInFireBug'=>true,
                     ),
+//                    array(
+//                        'class'=>'CProfileLogRoute',
+//                        'levels'=>'profile',
+//                        'enabled'=>true,
+//                    ),
                     array(
                         'class' => 'CFileLogRoute',
                         'levels' => 'info, error, warning, trace',
                         'categories' => 'bugitor',
                         'logFile' => 'bugitor.log',
                     ),
-                    array(// configuration for the toolbar
-                        'class' => 'XWebDebugRouter',
-                        'config' => 'alignRight, opaque, runInDebug, fixedPos, collapsed, yamlStyle',
-                        'levels' => 'error, warning, trace, profile, info',
-                        'allowedIPs' => array('127.0.0.1'),
+                    array(
+                        'class'=>'ext.dbprofiler.DbProfileLogRoute',
+                        'countLimit' => 1, // How many times the same query should be executed to be considered inefficient
+                        'slowQueryMin' => 0.01, // Minimum time for the query to be slow
                     ),
+//                    array(// configuration for the toolbar
+//                        'class' => 'XWebDebugRouter',
+//                        'config' => 'alignRight, opaque, runInDebug, fixedPos, collapsed, yamlStyle',
+//                        'levels' => 'error, warning, trace, profile, info',
+//                        'allowedIPs' => array('127.0.0.1'),
+//                    ),
                 ),
             ),
+            'db'=>array(
+                'enableProfiling'=>true,
+                'enableParamLogging'=>true,
+            ),              
         ),
     )
 );
