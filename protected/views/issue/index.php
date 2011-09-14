@@ -62,13 +62,15 @@
         'selectableRows'=>2,
         'pager' => array('class' => 'CustomLinkPager'),
         'columns'=>array(
-                /*array(
+                array(
+                    'id'=>'selectedItems',
+                    'header' => 'X',
                     'class'=>'CCheckBoxColumn',
                     'id'=>'selectedItems'
-                ),*/
+                ),
                 array(
                     'name' => 'id',
-                    'id'=>'selectedItems',
+                    //'id'=>'selectedItems',
                     'header' => 'Id',
                     'type' => 'raw',
                     'filter' => '',
