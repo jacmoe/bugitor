@@ -66,7 +66,7 @@ $this->pageTitle = $model->name . ' - Code - ' . Yii::app()->name;
               <thead>
                 <tr>
                   <th class="box">Author</th>
-                  <th class="box">Age</th>
+                  <th class="box">When</th>
                   <th class="box">Message</th>
                   <th class="box">Added</th>
                   <th class="box">Modified</th>
@@ -80,7 +80,7 @@ $this->pageTitle = $model->name . ' - Code - ' . Yii::app()->name;
                     <?php echo Bugitor::gravatar($changeset->user, 16) . Bugitor::link_to_user_author($changeset->user, $changeset->author) ?>
                   </td>
                   <td>
-                    <?php echo Time::ago($changeset->commit_date) ?>
+                    <?php echo Bugitor::timeAgoInWords($changeset->commit_date) ?>
                   </td>
                   <td>
                         <?php echo CHtml::link(Bugitor::format_activity_description($changeset->message), $this->createUrl('changeset/view', array('id' => $changeset->id, 'identifier' => $_GET['identifier']))) ?>
