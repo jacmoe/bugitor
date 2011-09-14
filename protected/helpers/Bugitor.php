@@ -33,6 +33,14 @@
 ?>
 <?php
 class Bugitor {
+    
+    public static function timeAgoInWords($dateTime, $title_extra = '') {
+        $dateTime_date = date("Y-m-d\TH:i:s\Z", strtotime($dateTime));
+        $title = $dateTime_date;// . ' ' . $title_extra;
+        return "<acronym class='localtime' title='{$title}'>{$dateTime_date}</acronym>";
+}
+    
+    
     public static function link_to_user($user) {
         if(true) {
             return CHtml::link(ucfirst($user->username),array('/user/user/view', "id" => $user->id));

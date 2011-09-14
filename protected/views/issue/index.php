@@ -110,7 +110,7 @@
                     'header' => 'Last Modified',
                     'type' => 'raw',
                     'filter' => '',
-                    'value' => '(($data->modified)?Time::timeAgoInWords($data->modified, ((isset($data->updatedBy)) ? " by ".ucfirst($data->updatedBy->username) : " by ".ucfirst($data->user->username))):"")',
+                    'value' => '(($data->modified)?((isset($data->updatedBy)) ? Bugitor::gravatar($data->updatedBy,16) : Bugitor::gravatar($data->user,16)). " " . Bugitor::timeAgoInWords($data->modified):"")',
                     'htmlOptions'=>array('width'=>'15%'),
                 ),
                 array(

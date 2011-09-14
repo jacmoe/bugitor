@@ -48,7 +48,7 @@
     <dl>
         <dt class="<?php echo $activity->type; ?>">
             <?php echo Bugitor::gravatar($activity->author, 16); ?>
-            <span class="time"><?php echo Time::timeAgoInWords($activity->theDate); ?></span>
+            <span class="time"><?php echo Bugitor::timeAgoInWords($activity->theDate); ?></span>
             <?php echo CHtml::link($activity->subject, $activity->url) ?>
         </dt>
         <dd><span class="description"><?php echo Yii::app()->textile->textilize(Bugitor::format_activity_description(CHtml::encode($activity->description))); ?></span></dd>

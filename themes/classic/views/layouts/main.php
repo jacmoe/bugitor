@@ -137,6 +137,7 @@
             </div>
         </div>
         <div class="container" id="page">
+            <?php $this->widget('ext.ELocaltime.ELocaltime', array('localtime' => 'MMM dd, yyyy HH:mm zzz')); ?>
             <?php
             Yii::app()->clientScript->registerScript(
                     'myHideEffect', '$(".info").animate({opacity: 1.0}, 4000).fadeOut("slow");', CClientScript::POS_READY

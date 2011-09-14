@@ -69,8 +69,8 @@ $this->pageTitle = $model->project->name . ' - ' . $model->tracker->name . ' #' 
 <div class="issue">
 <?php echo Bugitor::gravatar($model->user); ?>
 <h3><?php echo $model->subject; ?></h3>
-Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Time::timeAgoInWords($model->created); ?>.
-<?php if(isset($model->updatedBy)) echo '  Updated by '.Bugitor::link_to_user($model->updatedBy) .' '. Time::timeAgoInWords($model->modified); ?>
+Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Bugitor::timeAgoInWords($model->created); ?>.
+<?php if(isset($model->updatedBy)) echo '  Updated by '.Bugitor::link_to_user($model->updatedBy) .' '. Bugitor::timeAgoInWords($model->modified); ?>
 <hr/>
 <table width="95%">
     <tbody><tr>
