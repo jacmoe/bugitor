@@ -138,7 +138,7 @@ public function fixcodeblocks($string) {
 				
 			} else {
 				// Change special HTML characters
-				$newchar = htmlspecialchars($char, ENT_QUOTES);
+				$newchar = htmlspecialchars($char, ENT_NOQUOTES);
 				
 				// Add character code to array
 				array_push($newstring, $newchar);
@@ -185,7 +185,7 @@ public function atendtag($string, $pos) {
 	
 	// Only check if the next 7 characters are the end code tag
 	// if we are more than 6 characters from the end
-	if ($pos + 7 <= $slen) {
+	if ($pos /*+ 7*/ <= $slen) {
 		// Get next 7 characters
 		$next = mb_substr($string, $pos, 7);
 		
@@ -200,7 +200,7 @@ public function atendtag($string, $pos) {
 	}
 }
         public function textilize($content, $parseSmilies = true, $use_textile = true) {
-        $text = $this->fixcodeblocks($content);
+        $text = $content;//$this->fixcodeblocks($content);
         if(!$use_textile) {
             $text_lines = explode("\n", $text);
             $text = implode('<br/>', $text_lines);

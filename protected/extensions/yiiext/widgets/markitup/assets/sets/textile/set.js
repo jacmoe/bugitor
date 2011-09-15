@@ -34,7 +34,7 @@ mySettings = {
 		{separator:'---------------' },
 		{name:'Quotes', openWith:'bq(!(([![Class]!]))!). '},
 		{name:'Mono', openWith:'@', closeWith:'@'},
-		{name:'Code', openWith:'<pre><code>', closeWith:'</code></pre>'},
+		{name:'Code', openWith:'<pre class="c++">', closeWith:'</pre>'},
 		{separator:'---------------' },
 		{name:'Preview', call:'preview', className:'preview'},
 		{name: 'Smilies1', className: "smilies1",

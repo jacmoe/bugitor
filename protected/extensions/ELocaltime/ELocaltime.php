@@ -53,6 +53,7 @@ class ELocaltime extends CWidget {
 
 		}
 	}
+        $('pre').each(function(i, e) {hljs.highlightBlock(e, '    ')});
 EOD;
         
         $cs->registerScript(__CLASS__, $script, CClientScript::POS_READY);
