@@ -1302,3 +1302,16 @@ ol, ul {
 	font-size: 10pt;
 	width: 100%;
 }
+
+.journal ul {
+	position: relative;
+	font-size: 10pt;
+	width: 30%;
+	margin: 0 0 20px 20px;
+	padding: 2px 2px 2px 10px;
+	right: 20px;
+	background: wheat;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+}
