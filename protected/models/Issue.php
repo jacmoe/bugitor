@@ -233,9 +233,11 @@ class Issue extends CActiveRecord {
     }
 
     protected function afterSave(){
-        if(($this->done_ratio === '100') && (($this->status !== 'swIssue/resolved') || ($this->status !== 'swIssue/rejected')) ) {
-            $this->status = 'swIssue/resolved';
-            $this->save();
+        if('1' != $this->closed) {
+            if(($this->done_ratio === '100') && (($this->status !== 'swIssue/resolved') || ($this->status !== 'swIssue/rejected')) ) {
+                $this->status = 'swIssue/resolved';
+                $this->save();
+            }
         }
         return parent::afterSave();
     }
