@@ -64,9 +64,7 @@
         'columns'=>array(
                 array(
                     'id'=>'selectedItems',
-                    'header' => 'X',
                     'class'=>'CCheckBoxColumn',
-                    'id'=>'selectedItems'
                 ),
                 array(
                     'name' => 'id',

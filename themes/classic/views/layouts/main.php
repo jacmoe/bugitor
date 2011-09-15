@@ -13,8 +13,11 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/form.css" />
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
         <script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl; ?>/js/branch_renderer.js"></script>
+        <script src="http://yandex.st/highlightjs/6.0/highlight.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/styles/default.css" />
     </head>
     <body>
+        <script>hljs.initHighlightingOnLoad();</script>
         <?php
         /*
          * This file is part of
