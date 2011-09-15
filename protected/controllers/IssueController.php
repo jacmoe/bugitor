@@ -51,7 +51,7 @@ class IssueController extends Controller {
     }
 
     public function allowedActions() {
-        return 'view, index, upload';
+        return 'view, index, upload, getcomment, editcomment';
     }
 
     public function actionUpload($parent_id){
@@ -297,6 +297,26 @@ class IssueController extends Controller {
         ));
     }
 
+    public function actionGetcomment($id){
+        $model = Comment::model()->findbyPk((int)$id);
+        if(null != $model)
+            echo $model->content;
+    }
+    
+    public function actionEditcomment(){
+        $model = Comment::model()->findbyPk((int)$_POST['id']);
+        if(null != $model) {
+            $model->content = $_POST['value'];
+            $model->update_user_id = Yii::app()->user->id;
+            if($model->save()) {
+                echo Yii::app()->textile->textilize($model->content);
+            }
+            else {
+                echo 'Error';
+            }
+        }
+    }
+    
     public function actionComment($id) {
         $this->layout = '//layouts/column1';
 

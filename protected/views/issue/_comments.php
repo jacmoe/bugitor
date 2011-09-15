@@ -34,6 +34,22 @@
 <?php //TODO: check if the user wants the comments in cronological order?    ?>
 <?php $comments = array_reverse($comments); ?>
 <?php $comment_count = count($comments); ?>
+<?php
+    $url = $this->createUrl('issue/editcomment');
+    $url2 = $this->createUrl('issue/getcomment');
+    $script = <<<EOD
+     $('.edit').editable('$url', { 
+         loadurl  : '$url2',
+         type    : 'textarea',
+         submit  : 'Update',
+         cancel    : 'Cancel',
+        tooltip   : 'Click to edit...'
+    });
+EOD;
+        
+        Yii::app()->getClientScript()->registerScript(__CLASS__, $script, CClientScript::POS_READY);
+?>
+
 <div id="history">
     <h3>History</h3>
     <?php foreach ($comments as $comment): ?>
@@ -47,6 +63,7 @@
             <dl><dt>
                 <?php echo Bugitor::gravatar($comment->author); ?>
                 </dt><dd style="margin-left: 75px;">
+                    <div style="font-style:italic;font-size:x-small;color:#525252;"><?php if($comment->modified <> $comment->created) echo 'Comment modified ' . Bugitor::timeAgoInWords($comment->modified); ?></div>
                     <?php if ($comment->details) : ?>
                         <ul>
                             <?php foreach ($comment->details as $detail): ?>
@@ -54,7 +71,7 @@
                             <?php endforeach; ?>
                         </ul>
                     <?php endif; ?>
-                    <?php echo Yii::app()->textile->textilize($comment->content); ?>
+                    <div class="<?php echo (isset(Yii::app()->user->id)&&(Yii::app()->user->id == $comment->create_user_id)) ? "edit" : "nedit" ?>" id="<?php echo $comment->id; ?>"><?php echo Yii::app()->textile->textilize($comment->content); ?></div>
                 </dd></dl>
         </div>
         <br class="clearfix"/>

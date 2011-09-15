@@ -26,6 +26,7 @@ class ELocaltime extends CWidget {
         $cs->registerCoreScript('jquery');
 
         $cs->registerScriptFile($baseUrl . '/jquery.timeago.js');
+        $cs->registerScriptFile($baseUrl . '/jquery.jeditable.js');
         //$cs->registerScriptFile($baseUrl . '/humane.js');
         $cs->registerScriptFile($baseUrl . '/jquery.localtime-0.5.js');
 
