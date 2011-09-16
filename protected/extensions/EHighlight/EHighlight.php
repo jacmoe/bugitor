@@ -29,7 +29,16 @@ class EHighlight extends CWidget {
 
         $cs->registerScript(__CLASS__.'init' , "hljs.initHighlightingOnLoad();", CClientScript::POS_HEAD);
         
-        $cs->registerScript(__CLASS__.'highlight' , "$('{$this->tag}').each(function(i, e) {hljs.highlightBlock(e, '{$this->tab}')});", CClientScript::POS_END);
+        $script = <<<EOD
+            try {
+                $('{$this->tag}').each(function(i, e) {hljs.highlightBlock(e, '{$this->tab}')});
+            }
+            catch (e) {
+                // handle the unsavoriness if needed
+            }
+EOD;
+        
+        $cs->registerScript(__CLASS__.'highlight' , $script, CClientScript::POS_END);
     }
 
 }
