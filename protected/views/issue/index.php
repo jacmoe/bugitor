@@ -55,10 +55,33 @@
     $issueFilter,
     array('empty'=>'All Issues', 'submit'=>'')); ?>
 <?php echo CHtml::endForm(); ?>
+<?php
+        $script = <<<EOD
+	var format;
+	var localise = function () {
+            var theTime = this.title;
+            this.t = this.title;
+            this.title = jQuery.localtime.toLocalTime(theTime, format);	
+            jQuery(this).text(jQuery.timeago(jQuery(this).text()));
+            //jQuery(this).text(humaneDate(jQuery(this).text()));
+	};
+	var formats = jQuery.localtime.getFormat();
+	var cssClass;
+	for (cssClass in formats) {
+		if (formats.hasOwnProperty(cssClass)) {
+			format = formats[cssClass];
+			jQuery("acronym." + cssClass).each(localise);
+
+		}
+	}
+        $('pre').each(function(i, e) {hljs.highlightBlock(e, '    ')});
+EOD;
+?>
 <?php $this->widget('ext.rrviews.RRGridView', array(
 	'id'=>'issue-grid',
 	'dataProvider'=>$model->search(),
-	'filter'=>$model,
+	'afterAjaxUpdate'=>"function() { $script }",
+        'filter'=>$model,
         'selectableRows'=>2,
         'pager' => array('class' => 'CustomLinkPager'),
         'columns'=>array(
@@ -110,8 +133,8 @@
                     'header' => 'Last Modified',
                     'type' => 'raw',
                     'filter' => '',
-                    'value' => '(($data->modified)?((isset($data->updatedBy)) ? Bugitor::gravatar($data->updatedBy,16) : Bugitor::gravatar($data->user,16)). " " . Time::timeAgoInWords($data->modified):"")',
-                    'htmlOptions'=>array('width'=>'15%'),
+                    'value' => '(($data->modified)?((isset($data->updatedBy)) ? Bugitor::gravatar($data->updatedBy,16) : Bugitor::gravatar($data->user,16)). " " . Bugitor::timeAgoInWords($data->modified):"")',
+                    'htmlOptions'=>array('width'=>'15%', 'class' => 'localtime'),
                 ),
                 array(
                     'name' => 'user_id',
