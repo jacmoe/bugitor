@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of
  *     ____              _ __
@@ -32,41 +33,47 @@
  */
 ?>
 <?php
+
 class Bugitor {
-    
+
+    public static function localtime($dateString) {
+        $date = is_numeric($dateString) ? intval($dateString) : strtotime($dateString);
+        $dateTime_date = date("Y-m-d\TH:i:s\Z", $date);
+        return "<span class='localtime'>{$dateTime_date}</span>";
+    }
+
     public static function timeAgoInWords($dateTime, $title_extra = '') {
         $dateTime_date = date("Y-m-d\TH:i:s\Z", strtotime($dateTime));
-        $title = $dateTime_date;// . ' ' . $title_extra;
-        return "<acronym class='localtime' title='{$title}'>{$dateTime_date}</acronym>";
-}
-    
+        $title = $dateTime_date; // . ' ' . $title_extra;
+        return "<acronym class='localtimeago' title='{$title}'>{$dateTime_date}</acronym>";
+    }
     
     public static function link_to_user($user) {
-        if(true) {
-            return CHtml::link(ucfirst($user->username),array('/user/user/view', "id" => $user->id));
+        if (true) {
+            return CHtml::link(ucfirst($user->username), array('/user/user/view', "id" => $user->id));
         } else {
-            return CHtml::link(ucwords($user->profile->getAttribute('firstname') . ' ' . $user->profile->getAttribute('lastname')),array('/user/user/view', "id" => $user->id));
+            return CHtml::link(ucwords($user->profile->getAttribute('firstname') . ' ' . $user->profile->getAttribute('lastname')), array('/user/user/view', "id" => $user->id));
         }
     }
 
     public static function link_to_user_author($user, $author) {
-        if(isset($user)) {
-            return CHtml::link(ucfirst($user->username),array('/user/user/view', "id" => $user->id));
-        } elseif($author) {
+        if (isset($user)) {
+            return CHtml::link(ucfirst($user->username), array('/user/user/view', "id" => $user->id));
+        } elseif ($author) {
             $authorUser = AuthorUser::model()->findByAttributes(array('author' => $author));
-            if($authorUser) {
-                if(isset($authorUser->user_id)) {
+            if ($authorUser) {
+                if (isset($authorUser->user_id)) {
                     $user_id = AuthorUser::model()->findByAttributes(array('user_id' => $authorUser->user_id));
-                    if($user_id) {
-                        $user = User::model()->findByPk((int)$user_id);
+                    if ($user_id) {
+                        $user = User::model()->findByPk((int) $user_id);
                     }
-                    if($user) {
-                        return CHtml::link(ucfirst($user->username),array('/user/user/view', "id" => $user->id));
+                    if ($user) {
+                        return CHtml::link(ucfirst($user->username), array('/user/user/view', "id" => $user->id));
                     } else {
-                        return $author . CHtml::link('?',array('/authorUser/update', "id" => $authorUser->id), array('style' => 'font-size: 1.5em;'));
+                        return $author . CHtml::link('?', array('/authorUser/update', "id" => $authorUser->id), array('style' => 'font-size: 1.5em;'));
                     }
                 } else {
-                    return $author . CHtml::link('?',array('/authorUser/update', "id" => $authorUser->id), array('style' => 'font-size: 1.5em;'));
+                    return $author . CHtml::link('?', array('/authorUser/update', "id" => $authorUser->id), array('style' => 'font-size: 1.5em;'));
                 }
             } else {
                 return $author;
@@ -75,9 +82,9 @@ class Bugitor {
             return '?';
         }
     }
-    
+
     public static function format_username($user) {
-        if(true) {
+        if (true) {
             return ucfirst($user->username);
         } else {
             return ucwords($user->profile->getAttribute('firstname') . ' ' . $user->profile->getAttribute('lastname'));
@@ -92,9 +99,9 @@ class Bugitor {
             if (mb_strlen($text) > $length) {
                 $length -= mb_strlen($ending);
                 if (!$exact) {
-                    $text = preg_replace('/\s+?(\S+)?$/', '', mb_substr($text, 0, $length+1));
+                    $text = preg_replace('/\s+?(\S+)?$/', '', mb_substr($text, 0, $length + 1));
                 }
-                return mb_substr($text, 0, $length).$ending;
+                return mb_substr($text, 0, $length) . $ending;
             } else {
                 return $text;
             }
@@ -106,10 +113,8 @@ class Bugitor {
         return preg_replace('/[\r\n\_]+/', ' ', $string);
     }
 
-    public static function p2nl ($str) {
-        return preg_replace(array("/<p[^>]*>/iU","/<\/p[^>]*>/iU"),
-                            array("","\n"),
-                            $str);
+    public static function p2nl($str) {
+        return preg_replace(array("/<p[^>]*>/iU", "/<\/p[^>]*>/iU"), array("", "\n"), $str);
     }
 
     public static function format_activity_description($text, $length = 120) {
@@ -118,48 +123,49 @@ class Bugitor {
     }
 
     public static function link_to_milestone($milestone, $absolute = false) {
-        if($absolute) {
-            return CHtml::link($milestone->name . ' - ' . $milestone->title, Yii::app()->config->get('hostname').'projects/'.$milestone->project->identifier.'/milestone/view/'.$milestone->id);
+        if ($absolute) {
+            return CHtml::link($milestone->name . ' - ' . $milestone->title, Yii::app()->config->get('hostname') . 'projects/' . $milestone->project->identifier . '/milestone/view/' . $milestone->id);
         } else {
-            return CHtml::link($milestone->name . ' - ' . $milestone->title ,array('/milestone/view', "id" => $milestone->id, 'identifier' => $milestone->project->identifier));
+            return CHtml::link($milestone->name . ' - ' . $milestone->title, array('/milestone/view', "id" => $milestone->id, 'identifier' => $milestone->project->identifier));
         }
     }
 
     public static function short_link_to_milestone($milestone, $absolute = false) {
-        if($absolute) {
-            return CHtml::link($milestone->name . ' - ' . $milestone->title, Yii::app()->config->get('hostname').'projects/'.$milestone->project->identifier.'/milestone/view/'.$milestone->id);
+        if ($absolute) {
+            return CHtml::link($milestone->name . ' - ' . $milestone->title, Yii::app()->config->get('hostname') . 'projects/' . $milestone->project->identifier . '/milestone/view/' . $milestone->id);
         } else {
-            return CHtml::link($milestone->name . ' - ' . $milestone->title ,array('/milestone/view', "id" => $milestone->id, 'identifier' => $milestone->project->identifier));
+            return CHtml::link($milestone->name . ' - ' . $milestone->title, array('/milestone/view', "id" => $milestone->id, 'identifier' => $milestone->project->identifier));
         }
     }
-    
+
     public static function link_to_changeset($changeset, $absolute = false) {
-        if(!isset($changeset)) return '';
-        if($absolute) {
-            return CHtml::link($changeset->revision, Yii::app()->config->get('hostname').'projects/'.$changeset->scm->project->identifier.'/changeset/view/'.$changeset->id);
+        if (!isset($changeset))
+            return '';
+        if ($absolute) {
+            return CHtml::link($changeset->revision, Yii::app()->config->get('hostname') . 'projects/' . $changeset->scm->project->identifier . '/changeset/view/' . $changeset->id);
         } else {
-            return CHtml::link($changeset->revision ,array('/changeset/view', "id" => $changeset->id, 'identifier' => $changeset->scm->project->identifier));
+            return CHtml::link($changeset->revision, array('/changeset/view', "id" => $changeset->id, 'identifier' => $changeset->scm->project->identifier));
         }
     }
-    
+
     public static function link_to_issue($issue, $absolute = false) {
-        if($absolute) {
-            return CHtml::link($issue->tracker->name . ' #' . $issue->id . ': ' . $issue->subject, Yii::app()->config->get('hostname').'projects/'.$issue->project->identifier.'/issue/view/'.$issue->id, array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue'));
+        if ($absolute) {
+            return CHtml::link($issue->tracker->name . ' #' . $issue->id . ': ' . $issue->subject, Yii::app()->config->get('hostname') . 'projects/' . $issue->project->identifier . '/issue/view/' . $issue->id, array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue'));
         } else {
-            return CHtml::link($issue->tracker->name . ' #' . $issue->id . ': ' . $issue->subject,array('/issue/view', "id" => $issue->id, 'identifier' => $issue->project->identifier), array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue'));
+            return CHtml::link($issue->tracker->name . ' #' . $issue->id . ': ' . $issue->subject, array('/issue/view', "id" => $issue->id, 'identifier' => $issue->project->identifier), array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue'));
         }
     }
 
     public static function short_link_to_issue($issue, $absolute = false) {
-        if($absolute) {
-            return CHtml::link($issue->tracker->name . ' #' . $issue->id, Yii::app()->config->get('hostname').'projects/'.$issue->project->identifier.'/issue/view/'.$issue->id, array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue')) . ': ' . $issue->subject;
+        if ($absolute) {
+            return CHtml::link($issue->tracker->name . ' #' . $issue->id, Yii::app()->config->get('hostname') . 'projects/' . $issue->project->identifier . '/issue/view/' . $issue->id, array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue')) . ': ' . $issue->subject;
         } else {
-            return CHtml::link($issue->tracker->name . ' #' . $issue->id,array('/issue/view', "id" => $issue->id, 'identifier' => $issue->project->identifier), array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue')) . ': ' . $issue->subject;
+            return CHtml::link($issue->tracker->name . ' #' . $issue->id, array('/issue/view', "id" => $issue->id, 'identifier' => $issue->project->identifier), array('class' => ($issue->closed == 1) ? 'issue closed' : 'issue')) . ': ' . $issue->subject;
         }
     }
 
     public static function issue_subject($issue) {
-        return '['.$issue->project->name.' - '.$issue->tracker->name.' #'.$issue->id.'] '.$issue->subject;
+        return '[' . $issue->project->name . ' - ' . $issue->tracker->name . ' #' . $issue->id . '] ' . $issue->subject;
     }
 
     public static function progress_bar_auto($pcts, $options=array()) {
@@ -171,7 +177,7 @@ class Bugitor {
 
     public static function progress_bar($pcts, $options=array()) {
         $value = 0;
-        if(!is_array($pcts)) {
+        if (!is_array($pcts)) {
             $value = $pcts;
             $pcts = array($pcts, $pcts);
         }
@@ -179,73 +185,87 @@ class Bugitor {
         $pcts[] = (100 - $pcts[1] - $pcts[0]);
         $width = empty($options['width']) ? '100px;' : $options['width'];
         $legend = empty($options['legend']) ? '' : $options['legend'];
-        if($value) {
-            $out = '<table title="'.$value.' %" class="progress" style="width: '.$width.';"><tbody>';
+        if ($value) {
+            $out = '<table title="' . $value . ' %" class="progress" style="width: ' . $width . ';"><tbody>';
         } else {
-            $out = '<table class="progress" style="width: '.$width.';"><tbody>';
+            $out = '<table class="progress" style="width: ' . $width . ';"><tbody>';
         }
         $out .= '<tr>';
-        $out .= ($pcts[0] > 0) ? '<td style="width: '.$pcts[0].'%;" class="closed" />' : '';
-        $out .= ($pcts[1] > 0) ? '<td style="width: '.$pcts[1].'%;" class="done" />' : '';
-        $out .= ($pcts[2] > 0) ? '<td style="width: '.$pcts[2].'%;" class="todo" />' : '';
+        $out .= ($pcts[0] > 0) ? '<td style="width: ' . $pcts[0] . '%;" class="closed" />' : '';
+        $out .= ($pcts[1] > 0) ? '<td style="width: ' . $pcts[1] . '%;" class="done" />' : '';
+        $out .= ($pcts[2] > 0) ? '<td style="width: ' . $pcts[2] . '%;" class="todo" />' : '';
         $out .= '</tr></tbody></table>';
-        $out .= '<span class="pourcent">'.$legend.'</span>';
+        $out .= '<span class="pourcent">' . $legend . '</span>';
         return $out;
     }
 
     public static function big_progress_bar($pcts, $options=array()) {
-        if(!is_array($pcts)) $pcts = array($pcts, $pcts);
+        if (!is_array($pcts))
+            $pcts = array($pcts, $pcts);
         $width = empty($options['width']) ? '100px;' : $options['width'];
         $legend = empty($options['legend']) ? '' : $options['legend'];
-        $out = '<table class="big_progress" style="width: '.$width.';"><tbody>';
+        $out = '<table class="big_progress" style="width: ' . $width . ';"><tbody>';
         $out .= '<tr>';
-        $out .= ($pcts[0] > 0) ? '<td style="width: '.$pcts[0].'%;" class="closed" />' : '';
-        $out .= ($pcts[1] > 0) ? '<td style="width: '.$pcts[1].'%;" class="done" />' : '';
-        $out .= ($pcts[2] > 0) ? '<td style="width: '.$pcts[2].'%;" class="todo" />' : '';
+        $out .= ($pcts[0] > 0) ? '<td style="width: ' . $pcts[0] . '%;" class="closed" />' : '';
+        $out .= ($pcts[1] > 0) ? '<td style="width: ' . $pcts[1] . '%;" class="done" />' : '';
+        $out .= ($pcts[2] > 0) ? '<td style="width: ' . $pcts[2] . '%;" class="todo" />' : '';
         $out .= '</tr></tbody></table>';
-        $out .= '<span class="big_pourcent">'.$legend.'</span>';
+        $out .= '<span class="big_pourcent">' . $legend . '</span>';
         return $out;
     }
 
     public static function small_progress_bar($pcts, $options=array()) {
-        if(!is_array($pcts)) $pcts = array($pcts, $pcts);
+        if (!is_array($pcts))
+            $pcts = array($pcts, $pcts);
         $width = empty($options['width']) ? '100px;' : $options['width'];
         $legend = empty($options['legend']) ? '' : $options['legend'];
-        $out = '<table class="progress" style="width: '.$width.';"><tbody>';
+        $out = '<table class="progress" style="width: ' . $width . ';"><tbody>';
         $out .= '<tr>';
-        $out .= ($pcts[0] > 0) ? '<td style="width: '.$pcts[0].'%;" class="closed" />' : '';
-        $out .= ($pcts[1] > 0) ? '<td style="width: '.$pcts[1].'%;" class="done" />' : '';
-        $out .= ($pcts[2] > 0) ? '<td style="width: '.$pcts[2].'%;" class="todo" />' : '';
+        $out .= ($pcts[0] > 0) ? '<td style="width: ' . $pcts[0] . '%;" class="closed" />' : '';
+        $out .= ($pcts[1] > 0) ? '<td style="width: ' . $pcts[1] . '%;" class="done" />' : '';
+        $out .= ($pcts[2] > 0) ? '<td style="width: ' . $pcts[2] . '%;" class="todo" />' : '';
         $out .= '</tr></tbody></table>';
-        $out .= '<span class="pourcent">'.$legend.'</span>';
+        $out .= '<span class="pourcent">' . $legend . '</span>';
         return $out;
     }
 
     public static function gravatar($user, $size = 48) {
         //TODO: default gravatar?
-        if(!$user) return '';
+        if (!$user)
+            return '';
         $grav_url = "http://www.gravatar.com/avatar.php?gravatar_id=" .
-        md5($user->email) . "&size=" . $size;
-        return CHtml::link('<img title="'.ucfirst($user->username).'" class="gravatar" src="'.$grav_url.'"/>', array('/user/user/view', "id" => $user->id));
+                md5($user->email) . "&size=" . $size;
+        return CHtml::link('<img title="' . ucfirst($user->username) . '" class="gravatar" src="' . $grav_url . '"/>', array('/user/user/view', "id" => $user->id));
     }
 
     public static function namedImage($name) {
-        return '<img title="'.$name.'" src="'.Yii::app()->theme->baseUrl.'/images/'.$name.'.png"/>';
+        return '<img title="' . $name . '" src="' . Yii::app()->theme->baseUrl . '/images/' . $name . '.png"/>';
     }
-    
+
     public static function getReadableFileSize($size, $retstring = null) {
-            // adapted from code at http://aidanlister.com/repos/v/function.size_readable.php
-            $sizes = array('bytes', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+        // adapted from code at http://aidanlister.com/repos/v/function.size_readable.php
+        $sizes = array('bytes', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
 
-            if ($retstring === null) { $retstring = '%01.2f %s'; }
+        if ($retstring === null) {
+            $retstring = '%01.2f %s';
+        }
 
-            $lastsizestring = end($sizes);
+        $lastsizestring = end($sizes);
 
-            foreach ($sizes as $sizestring) {
-                    if ($size < 1024) { break; }
-                    if ($sizestring != $lastsizestring) { $size /= 1024; }
+        foreach ($sizes as $sizestring) {
+            if ($size < 1024) {
+                break;
             }
-            if ($sizestring == $sizes[0]) { $retstring = '%01d %s'; } // Bytes aren't normally fractional
-            return sprintf($retstring, $size, $sizestring);
+            if ($sizestring != $lastsizestring) {
+                $size /= 1024;
+            }
+        }
+        if ($sizestring == $sizes[0]) {
+            $retstring = '%01d %s';
+        } // Bytes aren't normally fractional
+        return sprintf($retstring, $size, $sizestring);
     }
-};
+
+}
+
+;

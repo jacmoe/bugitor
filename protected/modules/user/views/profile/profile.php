@@ -48,8 +48,7 @@ $this->breadcrumbs=array(
 <tr>
 	<th class="label"><?php echo CHtml::encode($model->getAttributeLabel('lastvisit')); ?>
 </th>
-    <td><?php echo date("d.m.Y H:i:s",$model->lastvisit); ?>
-</td>
+<td><?php echo Bugitor::localtime($model->lastvisit); ?></td>
 </tr>
 <tr>
 	<th class="label"><?php echo CHtml::encode($model->getAttributeLabel('status')); ?>

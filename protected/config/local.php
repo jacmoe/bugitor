@@ -70,11 +70,11 @@ return CMap::mergeArray(
                         'categories' => 'bugitor',
                         'logFile' => 'bugitor.log',
                     ),
-                    array(
-                        'class'=>'ext.dbprofiler.DbProfileLogRoute',
-                        'countLimit' => 1, // How many times the same query should be executed to be considered inefficient
-                        'slowQueryMin' => 0.01, // Minimum time for the query to be slow
-                    ),
+//                    array(
+//                        'class'=>'ext.dbprofiler.DbProfileLogRoute',
+//                        'countLimit' => 1, // How many times the same query should be executed to be considered inefficient
+//                        'slowQueryMin' => 0.01, // Minimum time for the query to be slow
+//                    ),
 //                    array(// configuration for the toolbar
 //                        'class' => 'XWebDebugRouter',
 //                        'config' => 'alignRight, opaque, runInDebug, fixedPos, collapsed, yamlStyle',
