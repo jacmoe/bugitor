@@ -37,9 +37,9 @@ $this->pageTitle = $model->project->name . ' - ' . $model->tracker->name . ' #' 
 ?>
 <div class="contextual" id="contextual">
 <?php if(Yii::app()->user->checkAccess('Issue.Update')) : ?>
-    <?php echo CHtml::link('Update', array('update', 'id' => $model->id, 'identifier' => $model->project->identifier), array('class' => 'icon icon-edit')) ?>
+    <?php echo CHtml::link('Update / Reply', array('update', 'id' => $model->id, 'identifier' => $model->project->identifier), array('class' => 'icon icon-edit')) ?>
 <?php elseif(Yii::app()->user->checkAccess('Issue.Create')) : ?>
-    <?php echo CHtml::link('Comment', array('comment', 'id' => $model->id, 'identifier' => $model->project->identifier), array('class' => 'icon icon-edit')) ?>
+    <?php echo CHtml::link('Reply', array('comment', 'id' => $model->id, 'identifier' => $model->project->identifier), array('class' => 'icon icon-edit')) ?>
 <?php endif; ?>
 &nbsp;&nbsp;
 <?php if(Yii::app()->user->checkAccess('Issue.Watch'))
