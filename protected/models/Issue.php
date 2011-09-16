@@ -242,6 +242,7 @@ class Issue extends CActiveRecord {
         if('1' != $this->closed) {
             if(($this->done_ratio === '100') && (($this->status !== 'swIssue/resolved') || ($this->status !== 'swIssue/rejected')) ) {
                 $this->status = 'swIssue/resolved';
+                $this->update(array('status'));
             }
         }
         return parent::afterSave();
