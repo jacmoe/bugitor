@@ -6,10 +6,11 @@
  * @author Jacob Moen <jacmoe@mail.dk>
  * @license MIT
  */
-Yii::setPathOfAlias('ELocaltime', dirname(__FILE__));
 
-class ELocaltime extends CWidget {
+class ELocalTimeago extends CWidget {
 
+    public $localtimeago = "MMM dd, yyyy HH:mm";
+    public $alttimeago = "MMM dd, yyyy";
     public $localtime = "MMM dd, yyyy HH:mm";
     public $alttime = "MMM dd, yyyy";
     
@@ -20,13 +21,12 @@ class ELocaltime extends CWidget {
     public function init() {
         parent::init();
 
-        $dir = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'localtime';
+        $dir = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'js';
         $baseUrl = CHtml::asset($dir);
         $cs = Yii::app()->getClientScript();
         $cs->registerCoreScript('jquery');
 
         $cs->registerScriptFile($baseUrl . '/jquery.timeago.js');
-        $cs->registerScriptFile($baseUrl . '/jquery.jeditable.js');
         //$cs->registerScriptFile($baseUrl . '/humane.js');
         $cs->registerScriptFile($baseUrl . '/jquery.localtime-0.5.js');
 
@@ -39,6 +39,9 @@ class ELocaltime extends CWidget {
         $script = <<<EOD
 	var format;
 	var localise = function () {
+            jQuery(this).text(jQuery.localtime.toLocalTime(jQuery(this).text(), format));
+	};
+	var localiseago = function () {
             var theTime = this.title;
             this.t = this.title;
             this.title = jQuery.localtime.toLocalTime(theTime, format);	
@@ -48,16 +51,20 @@ class ELocaltime extends CWidget {
 	var formats = jQuery.localtime.getFormat();
 	var cssClass;
 	for (cssClass in formats) {
-		if (formats.hasOwnProperty(cssClass)) {
-			format = formats[cssClass];
-			jQuery("acronym." + cssClass).each(localise);
+            if (formats.hasOwnProperty(cssClass)) {
+                if((cssClass === 'localtime')||(cssClass === 'alttime')) {
+                    format = formats[cssClass];
+                    jQuery("." + cssClass).each(localise);
+                } else {
+                    format = formats[cssClass];
+                    jQuery("acronym." + cssClass).each(localiseago);
+                }
 
-		}
+            }
 	}
-        $('pre').each(function(i, e) {hljs.highlightBlock(e, '    ')});
 EOD;
-        
-        $cs->registerScript(__CLASS__, $script, CClientScript::POS_READY);
+
+        $cs->registerScript(__CLASS__, $script, CClientScript::POS_END);
 
     }
 
@@ -66,7 +73,7 @@ EOD;
      */
     protected function getClientOptions() {
         $options = array();
-        foreach (array('localtime', 'alttime') as $name) {
+        foreach (array('localtimeago', 'alttimeago', 'localtime', 'alttime') as $name) {
             if ($this->$name !== null)
                 $options[$name] = $this->$name;
         }

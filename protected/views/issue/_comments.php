@@ -34,21 +34,10 @@
 <?php //TODO: check if the user wants the comments in cronological order?    ?>
 <?php $comments = array_reverse($comments); ?>
 <?php $comment_count = count($comments); ?>
-<?php
-    $url = $this->createUrl('issue/editcomment');
-    $url2 = $this->createUrl('issue/getcomment');
-    $script = <<<EOD
-     $('.edit').editable('$url', { 
-         loadurl  : '$url2',
-         type    : 'textarea',
-         submit  : 'Update',
-         cancel    : 'Cancel',
-        tooltip   : 'Click to edit...'
-    });
-EOD;
-        
-        Yii::app()->getClientScript()->registerScript(__CLASS__, $script, CClientScript::POS_READY);
-?>
+<?php $this->widget('ext.EJeditable.EJeditable', array(
+    'url' => $this->createUrl('issue/editcomment'),
+    'loadurl' => $this->createUrl('issue/getcomment'),
+));?>
 
 <div id="history">
     <h3>History</h3>

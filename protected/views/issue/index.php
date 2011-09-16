@@ -74,7 +74,6 @@
 
 		}
 	}
-        $('pre').each(function(i, e) {hljs.highlightBlock(e, '    ')});
 EOD;
 ?>
 <?php $this->widget('ext.rrviews.RRGridView', array(
@@ -134,7 +133,7 @@ EOD;
                     'type' => 'raw',
                     'filter' => '',
                     'value' => '(($data->modified)?((isset($data->updatedBy)) ? Bugitor::gravatar($data->updatedBy,16) : Bugitor::gravatar($data->user,16)). " " . Bugitor::timeAgoInWords($data->modified):"")',
-                    'htmlOptions'=>array('width'=>'15%', 'class' => 'localtime'),
+                    'htmlOptions'=>array('width'=>'15%'),
                 ),
                 array(
                     'name' => 'user_id',

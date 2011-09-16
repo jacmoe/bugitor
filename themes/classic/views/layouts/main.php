@@ -13,11 +13,8 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/form.css" />
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
         <script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl; ?>/js/branch_renderer.js"></script>
-        <script src="http://yandex.st/highlightjs/6.0/highlight.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/styles/default.css" />
     </head>
     <body>
-        <script>hljs.initHighlightingOnLoad();</script>
         <?php
         /*
          * This file is part of
@@ -142,7 +139,8 @@
             </div>
         </div>
         <div class="container" id="page">
-            <?php $this->widget('ext.ELocaltime.ELocaltime', array('localtime' => 'MMM dd, yyyy HH:mm zzz')); ?>
+            <?php $this->widget('ext.ELocalTimeago.ELocalTimeago', array('localtimeago' => 'MMM dd, yyyy HH:mm zzz')); ?>
+            <?php $this->widget('ext.EHighlight.EHighlight');?>
             <?php
             Yii::app()->clientScript->registerScript(
                     'myHideEffect', '$(".info").animate({opacity: 1.0}, 4000).fadeOut("slow");', CClientScript::POS_READY
