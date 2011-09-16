@@ -50,6 +50,12 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'tagline'); ?>
+		<?php echo $form->textField($model,'tagline',array('size'=>30,'maxlength'=>60)); ?>
+		<?php echo $form->error($model,'tagline'); ?>
+	</div>
+	
+        <div class="row">
 		<?php echo $form->labelEx($model,'description'); ?>
 		<?php $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
 			'model' => $model,

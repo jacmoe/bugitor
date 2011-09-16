@@ -45,6 +45,7 @@
  * @property string $created
  * @property string $modified
  * @property string $identifier
+ * @property string $tagline
  *
  * The followings are the available model relations:
  * @property Issue[] $issues
@@ -83,10 +84,10 @@ class Project extends CActiveRecord {
             array('name', 'length', 'max' => 30),
             array('homepage', 'url'),
             array('identifier', 'length', 'max' => 20),
-            array('description, created, modified', 'safe'),
+            array('description, created, modified, tagline', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, name, description, homepage, public, created, modified, identifier', 'safe', 'on' => 'search'),
+            array('id, name, description, homepage, public, tagline, created, modified, identifier', 'safe', 'on' => 'search'),
         );
     }
 
@@ -128,6 +129,7 @@ class Project extends CActiveRecord {
             'created' => 'Created',
             'modified' => 'Modified',
             'identifier' => 'Identifier',
+            'tagline' => 'Tagline',
         );
     }
 
@@ -159,6 +161,7 @@ class Project extends CActiveRecord {
         $criteria->compare('name', $this->name, true);
         $criteria->compare('description', $this->description, true);
         $criteria->compare('homepage', $this->homepage, true);
+        $criteria->compare('tagline', $this->tagline, true);
         $criteria->compare('public', $this->public);
         $criteria->compare('created', $this->created, true);
         $criteria->compare('modified', $this->modified, true);

@@ -88,8 +88,10 @@
                         ) && (isset($_GET['projectname']))) :
                     ?>
                     <h1 class="alt"><?php echo CHtml::encode($_GET['projectname']); ?></h1>
+                    <p class="alt">Project tagline</p>
 <?php else : ?>
                     <h1 class="alt"><?php echo CHtml::encode(Yii::app()->name); ?></h1>
+                    <p class="alt">The Yii Powered Issue Tracker</p>
                     <?php endif; ?>
             </div>
             <div id="gravatar" class='column last span-3'>
