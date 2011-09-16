@@ -235,18 +235,14 @@ class Issue extends CActiveRecord {
 
     protected function beforeSave() {
         $this->comment_count = $this->commentCount;
-        return parent::beforeSave();
-    }
-    
-    protected function afterSave(){
         if('1' != $this->closed) {
             if(($this->done_ratio === '100') && (($this->status !== 'swIssue/resolved') || ($this->status !== 'swIssue/rejected')) ) {
                 $this->status = 'swIssue/resolved';
-                $this->update(array('status'));
             }
         }
-        return parent::afterSave();
+        return parent::beforeSave();
     }
+    
     
     protected function beforeValidate() {
         if(($this->assigned_to) && ($this->status === 'swIssue/new')) {
