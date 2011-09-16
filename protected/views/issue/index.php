@@ -122,6 +122,14 @@
                     'htmlOptions'=>array('width'=>'10'),
                 ),
                 array(
+                    'name' => 'comment_count',
+                    'header' => 'Comments',
+                    'type' => 'raw',
+                    'value' => '(($data->comment_count)?$data->comment_count:"")',
+                    'filter' => '',
+                    'htmlOptions'=>array('width'=>'10'),
+                ),
+                array(
                     'name' => 'assigned_to',
                     'header' => 'Owner',
                     'type' => 'raw',

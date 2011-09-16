@@ -54,6 +54,7 @@
  * @property integer $pre_done_ratio
  * @property string $status
  * @property integer $closed
+ * @property integer $comment_count
  *
  * The followings are the available model relations:
  * @property User $assignedTo
@@ -232,11 +233,15 @@ class Issue extends CActiveRecord {
         return false;
     }
 
+    protected function beforeSave() {
+        $this->comment_count = $this->commentCount;
+        return parent::beforeSave();
+    }
+    
     protected function afterSave(){
         if('1' != $this->closed) {
             if(($this->done_ratio === '100') && (($this->status !== 'swIssue/resolved') || ($this->status !== 'swIssue/rejected')) ) {
                 $this->status = 'swIssue/resolved';
-                $this->save();
             }
         }
         return parent::afterSave();
@@ -281,10 +286,10 @@ class Issue extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('subject, description, user_id, status, issue_priority_id, tracker_id', 'required'),
-            array('tracker_id, project_id, issue_category_id, user_id, issue_priority_id, milestone_id, assigned_to, updated_by, done_ratio, pre_done_ratio, closed', 'numerical', 'integerOnly' => true),
+            array('tracker_id, project_id, issue_category_id, user_id, issue_priority_id, milestone_id, assigned_to, updated_by, done_ratio, pre_done_ratio, closed, comment_count', 'numerical', 'integerOnly' => true),
             array('subject', 'length', 'max' => 255),
             array('status', 'SWValidator'),
-            array('created, modified, updated_by, milestone_id, status', 'safe'),
+            array('created, modified, updated_by, milestone_id, status, comment_count', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, tracker_id, project_id, subject, description, issue_category_id, user_id, issue_priority_id, milestone_id, assigned_to, created, modified, done_ratio, pre_done_ratio, status, closed', 'safe', 'on' => 'search'),
@@ -367,6 +372,7 @@ class Issue extends CActiveRecord {
         $criteria->compare('done_ratio', $this->done_ratio);
         $criteria->compare('t.status', $this->status, true);
         $criteria->compare('closed', $this->closed);
+        $criteria->compare('comment_count', $this->comment_count);
 
         if (isset($_GET['identifier'])) {
             $project = Project::model()->findByAttributes(array('identifier' => $_GET['identifier']));
@@ -555,7 +561,7 @@ class Issue extends CActiveRecord {
             } else {
                 $old = '';
             }
-            if (($value != $old)&&($name != 'updated_by')&&($name != 'description')&&($name != 'modified'))
+            if (($value != $old)&&($name != 'updated_by')&&($name != 'comment_count')&&($name != 'description')&&($name != 'modified'))
             {
                 $changed = true;
                 $detail = new CommentDetail();
