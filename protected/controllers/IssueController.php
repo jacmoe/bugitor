@@ -54,49 +54,91 @@ class IssueController extends Controller {
         return 'view, index, upload, getcomment, editcomment';
     }
 
-    public function actionUpload($parent_id){
-        $model = new UploadForm;
-        $model->file = CUploadedFile::getInstance($model, 'file');
-        $model->parent_id = $parent_id;
-        $model->mime_type = $model->file->getType();
-        $model->size = $model->file->getSize();
-        $model->name = $model->file->getName();
+    public function actionUpload($parent_id) {
+        if (isset($_FILES)) {
+            if (!isset($_FILES['file'])) {
+                print_r($_FILES);
+                $data = array('error' => 'Failed to save');
+                echo json_encode($data);
+                exit(0);
+            }
+            $filename = $_FILES['file']['name'];
+            $filetype = $_FILES['file']['type'];
+            $tempname = $_FILES['file']['tmp_name'];
+            $error = $_FILES['file']['error'];
+            $filesize = $_FILES['file']['size'];
+            if ($filesize > (1024 * 1024 * 2)) {
+                $data = array('error' => 'File is bigger than 2MB');
+                echo json_encode($data);
+                exit(0);
+            }
+            $path = Yii::getPathOfAlias('webroot.uploads') . '/' . $parent_id . '/';
+            if (!is_dir($path)) {
+                mkdir($path);
+            }
+            $filename = basename($_FILES['file']['name']);
 
-        if ($model->validate()) {
-                $path = Yii::getPathOfAlias('webroot.uploads') .'/'.$parent_id.'/';
-                if(!is_dir($path)){
-                        mkdir($path);
-                }
-                $model->file->saveAs($path.$model->name);
+            if (file_exists($path . $filename)) {
+                $data = array('error' => 'File exists - either delete the old version or upload a file with another name.');
+                echo json_encode($data);
+                exit(0);
+            }
+
+            if (move_uploaded_file($_FILES['file']['tmp_name'], $path . $filename)) {
+                //$data = array('result' => $filename);
+            } else {
+                $data = array('error' => 'Failed to save');
+                echo json_encode($data);
+                exit(0);
+            }
+
+            if (0 == $error) {
+
                 $attachment = new Attachment;
                 $attachment->issue_id = $parent_id;
-                $attachment->name = $model->name;
-                $attachment->size = $model->size;
+                $attachment->name = $filename;
+                $attachment->size = $filesize;
+
                 $attachment->created = date("Y-m-d H:i:s", time());
                 $attachment->user_id = Yii::app()->user->id;
-                if($attachment->validate())
-                {
+                if ($attachment->validate()) {
                     $attachment->save(false);
                     $issue = $this->loadModel($parent_id, true);
                     $issue->updated_by = Yii::app()->user->id;
-                    if($issue->validate()) {
+                    if ($issue->validate()) {
                         $comment = new Comment();
                         $comment->issue_id = $parent_id;
-                        $comment->content = 'A file was attached: '.$attachment->name;
+                        $comment->content = 'A file was attached: ' . $attachment->name;
                         $comment->create_user_id = Yii::app()->user->id;
-                        if($comment->validate())
+                        if ($comment->validate())
                             $comment->save(false);
-                        $issue->addToActionLog($issue->id, Yii::app()->user->id, 'attachment', $this->createUrl('issue/view', array('id' => $issue->id, 'identifier' => $issue->project->identifier, '#' => 'note-'.$issue->commentCount)), $comment->id);
+                        $issue->addToActionLog($issue->id, Yii::app()->user->id, 'attachment', $this->createUrl('issue/view', array('id' => $issue->id, 'identifier' => $issue->project->identifier, '#' => 'note-' . $issue->commentCount)), $comment->id);
                     }
                     $issue->save(false);
-
-                }
-                echo json_encode(array("name" => $model->name,"type" => $model->mime_type,"size"=> $model->getReadableFileSize()));
-        } else {
-                echo CVarDumper::dumpAsString($model->getErrors());
-                Yii::log("FileUpload: ".CVarDumper::dumpAsString($model->getErrors()), CLogger::LEVEL_ERROR, "application.controllers.SiteController");
-                throw new CHttpException(500, "Could not upload file");
-        }
+                    $out = CHtml::openTag('ul');
+                    $out .= CHtml::openTag('li', array('class' => 'icon icon-attachment'));
+                    $out .= CHtml::link($attachment->name, Yii::app()->baseUrl . '/uploads/'.$parent_id.'/'.$attachment->name);
+                    $out .= CHtml::openTag('small');
+                    $out .= CHtml::openTag('i');
+                    $out .= ' ('.Bugitor::getReadableFileSize($attachment->size).')';
+                    $out .= CHtml::closeTag('i');
+                    $out .= CHtml::closeTag('small');
+                    $out .= ' - Added by ' . Bugitor::link_to_user($attachment->user);
+                    $out .= CHtml::closeTag('li');
+                    $out .= CHtml::closeTag('ul');
+                echo $out;
+                exit(0);
+            } else {
+                $data = array('error' => 'Failed to save');
+                echo json_encode($data);
+                exit(0);
+            }
+            } else {
+                $data = array('error' => 'Failed to save');
+                echo json_encode($data);
+                exit(0);
+            }
+        } // if isset($_FILES)
     }
 
     public function actionWatch() {

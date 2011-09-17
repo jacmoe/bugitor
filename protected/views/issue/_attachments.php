@@ -31,25 +31,35 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
+<div id="add_attachment"></div>
 <?php if(count($attachments)>0) : ?>
-<ul>
-    <?php foreach($attachments as $attachment): ?>
-        <li class="icon icon-attachment"><?php echo CHtml::link($attachment->name, Yii::app()->baseUrl . '/uploads/'.$parent_id.'/'.$attachment->name); ?>
-            <small><i>(<?php echo Bugitor::getReadableFileSize($attachment->size); ?>)</i></small>
-            - Added by <?php echo Bugitor::link_to_user($attachment->user) ?>
-            <?php echo Bugitor::timeAgoInWords($attachment->created); ?></li>
-    <?php endforeach; ?>
-</ul>
+<div id="attachmentlist">
+    <ul>
+        <?php foreach($attachments as $attachment): ?>
+            <li class="icon icon-attachment"><?php echo CHtml::link($attachment->name, Yii::app()->baseUrl . '/uploads/'.$parent_id.'/'.$attachment->name); ?>
+                <small><i>(<?php echo Bugitor::getReadableFileSize($attachment->size); ?>)</i></small>
+                - Added by <?php echo Bugitor::link_to_user($attachment->user) ?>
+                <?php echo Bugitor::timeAgoInWords($attachment->created); ?></li>
+        <?php endforeach; ?>
+    </ul>
+</div>
 <?php endif; ?>
+<div id="results"></div>
 <?php if(Yii::app()->user->checkAccess('Issue.Update')) : ?>
-<a href="#" onClick="$('#add_attach').toggle();">Add Attachment</a>
+<a href="#add_attachment" onClick="$('#add_attach').toggle();">Add Attachment</a>
 <div class="issues" id="add_attach" style="display: none;">
 <?php
-$this->widget('ext.xupload.XUploadWidget', array(
-					'url' => Yii::app()->createUrl("issue/upload", array("parent_id" => $parent_id)),
-                    'model' => $attachfile,
-                    'attribute' => 'file',
+$this->widget('ext.EJqueryUpload.EJqueryUpload', array(
+                    'url' => Yii::app()->createUrl("issue/upload", array("parent_id" => $parent_id)),
+                    'id' => 'fileup',
+                    'result_id' => 'results',
 ));
+//$this->widget('ext.xupload.XUploadWidget', array(
+//                    'url' => Yii::app()->createUrl("issue/upload", array("parent_id" => $parent_id)),
+//                    'model' => $attachfile,
+//                    'attribute' => 'file',
+//));
 ?>
+    <div class="quiet">Filesize max. 2MB - Allowed filetypes: jpg, jpeg, gif, png, txt, patch, diff, bmp, log, zip, tgz, tar.bz2, bz2, tar, tar.gz and gz.</div>
 </div>
 <?php endif; ?>
