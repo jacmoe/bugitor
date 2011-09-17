@@ -57,8 +57,7 @@ class IssueController extends Controller {
     public function actionUpload($parent_id) {
         if (isset($_FILES)) {
             if (!isset($_FILES['file'])) {
-                print_r($_FILES);
-                $data = array('error' => 'Failed to save');
+                $data = array('error' => 'File was a lot bigger than 2MB. If not, another error occurred. Try again.');
                 echo json_encode($data);
                 exit(0);
             }
@@ -236,10 +235,8 @@ class IssueController extends Controller {
         }
         $this->layout = '//layouts/column1';
         $issue = Issue::model()->with(array('comments','tracker','user', 'issueCategory', 'issuePriority', 'milestone', 'assignedTo', 'updatedBy','project'))->findByPk((int) $id);//$this->loadModel($id, true);
-        $attachfile = new UploadForm;
         $this->render('view', array(
             'model' => $issue,
-            'attachfile' => $attachfile,
         ));
     }
 
