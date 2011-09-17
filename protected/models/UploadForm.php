@@ -17,10 +17,10 @@ class UploadForm extends CFormModel
 		// username and password are required
 		array('file',
                         'file',
-                        'types'=>'jpg, gif, png, txt, patch, diff, bmp, log, zip, tgz, tar.bz2, bz2, tar, tar.gz, gz',
+                        'types'=>'jpg, jpeg, gif, png, txt, patch, diff, bmp, log, zip, tgz, tar.bz2, bz2, tar, tar.gz, gz',
                         'maxSize'=>1024 * 1024 * 2, // 4MB
                         //'tooLarge' => 'The file cannot be bigger than 4MB',
-                        //'wrongType' => 'You can only upload files of type jpg, gif, png, txt, patch, diff, bmp, log, zip, tgz, tar.bz2, tar, tar.gz or gz',
+                        //'wrongType' => 'You can only upload files of type jpg, jpeg, gif, png, txt, patch, diff, bmp, log, zip, tgz, tar.bz2, tar, tar.gz or gz',
                     ),
 		);
 	}
