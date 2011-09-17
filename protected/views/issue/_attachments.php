@@ -54,11 +54,6 @@ $this->widget('ext.EJqueryUpload.EJqueryUpload', array(
                     'id' => 'fileup',
                     'result_id' => 'results',
 ));
-//$this->widget('ext.xupload.XUploadWidget', array(
-//                    'url' => Yii::app()->createUrl("issue/upload", array("parent_id" => $parent_id)),
-//                    'model' => $attachfile,
-//                    'attribute' => 'file',
-//));
 ?>
     <div class="quiet">Filesize max. 2MB - Allowed filetypes: jpg, jpeg, gif, png, txt, patch, diff, bmp, log, zip, tgz, tar.bz2, bz2, tar, tar.gz and gz.</div>
 </div>
