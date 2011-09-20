@@ -140,7 +140,7 @@ class IssueController extends Controller {
         } // if isset($_FILES)
     }
 
-    public function actionRemoveWatcher($watcher_id) {
+    public function actionRemoveWatcher($issue_id) {
         if (Yii::app()->request->isAjaxRequest) {
             if (isset($_POST['remove_watcher'])) {
                 $user = User::model()->findByPk((int)$_POST['remove_watcher']);
