@@ -126,11 +126,8 @@ Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Bugitor::
 <hr/>
 <h4>Watchers</h4>
 <div id="watchers">
-<?php $this->renderPartial('_watchers', array('watchers' => $model->getWatchers())); ?>
+<?php $this->renderPartial('_watchers', array('model' => $model)); ?>
 </div>
-<?php //foreach($model->getNonWatchersList() as $the_user) : ?>
-    <?php //echo $the_user; ?><br/>
-<?php //endforeach; ?>
 <hr/>
 <h4>Attachments</h4>
 <div id="attachments">
