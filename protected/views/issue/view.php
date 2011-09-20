@@ -63,7 +63,7 @@ $this->pageTitle = $model->project->name . ' - ' . $model->tracker->name . ' #' 
             }'), array('class' => ($model->watchedBy(Yii::app()->user->id)) ? 'icon icon-fav' : 'icon icon-fav-off', 'id' => 'watchButton')); ?>
 &nbsp;&nbsp;
 <?php if(Yii::app()->user->checkAccess('Issue.Move')) echo '  ' . CHtml::link('Move', '#',array('submit' => array('move', 'id' => $model->id, 'identifier' => $model->project->identifier), 'class' => 'icon icon-move')) ?>
-<?php if(Yii::app()->user->checkAccess('Issue.Delete')) echo '  ' . CHtml::link('Delete', '#', array('submit' => array('delete','id' => $model->id, 'identifier' => $model->project->identifier), 'confirm' => 'Are you sure you want to delete this issue?', 'class' => 'icon icon-del')); ?>
+<?php if(Yii::app()->user->checkAccess('Issue.Delete')) echo '  ' . CHtml::link('Delete', '#delete', array('submit' => array('delete','id' => $model->id, 'identifier' => $model->project->identifier), 'confirm' => 'Are you sure you want to delete this issue?', 'class' => 'icon icon-del')); ?>
 </div>
 <h2><?php echo Bugitor::namedImage($model->tracker->name) . ' ' . $model->tracker->name . ' #' . $model->id; ?> (<?php echo $model->getStatusLabel($model->status); ?>)</h2>
 <div class="issue">
