@@ -31,8 +31,14 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
+<?php $watchers = $model->getWatchers() ?>
 <?php if(count($watchers)>0) : ?>
     <?php foreach($watchers as $watcher): ?>
         <?php echo Bugitor::link_to_user($watcher->user); ?>
     <?php endforeach; ?>
+<?php endif; ?>
+<?php if(Yii::app()->user->checkAccess('Issue.Update')) : ?>
+<div id="add_watchers">
+<?php $this->renderPartial('_addwatchers', array('model' => $model));?>
+</div>
 <?php endif; ?>

@@ -51,7 +51,7 @@ class IssueController extends Controller {
     }
 
     public function allowedActions() {
-        return 'view, index, upload, getcomment, editcomment';
+        return 'view, index, upload, getcomment, editcomment, addwatcher';
     }
 
     public function actionUpload($parent_id) {
@@ -140,6 +140,41 @@ class IssueController extends Controller {
         } // if isset($_FILES)
     }
 
+    public function actionRemoveWatcher($watcher_id) {
+        if (Yii::app()->request->isAjaxRequest) {
+            if (isset($_POST['remove_watcher'])) {
+                $user = User::model()->findByPk((int)$_POST['remove_watcher']);
+                if ($user) {
+                    $issue = $this->loadModel($issue_id);
+                    if ($issue->watchedBy($user->id)) {
+                        Watcher::model()->deleteAllByAttributes(array('user_id' => $user->id, 'issue_id' => $issue->id));
+                    }
+                    $issue = $this->loadModel($issue_id);
+                    $this->renderPartial('_watchers', array('model' => $issue), false, true);
+                }
+            }
+        }
+    }
+    
+    public function actionAddWatcher($issue_id) {
+        if (Yii::app()->request->isAjaxRequest) {
+            if (isset($_POST['add_watcher'])) {
+                $user = User::model()->findByPk((int)$_POST['add_watcher']);
+                if ($user) {
+                    $issue = $this->loadModel($issue_id);
+                    if (!$issue->watchedBy($user->id)) {
+                        $watcher = new Watcher();
+                        $watcher->issue_id = $issue->id;
+                        $watcher->user_id = $user->id;
+                        $watcher->save();
+                    }
+                    $issue = $this->loadModel($issue_id);
+                    $this->renderPartial('_watchers', array('model' => $issue), false, true);
+                }
+            }
+        }
+    }
+
     public function actionWatch() {
         if(Yii::app()->request->isAjaxRequest){
             if(isset($_POST['id'])) {
@@ -153,7 +188,7 @@ class IssueController extends Controller {
                     $watcher->save();
                 }
                 $issue = $this->loadModel($_POST['id']);
-                $this->renderPartial('_watchers', array('watchers' => $issue->getWatchers()), false, true);
+                $this->renderPartial('_watchers', array('model' => $issue), false, true);
             }
         }
     }

@@ -170,6 +170,17 @@ class Issue extends CActiveRecord {
         return $watchers;
     }
 
+    public function getWatchersList() {
+        $criteria = new CDbCriteria();
+        $criteria->compare('issue_id', $this->id);
+        $watchers = Watcher::model()->with('user')->findAll($criteria);
+        $watcher_list = array();
+        foreach ($watchers as $watcher) {
+            $watcher_list[$watcher->user->id] = $watcher->user->username;
+        }
+        return $watcher_list;
+    }
+    
     public function getAttachments() {
         $criteria = new CDbCriteria();
         $criteria->compare('issue_id', $this->id);
@@ -177,10 +188,13 @@ class Issue extends CActiveRecord {
         return $attachments;
     }
 
-    public function watchedBy() {
+    public function watchedBy($id = null) {
+        if(null == $id) {
+            $id = Yii::app()->user->id;
+        }
         $criteria = new CDbCriteria();
         $criteria->select = 'user_id';
-        $criteria->compare('user_id', Yii::app()->user->id);
+        $criteria->compare('user_id', $id);
         $criteria->compare('issue_id', $this->id);
         $watchers = Watcher::model()->findAll($criteria);
         return !empty($watchers);
