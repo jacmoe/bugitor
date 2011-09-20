@@ -31,6 +31,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
+<?php if(!isset($ajax_shown)) $ajax_shown = false; ?>
 <?php $watchers = $model->getWatchers() ?>
 <?php if(count($watchers)>0) : ?>
     <?php foreach($watchers as $watcher): ?>
@@ -40,7 +41,11 @@
 <br/>
 <?php if(Yii::app()->user->checkAccess('Issue.Update')) : ?>
 <a href="#" onClick="$('#add_watch').toggle();">Add / Remove Watcher</a>
+<?php if($ajax_shown) : ?>
+<div class="issues" id="add_watch">
+<?php else: ?>
 <div class="issues" id="add_watch" style="display: none;">
+<?php endif; ?>
 <?php $this->renderPartial('_addwatchers', array('model' => $model));?>
 </div>
 <br/>

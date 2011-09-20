@@ -51,7 +51,7 @@ class IssueController extends Controller {
     }
 
     public function allowedActions() {
-        return 'view, index, upload, getcomment, editcomment, addwatcher';
+        return 'view, index, upload, getcomment, editcomment, addwatcher, removewatcher';
     }
 
     public function actionUpload($parent_id) {
@@ -150,7 +150,7 @@ class IssueController extends Controller {
                         Watcher::model()->deleteAllByAttributes(array('user_id' => $user->id, 'issue_id' => $issue->id));
                     }
                     $issue = $this->loadModel($issue_id);
-                    $this->renderPartial('_watchers', array('model' => $issue), false, true);
+                    $this->renderPartial('_watchers', array('model' => $issue, 'ajax_shown' => true), false, true);
                 }
             }
         }
@@ -169,7 +169,7 @@ class IssueController extends Controller {
                         $watcher->save();
                     }
                     $issue = $this->loadModel($issue_id);
-                    $this->renderPartial('_watchers', array('model' => $issue), false, true);
+                    $this->renderPartial('_watchers', array('model' => $issue, 'ajax_shown' => true), false, true);
                 }
             }
         }
