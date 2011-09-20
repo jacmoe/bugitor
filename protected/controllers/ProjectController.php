@@ -250,6 +250,7 @@ class ProjectController extends Controller {
     }
 
     public function actionSettings($identifier) {
+        $this->block_robots = true;
         if(!Yii::app()->user->getState('pid')=== 'none') {
             if(!$this->is_clone_running()) {
                 Yii::app()->user->setState('pid', 'none');
@@ -362,6 +363,7 @@ class ProjectController extends Controller {
      * Manages all models.
      */
     public function actionAdmin() {
+        $this->block_robots = true;
         $this->layout = 'admin.views.layouts.main';
         
         $model = new Project('search');

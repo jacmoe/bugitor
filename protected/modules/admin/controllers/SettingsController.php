@@ -36,6 +36,8 @@
 
 class SettingsController extends Controller {
 
+    public $block_robots = true;
+    
     /**
      * @return array action filters
      */

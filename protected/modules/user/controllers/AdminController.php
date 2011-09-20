@@ -2,7 +2,9 @@
 
 class AdminController extends Controller
 {
-	public $defaultAction = 'admin';
+	public $block_robots = true;
+
+        public $defaultAction = 'admin';
 	
 	private $_model;
 

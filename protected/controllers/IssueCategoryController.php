@@ -163,6 +163,7 @@ class IssueCategoryController extends Controller
 	 */
 	public function actionAdmin()
 	{
+                $this->block_robots = true;
 		$model=new IssueCategory('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['IssueCategory']))

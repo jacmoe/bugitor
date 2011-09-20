@@ -173,6 +173,7 @@ class MemberController extends Controller
 	 */
 	public function actionAdmin()
 	{
+                $this->block_robots = true;
 		$model=new Member('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Member']))
