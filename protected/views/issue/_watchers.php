@@ -39,7 +39,7 @@
 <?php endif; ?>
 <br/>
 <?php if(Yii::app()->user->checkAccess('Issue.Update')) : ?>
-<a href="#add_watcher" onClick="$('#add_watch').toggle();">Add / Remove Watcher</a>
+<a href="#" onClick="$('#add_watch').toggle();">Add / Remove Watcher</a>
 <div class="issues" id="add_watch" style="display: none;">
 <?php $this->renderPartial('_addwatchers', array('model' => $model));?>
 </div>
