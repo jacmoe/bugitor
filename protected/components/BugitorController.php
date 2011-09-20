@@ -35,25 +35,24 @@
 <?php
 
 /**
- * Controller is the customized base controller class.
+ * BugitorController is the customized base controller class.
  * All controller classes for this application should extend from this base class.
  */
-class Controller extends BugitorController {
+class BugitorController extends RController {
 
-    public $block_robots = false;
-    
-    public function beforeRender()
+    public function render($view, $data = null, $return = false)
     {
- 
-        if ($this->block_robots)
+        if ($this->beforeRender())
         {
-            Yii::app()->clientScript->registerMetaTag('noindex,noarchive', 'robots');
+            parent::render($view, $data, $return);
         }
- 
-        return true;
- 
     }
  
+    public function beforeRender()
+    {
+        return true;
+    }
+    
     /**
      * @var string the default layout for the controller view. Defaults to '//layouts/column1',
      * meaning using a single column layout. See 'protected/views/layouts/column1.php'.

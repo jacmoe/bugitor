@@ -155,6 +155,7 @@ class AuthorUserController extends Controller
 	 */
 	public function actionAdmin()
 	{
+                $this->block_robots = true;
 		$model=new AuthorUser('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['AuthorUser']))

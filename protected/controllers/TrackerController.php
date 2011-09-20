@@ -150,6 +150,7 @@ class TrackerController extends Controller
 	 */
 	public function actionAdmin()
 	{
+                $this->block_robots = true;
 		$model=new Tracker('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Tracker']))

@@ -733,6 +733,8 @@ class IssueController extends Controller {
      * Manages all models.
      */
     public function actionAdmin() {
+        $this->block_robots = true;
+
         $model = new Issue('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Issue']))

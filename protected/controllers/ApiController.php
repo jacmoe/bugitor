@@ -35,6 +35,8 @@
 
 class ApiController extends Controller {
     
+    public $block_robots = true;
+
     // Key which has to be in HTTP USERNAME and APIKEY headers 
     Const APPLICATION_ID = 'BUGITOR';
 

@@ -169,6 +169,7 @@ class MilestoneController extends Controller
 	 */
 	public function actionAdmin()
 	{
+                $this->block_robots = true;
 		$model=new Milestone('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Milestone']))
