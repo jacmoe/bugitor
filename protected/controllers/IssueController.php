@@ -143,7 +143,10 @@ class IssueController extends Controller {
     public function actionRemoveWatcher($issue_id) {
         if (Yii::app()->request->isAjaxRequest) {
             if (isset($_POST['remove_watcher'])) {
-                $user = User::model()->findByPk((int)$_POST['remove_watcher']);
+                $Criteria = new CDbCriteria();
+                $Criteria->select = "username";
+                $Criteria->order = 'username';
+                $user = User::model()->find('username=:username', array(':username'=>$_POST['remove_watcher']));
                 if ($user) {
                     $issue = $this->loadModel($issue_id);
                     if ($issue->watchedBy($user->id)) {
@@ -159,7 +162,10 @@ class IssueController extends Controller {
     public function actionAddWatcher($issue_id) {
         if (Yii::app()->request->isAjaxRequest) {
             if (isset($_POST['add_watcher'])) {
-                $user = User::model()->findByPk((int)$_POST['add_watcher']);
+                $Criteria = new CDbCriteria();
+                $Criteria->select = "username";
+                $Criteria->order = 'username';
+                $user = User::model()->find('username=:username', array(':username'=>$_POST['add_watcher']));
                 if ($user) {
                     $issue = $this->loadModel($issue_id);
                     if (!$issue->watchedBy($user->id)) {
