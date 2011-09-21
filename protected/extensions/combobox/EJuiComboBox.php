@@ -49,7 +49,7 @@ class EJuiComboBox extends CJuiInputWidget
 	public function init()
 	{
 		$cs = Yii::app()->getClientScript();
-		$assets = Yii::app()->getAssetManager()->publish(dirname(__FILE__) . '/assets');
+		$assets = Yii::app()->getAssetManager()->publish(dirname(__FILE__) . '/eassets');
 		$cs->registerScriptFile($assets . '/jquery.ui.widget.min.js');
 		$cs->registerScriptFile($assets . '/jquery.ui.combobox.js');
 
