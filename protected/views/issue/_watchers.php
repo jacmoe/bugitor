@@ -38,16 +38,3 @@
         <?php echo Bugitor::link_to_user($watcher->user); ?>
     <?php endforeach; ?>
 <?php endif; ?>
-<br/>
-<?php if(Yii::app()->user->checkAccess('Issue.Update')) : ?>
-<a href="#" onClick="$('#add_watch').toggle();">Add / Remove Watcher</a>
-<?php if($ajax_shown) : ?>
-<div class="issues" id="add_watch">
-<?php else: ?>
-<div class="issues" id="add_watch" style="display: none;">
-<?php endif; ?>
-<?php $this->renderPartial('_addwatchers', array('model' => $model));?>
-</div>
-<br/>
-<?php endif; ?>
-<br/>
