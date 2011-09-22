@@ -128,6 +128,14 @@ Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Bugitor::
 <div id="watchers">
 <?php $this->renderPartial('_watchers', array('model' => $model)); ?>
 </div>
+<?php if(Yii::app()->user->checkAccess('Issue.Update')) : ?>
+<a href="#" onClick="$('#add_watch').toggle();">Add / Remove Watcher</a>
+<div class="issues" id="add_watch" style="display: none;">
+<?php $this->renderPartial('_addwatchers', array('model' => $model));?>
+</div>
+<br class="clearfix"/>
+<br class="clearfix"/>
+<?php endif; ?>
 <hr/>
 <h4>Attachments</h4>
 <div id="attachments">
