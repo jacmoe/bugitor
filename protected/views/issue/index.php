@@ -202,7 +202,7 @@ EOD;
             <?php
             echo CHtml::dropDownList('milestoneDrop',
                     0,
-                    $this->getMilestoneSelectList($model->project_id),
+                    $this->getMilestoneSelectListFromIdentifier(),
                     array('empty' => 'No Milestone'));
             ?>
             &nbsp;|-&gt;&nbsp;<?php
