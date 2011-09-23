@@ -1,6 +1,5 @@
 <?php
 $nonwatcherslist = $model->nonWatchersList;
-if (null != $nonwatcherslist) {
 echo 'Add watcher:'.PHP_EOL;
 echo CHtml::beginForm('#').PHP_EOL;
 $this->widget('ext.combobox.EJuiComboBox', array(
@@ -10,7 +9,7 @@ $this->widget('ext.combobox.EJuiComboBox', array(
 echo CHtml::ajaxSubmitButton('Add',$this->createUrl('addwatcher', array('issue_id' => $model->id)),
         array('update' => '#watchers',
             'type' => "post",
-            'complete' => 'function(data,status){
+            'complete' => 'js:function(data,status){
                $("#remove_watcher_select").append($("#add_watcher_select :selected"));
                $("#add_watcher_select :selected").remove();
                $("#add_watcher").val("");
@@ -34,9 +33,9 @@ echo CHtml::ajaxSubmitButton('Add',$this->createUrl('addwatcher', array('issue_i
 ), array('id' => 'add-watcher-button')
         ).PHP_EOL;
 echo CHtml::endForm().PHP_EOL;
-}
+
 $watcherslist = $model->watchersList;
-if (null != $watcherslist) {
+
 echo 'Remove watcher:'.PHP_EOL;
 echo CHtml::beginForm('#').PHP_EOL;
 $this->widget('ext.combobox.EJuiComboBox', array(
@@ -46,7 +45,7 @@ $this->widget('ext.combobox.EJuiComboBox', array(
 echo CHtml::ajaxSubmitButton('Remove',$this->createUrl('removewatcher', array('issue_id' => $model->id)),
         array('update' => '#watchers',
             'type' => "post",
-            'complete' => 'function(data,status){
+            'complete' => 'js:function(data,status){
                $("#add_watcher_select").append($("#remove_watcher_select :selected"));
                $("#remove_watcher_select :selected").remove();
                $("#remove_watcher").val("");
@@ -70,5 +69,5 @@ echo CHtml::ajaxSubmitButton('Remove',$this->createUrl('removewatcher', array('i
         ), array('id' => 'remove-watcher-button')
         ).PHP_EOL;
 echo CHtml::endForm().PHP_EOL;
-}
+
 ?>
