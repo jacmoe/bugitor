@@ -712,6 +712,13 @@ class IssueController extends Controller {
         return $user_list;
     }
 
+    public function getMilestoneSelectListFromIdentifier() {
+        if (isset($_GET['identifier'])) {
+            return $this->getMilestoneSelectList($this->getProject($_GET['identifier']));
+        }
+        return null;
+    }
+    
     public function getMilestoneSelectList($project_id, $filter = false) {
         $Criteria = new CDbCriteria();
         $Criteria->select = "name, title, id, effective_date, project_id";
