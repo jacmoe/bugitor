@@ -1,0 +1,35 @@
+// tablets
+// Ten-inch tables like the iPad (1024x768) held in portrait mode
+@media screen and (min-width: 601px) and (max-width: 768px)
+  // redefine grid variables for this context
+  $total-cols: 20
+  $col-width: 3.3898305084746%
+  $gutter-width: 1.6949152542373%
+  $side-gutter-width: 0
+  $from-direction: left
+  // @debug columns-width()
+  // YOUR STYLES BELOW
+  body
+    #page
+      +container
+      +susy-grid-background
+      #topmenu
+        +full(20)
+      #mainmenu
+        +full(20)
+      #header
+        +full(20)
+        #logo
+          +columns(2,20)
+        #headermain
+          +columns(14,20)
+        #gravatar
+          +columns(4,20)
+          +omega(20)
+      #main
+        +full
+        #splitcontentleft
+          +columns(10,20)
+        #splitcontentright
+          +columns(10,20)
+          +omega(20)

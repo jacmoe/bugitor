@@ -42,7 +42,7 @@ return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     
     'name' => 'Bugitor Issue Tracker',
-    'theme' => 'classic',
+    'theme' => 'kit',
     
     'defaultController' => 'site',
     

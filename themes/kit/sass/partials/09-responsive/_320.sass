@@ -1,0 +1,28 @@
+// mobile vertical (iphone)
+// small screen devices, like phones, held in portrait mode
+@media screen and (min-width: 10px) and (max-width: 320px)
+  // redefine grid variables for this context
+  $total-cols: 2
+  $col-width: 314px
+  $gutter-width: $kit-gutter-half
+  $side-gutter-width: 3px
+  // @debug columns-width()
+  // YOUR STYLES BELOW
+  #page
+    +container
+    +susy-grid-background
+    > *
+      +full
+  #header
+    +full
+    +pie-clearfix
+    #logo
+      +columns(1,$total-cols)
+      +alpha($total-cols)
+    #headermain
+      +columns(1,$total-cols)
+      +omega($total-cols)
+    #gravatar
+      position: fixed
+      right: 15px
+      top: 35px

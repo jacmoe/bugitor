@@ -1,0 +1,43 @@
+// SUSY GRID FRAMEWORK
+//**
+//  Susy: Un-obtrusive grids for designers
+//  By: Eric A. Meyer and OddBird
+//  Site: susy.oddbird.net
+//**
+
+// Font Sizes --------------------------------------------------------------
+$base-font-size: 14px !default
+$base-line-height: $kit-baseline
+// Grid Variables --------------------------------------------------------------
+$total-cols: 20
+
+// Remember the formula:
+// Target ÷ context 
+// Then move the "." two decimals to the right.
+
+// 40 ÷ 1180 = col-width
+$col-width: 3.3898305084746%
+
+// 20 ÷ 1180 = gutter-width
+$gutter-width: 1.6949152542373%
+
+$side-gutter-width: 0
+$grid-background-column-color : #f2f2f2
+$from-direction: left
+$kit-total-cols: $total-cols
+$kit-col-width: $col-width
+$kit-gutter-width: $gutter-width
+$kit-side-gutter-width: $gutter-width
+
+@import susy
+// uncomment to output the full container width to the terminal
+// @debug columns-width()
+
+
+/* DEFINE THE GRID CONTAINER --------------------------------------------------------------
+// BUILD THE GRID FOR YOUR SITE
+// HELPER CLASSES INTENDED FOR USE IN @EXTEND
+.container
+  +container
+  // uncomment to show grid background
+  +susy-grid-background

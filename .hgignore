@@ -19,3 +19,10 @@ syntax: glob
 uploads/*
 protected/config/email_connect.php
 installer/lock
+glob:.settings/*
+glob:themes/kit/.sass-cache/*
+glob:themes/fluid/*
+glob:themes/320/*
+glob:themes/kit/css/ie.css
+glob:themes/kit/css/style.css
+glob:themes/kit/css/selectivizr.css

@@ -1,0 +1,118 @@
+// Create the design for your site below
+/* SITE-WIDE DESIGN --------------------------------------------------------------
+
+.fright
+  +float-right
+  
+.fleft
+  +float-left
+
+//.contextual
+//  @extend .fright
+
+img.gravatar
+  padding: 2px
+  border: solid 1px #d5d5d5
+  background: #fff
+  position: relative
+  right: -15px
+  top: 10px
+
+
+#topmenu
+  +pie-clearfix
+
+
+a
+  +remove-link-underlines
+  +hover-link
+
+
+// Mixin that controls the text style
+=sassy-text-style($base-color, $second-color, $text-color, $text-style: "inset")
+  $text-lightness: lightness($text-color)
+  $text-color-shift: 0
+  $diff : lightness($base-color) - lightness($second-color)
+  
+  @if $diff > 40
+    $text-color-shift: 30 + ($diff/10)
+  @else if $diff > 18
+    $text-color-shift: 20 + ($diff/10)
+  @else
+    $text-color-shift: 10 + ($diff/10)
+  
+  color: $text-color
+  @if $text-style == "inset"
+    @if $text-lightness < 50
+      +text-shadow(lighten($base-color, $text-color-shift) 0 1px 0)
+    @else
+      +text-shadow(darken($base-color, $text-color-shift), 0 -1px 0)
+    @if $text-style == "raised"
+      @if $text-lightness < 50
+        +text-shadow(lighten($base-color, $text-color-shift), 0 -1px 0)
+      @else
+        +text-shadow(darken($base-color, $text-color-shift), 0 1px 0)
+
+
+#menu
+  ul
+    +horizontal-list(0.25em)
+    li
+      a
+        +remove-link-underlines
+        +hover-link
+
+      &.active a
+        color: $orange
+        font-decoration: underline
+
+#topmenu
+  @extend #menu
+  a
+    +link-colors($white, $white, $white, $white, false)
+  background-color: $black-light
+  +background-image(linear-gradient($black-lighter, $black-light))
+  +sassy-text-style($black-lighter, $gray, $white)
+  padding-right: 20px
+  padding-left: 20px
+  color: $white
+
+#mainmenu
+  @extend #menu
+  +adjust-font-size-to(20px)
+
+/* create simple tabs from <a> inside <ul>
+ * $dir is 'bottom' for standard tabs
+ * 'top' for hanging tabs
+ * assumes placement on UL
+=mytabs($dir: bottom)
+  +horizontal-list(3px)
+  position: relative
+  li
+    border-#{$dir}: 1px solid $base-color
+    a.selected
+      padding-#{$dir}: 0
+      border-#{$dir}: 1px solid $white
+      color: $orange
+    a
+      border:
+        width: 1px
+        style: solid
+        color: $base-color
+      float: left
+      position: relative
+      #{$dir}: -1px
+      @if $dir == bottom
+        padding: 0 0.25em 1px
+        +border-top-radius
+        +remove-link-underlines
+      @else
+        padding: 1px 0.25em 0
+        +border-bottom-radius
+        border-top-width: 0
+
+
+.tabs
+  ul
+    //+horizontal-list
+    +mytabs

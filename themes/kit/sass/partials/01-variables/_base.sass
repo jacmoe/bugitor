@@ -1,0 +1,70 @@
+// SET VARIABLES FOR USE BY DEFAULTS, MIXINS, AND FRAMEWORKS
+// value used in compass typography
+// see: basic/default/typography
+// and: http://compass-style.org/reference/compass/typography/vertical_rhythm/
+$base-font-size: 14px
+
+
+// --- Modular SCALE (used by _defaults.sass) -----------
+// values used to determine modular scale values
+// see: src/common/mixins/_modular-scale.sass
+// and http://modularscale.com/
+$ratio: $golden $major-third
+$base-size: $base-font-size
+
+
+// Dimensions
+// basic values, independant of any css framework
+$kit-baseline: $base-font-size * 1.5
+$kit-baseline-half: $kit-baseline * 0.5
+$kit-baseline-neg: $kit-baseline * -1
+$kit-gutter: ms(2)
+$kit-gutter-half: $kit-gutter * 0.5
+$kit-gutter-neg: $kit-gutter * -1
+
+// pick a reset of normalization
+// accepted values: 'meyer', 'normalize'
+$init-type: normalize
+
+
+// --- Modular SCALE (used by _defaults.sass) -----------
+// http://modularscale.com/
+// This scale based on 14px (text) 140px (column width), musical fifth (2:3)
+$ms-5: 5.463px
+$ms-4: 6.222px
+$ms-3: 8.194px
+$ms-2: 9.333px
+$ms-1: 12.291px
+$ms0: 14px
+$ms1: 18.436px 
+$ms2: 21.000px
+$ms3: 27.654px
+$ms4: 31.500px
+$ms5: 41.481px
+$ms6: 47.250px
+$ms7: 62.222px
+$ms8: 70.875px
+$ms9: 93.333px
+$ms10: 106.313px
+$base-font-size: $ms0
+
+// Mixins ----------------------------------------------------------------  
+@mixin yellow-btn
+  font-family: 'HelveticaNeueBold'
+  color: #fff
+  text-decoration: none
+  display: block
+  width: 100%
+  +adjust-font-size-to(14px)
+  +adjust-leading-to(3)
+  border-bottom: 1px solid rgb(145,93,16)
+  border-top: 1px solid rgb(239,209,143)
+  border-left: 1px solid rgb(227,173,76)
+  border-right: 1px solid rgb(180,124,23)
+  +border-radius(7px)
+  +single-text-shadow
+  +box-shadow(rgba(255,255,255, .2) 0 0 5px 1px inset)
+  +linear-gradient(color_stops(rgb(223,162,30),rgb(220,155,29),rgb(216,143,26),rgb(213,136,24)), top, image-url('noise.png'))
+  &:hover
+    +linear-gradient(color_stops(rgb(222,162,30),rgb(234,165,31),rgb(229,151,26),rgb(214,136,24)), top, image-url('noise.png')) 
+
