@@ -1,0 +1,78 @@
+/* Sprites -------------------------------------------------------------- */
+// Compass can compile a folder of .png images into a single sprite image
+// place your images in a folder within you images folder, like "/icons"
+// This will compile to a set of classes for each sprite image you can @extend
+
+//
+  // .icons-sprite {
+    // background: url('images/icons-123456789.png') no-repeat;
+  // }
+  // .icons-new-selected {
+    // background-position: 0 0;
+  // }
+  // .icons-new {
+    // background-position: 0 -30px;
+  // }
+
+// for a full tutorial, see: http://compass-style.org/help/tutorials/spriting/
+
+$icons-spacing: 3px
+@import "icons/*.png"
+@include all-icons-sprites(true)
+//$icon-sprite: sprite-map("icons/*.png", $spacing: 16px)
+
+$smilies-spacing: 3px
+@import "smilies/*.png"
+@include all-smilies-sprites(true)
+
+$twentytwo-spacing: 3px
+@import "twentytwo/*.png"
+@include all-twentytwo-sprites(true)
+
+.icons-sprite
+  padding-left: 16px
+  width: 16px
+  height: 16px
+  //display: inline-block
+
+.smilies-sprite
+  width: 15px
+  height: 15px
+  display: inline-block
+
+
+
+=small-icon($sprites, $name, $vert: 0, $horz: 0)
+  padding-left: 20px
+  height: 20px
+  width: 20px
+  background: sprite($sprites, $name, $vert, $horz) no-repeat
+
+.projects
+  +small-icon($icons-sprites, projects, 0, 5)
+
+.activity
+  +small-icon($icons-sprites, time, 0, 5)
+
+.overview
+  +small-icon($icons-sprites, positive, 0, 5)
+
+.issues
+  +small-icon($icons-sprites, ticket, 0, 3)
+
+.code
+  +small-icon($icons-sprites, changeset, 0, 5)
+
+.settings
+  +small-icon($icons-sprites, admin, 0, 5)
+
+.roadmap
+  +small-icon($icons-sprites, package, 0, 4)
+
+.issue-attachment
+  padding-left: 16px
+  background: sprite($icons-sprites, attachment, 0, 5) no-repeat
+
+.issue-new
+  padding-left: 16px
+  background: sprite($icons-sprites, ticket, 0, 5) no-repeat

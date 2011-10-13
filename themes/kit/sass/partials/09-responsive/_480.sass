@@ -1,0 +1,41 @@
+// mobile horizontal (iphone)
+// small screen devices, like phones, held in landscape mode
+@media screen and (min-width: 321px) and (max-width: 480px)
+  // redefine grid variables for this context
+  $total-cols             : 12
+  $col-width              : 4em  
+  $gutter-width           : 1em
+  $side-gutter-width      : $gutter-width
+  // @debug columns-width()
+  // YOUR STYLES BELOW
+  #page
+    +container
+    +susy-grid-background
+    > *
+      +full
+  #header
+    +full
+    +pie-clearfix
+    #logo
+      +columns(1,$total-cols)
+      +alpha($total-cols)
+    #headermain
+      +columns(2,$total-cols)
+      +omega($total-cols)
+    #gravatar
+      position: fixed
+      right: 15px
+      top: 35px
+  #mainmenu
+    +adjust-font-size-to(16px)
+  #topmenu
+    +adjust-font-size-to(12px)
+
+  #main
+    +full
+    #splitcontentleft
+      +columns(2, $total-cols)
+      +alpha
+    #splitcontentright
+      +columns(1, $total-cols)
+      +omega

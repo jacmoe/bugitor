@@ -1,0 +1,36 @@
+// wide screen
+// primarily laptop and desktop browsers
+@media screen and (min-width: 1200px)
+  // redefine grid variables for this context
+  $total-cols             : 24
+  $col-width              : 4em  
+  $gutter-width           : 1em
+  $side-gutter-width      : $gutter-width
+  // @debug columns-width()
+  // YOUR STYLES BELOW
+  #page
+    +container
+    +susy-grid-background
+    >
+      header, footer, #mainmenu, #topmenu
+        +full
+    #main
+      +full
+      +pie-clearfix
+      #splitcontentleft
+        +columns(11,24)
+      #splitcontentright
+        +columns(11,24)
+        +omega(24)
+  
+    #header
+      +full
+      +pie-clearfix
+      #logo
+        +columns(3,24)
+        +alpha
+      #headermain
+        +columns(11,24)
+      #gravatar
+        +columns(7,24)
+        +omega(24)

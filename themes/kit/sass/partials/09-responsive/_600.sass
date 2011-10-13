@@ -1,0 +1,37 @@
+// smaller tablets
+// like Amazon Kindle (600x800) and Barnes & Noble Nook (768x1024)
+// held in portrait mode
+@media screen and (min-width: 481px) and (max-width: 600px)
+  // redefine grid variables for this context
+  $total-cols             : 12
+  $col-width              : 4em  
+  $gutter-width           : 1em
+  $side-gutter-width      : $gutter-width
+  // @debug columns-width()
+  // YOUR STYLES BELOW
+  #page
+    +container
+    // +susy-grid-background
+    > *
+      +full
+  #header
+    +full
+    +pie-clearfix
+    #logo
+      +columns(1,$total-cols)
+    #headermain
+      +columns(($total-cols - 3),$total-cols)
+    #gravatar
+      +columns(1,$total-cols)
+      +omega
+  #mainmenu
+    +adjust-font-size-to(18px)
+
+  #main
+    +full
+    #splitcontentleft
+      +columns(2, $total-cols)
+      +alpha
+    #splitcontentright
+      +columns(2, $total-cols)
+      +omega

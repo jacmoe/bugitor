@@ -32,7 +32,7 @@
  */
 ?>
 <?php $project = $this->getProject(); ?>
-<div class="contextual"><?php echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl.'/images/feed.png', 'Rss Feed', array('title' => 'Rss Feed')),Yii::app()->createUrl('project/feed',array('identifier' => $project->identifier))); ?></div>
+<div class="contextual"><?php echo CHtml::link("", Yii::app()->createUrl('project/feed',array('identifier' => $project->identifier)), array('title' => 'Rss Feed', 'class' => 'icons-rss')); ?></div>
 <h2><?php echo CHtml::link($project->name, array('project/view', 'identifier' => $project->identifier)); ?></h2>
 <?php echo Yii::app()->textile->textilize($project->description); ?>
 <?php if($project->homepage != ''): ?>

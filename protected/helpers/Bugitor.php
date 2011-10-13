@@ -239,7 +239,9 @@ class Bugitor {
     }
 
     public static function namedImage($name) {
-        return '<img title="' . $name . '" src="' . Yii::app()->theme->baseUrl . '/images/' . $name . '.png"/>';
+    	$style = 'icons-' . $name;
+        //return "<span title=\"{$name}\" style=\"shidfsklfj\"></span>";
+		return CHtml::tag('span', array('title' => $name,'class' => "icons-{$name}"));
     }
 
     public static function getReadableFileSize($size, $retstring = null) {
