@@ -38,7 +38,7 @@ if(isset($_GET['tab'])) {
     $this->pageTitle = $information->name . ' - Settings - Information';
 }
 ?>
-<h3 class="settings">Settings</h3>
+<h3 class="settings-icon">Settings</h3>
 <div class="tabs">
 <ul>
 <?php foreach($tabs as $tab): ?>

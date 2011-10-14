@@ -35,7 +35,6 @@
     $this->pageTitle = isset($_GET['projectname']) ? $_GET['projectname'] . '- Issues - ' . Yii::app()->name : Yii::app()->name . ' - Issues';
     $pageSize=Yii::app()->user->getState('pageSize',Yii::app()->params['defaultPageSize']);
 ?>
-<div class="sixteen columns">
 <div class="contextual">
             <?php
             if (((Yii::app()->controller->id === 'project') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) {
@@ -49,7 +48,7 @@
             }
             ?>
 </div>
-<h3 class="issues">Issues</h3>
+<h3 class="issues-icon">Issues</h3>
 <?php echo CHtml::form('issues','get', array('class' => 'floatrightup')); ?>
 <?php echo CHtml::dropDownList('issueFilter',
     isset($_GET['issueFilter'])?(int)$_GET['issueFilter']:1,
@@ -241,4 +240,3 @@ EOD;
                 </fieldset>
 </div>
 <?php endif; ?>
-</div>

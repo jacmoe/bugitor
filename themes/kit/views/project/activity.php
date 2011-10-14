@@ -34,7 +34,6 @@
 <?php
 $this->pageTitle = $model->name . ' - Activity - ' . Yii::app()->name;
 ?>
-<div class="sixteen columns">
 <div class="contextual">
             <?php
             if (((Yii::app()->controller->id === 'project') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) {
@@ -48,6 +47,5 @@ $this->pageTitle = $model->name . ' - Activity - ' . Yii::app()->name;
             }
             ?>
 </div>
-<h3 class="activity">Activity</h3>
+<h3 class="activity-icon">Activity</h3>
 <?php $this->widget('ProjectActivity', array('projectId' => $model->id)); ?>
-</div>

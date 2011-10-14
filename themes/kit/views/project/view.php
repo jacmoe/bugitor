@@ -50,27 +50,27 @@ $this->pageTitle = $model->name . ' - Overview - ' . Yii::app()->name;
 	</div>
 	<h3 class="overview-icon">Overview</h3>
 	<div id="splitcontentleft">
-		<div class="project">
+		<div class="project box">
 			<?php $this->widget('ProjectBox', array('project' => $model)) ?>
 		</div>
-		<div class="roadmap">
+		<div class="roadmap box">
 		    <?php $milestone_limit = 2; ?>
 		    <?php $open_milestone_count = Milestone::getOpenMilestoneCount($model->id); ?>
 		    <?php if($open_milestone_count < 2) $milestone_limit = $open_milestone_count; ?>
-		    <h3>Roadmap <small>(Showing <?php echo $milestone_limit; ?> <?php echo ((1 == $open_milestone_count) ? 'milestone' : 'milestones') ?> out of <?php echo $open_milestone_count; ?> open)</small></h3>
+		    <h3 class="roadmap-icon">Roadmap <small>(Showing <?php echo $milestone_limit; ?> <?php echo ((1 == $open_milestone_count) ? 'milestone' : 'milestones') ?> out of <?php echo $open_milestone_count; ?> open)</small></h3>
 			<?php $this->widget('Roadmap', array('milestones' => $model->milestones, 'identifier' => $model->identifier)) ?>
 		</div>
-		<div class="members">
-			<h3>Members</h3>
+		<div class="members box">
+			<h3 class="members-icon">Members</h3>
 			<?php $this->widget('ProjectMembers', array('project' => $model)) ?>
 		</div>
 	</div>
 	<div id="splitcontentright">
-		<div class="issues">
+		<div class="issues box">
 			<h3 class="issues-icon">Issues</h3>
 			<?php $this->widget('ProjectIssuesByTracker', array('project' => $model)) ?>
 		</div>
-		<div class="activity">
+		<div class="activity box">
 			<h3 class="activity-icon">Recent Activity</h3>
 			<?php $this->widget('ProjectActivity', array('projectId' => $model->id, 'displayLimit' => 5)); ?>
 		</div>
