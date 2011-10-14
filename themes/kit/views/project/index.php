@@ -36,11 +36,11 @@
 $this->pageTitle=Yii::app()->name . ' - Projects';
 ?>
 <?php if(Yii::app()->user->checkAccess('Project.Create')) : ?>
-<div class="contextual"><?php echo CHtml::link('Create Project', $this->createUrl('project/create'), array('class' => 'icons-add')) ?></div>
+<div class="contextual">
+	<?php echo CHtml::link('Create Project', $this->createUrl('project/create'), array('class' => 'icons-add')) ?>
+</div>
 <?php endif; ?>
 <h3 class="projects">Projects</h3>
-<p><span class="smilies-icon_biggrin"></span> Hi there <span class="smilies-icon_wink"></span></p>
-<p>This is really awesome! <span class="icons-Feature"></span></p>
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_view'

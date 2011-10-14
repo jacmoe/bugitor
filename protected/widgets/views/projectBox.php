@@ -31,6 +31,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
+<div>
 <?php $project = $this->getProject(); ?>
 <div class="contextual"><?php echo CHtml::link("", Yii::app()->createUrl('project/feed',array('identifier' => $project->identifier)), array('title' => 'Rss Feed', 'class' => 'icons-rss')); ?></div>
 <h2><?php echo CHtml::link($project->name, array('project/view', 'identifier' => $project->identifier)); ?></h2>
@@ -39,3 +40,4 @@
 Homepage: <?php echo CHtml::link($project->homepage, $project->homepage); ?>
 <?php endif; ?>
 <div class="alt" style="font-size:smaller;">Created : <?php echo Bugitor::timeAgoInWords($project->created); ?></div>
+</div>

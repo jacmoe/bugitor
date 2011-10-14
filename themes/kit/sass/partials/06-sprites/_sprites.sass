@@ -33,7 +33,7 @@ $twentytwo-spacing: 3px
   padding-left: 16px
   width: 16px
   height: 16px
-  //display: inline-block
+  display: inline-block
 
 .smilies-sprite
   width: 15px
@@ -44,29 +44,28 @@ $twentytwo-spacing: 3px
 
 =small-icon($sprites, $name, $vert: 0, $horz: 0)
   padding-left: 20px
-  height: 20px
-  width: 20px
   background: sprite($sprites, $name, $vert, $horz) no-repeat
+  //background-repeat: no-repeat
 
-.projects
+.projects-icon
   +small-icon($icons-sprites, projects, 0, 5)
 
-.activity
+.activity-icon
   +small-icon($icons-sprites, time, 0, 5)
 
-.overview
+.overview-icon
   +small-icon($icons-sprites, positive, 0, 5)
 
-.issues
-  +small-icon($icons-sprites, ticket, 0, 3)
+.issues-icon
+  +small-icon($icons-sprites, ticket, 0, 4)
 
-.code
+.code-icon
   +small-icon($icons-sprites, changeset, 0, 5)
 
-.settings
+.settings-icon
   +small-icon($icons-sprites, admin, 0, 5)
 
-.roadmap
+.roadmap-icon
   +small-icon($icons-sprites, package, 0, 4)
 
 .issue-attachment

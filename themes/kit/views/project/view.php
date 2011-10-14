@@ -34,47 +34,45 @@
 <?php
 $this->pageTitle = $model->name . ' - Overview - ' . Yii::app()->name;
 ?>
-<div class="sixteen columns">
-<div class="contextual">
-    <?php
-    if (((Yii::app()->controller->id === 'project') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) {
-        if (('issue/view' !== $this->route) && ('issue/update' !== $this->route) && ('issue/create' !== $this->route)) {
-            $this->widget('DropDownRedirect', array(
-                'data' => Yii::app()->controller->getProjects(),
-                'url' => $this->createUrl($this->route, array_merge($_GET, array('identifier' => '__value__'))),
-                'select' => $_GET['identifier'], //the preselected value
-            ));
-        }
-    }
-    ?>
-</div>
-<h3 class="overview">Overview</h3>
-<div class="row">
-<div id="splitcontentleft" class="eight columns alpha" role="primary">
-<div class="project box">
-<?php $this->widget('ProjectBox', array('project' => $model)) ?>
-</div>
-<div class="roadmap box">
-    <?php $milestone_limit = 2; ?>
-    <?php $open_milestone_count = Milestone::getOpenMilestoneCount($model->id); ?>
-    <?php if($open_milestone_count < 2) $milestone_limit = $open_milestone_count; ?>
-    <h3>Roadmap <font style="font-style: italic; font-size: 0.5em;">(Showing <?php echo $milestone_limit; ?> <?php echo ((1 == $open_milestone_count) ? 'milestone' : 'milestones') ?> out of <?php echo $open_milestone_count; ?> open)</font></h3>
-<?php $this->widget('Roadmap', array('milestones' => $model->milestones, 'identifier' => $model->identifier)) ?>
-</div>
-<div class="members box">
-<h3>Members</h3>
-<?php $this->widget('ProjectMembers', array('project' => $model)) ?>
-</div>
-</div>
-<div id="splitcontentright" class="eight columns omega" role="complementary">
-<div class="issues box">
-<h3>Issues</h3>
-<?php $this->widget('ProjectIssuesByTracker', array('project' => $model)) ?>
-</div>
-<div class="activity box">
-<h3>Recent Activity</h3>
-<?php $this->widget('ProjectActivity', array('projectId' => $model->id, 'displayLimit' => 5)); ?>
-</div>
-</div>
-</div>
+<div id="project-view">
+	<div class="contextual">
+	    <?php
+	    if (((Yii::app()->controller->id === 'project') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) {
+	        if (('issue/view' !== $this->route) && ('issue/update' !== $this->route) && ('issue/create' !== $this->route)) {
+	            $this->widget('DropDownRedirect', array(
+	                'data' => Yii::app()->controller->getProjects(),
+	                'url' => $this->createUrl($this->route, array_merge($_GET, array('identifier' => '__value__'))),
+	                'select' => $_GET['identifier'], //the preselected value
+	            ));
+	        }
+	    }
+	    ?>
+	</div>
+	<h3 class="overview-icon">Overview</h3>
+	<div id="splitcontentleft">
+		<div class="project">
+			<?php $this->widget('ProjectBox', array('project' => $model)) ?>
+		</div>
+		<div class="roadmap">
+		    <?php $milestone_limit = 2; ?>
+		    <?php $open_milestone_count = Milestone::getOpenMilestoneCount($model->id); ?>
+		    <?php if($open_milestone_count < 2) $milestone_limit = $open_milestone_count; ?>
+		    <h3>Roadmap <small>(Showing <?php echo $milestone_limit; ?> <?php echo ((1 == $open_milestone_count) ? 'milestone' : 'milestones') ?> out of <?php echo $open_milestone_count; ?> open)</small></h3>
+			<?php $this->widget('Roadmap', array('milestones' => $model->milestones, 'identifier' => $model->identifier)) ?>
+		</div>
+		<div class="members">
+			<h3>Members</h3>
+			<?php $this->widget('ProjectMembers', array('project' => $model)) ?>
+		</div>
+	</div>
+	<div id="splitcontentright">
+		<div class="issues">
+			<h3 class="issues-icon">Issues</h3>
+			<?php $this->widget('ProjectIssuesByTracker', array('project' => $model)) ?>
+		</div>
+		<div class="activity">
+			<h3 class="activity-icon">Recent Activity</h3>
+			<?php $this->widget('ProjectActivity', array('projectId' => $model->id, 'displayLimit' => 5)); ?>
+		</div>
+	</div>
 </div>
