@@ -35,7 +35,7 @@
 <?php
 $this->pageTitle = $model->project->name . ' - ' . $model->tracker->name . ' #' . $model->id . ': ' . $model->subject . ' - ' . Yii::app()->name ;
 ?>
-<div class="sixteen columns">
+<div id="issue-view">
 <div class="contextual" id="contextual">
 <?php if(Yii::app()->user->checkAccess('Issue.Update')) : ?>
     <?php echo CHtml::link('Update / Reply', array('update', 'id' => $model->id, 'identifier' => $model->project->identifier), array('class' => 'icons-edit')) ?>

@@ -26,3 +26,6 @@ glob:themes/320/*
 glob:themes/kit/css/ie.css
 glob:themes/kit/css/style.css
 glob:themes/kit/css/selectivizr.css
+glob:themes/kit/css/images/icons-*
+glob:themes/kit/css/images/smilies-*
+glob:themes/kit/css/images/twentytwo-*
