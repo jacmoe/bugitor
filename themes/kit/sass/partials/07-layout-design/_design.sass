@@ -7,21 +7,29 @@
 .fleft
   +float-left
 
-//.contextual
-//  @extend .fright
+.contextual
+  float : right
+  white-space : nowrap
+  line-height : 1.4em
+  margin-top : 5px
+  padding-left : 10px
+  font-size : 0.9em
 
 img.gravatar
   padding: 2px
   border: solid 1px #d5d5d5
   background: #fff
-  position: relative
-  right: -15px
-  top: 10px
 
+
+//body
+  padding: 2em 2em 2em 2em
+  background-color: $black-light
+  
+//#page
+  background-color: $gray-light
 
 #topmenu
   +pie-clearfix
-
 
 a
   +remove-link-underlines
@@ -116,3 +124,8 @@ a
   ul
     //+horizontal-list
     +mytabs
+
+#content
+  padding-left: 1em
+  padding-right: 1em
+

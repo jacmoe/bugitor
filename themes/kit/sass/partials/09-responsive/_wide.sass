@@ -5,32 +5,33 @@
   $total-cols             : 24
   $col-width              : 4em  
   $gutter-width           : 1em
-  $side-gutter-width      : $gutter-width
+  $side-gutter-width      : 0em//$gutter-width
   // @debug columns-width()
   // YOUR STYLES BELOW
   #page
     +container
-    +susy-grid-background
-    >
-      header, footer, #mainmenu, #topmenu
-        +full
-    #main
+    //+susy-grid-background
+    #topmenu
       +full
-      +pie-clearfix
-      #splitcontentleft
-        +columns(11,24)
-      #splitcontentright
-        +columns(11,24)
-        +omega(24)
-  
-    #header
-      +full
-      +pie-clearfix
+    #topbanner
+      +columns(24)
+      +alpha
       #logo
-        +columns(3,24)
-        +alpha
-      #headermain
-        +columns(11,24)
+        +columns(2,24)
+      #masthead
+        +columns(18,24)
       #gravatar
-        +columns(7,24)
+        +columns(2,24)
         +omega(24)
+    #mainmenu
+      +full
+    div[role="main"]
+      +columns(24)
+      +alpha
+      #splitcontentleft
+        +columns(12,24)
+      #splitcontentright
+        +columns(12,24)
+        +omega(24)
+    footer
+      +full

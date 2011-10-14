@@ -59,7 +59,7 @@
 		 * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		 */
 		?>
-		<div id="page" class="container">
+		<div id="page">
 			<header role="banner">
 				<nav id="topmenu">
 					<div class="fleft"><?php $this->widget('LinkMenu');?></div>
@@ -90,7 +90,7 @@
 					</div>
 				</nav>
 				<!-- #topmenu //-->
-				<div id="header">
+				<div id="topbanner">
 					<div id="logo">
 						<?php echo CHtml::image(Yii::app()->theme->baseUrl . 
 							'/css/images/bugitor_64.png',
@@ -98,7 +98,7 @@
 							array('title' => 'Bugitor - The Yii-powered issue tracker'))
 						?>
 					</div>
-					<div id="headermain">
+					<div id="masthead">
 						<?php
 							if (
 							((Yii::app()->controller->id === 'project')
@@ -134,9 +134,9 @@
 					</div>
 					<!-- #gravatar //-->
 				</div>
-				<!-- #header //-->
-				<hr/>
+				<!-- #topbanner //-->
 				<nav id="mainmenu">
+					<hr/>
 					<?php
 						if (((Yii::app()->controller->id === 'project')
 						|| (Yii::app()->controller->id === 'changeset')
@@ -157,11 +157,11 @@
 					array('label' => 'Projects', 'url' => array('/projects/'), 'id' => 'project/index'), ), ));
 					?>
 					<?php  endif;?>
+					<hr/>
 				</nav>
 				<!-- #mainmenu //-->
-				<hr/>
 			</header>
-			<div id="main">
+			<div role="main">
 				<?php  $this -> widget('ext.ELocalTimeago.ELocalTimeago', array('localtimeago' => 'MMM dd, yyyy HH:mm zzz'));?>
 				<?php  $this -> widget('ext.EHighlight.EHighlight');?>
 				<?php
@@ -180,7 +180,9 @@
 				endif;
 				endforeach;
 				?>
-				<?php echo $content;?>
+				<div id="content">
+					<?php echo $content;?>
+				</div>
 			</div>
 			<!-- #page //-->
 			<footer id="footer">

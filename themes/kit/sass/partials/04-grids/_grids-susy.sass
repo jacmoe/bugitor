@@ -9,25 +9,10 @@
 $base-font-size: 14px !default
 $base-line-height: $kit-baseline
 // Grid Variables --------------------------------------------------------------
-$total-cols: 20
-
-// Remember the formula:
-// Target ÷ context 
-// Then move the "." two decimals to the right.
-
-// 40 ÷ 1180 = col-width
-$col-width: 3.3898305084746%
-
-// 20 ÷ 1180 = gutter-width
-$gutter-width: 1.6949152542373%
-
-$side-gutter-width: 0
-$grid-background-column-color : #f2f2f2
-$from-direction: left
-$kit-total-cols: $total-cols
-$kit-col-width: $col-width
-$kit-gutter-width: $gutter-width
-$kit-side-gutter-width: $gutter-width
+$total-cols: $kit-total-cols
+$col-width: $kit-col-width
+$gutter-width: $kit-gutter-width
+$side-gutter-width: $kit-side-gutter-width
 
 @import susy
 // uncomment to output the full container width to the terminal
@@ -40,4 +25,14 @@ $kit-side-gutter-width: $gutter-width
 .container
   +container
   // uncomment to show grid background
-  +susy-grid-background
+  // +susy-grid-background
+
+// BUILD THE GRID BY CALLING SUSY MIXINS ON DOM ELEMENTS
+// example:
+  body
+    #container
+      @extend .container
+      >
+        header, #main, footer
+          +full
+
