@@ -34,7 +34,6 @@
 <?php
 $this->pageTitle = $model->name . ' - Roadmap - ' . Yii::app()->name;
 ?>
-<div class="sixteen columns">
 <div class="contextual">
             <?php
             if (((Yii::app()->controller->id === 'project') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) {
@@ -48,8 +47,7 @@ $this->pageTitle = $model->name . ' - Roadmap - ' . Yii::app()->name;
             }
             ?>
 </div>
-<h3 class="roadmap">Roadmap</h3>
+<h3 class="roadmap-icon">Roadmap</h3>
 <div id="roadmap">
 <?php $this->widget('Roadmap', array('milestones' => $model->milestones, 'identifier' => $model->identifier, 'detail_view' => true)) ?>
-</div>
 </div>

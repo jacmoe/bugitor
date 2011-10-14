@@ -47,7 +47,7 @@ $this->pageTitle = $model->name . ' - Code - ' . Yii::app()->name;
             }
             ?>
 </div>
-<h3 class="code">Code</h3>
+<h3 class="code-icon">Code</h3>
 <div id="changelog">
 <div id="codemenu" class="box">
     <?php

@@ -59,7 +59,7 @@
             $ver_count++;
             if($ver_count > 2) break;
     } ?>
-        <h3>
+        <h3 class="roadmap-icon">
             <?php echo CHtml::link($milestone->name. ' - ' . $milestone->title,
                 array('milestone/view',
                     'id' => $milestone->id,

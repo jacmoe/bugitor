@@ -135,11 +135,9 @@ Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Bugitor::
 </div>
 </div>
 <br class="clearfix"/>
-<hr class="space"/>
 <hr/>
 <b>Description:</b><br/>
 <?php echo Yii::app()->textile->textilize($model->description); ?>
-<hr class="space"/>
 <hr/>
 <h4>Watchers</h4>
 <div id="watchers">

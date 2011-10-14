@@ -69,10 +69,13 @@ a
       a
         +remove-link-underlines
         +hover-link
+        &:hover
+          color: $orange
 
       &.active a
         color: $orange
         font-decoration: underline
+        border-bottom: 3px orange solid
 
 #topmenu
   @extend #menu
@@ -87,7 +90,16 @@ a
 
 #mainmenu
   @extend #menu
-  +adjust-font-size-to(20px)
+  +adjust-font-size-to(18px)
+  padding-right: 20px
+  padding-left: 20px
+
+.box
+  border: 0.1em solid #d5d5d5
+  +border-radius(0.5em)
+  padding-left: 0.4em
+  padding-top: 0.4em
+  margin-bottom: 1em
 
 /* create simple tabs from <a> inside <ul>
  * $dir is 'bottom' for standard tabs
@@ -125,7 +137,7 @@ a
     //+horizontal-list
     +mytabs
 
-#content
+#content, footer
   padding-left: 1em
   padding-right: 1em
 
