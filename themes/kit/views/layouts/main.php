@@ -135,8 +135,7 @@
 					<!-- #gravatar //-->
 				</div>
 				<!-- #topbanner //-->
-				<nav id="mainmenu">
-					<hr/>
+				<nav id="mainmenu" class="padded-box">
 					<?php
 						if (((Yii::app()->controller->id === 'project')
 						|| (Yii::app()->controller->id === 'changeset')
@@ -157,7 +156,6 @@
 					array('label' => 'Projects', 'url' => array('/projects/'), 'id' => 'project/index'), ), ));
 					?>
 					<?php  endif;?>
-					<hr/>
 				</nav>
 				<!-- #mainmenu //-->
 			</header>

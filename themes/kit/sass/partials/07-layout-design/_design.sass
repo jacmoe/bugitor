@@ -12,7 +12,7 @@
   white-space : nowrap
   line-height : 1.4em
   margin-top : 5px
-  padding-left : 10px
+//  padding-left : 10px
   font-size : 0.9em
 
 img.gravatar
@@ -61,25 +61,27 @@ a
       @else
         +text-shadow(darken($base-color, $text-color-shift), 0 1px 0)
 
-
 #menu
   ul
     +horizontal-list(0.25em)
     li
       a
         +remove-link-underlines
-        +hover-link
         &:hover
           color: $orange
+          text-decoration: none
 
       &.active a
         color: $orange
-        font-decoration: underline
         border-bottom: 3px orange solid
+
+#codemenu
+  @extend #menu
 
 #topmenu
   @extend #menu
   a
+    +hover-link
     +link-colors($white, $white, $white, $white, false)
   background-color: $black-light
   +background-image(linear-gradient($black-lighter, $black-light))
@@ -100,6 +102,15 @@ a
   padding-left: 0.4em
   padding-top: 0.4em
   margin-bottom: 1em
+
+.padded-box
+  @extend .box
+  margin-right: 15px !important
+  margin-left: 15px !important
+  margin-top: 1em
+  padding-top: 0.1em
+  +background-image(linear-gradient($white, #ddd))
+
 
 /* create simple tabs from <a> inside <ul>
  * $dir is 'bottom' for standard tabs

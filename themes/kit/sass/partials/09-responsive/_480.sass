@@ -8,30 +8,22 @@
   $side-gutter-width      : 0em//$gutter-width
   // @debug columns-width()
   // YOUR STYLES BELOW
+  $total-cols: 3
+  $col-width: 314px
+  $gutter-width: $kit-gutter-half
+  $side-gutter-width: 3px
+  // @debug columns-width()
+  // YOUR STYLES BELOW
   #page
     +container
     //+susy-grid-background
     #topmenu
       +full
     #topbanner
-      +columns(6)
-      +alpha
-      #logo
-        +columns(1,6)
-      #masthead
-        +columns(4,6)
-      #gravatar
-        +columns(1,6)
-        +omega(6)
+      +full
     #mainmenu
       +full
     div[role="main"]
-      +columns(6)
-      +alpha
-      #splitcontentleft
-        +columns(3,6)
-      #splitcontentright
-        +columns(3,6)
-        +omega(6)
+      +full
     footer
       +full
