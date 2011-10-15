@@ -74,6 +74,14 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited
   color: #999999
   text-decoration: line-through
 
+tr.issue
+  text-align: center
+  white-space: nowrap
+
+tr.issue td.done_ratio table.progress
+  margin-left: auto
+  margin-right: auto
+
 table.progress
   border: 1px solid #D7D7D7 !important
   border-collapse: collapse
@@ -185,6 +193,10 @@ div.scroll_larger
   overflow: auto
 
 
+
+
+
+
 //body
   padding: 2em 2em 2em 2em
   background-color: $black-light
@@ -254,11 +266,29 @@ a
   padding-left: 20px
   color: $white
 
-#mainmenu
+//#mainmenu
   @extend #menu
   +adjust-font-size-to(18px)
   padding-right: 20px
   padding-left: 20px
+
+
+.grid-view table
+  $table-color: white
+  $table-odd-color: #FCF6CF //Warm Summer
+  +alternating-rows-and-columns($table-color, $table-odd-color, 0)
+  +inner-table-borders(1em, #d5d5d5)
+
+
+.grid-view table.items th
+  background-color: $black-light
+  +background-image(linear-gradient($black-lighter, $black-light))
+  +sassy-text-style($black-lighter, $gray, $white)
+  text-align: center
+
+.grid-view
+  border: solid 1px #d5d5d5
+  +inner-table-borders(1em, #d5d5d5)
 
 .box
   border: 0.1em solid #d5d5d5
@@ -276,7 +306,7 @@ a
   +background-image(linear-gradient($white, #ddd))
 
 
-#content .tabs
+=tabs
   height: 2.6em
   border-bottom: 1px solid #bbbbbb
   margin-bottom: 1.2em
@@ -315,7 +345,29 @@ a
   >
     ul
       bottom: -1px
+      li.active a
+        color: $orange
+        background-color: #fff
+        border: 1px solid #bbbbbb
+        border-bottom: 1px solid #fff
+        &:hover
+          background-color: #fff
+      
 
+#content .tabs
+  +tabs
+
+#mainmenu
+  +adjust-font-size-to(16px)
+  +tabs
+
+#logo
+  background: url('images/bugitor_64.png') no-repeat
+  background-size: contain
+  width: 5em
+  height: 5em
+  margin-left: 1em
+  margin-top: 1em
 
 #content, footer
   padding-left: 1em
