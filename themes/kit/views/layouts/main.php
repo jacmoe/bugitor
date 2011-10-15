@@ -91,14 +91,6 @@
 				</nav>
 				<!-- #topmenu //-->
 				<div id="topbanner">
-					<div id="logo">
-						<?php echo CHtml::image(Yii::app()->theme->baseUrl . 
-							'/css/images/bugitor_64.png',
-							'Bugitor - The Yii-powered issue tracker',
-							array('title' => 'Bugitor - The Yii-powered issue tracker'))
-						?>
-					</div>
-					<div id="masthead">
 						<?php
 							if (
 							((Yii::app()->controller->id === 'project')
@@ -111,31 +103,21 @@
 							|| (Yii::app()->controller->id === 'repository')
 							) && (isset($_GET['projectname']))) :
 						?>
-						<h1 class="alt"><?php  echo CHtml::encode($_GET['projectname']);?></h1>
-						<p class="alt">
-							Project tagline
-						</p>
+						<span class="alt"><?php  echo CHtml::encode($_GET['projectname']);?></span>
 						<?php  else :?>
-						<h1 class="alt"><?php  echo CHtml::encode(Yii::app() -> name);?></h1>
-						<p class="alt">
-							The Yii Powered Issue Tracker
-						</p>
+						<span class="alt"><?php  echo CHtml::encode(Yii::app() -> name);?></span>
 						<?php  endif;?>
-					</div>
-					<div id="gravatar">
-						<div class="fright">
-							<?php if (!Yii::app()->user->isGuest):
-							?>
-							<?php
-							$this -> widget('application.extensions.VGGravatarWidget', array('email' => Yii::app() -> getModule('user') -> user() -> email));
-							?>
-							<?php  endif;?>
-						</div>
+					<div class="fright">
+						<?php if (!Yii::app()->user->isGuest): ?>
+						<?php
+							$this->widget('application.extensions.VGGravatarWidget', array('email' => Yii::app() -> getModule('user') -> user() -> email));
+						?>
+						<?php  endif;?>
 					</div>
 					<!-- #gravatar //-->
 				</div>
 				<!-- #topbanner //-->
-				<nav id="mainmenu" class="padded-box">
+				<nav id="mainmenu">
 					<?php
 						if (((Yii::app()->controller->id === 'project')
 						|| (Yii::app()->controller->id === 'changeset')
