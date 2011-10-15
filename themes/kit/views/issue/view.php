@@ -76,7 +76,7 @@ Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Bugitor::
 <hr/>
 </div>
 <div class="row">
-<div id="splitcontentleft" class="seven columns alpha">
+<div id="splitcontentleft">
 <table width="100%">
     <tbody><tr>
         <td style="width: 15%;" class="status"><b>Status:</b></td>
@@ -105,7 +105,7 @@ Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Bugitor::
     </tr>
 </tbody></table>
 </div>
-<div id="splitcontentright" class="seven columns omega">
+<div id="splitcontentright">
 <table width="100%">
     <tbody><tr>
         <td class="category"><b>Category:</b></td>
@@ -134,8 +134,6 @@ Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Bugitor::
 </tbody></table>
 </div>
 </div>
-<br class="clearfix"/>
-<hr/>
 <b>Description:</b><br/>
 <?php echo Yii::app()->textile->textilize($model->description); ?>
 <hr/>
