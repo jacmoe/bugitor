@@ -1,0 +1,27 @@
+// wide screen
+// primarily laptop and desktop browsers
+
+// redefine grid variables for this context
+$total-cols         : 12
+$col-width          : 6em
+$gutter-width       : 1em
+$side-gutter-width  : $gutter-width
+
+// @debug columns-width()
+// YOUR STYLES BELOW
+#page
+  +container
+  //+susy-grid-background
+
+  #topmenu
+    +full
+  div[role="main"]
+    +columns(12)
+    +alpha
+    #splitcontentleft
+      +columns(6,12)
+    #splitcontentright
+      +columns(6,12)
+      +omega(12)
+  footer
+    +full

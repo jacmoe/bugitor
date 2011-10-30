@@ -1,0 +1,30 @@
+=pillbox($pill, $pillactive, $linkColorHover)
+  ul
+    +horizontal-list
+    li
+      a
+        font: normal 13px Arial, Helvetica, sans-serif
+        margin: 3px 0px 3px 0px
+        +hover-link
+        padding: 5px
+        padding-right: 12px
+        padding-left: 12px
+        line-height: 30px
+        +border-radius(5px)
+        background: $pill
+        +link-colors(darken(white, 40%))
+        &:hover
+          background: $linkColorHover
+          color: $white
+          text-decoration: none
+          text-shadow: 0 1px 1px rgba(0,0,0,.25)
+      &.current_page_item a
+        background: $pillactive
+        color: $white
+        +border-radius(5px)
+        +link-colors(white)
+      &.active a
+        background: $pillactive
+        color: $white
+        +border-radius(5px)
+        +link-colors(white)
