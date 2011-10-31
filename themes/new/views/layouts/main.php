@@ -14,6 +14,7 @@
 		<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
+        <script src="<?php  echo Yii::app() -> theme -> baseUrl;?>/js/bootstrap-dropdown.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		
 		<link rel="stylesheet" type="text/css" href="<?php  echo Yii::app() -> theme -> baseUrl;?>/css/screen.css" />
@@ -61,6 +62,7 @@
 		$items = array();
 		?>
 		<div id="page">
+            <div id="system-menu"><?php //$this->widget('LinkMenu');?></div>
 			<header role="banner">
 				<nav id="topmenu">
     <div class="topbar" >
@@ -83,9 +85,7 @@
 							<?php  else :?>
 							<span class="alt"><?php  echo '<a class="brand">'.CHtml::encode(Yii::app() -> name).'</a>';?></span>
 							<?php  endif;?>
-						<!-- #gravatar //-->
 					</span>
-					<span id="system-menu"><?php //$this->widget('LinkMenu');?></span>
 					<span id="mainmenu">
 						<?php
 							if (((Yii::app()->controller->id === 'project')
@@ -111,24 +111,31 @@
 						<?php $this->widget('BootTopbar', array(
 						'items' => $items,
 						'items2' => array(
-									 	array(	'url' => Yii::app() -> getModule('user') -> loginUrl,
-									 			'label' => Yii::app() -> getModule('user') -> t("Login"),
-									 			'visible' => Yii::app() -> user -> isGuest,
-									 			'id' => 'user/login/login'),
-								 		array(	'url' => Yii::app() -> getModule('user') -> registrationUrl,
-								 				'label' => Yii::app() -> getModule('user') -> t("Register"),
-								 				'visible' => Yii::app() -> user -> isGuest,
-								 				'id' => 'user/registration/registration'),
-						 				array(	'url' => Yii::app() -> getModule('user') -> profileUrl,
-						 						'label' => Yii::app() -> getModule('user') -> t("Profile"),
-						 						'visible' => !Yii::app() -> user -> isGuest,
-						 						'id' => 'user/profile/profile'),
-				 						array(	'url' => Yii::app() -> getModule('user') -> logoutUrl,
-				 								'label' => Yii::app() -> getModule('user') -> t("Logout") . ' (' . Yii::app() -> user -> name . ')',
-				 								'visible' => !Yii::app() -> user -> isGuest,
-				 								'id' => 'user/logout/logout'
-			 								),
-									),
+                            array(  'url' => '#',
+                                    'label' => 'test',
+                                    'visible' => true,
+                                    'id' => 'none',
+                                'items' => array(
+                                                array(  'url' => Yii::app() -> getModule('user') -> loginUrl,
+                                                        'label' => Yii::app() -> getModule('user') -> t("Login"),
+                                                        'visible' => Yii::app() -> user -> isGuest,
+                                                        'id' => 'user/login/login'),
+                                                array(  'url' => Yii::app() -> getModule('user') -> registrationUrl,
+                                                        'label' => Yii::app() -> getModule('user') -> t("Register"),
+                                                        'visible' => Yii::app() -> user -> isGuest,
+                                                        'id' => 'user/registration/registration'),
+                                                array(  'url' => Yii::app() -> getModule('user') -> profileUrl,
+                                                        'label' => Yii::app() -> getModule('user') -> t("Profile"),
+                                                        'visible' => !Yii::app() -> user -> isGuest,
+                                                        'id' => 'user/profile/profile'),
+                                                array(  'url' => Yii::app() -> getModule('user') -> logoutUrl,
+                                                        'label' => Yii::app() -> getModule('user') -> t("Logout") . ' (' . Yii::app() -> user -> name . ')',
+                                                        'visible' => !Yii::app() -> user -> isGuest,
+                                                        'id' => 'user/logout/logout'
+                                                    ),
+                                            ),
+                                ),
+                        ),
 								)
 							);
 						?>
