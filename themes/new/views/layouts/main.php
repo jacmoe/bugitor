@@ -62,7 +62,7 @@
 		$items = array();
 		?>
 		<div id="page">
-            <div id="system-menu"><?php //$this->widget('LinkMenu');?></div>
+            <?php //$this->widget('LinkMenu');?>
 			<header role="banner">
 				<nav id="topmenu">
     <div class="topbar" >
@@ -81,9 +81,9 @@
 								|| (Yii::app()->controller->id === 'repository')
 								) && (isset($_GET['projectname']))) :
 							?>
-							<span class="alt"><?php  echo '<a class="brand">'.CHtml::encode($_GET['projectname']).'</a>';?></span>
+							<span class="alt"><?php  echo '<span class="brand">'.CHtml::encode($_GET['projectname']).'</span>';?></span>
 							<?php  else :?>
-							<span class="alt"><?php  echo '<a class="brand">'.CHtml::encode(Yii::app() -> name).'</a>';?></span>
+							<span class="alt"><?php  echo '<span class="brand">'.CHtml::encode(Yii::app() -> name).'</span>';?></span>
 							<?php  endif;?>
 					</span>
 					<span id="mainmenu">
@@ -111,9 +111,25 @@
 						<?php $this->widget('BootTopbar', array(
 						'items' => $items,
 						'items2' => array(
+                            array(  'url' => Yii::app() -> getModule('user')->profileUrl,
+                                    'label' => Yii::app()->user->name,
+                                    'visible' => !Yii::app()->user->isGuest,
+                                    'id' => 'none',
+                                'items' => array(
+                                                array(  'url' => Yii::app() -> getModule('user') -> profileUrl,
+                                                        'label' => Yii::app() -> getModule('user') -> t("Profile"),
+                                                        'visible' => !Yii::app() -> user -> isGuest,
+                                                        'id' => 'user/profile/profile'),
+                                                array(  'url' => Yii::app() -> getModule('user') -> logoutUrl,
+                                                        'label' => Yii::app() -> getModule('user') -> t("Logout") . ' (' . Yii::app() -> user -> name . ')',
+                                                        'visible' => !Yii::app() -> user -> isGuest,
+                                                        'id' => 'user/logout/logout'
+                                                    ),
+                                            ),
+                                ),
                             array(  'url' => '#',
-                                    'label' => 'test',
-                                    'visible' => true,
+                                    'label' => 'Login/Register',
+                                    'visible' => Yii::app()->user->isGuest,
                                     'id' => 'none',
                                 'items' => array(
                                                 array(  'url' => Yii::app() -> getModule('user') -> loginUrl,
@@ -124,15 +140,6 @@
                                                         'label' => Yii::app() -> getModule('user') -> t("Register"),
                                                         'visible' => Yii::app() -> user -> isGuest,
                                                         'id' => 'user/registration/registration'),
-                                                array(  'url' => Yii::app() -> getModule('user') -> profileUrl,
-                                                        'label' => Yii::app() -> getModule('user') -> t("Profile"),
-                                                        'visible' => !Yii::app() -> user -> isGuest,
-                                                        'id' => 'user/profile/profile'),
-                                                array(  'url' => Yii::app() -> getModule('user') -> logoutUrl,
-                                                        'label' => Yii::app() -> getModule('user') -> t("Logout") . ' (' . Yii::app() -> user -> name . ')',
-                                                        'visible' => !Yii::app() -> user -> isGuest,
-                                                        'id' => 'user/logout/logout'
-                                                    ),
                                             ),
                                 ),
                         ),
