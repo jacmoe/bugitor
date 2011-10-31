@@ -84,3 +84,48 @@ input
 
 textarea, input:not([type="radio"])
   max-width: 100%
+  
+
+
+$button-border-radius: 0.6em
+
+input[type=checkbox],
+input[type=radio]
+  vertical-align: baseline
+
+input[type=checkbox]
+  border: 0.1rem solid $grey
+  background-color: white
+
+//----------[ form layout ]-----------------------------------------------------
+table.form
+  margin-top: 0
+  &, th, td
+    border-style: none
+  .section-heading th
+    color: $subheading-text-color
+  .field-label
+    padding-right: $column-width
+    vertical-align: top
+    text-align: right
+    font-weight: normal
+  .field, .button-bar
+    padding-left: 0
+
+.stacked,
+.radio-group,
+.checkbox-group
+  label
+    display: block
+
+.stacked
+  .section-heading
+    font-weight: bold
+    color: $subheading-text-color
+  .field > label:first-of-type
+    margin-top: $body-text-line-height / 2
+  .field, .section-heading, .button-bar
+    padding-left: $horizontal-nudge
+
+.button-bar
+  margin-top: 10px

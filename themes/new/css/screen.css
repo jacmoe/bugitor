@@ -799,6 +799,68 @@ textarea, input:not([type="radio"]) {
   max-width: 100%;
 }
 
+/* line 92, ../sass/partials/02-typography/forms/_form-defaults.sass */
+input[type=checkbox],
+input[type=radio] {
+  vertical-align: baseline;
+}
+
+/* line 96, ../sass/partials/02-typography/forms/_form-defaults.sass */
+input[type=checkbox] {
+  border: 0.1rem solid gray;
+  background-color: white;
+}
+
+/* line 101, ../sass/partials/02-typography/forms/_form-defaults.sass */
+table.form {
+  margin-top: 0;
+}
+/* line 103, ../sass/partials/02-typography/forms/_form-defaults.sass */
+table.form, table.form th, table.form td {
+  border-style: none;
+}
+/* line 105, ../sass/partials/02-typography/forms/_form-defaults.sass */
+table.form .section-heading th {
+  color: #207861;
+}
+/* line 107, ../sass/partials/02-typography/forms/_form-defaults.sass */
+table.form .field-label {
+  padding-right: 20px;
+  vertical-align: top;
+  text-align: right;
+  font-weight: normal;
+}
+/* line 112, ../sass/partials/02-typography/forms/_form-defaults.sass */
+table.form .field, table.form .button-bar {
+  padding-left: 0;
+}
+
+/* line 118, ../sass/partials/02-typography/forms/_form-defaults.sass */
+.stacked label,
+.radio-group label,
+.checkbox-group label {
+  display: block;
+}
+
+/* line 122, ../sass/partials/02-typography/forms/_form-defaults.sass */
+.stacked .section-heading {
+  font-weight: bold;
+  color: #207861;
+}
+/* line 125, ../sass/partials/02-typography/forms/_form-defaults.sass */
+.stacked .field > label:first-of-type {
+  margin-top: 0.5em;
+}
+/* line 127, ../sass/partials/02-typography/forms/_form-defaults.sass */
+.stacked .field, .stacked .section-heading, .stacked .button-bar {
+  padding-left: 1px;
+}
+
+/* line 130, ../sass/partials/02-typography/forms/_form-defaults.sass */
+.button-bar {
+  margin-top: 10px;
+}
+
 /* Sprites -------------------------------------------------------------- */
 /* line 507, icons */
 .icons-sprite, .icons-Assigned, .icons-Bug, .icons-Feature, .icons-Feedback, .icons-High, .icons-Low, .icons-New, .icons-Normal, .icons-Rejected, .icons-Resolved, .icons-add, .icons-admin, .icons-arrow-collapsed, .icons-arrow-expanded, .icons-attachment, .icons-bullet-add, .icons-bullet-black, .icons-bullet-blue, .icons-bullet-delete, .icons-bullet-orange, .icons-bullet-purple, .icons-bullet-toggle-minus, .icons-bullet-toggle-plus, .icons-cancel, .icons-changeset, .icons-comment, .icons-comments, .icons-copy, .icons-csv, .icons-delete, .icons-document, .icons-downarrow, .icons-downarrow2, .icons-edit, .icons-fav-off, .icons-fav, .icons-file, .icons-folder-open-add, .icons-folder-open-orange, .icons-folder-open, .icons-folder, .icons-group, .icons-help, .icons-history, .icons-home, .icons-html, .icons-image, .icons-linux, .icons-locked, .icons-message, .icons-move, .icons-negative, .icons-news, .icons-osx, .icons-package, .icons-pdf, .icons-positive, .icons-projects, .icons-reload, .icons-report, .icons-rss, .icons-save, .icons-stats, .icons-sticky, .icons-ticket-checked, .icons-ticket-crossed, .icons-ticket-edit, .icons-ticket-note, .icons-ticket, .icons-time, .icons-txt, .icons-unlock, .icons-uparrow, .icons-uparrow2, .icons-user-page, .icons-user, .icons-user_new, .icons-users, .icons-warning, .icons-wiki-edit, .icons-windows {
@@ -2057,6 +2119,54 @@ dt.issue-rejected {
     margin-right: 0.592%;
   }
 }
+/* line 1, ../sass/partials/07-design/page-specific/_login.sass */
+.login {
+  border: 0.2em solid silver;
+  -moz-border-radius: 1.5em;
+  -webkit-border-radius: 1.5em;
+  -o-border-radius: 1.5em;
+  -ms-border-radius: 1.5em;
+  -khtml-border-radius: 1.5em;
+  border-radius: 1.5em;
+  padding: 1em 20px;
+}
+/* line 5, ../sass/partials/07-design/page-specific/_login.sass */
+.login p:last-of-type,
+.login dl:last-of-type,
+.login ol:last-of-type,
+.login ul:last-of-type {
+  margin-bottom: 0;
+}
+/* line 10, ../sass/partials/07-design/page-specific/_login.sass */
+.login input[type=password],
+.login input[type=text] {
+  width: 23em;
+}
+
+/* line 14, ../sass/partials/07-design/page-specific/_login.sass */
+.rememberme {
+  display: table;
+}
+
+@media (min-width: 480px) {
+  /* line 18, ../sass/partials/07-design/page-specific/_login.sass */
+  .login {
+    max-width: 25em;
+  }
+}
+@media (min-width: 768px) {
+  /* line 22, ../sass/partials/07-design/page-specific/_login.sass */
+  .login {
+    margin: 5em auto;
+    border: 1px solid #ffdec5;
+    -moz-border-radius: 1.5em;
+    -webkit-border-radius: 1.5em;
+    -o-border-radius: 1.5em;
+    -ms-border-radius: 1.5em;
+    -khtml-border-radius: 1.5em;
+    border-radius: 1.5em;
+  }
+}
 /* line 2, ../sass/partials/07-design/elements/_menu.sass */
 .topbar {
   min-width: 810px;
@@ -2382,6 +2492,23 @@ img.gravatar {
   position: relative;
   float: right;
   left: 50px;
+}
+
+/* line 15, ../sass/partials/07-design/_default.sass */
+.note {
+  font-size: smaller;
+  font-style: italic;
+}
+/* line 18, ../sass/partials/07-design/_default.sass */
+.note .required {
+  color: red;
+}
+
+/* line 21, ../sass/partials/07-design/_default.sass */
+.centered {
+  text-align: center;
+  margin-top: 22px;
+  line-height: 6px;
 }
 
 /* 480px --------------------------------------------------------------------- */
