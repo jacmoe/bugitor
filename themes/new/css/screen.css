@@ -359,7 +359,7 @@ h1, h2, h3, h4, h5, h6 {
 /* 1. Correct text resizing oddly in IE6/7 when body font-size is set using em units
  * 2. Force vertical scrollbar in non-IE
  * 3. Prevent iOS text size adjust on device orientation change, without disabling user zoom: h5bp.com/g */
-/* line 43, ../sass/partials/02-typography/_common.sass */
+/* line 44, ../sass/partials/02-typography/_common.sass */
 html {
   font-size: 100%;
   overflow-y: scroll;
@@ -382,27 +382,76 @@ html > body {
   font-size: 14px;
 }
 
-/* line 58, ../sass/partials/02-typography/_common.sass */
+/* line 59, ../sass/partials/02-typography/_common.sass */
 body {
-  font-family: Georgia, serif;
+  font-family: Calibri, "Myriad Pro", Tahoma, sans-serif;
   color: #333333;
-  background: #fdf6e3;
+  background: white;
 }
 
 /* Selected Text -------------------------------------------------------------- */
 /* -moz- must be declared separately */
-/* line 67, ../sass/partials/02-typography/_common.sass */
+/* line 68, ../sass/partials/02-typography/_common.sass */
 ::-moz-selection {
   color: #333333;
   background: #ff69b4;
   text-shadow: none;
 }
 
-/* line 73, ../sass/partials/02-typography/_common.sass */
+/* line 74, ../sass/partials/02-typography/_common.sass */
 ::selection {
   color: #333333;
   background: #ff69b4;
   text-shadow: none;
+}
+
+/* line 1, ../sass/partials/02-typography/_links.sass */
+a {
+  text-decoration: none;
+  color: #1673a1;
+}
+/* line 4, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/typography/links/_hover-link.scss */
+a:hover {
+  text-decoration: underline;
+}
+/* line 4, ../sass/partials/02-typography/_links.sass */
+a:visited {
+  color: #0f4d6b;
+}
+
+/* line 1, ../sass/partials/02-typography/_headers.sass */
+h1, h2, h3, h4, h5 {
+  font-weight: bolder;
+  color: #555555;
+}
+
+/* line 5, ../sass/partials/02-typography/_headers.sass */
+h2, h3 {
+  border-bottom: 1px solid #ffdec5;
+}
+
+/* line 9, ../sass/partials/02-typography/_headers.sass */
+h1 {
+  font-size: 1.857em;
+  line-height: 1.846em;
+}
+
+/* line 11, ../sass/partials/02-typography/_headers.sass */
+h2 {
+  font-size: 1.571em;
+  line-height: 2.182em;
+}
+
+/* line 13, ../sass/partials/02-typography/_headers.sass */
+h3 {
+  font-size: 1.286em;
+  line-height: 1.333em;
+}
+
+/* line 15, ../sass/partials/02-typography/_headers.sass */
+h4 {
+  font-size: 1.286em;
+  line-height: 1.333em;
 }
 
 /* Forms -------------------------------------------------------------- */
@@ -2119,7 +2168,7 @@ dt.issue-rejected {
     margin-right: 0.592%;
   }
 }
-/* line 1, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_login.sass */
+/* line 1, ../sass/partials/07-design/page-specific/_login.sass */
 .login {
   border: 0.2em solid #ffdec5;
   -moz-border-radius: 1.5em;
@@ -2130,32 +2179,32 @@ dt.issue-rejected {
   border-radius: 1.5em;
   padding: 1em 20px;
 }
-/* line 5, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_login.sass */
+/* line 5, ../sass/partials/07-design/page-specific/_login.sass */
 .login p:last-of-type,
 .login dl:last-of-type,
 .login ol:last-of-type,
 .login ul:last-of-type {
   margin-bottom: 0;
 }
-/* line 10, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_login.sass */
+/* line 10, ../sass/partials/07-design/page-specific/_login.sass */
 .login input[type=password],
 .login input[type=text] {
   width: 23em;
 }
 
-/* line 14, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_login.sass */
+/* line 14, ../sass/partials/07-design/page-specific/_login.sass */
 .rememberme {
   display: table;
 }
 
 @media (min-width: 480px) {
-  /* line 18, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_login.sass */
+  /* line 18, ../sass/partials/07-design/page-specific/_login.sass */
   .login {
     max-width: 25em;
   }
 }
 @media (min-width: 768px) {
-  /* line 22, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_login.sass */
+  /* line 22, ../sass/partials/07-design/page-specific/_login.sass */
   .login {
     margin: 5em auto;
     border: 1px solid #ffdec5;
@@ -2167,7 +2216,7 @@ dt.issue-rejected {
     border-radius: 1.5em;
   }
 }
-/* line 1, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_register.sass */
+/* line 1, ../sass/partials/07-design/page-specific/_register.sass */
 .register {
   border: 0.2em solid silver;
   -moz-border-radius: 1.5em;
@@ -2178,32 +2227,32 @@ dt.issue-rejected {
   border-radius: 1.5em;
   padding: 1em 20px;
 }
-/* line 5, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_register.sass */
+/* line 5, ../sass/partials/07-design/page-specific/_register.sass */
 .register p:last-of-type,
 .register dl:last-of-type,
 .register ol:last-of-type,
 .register ul:last-of-type {
   margin-bottom: 0;
 }
-/* line 10, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_register.sass */
+/* line 10, ../sass/partials/07-design/page-specific/_register.sass */
 .register input[type=password],
 .register input[type=text] {
   width: 23em;
 }
 
-/* line 14, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_register.sass */
+/* line 14, ../sass/partials/07-design/page-specific/_register.sass */
 .rememberme {
   display: table;
 }
 
 @media (min-width: 480px) {
-  /* line 18, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_register.sass */
+  /* line 18, ../sass/partials/07-design/page-specific/_register.sass */
   .register {
     max-width: 25em;
   }
 }
 @media (min-width: 768px) {
-  /* line 22, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_register.sass */
+  /* line 22, ../sass/partials/07-design/page-specific/_register.sass */
   .register {
     margin: 5em auto;
     border: 1px solid #ffdec5;
@@ -2215,7 +2264,7 @@ dt.issue-rejected {
     border-radius: 1.5em;
   }
 }
-/* line 1, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_lost-password.sass */
+/* line 1, ../sass/partials/07-design/page-specific/_lost-password.sass */
 .lost-password {
   border: 0.2em solid #ffdec5;
   -moz-border-radius: 1.5em;
@@ -2226,32 +2275,32 @@ dt.issue-rejected {
   border-radius: 1.5em;
   padding: 1em 20px;
 }
-/* line 5, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_lost-password.sass */
+/* line 5, ../sass/partials/07-design/page-specific/_lost-password.sass */
 .lost-password p:last-of-type,
 .lost-password dl:last-of-type,
 .lost-password ol:last-of-type,
 .lost-password ul:last-of-type {
   margin-bottom: 0;
 }
-/* line 10, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_lost-password.sass */
+/* line 10, ../sass/partials/07-design/page-specific/_lost-password.sass */
 .lost-password input[type=password],
 .lost-password input[type=text] {
   width: 23em;
 }
 
-/* line 14, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_lost-password.sass */
+/* line 14, ../sass/partials/07-design/page-specific/_lost-password.sass */
 .rememberme {
   display: table;
 }
 
 @media (min-width: 480px) {
-  /* line 18, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_lost-password.sass */
+  /* line 18, ../sass/partials/07-design/page-specific/_lost-password.sass */
   .lost-password {
     max-width: 25em;
   }
 }
 @media (min-width: 768px) {
-  /* line 22, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_lost-password.sass */
+  /* line 22, ../sass/partials/07-design/page-specific/_lost-password.sass */
   .lost-password {
     margin: 5em auto;
     border: 1px solid #ffdec5;
@@ -2263,7 +2312,7 @@ dt.issue-rejected {
     border-radius: 1.5em;
   }
 }
-/* line 1, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_change-password.sass */
+/* line 1, ../sass/partials/07-design/page-specific/_change-password.sass */
 .change-password {
   border: 0.2em solid #ffdec5;
   -moz-border-radius: 1.5em;
@@ -2274,32 +2323,32 @@ dt.issue-rejected {
   border-radius: 1.5em;
   padding: 1em 20px;
 }
-/* line 5, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_change-password.sass */
+/* line 5, ../sass/partials/07-design/page-specific/_change-password.sass */
 .change-password p:last-of-type,
 .change-password dl:last-of-type,
 .change-password ol:last-of-type,
 .change-password ul:last-of-type {
   margin-bottom: 0;
 }
-/* line 10, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_change-password.sass */
+/* line 10, ../sass/partials/07-design/page-specific/_change-password.sass */
 .change-password input[type=password],
 .change-password input[type=text] {
   width: 23em;
 }
 
-/* line 14, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_change-password.sass */
+/* line 14, ../sass/partials/07-design/page-specific/_change-password.sass */
 .rememberme {
   display: table;
 }
 
 @media (min-width: 480px) {
-  /* line 18, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_change-password.sass */
+  /* line 18, ../sass/partials/07-design/page-specific/_change-password.sass */
   .change-password {
     max-width: 25em;
   }
 }
 @media (min-width: 768px) {
-  /* line 22, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_change-password.sass */
+  /* line 22, ../sass/partials/07-design/page-specific/_change-password.sass */
   .change-password {
     margin: 5em auto;
     border: 1px solid #ffdec5;
@@ -2313,10 +2362,9 @@ dt.issue-rejected {
 }
 /* line 2, ../sass/partials/07-design/elements/_menu.sass */
 .topbar {
-  min-width: 810px;
   background: white;
   border-bottom: 1px solid #ffdec5;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -2628,7 +2676,7 @@ body {
 }
 
 /* line 6, ../sass/partials/07-design/_default.sass */
-img.gravatar {
+.topbar img.gravatar {
   padding: 1px 1px 1px 1px;
   margin: 6px 2px 2px 2px;
   border: solid 1px #d5d5d5;
@@ -2653,6 +2701,11 @@ img.gravatar {
   text-align: center;
   margin-top: 22px;
   line-height: 6px;
+}
+
+/* line 26, ../sass/partials/07-design/_default.sass */
+.contextual {
+  float: right;
 }
 
 /* 480px --------------------------------------------------------------------- */
