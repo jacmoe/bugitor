@@ -4,17 +4,14 @@ $this->breadcrumbs=array(
 	UserModule::t("Change Password"),
 );
 ?>
-
-<h1><?php echo UserModule::t("Change User Password"); ?></h1>
-
-
-<div class="form">
+<div id="page group">
 <?php echo CHtml::beginForm(); ?>
+    <fieldset class="change-password">
+    <h1><?php echo UserModule::t("Change User Password"); ?></h1>
 
-	<p class="note"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></p>
 	<?php echo CHtml::errorSummary($form); ?>
 	
-	<div class="row">
+	<div class="field stacked">
 	<?php echo CHtml::activeLabelEx($form,'password'); ?>
 	<?php echo CHtml::activePasswordField($form,'password'); ?>
 	<p class="hint">
@@ -22,15 +19,17 @@ $this->breadcrumbs=array(
 	</p>
 	</div>
 	
-	<div class="row">
+	<div class="field stacked">
 	<?php echo CHtml::activeLabelEx($form,'verifyPassword'); ?>
 	<?php echo CHtml::activePasswordField($form,'verifyPassword'); ?>
 	</div>
 	
 	
-	<div class="row submit">
+	<div class="button-bar group">
 	<?php echo CHtml::submitButton(UserModule::t("Save")); ?>
 	</div>
+    <div class="note centered"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></div>
+    </fieldset> 
 
 <?php echo CHtml::endForm(); ?>
 </div><!-- form -->
