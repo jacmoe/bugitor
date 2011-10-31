@@ -2119,8 +2119,56 @@ dt.issue-rejected {
     margin-right: 0.592%;
   }
 }
-/* line 1, ../sass/partials/07-design/page-specific/_login.sass */
+/* line 1, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_login.sass */
 .login {
+  border: 0.2em solid #ffdec5;
+  -moz-border-radius: 1.5em;
+  -webkit-border-radius: 1.5em;
+  -o-border-radius: 1.5em;
+  -ms-border-radius: 1.5em;
+  -khtml-border-radius: 1.5em;
+  border-radius: 1.5em;
+  padding: 1em 20px;
+}
+/* line 5, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_login.sass */
+.login p:last-of-type,
+.login dl:last-of-type,
+.login ol:last-of-type,
+.login ul:last-of-type {
+  margin-bottom: 0;
+}
+/* line 10, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_login.sass */
+.login input[type=password],
+.login input[type=text] {
+  width: 23em;
+}
+
+/* line 14, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_login.sass */
+.rememberme {
+  display: table;
+}
+
+@media (min-width: 480px) {
+  /* line 18, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_login.sass */
+  .login {
+    max-width: 25em;
+  }
+}
+@media (min-width: 768px) {
+  /* line 22, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_login.sass */
+  .login {
+    margin: 5em auto;
+    border: 1px solid #ffdec5;
+    -moz-border-radius: 1.5em;
+    -webkit-border-radius: 1.5em;
+    -o-border-radius: 1.5em;
+    -ms-border-radius: 1.5em;
+    -khtml-border-radius: 1.5em;
+    border-radius: 1.5em;
+  }
+}
+/* line 1, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_register.sass */
+.register {
   border: 0.2em solid silver;
   -moz-border-radius: 1.5em;
   -webkit-border-radius: 1.5em;
@@ -2130,33 +2178,129 @@ dt.issue-rejected {
   border-radius: 1.5em;
   padding: 1em 20px;
 }
-/* line 5, ../sass/partials/07-design/page-specific/_login.sass */
-.login p:last-of-type,
-.login dl:last-of-type,
-.login ol:last-of-type,
-.login ul:last-of-type {
+/* line 5, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_register.sass */
+.register p:last-of-type,
+.register dl:last-of-type,
+.register ol:last-of-type,
+.register ul:last-of-type {
   margin-bottom: 0;
 }
-/* line 10, ../sass/partials/07-design/page-specific/_login.sass */
-.login input[type=password],
-.login input[type=text] {
+/* line 10, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_register.sass */
+.register input[type=password],
+.register input[type=text] {
   width: 23em;
 }
 
-/* line 14, ../sass/partials/07-design/page-specific/_login.sass */
+/* line 14, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_register.sass */
 .rememberme {
   display: table;
 }
 
 @media (min-width: 480px) {
-  /* line 18, ../sass/partials/07-design/page-specific/_login.sass */
-  .login {
+  /* line 18, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_register.sass */
+  .register {
     max-width: 25em;
   }
 }
 @media (min-width: 768px) {
-  /* line 22, ../sass/partials/07-design/page-specific/_login.sass */
-  .login {
+  /* line 22, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_register.sass */
+  .register {
+    margin: 5em auto;
+    border: 1px solid #ffdec5;
+    -moz-border-radius: 1.5em;
+    -webkit-border-radius: 1.5em;
+    -o-border-radius: 1.5em;
+    -ms-border-radius: 1.5em;
+    -khtml-border-radius: 1.5em;
+    border-radius: 1.5em;
+  }
+}
+/* line 1, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_lost-password.sass */
+.lost-password {
+  border: 0.2em solid #ffdec5;
+  -moz-border-radius: 1.5em;
+  -webkit-border-radius: 1.5em;
+  -o-border-radius: 1.5em;
+  -ms-border-radius: 1.5em;
+  -khtml-border-radius: 1.5em;
+  border-radius: 1.5em;
+  padding: 1em 20px;
+}
+/* line 5, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_lost-password.sass */
+.lost-password p:last-of-type,
+.lost-password dl:last-of-type,
+.lost-password ol:last-of-type,
+.lost-password ul:last-of-type {
+  margin-bottom: 0;
+}
+/* line 10, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_lost-password.sass */
+.lost-password input[type=password],
+.lost-password input[type=text] {
+  width: 23em;
+}
+
+/* line 14, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_lost-password.sass */
+.rememberme {
+  display: table;
+}
+
+@media (min-width: 480px) {
+  /* line 18, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_lost-password.sass */
+  .lost-password {
+    max-width: 25em;
+  }
+}
+@media (min-width: 768px) {
+  /* line 22, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_lost-password.sass */
+  .lost-password {
+    margin: 5em auto;
+    border: 1px solid #ffdec5;
+    -moz-border-radius: 1.5em;
+    -webkit-border-radius: 1.5em;
+    -o-border-radius: 1.5em;
+    -ms-border-radius: 1.5em;
+    -khtml-border-radius: 1.5em;
+    border-radius: 1.5em;
+  }
+}
+/* line 1, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_change-password.sass */
+.change-password {
+  border: 0.2em solid #ffdec5;
+  -moz-border-radius: 1.5em;
+  -webkit-border-radius: 1.5em;
+  -o-border-radius: 1.5em;
+  -ms-border-radius: 1.5em;
+  -khtml-border-radius: 1.5em;
+  border-radius: 1.5em;
+  padding: 1em 20px;
+}
+/* line 5, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_change-password.sass */
+.change-password p:last-of-type,
+.change-password dl:last-of-type,
+.change-password ol:last-of-type,
+.change-password ul:last-of-type {
+  margin-bottom: 0;
+}
+/* line 10, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_change-password.sass */
+.change-password input[type=password],
+.change-password input[type=text] {
+  width: 23em;
+}
+
+/* line 14, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_change-password.sass */
+.rememberme {
+  display: table;
+}
+
+@media (min-width: 480px) {
+  /* line 18, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_change-password.sass */
+  .change-password {
+    max-width: 25em;
+  }
+}
+@media (min-width: 768px) {
+  /* line 22, C:/wamp/bugitor/themes/new/sass/partials/07-design/page-specific/_change-password.sass */
+  .change-password {
     margin: 5em auto;
     border: 1px solid #ffdec5;
     -moz-border-radius: 1.5em;

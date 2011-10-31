@@ -4,28 +4,27 @@ $this->breadcrumbs=array(
 );
 ?>
 
-<h1><?php echo UserModule::t("Registration"); ?></h1>
-
 <?php if(Yii::app()->user->hasFlash('registration')): ?>
 <div class="success">
 <?php echo Yii::app()->user->getFlash('registration'); ?>
 </div>
 <?php else: ?>
 
-<div class="form">
+<div id="page group">
 <?php echo CHtml::beginForm('','post',array('enctype'=>'multipart/form-data')); ?>
+    <fieldset class="register">
 
-	<p class="note"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></p>
+    <h1><?php echo UserModule::t("Registration"); ?></h1>
 	
 	<?php echo CHtml::errorSummary($form); ?>
 	<?php echo CHtml::errorSummary($profile); ?>
 	
-	<div class="row">
+	<div class="field stacked">
 	<?php echo CHtml::activeLabelEx($form,'username'); ?>
 	<?php echo CHtml::activeTextField($form,'username'); ?>
 	</div>
 	
-	<div class="row">
+	<div class="field stacked">
 	<?php echo CHtml::activeLabelEx($form,'password'); ?>
 	<?php echo CHtml::activePasswordField($form,'password'); ?>
 	<p class="hint">
@@ -33,12 +32,12 @@ $this->breadcrumbs=array(
 	</p>
 	</div>
 	
-	<div class="row">
+	<div class="field stacked">
 	<?php echo CHtml::activeLabelEx($form,'verifyPassword'); ?>
 	<?php echo CHtml::activePasswordField($form,'verifyPassword'); ?>
 	</div>
 	
-	<div class="row">
+	<div class="field stacked">
 	<?php echo CHtml::activeLabelEx($form,'email'); ?>
 	<?php echo CHtml::activeTextField($form,'email'); ?>
 	</div>
@@ -48,7 +47,7 @@ $this->breadcrumbs=array(
 		if ($profileFields) {
 			foreach($profileFields as $field) {
 			?>
-	<div class="row">
+	<div class="field stacked">
 		<?php echo CHtml::activeLabelEx($profile,$field->varname); ?>
 		<?php 
 		if ($field->widgetEdit($profile)) {
@@ -68,7 +67,7 @@ $this->breadcrumbs=array(
 		}
 ?>
 	<?php if (UserModule::doCaptcha('registration')): ?>
-	<div class="row">
+	<div class="field stacked">
 		<?php echo CHtml::activeLabelEx($form,'verifyCode'); ?>
 		<div>
 		<?php $this->widget('CCaptcha'); ?>
@@ -79,10 +78,12 @@ $this->breadcrumbs=array(
 	</div>
 	<?php endif; ?>
 	
-	<div class="row submit">
+	<div class="button-bar group">
 		<?php echo CHtml::submitButton(UserModule::t("Register")); ?>
 	</div>
-
+    
+    <div class="note centered"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></div>
+</fieldset>
 <?php echo CHtml::endForm(); ?>
 </div><!-- form -->
 <?php endif; ?>
