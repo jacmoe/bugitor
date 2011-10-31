@@ -1,0 +1,102 @@
+/* Sprites -------------------------------------------------------------- */
+// Compass can compile a folder of .png images into a single sprite image
+// place your images in a folder within you images folder, like "/icons"
+// This will compile to a set of classes for each sprite image you can @extend
+
+//
+  // .icons-sprite {
+    // background: url('images/icons-123456789.png') no-repeat;
+  // }
+  // .icons-new-selected {
+    // background-position: 0 0;
+  // }
+  // .icons-new {
+    // background-position: 0 -30px;
+  // }
+
+// for a full tutorial, see: http://compass-style.org/help/tutorials/spriting/
+
+
+$icons-spacing: 8px
+@import "icons/*.png"
+@include all-icons-sprites(true)
+
+$smilies-spacing: 8px
+@import "smilies/*.png"
+@include all-smilies-sprites(true)
+
+$twentytwo-spacing: 8px
+@import "twentytwo/*.png"
+@include all-twentytwo-sprites(true)
+
+.icons-sprite
+  padding-left: 16px
+  width: 16px
+  height: 16px
+
+.smilies-sprite
+  width: 15px
+  height: 15px
+  
+.twentytwo-sprite
+  padding-left: 24px
+
+=small-icon($sprites, $name, $vert: 0, $horz: 0)
+  padding-left: 20px
+  background: sprite($sprites, $name, $vert, $horz) no-repeat
+
+.projects-icon
+  +small-icon($icons-sprites, projects, 0, 5)
+
+.activity-icon
+  +small-icon($icons-sprites, time, 0, 5)
+
+.overview-icon
+  +small-icon($icons-sprites, positive, 0, 5)
+
+.issues-icon
+  +small-icon($icons-sprites, ticket, 0, 4)
+
+.code-icon
+  +small-icon($icons-sprites, changeset, 0, 5)
+
+.settings-icon
+  +small-icon($icons-sprites, admin, 0, 5)
+
+.roadmap-icon
+  +small-icon($icons-sprites, package, 0, 4)
+
+.members-icon
+  +small-icon($icons-sprites, user, 0, 4)
+
+dt.issue-attachment
+  padding-left: 16px
+  background: sprite($icons-sprites, attachment, 0, 5) no-repeat
+
+dt.changeset
+  padding-left: 16px
+  background: sprite($icons-sprites, changeset, 0, 5) no-repeat
+
+dt.issue-new
+  padding-left: 16px
+  background: sprite($icons-sprites, ticket, 0, 5) no-repeat
+
+dt.issue-change
+  padding-left: 16px
+  background: sprite($icons-sprites, ticket-edit, 0, 4) no-repeat
+
+dt.issue-note
+  padding-left: 16px
+  background: sprite($icons-sprites, ticket-note, 0, 4) no-repeat
+
+dt.issue-resolved
+  padding-left: 16px
+  background: sprite($icons-sprites, ticket-checked, 0, 4) no-repeat
+
+dt.issue-rejected
+  padding-left: 16px
+  background: sprite($icons-sprites, ticket-crossed, 0, 4) no-repeat
+
+.big-icon-projects
+  padding-left: 24px
+  background: sprite($twentytwo-sprites, projects, 0, 2) no-repeat
