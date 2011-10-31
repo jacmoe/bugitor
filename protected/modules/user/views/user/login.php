@@ -4,55 +4,42 @@ $this->breadcrumbs=array(
 	UserModule::t("Login"),
 );
 ?>
-
-<h1><?php echo UserModule::t("Login"); ?></h1>
-
 <?php if(Yii::app()->user->hasFlash('loginMessage')): ?>
-
 <div class="success">
 	<?php echo Yii::app()->user->getFlash('loginMessage'); ?>
 </div>
-
 <?php endif; ?>
-
-<p><?php echo UserModule::t("Please fill out the following form with your login credentials:"); ?></p>
-
-<div class="form">
+<div id="page group">
 <?php echo CHtml::beginForm(); ?>
-
-	<p class="note"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></p>
+    <fieldset class="login">
+	
+	<h1>Login</h1>
 	
 	<?php echo CHtml::errorSummary($model); ?>
 	
-	<div class="row">
+	<div class="field stacked ">
 		<?php echo CHtml::activeLabelEx($model,'username'); ?>
-		<?php echo CHtml::activeTextField($model,'username') ?>
+		<?php echo CHtml::activeTextField($model,'username', array('type' => 'email', 'class' => 'login')) ?>
 	</div>
 	
-	<div class="row">
+	<div class="field stacked ">
 		<?php echo CHtml::activeLabelEx($model,'password'); ?>
-		<?php echo CHtml::activePasswordField($model,'password') ?>
+		<?php echo CHtml::activePasswordField($model,'password', array('type' => 'password', 'class' => 'login')) ?>
 	</div>
-	
-	<div class="row">
-		<p class="hint">
-		<?php echo CHtml::link(UserModule::t("Register"),Yii::app()->getModule('user')->registrationUrl); ?> | <?php echo CHtml::link(UserModule::t("Lost Password?"),Yii::app()->getModule('user')->recoveryUrl); ?>
-		</p>
+	<div class="rememberme group">
+        <?php echo CHtml::activeCheckBox($model,'rememberMe'); ?>
+        <?php echo CHtml::activeLabelEx($model,'rememberMe'); ?>
 	</div>
-	
-	<div class="row rememberMe">
-		<?php echo CHtml::activeCheckBox($model,'rememberMe'); ?>
-		<?php echo CHtml::activeLabelEx($model,'rememberMe'); ?>
-	</div>
-
-	<div class="row submit">
+	<div class="button-bar group">
 		<?php echo CHtml::submitButton(UserModule::t("Login")); ?>
 	</div>
-	
+    <p class="hint">
+    <?php echo CHtml::link(UserModule::t("Register"),Yii::app()->getModule('user')->registrationUrl); ?> | <?php echo CHtml::link(UserModule::t("Lost Password?"),Yii::app()->getModule('user')->recoveryUrl); ?>
+    </p>
+    <div class="note centered"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></div>
+    </fieldset>	
 <?php echo CHtml::endForm(); ?>
-</div><!-- form -->
-
-
+</div>
 <?php
 $form = new CForm(array(
     'elements'=>array(
