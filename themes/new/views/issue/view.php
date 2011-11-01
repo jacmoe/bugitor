@@ -66,7 +66,7 @@ $this->pageTitle = $model->project->name . ' - ' . $model->tracker->name . ' #' 
 <?php if(Yii::app()->user->checkAccess('Issue.Move')) echo '  ' . CHtml::link('Move', '#',array('submit' => array('move', 'id' => $model->id, 'identifier' => $model->project->identifier), 'class' => 'icons-move')) ?>
 <?php if(Yii::app()->user->checkAccess('Issue.Delete')) echo '  ' . CHtml::link('Delete', '#delete', array('submit' => array('delete','id' => $model->id, 'identifier' => $model->project->identifier), 'confirm' => 'Are you sure you want to delete this issue?', 'class' => 'icons-delete', 'id' => 'delete-button')); ?>
 </div>
-<h2><?php echo Bugitor::namedImage($model->tracker->name) . ' ' . $model->tracker->name . ' #' . $model->id; ?> (<?php echo $model->getStatusLabel($model->status); ?>)</h2>
+<h2><?php echo Bugitor::namedImage($model->tracker->name, true) . ' ' . $model->tracker->name . ' #' . $model->id; ?> (<?php echo $model->getStatusLabel($model->status); ?>)</h2>
 <div class="issue">
 <div class="row">
 <?php echo Bugitor::gravatar($model->user); ?>

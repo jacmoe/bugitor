@@ -238,10 +238,14 @@ class Bugitor {
         return CHtml::link('<img title="' . ucfirst($user->username) . '" class="gravatar" src="' . $grav_url . '"/>', array('/user/user/view', "id" => $user->id));
     }
 
-    public static function namedImage($name) {
+    public static function namedImage($name, $big = false) {
     	$style = 'icons-' . $name;
         //return "<span title=\"{$name}\" style=\"shidfsklfj\"></span>";
-		return CHtml::tag('span', array('title' => $name,'class' => "icons-{$name}"));
+        if($big) {
+            return CHtml::tag('span', array('title' => $name,'class' => "{$name}-icon"));
+        } else {
+            return CHtml::tag('span', array('title' => $name,'class' => "icons-{$name}"));
+        }
     }
 
     public static function getReadableFileSize($size, $retstring = null) {
