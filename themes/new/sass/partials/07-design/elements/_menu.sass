@@ -22,6 +22,7 @@
     //background-color: rgba(255, 255, 255, 0.05)
     color: $white
     text-decoration: none
+    font-weight: bold
   // Website name
   // h3 left for backwards compatibility
   h3
@@ -30,7 +31,9 @@
   .brand
     float: left
     display: block
-    padding: 8px 20px 12px
+    padding-top: 8px
+    padding-left: 12px
+    //padding: 8px 20px 12px
     //margin-left: -20px
     // negative indent to left-align the text down the page
     color: $linkColor
@@ -107,7 +110,7 @@
 .nav
   display: block
   float: left
-  margin: 0 10px 0 0
+  margin: 0 0 0 0
   position: relative
   left: 0
   > li
@@ -141,13 +144,15 @@
     .menu-dropdown,
     .dropdown-menu
       right: 0
-      border: 0
+      //border: 0
+      border: 1px solid $border-color
   // Dropdowns within the .nav
   // a.menu:hover and li.open .menu for backwards compatibility
   a.menu:hover,
   li.open .menu,
   .dropdown-toggle:hover,
   .dropdown.open .dropdown-toggle
+    color: $white
     //background: #444
     //background: rgba(255, 255, 255, 0.05)
   // .menu-dropdown for backwards compatibility
@@ -231,7 +236,7 @@ a.menu:after,
   border-style: solid
   border-width: 0 1px 1px
   +border-radius(0 0 6px 6px)
-  //+box-shadow(0 2px 4px rgba(0, 0, 0, 0.2))
+  +box-shadow(0 2px 4px rgba(0, 0, 0, 0.2))
   +background-clip(padding-box)
   // Unfloat any li's to make them stack
   li

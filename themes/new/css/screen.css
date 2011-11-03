@@ -440,7 +440,7 @@ h1, h2, h3, h4, h5 {
 
 /* line 5, ../sass/partials/02-typography/_headers.sass */
 h2, h3 {
-  border-bottom: 1px solid #ffdec5;
+  border-bottom: 1px solid #c0e4f6;
 }
 
 /* line 9, ../sass/partials/02-typography/_headers.sass */
@@ -784,7 +784,7 @@ input[type="week"] {
   -ms-border-radius: 5px;
   -khtml-border-radius: 5px;
   border-radius: 5px;
-  border: 1px solid #ffdec5;
+  border: 1px solid #c0e4f6;
   outline: 0;
 }
 
@@ -794,7 +794,7 @@ fieldset {
   border-style: solid;
   border-width: 0.071em;
   padding: 1.643em;
-  border-color: #ffdec5;
+  border-color: #c0e4f6;
   border-style: dotted;
 }
 
@@ -824,7 +824,7 @@ label {
   box-sizing: border-box;
   max-width: 100%;
   margin-top: 0;
-  border-color: #ffdec5;
+  border-color: #c0e4f6;
 }
 
 /* line 66, ../sass/partials/02-typography/forms/_form-defaults.sass */
@@ -2195,7 +2195,7 @@ dt.issue-rejected {
 }
 /* line 1, ../sass/partials/07-design/page-specific/_login.sass */
 .login {
-  border: 0.2em solid #ffdec5;
+  border: 0.2em solid #c0e4f6;
   -moz-border-radius: 1.5em;
   -webkit-border-radius: 1.5em;
   -o-border-radius: 1.5em;
@@ -2232,7 +2232,7 @@ dt.issue-rejected {
   /* line 22, ../sass/partials/07-design/page-specific/_login.sass */
   .login {
     margin: 5em auto;
-    border: 1px solid #ffdec5;
+    border: 1px solid #c0e4f6;
     -moz-border-radius: 1.5em;
     -webkit-border-radius: 1.5em;
     -o-border-radius: 1.5em;
@@ -2280,7 +2280,7 @@ dt.issue-rejected {
   /* line 22, ../sass/partials/07-design/page-specific/_register.sass */
   .register {
     margin: 5em auto;
-    border: 1px solid #ffdec5;
+    border: 1px solid #c0e4f6;
     -moz-border-radius: 1.5em;
     -webkit-border-radius: 1.5em;
     -o-border-radius: 1.5em;
@@ -2291,7 +2291,7 @@ dt.issue-rejected {
 }
 /* line 1, ../sass/partials/07-design/page-specific/_lost-password.sass */
 .lost-password {
-  border: 0.2em solid #ffdec5;
+  border: 0.2em solid #c0e4f6;
   -moz-border-radius: 1.5em;
   -webkit-border-radius: 1.5em;
   -o-border-radius: 1.5em;
@@ -2328,7 +2328,7 @@ dt.issue-rejected {
   /* line 22, ../sass/partials/07-design/page-specific/_lost-password.sass */
   .lost-password {
     margin: 5em auto;
-    border: 1px solid #ffdec5;
+    border: 1px solid #c0e4f6;
     -moz-border-radius: 1.5em;
     -webkit-border-radius: 1.5em;
     -o-border-radius: 1.5em;
@@ -2339,7 +2339,7 @@ dt.issue-rejected {
 }
 /* line 1, ../sass/partials/07-design/page-specific/_change-password.sass */
 .change-password {
-  border: 0.2em solid #ffdec5;
+  border: 0.2em solid #c0e4f6;
   -moz-border-radius: 1.5em;
   -webkit-border-radius: 1.5em;
   -o-border-radius: 1.5em;
@@ -2376,7 +2376,7 @@ dt.issue-rejected {
   /* line 22, ../sass/partials/07-design/page-specific/_change-password.sass */
   .change-password {
     margin: 5em auto;
-    border: 1px solid #ffdec5;
+    border: 1px solid #c0e4f6;
     -moz-border-radius: 1.5em;
     -webkit-border-radius: 1.5em;
     -o-border-radius: 1.5em;
@@ -2388,7 +2388,7 @@ dt.issue-rejected {
 /* line 2, ../sass/partials/07-design/elements/_menu.sass */
 .topbar {
   background: white;
-  border-bottom: 1px solid #ffdec5;
+  border-bottom: 1px solid #c0e4f6;
   position: absolute;
   top: 0;
   left: 0;
@@ -2404,7 +2404,7 @@ dt.issue-rejected {
 .topbar h3 a:hover,
 .topbar .brand a:hover,
 .topbar ul .active > a {
-  background-color: green;
+  background-color: #1673a1;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   -o-border-radius: 5px;
@@ -2413,33 +2413,35 @@ dt.issue-rejected {
   border-radius: 5px;
   color: white;
   text-decoration: none;
+  font-weight: bold;
 }
-/* line 27, ../sass/partials/07-design/elements/_menu.sass */
+/* line 28, ../sass/partials/07-design/elements/_menu.sass */
 .topbar h3 {
   position: relative;
 }
-/* line 29, ../sass/partials/07-design/elements/_menu.sass */
+/* line 30, ../sass/partials/07-design/elements/_menu.sass */
 .topbar h3 a,
 .topbar .brand {
   float: left;
   display: block;
-  padding: 8px 20px 12px;
+  padding-top: 8px;
+  padding-left: 12px;
   color: #333333;
   font-size: 20px;
   font-weight: 200;
   line-height: 1;
 }
-/* line 41, ../sass/partials/07-design/elements/_menu.sass */
+/* line 44, ../sass/partials/07-design/elements/_menu.sass */
 .topbar p {
   margin: 0;
   line-height: 40px;
 }
-/* line 44, ../sass/partials/07-design/elements/_menu.sass */
+/* line 47, ../sass/partials/07-design/elements/_menu.sass */
 .topbar p a:hover {
   background-color: transparent;
   color: #333333;
 }
-/* line 48, ../sass/partials/07-design/elements/_menu.sass */
+/* line 51, ../sass/partials/07-design/elements/_menu.sass */
 .topbar form {
   float: left;
   margin: 5px 0 0 0;
@@ -2447,11 +2449,11 @@ dt.issue-rejected {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;
 }
-/* line 54, ../sass/partials/07-design/elements/_menu.sass */
+/* line 57, ../sass/partials/07-design/elements/_menu.sass */
 .topbar form.pull-right {
   float: right;
 }
-/* line 56, ../sass/partials/07-design/elements/_menu.sass */
+/* line 59, ../sass/partials/07-design/elements/_menu.sass */
 .topbar input {
   padding: 4px 9px;
   color: #333333;
@@ -2468,11 +2470,11 @@ dt.issue-rejected {
   -o-transition: none;
   transition: none;
 }
-/* line 74, ../sass/partials/07-design/elements/_menu.sass */
+/* line 77, ../sass/partials/07-design/elements/_menu.sass */
 .topbar input:hover {
   color: #333333;
 }
-/* line 79, ../sass/partials/07-design/elements/_menu.sass */
+/* line 82, ../sass/partials/07-design/elements/_menu.sass */
 .topbar input:focus, .topbar input.focused {
   outline: 0;
   background-color: white;
@@ -2480,22 +2482,22 @@ dt.issue-rejected {
   padding: 5px 10px;
 }
 
-/* line 106, ../sass/partials/07-design/elements/_menu.sass */
+/* line 109, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul,
 .nav {
   display: block;
   float: left;
-  margin: 0 10px 0 0;
+  margin: 0 0 0 0;
   position: relative;
   left: 0;
 }
-/* line 113, ../sass/partials/07-design/elements/_menu.sass */
+/* line 116, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul > li,
 .nav > li {
   display: block;
   float: left;
 }
-/* line 116, ../sass/partials/07-design/elements/_menu.sass */
+/* line 119, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul a,
 .nav a {
   display: block;
@@ -2505,10 +2507,10 @@ dt.issue-rejected {
   line-height: 9px;
   text-decoration: none;
 }
-/* line 124, ../sass/partials/07-design/elements/_menu.sass */
+/* line 127, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul a:hover,
 .nav a:hover {
-  background-color: green;
+  background-color: #1673a1;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   -o-border-radius: 5px;
@@ -2518,10 +2520,10 @@ dt.issue-rejected {
   color: white;
   text-decoration: none;
 }
-/* line 129, ../sass/partials/07-design/elements/_menu.sass */
+/* line 132, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul .active > a,
 .nav .active > a {
-  background-color: green;
+  background-color: #1673a1;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   -o-border-radius: 5px;
@@ -2530,22 +2532,33 @@ dt.issue-rejected {
   border-radius: 5px;
   color: white;
 }
-/* line 136, ../sass/partials/07-design/elements/_menu.sass */
+/* line 139, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul.secondary-nav,
 .nav.secondary-nav {
   float: right;
   margin-left: 10px;
   margin-right: 0;
 }
-/* line 141, ../sass/partials/07-design/elements/_menu.sass */
+/* line 144, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul.secondary-nav .menu-dropdown,
 .topbar div > ul.secondary-nav .dropdown-menu,
 .nav.secondary-nav .menu-dropdown,
 .nav.secondary-nav .dropdown-menu {
   right: 0;
-  border: 0;
+  border: 1px solid #c0e4f6;
 }
-/* line 158, ../sass/partials/07-design/elements/_menu.sass */
+/* line 151, ../sass/partials/07-design/elements/_menu.sass */
+.topbar div > ul a.menu:hover,
+.topbar div > ul li.open .menu,
+.topbar div > ul .dropdown-toggle:hover,
+.topbar div > ul .dropdown.open .dropdown-toggle,
+.nav a.menu:hover,
+.nav li.open .menu,
+.nav .dropdown-toggle:hover,
+.nav .dropdown.open .dropdown-toggle {
+  color: white;
+}
+/* line 163, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul .menu-dropdown a.menu,
 .topbar div > ul .menu-dropdown .dropdown-toggle,
 .topbar div > ul .dropdown-menu a.menu,
@@ -2556,28 +2569,28 @@ dt.issue-rejected {
 .nav .dropdown-menu .dropdown-toggle {
   color: #333333;
 }
-/* line 164, ../sass/partials/07-design/elements/_menu.sass */
+/* line 169, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul .menu-dropdown li a,
 .topbar div > ul .dropdown-menu li a,
 .nav .menu-dropdown li a,
 .nav .dropdown-menu li a {
   color: #999999;
 }
-/* line 167, ../sass/partials/07-design/elements/_menu.sass */
+/* line 172, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul .menu-dropdown li a:hover,
 .topbar div > ul .dropdown-menu li a:hover,
 .nav .menu-dropdown li a:hover,
 .nav .dropdown-menu li a:hover {
   color: white;
 }
-/* line 170, ../sass/partials/07-design/elements/_menu.sass */
+/* line 175, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul .menu-dropdown .active a,
 .topbar div > ul .dropdown-menu .active a,
 .nav .menu-dropdown .active a,
 .nav .dropdown-menu .active a {
   color: white;
 }
-/* line 172, ../sass/partials/07-design/elements/_menu.sass */
+/* line 177, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul .menu-dropdown .divider,
 .topbar div > ul .dropdown-menu .divider,
 .nav .menu-dropdown .divider,
@@ -2585,19 +2598,19 @@ dt.issue-rejected {
   border-color: #444444;
 }
 
-/* line 178, ../sass/partials/07-design/elements/_menu.sass */
+/* line 183, ../sass/partials/07-design/elements/_menu.sass */
 .topbar ul .menu-dropdown li a,
 .topbar ul .dropdown-menu li a {
   padding: 4px 15px;
 }
 
-/* line 186, ../sass/partials/07-design/elements/_menu.sass */
+/* line 191, ../sass/partials/07-design/elements/_menu.sass */
 li.menu,
 .dropdown {
   position: relative;
 }
 
-/* line 193, ../sass/partials/07-design/elements/_menu.sass */
+/* line 198, ../sass/partials/07-design/elements/_menu.sass */
 a.menu:after,
 .dropdown-toggle:after {
   width: 0;
@@ -2615,7 +2628,7 @@ a.menu:after,
   opacity: 0.5;
 }
 
-/* line 211, ../sass/partials/07-design/elements/_menu.sass */
+/* line 216, ../sass/partials/07-design/elements/_menu.sass */
 .menu-dropdown,
 .dropdown-menu {
   background-color: white;
@@ -2641,6 +2654,10 @@ a.menu:after,
   -ms-border-radius: 0 0 6px 6px;
   -khtml-border-radius: 0 0 6px 6px;
   border-radius: 0 0 6px 6px;
+  -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  -o-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   -moz-background-clip: padding;
   -webkit-background-clip: padding;
   -o-background-clip: padding-box;
@@ -2648,14 +2665,14 @@ a.menu:after,
   -khtml-background-clip: padding-box;
   background-clip: padding-box;
 }
-/* line 237, ../sass/partials/07-design/elements/_menu.sass */
+/* line 242, ../sass/partials/07-design/elements/_menu.sass */
 .menu-dropdown li,
 .dropdown-menu li {
   float: none;
   display: block;
   background-color: none;
 }
-/* line 242, ../sass/partials/07-design/elements/_menu.sass */
+/* line 247, ../sass/partials/07-design/elements/_menu.sass */
 .menu-dropdown .divider,
 .dropdown-menu .divider {
   height: 1px;
@@ -2665,7 +2682,7 @@ a.menu:after,
   border-bottom: 1px solid white;
 }
 
-/* line 251, ../sass/partials/07-design/elements/_menu.sass */
+/* line 256, ../sass/partials/07-design/elements/_menu.sass */
 .topbar .dropdown-menu a, .dropdown-menu a {
   display: block;
   padding: 4px 15px;
@@ -2674,20 +2691,20 @@ a.menu:after,
   line-height: 18px;
   color: gray;
 }
-/* line 260, ../sass/partials/07-design/elements/_menu.sass */
+/* line 265, ../sass/partials/07-design/elements/_menu.sass */
 .topbar .dropdown-menu a:hover, .dropdown-menu a:hover {
   color: white;
   text-decoration: none;
 }
 
-/* line 274, ../sass/partials/07-design/elements/_menu.sass */
+/* line 279, ../sass/partials/07-design/elements/_menu.sass */
 .open .menu,
 .open .dropdown-toggle,
 .dropdown.open .menu,
 .dropdown.open .dropdown-toggle {
   color: #333333;
 }
-/* line 280, ../sass/partials/07-design/elements/_menu.sass */
+/* line 285, ../sass/partials/07-design/elements/_menu.sass */
 .open .menu-dropdown,
 .open .dropdown-menu,
 .dropdown.open .menu-dropdown,
@@ -2773,13 +2790,18 @@ body {
 .box {
   padding: 10px 10px;
   margin-bottom: 1em;
-  border: 1px solid #ffdec5;
+  border: 1px solid #c0e4f6;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   -o-border-radius: 5px;
   -ms-border-radius: 5px;
   -khtml-border-radius: 5px;
   border-radius: 5px;
+}
+
+/* line 26, ../sass/partials/07-design/_default.sass */
+#nav {
+  margin: 0 0 0 0;
 }
 
 /* 480px --------------------------------------------------------------------- */
