@@ -2,6 +2,8 @@
 .topbar
   //min-width: 800px
   background: $white
+  $shadow: 0 1px 3px $border-color, inset 0 -1px 0 rgba(0, 0, 0, 0.1)
+  +box-shadow($shadow)
   border-bottom: 1px solid $border-color
   position: absolute
   top: 0
@@ -96,8 +98,6 @@
 .topbar .fill
   //background-color: #222
   //+gradient-vertical(#333333, #222222)
-  //$shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1)
-  //+box-shadow($shadow)
 
 // NAVIGATION
 // ----------
@@ -153,6 +153,8 @@
   .dropdown-toggle:hover,
   .dropdown.open .dropdown-toggle
     color: $white
+    background-color: $pillColor
+    +border-radius(5px)
     //background: #444
     //background: rgba(255, 255, 255, 0.05)
   // .menu-dropdown for backwards compatibility
@@ -200,6 +202,7 @@ a.menu:after,
   width: 0
   height: 0
   display: inline-block
+  color: $base-color-light
   content: "&darr;"
   text-indent: -99999px
   vertical-align: top
@@ -207,7 +210,7 @@ a.menu:after,
   margin-left: 4px
   border-left: 4px solid transparent
   border-right: 4px solid transparent
-  border-top: 4px solid $white
+  border-top: 4px solid $base-color-light
   +opacity(0.5)
 
 // The dropdown menu (ul)

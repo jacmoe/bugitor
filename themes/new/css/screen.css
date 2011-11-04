@@ -440,7 +440,7 @@ h1, h2, h3, h4, h5 {
 
 /* line 5, ../sass/partials/02-typography/_headers.sass */
 h2, h3 {
-  border-bottom: 1px solid #c0e4f6;
+  border-bottom: 1px solid #d5d5d5;
 }
 
 /* line 9, ../sass/partials/02-typography/_headers.sass */
@@ -784,7 +784,7 @@ input[type="week"] {
   -ms-border-radius: 5px;
   -khtml-border-radius: 5px;
   border-radius: 5px;
-  border: 1px solid #c0e4f6;
+  border: 1px solid #d5d5d5;
   outline: 0;
 }
 
@@ -794,7 +794,7 @@ fieldset {
   border-style: solid;
   border-width: 0.071em;
   padding: 1.643em;
-  border-color: #c0e4f6;
+  border-color: #d5d5d5;
   border-style: dotted;
 }
 
@@ -824,7 +824,7 @@ label {
   box-sizing: border-box;
   max-width: 100%;
   margin-top: 0;
-  border-color: #c0e4f6;
+  border-color: #d5d5d5;
 }
 
 /* line 66, ../sass/partials/02-typography/forms/_form-defaults.sass */
@@ -2195,7 +2195,7 @@ dt.issue-rejected {
 }
 /* line 1, ../sass/partials/07-design/page-specific/_login.sass */
 .login {
-  border: 0.2em solid #c0e4f6;
+  border: 0.2em solid #d5d5d5;
   -moz-border-radius: 1.5em;
   -webkit-border-radius: 1.5em;
   -o-border-radius: 1.5em;
@@ -2232,7 +2232,7 @@ dt.issue-rejected {
   /* line 22, ../sass/partials/07-design/page-specific/_login.sass */
   .login {
     margin: 5em auto;
-    border: 1px solid #c0e4f6;
+    border: 1px solid #d5d5d5;
     -moz-border-radius: 1.5em;
     -webkit-border-radius: 1.5em;
     -o-border-radius: 1.5em;
@@ -2280,7 +2280,7 @@ dt.issue-rejected {
   /* line 22, ../sass/partials/07-design/page-specific/_register.sass */
   .register {
     margin: 5em auto;
-    border: 1px solid #c0e4f6;
+    border: 1px solid #d5d5d5;
     -moz-border-radius: 1.5em;
     -webkit-border-radius: 1.5em;
     -o-border-radius: 1.5em;
@@ -2291,7 +2291,7 @@ dt.issue-rejected {
 }
 /* line 1, ../sass/partials/07-design/page-specific/_lost-password.sass */
 .lost-password {
-  border: 0.2em solid #c0e4f6;
+  border: 0.2em solid #d5d5d5;
   -moz-border-radius: 1.5em;
   -webkit-border-radius: 1.5em;
   -o-border-radius: 1.5em;
@@ -2328,7 +2328,7 @@ dt.issue-rejected {
   /* line 22, ../sass/partials/07-design/page-specific/_lost-password.sass */
   .lost-password {
     margin: 5em auto;
-    border: 1px solid #c0e4f6;
+    border: 1px solid #d5d5d5;
     -moz-border-radius: 1.5em;
     -webkit-border-radius: 1.5em;
     -o-border-radius: 1.5em;
@@ -2339,7 +2339,7 @@ dt.issue-rejected {
 }
 /* line 1, ../sass/partials/07-design/page-specific/_change-password.sass */
 .change-password {
-  border: 0.2em solid #c0e4f6;
+  border: 0.2em solid #d5d5d5;
   -moz-border-radius: 1.5em;
   -webkit-border-radius: 1.5em;
   -o-border-radius: 1.5em;
@@ -2376,7 +2376,7 @@ dt.issue-rejected {
   /* line 22, ../sass/partials/07-design/page-specific/_change-password.sass */
   .change-password {
     margin: 5em auto;
-    border: 1px solid #c0e4f6;
+    border: 1px solid #d5d5d5;
     -moz-border-radius: 1.5em;
     -webkit-border-radius: 1.5em;
     -o-border-radius: 1.5em;
@@ -2388,7 +2388,11 @@ dt.issue-rejected {
 /* line 2, ../sass/partials/07-design/elements/_menu.sass */
 .topbar {
   background: white;
-  border-bottom: 1px solid #c0e4f6;
+  -moz-box-shadow: 0 1px 3px #d5d5d5, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 1px 3px #d5d5d5, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  -o-box-shadow: 0 1px 3px #d5d5d5, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px #d5d5d5, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #d5d5d5;
   position: absolute;
   top: 0;
   left: 0;
@@ -2396,11 +2400,11 @@ dt.issue-rejected {
   z-index: 10000;
   overflow: visible;
 }
-/* line 12, ../sass/partials/07-design/elements/_menu.sass */
+/* line 14, ../sass/partials/07-design/elements/_menu.sass */
 .topbar a {
   color: gray;
 }
-/* line 17, ../sass/partials/07-design/elements/_menu.sass */
+/* line 19, ../sass/partials/07-design/elements/_menu.sass */
 .topbar h3 a:hover,
 .topbar .brand a:hover,
 .topbar ul .active > a {
@@ -2415,11 +2419,11 @@ dt.issue-rejected {
   text-decoration: none;
   font-weight: bold;
 }
-/* line 28, ../sass/partials/07-design/elements/_menu.sass */
+/* line 30, ../sass/partials/07-design/elements/_menu.sass */
 .topbar h3 {
   position: relative;
 }
-/* line 30, ../sass/partials/07-design/elements/_menu.sass */
+/* line 32, ../sass/partials/07-design/elements/_menu.sass */
 .topbar h3 a,
 .topbar .brand {
   float: left;
@@ -2431,17 +2435,17 @@ dt.issue-rejected {
   font-weight: 200;
   line-height: 1;
 }
-/* line 44, ../sass/partials/07-design/elements/_menu.sass */
+/* line 46, ../sass/partials/07-design/elements/_menu.sass */
 .topbar p {
   margin: 0;
   line-height: 40px;
 }
-/* line 47, ../sass/partials/07-design/elements/_menu.sass */
+/* line 49, ../sass/partials/07-design/elements/_menu.sass */
 .topbar p a:hover {
   background-color: transparent;
   color: #333333;
 }
-/* line 51, ../sass/partials/07-design/elements/_menu.sass */
+/* line 53, ../sass/partials/07-design/elements/_menu.sass */
 .topbar form {
   float: left;
   margin: 5px 0 0 0;
@@ -2449,11 +2453,11 @@ dt.issue-rejected {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;
 }
-/* line 57, ../sass/partials/07-design/elements/_menu.sass */
+/* line 59, ../sass/partials/07-design/elements/_menu.sass */
 .topbar form.pull-right {
   float: right;
 }
-/* line 59, ../sass/partials/07-design/elements/_menu.sass */
+/* line 61, ../sass/partials/07-design/elements/_menu.sass */
 .topbar input {
   padding: 4px 9px;
   color: #333333;
@@ -2470,11 +2474,11 @@ dt.issue-rejected {
   -o-transition: none;
   transition: none;
 }
-/* line 77, ../sass/partials/07-design/elements/_menu.sass */
+/* line 79, ../sass/partials/07-design/elements/_menu.sass */
 .topbar input:hover {
   color: #333333;
 }
-/* line 82, ../sass/partials/07-design/elements/_menu.sass */
+/* line 84, ../sass/partials/07-design/elements/_menu.sass */
 .topbar input:focus, .topbar input.focused {
   outline: 0;
   background-color: white;
@@ -2545,7 +2549,7 @@ dt.issue-rejected {
 .nav.secondary-nav .menu-dropdown,
 .nav.secondary-nav .dropdown-menu {
   right: 0;
-  border: 1px solid #c0e4f6;
+  border: 1px solid #d5d5d5;
 }
 /* line 151, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul a.menu:hover,
@@ -2557,8 +2561,15 @@ dt.issue-rejected {
 .nav .dropdown-toggle:hover,
 .nav .dropdown.open .dropdown-toggle {
   color: white;
+  background-color: #1673a1;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
 }
-/* line 163, ../sass/partials/07-design/elements/_menu.sass */
+/* line 165, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul .menu-dropdown a.menu,
 .topbar div > ul .menu-dropdown .dropdown-toggle,
 .topbar div > ul .dropdown-menu a.menu,
@@ -2569,28 +2580,28 @@ dt.issue-rejected {
 .nav .dropdown-menu .dropdown-toggle {
   color: #333333;
 }
-/* line 169, ../sass/partials/07-design/elements/_menu.sass */
+/* line 171, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul .menu-dropdown li a,
 .topbar div > ul .dropdown-menu li a,
 .nav .menu-dropdown li a,
 .nav .dropdown-menu li a {
   color: #999999;
 }
-/* line 172, ../sass/partials/07-design/elements/_menu.sass */
+/* line 174, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul .menu-dropdown li a:hover,
 .topbar div > ul .dropdown-menu li a:hover,
 .nav .menu-dropdown li a:hover,
 .nav .dropdown-menu li a:hover {
   color: white;
 }
-/* line 175, ../sass/partials/07-design/elements/_menu.sass */
+/* line 177, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul .menu-dropdown .active a,
 .topbar div > ul .dropdown-menu .active a,
 .nav .menu-dropdown .active a,
 .nav .dropdown-menu .active a {
   color: white;
 }
-/* line 177, ../sass/partials/07-design/elements/_menu.sass */
+/* line 179, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul .menu-dropdown .divider,
 .topbar div > ul .dropdown-menu .divider,
 .nav .menu-dropdown .divider,
@@ -2598,24 +2609,25 @@ dt.issue-rejected {
   border-color: #444444;
 }
 
-/* line 183, ../sass/partials/07-design/elements/_menu.sass */
+/* line 185, ../sass/partials/07-design/elements/_menu.sass */
 .topbar ul .menu-dropdown li a,
 .topbar ul .dropdown-menu li a {
   padding: 4px 15px;
 }
 
-/* line 191, ../sass/partials/07-design/elements/_menu.sass */
+/* line 193, ../sass/partials/07-design/elements/_menu.sass */
 li.menu,
 .dropdown {
   position: relative;
 }
 
-/* line 198, ../sass/partials/07-design/elements/_menu.sass */
+/* line 200, ../sass/partials/07-design/elements/_menu.sass */
 a.menu:after,
 .dropdown-toggle:after {
   width: 0;
   height: 0;
   display: inline-block;
+  color: #555555;
   content: "&darr;";
   text-indent: -99999px;
   vertical-align: top;
@@ -2623,12 +2635,12 @@ a.menu:after,
   margin-left: 4px;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
-  border-top: 4px solid white;
+  border-top: 4px solid #555555;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
   opacity: 0.5;
 }
 
-/* line 216, ../sass/partials/07-design/elements/_menu.sass */
+/* line 219, ../sass/partials/07-design/elements/_menu.sass */
 .menu-dropdown,
 .dropdown-menu {
   background-color: white;
@@ -2665,14 +2677,14 @@ a.menu:after,
   -khtml-background-clip: padding-box;
   background-clip: padding-box;
 }
-/* line 242, ../sass/partials/07-design/elements/_menu.sass */
+/* line 245, ../sass/partials/07-design/elements/_menu.sass */
 .menu-dropdown li,
 .dropdown-menu li {
   float: none;
   display: block;
   background-color: none;
 }
-/* line 247, ../sass/partials/07-design/elements/_menu.sass */
+/* line 250, ../sass/partials/07-design/elements/_menu.sass */
 .menu-dropdown .divider,
 .dropdown-menu .divider {
   height: 1px;
@@ -2682,7 +2694,7 @@ a.menu:after,
   border-bottom: 1px solid white;
 }
 
-/* line 256, ../sass/partials/07-design/elements/_menu.sass */
+/* line 259, ../sass/partials/07-design/elements/_menu.sass */
 .topbar .dropdown-menu a, .dropdown-menu a {
   display: block;
   padding: 4px 15px;
@@ -2691,20 +2703,20 @@ a.menu:after,
   line-height: 18px;
   color: gray;
 }
-/* line 265, ../sass/partials/07-design/elements/_menu.sass */
+/* line 268, ../sass/partials/07-design/elements/_menu.sass */
 .topbar .dropdown-menu a:hover, .dropdown-menu a:hover {
   color: white;
   text-decoration: none;
 }
 
-/* line 279, ../sass/partials/07-design/elements/_menu.sass */
+/* line 282, ../sass/partials/07-design/elements/_menu.sass */
 .open .menu,
 .open .dropdown-toggle,
 .dropdown.open .menu,
 .dropdown.open .dropdown-toggle {
   color: #333333;
 }
-/* line 285, ../sass/partials/07-design/elements/_menu.sass */
+/* line 288, ../sass/partials/07-design/elements/_menu.sass */
 .open .menu-dropdown,
 .open .dropdown-menu,
 .dropdown.open .menu-dropdown,
@@ -2737,8 +2749,7 @@ img.gravatar {
 /* line 19, ../sass/partials/07-design/elements/_gravatar.sass */
 div.issue img.gravatar {
   float: right;
-  margin: 0 0 0 1em;
-  padding: 5px;
+  padding: 1px;
 }
 
 /* line 24, ../sass/partials/07-design/elements/_gravatar.sass */
@@ -2757,40 +2768,140 @@ div.issue span img.gravatar {
   float: left;
 }
 
+/* line 1, ../sass/partials/07-design/elements/_progress.sass */
+table.progress {
+  border: 1px solid #d7d7d7 !important;
+  border-collapse: collapse;
+  border-spacing: 0pt;
+  empty-cells: show;
+  text-align: center;
+  margin: 1px 6px 1px 0px;
+  display: inline-table;
+}
+
+/* line 11, ../sass/partials/07-design/elements/_progress.sass */
+table.progress td {
+  height: 0.9em;
+  border: 1px solid #d7d7d7 !important;
+}
+
+/* line 15, ../sass/partials/07-design/elements/_progress.sass */
+table.progress td.closed {
+  background: #bae0ba none repeat scroll 0%;
+}
+
+/* line 18, ../sass/partials/07-design/elements/_progress.sass */
+table.progress td.done {
+  background: #fdee99 none repeat scroll 0%;
+}
+
+/* line 21, ../sass/partials/07-design/elements/_progress.sass */
+table.progress td.open {
+  background: white none repeat scroll 0%;
+}
+
+/* line 24, ../sass/partials/07-design/elements/_progress.sass */
+span.pourcent {
+  font-size: 80%;
+  position: relative;
+  top: 2px;
+}
+
+/* line 29, ../sass/partials/07-design/elements/_progress.sass */
+p.progress-info {
+  clear: left;
+  font-style: italic;
+  font-size: 80%;
+}
+
+/* line 34, ../sass/partials/07-design/elements/_progress.sass */
+table.big_progress {
+  border: 1px solid #d7d7d7;
+  border-collapse: collapse;
+  border-spacing: 0pt;
+  empty-cells: show;
+  text-align: center;
+  float: left;
+  margin: 1px 6px 1px 0px;
+}
+
+/* line 43, ../sass/partials/07-design/elements/_progress.sass */
+table.big_progress td {
+  height: 1.4em;
+}
+
+/* line 46, ../sass/partials/07-design/elements/_progress.sass */
+table.big_progress td.closed {
+  background: #bae0ba none repeat scroll 0%;
+}
+
+/* line 49, ../sass/partials/07-design/elements/_progress.sass */
+table.big_progress td.done {
+  background: #fdee99 none repeat scroll 0%;
+}
+
+/* line 52, ../sass/partials/07-design/elements/_progress.sass */
+table.big_progress td.open {
+  background: white none repeat scroll 0%;
+}
+
+/* line 55, ../sass/partials/07-design/elements/_progress.sass */
+span.big_pourcent {
+  font-size: 100%;
+  position: relative;
+  top: 2px;
+}
+
+/* line 60, ../sass/partials/07-design/elements/_progress.sass */
+div.big_progress-info {
+  clear: left;
+  font-style: italic;
+  font-size: 90%;
+}
+
 /* line 1, ../sass/partials/07-design/_default.sass */
 body {
   margin-top: 48px;
 }
 
 /* line 4, ../sass/partials/07-design/_default.sass */
+hr {
+  background: #d5d5d5;
+  color: #d5d5d5;
+  width: 100%;
+  border: none;
+  height: 1px;
+}
+
+/* line 12, ../sass/partials/07-design/_default.sass */
 .note {
   font-size: smaller;
   font-style: italic;
 }
-/* line 7, ../sass/partials/07-design/_default.sass */
+/* line 15, ../sass/partials/07-design/_default.sass */
 .note .required {
   color: red;
 }
 
-/* line 10, ../sass/partials/07-design/_default.sass */
+/* line 18, ../sass/partials/07-design/_default.sass */
 .centered {
   text-align: center;
   margin-top: 22px;
   line-height: 6px;
 }
 
-/* line 15, ../sass/partials/07-design/_default.sass */
+/* line 23, ../sass/partials/07-design/_default.sass */
 .contextual {
   position: relative;
   float: right;
   white-space: nowrap;
 }
 
-/* line 20, ../sass/partials/07-design/_default.sass */
+/* line 28, ../sass/partials/07-design/_default.sass */
 .box {
   padding: 10px 10px;
   margin-bottom: 1em;
-  border: 1px solid #c0e4f6;
+  border: 1px solid #d5d5d5;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   -o-border-radius: 5px;
@@ -2799,9 +2910,23 @@ body {
   border-radius: 5px;
 }
 
-/* line 26, ../sass/partials/07-design/_default.sass */
-#nav {
-  margin: 0 0 0 0;
+/* line 34, ../sass/partials/07-design/_default.sass */
+div.issue {
+  background: #ffffdd;
+  padding: 6px;
+  margin-bottom: 6px;
+  border: 1px solid #d5d5d5;
+}
+
+/* line 40, ../sass/partials/07-design/_default.sass */
+a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
+  color: #999999;
+  text-decoration: line-through;
+}
+
+/* line 44, ../sass/partials/07-design/_default.sass */
+.keep-together {
+  white-space: nowrap !important;
 }
 
 /* 480px --------------------------------------------------------------------- */
