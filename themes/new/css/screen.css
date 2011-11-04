@@ -2762,15 +2762,18 @@ div.issue span img.gravatar {
 #history img.gravatar {
   padding: 3px;
   margin: 0 1.5em 1em 0;
+  float: left;
+  position: relative;
+  top: -6px;
 }
 
-/* line 35, ../sass/partials/07-design/elements/_gravatar.sass */
+/* line 37, ../sass/partials/07-design/elements/_gravatar.sass */
 td.username img.gravatar {
   float: left;
   margin: 0 1em 0 0;
 }
 
-/* line 39, ../sass/partials/07-design/elements/_gravatar.sass */
+/* line 41, ../sass/partials/07-design/elements/_gravatar.sass */
 #activity dt img.gravatar {
   position: relative;
   top: 8px;
@@ -3152,15 +3155,6 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
 }
 
 /* line 69, ../sass/partials/07-design/_default.sass */
-#history img.gravatar {
-  padding: 3px;
-  margin: 0 1.5em 1em 0;
-  float: left;
-  position: relative;
-  top: -6px;
-}
-
-/* line 76, ../sass/partials/07-design/_default.sass */
 div#issue-changesets {
   float: right;
   width: 45%;
@@ -3170,12 +3164,12 @@ div#issue-changesets {
   padding-left: 1em;
   font-size: 90%;
 }
-/* line 84, ../sass/partials/07-design/_default.sass */
+/* line 77, ../sass/partials/07-design/_default.sass */
 div#issue-changesets .changeset {
   padding: 4px;
   border-bottom: 1px solid #d5d5d5;
 }
-/* line 87, ../sass/partials/07-design/_default.sass */
+/* line 80, ../sass/partials/07-design/_default.sass */
 div#issue-changesets .changeset p {
   margin-top: 0;
   margin-bottom: 1em;
