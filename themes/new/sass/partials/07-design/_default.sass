@@ -1,6 +1,14 @@
 body
   margin-top: 48px
 
+hr
+  background: $border-color 
+  color: $border-color
+  width: 100% 
+  border: none
+  height: 1px
+
+
 .note
   font-size: smaller
   font-style: italic
@@ -23,5 +31,15 @@ body
   border: 1px solid $border-color
   +border-radius(5px)
 
-#nav
-  margin: 0 0 0 0
+div.issue
+  background: $issue-background-color
+  padding: 6px
+  margin-bottom: 6px
+  border: 1px solid $border-color
+
+a.issue.closed, a.issue.closed:link, a.issue.closed:visited
+  color: #999999
+  text-decoration: line-through
+
+.keep-together
+  white-space: nowrap !important

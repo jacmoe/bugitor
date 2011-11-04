@@ -76,6 +76,7 @@
             <?php $done_ratio = (($num_actual_issues != 0) ? ((($milestone->issueCountDone / 100) * $milestone->issueCountOpen) / $num_actual_issues) * 100 : 0); ?>
             <?php $open_ratio = $open_percent - $done_ratio; ?>
             <?php if($show_detail) : ?>
+                <span class="keep-together">
                 <?php echo Bugitor::big_progress_bar(array($closed_percent, $done_ratio, $open_ratio), array('width' => '500px', 'legend' => number_format($closed_percent + $done_ratio) . '%')); ?><br/>
                 <div class="big_progress-info quiet">
                 <?php if($milestone->issueCountResolved > 0) : ?>
@@ -85,6 +86,7 @@
                             'Issue[milestone_id]' => $milestone->name,
                             'issueFilter' => 2,
                         )); ?> (<?php echo number_format($closed_percent) ?>%)
+                </span>
                 <?php else : ?>
                     0 closed
                 <?php endif; ?>
@@ -108,8 +110,12 @@
                 <?php endif; ?>
                 </div>
                 <?php echo Yii::app()->textile->textilize($milestone->description); ?>
+            <!-- if show details //-->
             <?php else : ?>
-                <?php echo Bugitor::small_progress_bar(array($closed_percent, $done_ratio, $open_ratio), array('width' => '250px', 'legend' => number_format($closed_percent + $done_ratio) . '%')); ?><br/><br/>
+                <span class="keep-together">
+                <?php echo Bugitor::small_progress_bar(array($closed_percent, $done_ratio, $open_ratio), array('width' => '250px', 'legend' => number_format($closed_percent + $done_ratio) . '&#37;')); ?>
+                </span>
+                <br/><br/>
             <?php endif; ?>
                     <?php if($this->controller->id === 'milestone') : ?>
                         <?php if(Yii::app()->user->checkAccess('Milestone.Update')) : ?>
