@@ -43,12 +43,12 @@
     <h3>History</h3>
     <?php foreach ($comments as $comment): ?>
         <div id="change-1210" class="journal">
-            <h4><div style="float:right;">
+            <h5><div style="float:right;">
                     <?php echo CHtml::link('#' . $comment_count, '#note-' . $comment_count); ?>
                     <?php echo CHtml::tag('a', array('name' => 'note-' . $comment_count), '.'); ?>
                 </div>
                 Updated by <?php echo Bugitor::link_to_user($comment->author); ?>
-                <?php echo Bugitor::timeAgoInWords($comment->created); ?></h4>
+                <?php echo Bugitor::timeAgoInWords($comment->created); ?></h5>
             <dl><dt>
                 <?php echo Bugitor::gravatar($comment->author); ?>
                 </dt><dd style="margin-left: 75px;">
@@ -62,8 +62,8 @@
                     <?php endif; ?>
                     <div class="<?php echo (isset(Yii::app()->user->id)&&(Yii::app()->user->id == $comment->create_user_id)) ? "edit" : "nedit" ?>" id="<?php echo $comment->id; ?>"><?php echo Yii::app()->textile->textilize($comment->content); ?></div>
                 </dd></dl>
+        <hr/>
         </div>
-        <br class="clearfix"/>
         <?php $comment_count--; ?>
     <?php endforeach; ?>
 </div>
