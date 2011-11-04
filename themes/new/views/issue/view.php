@@ -133,7 +133,9 @@ Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Bugitor::
     </tr>
 </tbody></table>
 </div>
-</div>
+</div><!-- row //-->
+<br style="clear:both"/>
+<hr style="clear:both"/>
 <b>Description:</b><br/>
 <?php echo Yii::app()->textile->textilize($model->description); ?>
 <hr/>
