@@ -3040,6 +3040,72 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   white-space: nowrap !important;
 }
 
+/* line 47, ../sass/partials/07-design/_default.sass */
+#content .tabs {
+  height: 2.6em;
+  border-bottom: 1px solid #bbbbbb;
+  margin-bottom: 1.2em;
+  position: relative;
+}
+/* line 6, ../sass/partials/07-design/elements/_tabs.sass */
+#content .tabs ul {
+  margin: 0;
+  position: absolute;
+  bottom: -2px;
+  padding-left: 1em;
+}
+/* line 11, ../sass/partials/07-design/elements/_tabs.sass */
+#content .tabs ul li {
+  float: left;
+  list-style-type: none;
+  white-space: nowrap;
+  margin-right: 8px;
+  background: white;
+}
+/* line 17, ../sass/partials/07-design/elements/_tabs.sass */
+#content .tabs ul li a {
+  display: block;
+  font-size: 0.9em;
+  text-decoration: none;
+  line-height: 1.3em;
+  padding: 4px 6px 4px 6px;
+  border: 1px solid #cccccc;
+  border-bottom: 1px solid #bbbbbb;
+  background-color: #eeeeee;
+  color: #777777;
+  font-weight: bold;
+}
+/* line 28, ../sass/partials/07-design/elements/_tabs.sass */
+#content .tabs ul li a:hover {
+  background-color: #ffffdd;
+  text-decoration: none;
+}
+/* line 31, ../sass/partials/07-design/elements/_tabs.sass */
+#content .tabs ul li a.selected {
+  background-color: white;
+  border: 1px solid #bbbbbb;
+  border-bottom: 1px solid white;
+}
+/* line 35, ../sass/partials/07-design/elements/_tabs.sass */
+#content .tabs ul li a.selected:hover {
+  background-color: white;
+}
+/* line 38, ../sass/partials/07-design/elements/_tabs.sass */
+#content .tabs > ul {
+  bottom: -1px;
+}
+/* line 40, ../sass/partials/07-design/elements/_tabs.sass */
+#content .tabs > ul li.active a {
+  color: #ffa500;
+  background-color: white;
+  border: 1px solid #bbbbbb;
+  border-bottom: 1px solid white;
+}
+/* line 45, ../sass/partials/07-design/elements/_tabs.sass */
+#content .tabs > ul li.active a:hover {
+  background-color: white;
+}
+
 /* 480px --------------------------------------------------------------------- */
 /* 768px  -------------------------------------------------------------------- */
 /* 992px --------------------------------------------------------------------- */
