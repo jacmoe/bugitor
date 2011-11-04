@@ -463,8 +463,8 @@ h3 {
 
 /* line 15, ../sass/partials/02-typography/_headers.sass */
 h4 {
-  font-size: 1.286em;
-  line-height: 1.333em;
+  font-size: 1.143em;
+  line-height: 1.5em;
 }
 
 /* Forms -------------------------------------------------------------- */
@@ -2729,12 +2729,9 @@ img.gravatar {
   padding: 2px;
   border: solid 1px #d5d5d5;
   background: white;
-  padding: 2px;
-  position: relative;
-  top: 8px;
 }
 
-/* line 9, ../sass/partials/07-design/elements/_gravatar.sass */
+/* line 8, ../sass/partials/07-design/elements/_gravatar.sass */
 .topbar img.gravatar {
   padding: 1px 1px 1px 1px;
   margin: 6px 2px 2px 2px;
@@ -2746,13 +2743,13 @@ img.gravatar {
   left: 50px;
 }
 
-/* line 19, ../sass/partials/07-design/elements/_gravatar.sass */
+/* line 18, ../sass/partials/07-design/elements/_gravatar.sass */
 div.issue img.gravatar {
   float: right;
   padding: 1px;
 }
 
-/* line 24, ../sass/partials/07-design/elements/_gravatar.sass */
+/* line 23, ../sass/partials/07-design/elements/_gravatar.sass */
 div.issue span img.gravatar {
   height: 14px;
   width: 14px;
@@ -2761,11 +2758,22 @@ div.issue span img.gravatar {
   margin: 0 0.5em 0 0;
 }
 
-/* line 31, ../sass/partials/07-design/elements/_gravatar.sass */
+/* line 30, ../sass/partials/07-design/elements/_gravatar.sass */
 #history img.gravatar {
   padding: 3px;
   margin: 0 1.5em 1em 0;
+}
+
+/* line 35, ../sass/partials/07-design/elements/_gravatar.sass */
+td.username img.gravatar {
   float: left;
+  margin: 0 1em 0 0;
+}
+
+/* line 39, ../sass/partials/07-design/elements/_gravatar.sass */
+#activity dt img.gravatar {
+  position: relative;
+  top: 8px;
 }
 
 /* line 1, ../sass/partials/07-design/elements/_progress.sass */
@@ -3104,6 +3112,73 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
 /* line 45, ../sass/partials/07-design/elements/_tabs.sass */
 #content .tabs > ul li.active a:hover {
   background-color: white;
+}
+
+/* line 50, ../sass/partials/07-design/_default.sass */
+.journal {
+  clear: left;
+}
+/* line 52, ../sass/partials/07-design/_default.sass */
+.journal ul {
+  position: relative;
+  width: 30%;
+  margin: 0 0 20px 20px;
+  padding: 2px 2px 2px 10px;
+  right: 20px;
+  background: #1673a1;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+  color: white;
+  list-style: none;
+}
+/* line 11, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/typography/lists/_bullets.scss */
+.journal ul li {
+  list-style-image: none;
+  list-style-type: none;
+  margin-left: 0px;
+}
+/* line 63, ../sass/partials/07-design/_default.sass */
+.journal h5 {
+  margin-bottom: 2px;
+  margin-top: 1.5em;
+}
+/* line 66, ../sass/partials/07-design/_default.sass */
+.journal hr {
+  clear: left;
+}
+
+/* line 69, ../sass/partials/07-design/_default.sass */
+#history img.gravatar {
+  padding: 3px;
+  margin: 0 1.5em 1em 0;
+  float: left;
+  position: relative;
+  top: -6px;
+}
+
+/* line 76, ../sass/partials/07-design/_default.sass */
+div#issue-changesets {
+  float: right;
+  width: 45%;
+  margin-left: 1em;
+  margin-bottom: 1em;
+  background: white;
+  padding-left: 1em;
+  font-size: 90%;
+}
+/* line 84, ../sass/partials/07-design/_default.sass */
+div#issue-changesets .changeset {
+  padding: 4px;
+  border-bottom: 1px solid #d5d5d5;
+}
+/* line 87, ../sass/partials/07-design/_default.sass */
+div#issue-changesets .changeset p {
+  margin-top: 0;
+  margin-bottom: 1em;
 }
 
 /* 480px --------------------------------------------------------------------- */
