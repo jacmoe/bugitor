@@ -1,0 +1,63 @@
+.grid-view-loading
+  background: url(loading.gif) no-repeat
+
+.grid-view
+  padding: 15px 0
+  table.items
+    background: white
+    border-collapse: collapse
+    width: 100%
+    border: 1px #D0E3EF solid
+    th, td
+      font-size: 0.9em
+      border: 1px white solid
+      padding: 0.3em
+    td
+      border-bottom: 1px solid $border-color
+    th
+      color: white
+      background-color: $pillColor
+      +background-image(linear-gradient($pillColor, darken($pillColor, 20%)))
+      text-align: center
+      a
+        color: #EEE
+        font-weight: bold
+        text-decoration: none
+        &:hover
+          color: #FFF
+        &.asc
+          background: url(up.gif) right center no-repeat
+          padding-right: 10px
+        &.desc
+          background: url(down.gif) right center no-repeat
+          padding-right: 10px
+    tr
+      &.even
+        background: #ECFBD4
+      &.odd
+        background: none
+      &.selected
+        background: #F0E68C
+      &:hover
+        background: #FFFF99
+  .link-column img
+    border: 0
+  .button-column
+    text-align: center
+    width: 60px
+    img
+      border: 0
+  .checkbox-column
+    width: 15px
+  .summary
+    margin: 0 0 5px 0
+    text-align: right
+  .pager
+    margin: 5px 0 0 0
+    text-align: right
+  .empty
+    font-style: italic
+  .filters
+    input, select
+      width: 100%
+      border: 1px solid #ccc
