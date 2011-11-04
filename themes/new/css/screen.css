@@ -2859,6 +2859,117 @@ div.big_progress-info {
   font-size: 90%;
 }
 
+/* line 1, ../sass/partials/07-design/elements/_gridview.sass */
+.grid-view-loading {
+  background: url(loading.gif) no-repeat;
+}
+
+/* line 4, ../sass/partials/07-design/elements/_gridview.sass */
+.grid-view {
+  padding: 15px 0;
+}
+/* line 6, ../sass/partials/07-design/elements/_gridview.sass */
+.grid-view table.items {
+  background: white;
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px #d0e3ef solid;
+}
+/* line 11, ../sass/partials/07-design/elements/_gridview.sass */
+.grid-view table.items th, .grid-view table.items td {
+  font-size: 0.9em;
+  border: 1px white solid;
+  padding: 0.3em;
+}
+/* line 15, ../sass/partials/07-design/elements/_gridview.sass */
+.grid-view table.items td {
+  border-bottom: 1px solid #d5d5d5;
+}
+/* line 17, ../sass/partials/07-design/elements/_gridview.sass */
+.grid-view table.items th {
+  color: white;
+  background-color: #1673a1;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #1673a1), color-stop(100%, #0a3347));
+  background-image: -webkit-linear-gradient(#1673a1, #0a3347);
+  background-image: -moz-linear-gradient(#1673a1, #0a3347);
+  background-image: -o-linear-gradient(#1673a1, #0a3347);
+  background-image: -ms-linear-gradient(#1673a1, #0a3347);
+  background-image: linear-gradient(#1673a1, #0a3347);
+  text-align: center;
+}
+/* line 22, ../sass/partials/07-design/elements/_gridview.sass */
+.grid-view table.items th a {
+  color: #eeeeee;
+  font-weight: bold;
+  text-decoration: none;
+}
+/* line 26, ../sass/partials/07-design/elements/_gridview.sass */
+.grid-view table.items th a:hover {
+  color: white;
+}
+/* line 28, ../sass/partials/07-design/elements/_gridview.sass */
+.grid-view table.items th a.asc {
+  background: url(up.gif) right center no-repeat;
+  padding-right: 10px;
+}
+/* line 31, ../sass/partials/07-design/elements/_gridview.sass */
+.grid-view table.items th a.desc {
+  background: url(down.gif) right center no-repeat;
+  padding-right: 10px;
+}
+/* line 35, ../sass/partials/07-design/elements/_gridview.sass */
+.grid-view table.items tr.even {
+  background: #ecfbd4;
+}
+/* line 37, ../sass/partials/07-design/elements/_gridview.sass */
+.grid-view table.items tr.odd {
+  background: none;
+}
+/* line 39, ../sass/partials/07-design/elements/_gridview.sass */
+.grid-view table.items tr.selected {
+  background: #f0e68c;
+}
+/* line 41, ../sass/partials/07-design/elements/_gridview.sass */
+.grid-view table.items tr:hover {
+  background: #ffff99;
+}
+/* line 43, ../sass/partials/07-design/elements/_gridview.sass */
+.grid-view .link-column img {
+  border: 0;
+}
+/* line 45, ../sass/partials/07-design/elements/_gridview.sass */
+.grid-view .button-column {
+  text-align: center;
+  width: 60px;
+}
+/* line 48, ../sass/partials/07-design/elements/_gridview.sass */
+.grid-view .button-column img {
+  border: 0;
+}
+/* line 50, ../sass/partials/07-design/elements/_gridview.sass */
+.grid-view .checkbox-column {
+  width: 15px;
+}
+/* line 52, ../sass/partials/07-design/elements/_gridview.sass */
+.grid-view .summary {
+  margin: 0 0 5px 0;
+  text-align: right;
+}
+/* line 55, ../sass/partials/07-design/elements/_gridview.sass */
+.grid-view .pager {
+  margin: 5px 0 0 0;
+  text-align: right;
+}
+/* line 58, ../sass/partials/07-design/elements/_gridview.sass */
+.grid-view .empty {
+  font-style: italic;
+}
+/* line 61, ../sass/partials/07-design/elements/_gridview.sass */
+.grid-view .filters input, .grid-view .filters select {
+  width: 100%;
+  border: 1px solid #cccccc;
+}
+
 /* line 1, ../sass/partials/07-design/_default.sass */
 body {
   margin-top: 48px;
