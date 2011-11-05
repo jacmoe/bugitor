@@ -37,7 +37,6 @@
 <?php $curr_day = 0; ?>
 <?php if(null !== $pages) : ?>
 <div class="small" style="float:right;"><?php $this->widget('CustomLinkPager',array('pages'=>$pages)); ?></div>
-<hr/>
 <?php endif; ?>
 <div id="activity" class="quiet">
     <?php foreach ($activities as $activity): ?>
@@ -56,7 +55,6 @@
     <?php endforeach; ?>
 </div>
 <?php if(null !== $pages) : ?>
-<hr/>
 <div class="small" style="float:right;"><?php $this->widget('CustomLinkPager',array('pages'=>$pages)); ?></div>
 <?php endif; ?>
 <?php endif; ?>

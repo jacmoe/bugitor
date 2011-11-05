@@ -37,7 +37,7 @@ $this->pageTitle = $model->name . ' - Overview - ' . Yii::app()->name;
 <div id="project-view">
 	<div class="contextual">
 	    <?php
-	    if (((Yii::app()->controller->id === 'projectt') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) {
+	    if (((Yii::app()->controller->id === 'project') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) {
 	        if (('issue/view' !== $this->route) && ('issue/update' !== $this->route) && ('issue/create' !== $this->route)) {
 	            $this->widget('DropDownRedirect', array(
 	                'data' => Yii::app()->controller->getProjects(),
