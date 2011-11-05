@@ -2981,6 +2981,57 @@ div.big_progress-info {
   border: 1px solid #cccccc;
 }
 
+/* line 1, ../sass/partials/07-design/elements/_pager.sass */
+ul.yiiPager {
+  font-size: 11px;
+  border: 0;
+  margin: 10px;
+  margin-bottom: 10px;
+  padding: 0;
+  line-height: 100%;
+  display: inline;
+}
+/* line 9, ../sass/partials/07-design/elements/_pager.sass */
+ul.yiiPager li {
+  display: inline;
+}
+/* line 11, ../sass/partials/07-design/elements/_pager.sass */
+ul.yiiPager a {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  border-radius: 3px;
+}
+/* line 13, ../sass/partials/07-design/elements/_pager.sass */
+ul.yiiPager a:link, ul.yiiPager a:visited {
+  border: solid 1px #d5d5d5;
+  padding: 1px 6px;
+  text-decoration: none;
+  color: gray;
+}
+/* line 18, ../sass/partials/07-design/elements/_pager.sass */
+ul.yiiPager .page a {
+  font-weight: normal;
+}
+/* line 20, ../sass/partials/07-design/elements/_pager.sass */
+ul.yiiPager a:hover {
+  background: #1673a1;
+  color: white;
+  font-weight: bold;
+}
+/* line 24, ../sass/partials/07-design/elements/_pager.sass */
+ul.yiiPager .selected a {
+  background: #1673a1;
+  color: white;
+  font-weight: bold;
+}
+/* line 31, ../sass/partials/07-design/elements/_pager.sass */
+ul.yiiPager .first, ul.yiiPager .last {
+  display: none;
+}
+
 /* line 1, ../sass/partials/07-design/_default.sass */
 body {
   margin-top: 48px;
