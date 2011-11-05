@@ -35,36 +35,35 @@
 <?php
 $this->pageTitle = $model->project->name . ' - ' . $model->tracker->name . ' #' . $model->id . ': ' . $model->subject . ' - ' . Yii::app()->name ;
 ?>
-<div id="issue-view">
-<div class="contextual" id="contextual">
-<?php if(Yii::app()->user->checkAccess('Issue.Update')) : ?>
-    <?php echo CHtml::link('Update / Reply', array('update', 'id' => $model->id, 'identifier' => $model->project->identifier), array('class' => 'icons-edit')) ?>
-<?php elseif(Yii::app()->user->checkAccess('Issue.Create')) : ?>
-    <?php echo CHtml::link('Reply', array('comment', 'id' => $model->id, 'identifier' => $model->project->identifier), array('class' => 'icons-edit')) ?>
-<?php endif; ?>
-&nbsp;&nbsp;
-<?php if(Yii::app()->user->checkAccess('Issue.Watch'))
-    echo CHtml::ajaxLink(($model->watchedBy(Yii::app()->user->id)) ? "Unwatch" : "Watch",
-        $this->createUrl('watch'),
-        array('update' => '#watchers',
-            'type' => "post",
-            'data' => array('id' => $model->id),
-            'complete' => 'function(data,status){
-                if(status == "success") {
-                var titleTxt = $("#watchButton").attr("text");
-                if(titleTxt == "Unwatch") {
-                    $("#watchButton").text("Watch");
-                    $("#watchButton").removeClass("icons-fav");
-                    $("#watchButton").addClass("icons-fav-off");
-                } else {
-                    $("#watchButton").text("Unwatch");
-                    $("#watchButton").removeClass("icons-fav-off");
-                    $("#watchButton").addClass("icons-fav");
-                }}
-            }'), array('class' => ($model->watchedBy(Yii::app()->user->id)) ? 'icons-fav' : 'icons-fav-off', 'id' => 'watchButton')); ?>
-&nbsp;&nbsp;
-<?php if(Yii::app()->user->checkAccess('Issue.Move')) echo '  ' . CHtml::link('Move', '#',array('submit' => array('move', 'id' => $model->id, 'identifier' => $model->project->identifier), 'class' => 'icons-move')) ?>
-<?php if(Yii::app()->user->checkAccess('Issue.Delete')) echo '  ' . CHtml::link('Delete', '#delete', array('submit' => array('delete','id' => $model->id, 'identifier' => $model->project->identifier), 'confirm' => 'Are you sure you want to delete this issue?', 'class' => 'icons-delete', 'id' => 'delete-button')); ?>
+<div class="contextual lowered">
+    <?php if(Yii::app()->user->checkAccess('Issue.Update')) : ?>
+        <?php echo CHtml::link('Update / Reply', array('update', 'id' => $model->id, 'identifier' => $model->project->identifier), array('class' => 'icons-edit')) ?>
+    <?php elseif(Yii::app()->user->checkAccess('Issue.Create')) : ?>
+        <?php echo CHtml::link('Reply', array('comment', 'id' => $model->id, 'identifier' => $model->project->identifier), array('class' => 'icons-edit')) ?>
+    <?php endif; ?>
+    &nbsp;&nbsp;
+    <?php if(Yii::app()->user->checkAccess('Issue.Watch'))
+        echo CHtml::ajaxLink(($model->watchedBy(Yii::app()->user->id)) ? "Unwatch" : "Watch",
+            $this->createUrl('watch'),
+            array('update' => '#watchers',
+                'type' => "post",
+                'data' => array('id' => $model->id),
+                'complete' => 'function(data,status){
+                    if(status == "success") {
+                    var titleTxt = $("#watchButton").attr("text");
+                    if(titleTxt == "Unwatch") {
+                        $("#watchButton").text("Watch");
+                        $("#watchButton").removeClass("icons-fav");
+                        $("#watchButton").addClass("icons-fav-off");
+                    } else {
+                        $("#watchButton").text("Unwatch");
+                        $("#watchButton").removeClass("icons-fav-off");
+                        $("#watchButton").addClass("icons-fav");
+                    }}
+                }'), array('class' => ($model->watchedBy(Yii::app()->user->id)) ? 'icons-fav' : 'icons-fav-off', 'id' => 'watchButton')); ?>
+    &nbsp;&nbsp;
+    <?php if(Yii::app()->user->checkAccess('Issue.Move')) echo '  ' . CHtml::link('Move', '#',array('submit' => array('move', 'id' => $model->id, 'identifier' => $model->project->identifier), 'class' => 'icons-move')) ?>
+    <?php if(Yii::app()->user->checkAccess('Issue.Delete')) echo '  ' . CHtml::link('Delete', '#delete', array('submit' => array('delete','id' => $model->id, 'identifier' => $model->project->identifier), 'confirm' => 'Are you sure you want to delete this issue?', 'class' => 'icons-delete', 'id' => 'delete-button')); ?>
 </div>
 <h2><?php echo Bugitor::namedImage($model->tracker->name, true) . ' ' . $model->tracker->name . ' #' . $model->id; ?> (<?php echo $model->getStatusLabel($model->status); ?>)</h2>
 <div class="issue">
@@ -166,4 +165,3 @@ Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Bugitor::
 <?php else : ?>
 No such issue.
 <?php endif; ?>
-</div>
