@@ -2404,7 +2404,7 @@ dt.issue-rejected {
 .topbar a {
   color: gray;
 }
-/* line 19, ../sass/partials/07-design/elements/_menu.sass */
+/* line 18, ../sass/partials/07-design/elements/_menu.sass */
 .topbar h3 a:hover,
 .topbar .brand a:hover,
 .topbar ul .active > a {
@@ -2419,33 +2419,33 @@ dt.issue-rejected {
   text-decoration: none;
   font-weight: bold;
 }
-/* line 30, ../sass/partials/07-design/elements/_menu.sass */
+/* line 28, ../sass/partials/07-design/elements/_menu.sass */
 .topbar h3 {
   position: relative;
 }
-/* line 32, ../sass/partials/07-design/elements/_menu.sass */
+/* line 30, ../sass/partials/07-design/elements/_menu.sass */
 .topbar h3 a,
 .topbar .brand {
   float: left;
-  display: block;
   padding-top: 8px;
   padding-left: 12px;
+  margin-right: 0;
   color: #333333;
   font-size: 20px;
   font-weight: 200;
   line-height: 1;
 }
-/* line 46, ../sass/partials/07-design/elements/_menu.sass */
+/* line 41, ../sass/partials/07-design/elements/_menu.sass */
 .topbar p {
   margin: 0;
   line-height: 40px;
 }
-/* line 49, ../sass/partials/07-design/elements/_menu.sass */
+/* line 44, ../sass/partials/07-design/elements/_menu.sass */
 .topbar p a:hover {
   background-color: transparent;
   color: #333333;
 }
-/* line 53, ../sass/partials/07-design/elements/_menu.sass */
+/* line 48, ../sass/partials/07-design/elements/_menu.sass */
 .topbar form {
   float: left;
   margin: 5px 0 0 0;
@@ -2453,11 +2453,11 @@ dt.issue-rejected {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;
 }
-/* line 59, ../sass/partials/07-design/elements/_menu.sass */
+/* line 54, ../sass/partials/07-design/elements/_menu.sass */
 .topbar form.pull-right {
   float: right;
 }
-/* line 61, ../sass/partials/07-design/elements/_menu.sass */
+/* line 56, ../sass/partials/07-design/elements/_menu.sass */
 .topbar input {
   padding: 4px 9px;
   color: #333333;
@@ -2474,11 +2474,11 @@ dt.issue-rejected {
   -o-transition: none;
   transition: none;
 }
-/* line 79, ../sass/partials/07-design/elements/_menu.sass */
+/* line 63, ../sass/partials/07-design/elements/_menu.sass */
 .topbar input:hover {
   color: #333333;
 }
-/* line 84, ../sass/partials/07-design/elements/_menu.sass */
+/* line 66, ../sass/partials/07-design/elements/_menu.sass */
 .topbar input:focus, .topbar input.focused {
   outline: 0;
   background-color: white;
@@ -2486,22 +2486,23 @@ dt.issue-rejected {
   padding: 5px 10px;
 }
 
-/* line 109, ../sass/partials/07-design/elements/_menu.sass */
+/* line 80, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul,
 .nav {
   display: block;
   float: left;
   margin: 0 0 0 0;
+  padding-left: 5px;
   position: relative;
   left: 0;
 }
-/* line 116, ../sass/partials/07-design/elements/_menu.sass */
+/* line 88, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul > li,
 .nav > li {
   display: block;
   float: left;
 }
-/* line 119, ../sass/partials/07-design/elements/_menu.sass */
+/* line 91, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul a,
 .nav a {
   display: block;
@@ -2511,7 +2512,7 @@ dt.issue-rejected {
   line-height: 9px;
   text-decoration: none;
 }
-/* line 127, ../sass/partials/07-design/elements/_menu.sass */
+/* line 99, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul a:hover,
 .nav a:hover {
   background-color: #1673a1;
@@ -2524,7 +2525,7 @@ dt.issue-rejected {
   color: white;
   text-decoration: none;
 }
-/* line 132, ../sass/partials/07-design/elements/_menu.sass */
+/* line 104, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul .active > a,
 .nav .active > a {
   background-color: #1673a1;
@@ -2536,14 +2537,14 @@ dt.issue-rejected {
   border-radius: 5px;
   color: white;
 }
-/* line 139, ../sass/partials/07-design/elements/_menu.sass */
+/* line 109, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul.secondary-nav,
 .nav.secondary-nav {
   float: right;
-  margin-left: 10px;
-  margin-right: 0;
+  margin-left: 30px;
+  padding-left: 30px;
 }
-/* line 144, ../sass/partials/07-design/elements/_menu.sass */
+/* line 114, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul.secondary-nav .menu-dropdown,
 .topbar div > ul.secondary-nav .dropdown-menu,
 .nav.secondary-nav .menu-dropdown,
@@ -2551,7 +2552,7 @@ dt.issue-rejected {
   right: 0;
   border: 1px solid #d5d5d5;
 }
-/* line 151, ../sass/partials/07-design/elements/_menu.sass */
+/* line 120, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul a.menu:hover,
 .topbar div > ul li.open .menu,
 .topbar div > ul .dropdown-toggle:hover,
@@ -2569,7 +2570,7 @@ dt.issue-rejected {
   -khtml-border-radius: 5px;
   border-radius: 5px;
 }
-/* line 165, ../sass/partials/07-design/elements/_menu.sass */
+/* line 131, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul .menu-dropdown a.menu,
 .topbar div > ul .menu-dropdown .dropdown-toggle,
 .topbar div > ul .dropdown-menu a.menu,
@@ -2580,28 +2581,28 @@ dt.issue-rejected {
 .nav .dropdown-menu .dropdown-toggle {
   color: #333333;
 }
-/* line 171, ../sass/partials/07-design/elements/_menu.sass */
+/* line 134, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul .menu-dropdown li a,
 .topbar div > ul .dropdown-menu li a,
 .nav .menu-dropdown li a,
 .nav .dropdown-menu li a {
   color: #999999;
 }
-/* line 174, ../sass/partials/07-design/elements/_menu.sass */
+/* line 136, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul .menu-dropdown li a:hover,
 .topbar div > ul .dropdown-menu li a:hover,
 .nav .menu-dropdown li a:hover,
 .nav .dropdown-menu li a:hover {
   color: white;
 }
-/* line 177, ../sass/partials/07-design/elements/_menu.sass */
+/* line 138, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul .menu-dropdown .active a,
 .topbar div > ul .dropdown-menu .active a,
 .nav .menu-dropdown .active a,
 .nav .dropdown-menu .active a {
   color: white;
 }
-/* line 179, ../sass/partials/07-design/elements/_menu.sass */
+/* line 140, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul .menu-dropdown .divider,
 .topbar div > ul .dropdown-menu .divider,
 .nav .menu-dropdown .divider,
@@ -2609,19 +2610,19 @@ dt.issue-rejected {
   border-color: #444444;
 }
 
-/* line 185, ../sass/partials/07-design/elements/_menu.sass */
+/* line 145, ../sass/partials/07-design/elements/_menu.sass */
 .topbar ul .menu-dropdown li a,
 .topbar ul .dropdown-menu li a {
   padding: 4px 15px;
 }
 
-/* line 193, ../sass/partials/07-design/elements/_menu.sass */
+/* line 153, ../sass/partials/07-design/elements/_menu.sass */
 li.menu,
 .dropdown {
   position: relative;
 }
 
-/* line 200, ../sass/partials/07-design/elements/_menu.sass */
+/* line 160, ../sass/partials/07-design/elements/_menu.sass */
 a.menu:after,
 .dropdown-toggle:after {
   width: 0;
@@ -2640,7 +2641,7 @@ a.menu:after,
   opacity: 0.5;
 }
 
-/* line 219, ../sass/partials/07-design/elements/_menu.sass */
+/* line 179, ../sass/partials/07-design/elements/_menu.sass */
 .menu-dropdown,
 .dropdown-menu {
   background-color: white;
@@ -2677,14 +2678,14 @@ a.menu:after,
   -khtml-background-clip: padding-box;
   background-clip: padding-box;
 }
-/* line 245, ../sass/partials/07-design/elements/_menu.sass */
+/* line 205, ../sass/partials/07-design/elements/_menu.sass */
 .menu-dropdown li,
 .dropdown-menu li {
   float: none;
   display: block;
   background-color: none;
 }
-/* line 250, ../sass/partials/07-design/elements/_menu.sass */
+/* line 210, ../sass/partials/07-design/elements/_menu.sass */
 .menu-dropdown .divider,
 .dropdown-menu .divider {
   height: 1px;
@@ -2694,7 +2695,7 @@ a.menu:after,
   border-bottom: 1px solid white;
 }
 
-/* line 259, ../sass/partials/07-design/elements/_menu.sass */
+/* line 219, ../sass/partials/07-design/elements/_menu.sass */
 .topbar .dropdown-menu a, .dropdown-menu a {
   display: block;
   padding: 4px 15px;
@@ -2703,20 +2704,20 @@ a.menu:after,
   line-height: 18px;
   color: gray;
 }
-/* line 268, ../sass/partials/07-design/elements/_menu.sass */
+/* line 227, ../sass/partials/07-design/elements/_menu.sass */
 .topbar .dropdown-menu a:hover, .dropdown-menu a:hover {
   color: white;
   text-decoration: none;
 }
 
-/* line 282, ../sass/partials/07-design/elements/_menu.sass */
+/* line 237, ../sass/partials/07-design/elements/_menu.sass */
 .open .menu,
 .open .dropdown-toggle,
 .dropdown.open .menu,
 .dropdown.open .dropdown-toggle {
   color: #333333;
 }
-/* line 288, ../sass/partials/07-design/elements/_menu.sass */
+/* line 241, ../sass/partials/07-design/elements/_menu.sass */
 .open .menu-dropdown,
 .open .dropdown-menu,
 .dropdown.open .menu-dropdown,
