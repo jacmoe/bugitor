@@ -13,7 +13,6 @@
   overflow: visible
   a
     color: $gray
-    //text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)
   // Hover and active states
   // h3 for backwards compatibility
   h3 a:hover,
@@ -21,7 +20,6 @@
   ul .active > a
     background-color: $pillColor
     +border-radius(5px)
-    //background-color: rgba(255, 255, 255, 0.05)
     color: $white
     text-decoration: none
     font-weight: bold
@@ -32,12 +30,9 @@
   h3 a,
   .brand
     float: left
-    display: block
     padding-top: 8px
     padding-left: 12px
-    //padding: 8px 20px 12px
-    //margin-left: -20px
-    // negative indent to left-align the text down the page
+    margin-right: 0
     color: $linkColor
     font-size: 20px
     font-weight: 200
@@ -59,45 +54,21 @@
   form.pull-right
     float: right
   input
-    //background-color: #444
-    //background-color: rgba(255, 255, 255, 0.3)
-    //+sans-serif(13px, normal, 1)
     padding: 4px 9px
     color: $linkColor
     color: rgba(255, 255, 255, 0.75)
     border: 1px solid #111
     +border-radius(4px)
-    //$shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 0.25)
-    //+box-shadow($shadow)
     +transition(none)
-    // Placeholder text gets special styles; can't be bundled together though for some reason
-    &:-moz-placeholder
-      //color: $grayLighter
-    &::-webkit-input-placeholder
-      //color: $grayLighter
-    // Hover states
     &:hover
-      //background-color: $grayLight
-      //background-color: rgba(255, 255, 255, 0.5)
       color: $linkColor
     // Focus states (we use .focused since IE8 and down doesn't support :focus)
     &:focus,
     &.focused
       outline: 0
       background-color: $white
-      //color: $grayDark
-      //text-shadow: 0 1px 0 $white
       border: 0
       padding: 5px 10px
-      //+box-shadow(0 0 3px rgba(0, 0, 0, 0.15))
-
-// gradient is applied to it's own element because overflow visible is not honored by ie when filter is present
-// For backwards compatibility, include .topbar .fill
-
-.topbar-inner,
-.topbar .fill
-  //background-color: #222
-  //+gradient-vertical(#333333, #222222)
 
 // NAVIGATION
 // ----------
@@ -111,6 +82,7 @@
   display: block
   float: left
   margin: 0 0 0 0
+  padding-left: 5px
   position: relative
   left: 0
   > li
@@ -133,18 +105,15 @@
     background-color: $pillColor
     +border-radius(5px)
     color: $white
-    //background-color: #222
-    //background-color: rgba(0, 0, 0, 0.5)
   // Secondary (floated right) nav in topbar
   &.secondary-nav
     float: right
-    margin-left: 10px
-    margin-right: 0
+    margin-left: 30px
+    padding-left: 30px
     // backwards compatibility
     .menu-dropdown,
     .dropdown-menu
       right: 0
-      //border: 0
       border: 1px solid $border-color
   // Dropdowns within the .nav
   // a.menu:hover and li.open .menu for backwards compatibility
@@ -155,29 +124,20 @@
     color: $white
     background-color: $pillColor
     +border-radius(5px)
-    //background: #444
-    //background: rgba(255, 255, 255, 0.05)
   // .menu-dropdown for backwards compatibility
   .menu-dropdown,
   .dropdown-menu
-    //background-color: #333
     // a.menu for backwards compatibility
     a.menu,
     .dropdown-toggle
       color: $linkColor
-      &.open
-        //background: #444
-        //background: rgba(255, 255, 255, 0.05)
     li a
       color: #999
-      //text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5)
       &:hover
-        //+gradient-vertical(#292929, #191919)
         color: $white
     .active a
       color: $white
     .divider
-      //background-color: #222
       border-color: #444
 
 // For backwards compatibility with new dropdowns, redeclare dropdown link padding
@@ -263,15 +223,10 @@ a.menu:after,
     font-weight: normal
     line-height: 18px
     color: $gray
-    //text-shadow: 0 1px 0 $white
     // Hover state
     &:hover
       color: $white
-      //+gradient-vertical(#eeeeee, #dddddd)
-      //color: $grayDark
       text-decoration: none
-      //$shadow: inset 0 1px 0 rgba(0, 0, 0, 0.025), inset 0 -1px rgba(0, 0, 0, 0.025)
-      //+box-shadow($shadow)
 
 // Open state for the dropdown
 // .open for backwards compatibility
@@ -282,8 +237,6 @@ a.menu:after,
   .menu,
   .dropdown-toggle
     color: $linkColor
-    //background: #ccc
-    //background: rgba(0, 0, 0, 0.3)
   // .menu-dropdown for backwards compatibility
   .menu-dropdown,
   .dropdown-menu
