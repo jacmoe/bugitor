@@ -3067,10 +3067,14 @@ hr {
 .contextual {
   position: relative;
   float: right;
-  white-space: nowrap;
 }
 
-/* line 28, ../sass/partials/07-design/_default.sass */
+/* line 27, ../sass/partials/07-design/_default.sass */
+.lowered {
+  top: 20px;
+}
+
+/* line 30, ../sass/partials/07-design/_default.sass */
 .box {
   padding: 10px 10px;
   margin-bottom: 1em;
@@ -3083,7 +3087,7 @@ hr {
   border-radius: 5px;
 }
 
-/* line 34, ../sass/partials/07-design/_default.sass */
+/* line 36, ../sass/partials/07-design/_default.sass */
 div.issue {
   background: #ffffdd;
   padding: 6px;
@@ -3091,18 +3095,18 @@ div.issue {
   border: 1px solid #d5d5d5;
 }
 
-/* line 40, ../sass/partials/07-design/_default.sass */
+/* line 42, ../sass/partials/07-design/_default.sass */
 a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   color: #999999;
   text-decoration: line-through;
 }
 
-/* line 44, ../sass/partials/07-design/_default.sass */
+/* line 46, ../sass/partials/07-design/_default.sass */
 .keep-together {
   white-space: nowrap !important;
 }
 
-/* line 47, ../sass/partials/07-design/_default.sass */
+/* line 49, ../sass/partials/07-design/_default.sass */
 #content .tabs {
   height: 2.6em;
   border-bottom: 1px solid #bbbbbb;
@@ -3168,11 +3172,11 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   background-color: white;
 }
 
-/* line 50, ../sass/partials/07-design/_default.sass */
+/* line 52, ../sass/partials/07-design/_default.sass */
 .journal {
   clear: left;
 }
-/* line 52, ../sass/partials/07-design/_default.sass */
+/* line 54, ../sass/partials/07-design/_default.sass */
 .journal ul {
   position: relative;
   width: 30%;
@@ -3195,17 +3199,17 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   list-style-type: none;
   margin-left: 0px;
 }
-/* line 63, ../sass/partials/07-design/_default.sass */
+/* line 65, ../sass/partials/07-design/_default.sass */
 .journal h5 {
   margin-bottom: 2px;
   margin-top: 1.5em;
 }
-/* line 66, ../sass/partials/07-design/_default.sass */
+/* line 68, ../sass/partials/07-design/_default.sass */
 .journal hr {
   clear: left;
 }
 
-/* line 69, ../sass/partials/07-design/_default.sass */
+/* line 71, ../sass/partials/07-design/_default.sass */
 div#issue-changesets {
   float: right;
   width: 45%;
@@ -3215,12 +3219,12 @@ div#issue-changesets {
   padding-left: 1em;
   font-size: 90%;
 }
-/* line 77, ../sass/partials/07-design/_default.sass */
+/* line 79, ../sass/partials/07-design/_default.sass */
 div#issue-changesets .changeset {
   padding: 4px;
   border-bottom: 1px solid #d5d5d5;
 }
-/* line 80, ../sass/partials/07-design/_default.sass */
+/* line 82, ../sass/partials/07-design/_default.sass */
 div#issue-changesets .changeset p {
   margin-top: 0;
   margin-bottom: 1em;
