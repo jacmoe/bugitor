@@ -22,6 +22,23 @@ input[type="week"]
   border: 1px solid $border-color
   outline: 0
 
+//$shadow-color: darken($border-color, 60%)
+$shadow-color: $eucalyptus
+$shadow-amount: 3px
+
+button:focus,
+button:active,
+input:focus,
+input:active,
+select:focus,
+select:active,
+textarea:focus,
+textarea:active
+  //-moz-box-shadow: $shadow-color 0 0 $shadow-amount
+  //-webkit-box-shadow: $shadow-color 0 0 $shadow-amount
+  //box-shadow: $shadow-color 0 0 $shadow-amount
+  border: 1px solid $shadow-color
+
 // aditional form styles
 
 fieldset
@@ -84,7 +101,6 @@ input
 
 textarea, input:not([type="radio"])
   max-width: 100%
-  
 
 
 $button-border-radius: 0.6em

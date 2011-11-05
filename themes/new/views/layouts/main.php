@@ -8,9 +8,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<title><?php  echo CHtml::encode($this -> pageTitle);?></title>
-		<meta name="description" content="">
-		<meta name="author" content="">
-		<link type="text/plain" rel="author" href="<?php  echo Yii::app() -> baseUrl;?>/humans.txt" />
+		<link rel="author" href="humans.txt">
 		<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
