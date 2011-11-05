@@ -788,7 +788,19 @@ input[type="week"] {
   outline: 0;
 }
 
-/* line 27, ../sass/partials/02-typography/forms/_form-defaults.sass */
+/* line 29, ../sass/partials/02-typography/forms/_form-defaults.sass */
+button:focus,
+button:active,
+input:focus,
+input:active,
+select:focus,
+select:active,
+textarea:focus,
+textarea:active {
+  border: 1px solid #207861;
+}
+
+/* line 44, ../sass/partials/02-typography/forms/_form-defaults.sass */
 fieldset {
   margin-bottom: 1.714em;
   border-style: solid;
@@ -798,23 +810,23 @@ fieldset {
   border-style: dotted;
 }
 
-/* line 33, ../sass/partials/02-typography/forms/_form-defaults.sass */
+/* line 50, ../sass/partials/02-typography/forms/_form-defaults.sass */
 legend {
   padding: 0 0.25em;
 }
 
-/* line 36, ../sass/partials/02-typography/forms/_form-defaults.sass */
+/* line 53, ../sass/partials/02-typography/forms/_form-defaults.sass */
 label, input[type=button], input[type=submit], button {
   cursor: pointer;
 }
 
-/* line 39, ../sass/partials/02-typography/forms/_form-defaults.sass */
+/* line 56, ../sass/partials/02-typography/forms/_form-defaults.sass */
 label {
   font-weight: bold;
   margin-right: 0.5em;
 }
 
-/* line 43, ../sass/partials/02-typography/forms/_form-defaults.sass */
+/* line 60, ../sass/partials/02-typography/forms/_form-defaults.sass */
 .textinput, textarea, input[type=text], input[type=password], input[type=email], input[type=url], input[type=tel], input[type=date], input[type=datetime], input[type=datetime-local], input[type=month], input[type=week], input[type=time], input[type=number], input[type=range], input[type=search], input[type=color] {
   border-width: 1px;
   margin-bottom: 0.857em;
@@ -827,22 +839,22 @@ label {
   border-color: #d5d5d5;
 }
 
-/* line 66, ../sass/partials/02-typography/forms/_form-defaults.sass */
+/* line 83, ../sass/partials/02-typography/forms/_form-defaults.sass */
 input[type=search] {
   -webkit-appearance: none;
 }
-/* line 68, ../sass/partials/02-typography/forms/_form-defaults.sass */
+/* line 85, ../sass/partials/02-typography/forms/_form-defaults.sass */
 input[type=search]::-webkit-search-decoration {
   display: none;
 }
 
-/* line 71, ../sass/partials/02-typography/forms/_form-defaults.sass */
+/* line 88, ../sass/partials/02-typography/forms/_form-defaults.sass */
 button, input[type=button], input[type=submit] {
   width: auto;
   overflow: visible;
 }
 
-/* line 76, ../sass/partials/02-typography/forms/_form-defaults.sass */
+/* line 93, ../sass/partials/02-typography/forms/_form-defaults.sass */
 textarea {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -850,75 +862,75 @@ textarea {
   box-sizing: border-box;
 }
 
-/* line 81, ../sass/partials/02-typography/forms/_form-defaults.sass */
+/* line 98, ../sass/partials/02-typography/forms/_form-defaults.sass */
 input[type="radio"], input[type="checkbox"] {
   margin-left: 0.25em;
   margin-right: 0.25em;
 }
 
-/* line 85, ../sass/partials/02-typography/forms/_form-defaults.sass */
+/* line 102, ../sass/partials/02-typography/forms/_form-defaults.sass */
 textarea, input:not([type="radio"]) {
   max-width: 100%;
 }
 
-/* line 92, ../sass/partials/02-typography/forms/_form-defaults.sass */
+/* line 108, ../sass/partials/02-typography/forms/_form-defaults.sass */
 input[type=checkbox],
 input[type=radio] {
   vertical-align: baseline;
 }
 
-/* line 96, ../sass/partials/02-typography/forms/_form-defaults.sass */
+/* line 112, ../sass/partials/02-typography/forms/_form-defaults.sass */
 input[type=checkbox] {
   border: 0.1rem solid gray;
   background-color: white;
 }
 
-/* line 101, ../sass/partials/02-typography/forms/_form-defaults.sass */
+/* line 117, ../sass/partials/02-typography/forms/_form-defaults.sass */
 table.form {
   margin-top: 0;
 }
-/* line 103, ../sass/partials/02-typography/forms/_form-defaults.sass */
+/* line 119, ../sass/partials/02-typography/forms/_form-defaults.sass */
 table.form, table.form th, table.form td {
   border-style: none;
 }
-/* line 105, ../sass/partials/02-typography/forms/_form-defaults.sass */
+/* line 121, ../sass/partials/02-typography/forms/_form-defaults.sass */
 table.form .section-heading th {
   color: #207861;
 }
-/* line 107, ../sass/partials/02-typography/forms/_form-defaults.sass */
+/* line 123, ../sass/partials/02-typography/forms/_form-defaults.sass */
 table.form .field-label {
   padding-right: 20px;
   vertical-align: top;
   text-align: right;
   font-weight: normal;
 }
-/* line 112, ../sass/partials/02-typography/forms/_form-defaults.sass */
+/* line 128, ../sass/partials/02-typography/forms/_form-defaults.sass */
 table.form .field, table.form .button-bar {
   padding-left: 0;
 }
 
-/* line 118, ../sass/partials/02-typography/forms/_form-defaults.sass */
+/* line 134, ../sass/partials/02-typography/forms/_form-defaults.sass */
 .stacked label,
 .radio-group label,
 .checkbox-group label {
   display: block;
 }
 
-/* line 122, ../sass/partials/02-typography/forms/_form-defaults.sass */
+/* line 138, ../sass/partials/02-typography/forms/_form-defaults.sass */
 .stacked .section-heading {
   font-weight: bold;
   color: #207861;
 }
-/* line 125, ../sass/partials/02-typography/forms/_form-defaults.sass */
+/* line 141, ../sass/partials/02-typography/forms/_form-defaults.sass */
 .stacked .field > label:first-of-type {
   margin-top: 0.5em;
 }
-/* line 127, ../sass/partials/02-typography/forms/_form-defaults.sass */
+/* line 143, ../sass/partials/02-typography/forms/_form-defaults.sass */
 .stacked .field, .stacked .section-heading, .stacked .button-bar {
   padding-left: 1px;
 }
 
-/* line 130, ../sass/partials/02-typography/forms/_form-defaults.sass */
+/* line 146, ../sass/partials/02-typography/forms/_form-defaults.sass */
 .button-bar {
   margin-top: 10px;
 }
@@ -2094,6 +2106,24 @@ dt.issue-rejected {
     #margin-left: -1em;
   }
   /* line 28, ../sass/partials/06-layout/_992.sass */
+  #page div[role="main"] #roadmap-content {
+    display: inline;
+    float: left;
+    width: 66.265%;
+    margin-right: 1.205%;
+  }
+  /* line 30, ../sass/partials/06-layout/_992.sass */
+  #page div[role="main"] #roadmap-sidebar {
+    display: inline;
+    float: left;
+    width: 32.53%;
+    margin-right: 1.205%;
+    display: inline;
+    float: right;
+    margin-right: 0;
+    #margin-left: -1em;
+  }
+  /* line 33, ../sass/partials/06-layout/_992.sass */
   #page footer {
     clear: both;
     margin-left: 1.176%;
@@ -3033,6 +3063,43 @@ ul.yiiPager .first, ul.yiiPager .last {
   display: none;
 }
 
+/* line 2, ../sass/partials/07-design/elements/_flash-messages.sass */
+div.flash-error, div.flash-notice, div.flash-success {
+  padding: 0.8em;
+  margin-bottom: 1em;
+  border: 2px solid #dddddd;
+}
+/* line 6, ../sass/partials/07-design/elements/_flash-messages.sass */
+div.flash-error {
+  background: #fbe3e4;
+  color: #8a1f11;
+  border-color: #fbc2c4;
+}
+/* line 10, ../sass/partials/07-design/elements/_flash-messages.sass */
+div.flash-notice {
+  background: #fff6bf;
+  color: #514721;
+  border-color: #ffd324;
+}
+/* line 14, ../sass/partials/07-design/elements/_flash-messages.sass */
+div.flash-success {
+  background: #e6efc2;
+  color: #264409;
+  border-color: #c6d880;
+}
+/* line 18, ../sass/partials/07-design/elements/_flash-messages.sass */
+div.flash-error a {
+  color: #8a1f11;
+}
+/* line 20, ../sass/partials/07-design/elements/_flash-messages.sass */
+div.flash-notice a {
+  color: #514721;
+}
+/* line 22, ../sass/partials/07-design/elements/_flash-messages.sass */
+div.flash-success a {
+  color: #264409;
+}
+
 /* line 1, ../sass/partials/07-design/_default.sass */
 body {
   margin-top: 48px;
@@ -3047,35 +3114,70 @@ hr {
   height: 1px;
 }
 
-/* line 12, ../sass/partials/07-design/_default.sass */
+/* line 11, ../sass/partials/07-design/_default.sass */
+#toc {
+  float: right;
+  width: 100%;
+  list-style: none;
+}
+/* line 11, ../../../../../Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/typography/lists/_bullets.scss */
+#toc li {
+  list-style-image: none;
+  list-style-type: none;
+  margin-left: 0px;
+}
+
+/* line 16, ../sass/partials/07-design/_default.sass */
 .note {
   font-size: smaller;
   font-style: italic;
 }
-/* line 15, ../sass/partials/07-design/_default.sass */
+/* line 19, ../sass/partials/07-design/_default.sass */
 .note .required {
   color: red;
 }
 
-/* line 18, ../sass/partials/07-design/_default.sass */
+/* line 22, ../sass/partials/07-design/_default.sass */
 .centered {
   text-align: center;
   margin-top: 22px;
   line-height: 6px;
 }
 
-/* line 23, ../sass/partials/07-design/_default.sass */
+/* line 27, ../sass/partials/07-design/_default.sass */
 .contextual {
   position: relative;
   float: right;
 }
 
-/* line 27, ../sass/partials/07-design/_default.sass */
+/* line 31, ../sass/partials/07-design/_default.sass */
+.floatrightup {
+  float: right;
+  position: relative;
+  top: 0.85em;
+}
+
+/* line 37, ../sass/partials/07-design/_default.sass */
+.floatright {
+  float: right;
+  position: relative;
+  bottom: 32px;
+}
+
+/* line 42, ../sass/partials/07-design/_default.sass */
+.contextual_left {
+  float: left;
+  line-height: 1.4em;
+  margin-top: 5px;
+  padding-right: 10px;
+}
+
+/* line 48, ../sass/partials/07-design/_default.sass */
 .lowered {
   top: 20px;
 }
 
-/* line 30, ../sass/partials/07-design/_default.sass */
+/* line 51, ../sass/partials/07-design/_default.sass */
 .box {
   padding: 10px 10px;
   margin-bottom: 1em;
@@ -3088,7 +3190,7 @@ hr {
   border-radius: 5px;
 }
 
-/* line 36, ../sass/partials/07-design/_default.sass */
+/* line 57, ../sass/partials/07-design/_default.sass */
 div.issue {
   background: #ffffdd;
   padding: 6px;
@@ -3096,18 +3198,18 @@ div.issue {
   border: 1px solid #d5d5d5;
 }
 
-/* line 42, ../sass/partials/07-design/_default.sass */
+/* line 63, ../sass/partials/07-design/_default.sass */
 a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   color: #999999;
   text-decoration: line-through;
 }
 
-/* line 46, ../sass/partials/07-design/_default.sass */
+/* line 67, ../sass/partials/07-design/_default.sass */
 .keep-together {
   white-space: nowrap !important;
 }
 
-/* line 49, ../sass/partials/07-design/_default.sass */
+/* line 70, ../sass/partials/07-design/_default.sass */
 #content .tabs {
   height: 2.6em;
   border-bottom: 1px solid #bbbbbb;
@@ -3173,11 +3275,11 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   background-color: white;
 }
 
-/* line 52, ../sass/partials/07-design/_default.sass */
+/* line 73, ../sass/partials/07-design/_default.sass */
 .journal {
   clear: left;
 }
-/* line 54, ../sass/partials/07-design/_default.sass */
+/* line 75, ../sass/partials/07-design/_default.sass */
 .journal ul {
   position: relative;
   width: 30%;
@@ -3200,17 +3302,17 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   list-style-type: none;
   margin-left: 0px;
 }
-/* line 65, ../sass/partials/07-design/_default.sass */
+/* line 86, ../sass/partials/07-design/_default.sass */
 .journal h5 {
   margin-bottom: 2px;
   margin-top: 1.5em;
 }
-/* line 68, ../sass/partials/07-design/_default.sass */
+/* line 89, ../sass/partials/07-design/_default.sass */
 .journal hr {
   clear: left;
 }
 
-/* line 71, ../sass/partials/07-design/_default.sass */
+/* line 92, ../sass/partials/07-design/_default.sass */
 div#issue-changesets {
   float: right;
   width: 45%;
@@ -3220,12 +3322,12 @@ div#issue-changesets {
   padding-left: 1em;
   font-size: 90%;
 }
-/* line 79, ../sass/partials/07-design/_default.sass */
+/* line 100, ../sass/partials/07-design/_default.sass */
 div#issue-changesets .changeset {
   padding: 4px;
   border-bottom: 1px solid #d5d5d5;
 }
-/* line 82, ../sass/partials/07-design/_default.sass */
+/* line 103, ../sass/partials/07-design/_default.sass */
 div#issue-changesets .changeset p {
   margin-top: 0;
   margin-bottom: 1em;

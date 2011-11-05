@@ -32,12 +32,12 @@
  */
 ?>
 <?php $this->beginContent('//layouts/main'); ?>
-<div class="span-19">
+<div id="activity-content">
     <div id="content-with-sidebar">
         <?php echo $content; ?>
     </div><!-- content -->
 </div>
-<div class="span-5 last">
+<div id="activity-sidebar">
     <div id="sidebar">
         <?php echo 'activity sidebar'; ?>
     </div><!-- sidebar -->

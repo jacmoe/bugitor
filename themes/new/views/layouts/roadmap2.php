@@ -35,7 +35,8 @@
 <div id="roadmap-content">
         <?php echo $content; ?>
 </div>
-<div class="box">
+<div id="roadmap-sidebar">
+    <div class="box">
         <?php if(isset($_GET['showcompleted'])) : ?>
             <?php echo CHtml::link('Hide completed milestones', array('/project/roadmap', 'identifier' => $_GET['identifier'])); ?>
         <?php else : ?>
@@ -47,5 +48,6 @@
             'startLevel' => '3', 
             'topLinks' => '<span style="font-size: 0.5em; color: grey;">(^ Top of page)</span>'
         )); ?>
+    </div>
 </div>
 <?php $this->endContent(); ?>
