@@ -42,13 +42,13 @@ class BugitorController extends RController {
 
     public function render($view, $data = null, $return = false)
     {
-        if ($this->beforeRender())
+        if ($this->beforeRender($view))
         {
             parent::render($view, $data, $return);
         }
     }
  
-    public function beforeRender()
+    public function beforeRender($view)
     {
         return true;
     }

@@ -42,7 +42,7 @@ class Controller extends BugitorController {
 
     public $block_robots = false;
     
-    public function beforeRender()
+    public function beforeRender($view)
     {
  
         if ($this->block_robots)
