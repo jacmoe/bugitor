@@ -31,7 +31,9 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
+<!--
 <div class="form">
+<?php /* ?>
 <?php if(!isset($message)) : ?>
 <?php $form=$this->beginWidget('CActiveForm'); ?>
 	<?php echo $form->errorSummary($model); ?>
@@ -54,3 +56,5 @@
 <?php else : ?>
 <?php echo $message; ?><br/><br class="clearfix"/>
 <?php endif; ?>
+<?php */ ?>
+//-->
