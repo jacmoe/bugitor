@@ -2418,10 +2418,10 @@ dt.issue-rejected {
 /* line 2, ../sass/partials/07-design/elements/_menu.sass */
 .topbar {
   background: white;
-  -moz-box-shadow: 0 1px 3px #d5d5d5, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-  -webkit-box-shadow: 0 1px 3px #d5d5d5, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-  -o-box-shadow: 0 1px 3px #d5d5d5, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 3px #d5d5d5, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 3px #a2a2a2, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 1px 3px #a2a2a2, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  -o-box-shadow: 0 1px 3px #a2a2a2, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px #a2a2a2, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid #d5d5d5;
   position: absolute;
   top: 0;
@@ -2430,11 +2430,11 @@ dt.issue-rejected {
   z-index: 10000;
   overflow: visible;
 }
-/* line 14, ../sass/partials/07-design/elements/_menu.sass */
+/* line 15, ../sass/partials/07-design/elements/_menu.sass */
 .topbar a {
   color: gray;
 }
-/* line 18, ../sass/partials/07-design/elements/_menu.sass */
+/* line 19, ../sass/partials/07-design/elements/_menu.sass */
 .topbar h3 a:hover,
 .topbar .brand a:hover,
 .topbar ul .active > a {
@@ -2445,15 +2445,19 @@ dt.issue-rejected {
   -ms-border-radius: 5px;
   -khtml-border-radius: 5px;
   border-radius: 5px;
+  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.6);
+  -o-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.6);
   color: white;
   text-decoration: none;
   font-weight: bold;
 }
-/* line 28, ../sass/partials/07-design/elements/_menu.sass */
+/* line 30, ../sass/partials/07-design/elements/_menu.sass */
 .topbar h3 {
   position: relative;
 }
-/* line 30, ../sass/partials/07-design/elements/_menu.sass */
+/* line 32, ../sass/partials/07-design/elements/_menu.sass */
 .topbar h3 a,
 .topbar .brand {
   float: left;
@@ -2465,17 +2469,17 @@ dt.issue-rejected {
   font-weight: 200;
   line-height: 1;
 }
-/* line 41, ../sass/partials/07-design/elements/_menu.sass */
+/* line 43, ../sass/partials/07-design/elements/_menu.sass */
 .topbar p {
   margin: 0;
   line-height: 40px;
 }
-/* line 44, ../sass/partials/07-design/elements/_menu.sass */
+/* line 46, ../sass/partials/07-design/elements/_menu.sass */
 .topbar p a:hover {
   background-color: transparent;
   color: #333333;
 }
-/* line 48, ../sass/partials/07-design/elements/_menu.sass */
+/* line 50, ../sass/partials/07-design/elements/_menu.sass */
 .topbar form {
   float: left;
   margin: 5px 0 0 0;
@@ -2483,11 +2487,11 @@ dt.issue-rejected {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;
 }
-/* line 54, ../sass/partials/07-design/elements/_menu.sass */
+/* line 56, ../sass/partials/07-design/elements/_menu.sass */
 .topbar form.pull-right {
   float: right;
 }
-/* line 56, ../sass/partials/07-design/elements/_menu.sass */
+/* line 58, ../sass/partials/07-design/elements/_menu.sass */
 .topbar input {
   padding: 4px 9px;
   color: #333333;
@@ -2504,11 +2508,11 @@ dt.issue-rejected {
   -o-transition: none;
   transition: none;
 }
-/* line 63, ../sass/partials/07-design/elements/_menu.sass */
+/* line 65, ../sass/partials/07-design/elements/_menu.sass */
 .topbar input:hover {
   color: #333333;
 }
-/* line 66, ../sass/partials/07-design/elements/_menu.sass */
+/* line 68, ../sass/partials/07-design/elements/_menu.sass */
 .topbar input:focus, .topbar input.focused {
   outline: 0;
   background-color: white;
@@ -2516,7 +2520,7 @@ dt.issue-rejected {
   padding: 5px 10px;
 }
 
-/* line 80, ../sass/partials/07-design/elements/_menu.sass */
+/* line 82, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul,
 .nav {
   display: block;
@@ -2526,13 +2530,13 @@ dt.issue-rejected {
   position: relative;
   left: 0;
 }
-/* line 88, ../sass/partials/07-design/elements/_menu.sass */
+/* line 90, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul > li,
 .nav > li {
   display: block;
   float: left;
 }
-/* line 91, ../sass/partials/07-design/elements/_menu.sass */
+/* line 93, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul a,
 .nav a {
   display: block;
@@ -2542,7 +2546,7 @@ dt.issue-rejected {
   line-height: 9px;
   text-decoration: none;
 }
-/* line 99, ../sass/partials/07-design/elements/_menu.sass */
+/* line 101, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul a:hover,
 .nav a:hover {
   background-color: #1673a1;
@@ -2552,10 +2556,14 @@ dt.issue-rejected {
   -ms-border-radius: 5px;
   -khtml-border-radius: 5px;
   border-radius: 5px;
+  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.6);
+  -o-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.6);
   color: white;
   text-decoration: none;
 }
-/* line 104, ../sass/partials/07-design/elements/_menu.sass */
+/* line 107, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul .active > a,
 .nav .active > a {
   background-color: #1673a1;
@@ -2565,16 +2573,20 @@ dt.issue-rejected {
   -ms-border-radius: 5px;
   -khtml-border-radius: 5px;
   border-radius: 5px;
+  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.6);
+  -o-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.6);
   color: white;
 }
-/* line 109, ../sass/partials/07-design/elements/_menu.sass */
+/* line 113, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul.secondary-nav,
 .nav.secondary-nav {
   float: right;
   margin-left: 30px;
   padding-left: 30px;
 }
-/* line 114, ../sass/partials/07-design/elements/_menu.sass */
+/* line 118, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul.secondary-nav .menu-dropdown,
 .topbar div > ul.secondary-nav .dropdown-menu,
 .nav.secondary-nav .menu-dropdown,
@@ -2582,7 +2594,7 @@ dt.issue-rejected {
   right: 0;
   border: 1px solid #d5d5d5;
 }
-/* line 120, ../sass/partials/07-design/elements/_menu.sass */
+/* line 124, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul a.menu:hover,
 .topbar div > ul li.open .menu,
 .topbar div > ul .dropdown-toggle:hover,
@@ -2599,8 +2611,12 @@ dt.issue-rejected {
   -ms-border-radius: 5px;
   -khtml-border-radius: 5px;
   border-radius: 5px;
+  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.6);
+  -o-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.6);
 }
-/* line 131, ../sass/partials/07-design/elements/_menu.sass */
+/* line 136, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul .menu-dropdown a.menu,
 .topbar div > ul .menu-dropdown .dropdown-toggle,
 .topbar div > ul .dropdown-menu a.menu,
@@ -2611,28 +2627,28 @@ dt.issue-rejected {
 .nav .dropdown-menu .dropdown-toggle {
   color: #333333;
 }
-/* line 134, ../sass/partials/07-design/elements/_menu.sass */
+/* line 139, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul .menu-dropdown li a,
 .topbar div > ul .dropdown-menu li a,
 .nav .menu-dropdown li a,
 .nav .dropdown-menu li a {
   color: #999999;
 }
-/* line 136, ../sass/partials/07-design/elements/_menu.sass */
+/* line 141, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul .menu-dropdown li a:hover,
 .topbar div > ul .dropdown-menu li a:hover,
 .nav .menu-dropdown li a:hover,
 .nav .dropdown-menu li a:hover {
   color: white;
 }
-/* line 138, ../sass/partials/07-design/elements/_menu.sass */
+/* line 143, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul .menu-dropdown .active a,
 .topbar div > ul .dropdown-menu .active a,
 .nav .menu-dropdown .active a,
 .nav .dropdown-menu .active a {
   color: white;
 }
-/* line 140, ../sass/partials/07-design/elements/_menu.sass */
+/* line 145, ../sass/partials/07-design/elements/_menu.sass */
 .topbar div > ul .menu-dropdown .divider,
 .topbar div > ul .dropdown-menu .divider,
 .nav .menu-dropdown .divider,
@@ -2640,19 +2656,19 @@ dt.issue-rejected {
   border-color: #444444;
 }
 
-/* line 145, ../sass/partials/07-design/elements/_menu.sass */
+/* line 150, ../sass/partials/07-design/elements/_menu.sass */
 .topbar ul .menu-dropdown li a,
 .topbar ul .dropdown-menu li a {
   padding: 4px 15px;
 }
 
-/* line 153, ../sass/partials/07-design/elements/_menu.sass */
+/* line 158, ../sass/partials/07-design/elements/_menu.sass */
 li.menu,
 .dropdown {
   position: relative;
 }
 
-/* line 160, ../sass/partials/07-design/elements/_menu.sass */
+/* line 165, ../sass/partials/07-design/elements/_menu.sass */
 a.menu:after,
 .dropdown-toggle:after {
   width: 0;
@@ -2671,7 +2687,7 @@ a.menu:after,
   opacity: 0.5;
 }
 
-/* line 179, ../sass/partials/07-design/elements/_menu.sass */
+/* line 184, ../sass/partials/07-design/elements/_menu.sass */
 .menu-dropdown,
 .dropdown-menu {
   background-color: white;
@@ -2708,14 +2724,14 @@ a.menu:after,
   -khtml-background-clip: padding-box;
   background-clip: padding-box;
 }
-/* line 205, ../sass/partials/07-design/elements/_menu.sass */
+/* line 210, ../sass/partials/07-design/elements/_menu.sass */
 .menu-dropdown li,
 .dropdown-menu li {
   float: none;
   display: block;
   background-color: none;
 }
-/* line 210, ../sass/partials/07-design/elements/_menu.sass */
+/* line 215, ../sass/partials/07-design/elements/_menu.sass */
 .menu-dropdown .divider,
 .dropdown-menu .divider {
   height: 1px;
@@ -2725,7 +2741,7 @@ a.menu:after,
   border-bottom: 1px solid white;
 }
 
-/* line 219, ../sass/partials/07-design/elements/_menu.sass */
+/* line 224, ../sass/partials/07-design/elements/_menu.sass */
 .topbar .dropdown-menu a, .dropdown-menu a {
   display: block;
   padding: 4px 15px;
@@ -2734,20 +2750,20 @@ a.menu:after,
   line-height: 18px;
   color: gray;
 }
-/* line 227, ../sass/partials/07-design/elements/_menu.sass */
+/* line 232, ../sass/partials/07-design/elements/_menu.sass */
 .topbar .dropdown-menu a:hover, .dropdown-menu a:hover {
   color: white;
   text-decoration: none;
 }
 
-/* line 237, ../sass/partials/07-design/elements/_menu.sass */
+/* line 242, ../sass/partials/07-design/elements/_menu.sass */
 .open .menu,
 .open .dropdown-toggle,
 .dropdown.open .menu,
 .dropdown.open .dropdown-toggle {
   color: #333333;
 }
-/* line 241, ../sass/partials/07-design/elements/_menu.sass */
+/* line 246, ../sass/partials/07-design/elements/_menu.sass */
 .open .menu-dropdown,
 .open .dropdown-menu,
 .dropdown.open .menu-dropdown,
@@ -3188,28 +3204,42 @@ hr {
   -ms-border-radius: 5px;
   -khtml-border-radius: 5px;
   border-radius: 5px;
+  -moz-box-shadow: 0 2px 3px #a2a2a2, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 2px 3px #a2a2a2, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  -o-box-shadow: 0 2px 3px #a2a2a2, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 3px #a2a2a2, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
 
-/* line 57, ../sass/partials/07-design/_default.sass */
+/* line 60, ../sass/partials/07-design/_default.sass */
 div.issue {
   background: #ffffdd;
   padding: 6px;
   margin-bottom: 6px;
   border: 1px solid #d5d5d5;
+  -moz-box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.4);
+  -o-box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.4);
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
 }
 
-/* line 63, ../sass/partials/07-design/_default.sass */
+/* line 70, ../sass/partials/07-design/_default.sass */
 a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   color: #999999;
   text-decoration: line-through;
 }
 
-/* line 67, ../sass/partials/07-design/_default.sass */
+/* line 74, ../sass/partials/07-design/_default.sass */
 .keep-together {
   white-space: nowrap !important;
 }
 
-/* line 70, ../sass/partials/07-design/_default.sass */
+/* line 77, ../sass/partials/07-design/_default.sass */
 #content .tabs {
   height: 2.6em;
   border-bottom: 1px solid #bbbbbb;
@@ -3275,11 +3305,11 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   background-color: white;
 }
 
-/* line 73, ../sass/partials/07-design/_default.sass */
+/* line 80, ../sass/partials/07-design/_default.sass */
 .journal {
   clear: left;
 }
-/* line 75, ../sass/partials/07-design/_default.sass */
+/* line 82, ../sass/partials/07-design/_default.sass */
 .journal ul {
   position: relative;
   width: 30%;
@@ -3293,6 +3323,10 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   -ms-border-radius: 5px;
   -khtml-border-radius: 5px;
   border-radius: 5px;
+  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+  -o-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
   color: white;
   list-style: none;
 }
@@ -3302,17 +3336,17 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   list-style-type: none;
   margin-left: 0px;
 }
-/* line 86, ../sass/partials/07-design/_default.sass */
+/* line 94, ../sass/partials/07-design/_default.sass */
 .journal h5 {
   margin-bottom: 2px;
   margin-top: 1.5em;
 }
-/* line 89, ../sass/partials/07-design/_default.sass */
+/* line 97, ../sass/partials/07-design/_default.sass */
 .journal hr {
   clear: left;
 }
 
-/* line 92, ../sass/partials/07-design/_default.sass */
+/* line 100, ../sass/partials/07-design/_default.sass */
 div#issue-changesets {
   float: right;
   width: 45%;
@@ -3322,12 +3356,12 @@ div#issue-changesets {
   padding-left: 1em;
   font-size: 90%;
 }
-/* line 100, ../sass/partials/07-design/_default.sass */
+/* line 108, ../sass/partials/07-design/_default.sass */
 div#issue-changesets .changeset {
   padding: 4px;
   border-bottom: 1px solid #d5d5d5;
 }
-/* line 103, ../sass/partials/07-design/_default.sass */
+/* line 111, ../sass/partials/07-design/_default.sass */
 div#issue-changesets .changeset p {
   margin-top: 0;
   margin-bottom: 1em;
