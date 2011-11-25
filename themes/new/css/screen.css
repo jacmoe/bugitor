@@ -677,7 +677,7 @@ input[type="checkbox"]:active {
 
 /* line 173, ../sass/partials/02-typography/forms/_formalize.sass */
 .is_webkit select {
-  background-image: url(../images/select_arrow.gif);
+  background-image: url(../images/select-arrow.gif);
   background-repeat: no-repeat;
   background-position: right center;
   padding-right: 20px;
@@ -2919,7 +2919,7 @@ div.big_progress-info {
 
 /* line 1, ../sass/partials/07-design/elements/_gridview.sass */
 .grid-view-loading {
-  background: url(loading.gif) no-repeat;
+  background: url(../images/loading.gif) no-repeat;
 }
 
 /* line 4, ../sass/partials/07-design/elements/_gridview.sass */
@@ -2967,12 +2967,12 @@ div.big_progress-info {
 }
 /* line 28, ../sass/partials/07-design/elements/_gridview.sass */
 .grid-view table.items th a.asc {
-  background: url(up.gif) right center no-repeat;
+  background: url(../images/up.gif) right center no-repeat;
   padding-right: 10px;
 }
 /* line 31, ../sass/partials/07-design/elements/_gridview.sass */
 .grid-view table.items th a.desc {
-  background: url(down.gif) right center no-repeat;
+  background: url(../images/down.gif) right center no-repeat;
   padding-right: 10px;
 }
 /* line 35, ../sass/partials/07-design/elements/_gridview.sass */
