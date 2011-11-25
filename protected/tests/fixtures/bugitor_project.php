@@ -17,3 +17,4 @@ return array(
         'identifier' => 'project3',
     ),
 );
+?>
