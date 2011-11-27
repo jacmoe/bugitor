@@ -719,7 +719,7 @@ class IssueController extends Controller {
         return null;
     }
     
-    public function getMilestoneSelectList($project_id, $filter = false) {
+    public function getMilestoneSelectList($project_id, $filter = false, $id = null, $value = null) {
         $Criteria = new CDbCriteria();
         $Criteria->select = "name, title, id, effective_date, project_id";
         $Criteria->order = 'effective_date';
@@ -732,6 +732,12 @@ class IssueController extends Controller {
                     $milestone_list[$result->id] = $result->name . ' : ' . $result->title;
             } else {
                 $milestone_list[$result->id] = $result->name . ' : ' . $result->title;
+            }
+        }
+        if(null != $id) {
+            // if the key does not exist, it means that the issue is connected to overdue milestone
+            if (!array_key_exists($id, $milestone_list)) {
+                $milestone_list[$id] = $value;
             }
         }
         return $milestone_list;
