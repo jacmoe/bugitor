@@ -9,16 +9,4 @@
 		<browser name="Firefox" browser="*firefox" />
 	</selenium>
 
-    <filter>
-        <blacklist>
-            <directory suffix=".php">C:/wamp/yii</directory>
-            <directory suffix=".php">C:/wamp/bugitor/assets</directory>
-        </blacklist>
-        <whitelist addUncoveredFilesFromWhitelist="true">
-           <directory suffix=".php">C:/wamp/bugitor</directory>
-           <exclude>
-              <directory suffix=".php">C:/wamp/bugitor/assets</directory>
-            </exclude>
-    </whitelist>
-    </filter>
 </phpunit>
