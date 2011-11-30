@@ -40,21 +40,39 @@ $interval = array(
 ?>
 <h3>Postpone Milestones</h3>
 <div class="form">
+    <div class="notice">Hint: Enter a negative number to postpone backwards.<br/>
+    For instance, '-2 months' will subtract 2 months from all milestone effective dates thus making them due 2 months earlier.</div>
+    <table>
 <?php $form=$this->beginWidget('CActiveForm'); ?>
 	<?php echo $form->errorSummary($model); ?>
-        <div class="row">
+        <tr>
+            <td>
+                <?php echo $form->error($model,'postpone'); ?>
 		<?php echo $form->labelEx($model,'postpone'); ?>
+            </td>
+            <td>
 		<?php echo $form->textField($model,'postpone',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'postpone'); ?>
-	</div>
-        <div class="row">
+            </td>
+        </tr>
+        <tr>
+            <td>
 		<?php echo $form->labelEx($model,'interval'); ?>
-                <?php echo CHtml::activeDropdownList($model, 'interval', $interval, array('options' => array('months'=>array('selected'=>true)))); ?>
 		<?php echo $form->error($model,'interval'); ?>
-	</div>
-	<div class="row buttons">
+            </td>
+            <td>
+                <?php echo CHtml::activeDropdownList($model, 'interval', $interval, array('options' => array('months'=>array('selected'=>true)))); ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <br/>
 		<?php echo CHtml::submitButton('Postpone'); ?>
-                <?php echo CHtml::Button('Cancel',array('submit' => Yii::app()->request->getUrlReferrer()));?>
-	</div>
+            </td>
+            <td>
+                <br/>
+                <?php echo CHtml::Button('Cancel',array('submit' => Yii::app()->request->getUrlReferrer().'?tab=milestones'));?>
+            </td>
+        </tr>
+    </table>
 <?php $this->endWidget(); ?>
 </div><!-- form -->
