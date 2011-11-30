@@ -3154,33 +3154,42 @@ hr {
 }
 
 /* line 22, ../sass/partials/07-design/_default.sass */
+.notice {
+  padding: 0.8em;
+  margin-bottom: 1em;
+  border: 2px solid #ffd324;
+  background: #fff6bf;
+  color: #514721;
+}
+
+/* line 29, ../sass/partials/07-design/_default.sass */
 .centered {
   text-align: center;
   margin-top: 22px;
   line-height: 6px;
 }
 
-/* line 27, ../sass/partials/07-design/_default.sass */
+/* line 34, ../sass/partials/07-design/_default.sass */
 .contextual {
   position: relative;
   float: right;
 }
 
-/* line 31, ../sass/partials/07-design/_default.sass */
+/* line 38, ../sass/partials/07-design/_default.sass */
 .floatrightup {
   float: right;
   position: relative;
   top: 0.85em;
 }
 
-/* line 37, ../sass/partials/07-design/_default.sass */
+/* line 44, ../sass/partials/07-design/_default.sass */
 .floatright {
   float: right;
   position: relative;
   bottom: 32px;
 }
 
-/* line 42, ../sass/partials/07-design/_default.sass */
+/* line 49, ../sass/partials/07-design/_default.sass */
 .contextual_left {
   float: left;
   line-height: 1.4em;
@@ -3188,12 +3197,12 @@ hr {
   padding-right: 10px;
 }
 
-/* line 48, ../sass/partials/07-design/_default.sass */
+/* line 55, ../sass/partials/07-design/_default.sass */
 .lowered {
   top: 20px;
 }
 
-/* line 51, ../sass/partials/07-design/_default.sass */
+/* line 58, ../sass/partials/07-design/_default.sass */
 .box {
   padding: 10px 10px;
   margin-bottom: 1em;
@@ -3210,7 +3219,7 @@ hr {
   box-shadow: 0 2px 3px #a2a2a2, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
 
-/* line 60, ../sass/partials/07-design/_default.sass */
+/* line 67, ../sass/partials/07-design/_default.sass */
 div.issue {
   background: #ffffdd;
   padding: 6px;
@@ -3228,18 +3237,18 @@ div.issue {
   border-radius: 5px;
 }
 
-/* line 70, ../sass/partials/07-design/_default.sass */
+/* line 77, ../sass/partials/07-design/_default.sass */
 a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   color: #999999;
   text-decoration: line-through;
 }
 
-/* line 74, ../sass/partials/07-design/_default.sass */
+/* line 81, ../sass/partials/07-design/_default.sass */
 .keep-together {
   white-space: nowrap !important;
 }
 
-/* line 77, ../sass/partials/07-design/_default.sass */
+/* line 84, ../sass/partials/07-design/_default.sass */
 #content .tabs {
   height: 2.6em;
   border-bottom: 1px solid #bbbbbb;
@@ -3305,11 +3314,11 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   background-color: white;
 }
 
-/* line 80, ../sass/partials/07-design/_default.sass */
+/* line 87, ../sass/partials/07-design/_default.sass */
 .journal {
   clear: left;
 }
-/* line 82, ../sass/partials/07-design/_default.sass */
+/* line 89, ../sass/partials/07-design/_default.sass */
 .journal ul {
   position: relative;
   width: 30%;
@@ -3336,17 +3345,17 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   list-style-type: none;
   margin-left: 0px;
 }
-/* line 94, ../sass/partials/07-design/_default.sass */
+/* line 101, ../sass/partials/07-design/_default.sass */
 .journal h5 {
   margin-bottom: 2px;
   margin-top: 1.5em;
 }
-/* line 97, ../sass/partials/07-design/_default.sass */
+/* line 104, ../sass/partials/07-design/_default.sass */
 .journal hr {
   clear: left;
 }
 
-/* line 100, ../sass/partials/07-design/_default.sass */
+/* line 107, ../sass/partials/07-design/_default.sass */
 div#issue-changesets {
   float: right;
   width: 45%;
@@ -3356,12 +3365,12 @@ div#issue-changesets {
   padding-left: 1em;
   font-size: 90%;
 }
-/* line 108, ../sass/partials/07-design/_default.sass */
+/* line 115, ../sass/partials/07-design/_default.sass */
 div#issue-changesets .changeset {
   padding: 4px;
   border-bottom: 1px solid #d5d5d5;
 }
-/* line 111, ../sass/partials/07-design/_default.sass */
+/* line 118, ../sass/partials/07-design/_default.sass */
 div#issue-changesets .changeset p {
   margin-top: 0;
   margin-bottom: 1em;
