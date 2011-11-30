@@ -3334,10 +3334,64 @@ hr {
 }
 
 /* line 64, ../sass/partials/07-design/_default.sass */
-.box {
+#codemenu {
+  padding: 4px 10px 2px 10px;
+  /*    background-color:#507AAA; */
+  margin: 0;
+}
+/* line 68, ../sass/partials/07-design/_default.sass */
+#codemenu ul {
+  margin: 0px;
+  margin: 0;
+  bottom: 0px;
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+}
+/* line 74, ../sass/partials/07-design/_default.sass */
+#codemenu ul li {
+  padding: 0;
+  display: inline;
+  margin: 0;
+  bottom: 0px;
+}
+/* line 79, ../sass/partials/07-design/_default.sass */
+#codemenu ul li a {
+  /*    color:#ffffff; */
+  /*    background-color:#507AAA; */
+  font-size: 1.2em;
+  /*    font-weight:bold; */
+  text-decoration: none;
+  padding: 5px 8px;
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+  bottom: 0px;
+}
+/* line 89, ../sass/partials/07-design/_default.sass */
+#codemenu ul li.active a {
+  /*    color: #6399cd; */
+  /*    background-color:#EFF4FA; */
+  font-weight: bold;
+  text-decoration: none;
+  bottom: 0px;
+  padding-bottom: 6px !important;
+}
+/* line 96, ../sass/partials/07-design/_default.sass */
+#codemenu ul li a:hover {
+  /*    color: #fff; */
+  /*    background-color:#759FCF; */
+  text-decoration: underline;
+  bottom: 0px;
+}
+
+/* line 102, ../sass/partials/07-design/_default.sass */
+.simplebox, .box {
   padding: 10px 10px;
   margin-bottom: 1em;
   border: 1px solid #d5d5d5;
+}
+
+/* line 107, ../sass/partials/07-design/_default.sass */
+.box {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   -o-border-radius: 5px;
@@ -3350,7 +3404,7 @@ hr {
   box-shadow: 0 2px 3px #a2a2a2, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
 
-/* line 73, ../sass/partials/07-design/_default.sass */
+/* line 114, ../sass/partials/07-design/_default.sass */
 div.issue {
   background: #ffffdd;
   padding: 6px;
@@ -3368,18 +3422,18 @@ div.issue {
   border-radius: 5px;
 }
 
-/* line 83, ../sass/partials/07-design/_default.sass */
+/* line 124, ../sass/partials/07-design/_default.sass */
 a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   color: #999999;
   text-decoration: line-through;
 }
 
-/* line 87, ../sass/partials/07-design/_default.sass */
+/* line 128, ../sass/partials/07-design/_default.sass */
 .keep-together {
   white-space: nowrap !important;
 }
 
-/* line 90, ../sass/partials/07-design/_default.sass */
+/* line 131, ../sass/partials/07-design/_default.sass */
 #content .tabs {
   height: 2.6em;
   border-bottom: 1px solid #bbbbbb;
@@ -3445,11 +3499,11 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   background-color: white;
 }
 
-/* line 93, ../sass/partials/07-design/_default.sass */
+/* line 134, ../sass/partials/07-design/_default.sass */
 .journal {
   clear: left;
 }
-/* line 95, ../sass/partials/07-design/_default.sass */
+/* line 136, ../sass/partials/07-design/_default.sass */
 .journal ul {
   position: relative;
   width: 30%;
@@ -3476,17 +3530,17 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   list-style-type: none;
   margin-left: 0px;
 }
-/* line 107, ../sass/partials/07-design/_default.sass */
+/* line 148, ../sass/partials/07-design/_default.sass */
 .journal h5 {
   margin-bottom: 2px;
   margin-top: 1.5em;
 }
-/* line 110, ../sass/partials/07-design/_default.sass */
+/* line 151, ../sass/partials/07-design/_default.sass */
 .journal hr {
   clear: left;
 }
 
-/* line 113, ../sass/partials/07-design/_default.sass */
+/* line 154, ../sass/partials/07-design/_default.sass */
 div#issue-changesets {
   float: right;
   width: 45%;
@@ -3496,15 +3550,634 @@ div#issue-changesets {
   padding-left: 1em;
   font-size: 90%;
 }
-/* line 121, ../sass/partials/07-design/_default.sass */
+/* line 162, ../sass/partials/07-design/_default.sass */
 div#issue-changesets .changeset {
   padding: 4px;
   border-bottom: 1px solid #d5d5d5;
 }
-/* line 124, ../sass/partials/07-design/_default.sass */
+/* line 165, ../sass/partials/07-design/_default.sass */
 div#issue-changesets .changeset p {
   margin-top: 0;
   margin-bottom: 1em;
+}
+
+/* FULL WIDTH TABLE (used in Source and Overview) */
+/* line 171, ../sass/partials/07-design/_default.sass */
+table.maintable {
+  margin: 12px 0;
+  width: 100%;
+  border: 1px solid #dddddd;
+  border-collapse: collapse;
+}
+/* line 176, ../sass/partials/07-design/_default.sass */
+table.maintable th, table.maintable td {
+  border-style: solid;
+  border-color: #dddddd;
+  padding: 0.75em 10px 0.75em 20px;
+  /* cells should have 10px left and right padding...
+   *   except the leftmost, which should have 20 and 10...
+   *     and the rightmost, which should have 10 and 20 */
+}
+/* line 183, ../sass/partials/07-design/_default.sass */
+table.maintable th + th, table.maintable td + td {
+  padding-left: 10px;
+}
+/* line 185, ../sass/partials/07-design/_default.sass */
+table.maintable td {
+  font: 12px/1.5em "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, "Courier New", Courier, monospace;
+}
+
+/* line 189, ../sass/partials/07-design/_default.sass */
+#issues-list table.maintable td {
+  font: inherit;
+}
+/* line 191, ../sass/partials/07-design/_default.sass */
+#issues-list table.maintable a {
+  color: #525252;
+}
+
+/* line 195, ../sass/partials/07-design/_default.sass */
+table.maintable th {
+  font-weight: bold;
+  line-height: 18px;
+  text-shadow: 0 1px 0 white;
+}
+/* line 199, ../sass/partials/07-design/_default.sass */
+table.maintable thead tr {
+  background: #eeeeee;
+}
+/* line 201, ../sass/partials/07-design/_default.sass */
+table.maintable tbody tr:nth-child(even) {
+  background: #fcfcfc;
+}
+/* line 203, ../sass/partials/07-design/_default.sass */
+table.maintable th, table.maintable td {
+  border-bottom: 1px solid #dddddd;
+}
+
+/* STANDARD LAYOUT-BOX */
+/* line 208, ../sass/partials/07-design/_default.sass */
+.layout-box {
+  border: 1px solid #dddddd;
+  padding: 15px 24px;
+}
+
+/* SHORTLOG/OVERVIEW */
+/* line 215, ../sass/partials/07-design/_default.sass */
+#strip-repository th {
+  width: 158px;
+}
+/* line 217, ../sass/partials/07-design/_default.sass */
+#strip-repository th + th {
+  width: 80px;
+}
+/* line 219, ../sass/partials/07-design/_default.sass */
+#strip-repository th + th + th {
+  width: 480px;
+}
+/* line 221, ../sass/partials/07-design/_default.sass */
+#strip-repository th + th + th + th {
+  width: 110px;
+  padding-right: 20px;
+}
+
+/* line 226, ../sass/partials/07-design/_default.sass */
+#shortlogs-changes th {
+  width: 158px;
+}
+/* line 228, ../sass/partials/07-design/_default.sass */
+#shortlogs-changes th + th {
+  width: 80px;
+}
+/* line 230, ../sass/partials/07-design/_default.sass */
+#shortlogs-changes th + th + th {
+  width: 480px;
+}
+/* line 232, ../sass/partials/07-design/_default.sass */
+#shortlogs-changes th + th + th + th {
+  width: 32px;
+  padding-left: 0;
+  padding-right: 0;
+  text-indent: -9999px;
+  background: url('../images/icons-s553df95927.png') 8px -310px no-repeat;
+}
+/* line 238, ../sass/partials/07-design/_default.sass */
+#shortlogs-changes th + th + th + th + th {
+  background: url('../images/icons-s553df95927.png') 8px -1046px no-repeat;
+}
+/* line 240, ../sass/partials/07-design/_default.sass */
+#shortlogs-changes th + th + th + th + th + th {
+  background: url('../images/icons-s553df95927.png') 8px -918px no-repeat;
+}
+/* line 242, ../sass/partials/07-design/_default.sass */
+#shortlogs-changes td + td + td + td {
+  padding-left: 0;
+  padding-right: 0;
+  text-indent: -9999px;
+  text-indent: inherit;
+  text-align: center;
+  color: #228822;
+}
+/* line 249, ../sass/partials/07-design/_default.sass */
+#shortlogs-changes td + td + td + td + td {
+  color: #bb7700;
+}
+/* line 251, ../sass/partials/07-design/_default.sass */
+#shortlogs-changes td + td + td + td + td + td {
+  color: #cc3333;
+  padding-right: 12px;
+}
+
+/* line 255, ../sass/partials/07-design/_default.sass */
+#strip-repository img {
+  float: left;
+  margin: 0 9px 0 0;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #dddddd;
+}
+
+/* line 263, ../sass/partials/07-design/_default.sass */
+#shortlogs-changes img {
+  float: left;
+  margin: 0 9px 0 0;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #dddddd;
+}
+/* line 269, ../sass/partials/07-design/_default.sass */
+#shortlogs-changes .commented {
+  background: url(../img/icons/fugue/balloon_left.png) no-repeat 50%;
+}
+/* line 271, ../sass/partials/07-design/_default.sass */
+#shortlogs-changes input[type="radio"] {
+  float: left;
+  margin: 3px 3px 3px -16px;
+}
+
+/* line 275, ../sass/partials/07-design/_default.sass */
+.diff-radio input {
+  margin: 0;
+  padding: 0;
+}
+
+/* line 279, ../sass/partials/07-design/_default.sass */
+.changes-added, .changes-modified, .changes-removed {
+  display: block;
+  float: right;
+  width: 15px;
+  border: 1px solid #dddddd;
+  text-align: center;
+  font-size: 0.75em;
+}
+
+/* line 287, ../sass/partials/07-design/_default.sass */
+.changes-added, .changes-modified {
+  border-right: 0 !important;
+}
+
+/* line 290, ../sass/partials/07-design/_default.sass */
+.changes-removed, .changes-modified {
+  border-left: 0 !important;
+}
+
+/* line 293, ../sass/partials/07-design/_default.sass */
+.changes-added {
+  background: #bbffbb;
+  text-align: center;
+}
+
+/* line 297, ../sass/partials/07-design/_default.sass */
+.changes-modified {
+  background: #ffdd88;
+  text-align: center;
+}
+
+/* line 301, ../sass/partials/07-design/_default.sass */
+.changes-removed {
+  background: #ff8888;
+  text-align: center;
+}
+
+/* CHANGESETS */
+/* line 307, ../sass/partials/07-design/_default.sass */
+.changesets-date {
+  margin: 0 auto;
+  border-bottom: 0;
+  background: white url(../img/layout/bg_general.png) repeat-x left top;
+  padding: 10px 20px !important;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+/* line 315, ../sass/partials/07-design/_default.sass */
+.changeset-description {
+  margin-bottom: 10px;
+  width: 710px;
+  white-space: pre-wrap;
+}
+
+/* line 320, ../sass/partials/07-design/_default.sass */
+#content h2.changesets {
+  margin: 0;
+  padding: 12px 0 10px 20px;
+}
+
+/* line 324, ../sass/partials/07-design/_default.sass */
+#changesets-graph {
+  float: left;
+  margin-top: 20px;
+  margin-left: -160px;
+  width: 160px;
+}
+
+/* line 330, ../sass/partials/07-design/_default.sass */
+#changesets-inner {
+  margin: 0 0 10px;
+}
+/* line 332, ../sass/partials/07-design/_default.sass */
+#changesets-inner h3 {
+  margin: -1px 0 0 !important;
+  border: 1px solid #dddddd;
+  background: #eeeeee;
+  padding: 10px 20px;
+}
+
+/* line 338, ../sass/partials/07-design/_default.sass */
+#changesets-inner > ol {
+  font: 12px/1.5em "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, "Courier New", Courier, monospace;
+}
+
+/* line 341, ../sass/partials/07-design/_default.sass */
+#changesets-inner > ol > li {
+  margin: -1px 0 0;
+  border: 1px solid #dddddd;
+  padding: 10px 300px 10px 20px;
+}
+
+/* line 346, ../sass/partials/07-design/_default.sass */
+#changesets-inner > ol > li:nth-child(even) {
+  background: #fcfcfc;
+}
+
+/* line 349, ../sass/partials/07-design/_default.sass */
+.shortlog_relations {
+  float: right;
+  margin: 0 -280px 0 0;
+  text-align: right;
+}
+/* line 353, ../sass/partials/07-design/_default.sass */
+.shortlog_relations dt {
+  clear: left;
+  float: left;
+  width: 100px;
+  text-align: right;
+  color: #747474;
+}
+/* line 359, ../sass/partials/07-design/_default.sass */
+.shortlog_relations dt:after {
+  content: ":";
+}
+/* line 361, ../sass/partials/07-design/_default.sass */
+.shortlog_relations dd {
+  float: left;
+  margin: 0 0 0 0.5em;
+}
+
+/* line 365, ../sass/partials/07-design/_default.sass */
+.relations {
+  float: right;
+  margin: 0 0 0 0;
+  text-align: right;
+}
+/* line 369, ../sass/partials/07-design/_default.sass */
+.relations dt {
+  clear: left;
+  float: left;
+  width: 100px;
+  text-align: right;
+  color: #747474;
+}
+/* line 375, ../sass/partials/07-design/_default.sass */
+.relations dt:after {
+  content: ":";
+}
+/* line 377, ../sass/partials/07-design/_default.sass */
+.relations dd {
+  float: left;
+  margin: 0 0 0 0.5em;
+}
+
+/* line 381, ../sass/partials/07-design/_default.sass */
+#changesets-inner h4 {
+  position: absolute;
+  left: -9999px;
+}
+
+/* line 386, ../sass/partials/07-design/_default.sass */
+#changelog.added, #changelog.modified, #changelog.removed {
+  float: right;
+  width: 32px;
+  height: 36px;
+}
+/* line 390, ../sass/partials/07-design/_default.sass */
+#changelog.added {
+  background: url('../images/icons-s553df95927.png') 0 -310px no-repeat;
+}
+/* line 392, ../sass/partials/07-design/_default.sass */
+#changelog.modified {
+  padding-left: 17px;
+  background: url('../images/icons-s553df95927.png') 0 -1046px no-repeat;
+}
+/* line 395, ../sass/partials/07-design/_default.sass */
+#changelog.removed {
+  background: url('../images/icons-s553df95927.png') 0 -918px no-repeat;
+  margin-right: 201px;
+}
+
+/* line 399, ../sass/partials/07-design/_default.sass */
+.files-affected {
+  float: right;
+  margin: 0 -100px 0 0;
+  width: 96px;
+  overflow: hidden;
+}
+/* line 404, ../sass/partials/07-design/_default.sass */
+.files-affected dt {
+  position: absolute;
+  left: -9999px;
+}
+/* line 407, ../sass/partials/07-design/_default.sass */
+.files-affected dd {
+  float: left;
+  width: 32px;
+  text-align: center;
+}
+/* line 411, ../sass/partials/07-design/_default.sass */
+.files-affected dd[title="Added"] {
+  color: #228822;
+}
+/* line 413, ../sass/partials/07-design/_default.sass */
+.files-affected dd[title="Modified"] {
+  color: #bb7700;
+}
+/* line 415, ../sass/partials/07-design/_default.sass */
+.files-affected dd[title="Removed"] {
+  color: #cc3333;
+}
+
+/* line 418, ../sass/partials/07-design/_default.sass */
+#source-summary > p {
+  white-space: pre-wrap;
+}
+
+/* line 421, ../sass/partials/07-design/_default.sass */
+#source-summary + p {
+  margin: 0 0 0 21px;
+}
+
+/* line 424, ../sass/partials/07-design/_default.sass */
+#changesets-inner p, #source-summary p {
+  margin: 0.25em 0 0.5em;
+  width: 600px;
+  line-height: inherit;
+}
+
+/* line 429, ../sass/partials/07-design/_default.sass */
+#changesets-inner .metadata, #source-summary .metadata {
+  position: relative;
+  margin: 0.5em 0 0;
+  min-height: 34px;
+  padding: 2px 0 2px 45px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+/* line 436, ../sass/partials/07-design/_default.sass */
+#changesets-inner .metadata dt, #source-summary .metadata dt {
+  position: absolute;
+  left: -9999px;
+}
+
+/* line 440, ../sass/partials/07-design/_default.sass */
+#changesets-inner .metadata .avatar, #source-summary .metadata .avatar {
+  position: absolute;
+  left: -3px;
+  top: 0;
+}
+
+/* line 445, ../sass/partials/07-design/_default.sass */
+#changesets-inner .metadata dd[title], #source-summary .metadata dd:last-child {
+  color: #747474;
+}
+
+/* line 449, ../sass/partials/07-design/_default.sass */
+#changesets-inner li {
+  position: relative;
+}
+/* line 451, ../sass/partials/07-design/_default.sass */
+#changesets-inner .metadata + p {
+  position: absolute;
+  right: 220px;
+  bottom: 12px;
+  display: block;
+  width: auto;
+}
+
+/* line 458, ../sass/partials/07-design/_default.sass */
+.changesets-changeset {
+  margin: 0 auto -1px;
+  font: 12px/16px "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, "Courier New", Courier, monospace;
+}
+/* line 461, ../sass/partials/07-design/_default.sass */
+.changesets-changeset h4 {
+  font-weight: bold;
+  font-size: 1em;
+}
+/* line 464, ../sass/partials/07-design/_default.sass */
+.changesets-changeset span {
+  font-family: "Lucida Grande", "Trebuchet MS", Tahoma, Arial, sans-serif;
+}
+
+/* line 467, ../sass/partials/07-design/_default.sass */
+#changesets-footer {
+  margin: 0 auto;
+}
+
+/* line 471, ../sass/partials/07-design/_default.sass */
+#content.added, #content.modified, #content.removed {
+  float: right;
+  width: 32px;
+  height: 36px;
+}
+/* line 475, ../sass/partials/07-design/_default.sass */
+#content.added {
+  padding-left: 17px;
+  background: url('../images/icons-s553df95927.png') 0 -310px no-repeat;
+}
+/* line 478, ../sass/partials/07-design/_default.sass */
+#content.modified {
+  padding-left: 17px;
+  background: url('../images/icons-s553df95927.png') 0 -1046px no-repeat;
+}
+/* line 481, ../sass/partials/07-design/_default.sass */
+#content.removed {
+  background: url('../images/icons-s553df95927.png') 0 -918px no-repeat;
+  margin-right: 201px;
+}
+
+/* line 485, ../sass/partials/07-design/_default.sass */
+.files-affected {
+  float: right;
+  margin: 0 -100px 0 0;
+  width: 96px;
+  overflow: hidden;
+}
+/* line 490, ../sass/partials/07-design/_default.sass */
+.files-affected dt {
+  position: absolute;
+  left: -9999px;
+}
+/* line 493, ../sass/partials/07-design/_default.sass */
+.files-affected dd {
+  float: left;
+  width: 32px;
+  text-align: center;
+}
+/* line 497, ../sass/partials/07-design/_default.sass */
+.files-affected dd[title="Added"] {
+  color: #228822;
+}
+/* line 499, ../sass/partials/07-design/_default.sass */
+.files-affected dd[title="Modified"] {
+  color: #bb7700;
+}
+/* line 501, ../sass/partials/07-design/_default.sass */
+.files-affected dd[title="Removed"] {
+  color: #cc3333;
+}
+
+/* line 504, ../sass/partials/07-design/_default.sass */
+#source-summary > p {
+  white-space: pre-wrap;
+}
+
+/* line 507, ../sass/partials/07-design/_default.sass */
+#source-summary + p {
+  margin: 0 0 0 21px;
+}
+
+/* line 510, ../sass/partials/07-design/_default.sass */
+#changesets-inner p, #source-summary p {
+  margin: 0.25em 0 0.5em;
+  width: 600px;
+  line-height: inherit;
+}
+
+/* line 515, ../sass/partials/07-design/_default.sass */
+#changesets-inner .metadata, #source-summary .metadata {
+  position: relative;
+  margin: 0.5em 0 0;
+  min-height: 34px;
+  padding: 2px 0 2px 45px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+/* line 522, ../sass/partials/07-design/_default.sass */
+#changesets-inner .metadata dt, #source-summary .metadata dt {
+  position: absolute;
+  left: -9999px;
+}
+
+/* line 526, ../sass/partials/07-design/_default.sass */
+#changesets-inner .metadata .avatar, #source-summary .metadata .avatar {
+  position: absolute;
+  left: -3px;
+  top: 0;
+}
+
+/* line 531, ../sass/partials/07-design/_default.sass */
+#changesets-inner .metadata dd[title], #source-summary .metadata dd:last-child {
+  color: #747474;
+}
+
+/* line 535, ../sass/partials/07-design/_default.sass */
+#changesets-inner li {
+  position: relative;
+}
+/* line 537, ../sass/partials/07-design/_default.sass */
+#changesets-inner .metadata + p {
+  position: absolute;
+  right: 220px;
+  bottom: 12px;
+  display: block;
+  width: auto;
+}
+
+/* line 544, ../sass/partials/07-design/_default.sass */
+.changesets-changeset {
+  margin: 0 auto -1px;
+  font: 12px/16px "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, "Courier New", Courier, monospace;
+}
+/* line 547, ../sass/partials/07-design/_default.sass */
+.changesets-changeset h4 {
+  font-weight: bold;
+  font-size: 1em;
+}
+/* line 550, ../sass/partials/07-design/_default.sass */
+.changesets-changeset span {
+  font-family: "Lucida Grande", "Trebuchet MS", Tahoma, Arial, sans-serif;
+}
+
+/* line 553, ../sass/partials/07-design/_default.sass */
+#changesets-footer {
+  margin: 0 auto;
+}
+
+/* line 556, ../sass/partials/07-design/_default.sass */
+ol, ul {
+  list-style: none;
+}
+
+/* line 559, ../sass/partials/07-design/_default.sass */
+#changelog, #introduction > div {
+  margin: 0 auto;
+  width: 930px;
+}
+
+/* line 563, ../sass/partials/07-design/_default.sass */
+#source-summary table td, .changesets-changeset table td {
+  padding: 0 4px 4px;
+}
+
+/*p {
+ *    line-height: 21px;
+ *} */
+/* line 570, ../sass/partials/07-design/_default.sass */
+.metadata img.gravatar {
+  margin: 0 auto -1px;
+  float: left;
+  position: relative;
+  left: -45px;
+  bottom: 35px;
+}
+
+/* CHANGE TYPES */
+/* line 579, ../sass/partials/07-design/_default.sass */
+.change-modified {
+  background: url('../images/icons-s553df95927.png') 0 -1052px no-repeat;
+  padding: 2px 0 2px 20px;
+}
+
+/* line 583, ../sass/partials/07-design/_default.sass */
+.change-added {
+  background: url('../images/icons-s553df95927.png') 0 -316px no-repeat;
+  padding: 2px 0 2px 20px;
+}
+
+/* line 587, ../sass/partials/07-design/_default.sass */
+.change-removed {
+  background: url('../images/icons-s553df95927.png') 0 -924px no-repeat;
+  padding: 2px 0 2px 20px;
 }
 
 /* 480px --------------------------------------------------------------------- */

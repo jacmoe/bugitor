@@ -49,7 +49,7 @@ $this->pageTitle = $model->name . ' - Code - ' . Yii::app()->name;
 </div>
 <h3 class="code-icon">Code</h3>
 <div id="changelog">
-<div id="codemenu" class="box">
+<div id="codemenu" class="simplebox">
     <?php
     $this->widget('BugitorMenu', array(
         'items' => array(
@@ -65,12 +65,12 @@ $this->pageTitle = $model->name . ' - Code - ' . Yii::app()->name;
     <table class="maintable">
               <thead>
                 <tr>
-                  <th class="box">Author</th>
-                  <th class="box">When</th>
-                  <th class="box">Message</th>
-                  <th class="box">Added</th>
-                  <th class="box">Modified</th>
-                  <th class="box">Deleted</th>
+                  <th>Author</th>
+                  <th>When</th>
+                  <th>Message</th>
+                  <th>Added</th>
+                  <th>Modified</th>
+                  <th>Deleted</th>
                 </tr>
               </thead>
               <tbody>
