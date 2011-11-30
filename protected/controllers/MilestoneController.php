@@ -141,12 +141,32 @@ class MilestoneController extends Controller {
                     $milestone->save();
                 }
             }
-            $this->redirect(array('project/settings', 'identifier' => $identifier, 'tab' => 'milestones'));
+            if (Yii::app()->request->isAjaxRequest)
+            {
+                echo CJSON::encode(array(
+                    'status'=>'success', 
+                    'div'=>"Milestones successfully postponed"
+                    ));
+                exit;               
+            }
+            else {
+                $this->redirect(array('project/settings', 'identifier' => $identifier, 'tab' => 'milestones'));
+            }
         }
 
-        $this->render('postpone', array(
-            'model' => $model,
-        ));
+ 
+        if (Yii::app()->request->isAjaxRequest)
+        {
+            echo CJSON::encode(array(
+                'status'=>'failure', 
+                'div'=>$this->renderPartial('postpone', array('model'=>$model), true)));
+            exit;               
+        }
+        else {
+            $this->render('postpone', array(
+                'model' => $model,
+            ));
+        }
     }
 
     /**

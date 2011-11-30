@@ -71,4 +71,52 @@
 <?php endif; ?>
 <?php echo CHtml::link('New Milestone',array('milestone/create','identifier'=>$_GET['identifier'])); ?>
 <br/>
-<?php echo CHtml::link('Postpone Milestones',array('milestone/postpone','identifier'=>$_GET['identifier'])); ?>
+<?php echo CHtml::link('Postpone Milestones', "",  // the link for open the dialog
+    array(
+        'style'=>'cursor: pointer;',
+        'onclick'=>"{postpone(); $('#dialogPostpone').dialog('open');}"));?>
+ 
+<?php
+$this->beginWidget('zii.widgets.jui.CJuiDialog', array( // the dialog
+    'id'=>'dialogPostpone',
+    'options'=>array(
+        'title'=>'Postpone Milestones',
+        'autoOpen'=>false,
+        'modal'=>true,
+        'width'=>550,
+        'height'=>470,
+    ),
+));?>
+<div class="divForForm"></div>
+<?php $this->endWidget();?>
+<script type="text/javascript">
+// here is the magic
+function postpone()
+{
+    <?php echo CHtml::ajax(array(
+            'url'=>array('milestone/postpone', 'identifier'=>$_GET['identifier']),
+            'data'=> "js:$(this).serialize()",
+            'type'=>'post',
+            'dataType'=>'json',
+            'success'=>"function(data)
+            {
+                if (data.status == 'failure')
+                {
+                    $('#dialogPostpone div.divForForm').html(data.div);
+                          // Here is the trick: on submit-> once again this function!
+                    $('#dialogPostpone div.divForForm form').submit(postpone);
+                }
+                else
+                {
+                    $('#dialogPostpone div.divForForm').html(data.div);
+                    setTimeout(\"$('#dialogPostpone').dialog('close') \",3000);
+                    location.reload();
+                }
+ 
+            } ",
+            ))?>;
+    return false; 
+ 
+}
+ 
+</script>
