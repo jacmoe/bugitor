@@ -34,19 +34,19 @@
 <h3>Milestones</h3>
 <?php if (!empty($model)) : ?>
 <table class="list" width="60%">
-  <thead width="60">
+  <thead width="100%">
   <tr>
-      <td colspan="4">
+      <td colspan="5">
       Project Milestones
       </td>
   </tr>
 
   <tr>
-    <th width="20">Milestone</th>
-    <th width="20">Title</th>
-    <th width="20">Description</th>
-    <th width="20">Due Date</th>
-    <th width="20">Actions</th>
+    <th width="20%">Milestone</th>
+    <th width="20%">Title</th>
+    <th width="20%">Description</th>
+    <th width="20%">Due Date</th>
+    <th width="20%">Actions</th>
   </tr>
   </thead>
   <tbody>
@@ -70,3 +70,5 @@
 <p class="nodata"><?php echo 'No data to display'; ?></p>
 <?php endif; ?>
 <?php echo CHtml::link('New Milestone',array('milestone/create','identifier'=>$_GET['identifier'])); ?>
+<br/>
+<?php echo CHtml::link('Postpone Milestones',array('milestone/postpone','identifier'=>$_GET['identifier'])); ?>
