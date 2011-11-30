@@ -3254,6 +3254,14 @@ hr {
 }
 
 /* line 11, ../sass/partials/07-design/_default.sass */
+#bugitor-logo {
+  float: left;
+  position: relative;
+  top: 4px;
+  left: 4px;
+}
+
+/* line 17, ../sass/partials/07-design/_default.sass */
 #toc {
   float: right;
   width: 100%;
@@ -3266,17 +3274,17 @@ hr {
   margin-left: 0px;
 }
 
-/* line 16, ../sass/partials/07-design/_default.sass */
+/* line 22, ../sass/partials/07-design/_default.sass */
 .note {
   font-size: smaller;
   font-style: italic;
 }
-/* line 19, ../sass/partials/07-design/_default.sass */
+/* line 25, ../sass/partials/07-design/_default.sass */
 .note .required {
   color: red;
 }
 
-/* line 22, ../sass/partials/07-design/_default.sass */
+/* line 28, ../sass/partials/07-design/_default.sass */
 .notice {
   padding: 0.8em;
   margin-bottom: 1em;
@@ -3285,34 +3293,34 @@ hr {
   color: #514721;
 }
 
-/* line 29, ../sass/partials/07-design/_default.sass */
+/* line 35, ../sass/partials/07-design/_default.sass */
 .centered {
   text-align: center;
   margin-top: 22px;
   line-height: 6px;
 }
 
-/* line 34, ../sass/partials/07-design/_default.sass */
+/* line 40, ../sass/partials/07-design/_default.sass */
 .contextual {
   position: relative;
   float: right;
 }
 
-/* line 38, ../sass/partials/07-design/_default.sass */
+/* line 44, ../sass/partials/07-design/_default.sass */
 .floatrightup {
   float: right;
   position: relative;
   top: 0.85em;
 }
 
-/* line 44, ../sass/partials/07-design/_default.sass */
+/* line 50, ../sass/partials/07-design/_default.sass */
 .floatright {
   float: right;
   position: relative;
   bottom: 32px;
 }
 
-/* line 49, ../sass/partials/07-design/_default.sass */
+/* line 55, ../sass/partials/07-design/_default.sass */
 .contextual_left {
   float: left;
   line-height: 1.4em;
@@ -3320,12 +3328,12 @@ hr {
   padding-right: 10px;
 }
 
-/* line 55, ../sass/partials/07-design/_default.sass */
+/* line 61, ../sass/partials/07-design/_default.sass */
 .lowered {
   top: 20px;
 }
 
-/* line 58, ../sass/partials/07-design/_default.sass */
+/* line 64, ../sass/partials/07-design/_default.sass */
 .box {
   padding: 10px 10px;
   margin-bottom: 1em;
@@ -3342,7 +3350,7 @@ hr {
   box-shadow: 0 2px 3px #a2a2a2, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
 
-/* line 67, ../sass/partials/07-design/_default.sass */
+/* line 73, ../sass/partials/07-design/_default.sass */
 div.issue {
   background: #ffffdd;
   padding: 6px;
@@ -3360,18 +3368,18 @@ div.issue {
   border-radius: 5px;
 }
 
-/* line 77, ../sass/partials/07-design/_default.sass */
+/* line 83, ../sass/partials/07-design/_default.sass */
 a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   color: #999999;
   text-decoration: line-through;
 }
 
-/* line 81, ../sass/partials/07-design/_default.sass */
+/* line 87, ../sass/partials/07-design/_default.sass */
 .keep-together {
   white-space: nowrap !important;
 }
 
-/* line 84, ../sass/partials/07-design/_default.sass */
+/* line 90, ../sass/partials/07-design/_default.sass */
 #content .tabs {
   height: 2.6em;
   border-bottom: 1px solid #bbbbbb;
@@ -3437,11 +3445,11 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   background-color: white;
 }
 
-/* line 87, ../sass/partials/07-design/_default.sass */
+/* line 93, ../sass/partials/07-design/_default.sass */
 .journal {
   clear: left;
 }
-/* line 89, ../sass/partials/07-design/_default.sass */
+/* line 95, ../sass/partials/07-design/_default.sass */
 .journal ul {
   position: relative;
   width: 30%;
@@ -3468,17 +3476,17 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   list-style-type: none;
   margin-left: 0px;
 }
-/* line 101, ../sass/partials/07-design/_default.sass */
+/* line 107, ../sass/partials/07-design/_default.sass */
 .journal h5 {
   margin-bottom: 2px;
   margin-top: 1.5em;
 }
-/* line 104, ../sass/partials/07-design/_default.sass */
+/* line 110, ../sass/partials/07-design/_default.sass */
 .journal hr {
   clear: left;
 }
 
-/* line 107, ../sass/partials/07-design/_default.sass */
+/* line 113, ../sass/partials/07-design/_default.sass */
 div#issue-changesets {
   float: right;
   width: 45%;
@@ -3488,12 +3496,12 @@ div#issue-changesets {
   padding-left: 1em;
   font-size: 90%;
 }
-/* line 115, ../sass/partials/07-design/_default.sass */
+/* line 121, ../sass/partials/07-design/_default.sass */
 div#issue-changesets .changeset {
   padding: 4px;
   border-bottom: 1px solid #d5d5d5;
 }
-/* line 118, ../sass/partials/07-design/_default.sass */
+/* line 124, ../sass/partials/07-design/_default.sass */
 div#issue-changesets .changeset p {
   margin-top: 0;
   margin-bottom: 1em;

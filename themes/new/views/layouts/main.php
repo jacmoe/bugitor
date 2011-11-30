@@ -67,7 +67,8 @@
       <div class="topbar-inner">
         <div class="menu-container">
 					<span id="logo">
-							<?php
+							<span id="bugitor-logo"><?php echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/images/bugitor_32.png', 'Bugitor - The Yii-powered issue tracker', array('title' => 'Bugitor - The Yii-powered issue tracker')), $this->createUrl('project/index')); ?></span>
+                                                        <?php
 								if (
 								((Yii::app()->controller->id === 'project')
 								|| (Yii::app()->controller->id === 'issue')
