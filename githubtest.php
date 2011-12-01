@@ -5,10 +5,19 @@ Github_Autoloader::register();
 $github = new Github_Client();
 
 $commits = $github->getCommitApi()->getBranchCommits('jacmoe', 'highlighter', 'master');
+/*echo "<pre>";
+print_r($commits);
+echo "</pre>";*/
 
-//echo "<pre>";
-//print_r($commits);
-//echo "</pre>";
+/*$repo = $github->getRepoApi()->show('jacmoe', 'highlighter');
+echo "<pre>";
+print_r($repo);
+echo "</pre>";*/
+
+/*$commit = $github->getCommitApi()->getCommit('jacmoe', 'highlighter', 'db7d468ee1920a8e0bbe27093797950743faa6cc');
+echo "<pre>";
+print_r($commit);
+echo "</pre>";*/
 
 foreach($commits as $commit)
 {
