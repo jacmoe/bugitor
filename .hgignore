@@ -30,3 +30,4 @@ glob:themes/kit/css/images/icons-*
 glob:themes/kit/css/images/smilies-*
 glob:themes/kit/css/images/twentytwo-*
 glob:themes/new/.sass-cache/*
+glob:credentials.php
