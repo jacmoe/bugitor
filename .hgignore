@@ -31,3 +31,10 @@ glob:themes/kit/css/images/smilies-*
 glob:themes/kit/css/images/twentytwo-*
 glob:themes/new/.sass-cache/*
 glob:credentials.php
+glob:protected/vendors/pyrus/pyrus.phar
+glob:protected/vendors/pyrus/vendor/.config
+glob:protected/vendors/pyrus/vendor/.configsnapshots/*
+glob:protected/vendors/pyrus/vendor/bin/*
+glob:protected/vendors/pyrus/vendor/.pear2registry
+glob:protected/vendors/pyrus/vendor/cache/*
+glob:protected/vendors/pyrus/vendor/downloads/*
