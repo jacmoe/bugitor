@@ -316,9 +316,9 @@ class phpsvnclient {
 
     public function diffVersions($path = '', $revFrom=0, $revTo=0) {
 	
-	require_once 'ext/Diff/Diff.php';
-	require_once 'ext/Diff/Renderer.php';
-	require_once 'ext/Diff/Renderer/unified.php';
+	require_once 'ext/Text/Diff.php';
+	require_once 'ext/Text/Diff/Renderer.php';
+	require_once 'ext/Text/Diff/Renderer/unified.php';
 
 	$this->mime_array = $this->get_mime_array();
 
@@ -955,7 +955,7 @@ class phpsvnclient {
 
     function get_mime_array() {
 	$regex = "/([\w\+\-\.\/]+)\t+([\w\s]+)/i";
-	$lines = file("ext/mime/mime.types", FILE_IGNORE_NEW_LINES);
+	$lines = file(dirname(__FILE__) . "/ext/mime/mime.types", FILE_IGNORE_NEW_LINES);
 	foreach ($lines as $line) {
 	    if (substr($line, 0, 1) == '#')
 		continue; // skip comments 
