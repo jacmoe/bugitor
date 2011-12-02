@@ -7,11 +7,10 @@
 	<!--<![endif]-->
 	<head>
 		<meta charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="/assets/f105b38b/css/chaw.css" />
-<link rel="stylesheet" type="text/css" href="/assets/cad80fdb/styles/github.css" />
-<script type="text/javascript" src="/assets/a87bfd91/jquery.min.js"></script>
-<script type="text/javascript" src="/assets/f105b38b/jquery.highlight_diff.min.js"></script>
-<title>Github API test</title>
+		<link rel="stylesheet" type="text/css" href="/testassets/chaw.css" />
+        <script type="text/javascript" src="/testassets/jquery.min.js"></script>
+        <script type="text/javascript" src="/testassets/jquery.highlight_diff.min.js"></script>
+        <title>Github API test</title>
 		<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -24,13 +23,6 @@
 		<link rel="apple-touch-icon" href="/themes/new/images/apple-touch-icon.png">
 		<link rel="apple-touch-icon" sizes="72x72" href="/themes/new/images/apple-touch-icon-72x72.png">
 		<link rel="apple-touch-icon" sizes="114x114" href="/themes/new/images/apple-touch-icon-114x114.png">
-        
-        <script type="text/javascript" src="/assets/cad80fdb/highlight.pack.js"></script>
-        <script type="text/javascript">
-        /*<![CDATA[*/
-        hljs.initHighlightingOnLoad();
-        /*]]>*/
-        </script>
 	</head>
 	<body>
 <?php
