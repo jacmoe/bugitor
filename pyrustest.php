@@ -66,7 +66,7 @@ $args = array('http://phpsvnclient.googlecode.com/svn/trunk/phpsvnclient.php');
 $svn = VersionControl_SVN::factory(array('diff'), $options);
 
 if ($diffs = $svn->diff->run($args, $switches)) {
-//echo "<pre>$diffs</pre>";
+echo "<pre>$diffs</pre>";
 $diffs = implode("\n", array_slice(explode("\n", $diffs), 2));
 echo "<div class=diff>";
 echo "diff --git\n";

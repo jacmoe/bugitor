@@ -38,10 +38,11 @@ $repository = "jacmoes";
 
 $bb->authenticate($user, $pass);
 $changesets = new bbApiChangesets($bb);
-$changeList = $changesets->show($repository, null, 'dc580ce65088');
-print_r($changeList);
+$changeList = $changesets->show($repository);
+//$changeList = $changesets->show($repository, null, 'dc580ce65088');
+//print_r($changeList);
 
-/*
+
 $count = $changeList->count;
 echo "Number of changesets: " . $count . "<br/>";
 $loop = (int)($count / 15) - 1;
@@ -123,7 +124,7 @@ if($remaining > 0)
         echo "<hr/>";
         echo "<br/>";
     }
-}*/
+}
 ?>
 	<script type="text/javascript">
 /*<![CDATA[*/

@@ -49,6 +49,7 @@ echo "</pre>";*/
 foreach($commit['modified'] as $modified){
     echo "<div class=diff>";
     echo "diff --git\n";
+    echo "--- phpsvnclient.php\n";
     //echo "<pre>";
     echo htmlspecialchars($modified['diff']);
     //echo "</pre>";
