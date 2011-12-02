@@ -97,7 +97,7 @@ class bbApiGroups extends bbApiAbstract
 		
 		$this->checkPermission($permission);
 		
-		$new_name = $new_name ?: $group_name;
+		$new_name = $new_name ? $new_name : $group_name;
 		$auto_add = $auto_add ? 'true' : 'false';
 				
 		$response = $this->api->put( "/groups/$credential/$group_name/", 
