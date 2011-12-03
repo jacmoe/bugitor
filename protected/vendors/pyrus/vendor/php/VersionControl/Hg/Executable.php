@@ -182,41 +182,18 @@ class VersionControl_Hg_Executable
 
         /* Set the binary name per platform */
         //@todo use PHP_OS (best), php_uname('s'), $_SERVER['OS']
-        switch ($_SERVER['OS']) {
-            case 'Windows_NT':
-                $binary = 'hg.exe';
-                break;
-            default:
-                $binary = 'hg';
-                break;
+        if(php_uname(s) == "Windows NT") {
+            $binary = 'hg.exe';
+        } else {
+            $binary = 'hg.exe';
         }
 
         if (null !== $path) {
             //@TODO Do we care to use the CUSTOMEXECUTABLE constant in this case??
             /* use the user provided path to an executable */
-            if ( isexecutable($path . DIRECTORY_SEPARATOR . $binary) ) {
-                $executables[] = $path . DIRECTORY_SEPARATOR . $binary;
-
-            }
-        }
-
-        /* If the user supplied path was bad or not supplied, autosearch */
-        if ( ( empty($executables) ) || ( null === $path ) ) {
-            /* iterate through the system's path to automagically find an
-             * executable */
-            $paths = explode(PATH_SEPARATOR, $_SERVER['Path']);
-
-            foreach ( $paths as $path ) {
-                if (is_executable($path . $binary)) { //DIRECTORY_SEPARATOR .
-                    $executables[] = $path . $binary;
-                }
-            }
-
-            if ( count($executables) === 0 ) {
-                throw new VersionControl_Hg_Executable_Exception(
-                    VersionControl_Hg_Executable_Exception::ERROR_HG_NOT_FOUND
-                );
-            }
+            //if ( is_executable($path . "/" . $binary) ) {
+                $executables[] = $path . "/" . $binary;
+            //}
         }
 
         /* use only the first instance found of a mercurial executable */

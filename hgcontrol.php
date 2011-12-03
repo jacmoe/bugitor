@@ -26,15 +26,16 @@
 	</head>
 	<body>
 <?php
+
 $path = 'protected/vendors/pyrus/vendor/php';
 set_include_path(get_include_path() . PATH_SEPARATOR . $path);
 
 require_once 'protected/vendors/pyrus/vendor/php/VersionControl/Hg.php';
 
 $hg = new VersionControl_Hg('C:/wamp/bugitor');
+$hg->setExecutable("C:/PROGRA~1/TortoiseHg");
+$hg->log()->run('verbose');
 
-//$hg->setExecutable("C:/Program Files/TortoiseHg/hg.exe");
-$hg->log();
 
 ?>
 	<script type="text/javascript">
