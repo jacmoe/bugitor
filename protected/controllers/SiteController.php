@@ -59,5 +59,24 @@ class SiteController extends Controller
 	        	$this->render('error', $error);
 	    }
 	}
+    
+    public function actionTest()
+    {
+        if(Yii::app()->config->get('python_path'))
+          putenv(Yii::app()->config->get('python_path'));
+        $hg = Yii::app()->scm->getBackend();
+        echo $hg->name;
+        echo "<hr/>";
+        $hg->repository = "/home/stealth977/tracker.ogitor.org/repositories/bugitor";
+        echo $hg->repository;
+        echo "<hr/>";
+        echo "<pre>";
+        $entries = $hg->log(1, 'tip', 10);
+        print_r($entries);
+        echo "</pre>";
+        
+        
+        
+    }
 
 }

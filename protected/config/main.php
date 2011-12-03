@@ -122,7 +122,7 @@ return array(
         ),
         
         'scm' => array(
-            'class' => 'ext.scm.ESCM',
+            'class' => 'SCM',
         ),
         
         'maintenanceMode' => array(

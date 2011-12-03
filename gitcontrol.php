@@ -35,37 +35,33 @@ $git = new VersionControl_Git('C:/wamp/www/foundation');
 $git->setGitCommandPath("C:/PROGRA~1/Git/bin/git.exe");
 $commits = $git->getCommits();
 
-print_r($commits[0]->getTree());
-echo "<hr/>";
+foreach($commits as $commit) {
+    echo "<pre>";
+    print_r($commit);
+    echo "</pre>";
+    echo "<hr/>";
+}
 /*
-results:
+echo "<hr/>";
 
-array(100) {
-  [0]=>
-  object(VersionControl_Git_Object_Commit)#3 (9) {
-    :
-  }
-  [1]=>
-  object(VersionControl_Git_Object_Commit)#6 (9) {
-    :
-  }
-
-  :
-*/
 $git1 = new VersionControl_Git('C:/wamp/www/foundation');
 $git1->setGitCommandPath("C:/PROGRA~1/Git/bin/git.exe");
 $commits1 = $git1->getCommits();
-$tree = $git1->getTree($commits1[0]->getTree());
-$tree->fetch();
-$blob = $tree->current()->fetch();
-//var_dump($blob->getContent());
-
+foreach($commits1 as $commit1) {
+    $tree = $git1->getTree($commit1->getTree());
+    $tree->fetch();
+    var_dump($tree);
+    echo "</pre>";
+    echo "<hr/>";
+}
+/*
 
 $result = $git1->getCommand('show')
     ->execute();
     echo "<pre>";
     print_r( $result );
     echo "</pre>";
+*/
 ?>
 	<script type="text/javascript">
 /*<![CDATA[*/
