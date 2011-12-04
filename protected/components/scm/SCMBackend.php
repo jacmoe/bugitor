@@ -6,13 +6,20 @@ abstract class SCMBackend extends CComponent
     public $username;
     public $password;
     
+    public $repositoryId;
+    public $lastRevision;
+    public $changes;
+    
     /*public function __construct($repository)
 	{
         $this->repository = $repository;
         echo $this->repository;
     }*/
     
-    abstract public function log($start = 0, $end = '', $limit = 100);
+    public abstract function getRepositoryId();
+    public abstract function getLastRevision();
+    
+    public abstract function getChanges($startRevision);
     
     public function getName()
     {

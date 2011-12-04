@@ -19,12 +19,38 @@ class GitSCMBackend extends SCMLocalBackend
         }
     }
 
-    public function log($start = 0, $end = '', $limit = 100)
+    protected function log($start = 0, $end = '', $limit = 100)
     {
         if('' == $end) {
             $end = 'HEAD';
         }
+        $limit = 1;
         $commits = $this->getGit()->getCommits('master', $limit, $start);
         return $commits;
+    }
+
+    public function cloneRepository()
+    {
+        
+    }
+    
+    public function pullRepository()
+    {
+        
+    }
+    
+    public function getRepositoryId()
+    {
+        return $this->repositoryId;
+    }
+    
+    public function getLastRevision()
+    {
+        return $this->lastRevision;
+    }
+    
+    public function getChanges($startRevision)
+    {
+        return $this->log($startRevision);
     }
 }
