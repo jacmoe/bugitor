@@ -57,14 +57,24 @@ class TestSCMCommand extends CConsoleCommand {
         $entries = $hg->log(1, 'tip', 1);
         print_r($entries);
         
-        
+        echo "\n---------------------------------------------------\n";
         $git = Yii::app()->scm->getBackend('git');
+        
         $git->setExecutable("C:/PROGRA~1/Git/bin/git.exe");
         $git->repository = "C:/wamp/www/foundation";
         echo $git->name;
+        echo "\n---------------------------------------------------\n";
+
         $git_entries = $git->log(1, 'tip', 1);
         print_r($git_entries);
-        
+        echo "\n---------------------------------------------------\n";
+
+        $github = Yii::app()->scm->getBackend('github');
+        echo $github->name;
+        echo "\n---------------------------------------------------\n";
+        $github_entries = $github->log(1, 'tip', 1);
+        print_r($github_entries);
+        echo "\n---------------------------------------------------\n";
     }
 
 }

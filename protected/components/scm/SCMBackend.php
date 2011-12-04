@@ -6,7 +6,7 @@ abstract class SCMBackend extends CComponent
     public $username;
     public $password;
     
-/*    public function __construct($repository)
+    /*public function __construct($repository)
 	{
         $this->repository = $repository;
         echo $this->repository;
