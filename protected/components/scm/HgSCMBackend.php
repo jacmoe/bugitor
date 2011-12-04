@@ -16,7 +16,7 @@ class HgSCMBackend extends SCMLocalBackend
         return $this->run_tool('hg', 'read', $a);
     }
     
-    public function log($start = 0, $end = '', $limit = 100)
+    protected function log($start = 0, $end = '', $limit = 100)
     {
         if('' == $end) {
             $end = 'tip';
@@ -135,5 +135,30 @@ class HgSCMBackend extends SCMLocalBackend
         $fp = null;
 
         return $entries;
+    }
+
+    public function cloneRepository()
+    {
+        
+    }
+
+    public function pullRepository()
+    {
+        
+    }
+
+    public function getRepositoryId()
+    {
+        return $this->repositoryId;
+    }
+    
+    public function getLastRevision()
+    {
+        return $this->lastRevision;
+    }
+    
+    public function getChanges($startRevision)
+    {
+        return $this->log($startRevision, 'tip', 1);
     }
 }

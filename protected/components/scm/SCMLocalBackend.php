@@ -54,6 +54,11 @@ abstract class SCMLocalBackend extends SCMBackend
         }
     }
     
+    public abstract function cloneRepository();
+    
+    public abstract function pullRepository();
+   
+    
     public function setExecutable($executable)
     {
         $this->executable = $executable;

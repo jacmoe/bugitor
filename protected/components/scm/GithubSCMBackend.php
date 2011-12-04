@@ -31,9 +31,24 @@ class GithubSCMBackend extends SCMBackend
         }
     }
 
-    public function log($start = 0, $end = '', $limit = 100)
+    protected function log($start = 0, $end = '', $limit = 100)
     {
         $commits = $this->getGithub()->getCommitApi()->getBranchCommits('jacmoe', 'highlighter', 'master');
         return $commits[0];
+    }
+
+    public function getRepositoryId()
+    {
+        return $this->repositoryId;
+    }
+    
+    public function getLastRevision()
+    {
+        return $this->lastRevision;
+    }
+    
+    public function getChanges($startRevision)
+    {
+        return $this->log();
     }
 }

@@ -36,10 +36,7 @@
 class TestSCMCommand extends CConsoleCommand {
 
     public function run($args) {
-        echo "Running TestSCM...\n";
-        
-        if(Yii::app()->config->get('python_path'))
-          putenv(Yii::app()->config->get('python_path'));
+        echo "\n";
         
         $hg = Yii::app()->scm->getBackend();
         
@@ -49,12 +46,14 @@ class TestSCMCommand extends CConsoleCommand {
         } else {
             $hg->setExecutable("/usr/bin/hg");
             $hg->repository = "/home/stealth977/tracker.ogitor.org/repositories/bugitor";
+            if(Yii::app()->config->get('python_path'))
+              putenv(Yii::app()->config->get('python_path'));
         }
         
-        echo $hg->repository;
+        echo $hg->name;
         echo "\n---------------------------------------------------\n";
         
-        $entries = $hg->log(1, 'tip', 1);
+        $entries = $hg->getChanges(1);
         print_r($entries);
         
         echo "\n---------------------------------------------------\n";
@@ -65,15 +64,25 @@ class TestSCMCommand extends CConsoleCommand {
         echo $git->name;
         echo "\n---------------------------------------------------\n";
 
-        $git_entries = $git->log(1, 'tip', 1);
+        $git_entries = $git->getChanges(1);
         print_r($git_entries);
         echo "\n---------------------------------------------------\n";
 
         $github = Yii::app()->scm->getBackend('github');
         echo $github->name;
         echo "\n---------------------------------------------------\n";
-        $github_entries = $github->log(1, 'tip', 1);
+        $github_entries = $github->getChanges(1);
         print_r($github_entries);
+        echo "\n---------------------------------------------------\n";
+
+        $bitbucket = Yii::app()->scm->getBackend('bitbucket');
+        echo $bitbucket->name;
+        echo "\n---------------------------------------------------\n";
+        $bitbucket->repository = "jacmoes";
+        require(dirname(__FILE__) . '/../../credentials.php');
+        $bitbucket->setCredentials($user, $pass);
+        $bitbucket_entries = $bitbucket->getChanges(1);
+        print_r($bitbucket_entries);
         echo "\n---------------------------------------------------\n";
     }
 
