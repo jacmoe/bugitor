@@ -1,11 +1,13 @@
 <?php
 abstract class SCMLocalBackend extends SCMBackend
 {
+    public $executable = 'hg';
+    
     // function courtesy of the mtrack project
     protected function run_tool($toolname, $mode, $args = null) {
         global $FORKS;
 
-        $tool = Yii::app()->config->get('hg_executable');
+        $tool = $this->executable;
         if (!strlen($tool)) {
             $tool = $toolname;
         }
@@ -52,4 +54,9 @@ abstract class SCMLocalBackend extends SCMBackend
         }
     }
     
+    public function setExecutable($executable)
+    {
+        $this->executable = $executable;
+    }
+
 }

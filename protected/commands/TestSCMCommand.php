@@ -33,31 +33,39 @@
 ?>
 <?php
 
-class SiteController extends Controller
-{
-        /**
-	 * This is the default 'index' action that is invoked
-	 * when an action is not explicitly requested by users.
-	 */
-	public function actionIndex()
-	{
-		// renders the view file 'protected/views/site/index.php'
-		// using the default layout 'protected/views/layouts/main.php'
-                $this->redirect(array('project/index'));
-	}
+class TestSCMCommand extends CConsoleCommand {
 
-	/**
-	 * This is the action to handle external exceptions.
-	 */
-	public function actionError()
-	{
-	    if($error=Yii::app()->errorHandler->error)
-	    {
-	    	if(Yii::app()->request->isAjaxRequest)
-	    		echo $error['message'];
-	    	else
-	        	$this->render('error', $error);
-	    }
-	}
+    public function run($args) {
+        echo "Running TestSCM...\n";
+        
+        if(Yii::app()->config->get('python_path'))
+          putenv(Yii::app()->config->get('python_path'));
+        
+        $hg = Yii::app()->scm->getBackend();
+        
+        if(php_uname('s') == "Windows NT") {
+            $hg->setExecutable("C:/PROGRA~1/TortoiseHg/hg.exe");
+            $hg->repository = "C:/wamp/newogitor";
+        } else {
+            $hg->setExecutable("/usr/bin/hg");
+            $hg->repository = "/home/stealth977/tracker.ogitor.org/repositories/bugitor";
+        }
+        
+        echo $hg->repository;
+        echo "\n---------------------------------------------------\n";
+        
+        $entries = $hg->log(1, 'tip', 1);
+        print_r($entries);
+        
+        
+        $git = Yii::app()->scm->getBackend('git');
+        $git->setExecutable("C:/PROGRA~1/Git/bin/git.exe");
+        $git->repository = "C:/wamp/www/foundation";
+        echo $git->name;
+        $git_entries = $git->log(1, 'tip', 1);
+        print_r($git_entries);
+        
+    }
 
 }
+

@@ -1,20 +1,23 @@
 <?php
 abstract class SCMBackend extends CComponent
 {
-    private $_repository_path;
-    
     public $name;
     public $repository;
     public $username;
     public $password;
     
-    public function __construct($repository_path)
+/*    public function __construct($repository)
 	{
-        $this->_repository_path = $repository_path;
-        echo $_repository_path;
-    }
+        $this->repository = $repository;
+        echo $this->repository;
+    }*/
     
-    abstract public function getName();
+    abstract public function log($start = 0, $end = '', $limit = 100);
+    
+    public function getName()
+    {
+        return $this->name;
+    }
 
     public function getRepository()
     {

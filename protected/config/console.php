@@ -49,6 +49,7 @@ return array(
         'application.modules.rights.components.*',
         'application.helpers.Time',
         'application.components.textile.*',
+        'application.components.scm.*',
         'application.helpers.Bugitor',
         'application.behaviors.ActiveRecordLogableBehavior',
         'application.extensions.simpleWorkflow.*',
@@ -69,6 +70,9 @@ return array(
             'class' => 'RWebUser',
             'allowAutoLogin' => true,
             'loginUrl' => array('/user/login'),
+        ),
+        'scm' => array(
+            'class' => 'SCM',
         ),
         'mutex' => array(
             'class' => 'ext.EMutex',
