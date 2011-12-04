@@ -16,14 +16,11 @@ class HgSCMBackend extends SCMLocalBackend
         return $this->run_tool('hg', 'read', $a);
     }
     
-    public function getName()
+    public function log($start = 0, $end = '', $limit = 100)
     {
-        return $this->name;
-    }
-
-
-    public function log($start = 0, $end = 'tip', $limit = 100)
-    {
+        if('' == $end) {
+            $end = 'tip';
+        }
 
         $this->arr_users = array();
 
@@ -113,7 +110,7 @@ class HgSCMBackend extends SCMLocalBackend
 
             list($ts) = preg_split('/\s+/', fgets($fp));
             //FIXME: format date the way we want the date
-            $entry['date'] = date("Y-m-d H:i:s", $ts);
+            //$entry['date'] = date("Y-m-d H:i:s", $ts);
 
             $changelog = array();
             while (($line = fgets($fp)) !== false) {

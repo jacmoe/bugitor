@@ -4,9 +4,16 @@ Yii::import('application.components.scm.*');
 
 class SCM extends CApplicationComponent
 {
-    private $_backend;
+    private $_backend = array(
+        'hg' => null, 
+        'git' => null,
+        'svn' => null,
+        'github' => null,
+        'bitbucket' => null,
+    );
+    
     public $versionController = 'hg';
-	
+
 	public $backendMap = array(
 		'hg' => 'HgSCMBackend',    // Mercurial
 		'git' => 'GitSCMBackend',   // Git
@@ -27,15 +34,17 @@ class SCM extends CApplicationComponent
         parent::init();
     }
     
-    public function getBackend()
+    public function getBackend($versionController = null)
     {
-        if($this->_backend !== null)
-            return $this->_backend;
+        if(null == $versionController) {
+            $versionController = 'hg';
+        }
+        if($this->_backend[$versionController] !== null)
+            return $this->_backend[$versionController];
         else
         {
-            $backend = $this->versionController;
-            if(isset($this->backendMap[$backend]))
-                return $this->_backend = Yii::createComponent($this->backendMap[$backend], $this);
+            if(isset($this->backendMap[$versionController]))
+                return $this->_backend[$versionController] = Yii::createComponent($this->backendMap[$versionController], $this);
             else
                 throw new CException(Yii::t('yii','SCM does not support {backend}.',
                     array('{backend}' => $backend)));
