@@ -176,7 +176,7 @@ class HgSCMBackend extends SCMLocalBackend
     
     public function getParents($revision)
     {
-        $fp = $this->run_tool('hg', 'read', array('parents', '-r' . $revision, '-R', $this->repositoryId, '--cwd', $this->repository, '--template', '{rev}:{node|short}'));
+        $fp = $this->run_tool('hg', 'read', array('parents', '-r' . $revision, '-R', $this->repository, '--cwd', $this->repository, '--template', '{rev}:{node|short}'));
         $parents = fgets($fp);
         return $parents;
     }
