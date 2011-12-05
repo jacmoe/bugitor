@@ -3,7 +3,7 @@ class HgSCMBackend extends SCMLocalBackend
 {
     public $name = 'hg';
     
-    protected $arr_users = array();
+    public $arr_users = array();
 
     protected function hg()
     {
@@ -145,14 +145,14 @@ class HgSCMBackend extends SCMLocalBackend
         return $entries;
     }
 
-    public function cloneRepository()
+    public function cloneRepository($local_path)
     {
-        
+        $this->run_tool('hg', 'read', array('clone', $this->repository, $local_path));        
     }
 
     public function pullRepository()
     {
-        
+        $this->hg('pull');
     }
 
     public function getRepositoryId()
@@ -169,8 +169,20 @@ class HgSCMBackend extends SCMLocalBackend
         return $this->lastRevision;
     }
     
-    public function getChanges($startRevision)
+    public function getChanges($start = 0, $end = '', $limit = 100)
     {
-        return $this->log($startRevision, 'tip', 1);
+        return $this->log($start, $end, $limit);
+    }
+    
+    public function getParents($revision)
+    {
+        $fp = $this->run_tool('hg', 'read', array('parents', '-r' . $revision, '-R', $this->repositoryId, '--cwd', $this->repository, '--template', '{rev}:{node|short}'));
+        $parents = fgets($fp);
+        return $parents;
+    }
+
+    public function getUsers()
+    {
+        return $this->arr_users;
     }
 }

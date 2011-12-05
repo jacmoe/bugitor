@@ -20,7 +20,9 @@ abstract class SCMBackend extends CComponent
     public abstract function getLastRevision();
     public abstract function getDiff($revision, $path);
     
-    public abstract function getChanges($startRevision);
+    public abstract function getChanges($start = 0, $end = '', $limit = 100);
+    
+    public abstract function getParents($revision);
     
     public function getName()
     {

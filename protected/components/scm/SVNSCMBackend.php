@@ -86,7 +86,7 @@ class SVNSCMBackend extends SCMLocalBackend
         */
     }
 
-    public function cloneRepository()
+    public function cloneRepository($local_path)
     {
         
     }
