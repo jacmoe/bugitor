@@ -1,0 +1,105 @@
+<?php
+
+// $Id: versioncontrol_hg.install,v 1.8 2008/02/03 04:05:20 ezyang Exp $
+
+/**
+ * @file
+ * Mercurial backend for Version Control API.
+ *
+ * Copyright 2008 by Edward Z. Yang (ezyang, http://drupal.org/user/211688)
+ */
+
+/**
+ * Implementation of hook_install().
+ */
+function versioncontrol_hg_install() {
+  switch ($GLOBALS['db_type']) {
+    case 'mysqli':
+    case 'mysql':
+      // 'latest_rev' is the most recent repository-specific revision number
+      // that has been processed and added to the database, or NULL if
+      // no revisions have been inserted (the equivalent of -1)
+      db_query("CREATE TABLE {versioncontrol_hg_repositories} (
+        repo_id int unsigned NOT NULL default 0,
+        latest_rev int unsigned NULL,
+        PRIMARY KEY (repo_id)
+      ) /*!40100 DEFAULT CHARACTER SET utf8 */");
+
+      // In Mercurial vocab, this should be named "versioncontrol_hg_changesets",
+      // however we call it commits to piggy back off of AUTOCOMMIT
+      //
+      // 'manifest' is the node ID of the repository state after that commit,
+      //    also effectively unique. NULL = '0000000000000000000000000000000000000000'.
+      // 'rev' is a repository-specific shorthand revision number, tied 
+      //    to manifest. NULL = -1
+      // 'parent1' and 'parent2' are the vc_op_id of the parent changesets
+      //    of the commit. If there is no parent, NULL is set.
+      
+      db_query("CREATE TABLE {versioncontrol_hg_commits} (
+        vc_op_id int unsigned NOT NULL default 0,
+        branch_id int unsigned NOT NULL default 0,
+        rev int unsigned NULL,
+        manifest varchar(255) NULL,
+        parent1 int signed NULL,
+        parent2 int signed NULL,
+        PRIMARY KEY (vc_op_id),
+        UNIQUE KEY (manifest),
+        UNIQUE KEY (rev)
+      ) /*!40100 DEFAULT CHARACTER SET utf8 */");
+      
+      // sourceX_path corresponds to parentX in the commit log.
+      // sourceX_Y values can be NULL depending on merge status.
+      // There are no file-specific revisions that we track (Mercurial
+      // does have internal ones, but they are not easily accessible),
+      // so we defer this contains the last operation in which the item
+      // was changed.
+      db_query("CREATE TABLE {versioncontrol_hg_commit_actions} (
+        commit_action_id int unsigned NOT NULL default 0,
+        vc_op_id int unsigned NOT NULL default 0,
+        action tinyint unsigned NOT NULL default 0,
+        type tinyint NOT NULL default 0,
+        path varchar(255) NOT NULL default '',
+        source1_path varchar(255) NULL,
+        source2_path varchar(255) NULL,
+        source1_vc_op_id int unsigned NULL,
+        source2_vc_op_id int unsigned NULL,
+        PRIMARY KEY (commit_action_id),
+        UNIQUE KEY (vc_op_id, path)
+      ) /*!40100 DEFAULT CHARACTER SET utf8 */");
+
+      // Mercurial tags apply to changesets, not files
+      db_query("CREATE TABLE {versioncontrol_hg_tags} (
+        tag_id int unsigned NOT NULL default 0,
+        repo_id int unsigned NOT NULL default 0,
+        name varchar(255) NOT NULL default 'default',
+        vc_op_id int unsigned NOT NULL default 0,
+        PRIMARY KEY (tag_id),
+        UNIQUE KEY (repo_id, name)
+      ) /*!40100 DEFAULT CHARACTER SET utf8 */");
+      
+      break;
+  }
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function versioncontrol_hg_uninstall() {
+  // Make sure we can access the required functions even from the .install file.
+  include_once(drupal_get_path('module', 'versioncontrol') .'/versioncontrol.module');
+  include_once(drupal_get_path('module', 'versioncontrol_hg') .'/versioncontrol_hg.module');
+
+  if (db_table_exists('versioncontrol_repositories')) {
+    $result = db_query("SELECT repo_id FROM {versioncontrol_repositories}
+                        WHERE vcs = 'hg'");
+    while ($repository = db_fetch_array($result)) {
+      versioncontrol_delete_repository($repository);
+    }
+  }
+
+  db_query('DROP TABLE {versioncontrol_hg_repositories}');
+  db_query('DROP TABLE {versioncontrol_hg_commits}');
+  db_query('DROP TABLE {versioncontrol_hg_commit_actions}');
+  db_query('DROP TABLE {versioncontrol_hg_tags}');
+}
+

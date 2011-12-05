@@ -1,0 +1,454 @@
+<?php
+// $Id: versioncontrol_hg.module,v 1.15 2008/02/19 00:46:21 ezyang Exp $
+/**
+ * @file
+ * Mercurial backend for Version Control API - Provides Mercurial commit
+ * information and account management as a pluggable backend.
+ *
+ * @note
+ *    Docblocks for standard functions are omitted; check versioncontrol
+ *    for the most up-to-date versions.
+ *
+ * Copyright 2008 by Edward Z. Yang (ezyang, http://drupal.org/user/211688)
+ */
+
+// Mercurial PHP interface functions
+include_once(drupal_get_path('module', 'versioncontrol_hg') .'/hg/hg.inc');
+
+/**
+ * Implementation of hook_versioncontrol_backends().
+ */
+function versioncontrol_hg_versioncontrol_backends() {
+  return array(
+    // The array key is up to 8 characters long, and used as unique identifier
+    // for this VCS, in functions, URLs and in the database.
+    'hg' => array(
+      // The user-visible name of the VCS.
+      'name' => 'Mercurial',
+
+      // A short description of the VCS, if possible not longer than one or two sentences.
+      'description' => t('Mercurial is a distributed revision control system written in Python.'),
+
+      // A list of optional capabilities, in addition to the required retrieval
+      // of detailed commit information. All allowed values are listed below.
+      'capabilities' => array(
+        // Able to retrieve a file or its revision number based on a global
+        // revision identifier.
+        VERSIONCONTROL_CAPABILITY_ATOMIC_COMMITS,
+      ),
+
+      // An array listing which tables should be managed by Version Control API
+      // instead of doing it manually in the backend.
+      // All allowed values are listed below.
+      'flags' => array(
+        // versioncontrol_insert_repository() will automatically insert
+        // array elements from $repository['[xxx]_specific'] into
+        // {versioncontrol_[xxx]_repositories} and versioncontrol_get_repositories()
+        // will automatically fetch it from there.
+        VERSIONCONTROL_FLAG_AUTOADD_REPOSITORIES,
+
+        // versioncontrol_insert_commit() will automatically insert
+        // array elements from $commit['[xxx]_specific'] into
+        // {versioncontrol_[xxx]_commits} and versioncontrol_get_commits()
+        // will automatically fetch it from there.
+        VERSIONCONTROL_FLAG_AUTOADD_COMMITS,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_cron(): Update repositories that have cron updates
+ * enabled.
+ */
+function versioncontrol_hg_cron() {
+  $result = db_query("SELECT repo_id FROM {versioncontrol_hg_repositories}");
+  // We have purposely omitted set_time_limit, as this is something that
+  // should be set by cron itself and not us!
+  while ($repo = db_fetch_object($result)) {
+    $repository = versioncontrol_get_repository($repo->repo_id);
+    if (isset($repository)) {
+      _versioncontrol_hg_update_repository($repository);
+    }
+  }
+}
+
+/**
+ * Performs all updates on a repository (currently just logs).
+ */
+function _versioncontrol_hg_update_repository(&$repository) {
+  include_once(drupal_get_path('module', 'versioncontrol_hg') .'/versioncontrol_hg.log.inc');
+  _versioncontrol_hg_log_update_repository($repository);
+}
+
+/**
+ * Implementation of [versioncontrol_backend]_get_directory_item().
+ *
+ * @warning
+ *   I don't understand why this can't have a generic implementation.
+ */
+function versioncontrol_hg_get_directory_item($operation) {
+  $item = array(
+    'type' => VERSIONCONTROL_ITEM_DIRECTORY,
+    'path' => $operation['directory'],
+    'revision' => '',
+    // We removed selected_op; might need to readd it later
+  );
+  if (isset($operation['hg_specific']['branch_id'])) {
+    $item['hg_specific']['selected_branch_id'] = $operation['hg_specific']['branch_id'];
+  }
+  return $item;
+}
+
+/**
+ * Implementation of [versioncontrol_backend]_get_commit_branches().
+ *
+ * @warning
+ *   This one could have a generic implementation too! The biggest problem
+ *   is that versioncontrol doesn't directly handle branches, but if
+ *   the module is going to call this function, it really ought to.
+ */
+function versioncontrol_hg_get_commit_branches($commit) {
+  if (!isset($commit['hg_specific']['branch_id'])) {
+    return array();
+  }
+  $branch = versioncontrol_get_branch($commit['hg_specific']['branch_id']);
+  if (!isset($branch)) {
+    // Only for database inconsistencies:
+    return array();
+  }
+  return array($branch['branch_name']);
+}
+
+/**
+ * Implementation of [versioncontrol_backend]_commit():
+ *
+ * @warning
+ *   An important precondition for our particular implementation is that
+ *   all earlier revisions must be in the database.
+ */
+function versioncontrol_hg_commit($op, $commit, $commit_actions) {
+  switch ($op) {
+    case 'insert':
+      foreach ($commit_actions as $path => $action) {
+        
+        if ($path === '/.hgtags') {
+          $repo_id = $commit['repository']['repo_id'];
+          // We've got to handle the tags!
+          // This has nothing to do with what's going on below.
+          db_query("DELETE FROM {versioncontrol_hg_tags} WHERE repo_id = %d", $repo_id);
+          $hgtags = hg_cat($commit['repository']['root'], '.hgtags', $commit['hg_specific']['rev']);
+          $tags = _hg_parse_hgtags($hgtags);
+          foreach ($tags as $name => $nodeid) {
+            $vc_op_id = db_result(db_query(
+              "SELECT vc_op_id FROM {versioncontrol_commits} WHERE revision = '%s';",
+              $nodeid
+            ));
+            $tag_id = db_next_id('{versioncontrol_hg_tags}_tag_id');
+            db_query("INSERT INTO {versioncontrol_hg_tags}
+              (tag_id, vc_op_id, repo_id, name) VALUES (%d, %d, %d, '%s');",
+              $tag_id, $vc_op_id, $repo_id, $name
+            );
+          }
+        }
+        
+        // Determine source information for this particular path
+        // based on both the commit's parent information and this
+        // filename. This is *very* Mercurial-specific.
+        
+        $source = array();
+        foreach (array(1, 2) as $k) {
+          $rev = (string) $commit['hg_specific']["parent$k"];
+          $source[$k] = array();
+          if ($rev === '-1') {
+            // No parent, so our job is really easy.
+            $source[$k]['path']     = null;
+            $source[$k]['vc_op_id'] = null;
+            continue;
+          }
+          // Determine the branch of the parent
+          $branch_id = db_result(db_query(
+            "SELECT branch_id FROM {versioncontrol_hg_commits}
+             WHERE rev = %d",
+             $rev)
+          );
+          if ($branch_id === false) {
+            // Database inconsistency!
+            $source[$k]['path']     = null;
+            $source[$k]['vc_op_id'] = null;
+            continue;
+          }
+          
+          // This step may need to be done multiple times
+          do {
+            
+            // Now, let's determine the latest commit_action for this
+            // path on this branch: this will be the parent revision.
+            $result = db_fetch_array(db_query(
+              "SELECT actions.vc_op_id, actions.type, commits.rev
+              FROM {versioncontrol_hg_commit_actions} AS actions
+              JOIN {versioncontrol_hg_commits} AS commits
+              ON actions.vc_op_id = commits.vc_op_id
+              WHERE
+                actions.path = '%s' AND
+                commits.branch_id = %d AND
+                commits.rev <= %d
+              ORDER BY commits.rev DESC
+              LIMIT 1
+              ",
+              $path, $branch_id, $rev));
+            
+            if (!$result) {
+              // Ok, the last item with this name either doesn't exist,
+              // so we're barking up the wrong
+              // tree: a branch had taken place, and the source file
+              // is in a different branch. (Note we don't have to worry
+              // about merges because they show up in commit actions.)
+              // We need to go to the top of the current branch and
+              // see what source it used.
+              $previous_branch = db_fetch_array(db_query(
+                "SELECT a.branch_id, a.rev FROM {versioncontrol_hg_commits} a
+                WHERE a.rev = (
+                  SELECT parent1 FROM {versioncontrol_hg_commits}
+                  WHERE branch_id = %d
+                  ORDER BY rev ASC
+                  LIMIT 1
+                )
+                ORDER BY a.rev DESC
+                LIMIT 1
+                ",
+                $branch_id
+              ));
+              
+              if (!$previous_branch) {
+                // Database inconsistency!
+                $source_path = null;
+                $last_vc_op_id = null;
+                break;
+              }
+              
+              $branch_id = $previous_branch['branch_id'];
+              $rev = $previous_branch['rev'];
+              
+              continue;
+            }
+            elseif ($result['type'] == VERSIONCONTROL_ITEM_FILE_DELETED &&
+                    $action['current item']['type'] != VERSIONCONTROL_ITEM_FILE_DELETED) {
+              // At some point earlier in the branch, this file was
+              // deleted, and now has been "rised from the dead" via
+              // a merge. Don't attempt to search any further.
+              // Note that if our action is a delete, this indicates
+              // a delete was merged in, and the parent IS valid (so
+              // we don't handle it here.)
+              $source_path = null;
+              $last_vc_op_id = null;
+              break;
+            }
+            
+            // Note that this variable indicates, for merges, the
+            // operation of the other delete that is being merged in
+            $last_vc_op_id = $result['vc_op_id'];
+            
+            // We currently have no way of telling if a file was copied.
+            $source_path = $path;
+            
+            break;
+            
+          } while (1);
+          
+          $source[$k]['path'] = $source_path;
+          $source[$k]['vc_op_id'] = $last_vc_op_id;
+          
+        }
+        
+        $commit_action_id = db_next_id('{versioncontrol_hg_commit_actions}_commit_action_id');
+        
+        // Use this to support nulls. Call it a nasty cludge... I think it's art. :-)
+        // Commented placeholders are used to maintain parameter order.
+        $s1p = ($source[1]['path'] === null) ? 'NULL /*%s*/' : "'%s'";
+        $s2p = ($source[2]['path'] === null) ? 'NULL /*%s*/' : "'%s'";
+        $s1v = ($source[1]['vc_op_id'] === null) ? 'NULL /*%d*/' : '%d';
+        $s2v = ($source[2]['vc_op_id'] === null) ? 'NULL /*%d*/' : '%d';
+        
+        db_query(
+          "INSERT INTO {versioncontrol_hg_commit_actions}
+           (commit_action_id, vc_op_id, type, path, action,
+           source1_path, source2_path, source1_vc_op_id, source2_vc_op_id)
+           VALUES (%d, %d, %d, '%s', %d,
+                   $s1p, $s2p, $s1v, $s2v)",
+          // Primary key:
+          $commit_action_id,
+          // Foreign key:
+          $commit['vc_op_id'],
+          $action['current item']['type'],
+          $path,
+          $action['action'],
+          // [Newline]
+          $source[1]['path'],
+          $source[2]['path'],
+          $source[1]['vc_op_id'],
+          $source[2]['vc_op_id']
+        );
+      }
+      break;
+
+    case 'delete':
+      $result = db_query('SELECT commit_action_id
+                          FROM {versioncontrol_hg_commit_actions}
+                          WHERE vc_op_id = %d', $commit['vc_op_id']);
+
+      // We have not implemented tags yet, but this is fairly sensible
+      // "unhooking" of tags from the deleted revisions.
+      
+      //while ($revision = db_fetch_object($result)) {
+      //  db_query('DELETE FROM {versioncontrol_hg_item_tags}
+      //            WHERE item_revision_id = %d',
+      //            $revision->item_revision_id);
+      //}
+      db_query('DELETE FROM {versioncontrol_hg_commit_actions}
+                WHERE vc_op_id = %d', $commit['vc_op_id']);
+      break;
+  }
+}
+
+/**
+ * Implementation of [versioncontrol_backend]_get_commit_actions().
+ */
+function versioncontrol_hg_get_commit_actions($commit) {
+  $commit_actions = array();
+  
+  $result = db_query('SELECT commit_action_id, action, type, path,
+                      source1_path, source2_path, source1_vc_op_id, source2_vc_op_id
+                      FROM {versioncontrol_hg_commit_actions}
+                      WHERE vc_op_id = %d', $commit['vc_op_id']);
+
+  while ($raw_commit_action = db_fetch_array($result)) {
+    $commit_action = array(
+      'action' => $raw_commit_action['action'],
+      'modified' => FALSE,
+      'hg_specific' => array(
+        // Some housekeeping values:
+        // Not sure who would need this, but we'll keep it anyway:
+        'commit_action_id' => $raw_commit_action['commit_action_id'],
+        // This is for versioncontrol_hg_get_current_item_branch():
+        'selected_branch_id' => $commit['hg_specific']['branch_id'],
+        // Don't know who will need this yet:
+        // 'selected_op' => $commit,
+      ),
+    );
+    
+    if ($raw_commit_action['action'] !== VERSIONCONTROL_ACTION_DELETED) {
+      $commit_action['current item'] = array(
+        'type' => $raw_commit_action['type'],
+        'path' => $raw_commit_action['path'],
+        'revision' => $commit['revision'],
+      );
+    }
+    
+    // Most implementations check action, but since there are only
+    // two to check, we won't bother:
+    $commit_action['source items'] = array();
+    foreach (array(1, 2) as $k) {
+      if ($raw_commit_action["source{$k}_vc_op_id"] === null) {
+        continue;
+      }
+      // Pull the changeset node for the operation
+      // We could use versioncontrol_get_commits(), but that's total
+      // overkill for our needs. We could also have done a JOIN.
+      $revision = db_result(db_query(
+        "SELECT revision FROM {versioncontrol_commits}
+        WHERE vc_op_id = %d",
+        $raw_commit_action["source{$k}_vc_op_id"])
+      );
+      if (!$revision) {
+        // Database error, abort!
+        continue;
+      }
+      $commit_action['source items'][] = array(
+        'type' => $raw_commit_action['type'],
+        'path' => $raw_commit_action["source{$k}_path"],
+        'revision' => $revision,
+      );
+    }
+
+    $commit_actions[$raw_commit_action['path']] = $commit_action;
+  }
+
+  return $commit_actions;
+}
+
+/**
+ * Implementation of [versioncontrol_backend]_get_short_revision_identifier():
+ * Return a shortened version of the revision identifier, as plaintext.
+ * This is used by versioncontrol_format_commit_identifier()
+ * and versioncontrol_format_item_revision().
+ */
+function versioncontrol_hg_format_short_revision_identifier($revision) {
+  // Let's return only the first 12 characters of the commit identifier,
+  // like Mercurial (including hgweb) does by default. This might result
+  // in collisions.
+  return substr($revision, 0, 12);
+}
+
+/**
+ * Implementation of [versioncontrol_backend]_get_current_item_branch().
+ */
+function versioncontrol_hg_get_current_item_branch($repository, $item) {
+  if (!isset($item['hg_specific']['selected_branch_id'])) {
+    return NULL;
+  }
+
+  $branch = versioncontrol_get_branch($item['hg_specific']['selected_branch_id']);
+  if (!isset($branch)) {
+    return NULL;
+  }
+  return $branch['branch_name'];
+}
+
+/**
+ * Retrieve the set of items that were affected by a branch operation.
+ *
+ * @warning
+ *    This function returns an empty array because all branches are
+ *    repository-wide, so all files are affected.
+ */
+function versioncontrol_hg_get_branched_items($branch) {
+  return array();
+}
+
+/**
+ * Retrieve the set of items that were affected by a tag operation.
+ *
+ * @warning
+ *    This function returns an empty array because all tags are
+ *    repository-wide, so all files are affected.
+ */
+function versioncontrol_hg_get_tagged_items($tag) {
+  return array();
+}
+
+/**
+ * Implementation of [vcs_backend]_get_parent_item().
+ */
+function versioncontrol_hg_get_parent_item($repository, $item, $parent_path = NULL) {
+  if (!isset($parent_path)) {
+    $item['path'] = dirname($item['path']);
+    return $item;
+  }
+  else if (strpos($item['path'] .'/', $parent_path .'/') !== FALSE) {
+    $item['path'] = $parent_path;
+    return $item;
+  }
+  return NULL;
+}
+
+/**
+ * Implementation of [versioncontrol_backend]_get_current_item_tag():
+ *
+ * @warning
+ *    Because there are no tagged items, this function should not be called.
+ */
+function versioncontrol_hg_get_current_item_tag() {
+  return NULL;
+}
+

@@ -1,0 +1,14 @@
+; $Id: versioncontrol_cvslog_compat.info,v 1.4 2009/02/14 14:28:43 jpetso Exp $
+name = "cvs.module compatibility"
+description = "Compatibility layer to implement certain aspects of cvs.module on top of Version Control API and its CVS backend."
+dependencies[] = versioncontrol_cvs
+dependencies[] = commitlog
+package = Version Control
+core = 6.x
+
+; Information added by drupal.org packaging script on 2009-04-09
+version = "6.x-1.0-rc1"
+core = "6.x"
+project = "versioncontrol_cvs"
+datestamp = "1239237965"
+

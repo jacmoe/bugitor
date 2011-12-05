@@ -1,0 +1,10 @@
+# $Id: .htaccess,v 1.1 2008/01/27 07:04:12 boombatower Exp $
+
+# The scripts in this directory should never be invoked from the web.
+# They are meant to be run via as CLI scripts called via Git's own
+# hooks (see README.txt for details). Therefore, we prevent them from
+# being accessible via the web at all.
+
+<FilesMatch "\.php$">
+  Order allow,deny
+</FilesMatch>

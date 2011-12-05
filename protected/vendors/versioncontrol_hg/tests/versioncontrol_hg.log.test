@@ -1,0 +1,52 @@
+<?php
+
+include_once(drupal_get_path('module', 'versioncontrol_hg') .'/versioncontrol_hg.log.inc');
+
+class VersionControl_Hg_LogTest extends DrupalTestCase
+{
+  function get_info() {
+    return array(
+      'name'  => t("versioncontrol_hg.log.inc test"),
+      'desc'  => t("Tests the log functions for the Mercurial backend."),
+      'group' => t('Version control API module'),
+    );
+  }
+  
+  function testPreprocess() {
+    
+    // This log set only contains the variables being operated on; it
+    // is accordingly quite fragile.
+    $log = array(
+      'date' => '1201575219.018000',
+      'manifest' => '16:593f8918ac95981733cc3db3230249fbeb4bd0b8',
+      'parents' => '15:d3930cc1119095928e16e24cbfb92e2603f92c5a -1:0000000000000000000000000000000000000000',
+      'author' => 'Bob Doe <bob@example.com>',
+      'branches' => ''
+    );
+    
+    // Copy the logs for our expectation:
+    $expect = $log;
+    
+    // Process logs:
+    _versioncontrol_hg_log_preprocess_log($log);
+    
+    $expect['_date'] = '1201575219';
+    $expect['_offset'] = 18000;
+    $expect['_manifest'] = array('16', '593f8918ac95981733cc3db3230249fbeb4bd0b8');
+    $expect['_parents'] = array(
+      array('15', 'd3930cc1119095928e16e24cbfb92e2603f92c5a'),
+      array('-1', '0000000000000000000000000000000000000000')
+    );
+    $expect['_author'] = 'Bob Doe';
+    $expect['_email'] = 'bob@example.com';
+    $expect['_branch'] = 'default';
+    
+    // We don't care about order, so make sure our identical expect doesn't
+    // either:
+    ksort($log);
+    ksort($expect);
+    
+    $this->assertIdentical($log, $expect);
+    
+  }
+}
