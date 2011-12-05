@@ -1,0 +1,4 @@
+﻿SELECT v.rev, b.branch_name, v.parent1, v.parent2, c.message FROM versioncontrol_hg_commits v
+JOIN versioncontrol_commits c ON v.vc_op_id = c.vc_op_id
+JOIN versioncontrol_branches b ON v.branch_id = b.branch_id;
+-- This query provides a user-friendly view of commits

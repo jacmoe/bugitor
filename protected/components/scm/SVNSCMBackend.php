@@ -13,7 +13,23 @@ class SVNSCMBackend extends SCMLocalBackend
             $end = 'HEAD';
         }
         $limit = 1;
-        $commits = $this->getSvn()->getCommits('master', $limit, $start);
+        
+        //$svnstack = &PEAR_ErrorStack::singleton('VersionControl_SVN');
+
+        $options = array('fetchmode' => VERSIONCONTROL_SVN_FETCHMODE_ASSOC);
+        $svn = VersionControl_SVN::factory('log', $options);
+
+        // Define any switches and aguments we may need
+        $switches = array('verbose' => 'true');
+        $args = array($this->repository);
+
+        // Run command
+        if ($commits = $svn->run($args, $switches))
+        {
+            return $commits[0];
+        } else {
+            return null;
+        }
         /*
             revision
             short_rev
@@ -28,7 +44,6 @@ class SVNSCMBackend extends SCMLocalBackend
                 status
             message
         */
-        return $commits;
     }
 
     public function cloneRepository()

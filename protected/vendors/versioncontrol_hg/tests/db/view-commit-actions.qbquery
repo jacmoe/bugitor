@@ -1,0 +1,7 @@
+﻿SELECT c.rev, b.branch_name, path, action, type, c2.rev AS source1_rev, c3.rev AS source2_rev
+FROM versioncontrol_hg_commit_actions a
+JOIN versioncontrol_hg_commits c ON a.vc_op_id = c.vc_op_id
+JOIN versioncontrol_branches b ON c.branch_id = b.branch_id
+LEFT JOIN versioncontrol_hg_commits c2 ON a.source1_vc_op_id = c2.vc_op_id
+LEFT JOIN versioncontrol_hg_commits c3 ON a.source2_vc_op_id = c3.vc_op_id
+-- This query provides a user-friendly view of commit actions

@@ -1,0 +1,11 @@
+changeset = changeset.tmpl
+file = '{file}\n'
+last_file = '{file}\n'
+tag = '{tag}\n'
+last_tag = '{tag}\n'
+file_add = '{file_add}\n'
+last_file_add = '{file_add}\n'
+file_del = '{file_del}\n'
+last_file_del = '{file_del}\n'
+file_copy = '{file_copy}\n'
+last_file_copy = '{file_copy}\n'

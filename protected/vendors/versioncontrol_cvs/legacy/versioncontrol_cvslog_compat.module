@@ -1,0 +1,91 @@
+<?php
+// $Id: versioncontrol_cvslog_compat.module,v 1.3 2009/01/04 22:45:01 jpetso Exp $
+/**
+ * @file
+ * Compatibility layer to implement certain aspects of cvs.module on top of
+ * Version Control API and its CVS backend.
+ *
+ * Copyright 2009 by Jakob Petsovits ("jpetso", http://drupal.org/user/56020)
+ */
+
+/**
+ * Implementation of hook_menu().
+ */
+function versioncontrol_cvslog_compat_menu() {
+  $items = array();
+  $view_access = 'access commit messages';
+
+  $items['cvs'] = array(
+    'title' => 'CVS messages',
+    'page callback' => 'versioncontrol_cvslog_compat_commitlog_page',
+    'access arguments' => array($view_access),
+    'type' => MENU_CALLBACK,
+  );
+  $items['cvs-application'] = array(
+    'title' => 'CVS application form',
+    'page callback' => 'versioncontrol_cvslog_compat_application_page',
+    'access arguments' => array($view_access),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Page callback for the 'cvs-application' menu path.
+ */
+function versioncontrol_cvslog_compat_application_page() {
+  drupal_goto('versioncontrol/register');
+}
+
+/**
+ * Page callback for the 'cvs-application' menu path.
+ */
+function versioncontrol_cvslog_compat_commitlog_page() {
+  $constraints = array('vcs' => array('cvs'));
+
+  // Transform the query string into Version Control API constraints.
+  if (is_numeric($_REQUEST['commit'])) {
+    $constraints['vc_op_ids'] = array($_REQUEST['commit']);
+  }
+  if ($_REQUEST['user']) {
+    $account = user_load($_REQUEST['user']);
+
+    // There's no constraint for querying "either Drupal or VCS username"
+    // currently, so let's fall back to the most reasonable switch.
+    // (We can't have them both, as that would result in an "AND" operator.)
+    if ($account) {
+      $constraints['uids'] = array($_REQUEST['uid']);
+    }
+    else {
+      $constraints['usernames'] = array($_REQUEST['user']);
+    }
+  }
+  if (is_numeric($_REQUEST['uid'])) {
+    $constraints['uids'] = array($_REQUEST['uid']);
+  }
+  if (is_numeric($_REQUEST['nid'])) {
+    $constraints['nids'] = array($_REQUEST['nid']);
+  }
+  if ($_REQUEST['branch']) {
+    $branch = strtoupper($_REQUEST['branch']) == 'HEAD' ? '' : $_REQUEST['branch'];
+    $constraints['branches'] = array($branch);
+  }
+  if ($_REQUEST['file']) {
+    $constraints['paths'] = array($_REQUEST['file']);
+  }
+  if (is_numeric($_REQUEST['rid'])) {
+    $constraints['repo_ids'] = array($_REQUEST['rid']);
+  }
+  if ($_REQUEST['message']) {
+    $constraints['message'] = array($_REQUEST['message']);
+  }
+
+  if (isset($_REQUEST['rss']) && $_REQUEST['rss']) {
+    drupal_set_header('Content-Type: application/rss+xml; charset=utf-8');
+    print theme('commitlog_rss', $constraints);
+    exit();
+  }
+
+  // No RSS, return the regular HTML output.
+  return commitlog_operations($constraints);
+}

@@ -1,0 +1,2 @@
+- difference between author and committer
+- there is a problem here when importing a tag that comes from a git-svn import (no operation is saved)

@@ -38,7 +38,7 @@ class TestSCMCommand extends CConsoleCommand {
     public function run($args) {
         echo "\n";
         
-        $hg = Yii::app()->scm->getBackend();
+        /*$hg = Yii::app()->scm->getBackend();
         
         if(php_uname('s') == "Windows NT") {
             $hg->setExecutable("C:/PROGRA~1/TortoiseHg/hg.exe");
@@ -83,7 +83,16 @@ class TestSCMCommand extends CConsoleCommand {
         $bitbucket->setCredentials($user, $pass);
         $bitbucket_entries = $bitbucket->getChanges(1);
         print_r($bitbucket_entries);
+        echo "\n---------------------------------------------------\n";*/
+
+        $svn = Yii::app()->scm->getBackend('svn');
+        echo $svn->name;
         echo "\n---------------------------------------------------\n";
+        $svn->repository = "http://phpsvnclient.googlecode.com/svn";
+        $svn_entries = $svn->getChanges(1);
+        print_r($svn_entries);
+        echo "\n---------------------------------------------------\n";
+
     }
 
 }
