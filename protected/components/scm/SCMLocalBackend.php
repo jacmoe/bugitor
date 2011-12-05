@@ -54,7 +54,7 @@ abstract class SCMLocalBackend extends SCMBackend
         }
     }
     
-    public abstract function cloneRepository();
+    public abstract function cloneRepository($local_path);
     
     public abstract function pullRepository();
    
