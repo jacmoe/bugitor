@@ -34,6 +34,20 @@ class GithubSCMBackend extends SCMBackend
     protected function log($start = 0, $end = '', $limit = 100)
     {
         $commits = $this->getGithub()->getCommitApi()->getBranchCommits('jacmoe', 'highlighter', 'master');
+        /*
+            revision
+            short_rev
+            branches
+            branch_count
+            tags
+            tag_count
+            parents
+            parent_count
+            files
+                name
+                status
+            message
+        */
         return $commits[0];
     }
 

@@ -41,7 +41,44 @@ class BitbucketSCMBackend extends SCMBackend
 
         $changesets = new bbApiChangesets($this->getBitbucket());
         
-        $changeList = $changesets->show($this->repository);
+        $changeList = $changesets->show($this->repository, null, null, 1);
+    
+        foreach($changeList->changesets as $key => $val)
+        {
+            $commit = array();
+            /*
+                revision
+                short_rev
+                branches
+                branch_count
+                tags
+                tag_count
+                parents
+                parent_count
+                files
+                    name
+                    status
+                message
+            */
+            $commit['revision'] = $val->revision;
+            $commit['node'] = $val->node;
+            $commit['raw_node'] = $val->raw_node;
+            $commit['timestamp'] = $val->timestamp;
+            $commit['utc_timestamp'] = $val->utctimestamp;
+            $commit['branch'] = $val->branch;
+            $commit['message'] = $val->message;
+            $commit['author'] = $val->author;
+            foreach($val->parents as $parent)
+            {
+                //echo "Parent: " . $parent;
+            }
+            foreach($val->files as $file)
+            {
+                //print_r($file);
+            }
+            $commits[] = $commit;
+        }
+/*        $changeList = $changesets->show($this->repository);
         //$changeList = $changesets->show($repository, null, 'dc580ce65088');
         //print_r($changeList);
 
@@ -75,7 +112,7 @@ class BitbucketSCMBackend extends SCMBackend
                 {
                     //print_r($file);
                 }
-            $commits[] = $commit;
+                $commits[] = $commit;
             }
             $counter++;
             $looper += 15;
@@ -108,7 +145,8 @@ class BitbucketSCMBackend extends SCMBackend
                 }
                 $commits[] = $commit;
             }
-        }
+        }*/
+        
         return $commits[0];
     }
 
