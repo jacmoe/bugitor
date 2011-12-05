@@ -1,7 +1,7 @@
 <?php
 abstract class SCMLocalBackend extends SCMBackend
 {
-    public $executable = 'hg';
+    public $executable = '';
     
     // function courtesy of the mtrack project
     protected function run_tool($toolname, $mode, $args = null) {

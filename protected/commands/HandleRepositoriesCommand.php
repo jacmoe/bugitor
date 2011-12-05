@@ -566,10 +566,12 @@ class HandleRepositoriesCommand extends CConsoleCommand {
         //TODO: do we really need hg update?
         //$this->hg('update');
         
+        // get the unique repository id
         $fp = $this->run_tool('hg', 'read', array('log', '-r0', '-R', $repository->local_path, '--cwd', $repository->local_path, '--template', '{node}'));
         $unique_id = fgets($fp);
         $fp = null;
 
+        // get last revision
         $fp = $this->run_tool('hg', 'read', array('log', '-rtip', '-R', $repository->local_path, '--cwd', $repository->local_path, '--template', '{rev}'));
         $last_revision = fgets($fp);
         $fp = null;

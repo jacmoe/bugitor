@@ -38,11 +38,11 @@ class TestSCMCommand extends CConsoleCommand {
     public function run($args) {
         echo "\n";
         
-        /*$hg = Yii::app()->scm->getBackend();
+        $hg = Yii::app()->scm->getBackend();
         
         if(php_uname('s') == "Windows NT") {
             $hg->setExecutable("C:/PROGRA~1/TortoiseHg/hg.exe");
-            $hg->repository = "C:/wamp/newogitor";
+            $hg->repository = "C:/wamp/bugitor";
         } else {
             $hg->setExecutable("/usr/bin/hg");
             $hg->repository = "/home/stealth977/tracker.ogitor.org/repositories/bugitor";
@@ -52,12 +52,16 @@ class TestSCMCommand extends CConsoleCommand {
         
         echo $hg->name;
         echo "\n---------------------------------------------------\n";
-        
+
         $entries = $hg->getChanges(1);
         print_r($entries);
-        
+
         echo "\n---------------------------------------------------\n";
-        $git = Yii::app()->scm->getBackend('git');
+        print "Repository ID: " . $hg->getRepositoryId() . "\n";
+        print "Last Revision: " . $hg->getLastRevision() . "\n";
+
+       
+        /*$git = Yii::app()->scm->getBackend('git');
         
         $git->setExecutable("C:/PROGRA~1/Git/bin/git.exe");
         $git->repository = "C:/wamp/www/foundation";
@@ -85,13 +89,13 @@ class TestSCMCommand extends CConsoleCommand {
         print_r($bitbucket_entries);
         echo "\n---------------------------------------------------\n";*/
 
-        $svn = Yii::app()->scm->getBackend('svn');
+        /*$svn = Yii::app()->scm->getBackend('svn');
         echo $svn->name;
         echo "\n---------------------------------------------------\n";
         $svn->repository = "http://phpsvnclient.googlecode.com/svn";
         $svn_entries = $svn->getChanges(1);
         print_r($svn_entries);
-        echo "\n---------------------------------------------------\n";
+        echo "\n---------------------------------------------------\n";*/
 
     }
 

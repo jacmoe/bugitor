@@ -31,6 +31,10 @@ class GithubSCMBackend extends SCMBackend
         }
     }
 
+    public function getDiff($revision, $path)
+    {
+    } 
+
     protected function log($start = 0, $end = '', $limit = 100)
     {
         $commits = $this->getGithub()->getCommitApi()->getBranchCommits('jacmoe', 'highlighter', 'master');
