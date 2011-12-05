@@ -39,8 +39,9 @@ class HandleRepositoriesCommand extends CConsoleCommand {
 
     public function fillUsersTable() {
         $authors = array();
+        $arr_users = array();
         $arr_users = $this->SCMBackend->getUsers();
-        foreach ($this->arr_users as $key => $val) {
+        foreach ($arr_users as $key => $val) {
             $authors[$val] = true;
         }
         $authors = array_keys($authors);
