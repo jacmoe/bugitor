@@ -26,6 +26,20 @@ class GitSCMBackend extends SCMLocalBackend
         }
         $limit = 1;
         $commits = $this->getGit()->getCommits('master', $limit, $start);
+        /*
+            revision
+            short_rev
+            branches
+            branch_count
+            tags
+            tag_count
+            parents
+            parent_count
+            files
+                name
+                status
+            message
+        */
         return $commits;
     }
 
