@@ -31,8 +31,11 @@ class BitbucketSCMBackend extends SCMBackend
             $this->_authenticated = true;
         }
     }
-    
-    
+
+    public function getDiff($revision, $path)
+    {
+    } 
+
     protected function log($start = 0, $end = '', $limit = 100)
     {
         $this->authenticate();

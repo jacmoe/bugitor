@@ -16,6 +16,14 @@ class HgSCMBackend extends SCMLocalBackend
         return $this->run_tool('hg', 'read', $a);
     }
     
+    public function getDiff($revision, $path)
+    {
+        $cmd = "{$this->executable} diff --git -c{$revision} -R {$this->repository} --cwd {$this->repository} {$path}";
+        $diff = stream_get_contents(popen($cmd, 'r'));
+        return $diff;
+    } 
+
+
     protected function log($start = 0, $end = '', $limit = 100)
     {
         if('' == $end) {
@@ -149,11 +157,15 @@ class HgSCMBackend extends SCMLocalBackend
 
     public function getRepositoryId()
     {
+        $fp = $this->run_tool('hg', 'read', array('log', '-r0', '-R', $this->repository, '--cwd', $this->repository, '--template', '{node}'));
+        $this->repositoryId = fgets($fp);
         return $this->repositoryId;
     }
     
     public function getLastRevision()
     {
+        $fp = $this->run_tool('hg', 'read', array('log', '-rtip', '-R', $this->repository, '--cwd', $this->repository, '--template', '{rev}'));
+        $this->lastRevision = fgets($fp);
         return $this->lastRevision;
     }
     
