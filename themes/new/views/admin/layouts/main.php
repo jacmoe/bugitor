@@ -9,7 +9,6 @@
         <meta charset="utf-8" />
         <title><?php  echo CHtml::encode($this -> pageTitle);?></title>
         <link rel="author" href="humans.txt">
-        <script src="<?php  echo Yii::app() -> theme -> baseUrl;?>/js/bootstrap-dropdown.js"></script>
         <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
@@ -58,8 +57,7 @@
          * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
          */
         ?>
-        <?php
-            $items = array();
+        $items = array();
         ?>
         <div id="page">
             <?php //$this->widget('LinkMenu');?>
@@ -89,6 +87,16 @@
                     </span>
                     <span id="mainmenu">
                         <?php
+                            if (((Yii::app()->controller->id === 'project')
+                            || (Yii::app()->controller->id === 'changeset')
+                            || (Yii::app()->controller->id === 'milestone')
+                            || (Yii::app()->controller->id === 'member')
+                            || (Yii::app()->controller->id === 'projectLink')
+                            || (Yii::app()->controller->id === 'repository')
+                            || (Yii::app()->controller->id === 'issueCategory')
+                            || (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) :
+                        ?>
+                        <?php
                         $items = array(
                                 array('label' => 'Admin Home', 'url' => array('/admin/default/index'), 'id' => 'admin/default/index', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
                                 array('label' => 'Projects', 'url' => array('/project/admin'), 'id' => 'project/admin', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
@@ -96,9 +104,14 @@
                                 array('label' => 'Roles and Rights', 'url' => array('/rights'), 'id' => 'rights', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
                                 array('label' => 'Global Settings', 'url' => array('/admin/settings/index'), 'id' => 'admin/settings/index', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
                                 array('label' => 'Information', 'url' => array('/admin'), 'id' => '/admin/information', 'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
-                                array('label' => 'Back to Project Index', 'url' => array('/project/index'), 'id' => '/project/index'),
                             );
                         ?>
+                        <?php  else :?>
+                        <?php
+                        $items = array(
+                          array('label' => 'Projects', 'url' => array('/projects/'), 'id' => 'project/index'), );
+                        ?>
+                        <?php  endif;?>
                     </span>
                     <span id="user-menu">
                         <?php $this->widget('BootTopbar', array(

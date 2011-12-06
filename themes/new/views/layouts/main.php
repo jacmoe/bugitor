@@ -124,6 +124,10 @@
                                                         'visible' => !Yii::app() -> user -> isGuest,
                                                         'id' => 'user/logout/logout'
                                                     ),
+                                                array(  'label' => 'Administration',
+                                                        'url' => array('/admin/default/index'),
+                                                        'id' => 'admin/default/index',
+                                                        'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
                                             ),
                                 ),
                             array(  'url' => '#',
