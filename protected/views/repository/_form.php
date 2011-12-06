@@ -42,13 +42,18 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-        <div class="row">
-		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'name'); ?>
+    <div class="row">
+        <?php echo $form->labelEx($model,'name'); ?>
+        <?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
+        <?php echo $form->error($model,'name'); ?>
+    </div>
+    <div class="row">
+		<?php echo $form->labelEx($model,'type'); ?>
+        <?php echo $form->dropDownList($model, 'type', Yii::app()->scm->backendList); ?>
+		<?php echo $form->error($model,'type'); ?>
 	</div>
 
-        <div class="row">
+    <div class="row">
 		<?php echo $form->labelEx($model,'url'); ?>
 		<?php echo $form->textField($model,'url',array('size'=>60,'maxlength'=>60)); ?>
 		<?php echo $form->error($model,'url'); ?>
