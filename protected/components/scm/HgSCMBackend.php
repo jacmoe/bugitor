@@ -18,17 +18,17 @@ class HgSCMBackend extends SCMLocalBackend
     
     public function getDiff($path, $from, $to = null)
     {
-        //$cmd = "{$this->executable} diff --git -c{$revision} -R {$this->repository} --cwd {$this->repository} {$path}";
-        //$diff = stream_get_contents(popen($cmd, 'r'));
+        $cmd = "{$this->executable} diff --git -c{$from} -R {$this->repository} --cwd {$this->repository} {$path}";
+        $diff = stream_get_contents(popen($cmd, 'r'));
 
-        if ($to !== null)
+        /*if ($to !== null)
         {
-            $fp = $this->hg('diff', '-r', $from, '-r', $to, '--git', $path);
-            $diff = fgets($fp);
+            $diff = $this->hg('diff', '-r', $from, '-r', $to, '--git', $path);
+            //$diff = fgets($fp);
             return $diff;
         }
-        $fp = $this->hg('diff --git', '-c', $from, $path);
-        $diff = fgets($fp);
+        $diff = $this->hg('diff', '--git', "-c{$from}", $path);
+        //$diff = fgets($fp);*/
         return $diff;
     } 
 
