@@ -41,12 +41,14 @@
 class ConfigForm extends CFormModel
 {
 	public $pagesize;
-        public $hg_executable;
-        public $python_path;
-        public $default_scm;
-        public $default_timezone;
-        public $hostname;
-        public $logging_enabled;
+    public $hg_executable;
+    public $git_executable;
+    public $svn_executable;
+    public $python_path;
+    public $default_scm;
+    public $default_timezone;
+    public $hostname;
+    public $logging_enabled;
 
 	/**
 	 * Declares the validation rules.
@@ -54,7 +56,7 @@ class ConfigForm extends CFormModel
 	public function rules()
 	{
 		return array(
-			array('pagesize, hg_executable, default_scm, default_timezone, hostname, logging_enabled', 'required'),
+			array('pagesize, hg_executable, git_executable, svn_executable, default_scm, default_timezone, hostname, logging_enabled', 'required'),
                         array('logging_enabled', 'boolean'),
                         array('python_path', 'safe'),
 		);
@@ -70,6 +72,8 @@ class ConfigForm extends CFormModel
             return array(
                 'pagesize'=>'Page Size',
                 'hg_exectutable' => 'Path to hg exectuable',
+                'git_exectutable' => 'Path to git exectuable',
+                'svn_exectutable' => 'Path to svn exectuable',
                 'python_path' => 'Python path environment variable',
                 'default_scm' => 'Default Source Control Provider',
                 'default_timezone' => 'Default Timezone',
@@ -79,6 +83,8 @@ class ConfigForm extends CFormModel
 	}
         public function save() {
             Yii::app()->config->set('hg_executable', $this->hg_executable);
+            Yii::app()->config->set('git_executable', $this->git_executable);
+            Yii::app()->config->set('svn_executable', $this->svn_executable);
             Yii::app()->config->set('defaultPagesize', $this->pagesize);
             Yii::app()->config->set('python_path', $this->python_path);
             Yii::app()->config->set('default_timezone', $this->default_timezone);

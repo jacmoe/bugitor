@@ -78,6 +78,8 @@ class SettingsController extends Controller {
         $model = new ConfigForm;
         $model->pagesize = Yii::app()->config->get('defaultPagesize');
         $model->hg_executable = Yii::app()->config->get('hg_executable');
+        $model->git_executable = Yii::app()->config->get('git_executable');
+        $model->svn_executable = Yii::app()->config->get('svn_executable');
         $model->python_path = Yii::app()->config->get('python_path');
         $model->default_scm = Yii::app()->config->get('default_scm');
         $model->default_timezone = Yii::app()->config->get('default_timezone');
