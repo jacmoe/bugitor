@@ -3,6 +3,8 @@ abstract class SCMBackend extends CComponent
 {
     public $name;
     public $repository;
+    public $directory;
+    public $url;
     public $username;
     public $password;
     
@@ -18,7 +20,7 @@ abstract class SCMBackend extends CComponent
     
     public abstract function getRepositoryId();
     public abstract function getLastRevision();
-    public abstract function getDiff($revision, $path);
+    public abstract function getDiff($path, $from, $to = null);
     
     public abstract function getChanges($start = 0, $end = '', $limit = 100);
     
@@ -38,6 +40,24 @@ abstract class SCMBackend extends CComponent
         $this->repository = $repository;
     }
 
+    public function getDirectory()
+    {
+        return $this->directory;
+    }
+    public function setDirectory($directory)
+    {
+        $this->directory = $directory;
+    }
+
+    public function getUrl()
+    {
+        return $this->url;
+    }
+    public function setUrl($url)
+    {
+        $this->url= $url;
+    }
+    
     public function getUsername()
     {
         return $this->username;

@@ -39,11 +39,13 @@
  * The followings are the available columns in table '{{author_user}}':
  * @property integer $id
  * @property integer $user_id
- * @property string $author
+ * @property integer $repository_id
+ *  * @property string $author
  *
  * The followings are the available model relations:
  * @property User $user
- */
+ * @property Repository $repository
+ *  */
 class AuthorUser extends CActiveRecord
 {
     /**
@@ -72,11 +74,11 @@ class AuthorUser extends CActiveRecord
         // will receive user inputs.
         return array(
             array('id, author', 'required'),
-            array('id, user_id', 'numerical', 'integerOnly'=>true),
+            array('id, user_id, repository_id', 'numerical', 'integerOnly'=>true),
             array('author', 'length', 'max'=>60),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, user_id, author', 'safe', 'on'=>'search'),
+            array('id, user_id, repository_id, author', 'safe', 'on'=>'search'),
         );
     }
 
@@ -89,6 +91,7 @@ class AuthorUser extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+            'repository' => array(self::BELONGS_TO, 'Repository', 'repository_id'),
         );
     }
 
@@ -101,6 +104,7 @@ class AuthorUser extends CActiveRecord
             'id' => 'ID',
             'user_id' => 'User',
             'author' => 'Author',
+            'repository_id' => 'Repository',
         );
     }
 
@@ -115,8 +119,9 @@ class AuthorUser extends CActiveRecord
 
         $criteria=new CDbCriteria;
 
-        $criteria->with = array('user');
+        $criteria->with = array('user', 'repository');
         $criteria->compare('id',$this->id);
+        $criteria->compare('repository.id', $this->repository_id);
         $criteria->compare('user.username',$this->user_id);
         $criteria->compare('author',$this->author);
 

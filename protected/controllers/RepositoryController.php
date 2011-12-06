@@ -69,7 +69,7 @@ class RepositoryController extends Controller
 			$model->attributes=$_POST['Repository'];
                         $model->identifier = preg_replace( '/\s*/m', '', strtolower($model->name));
                         $directory = Yii::app()->file->set('repositories', true);
-			$model->local_path = $directory->getRealPath() . '/' . $model->identifier;
+			$model->local_path = $directory->getRealPath() . DIRECTORY_SEPARATOR . $model->identifier;
                         if($model->save()){
                             $this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'repositories'));
                         } else {
