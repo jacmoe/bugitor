@@ -16,10 +16,19 @@ class HgSCMBackend extends SCMLocalBackend
         return $this->run_tool('hg', 'read', $a);
     }
     
-    public function getDiff($revision, $path)
+    public function getDiff($path, $from, $to = null)
     {
-        $cmd = "{$this->executable} diff --git -c{$revision} -R {$this->repository} --cwd {$this->repository} {$path}";
-        $diff = stream_get_contents(popen($cmd, 'r'));
+        //$cmd = "{$this->executable} diff --git -c{$revision} -R {$this->repository} --cwd {$this->repository} {$path}";
+        //$diff = stream_get_contents(popen($cmd, 'r'));
+
+        if ($to !== null)
+        {
+            $fp = $this->hg('diff', '-r', $from, '-r', $to, '--git', $path);
+            $diff = fgets($fp);
+            return $diff;
+        }
+        $fp = $this->hg('diff --git', '-c', $from, $path);
+        $diff = fgets($fp);
         return $diff;
     } 
 
@@ -43,6 +52,7 @@ class HgSCMBackend extends SCMLocalBackend
         }
 
         fgets($fp); # discard leading $sep
+        echo "ran the log command succesfully\n\n";
         // corresponds to the file_adds, file_copies, file_modes, file_dels
         // in the template above
         static $file_status_order = array('M', 'C', 'A', 'D');
@@ -118,7 +128,7 @@ class HgSCMBackend extends SCMLocalBackend
 
             list($ts) = preg_split('/\s+/', fgets($fp));
             //FIXME: format date the way we want the date
-            //$entry['date'] = date("Y-m-d H:i:s", $ts);
+            $entry['date'] = date("Y-m-d H:i:s", $ts);
 
             $changelog = array();
             while (($line = fgets($fp)) !== false) {
@@ -142,16 +152,19 @@ class HgSCMBackend extends SCMLocalBackend
         } //while true
         $fp = null;
 
+        echo "got to the end of log function succesfully\n\n";
+
         return $entries;
     }
 
-    public function cloneRepository($local_path)
+    public function cloneRepository()
     {
-        $this->run_tool('hg', 'read', array('clone', $this->repository, $local_path));        
+        $this->run_tool('hg', 'read', array('clone', $this->url, $this->directory));        
     }
 
     public function pullRepository()
     {
+        echo "In Pull Repository\n\n";
         $this->hg('pull');
     }
 
@@ -179,6 +192,12 @@ class HgSCMBackend extends SCMLocalBackend
         $fp = $this->run_tool('hg', 'read', array('parents', '-r' . $revision, '-R', $this->repository, '--cwd', $this->repository, '--template', '{rev}:{node|short}'));
         $parents = fgets($fp);
         return $parents;
+    }
+
+    public function setDirectory($directory)
+    {
+        $this->directory = $directory;
+        $this->repository = $this->directory;
     }
 
     public function getUsers()

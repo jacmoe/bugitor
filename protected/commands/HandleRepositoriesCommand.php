@@ -187,7 +187,7 @@ class HandleRepositoriesCommand extends CConsoleCommand {
                         $change->path = $file['name'];
                         $change->action = $file['status'];
                         if ('M' === $change->action) {
-                            $change->diff = $this->SCMBackend->getDiff($changeset->short_rev, $change->path);
+                            $change->diff = $this->SCMBackend->getDiff($change->path, $changeset->short_rev);
                         } else {
                             $change->diff = '';
                         }
@@ -361,17 +361,22 @@ class HandleRepositoriesCommand extends CConsoleCommand {
 
         $this->SCMBackend = Yii::app()->scm->getBackend($repository->type);
 
+        $this->SCMBackend->url = $repository->url;
+        $this->SCMBackend->directory = $repository->local_path;
         $this->SCMBackend->repository = $repository->local_path;
         
         if ($repository->status === '0') {
             // clone repository
-            $this->SCMBackend->cloneRepository($repository->local_path);
+            $this->SCMBackend->cloneRepository();
             $repository->status = 1;
             $repository->save();
+
+            echo "cloned succesfully\n\n";
 
             // fill author user table
             //FIXME: Do this more efficiently!
             $this->SCMBackend->getChanges(0, 'tip', 0);
+            echo "got changes succesfully\n\n";
             $this->fillUsersTable();
 
             return;
@@ -386,14 +391,17 @@ class HandleRepositoriesCommand extends CConsoleCommand {
         // repository has been cloned and author_user table checked
 
         $this->SCMBackend->pullRepository();
+        echo "pulled repository succesfully\n\n";
         //TODO: do we really need hg update?
         //$this->SCMBackend('update');
         
         // get the unique repository id
         $unique_id = $this->SCMBackend->getRepositoryId();
+        echo "got repository id succesfully\n\n";
 
         // get last revision
         $last_revision = $this->SCMBackend->getLastRevision();
+        echo "got last revision succesfully\n\n";
 
         if ($repository->status === '2') {
             // perform initial import
