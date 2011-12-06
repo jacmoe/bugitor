@@ -2,8 +2,7 @@
 abstract class SCMBackend extends CComponent
 {
     public $name;
-    public $repository;
-    public $directory;
+    public $local_path;
     public $url;
     public $username;
     public $password;
@@ -31,22 +30,13 @@ abstract class SCMBackend extends CComponent
         return $this->name;
     }
 
-    public function getRepository()
+    public function getLocalPath()
     {
-        return $this->repository;
+        return $this->local_path;
     }
-    public function setRepository($repository)
+    public function setLocalPath($local_path)
     {
-        $this->repository = $repository;
-    }
-
-    public function getDirectory()
-    {
-        return $this->directory;
-    }
-    public function setDirectory($directory)
-    {
-        $this->directory = $directory;
+        $this->local_path = $local_path;
     }
 
     public function getUrl()

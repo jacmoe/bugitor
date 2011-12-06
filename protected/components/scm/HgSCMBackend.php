@@ -8,7 +8,7 @@ class HgSCMBackend extends SCMLocalBackend
     protected function hg()
     {
         $args = func_get_args();
-        $a = array("-y", "-R", $this->repository, "--cwd", $this->repository);
+        $a = array("-y", "-R", $this->local_path, "--cwd", $this->local_path);
         foreach ($args as $arg) {
             $a[] = $arg;
         }
@@ -19,7 +19,7 @@ class HgSCMBackend extends SCMLocalBackend
     public function getDiff($path, $from, $to = null)
     {
         $hg_executable = Yii::app()->config->get('hg_executable');
-        $cmd = "{$hg_executable} diff --git -c{$from} -R {$this->repository} --cwd {$this->repository} {$path}";
+        $cmd = "{$hg_executable} diff --git -c{$from} -R {$this->local_path} --cwd {$this->local_path} {$path}";
         $diff = stream_get_contents(popen($cmd, 'r'));
 
         /*if ($to !== null)
@@ -171,14 +171,14 @@ class HgSCMBackend extends SCMLocalBackend
 
     public function getRepositoryId()
     {
-        $fp = $this->run_tool('hg', 'read', array('log', '-r0', '-R', $this->repository, '--cwd', $this->repository, '--template', '{node}'));
+        $fp = $this->run_tool('hg', 'read', array('log', '-r0', '-R', $this->local_path, '--cwd', $this->local_path, '--template', '{node}'));
         $this->repositoryId = fgets($fp);
         return $this->repositoryId;
     }
     
     public function getLastRevision()
     {
-        $fp = $this->run_tool('hg', 'read', array('log', '-rtip', '-R', $this->repository, '--cwd', $this->repository, '--template', '{rev}'));
+        $fp = $this->run_tool('hg', 'read', array('log', '-rtip', '-R', $this->local_path, '--cwd', $this->local_path, '--template', '{rev}'));
         $this->lastRevision = fgets($fp);
         return $this->lastRevision;
     }
@@ -190,15 +190,9 @@ class HgSCMBackend extends SCMLocalBackend
     
     public function getParents($revision)
     {
-        $fp = $this->run_tool('hg', 'read', array('parents', '-r' . $revision, '-R', $this->repository, '--cwd', $this->repository, '--template', '{rev}:{node|short}'));
+        $fp = $this->run_tool('hg', 'read', array('parents', '-r' . $revision, '-R', $this->local_path, '--cwd', $this->local_path, '--template', '{rev}:{node|short}'));
         $parents = fgets($fp);
         return $parents;
-    }
-
-    public function setDirectory($directory)
-    {
-        $this->directory = $directory;
-        $this->repository = $this->directory;
     }
 
     public function getUsers()
