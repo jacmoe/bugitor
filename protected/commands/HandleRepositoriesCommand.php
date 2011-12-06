@@ -362,8 +362,7 @@ class HandleRepositoriesCommand extends CConsoleCommand {
         $this->SCMBackend = Yii::app()->scm->getBackend($repository->type);
 
         $this->SCMBackend->url = $repository->url;
-        $this->SCMBackend->directory = $repository->local_path;
-        $this->SCMBackend->repository = $repository->local_path;
+        $this->SCMBackend->local_path = $repository->local_path;
         
         if ($repository->status === '0') {
             // clone repository

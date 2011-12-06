@@ -7,7 +7,7 @@ abstract class SCMLocalBackend extends SCMBackend
     protected function run_tool($toolname, $mode, $args = null) {
         global $FORKS;
 
-        $tool = "\"" . $this->executable . "\"";
+        $tool = $this->executable;
         if (!strlen($tool)) {
             $tool = $toolname;
         }
@@ -61,7 +61,7 @@ abstract class SCMLocalBackend extends SCMBackend
     
     public function setExecutable($executable)
     {
-        $this->executable = $executable;
+        $this->executable = "\"" . $executable . "\"";
     }
 
 }
