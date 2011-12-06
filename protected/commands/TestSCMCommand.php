@@ -41,7 +41,7 @@ class TestSCMCommand extends CConsoleCommand {
         $hg = Yii::app()->scm->getBackend();
         
         if(php_uname('s') == "Windows NT") {
-            $hg->setExecutable("C:/PROGRA~1/TortoiseHg/hg.exe");
+            $hg->setExecutable("C:/program files/TortoiseHg/hg.exe");
             $hg->repository = "C:/wamp/bugitor";
         } else {
             $hg->setExecutable("/usr/bin/hg");
