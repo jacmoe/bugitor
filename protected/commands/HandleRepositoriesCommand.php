@@ -37,7 +37,7 @@ class HandleRepositoriesCommand extends CConsoleCommand {
 
     private $SCMBackend = null;
 
-    public function fillUsersTable() {
+    public function fillUsersTable($repository_id) {
         $authors = array();
         $arr_users = array();
         $arr_users = $this->SCMBackend->getUsers();
@@ -49,10 +49,12 @@ class HandleRepositoriesCommand extends CConsoleCommand {
         foreach ($authors as $author) {
             $criteria = new CDbCriteria();
             $criteria->compare('author', $author);
+            $criteria->compare('repository_id', $repository_id);
             if (!AuthorUser::model()->exists($criteria)) {
                 $author_user = new AuthorUser;
 
                 $author_user->author = $author;
+                $author_user->repository_id = $repository_id;
 
                 $criteria_user = new CDbCriteria();
                 $criteria_user->compare('username', $author);
@@ -376,7 +378,7 @@ class HandleRepositoriesCommand extends CConsoleCommand {
             //FIXME: Do this more efficiently!
             $this->SCMBackend->getChanges(0, 'tip', 0);
             echo "got changes succesfully\n\n";
-            $this->fillUsersTable();
+            $this->fillUsersTable($repository->id);
 
             return;
         }

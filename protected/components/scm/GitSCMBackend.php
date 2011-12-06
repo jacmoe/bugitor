@@ -9,7 +9,7 @@ class GitSCMBackend extends SCMLocalBackend
     protected function git()
     {
         $args = func_get_args();
-        $a = array("-y", "-R", $this->repository, "--cwd", $this->repository);
+        $a = array("-y", "-R", $this->local_path, "--cwd", $this->local_path);
         foreach ($args as $arg) {
             $a[] = $arg;
         }
@@ -17,6 +17,12 @@ class GitSCMBackend extends SCMLocalBackend
         return $this->run_tool('git', 'read', $a);
     }
 
+    public function __construct()
+    {
+        $executable = Yii::app()->config->get('git_executable');
+        $this->executable = "\"" . $executable . "\"";
+    }
+    
     public function getDiff($revision, $path)
     {
     } 

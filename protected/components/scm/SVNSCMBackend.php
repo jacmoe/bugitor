@@ -13,18 +13,26 @@ class SVNSCMBackend extends SCMLocalBackend
         return $this->run_tool('svn', 'read', $args);
     }
     
-    public function getDiff($revision, $path = '')
+    public function __construct()
     {
-        $revision_comp = $revision - 1;
-        $fp = $this->svn('diff', '-r', "{$revision}:{$revision_comp}", $this->repository);
-        //$fp = $this->svn('diff', '-r', "{$revision}", $this->repository);
+        $executable = Yii::app()->config->get('svn_executable');
+        $this->executable = "\"" . $executable . "\"";
+    }
+
+    public function getDiff($path, $from, $to = null)
+    {
+        if(null === $to) {
+            $to = $from - 1;
+        }
+        $fp = $this->svn('diff', '-r', "{$from}:{$to}", $this->local_path);
+        //$fp = $this->svn('diff', '-r', "{$revision}", $this->local_path);
         $diff = stream_get_contents($fp);
         return $diff;
     }
 
     protected function info()
     {
-        $fp = $this->svn('info', '--xml', $this->repository);
+        $fp = $this->svn('info', '--xml', $this->local_path);
         $info = stream_get_contents($fp);
 
         //print_r($log);
@@ -41,7 +49,7 @@ class SVNSCMBackend extends SCMLocalBackend
             $end = 'HEAD';
         }
         $limit = 1;
-        $fp = $this->svn('log', '--verbose', '--xml', $this->repository);
+        $fp = $this->svn('log', '--verbose', '--xml', $this->local_path);
         $log = stream_get_contents($fp);
 
         //print_r($log);
@@ -64,10 +72,10 @@ class SVNSCMBackend extends SCMLocalBackend
                 }
             }
         }
-        
+
         //print_r($this->info());
         
-        print_r($this->getDiff(31));
+        //print_r($this->getDiff(31));
         
         return $entries;
         /*
@@ -86,16 +94,23 @@ class SVNSCMBackend extends SCMLocalBackend
         */
     }
 
-    public function cloneRepository($local_path)
+    public function cloneRepository()
     {
-        
+        stream_get_contents($this->svn('checkout',
+          $this->url,
+          $this->local_path));
     }
     
     public function pullRepository()
     {
-        
+        $this->run_tool('svn', 'read', array('update', $this->local_path));        
     }
     
+    public function getParents($revision)
+    {
+        
+    }
+
     public function getRepositoryId()
     {
         return $this->repositoryId;
@@ -106,9 +121,13 @@ class SVNSCMBackend extends SCMLocalBackend
         return $this->lastRevision;
     }
     
-    public function getChanges($startRevision)
+    public function getChanges($start = 0, $end = '', $limit = 100)
     {
-        return $this->log($startRevision);
+        return $this->log($start, $end, $limit);
     }
     
+    public function getUsers()
+    {
+        return $this->arr_users;
+    }
 }
