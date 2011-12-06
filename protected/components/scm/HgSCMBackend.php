@@ -18,7 +18,8 @@ class HgSCMBackend extends SCMLocalBackend
     
     public function getDiff($path, $from, $to = null)
     {
-        $cmd = "{$this->executable} diff --git -c{$from} -R {$this->repository} --cwd {$this->repository} {$path}";
+        $hg_executable = Yii::app()->config->get('hg_executable');
+        $cmd = "{$hg_executable} diff --git -c{$from} -R {$this->repository} --cwd {$this->repository} {$path}";
         $diff = stream_get_contents(popen($cmd, 'r'));
 
         /*if ($to !== null)
