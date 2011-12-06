@@ -3,8 +3,12 @@ class HgSCMBackend extends SCMLocalBackend
 {
     public $name = 'hg';
     
-    public $arr_users = array();
-
+    public function __construct()
+    {
+        $executable = Yii::app()->config->get('hg_executable');
+        $this->executable = "\"" . $executable . "\"";
+    }
+    
     protected function hg()
     {
         $args = func_get_args();
@@ -20,17 +24,7 @@ class HgSCMBackend extends SCMLocalBackend
     {
         $hg_executable = Yii::app()->config->get('hg_executable');
         $cmd = "{$hg_executable} diff --git -c{$from} -R {$this->local_path} --cwd {$this->local_path} {$path}";
-        $diff = stream_get_contents(popen($cmd, 'r'));
-
-        /*if ($to !== null)
-        {
-            $diff = $this->hg('diff', '-r', $from, '-r', $to, '--git', $path);
-            //$diff = fgets($fp);
-            return $diff;
-        }
-        $diff = $this->hg('diff', '--git', "-c{$from}", $path);
-        //$diff = fgets($fp);*/
-        return $diff;
+        return stream_get_contents(popen($cmd, 'r'));
     } 
 
 
@@ -160,7 +154,7 @@ class HgSCMBackend extends SCMLocalBackend
 
     public function cloneRepository()
     {
-        $this->run_tool('hg', 'read', array('clone', $this->url, $this->directory));        
+        $this->run_tool('hg', 'read', array('clone', $this->url, $this->local_path));        
     }
 
     public function pullRepository()

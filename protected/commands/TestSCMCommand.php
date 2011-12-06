@@ -38,14 +38,14 @@ class TestSCMCommand extends CConsoleCommand {
     public function run($args) {
         echo "\n";
         
-        $hg = Yii::app()->scm->getBackend();
+        /*$hg = Yii::app()->scm->getBackend();
         
         if(php_uname('s') == "Windows NT") {
-            $hg->setExecutable("C:/program files/TortoiseHg/hg.exe");
-            $hg->repository = "C:/wamp/bugitor";
+            //$hg->setExecutable("C:/program files/TortoiseHg/hg.exe");
+            $hg->local_path = "C:/wamp/bugitor";
         } else {
-            $hg->setExecutable("/usr/bin/hg");
-            $hg->repository = "/home/stealth977/tracker.ogitor.org/repositories/bugitor";
+            //$hg->setExecutable("/usr/bin/hg");
+            $hg->local_path = "/home/stealth977/tracker.ogitor.org/repositories/bugitor";
             if(Yii::app()->config->get('python_path'))
               putenv(Yii::app()->config->get('python_path'));
         }
@@ -58,7 +58,7 @@ class TestSCMCommand extends CConsoleCommand {
 
         echo "\n---------------------------------------------------\n";
         print "Repository ID: " . $hg->getRepositoryId() . "\n";
-        print "Last Revision: " . $hg->getLastRevision() . "\n";
+        print "Last Revision: " . $hg->getLastRevision() . "\n";*/
 
        
         /*$git = Yii::app()->scm->getBackend('git');
@@ -89,13 +89,16 @@ class TestSCMCommand extends CConsoleCommand {
         print_r($bitbucket_entries);
         echo "\n---------------------------------------------------\n";*/
 
-        /*$svn = Yii::app()->scm->getBackend('svn');
+        $svn = Yii::app()->scm->getBackend('svn');
         echo $svn->name;
         echo "\n---------------------------------------------------\n";
-        $svn->repository = "http://phpsvnclient.googlecode.com/svn";
-        $svn_entries = $svn->getChanges(1);
-        print_r($svn_entries);
-        echo "\n---------------------------------------------------\n";*/
+        $svn->url = "http://phpsvnclient.googlecode.com/svn";
+        $svn->local_path = "C:/wamp/bugitor/repositories/phpsvntest";
+        //$svn_entries = $svn->getChanges(1);
+        //print_r($svn_entries);
+        $svn->cloneRepository();
+        //$svn->pullRepository();
+        echo "\n---------------------------------------------------\n";
 
     }
 

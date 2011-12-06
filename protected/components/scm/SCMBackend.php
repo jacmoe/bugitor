@@ -11,6 +11,8 @@ abstract class SCMBackend extends CComponent
     public $lastRevision;
     public $changes;
     
+    public $arr_users = array();
+
     /*public function __construct($repository)
 	{
         $this->repository = $repository;
@@ -24,6 +26,8 @@ abstract class SCMBackend extends CComponent
     public abstract function getChanges($start = 0, $end = '', $limit = 100);
     
     public abstract function getParents($revision);
+    
+    public abstract function getUsers();
     
     public function getName()
     {

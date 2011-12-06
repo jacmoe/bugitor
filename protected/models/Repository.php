@@ -43,6 +43,7 @@
  * @property string $local_path
  * @property string $name
  * @property string $identifier
+ * @property string $type
  * @property integer $status
  *
  * The followings are the available model relations:
@@ -73,13 +74,13 @@ class Repository extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, identifier', 'required'),
+            array('name, identifier, type', 'required'),
             array('project_id, status', 'numerical', 'integerOnly' => true),
-            array('url', 'length', 'max' => 60),
+            array('url, type', 'length', 'max' => 60),
             array('local_path, name, identifier', 'length', 'max' => 255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, project_id, url, local_path, name, identifier, status', 'safe', 'on' => 'search'),
+            array('id, project_id, url, local_path, name, identifier, type, status', 'safe', 'on' => 'search'),
         );
     }
 
@@ -107,6 +108,7 @@ class Repository extends CActiveRecord {
             'name' => 'Name',
             'identifier' => 'Identifier',
             'status' => 'Status',
+            'type' => 'Type',
         );
     }
 
@@ -127,6 +129,7 @@ class Repository extends CActiveRecord {
         $criteria->compare('name', $this->name, true);
         $criteria->compare('identifier', $this->identifier, true);
         $criteria->compare('status', $this->status);
+        $criteria->compare('type', $this->type);
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
