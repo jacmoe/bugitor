@@ -48,50 +48,52 @@ class SVNSCMBackend extends SCMLocalBackend
         if('' == $end) {
             $end = 'HEAD';
         }
-        $limit = 1;
+        
         $fp = $this->svn('log', '--verbose', '--xml', $this->local_path);
         $log = stream_get_contents($fp);
 
-        //print_r($log);
-        
         $xml_entries = new SimpleXMLElement($log);
         
-        //print_r($xml_entries);
-        
+        $this->arr_users = array();
+
         $entries = array();
-        
-        foreach($xml_entries as $xml_entry){
-            echo $xml_entry['revision'] . "\n";
-            echo $xml_entry->date . "\n";
-            echo $xml_entry->msg . "\n";
+        foreach($xml_entries as $xml_entry) {
+            $entry = array();
+            $entry['revision'] = (int)$xml_entry['revision'];
+            $entry['short_rev'] = (int)$xml_entry['revision'];
+            $entry['branches'] = null;
+            $entry['branch_count'] = 0;
+            $entry['tags'] = null;
+            $entry['tag_count'] = 0;
+            $entry['parents'] = null;
+            $entry['parent_count'] = 0;
+            $entry['date'] = date("Y-m-d H:i:s", strtotime((string)$xml_entry->date));
+            $entry['message'] = (string)$xml_entry->msg;
+            $files = array();
             foreach($xml_entry->paths as $paths) {
                 foreach($paths as $path) {
-                    echo $path['kind'] . "\n";
-                    echo $path['action'] . "\n";
-                    echo $path->path . "\n";
+                    if('file' == $path['kind']) {
+                        $file = array();
+                        $file['name'] = (string)$path;
+                        $file['status'] = (string)$path['action'];
+                        $files[] = $file;
+                    }
                 }
             }
-        }
-
-        //print_r($this->info());
+            if(!(empty($files))) {
+                $entry['files'] = $files;
+                $entry['file_count'] = count($files);
+            } else {
+                $entry['file_count'] = 0;
+            }
         
-        //print_r($this->getDiff(31));
+            $entry['author'] = (string)$xml_entry->author;
+            $this->arr_users[] = (string)$xml_entry->author;
+            $entries[] = $entry;
+        
+        }
         
         return $entries;
-        /*
-            revision
-            short_rev
-            branches
-            branch_count
-            tags
-            tag_count
-            parents
-            parent_count
-            files
-                name
-                status
-            message
-        */
     }
 
     public function cloneRepository()
@@ -103,7 +105,8 @@ class SVNSCMBackend extends SCMLocalBackend
     
     public function pullRepository()
     {
-        $this->run_tool('svn', 'read', array('update', $this->local_path));        
+        stream_get_contents($this->svn('update',
+          $this->local_path));
     }
     
     public function getParents($revision)

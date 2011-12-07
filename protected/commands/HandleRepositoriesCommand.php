@@ -49,7 +49,7 @@ class HandleRepositoriesCommand extends CConsoleCommand {
         foreach ($authors as $author) {
             $criteria = new CDbCriteria();
             $criteria->compare('author', $author);
-            $criteria->compare('repository_id', $repository_id);
+            //$criteria->compare('repository_id', $repository_id);
             if (!AuthorUser::model()->exists($criteria)) {
                 $author_user = new AuthorUser;
 
@@ -116,7 +116,7 @@ class HandleRepositoriesCommand extends CConsoleCommand {
 
         $entries = $this->SCMBackend->getChanges($start_rev, 'tip', 50);
 
-        $this->fillUsersTable();
+        $this->fillUsersTable($repository_id);
 
         foreach ($entries as $entry) {
 

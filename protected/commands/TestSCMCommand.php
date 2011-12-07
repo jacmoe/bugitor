@@ -92,12 +92,12 @@ class TestSCMCommand extends CConsoleCommand {
         $svn = Yii::app()->scm->getBackend('svn');
         echo $svn->name;
         echo "\n---------------------------------------------------\n";
-        $svn->url = "http://phpsvnclient.googlecode.com/svn";
-        $svn->local_path = "C:/wamp/bugitor/repositories/phpsvntest";
-        //$svn_entries = $svn->getChanges(1);
-        //print_r($svn_entries);
-        $svn->cloneRepository();
-        //$svn->pullRepository();
+        $svn->url = "file:///C:\wamp\shit";
+        $svn->local_path = "C:/wamp/shittest";
+        $svn->pullRepository();
+        $svn_entries = $svn->getChanges(1);
+        print_r($svn_entries);
+        //$svn->cloneRepository();
         echo "\n---------------------------------------------------\n";
 
     }
