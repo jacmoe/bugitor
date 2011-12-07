@@ -34,22 +34,28 @@ class SVNSCMBackend extends SCMLocalBackend
     {
         $fp = $this->svn('info', '--xml', $this->local_path);
         $info = stream_get_contents($fp);
-
-        //print_r($log);
-        
         $xml_info = new SimpleXMLElement($info);
-        
-        print_r($xml_info);
-        
+        return $xml_info;
     }
     
-    protected function log($start = 0, $end = '', $limit = 100)
+    protected function log($start = 0, $end = null, $limit = 100)
     {
-        if('' == $end) {
-            $end = 'HEAD';
+        if(($this->getLastRevision() < $end) && (null !== $end)) {
+            $end = $this->getLastRevision();
         }
-        
-        $fp = $this->svn('log', '--verbose', '--xml', $this->local_path);
+        if($this->getLastRevision() < $start) {
+            $start = 0;
+        }
+        //FIXME: could we do this better?
+        if(0 !== $start) {
+            if(null !== $end) {
+                $fp = $this->svn('log', '--verbose', '--xml', '-r', "{$start}:{$end}", '--limit', $limit, $this->local_path);
+            } else {
+                $fp = $this->svn('log', '--verbose', '--xml', '-r', $start, '--limit', $limit, $this->local_path);
+            }
+        } else {
+            $fp = $this->svn('log', '--verbose', '--xml', '--limit', $limit, $this->local_path);
+        }
         $log = stream_get_contents($fp);
 
         $xml_entries = new SimpleXMLElement($log);
@@ -121,6 +127,8 @@ class SVNSCMBackend extends SCMLocalBackend
     
     public function getLastRevision()
     {
+        $info = $this->info();
+        $this->lastRevision = $info->entry['revision'];
         return $this->lastRevision;
     }
     

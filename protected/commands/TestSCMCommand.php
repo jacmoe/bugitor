@@ -95,7 +95,7 @@ class TestSCMCommand extends CConsoleCommand {
         $svn->url = "file:///C:\wamp\shit";
         $svn->local_path = "C:/wamp/shittest";
         $svn->pullRepository();
-        $svn_entries = $svn->getChanges(1);
+        $svn_entries = $svn->getChanges(6, null, 1);
         print_r($svn_entries);
         //$svn->cloneRepository();
         echo "\n---------------------------------------------------\n";
