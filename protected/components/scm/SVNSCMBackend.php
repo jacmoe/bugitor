@@ -1,8 +1,5 @@
 <?php
 
-//Yii::import('application.vendors.pyrus.vendor.php.*');
-//require_once('VersionControl/Svn.php');
-
 class SVNSCMBackend extends SCMLocalBackend
 {
     public $name = 'svn';
@@ -21,12 +18,16 @@ class SVNSCMBackend extends SCMLocalBackend
 
     public function getDiff($path, $from, $to = null)
     {
-        if(null === $to) {
-            $to = $from - 1;
+        $fp = null;
+        if ($to !== null) {
+          $fp = $this->svn('diff', '-r', $from, '-r', $to,
+            "$this->local_path$path", "--git");
+        } else {
+          $fp = $this->svn('diff', '-c', $from,
+            "$this->local_path$path@$from", "--git");
         }
-        $fp = $this->svn('diff', '-r', "{$from}:{$to}", $this->local_path);
-        //$fp = $this->svn('diff', '-r', "{$revision}", $this->local_path);
         $diff = stream_get_contents($fp);
+        $diff = implode("\n", array_slice(explode("\n", $diff), 2));
         return $diff;
     }
 
@@ -72,7 +73,7 @@ class SVNSCMBackend extends SCMLocalBackend
             $entry['tags'] = null;
             $entry['tag_count'] = 0;
             $entry['parents'] = null;
-            $entry['parent_count'] = 0;
+            $entry['parent_count'] = 1; //FIXME: what to do about parents??
             $entry['date'] = date("Y-m-d H:i:s", strtotime((string)$xml_entry->date));
             $entry['message'] = (string)$xml_entry->msg;
             $files = array();
@@ -117,19 +118,27 @@ class SVNSCMBackend extends SCMLocalBackend
     
     public function getParents($revision)
     {
-        
+        return '';
     }
 
     public function getRepositoryId()
     {
-        return $this->repositoryId;
+        $info = $this->info();
+        return $info->entry->repository->uuid;
     }
     
     public function getLastRevision()
     {
         $info = $this->info();
-        $this->lastRevision = $info->entry['revision'];
-        return $this->lastRevision;
+        return $info->entry['revision'];
+    }
+    
+    public function getLastRevisionOf($path)
+    {
+        $fp = $this->run_tool('svn', 'read', array('log', $this->local_path . $path, '--limit', 1, '--xml'));
+        $rev_info = stream_get_contents($fp);
+        $info = new SimpleXMLElement($rev_info);
+        return $info->logentry['revision'];
     }
     
     public function getChanges($start = 0, $end = '', $limit = 100)
@@ -140,5 +149,12 @@ class SVNSCMBackend extends SCMLocalBackend
     public function getUsers()
     {
         return $this->arr_users;
+    }
+
+    public function getFileContents($path, $revision)
+    {
+        $fp = $this->svn('cat', '-r', $revision,
+          $this->local_path . $path);
+        return stream_get_contents($fp);
     }
 }

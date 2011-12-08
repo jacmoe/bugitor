@@ -22,7 +22,7 @@ class HgSCMBackend extends SCMLocalBackend
     
     public function getDiff($path, $from, $to = null)
     {
-        $hg_executable = Yii::app()->config->get('hg_executable');
+        $hg_executable = "\"" . Yii::app()->config->get('hg_executable') . "\"";
         $cmd = "{$hg_executable} diff --git -c{$from} -R {$this->local_path} --cwd {$this->local_path} {$path}";
         return stream_get_contents(popen($cmd, 'r'));
     } 
@@ -47,7 +47,6 @@ class HgSCMBackend extends SCMLocalBackend
         }
 
         fgets($fp); # discard leading $sep
-        echo "ran the log command succesfully\n\n";
         // corresponds to the file_adds, file_copies, file_modes, file_dels
         // in the template above
         static $file_status_order = array('M', 'C', 'A', 'D');
@@ -147,8 +146,6 @@ class HgSCMBackend extends SCMLocalBackend
         } //while true
         $fp = null;
 
-        echo "got to the end of log function succesfully\n\n";
-
         return $entries;
     }
 
@@ -159,25 +156,28 @@ class HgSCMBackend extends SCMLocalBackend
 
     public function pullRepository()
     {
-        echo "In Pull Repository\n\n";
         $this->hg('pull');
     }
 
     public function getRepositoryId()
     {
         $fp = $this->run_tool('hg', 'read', array('log', '-r0', '-R', $this->local_path, '--cwd', $this->local_path, '--template', '{node}'));
-        $this->repositoryId = fgets($fp);
-        return $this->repositoryId;
+        return fgets($fp);
     }
     
     public function getLastRevision()
     {
         $fp = $this->run_tool('hg', 'read', array('log', '-rtip', '-R', $this->local_path, '--cwd', $this->local_path, '--template', '{rev}'));
-        $this->lastRevision = fgets($fp);
-        return $this->lastRevision;
+        return fgets($fp);
     }
     
-    public function getChanges($start = 0, $end = '', $limit = 100)
+    public function getLastRevisionOf($path)
+    {
+        $fp = $this->run_tool('hg', 'read', array('log', $path, '-R', $this->local_path, '--cwd', $this->local_path, '--template', '{rev}', '--limit', 1));
+        return stream_get_contents($fp);
+    }
+
+    public function getChanges($start = 0, $end = null, $limit = 100)
     {
         return $this->log($start, $end, $limit);
     }
@@ -192,5 +192,12 @@ class HgSCMBackend extends SCMLocalBackend
     public function getUsers()
     {
         return $this->arr_users;
+    }
+    
+    public function getFileContents($path, $revision)
+    {
+        $fp = $this->hg('cat', '-r', $revision,
+          $this->local_path . '/' . $path);
+        return stream_get_contents($fp);
     }
 }

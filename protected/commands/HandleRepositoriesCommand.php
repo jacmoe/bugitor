@@ -190,6 +190,10 @@ class HandleRepositoriesCommand extends CConsoleCommand {
                         $change->action = $file['status'];
                         if ('M' === $change->action) {
                             $change->diff = $this->SCMBackend->getDiff($change->path, $changeset->short_rev);
+                        } elseif('A' === $change->action) {
+                            $change->diff = $this->SCMBackend->getFileContents($change->path, $changeset->short_rev);
+                        } elseif('D' === $change->action) {
+                            $change->diff = $this->SCMBackend->getFileContents($change->path, $this->SCMBackend->getLastRevisionOf($change->path));
                         } else {
                             $change->diff = '';
                         }
@@ -372,12 +376,9 @@ class HandleRepositoriesCommand extends CConsoleCommand {
             $repository->status = 1;
             $repository->save();
 
-            echo "cloned succesfully\n\n";
-
             // fill author user table
             //FIXME: Do this more efficiently!
             $this->SCMBackend->getChanges(0, 'tip', 0);
-            echo "got changes succesfully\n\n";
             $this->fillUsersTable($repository->id);
 
             return;
@@ -392,17 +393,14 @@ class HandleRepositoriesCommand extends CConsoleCommand {
         // repository has been cloned and author_user table checked
 
         $this->SCMBackend->pullRepository();
-        echo "pulled repository succesfully\n\n";
         //TODO: do we really need hg update?
         //$this->SCMBackend('update');
         
         // get the unique repository id
         $unique_id = $this->SCMBackend->getRepositoryId();
-        echo "got repository id succesfully\n\n";
 
         // get last revision
         $last_revision = $this->SCMBackend->getLastRevision();
-        echo "got last revision succesfully\n\n";
 
         if ($repository->status === '2') {
             // perform initial import
