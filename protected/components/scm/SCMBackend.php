@@ -7,21 +7,19 @@ abstract class SCMBackend extends CComponent
     public $username;
     public $password;
     
-    public $repositoryId;
-    public $lastRevision;
     public $changes;
     
     public $arr_users = array();
 
-    /*public function __construct($repository)
-	{
-        $this->repository = $repository;
-        echo $this->repository;
-    }*/
-    
     public abstract function getRepositoryId();
+
     public abstract function getLastRevision();
+
     public abstract function getDiff($path, $from, $to = null);
+
+    public abstract function getFileContents($path, $revision);
+
+    public abstract function getLastRevisionOf($path);
     
     public abstract function getChanges($start = 0, $end = '', $limit = 100);
     

@@ -42,7 +42,7 @@ class TestSCMCommand extends CConsoleCommand {
         
         if(php_uname('s') == "Windows NT") {
             //$hg->setExecutable("C:/program files/TortoiseHg/hg.exe");
-            $hg->local_path = "C:/wamp/bugitor";
+            $hg->local_path = "C:/wamp/topics";
         } else {
             //$hg->setExecutable("/usr/bin/hg");
             $hg->local_path = "/home/stealth977/tracker.ogitor.org/repositories/bugitor";
@@ -53,25 +53,31 @@ class TestSCMCommand extends CConsoleCommand {
         echo $hg->name;
         echo "\n---------------------------------------------------\n";
 
-        $entries = $hg->getChanges(1);
-        print_r($entries);
-
+        $entries = $hg->getChanges($hg->getLastRevision(), null, 1);
+        foreach($entries as $entry) {
+            foreach($entry['files'] as $file) {
+                echo "\n---------------------------------------------------\n";
+                echo "Diff for" . $file['name'] . ":\n\n";
+                echo $hg->getDiff($file['name'], $entry['revision']);
+                echo "\n";
+                echo $hg->getFileContents($file['name'], $entry['revision']);
+            }
+        }
         echo "\n---------------------------------------------------\n";
         print "Repository ID: " . $hg->getRepositoryId() . "\n";
-        print "Last Revision: " . $hg->getLastRevision() . "\n";*/
+        print "Last Revision: " . $hg->getLastRevision() . "\n";
+        echo $hg->getLastRevisionOf("themes/sassy") . "\n";*/
 
        
-        /*$git = Yii::app()->scm->getBackend('git');
-        
-        $git->setExecutable("C:/PROGRA~1/Git/bin/git.exe");
-        $git->repository = "C:/wamp/www/foundation";
+        $git = Yii::app()->scm->getBackend('git');
+        $git->local_path = "C:/wamp/www/foundation";
         echo $git->name;
         echo "\n---------------------------------------------------\n";
 
-        $git_entries = $git->getChanges(1);
+        $git_entries = $git->getChanges(1, null, 1);
         print_r($git_entries);
         echo "\n---------------------------------------------------\n";
-
+/*
         $github = Yii::app()->scm->getBackend('github');
         echo $github->name;
         echo "\n---------------------------------------------------\n";
@@ -89,16 +95,29 @@ class TestSCMCommand extends CConsoleCommand {
         print_r($bitbucket_entries);
         echo "\n---------------------------------------------------\n";*/
 
-        $svn = Yii::app()->scm->getBackend('svn');
+        /*$svn = Yii::app()->scm->getBackend('svn');
         echo $svn->name;
         echo "\n---------------------------------------------------\n";
         $svn->url = "file:///C:\wamp\shit";
         $svn->local_path = "C:/wamp/shittest";
+        echo "Local path: " . $svn->getLocalPath() . "\n";
         $svn->pullRepository();
-        $svn_entries = $svn->getChanges(6, null, 1);
-        print_r($svn_entries);
+        echo "Repository Id: ". $svn->getRepositoryId() . "\n";
+        echo "Last Revision: ". $svn->getLastRevision() . "\n";
+        $svn_entries = $svn->getChanges($svn->getLastRevision(), null, 1);
+        //print_r($svn_entries);
+        foreach($svn_entries as $svn_entry) {
+            foreach($svn_entry['files'] as $file) {
+                echo "\n---------------------------------------------------\n";
+                echo "Diff for" . $file['name'] . ":\n\n";
+                echo $svn->getDiff($file['name'], $svn_entry['revision']);
+                echo "\n";
+                echo $svn->getFileContents($file['name'], $svn_entry['revision']);
+            }
+        }
+        echo $svn->getLastRevisionOf("/trunk/fawefaw.txt") . "\n";
         //$svn->cloneRepository();
-        echo "\n---------------------------------------------------\n";
+        echo "\n---------------------------------------------------\n";*/
 
     }
 
