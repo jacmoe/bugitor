@@ -32,26 +32,102 @@ class GitSCMBackend extends SCMLocalBackend
     
     public function getDiff($path, $from, $to = null)
     {
-    } 
+        $diff = '';
+        if ($to !== null) {
+          return stream_get_contents($this->git('diff', "$from..$to", '--', $path));
+        }
+        return stream_get_contents($this->git('diff', "$from^..$from", '--', $path));
+        
+    }
 
     protected function log($start = 0, $end = '', $limit = 100)
     {
-        $args = array();
-        $args[] = 'master';
+        $git_executable = "\"" . Yii::app()->config->get('git_executable') . "\"";
+        //          revison short_rev tree username email date subject parents
+        $sep = uniqid();
+        $parentsep = uniqid();
+        $endsep = uniqid();
+        $format =   "$sep%n%H%n%h%n%T%n%an%n%ae%n%ai%n%p%n$parentsep%n%s%n$endsep";
+        $cmd = "{$git_executable} --git-dir={$this->local_path}/.git --work-tree={$this->local_path} log --name-status --pretty=format:{$format}";
         if ($limit !== null) {
           if (is_int($limit)) {
-            $args[] = "--max-count=$limit";
+            $cmd .= " --max-count=$limit";
           } else {
-            $args[] = "--since=$limit";
+            $cmd .= " --since=$limit";
           }
         }
-        $args[] = "--no-color";
-        $args[] = "--name-status";
-        $args[] = "--date=rfc";
+        $fp = popen($cmd, 'r');
 
-        $commits = array();
-        $fp = $this->git('log', $args);
-        $commits = stream_get_contents($fp);
+        fgets($fp); # discard leading $sep
+        // corresponds to the file_adds, file_copies, file_modes, file_dels
+        // in the template above
+        static $file_status_order = array('M', 'C', 'A', 'D');
+
+        while (true) {
+            $entry = array();
+
+            $entry['revision'] = trim(fgets($fp));
+
+            $entry['short_rev'] = trim(fgets($fp));
+
+            $entry['tree'] = trim(fgets($fp));
+
+            $changeby = trim(fgets($fp));
+            $entry['author'] = $changeby;
+            $this->arr_users[] = $changeby;
+            
+            $entry['email'] = trim(fgets($fp));
+            
+            $entry['date'] = trim(fgets($fp));
+            
+            $parent = array();
+            while (($line = fgets($fp)) !== false) {
+                $line = rtrim($line, "\r\n");
+                if ($line == $parentsep) {
+                    break;
+                }
+                $parent[] = $line;
+            }
+            $theparent = join("\n", $parent);
+
+            $entry['parent'] = $theparent;
+
+            $changelog = array();
+            while (($line = fgets($fp)) !== false) {
+                $line = rtrim($line, "\r\n");
+                if ($line == $endsep) {
+                    break;
+                }
+                $changelog[] = $line;
+            }
+            $thechangelog = join("\n", $changelog);
+
+            $entry['message'] = $thechangelog;
+
+            $files = array();
+            while (($line = fgets($fp)) !== false) {
+                $line = trim($line, "\r\n");
+                if ($line == $sep) {
+                    break;
+                }
+                $files[] = $line;
+            }
+            $theentry = join("\n", $files);
+
+            $entry['files'] = $theentry;
+            
+            // add entry to array of entries
+            $entries[] = $entry;
+
+            //fgets($fp);
+            if ($line === false) {
+                break;
+            }
+        } //while true
+        $fp = null;
+
+        return $entries;
+
         /*
             revision
             short_rev
@@ -81,12 +157,18 @@ class GitSCMBackend extends SCMLocalBackend
     
     public function getRepositoryId()
     {
-        return $this->repositoryId;
+        $rev_list = stream_get_contents($this->git('rev-list', '--parents', 'HEAD'));
+        $rev_list = str_replace("\n", " ", $rev_list);
+        $rev_list = explode(" ", $rev_list);
+        return trim($rev_list[(count($rev_list)-2)]);
     }
     
     public function getLastRevision()
     {
-        return $this->lastRevision;
+        $rev_list = stream_get_contents($this->git('rev-list', '--parents', 'HEAD'));
+        $rev_list = str_replace("\n", " ", $rev_list);
+        $rev_list = explode(" ", $rev_list);
+        return trim($rev_list[0]);
     }
     
     public function getChanges($start = 0, $end = '', $limit = 100)

@@ -51,7 +51,6 @@ class HgSCMBackend extends SCMLocalBackend
         // in the template above
         static $file_status_order = array('M', 'C', 'A', 'D');
 
-        $count = 0;
         while (true) {
             $entry = array();
 

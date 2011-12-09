@@ -76,6 +76,11 @@ class TestSCMCommand extends CConsoleCommand {
 
         $git_entries = $git->getChanges(1, null, 1);
         print_r($git_entries);
+        $diff = $git->getDiff('style-guide.html', 'bfc6a30a475211b712347ee6e91f72de1ed00424');
+        echo "\n";
+        print_r($diff);
+        echo "Repository Id: " . $git->getRepositoryId() . "\n";
+        echo "Last Revision: " . $git->getLastRevision() . "\n";
         echo "\n---------------------------------------------------\n";
 /*
         $github = Yii::app()->scm->getBackend('github');
