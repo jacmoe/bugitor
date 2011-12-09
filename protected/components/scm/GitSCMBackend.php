@@ -110,16 +110,18 @@ class GitSCMBackend extends SCMLocalBackend
                 if ($line == $sep) {
                     break;
                 }
-                $files[] = $line;
+                if (strlen($line)) {
+                    $file = array();
+                    $file['status'] = $line[0];
+                    $file['name'] = trim(substr($line, 1));
+                    $files[] = $file;
+                }
             }
-            $theentry = join("\n", $files);
-
-            $entry['files'] = $theentry;
+            $entry['files'] = $files;
             
             // add entry to array of entries
             $entries[] = $entry;
 
-            //fgets($fp);
             if ($line === false) {
                 break;
             }
@@ -147,16 +149,19 @@ class GitSCMBackend extends SCMLocalBackend
 
     public function cloneRepository()
     {
-        
+        $this->run_tool('git', 'string', array('clone', $this->url, $this->local_path));
     }
     
     public function pullRepository()
     {
-        
+        //TODO: I wonder if this really works? =)
+        stream_get_contents($this->git('fetch'));
+        stream_get_contents($this->git('merge', 'origin/master'));
     }
     
     public function getRepositoryId()
     {
+        //FIXME: is there a better way to do this?
         $rev_list = stream_get_contents($this->git('rev-list', '--parents', 'HEAD'));
         $rev_list = str_replace("\n", " ", $rev_list);
         $rev_list = explode(" ", $rev_list);
@@ -165,10 +170,9 @@ class GitSCMBackend extends SCMLocalBackend
     
     public function getLastRevision()
     {
-        $rev_list = stream_get_contents($this->git('rev-list', '--parents', 'HEAD'));
-        $rev_list = str_replace("\n", " ", $rev_list);
-        $rev_list = explode(" ", $rev_list);
-        return trim($rev_list[0]);
+        $git_executable = "\"" . Yii::app()->config->get('git_executable') . "\"";
+        $cmd = "{$git_executable} --git-dir={$this->local_path}/.git --work-tree={$this->local_path} log --max-count=1 --pretty=format:%H";
+        return stream_get_contents(popen($cmd, 'r'));
     }
     
     public function getChanges($start = 0, $end = '', $limit = 100)
@@ -178,21 +182,30 @@ class GitSCMBackend extends SCMLocalBackend
 
     public function getFileContents($path, $revision)
     {
-        
+        $git_executable = "\"" . Yii::app()->config->get('git_executable') . "\"";
+        $cmd = "{$git_executable} --git-dir={$this->local_path}/.git --work-tree={$this->local_path} show {$revision}:{$path}";
+        return stream_get_contents(popen($cmd, 'r'));
     }
 
     public function getLastRevisionOf($path)
     {
-        
+        $git_executable = "\"" . Yii::app()->config->get('git_executable') . "\"";
+        $cmd = "{$git_executable} --git-dir={$this->local_path}/.git --work-tree={$this->local_path} log --max-count=1 --pretty=format:%H {$this->local_path}/{$path}";
+        return stream_get_contents(popen($cmd, 'r'));
     }
     
     public function getParents($revision)
     {
-        
+        $git_executable = "\"" . Yii::app()->config->get('git_executable') . "\"";
+        $format = "%P";
+        $cmd = "{$git_executable} --git-dir={$this->local_path}/.git --work-tree={$this->local_path} log --pretty=format:%p, {$revision}";
+        $out = stream_get_contents(popen($cmd, 'r'));
+        $out = str_replace("\n", "", $out);
+        return rtrim($out, ',');
     }
     
     public function getUsers()
     {
-        
+        return $this->arr_users;
     }
 }

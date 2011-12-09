@@ -74,14 +74,27 @@ class TestSCMCommand extends CConsoleCommand {
         echo $git->name;
         echo "\n---------------------------------------------------\n";
 
-        $git_entries = $git->getChanges(1, null, 1);
+        $git_entries = $git->getChanges(1, null, 10);
         print_r($git_entries);
-        $diff = $git->getDiff('style-guide.html', 'bfc6a30a475211b712347ee6e91f72de1ed00424');
+        $diff = $git->getDiff('styles-compiled/1024.css', '1a40a7a9e3b2a4cf124ccd2e7156f480e8cc8f0d');
         echo "\n";
         print_r($diff);
+        /*echo "Contents of \"README.md\" at revision {$git->getLastRevisionOf("README.md")}:\n\n";
+        echo $git->getFileContents("README.md", $git->getLastRevisionOf("README.md")) . "\n";
         echo "Repository Id: " . $git->getRepositoryId() . "\n";
         echo "Last Revision: " . $git->getLastRevision() . "\n";
+        echo "Last Revision of \"README.md\": " . $git->getLastRevisionOf("README.md") . "\n";
+        echo "Parents of \"{$git->getLastRevisionOf("README.md")}\":\n";*/
+        echo $git->getParents("762f80631a711cd21c5dffcdf4316594a099bf72") . "\n";
         echo "\n---------------------------------------------------\n";
+
+        $git->local_path = "C:/wamp/www/shitting";
+        $git->url = "git://github.com/crodas/php-git.git";
+        //$git->cloneRepository();
+        $git->pullRepository();
+
+
+
 /*
         $github = Yii::app()->scm->getBackend('github');
         echo $github->name;
