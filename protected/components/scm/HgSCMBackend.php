@@ -150,7 +150,7 @@ class HgSCMBackend extends SCMLocalBackend
 
     public function cloneRepository()
     {
-        $this->run_tool('hg', 'read', array('clone', $this->url, $this->local_path));        
+        $this->run_tool('hg', 'read', array('clone', $this->url, $this->local_path));
     }
 
     public function pullRepository()
