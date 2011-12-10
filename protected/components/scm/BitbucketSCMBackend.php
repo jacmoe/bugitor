@@ -32,7 +32,7 @@ class BitbucketSCMBackend extends SCMBackend
         }
     }
 
-    public function getDiff($revision, $path)
+    public function getDiff($path, $from, $to = null)
     {
     } 
 
@@ -44,8 +44,53 @@ class BitbucketSCMBackend extends SCMBackend
 
         $changesets = new bbApiChangesets($this->getBitbucket());
         
-        $changeList = $changesets->show($this->repository, null, null, 1);
+        $changeList = $changesets->show($this->url, null, null, 1);
     
+        //print_r($changeList);
+        /*stdClass Object
+        (
+            [count] => 178
+            [start] => 1
+            [limit] => 15
+            [changesets] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [node] => b736ca574017
+                            [files] => Array
+                                (
+                                    [0] => stdClass Object
+                                        (
+                                            [type] => added
+                                            [file] => .hgignore
+                                        )
+        
+                                    [644] => stdClass Object
+                                        (
+                                            [type] => added
+                                            [file] => themes/freshy2/views/layouts/main_1.php
+                                        )
+        
+                                )
+        
+                            [raw_author] => jacmoe2
+                            [utctimestamp] => 2010-12-02 12:38:14+00:00
+                            [author] => jacmoe
+                            [timestamp] => 2010-12-02 13:38:14
+                            [raw_node] => b736ca574017da021ca81016f1ac8882af453741
+                            [parents] => Array
+                                (
+                                )
+        
+                            [branch] => default
+                            [message] => Initial commit
+                            [revision] => 0
+                            [size] => -1
+                        )
+        
+                )
+        
+        )*/
         foreach($changeList->changesets as $key => $val)
         {
             $commit = array();
@@ -163,9 +208,26 @@ class BitbucketSCMBackend extends SCMBackend
         return $this->lastRevision;
     }
     
-    public function getChanges($startRevision)
+    public function getLastRevisionOf($path)
     {
-        return $this->log();
+    }
+    
+    public function getFileContents($path, $revision)
+    {
+    }
+    
+    public function getChanges($start = 0, $end = '', $limit = 100)
+    {
+        return $this->log($start, $end, $limit);
+    }
+    
+    public function getParents($revision)
+    {
+    }
+
+    public function getUsers()
+    {
+        return $this->arr_users;
     }
 
     public function setCredentials($username, $password)
