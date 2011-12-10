@@ -69,49 +69,47 @@ class TestSCMCommand extends CConsoleCommand {
         echo $hg->getLastRevisionOf("themes/sassy") . "\n";*/
 
        
-        $git = Yii::app()->scm->getBackend('git');
+        /*$git = Yii::app()->scm->getBackend('git');
         $git->local_path = "C:/wamp/www/foundation";
         echo $git->name;
         echo "\n---------------------------------------------------\n";
 
         $git_entries = $git->getChanges(1, null, 10);
         print_r($git_entries);
-        $diff = $git->getDiff('styles-compiled/1024.css', '1a40a7a9e3b2a4cf124ccd2e7156f480e8cc8f0d');
-        echo "\n";
-        print_r($diff);
+        //$diff = $git->getDiff('styles-compiled/1024.css', '1a40a7a9e3b2a4cf124ccd2e7156f480e8cc8f0d');
+        //echo "\n";
+        //print_r($diff);
         /*echo "Contents of \"README.md\" at revision {$git->getLastRevisionOf("README.md")}:\n\n";
         echo $git->getFileContents("README.md", $git->getLastRevisionOf("README.md")) . "\n";
         echo "Repository Id: " . $git->getRepositoryId() . "\n";
         echo "Last Revision: " . $git->getLastRevision() . "\n";
         echo "Last Revision of \"README.md\": " . $git->getLastRevisionOf("README.md") . "\n";
-        echo "Parents of \"{$git->getLastRevisionOf("README.md")}\":\n";*/
-        echo $git->getParents("762f80631a711cd21c5dffcdf4316594a099bf72") . "\n";
+        echo "Parents of \"{$git->getLastRevisionOf("README.md")}\":\n";
+        //echo $git->getParents("762f80631a711cd21c5dffcdf4316594a099bf72") . "\n";
         echo "\n---------------------------------------------------\n";
 
-        $git->local_path = "C:/wamp/www/shitting";
-        $git->url = "git://github.com/crodas/php-git.git";
+        //$git->local_path = "C:/wamp/www/shitting";
+        //$git->url = "git://github.com/crodas/php-git.git";
         //$git->cloneRepository();
-        $git->pullRepository();
+        //$git->pullRepository(); */
 
 
-
-/*
-        $github = Yii::app()->scm->getBackend('github');
+        /*$github = Yii::app()->scm->getBackend('github');
         echo $github->name;
         echo "\n---------------------------------------------------\n";
         $github_entries = $github->getChanges(1);
         print_r($github_entries);
-        echo "\n---------------------------------------------------\n";
+        echo "\n---------------------------------------------------\n";*/
 
         $bitbucket = Yii::app()->scm->getBackend('bitbucket');
         echo $bitbucket->name;
         echo "\n---------------------------------------------------\n";
-        $bitbucket->repository = "jacmoes";
+        $bitbucket->url = "jacmoes";
         require(dirname(__FILE__) . '/../../credentials.php');
         $bitbucket->setCredentials($user, $pass);
         $bitbucket_entries = $bitbucket->getChanges(1);
         print_r($bitbucket_entries);
-        echo "\n---------------------------------------------------\n";*/
+        echo "\n---------------------------------------------------\n";
 
         /*$svn = Yii::app()->scm->getBackend('svn');
         echo $svn->name;
@@ -123,8 +121,9 @@ class TestSCMCommand extends CConsoleCommand {
         echo "Repository Id: ". $svn->getRepositoryId() . "\n";
         echo "Last Revision: ". $svn->getLastRevision() . "\n";
         $svn_entries = $svn->getChanges($svn->getLastRevision(), null, 1);
-        //print_r($svn_entries);
-        foreach($svn_entries as $svn_entry) {
+        //FIXME: I need an email!
+        print_r($svn_entries);
+        /*foreach($svn_entries as $svn_entry) {
             foreach($svn_entry['files'] as $file) {
                 echo "\n---------------------------------------------------\n";
                 echo "Diff for" . $file['name'] . ":\n\n";
