@@ -4,27 +4,27 @@
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
 <html lang="en">
-	<!--<![endif]-->
-	<head>
-		<meta charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="/testassets/chaw.css" />
+        <!--<![endif]-->
+        <head>
+                <meta charset="utf-8" />
+                <link rel="stylesheet" type="text/css" href="/testassets/chaw.css" />
         <script type="text/javascript" src="/testassets/jquery.min.js"></script>
         <script type="text/javascript" src="/testassets/jquery.highlight_diff.min.js"></script>
         <title>Bitbucket API test</title>
-		<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		
-		<link rel="stylesheet" type="text/css" href="/themes/new/css/screen.css" />
-		<!-- Favicons
-		================================================== -->
-		<link rel="shortcut icon" href="/themes/new/images/favicon.ico">
-		<link rel="apple-touch-icon" href="/themes/new/images/apple-touch-icon.png">
-		<link rel="apple-touch-icon" sizes="72x72" href="/themes/new/images/apple-touch-icon-72x72.png">
-		<link rel="apple-touch-icon" sizes="114x114" href="/themes/new/images/apple-touch-icon-114x114.png">
-	</head>
-	<body>
+                <!--[if lt IE 9]>
+                <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+                <![endif]-->
+                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+                <link rel="stylesheet" type="text/css" href="/themes/new/css/screen.css" />
+                <!-- Favicons
+                ================================================== -->
+                <link rel="shortcut icon" href="/themes/new/images/favicon.ico">
+                <link rel="apple-touch-icon" href="/themes/new/images/apple-touch-icon.png">
+                <link rel="apple-touch-icon" sizes="72x72" href="/themes/new/images/apple-touch-icon-72x72.png">
+                <link rel="apple-touch-icon" sizes="114x114" href="/themes/new/images/apple-touch-icon-114x114.png">
+        </head>
+        <body>
 <?php
 
 include_once('protected/vendors/bitbucket-api-library/bbApi.php');
@@ -126,7 +126,7 @@ if($remaining > 0)
     }
 }
 ?>
-	<script type="text/javascript">
+        <script type="text/javascript">
 /*<![CDATA[*/
 jQuery(function($) {
 $(".diff").highlight_diff();
