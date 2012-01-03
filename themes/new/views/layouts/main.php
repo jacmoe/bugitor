@@ -14,7 +14,7 @@
 		<![endif]-->
         <script src="<?php  echo Yii::app() -> theme -> baseUrl;?>/js/bootstrap-dropdown.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		
+
 		<link rel="stylesheet" type="text/css" href="<?php  echo Yii::app() -> theme -> baseUrl;?>/css/screen.css" />
 		<!-- Favicons
 		================================================== -->
