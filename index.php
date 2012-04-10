@@ -38,7 +38,7 @@ $message = '';
 if (!file_exists(dirname(__FILE__) . '/protected/config/db.php')) {
     $message .= '<h1>Error</h1>';
     $message .= '<h3>Database connection does not seem to have been configured</h3>';
-    $message .= '<p><tt>Please run the <a href="/installer">Bugitor Installer</a> to configure database instance</tt></p>';
+    $message .= '<p><tt>Please run the <a href="installer">Bugitor Installer</a> to configure database instance</tt></p>';
     die($message);
 }
 
