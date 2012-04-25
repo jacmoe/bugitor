@@ -174,8 +174,10 @@
                 <div class="row">
                     <?php echo $form->labelEx($model, 'milestone_id'); ?>
                     <?php if(Yii::app()->user->checkAccess('Issue.Delete')) : ?>
-                        <?php echo $form->dropDownList($model, 'milestone_id', $this->getmilestoneSelectList(Project::getProjectIdFromIdentifier($_GET['identifier']), true), array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'prompt' => '<None>')); ?>
-                        <?php echo $form->error($model, 'milestone_id'); ?>
+                        <?php if(isset($model->milestone)) : ?>
+                            <?php echo $form->dropDownList($model, 'milestone_id', $this->getmilestoneSelectList(Project::getProjectIdFromIdentifier($_GET['identifier']), true), array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'prompt' => '<None>')); ?>
+                            <?php echo $form->error($model, 'milestone_id'); ?>
+                        <?php endif; ?>
                     <?php else : ?>
                         <?php if(isset($model->milestone)) : ?>
                                 <?php echo $model->milestone->name; ?>
