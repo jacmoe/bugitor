@@ -158,11 +158,18 @@
         <td class="fixed-version"><b><?php echo $form->labelEx($model, 'milestone_id'); ?></b></td>
         <td>
             <?php if(Yii::app()->user->checkAccess('Issue.Delete')) : ?>
-                <?php echo $form->dropDownList($model, 'milestone_id', $this->getmilestoneSelectList(
-                Project::getProjectIdFromIdentifier($_GET['identifier']), true, 
-                $model->milestone->id, $model->milestone->name .' : '. $model->milestone->title),
-                 array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true,
-                  'prompt' => '<None>')); ?>
+                <?php if(isset($model->milestone)) : ?>
+                    <?php echo $form->dropDownList($model, 'milestone_id', $this->getmilestoneSelectList(
+                    Project::getProjectIdFromIdentifier($_GET['identifier']), true, 
+                    $model->milestone->id, $model->milestone->name .' : '. $model->milestone->title),
+                    array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true,
+                    'prompt' => '<None>')); ?>
+                <?php else : ?>
+                    <?php echo $form->dropDownList($model, 'milestone_id', $this->getmilestoneSelectList(
+                    Project::getProjectIdFromIdentifier($_GET['identifier']), true),
+                    array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true,
+                    'prompt' => '<None>')); ?>
+                <?php endif; ?>
                 <?php echo $form->error($model, 'milestone_id'); ?>
             <?php else : ?>
                 <?php if(isset($model->milestone)) : ?>
