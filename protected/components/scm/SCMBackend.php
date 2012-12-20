@@ -6,9 +6,9 @@ abstract class SCMBackend extends CComponent
     public $url;
     public $username;
     public $password;
-    
+
     public $changes;
-    
+
     public $arr_users = array();
 
     public abstract function getRepositoryId();
@@ -20,13 +20,13 @@ abstract class SCMBackend extends CComponent
     public abstract function getFileContents($path, $revision);
 
     public abstract function getLastRevisionOf($path);
-    
+
     public abstract function getChanges($start = 0, $end = '', $limit = 100);
-    
+
     public abstract function getParents($revision);
-    
+
     public abstract function getUsers();
-    
+
     public function getName()
     {
         return $this->name;
@@ -49,7 +49,7 @@ abstract class SCMBackend extends CComponent
     {
         $this->url= $url;
     }
-    
+
     public function getUsername()
     {
         return $this->username;

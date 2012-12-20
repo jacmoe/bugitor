@@ -41,7 +41,7 @@ class UpdateIssueCommentcountCommand extends CConsoleCommand {
         $issue->comment_count = $issue->commentCount;
         $issue->update(array('comment_count'));
     }
-    
+
     public function run($args) {
         if(count($args) > 0) {
             $project = Project::model()->findByPk((int)$args[0]);

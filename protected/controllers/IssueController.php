@@ -158,7 +158,7 @@ class IssueController extends Controller {
             }
         }
     }
-    
+
     public function actionAddWatcher($issue_id) {
         if (Yii::app()->request->isAjaxRequest) {
             if (isset($_POST['add_watcher'])) {
@@ -370,7 +370,7 @@ class IssueController extends Controller {
                 }
             }
         }
-        
+
         $this->render('move', array(
             'model' => $model,
             'project_name' => $model->project->name,
@@ -382,7 +382,7 @@ class IssueController extends Controller {
         if(null != $model)
             echo $model->content;
     }
-    
+
     public function actionEditcomment(){
         $model = Comment::model()->findbyPk((int)$_POST['id']);
         if(null != $model) {
@@ -396,7 +396,7 @@ class IssueController extends Controller {
             }
         }
     }
-    
+
     public function actionComment($id) {
         $this->layout = '//layouts/column1';
 
@@ -480,7 +480,7 @@ class IssueController extends Controller {
      */
     public function actionUpdate($id) {
         $this->layout = '//layouts/column1';
-        
+
         $model = Issue::model()->with(array('comments','tracker','user', 'issueCategory', 'issuePriority', 'milestone', 'assignedTo', 'updatedBy', 'project'))->findByPk((int) $id);
 
         $_GET['projectname'] = $model->project->name;
@@ -497,7 +497,7 @@ class IssueController extends Controller {
                 $comment->issue_id = $model->id;
                 $comment->create_user_id = Yii::app()->user->id;
                 $comment->update_user_id = Yii::app()->user->id;
-                
+
                 //TODO: check if the user wants to be
                 // a watcher of issues where they comment!
                 if(!$model->watchedBy()) {
@@ -506,7 +506,7 @@ class IssueController extends Controller {
                     $watcher->user_id = Yii::app()->user->id;
                     $watcher->save();
                 }
-                
+
                 $comment_made = true;
             }
             if($model->wasModified()||($comment_made)) {
@@ -533,7 +533,7 @@ class IssueController extends Controller {
 
                     $model->save(false);
 
-                    
+
                     $model->sendNotification($model->id, $comment->id, $model->updated_by);
 
                     if($has_details) {
@@ -573,7 +573,7 @@ class IssueController extends Controller {
         if (Yii::app()->request->isPostRequest) {
             // we only allow deletion via POST request
             $this->loadModel($id)->delete();
-            
+
             Yii::app()->user->setFlash('success', "Issue " . $id . " has been deleted.");
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -638,7 +638,7 @@ class IssueController extends Controller {
         }
         return $user_list;
     }
-    
+
     public function getMilestoneFilter() {
         $Criteria = new CDbCriteria();
         $Criteria->select = "name,  effective_date";
@@ -718,7 +718,7 @@ class IssueController extends Controller {
         }
         return null;
     }
-    
+
     public function getMilestoneSelectList($project_id, $filter = false, $id = null, $value = null) {
         $Criteria = new CDbCriteria();
         $Criteria->select = "name, title, id, effective_date, project_id";

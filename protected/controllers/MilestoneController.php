@@ -100,7 +100,7 @@ class MilestoneController extends Controller {
         $project = Project::model()->findByAttributes(array('identifier' => $identifier));
         return $project->id;
     }
-    
+
     private function dateadd($day, $toadd, $interval)
     {
         $tmp = explode("-", $day);
@@ -121,14 +121,14 @@ class MilestoneController extends Controller {
         $dadate = mktime(0, 0, 0, $tmp[1], $tmp[2], $tmp[0]);
         return date('Y-m-d', $dadate);
     }
-    
+
     public function actionPostpone($identifier) {
         $_GET['projectname'] = Project::getProjectNameFromIdentifier($identifier);
-        
+
         $model = new MilestonePostponeForm;
         if (isset($_POST['MilestonePostponeForm'])) {
             $model->attributes = $_POST['MilestonePostponeForm'];
-            
+
             $Criteria = new CDbCriteria();
             $Criteria->select = "name, title, id, effective_date, project_id";
             $Criteria->order = 'effective_date';
@@ -144,23 +144,23 @@ class MilestoneController extends Controller {
             if (Yii::app()->request->isAjaxRequest)
             {
                 echo CJSON::encode(array(
-                    'status'=>'success', 
+                    'status'=>'success',
                     'div'=>"Milestones successfully postponed"
                     ));
-                exit;               
+                exit;
             }
             else {
                 $this->redirect(array('project/settings', 'identifier' => $identifier, 'tab' => 'milestones'));
             }
         }
 
- 
+
         if (Yii::app()->request->isAjaxRequest)
         {
             echo CJSON::encode(array(
-                'status'=>'failure', 
+                'status'=>'failure',
                 'div'=>$this->renderPartial('postpone', array('model'=>$model), true)));
-            exit;               
+            exit;
         }
         else {
             $this->render('postpone', array(

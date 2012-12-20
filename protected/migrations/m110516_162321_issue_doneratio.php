@@ -4,11 +4,11 @@ class m110516_162321_issue_doneratio extends CDbMigration
 {
     public function up()
     {
-        //ALTER TABLE `bugitor_issue` 
-        //CHANGE `done_ratio` `done_ratio` INT( 11 ) 
+        //ALTER TABLE `bugitor_issue`
+        //CHANGE `done_ratio` `done_ratio` INT( 11 )
         //NOT NULL DEFAULT '0'
         $this->alterColumn("{{issue}}",
-                "done_ratio", 
+                "done_ratio",
                 "integer NOT NULL DEFAULT '0'");
     }
 

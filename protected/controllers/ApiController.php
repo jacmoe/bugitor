@@ -34,10 +34,10 @@
 <?php
 
 class ApiController extends Controller {
-    
+
     public $block_robots = true;
 
-    // Key which has to be in HTTP USERNAME and APIKEY headers 
+    // Key which has to be in HTTP USERNAME and APIKEY headers
     Const APPLICATION_ID = 'BUGITOR';
 
     private $format = 'json';
@@ -72,7 +72,7 @@ class ApiController extends Controller {
             $this->_sendResponse(500, 'Error: Parameter <b>id</b> is missing');
 
         switch ($_GET['model']) {
-            // Find respective model    
+            // Find respective model
             case 'issue':
                 $model = Issue::model()->findByPk((int) $_GET['id']);
                 break;
@@ -111,7 +111,7 @@ class ApiController extends Controller {
             $this->_sendResponse(500, sprintf("Error: action <b>%s</b> could not be executed.", $_POST['action']));
         }
     }
-    
+
     // Creates a new item
     public function actionCreate() {
         $this->_checkAuth();
@@ -143,24 +143,24 @@ class ApiController extends Controller {
                 $this->_sendResponse(500, sprintf('Parameter <b>%s</b> is not allowed for model <b>%s</b>', $var, $_GET['model']));
             }
         }
-        
+
         $success = false;
-        
+
         if($model->validate()) {
             $issue = Issue::model()->with(array('project'))->findByPk((int) $model->issue_id);
             if($issue) {
                 $issue->updated_by = $model->create_user_id;
-                
+
                 if($issue->save()) {
                     $issue->sendNotification($issue->id, $model->id, $issue->updated_by);
                     $issue->addToActionLog($issue->id,$issue->updated_by,'note', $this->createUrl('issue/view', array('id' => $issue->id, 'identifier' => $issue->project->identifier, '#' => 'note-'.$issue->commentCount)), $model->id);
-                    
+
                     $model->save(false);
                     $success = true;
                 }
             } // if valid issue
         } // if model validate
-        
+
         if ($success) {
             // Saving was OK
             $this->_sendResponse(200, $this->_getObjectEncoded($_GET['model'], $model->attributes));

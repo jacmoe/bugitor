@@ -2,30 +2,30 @@
 
 class m110912_222714_strict_mode extends CDbMigration
 {
-	public function up()
-	{
+    public function up()
+    {
             $this->alterColumn("{{issue}}",
-                    "closed", 
+                    "closed",
                     "boolean NOT NULL DEFAULT 0");
             $this->alterColumn("{{issue}}",
-                    "pre_done_ratio", 
+                    "pre_done_ratio",
                     "integer NOT NULL DEFAULT 0");
-	}
+    }
 
-	public function down()
-	{
-		echo "m110912_222714_strict_mode does not support migration down.\n";
-		return false;
-	}
+    public function down()
+    {
+        echo "m110912_222714_strict_mode does not support migration down.\n";
+        return false;
+    }
 
-	/*
-	// Use safeUp/safeDown to do migration with transaction
-	public function safeUp()
-	{
-	}
+    /*
+    // Use safeUp/safeDown to do migration with transaction
+    public function safeUp()
+    {
+    }
 
-	public function safeDown()
-	{
-	}
-	*/
+    public function safeDown()
+    {
+    }
+    */
 }

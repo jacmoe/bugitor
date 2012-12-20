@@ -2,13 +2,13 @@
 class HgSCMBackend extends SCMLocalBackend
 {
     public $name = 'hg';
-    
+
     public function __construct()
     {
         $executable = Yii::app()->config->get('hg_executable');
         $this->executable = "\"" . $executable . "\"";
     }
-    
+
     protected function hg()
     {
         $args = func_get_args();
@@ -19,13 +19,13 @@ class HgSCMBackend extends SCMLocalBackend
 
         return $this->run_tool('hg', 'read', $a);
     }
-    
+
     public function getDiff($path, $from, $to = null)
     {
         $hg_executable = "\"" . Yii::app()->config->get('hg_executable') . "\"";
         $cmd = "{$hg_executable} diff --git -c{$from} -R {$this->local_path} --cwd {$this->local_path} {$path}";
         return stream_get_contents(popen($cmd, 'r'));
-    } 
+    }
 
 
     protected function log($start = 0, $end = '', $limit = 100)
@@ -163,13 +163,13 @@ class HgSCMBackend extends SCMLocalBackend
         $fp = $this->run_tool('hg', 'read', array('log', '-r0', '-R', $this->local_path, '--cwd', $this->local_path, '--template', '{node}'));
         return fgets($fp);
     }
-    
+
     public function getLastRevision()
     {
         $fp = $this->run_tool('hg', 'read', array('log', '-rtip', '-R', $this->local_path, '--cwd', $this->local_path, '--template', '{rev}'));
         return fgets($fp);
     }
-    
+
     public function getLastRevisionOf($path)
     {
         $fp = $this->run_tool('hg', 'read', array('log', $path, '-R', $this->local_path, '--cwd', $this->local_path, '--template', '{rev}', '--limit', 1));
@@ -180,7 +180,7 @@ class HgSCMBackend extends SCMLocalBackend
     {
         return $this->log($start, $end, $limit);
     }
-    
+
     public function getParents($revision)
     {
         $fp = $this->run_tool('hg', 'read', array('parents', '-r' . $revision, '-R', $this->local_path, '--cwd', $this->local_path, '--template', '{rev}:{node|short}'));
@@ -192,7 +192,7 @@ class HgSCMBackend extends SCMLocalBackend
     {
         return $this->arr_users;
     }
-    
+
     public function getFileContents($path, $revision)
     {
         $fp = $this->hg('cat', '-r', $revision,

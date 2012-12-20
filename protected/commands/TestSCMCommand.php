@@ -37,9 +37,9 @@ class TestSCMCommand extends CConsoleCommand {
 
     public function run($args) {
         echo "\n";
-        
+
         /*$hg = Yii::app()->scm->getBackend();
-        
+
         if(php_uname('s') == "Windows NT") {
             //$hg->setExecutable("C:/program files/TortoiseHg/hg.exe");
             $hg->local_path = "C:/wamp/topics";
@@ -49,7 +49,7 @@ class TestSCMCommand extends CConsoleCommand {
             if(Yii::app()->config->get('python_path'))
               putenv(Yii::app()->config->get('python_path'));
         }
-        
+
         echo $hg->name;
         echo "\n---------------------------------------------------\n";
 
@@ -68,7 +68,7 @@ class TestSCMCommand extends CConsoleCommand {
         print "Last Revision: " . $hg->getLastRevision() . "\n";
         echo $hg->getLastRevisionOf("themes/sassy") . "\n";*/
 
-       
+
         /*$git = Yii::app()->scm->getBackend('git');
         $git->local_path = "C:/wamp/www/foundation";
         echo $git->name;

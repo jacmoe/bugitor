@@ -47,81 +47,81 @@
  */
 class ChangesetIssue extends CActiveRecord
 {
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @return ChangesetIssue the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+    /**
+     * Returns the static model of the specified AR class.
+     * @return ChangesetIssue the static model class
+     */
+    public static function model($className=__CLASS__)
+    {
+        return parent::model($className);
+    }
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return '{{changeset_issue}}';
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return '{{changeset_issue}}';
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('changeset_id, issue_id', 'required'),
-			array('changeset_id, issue_id', 'numerical', 'integerOnly'=>true),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, changeset_id, issue_id', 'safe', 'on'=>'search'),
-		);
-	}
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('changeset_id, issue_id', 'required'),
+            array('changeset_id, issue_id', 'numerical', 'integerOnly'=>true),
+            // The following rule is used by search().
+            // Please remove those attributes that should not be searched.
+            array('id, changeset_id, issue_id', 'safe', 'on'=>'search'),
+        );
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'changeset' => array(self::BELONGS_TO, 'Changeset', 'changeset_id'),
-			'issue' => array(self::BELONGS_TO, 'Issue', 'issue_id'),
-		);
-	}
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'changeset' => array(self::BELONGS_TO, 'Changeset', 'changeset_id'),
+            'issue' => array(self::BELONGS_TO, 'Issue', 'issue_id'),
+        );
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'changeset_id' => 'Changeset',
-			'issue_id' => 'Issue',
-		);
-	}
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'id' => 'ID',
+            'changeset_id' => 'Changeset',
+            'issue_id' => 'Issue',
+        );
+    }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
 
-		$criteria=new CDbCriteria;
+        $criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('changeset_id',$this->changeset_id);
-		$criteria->compare('issue_id',$this->issue_id);
+        $criteria->compare('id',$this->id);
+        $criteria->compare('changeset_id',$this->changeset_id);
+        $criteria->compare('issue_id',$this->issue_id);
 
-		return new CActiveDataProvider(get_class($this), array(
-			'criteria'=>$criteria,
-		));
-	}
+        return new CActiveDataProvider(get_class($this), array(
+            'criteria'=>$criteria,
+        ));
+    }
 }

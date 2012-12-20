@@ -9,7 +9,7 @@ class SVNSCMBackend extends SCMLocalBackend
         $args = func_get_args();
         return $this->run_tool('svn', 'read', $args);
     }
-    
+
     public function __construct()
     {
         $executable = Yii::app()->config->get('svn_executable');
@@ -38,7 +38,7 @@ class SVNSCMBackend extends SCMLocalBackend
         $xml_info = new SimpleXMLElement($info);
         return $xml_info;
     }
-    
+
     protected function log($start = 0, $end = null, $limit = 100)
     {
         if(($this->getLastRevision() < $end) && (null !== $end)) {
@@ -60,7 +60,7 @@ class SVNSCMBackend extends SCMLocalBackend
         $log = stream_get_contents($fp);
 
         $xml_entries = new SimpleXMLElement($log);
-        
+
         $this->arr_users = array();
 
         $entries = array();
@@ -93,13 +93,13 @@ class SVNSCMBackend extends SCMLocalBackend
             } else {
                 $entry['file_count'] = 0;
             }
-        
+
             $entry['author'] = (string)$xml_entry->author;
             $this->arr_users[] = (string)$xml_entry->author;
             $entries[] = $entry;
-        
+
         }
-        
+
         return $entries;
     }
 
@@ -109,13 +109,13 @@ class SVNSCMBackend extends SCMLocalBackend
           $this->url,
           $this->local_path));
     }
-    
+
     public function pullRepository()
     {
         stream_get_contents($this->svn('update',
           $this->local_path));
     }
-    
+
     public function getParents($revision)
     {
         return '';
@@ -126,13 +126,13 @@ class SVNSCMBackend extends SCMLocalBackend
         $info = $this->info();
         return $info->entry->repository->uuid;
     }
-    
+
     public function getLastRevision()
     {
         $info = $this->info();
         return $info->entry['revision'];
     }
-    
+
     public function getLastRevisionOf($path)
     {
         $fp = $this->run_tool('svn', 'read', array('log', $this->local_path . $path, '--limit', 1, '--xml'));
@@ -140,12 +140,12 @@ class SVNSCMBackend extends SCMLocalBackend
         $info = new SimpleXMLElement($rev_info);
         return $info->logentry['revision'];
     }
-    
+
     public function getChanges($start = 0, $end = '', $limit = 100)
     {
         return $this->log($start, $end, $limit);
     }
-    
+
     public function getUsers()
     {
         return $this->arr_users;

@@ -31,7 +31,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
-<?php	
+<?php
 return array(
         'initial' => 'new',
         'node' => array(

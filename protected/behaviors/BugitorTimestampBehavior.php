@@ -49,13 +49,13 @@
  * You may specify an active record model to use this behavior like so:
  * <pre>
  * public function behaviors(){
- * 	return array(
- * 		'BugitorTimestampBehavior' => array(
- * 			'class' => 'zii.behaviors.BugitorTimestampBehavior',
- * 			'createAttribute' => 'create_time_attribute',
- * 			'updateAttribute' => 'update_time_attribute',
- * 		)
- * 	);
+ *  return array(
+ *      'BugitorTimestampBehavior' => array(
+ *          'class' => 'zii.behaviors.BugitorTimestampBehavior',
+ *          'createAttribute' => 'create_time_attribute',
+ *          'updateAttribute' => 'update_time_attribute',
+ *      )
+ *  );
  * }
  * </pre>
  * The {@link createAttribute} and {@link updateAttribute} options actually default to 'create_time' and 'update_time'
@@ -75,77 +75,77 @@
  */
 
 class BugitorTimestampBehavior extends CActiveRecordBehavior {
-	/**
-	* @var mixed The name of the attribute to store the creation time.  Set to null to not
-	* use a timstamp for the creation attribute.  Defaults to 'create_time'
-	*/
-	public $createAttribute = 'create_time';
-	/**
-	* @var mixed The name of the attribute to store the modification time.  Set to null to not
-	* use a timstamp for the update attribute.  Defaults to 'update_time'
-	*/
-	public $updateAttribute = 'update_time';
+    /**
+    * @var mixed The name of the attribute to store the creation time.  Set to null to not
+    * use a timstamp for the creation attribute.  Defaults to 'create_time'
+    */
+    public $createAttribute = 'create_time';
+    /**
+    * @var mixed The name of the attribute to store the modification time.  Set to null to not
+    * use a timstamp for the update attribute.  Defaults to 'update_time'
+    */
+    public $updateAttribute = 'update_time';
 
-	/**
-	* @var bool Whether to set the update attribute to the creation timestamp upon creation.
-	* Otherwise it will be left alone.  Defaults to false.
-	*/
-	public $setUpdateOnCreate = true;
+    /**
+    * @var bool Whether to set the update attribute to the creation timestamp upon creation.
+    * Otherwise it will be left alone.  Defaults to false.
+    */
+    public $setUpdateOnCreate = true;
 
-	/**
-	* @var mixed The expression to use to generate the timestamp.  e.g. 'time()'.
-	* Defaults to null meaning that we will attempt to figure out the appropriate timestamp
-	* automatically.  If we fail at finding the appropriate timestamp, then it will
-	* fall back to using the current UNIX timestamp
-	*/
-	public $timestampExpression=null;
+    /**
+    * @var mixed The expression to use to generate the timestamp.  e.g. 'time()'.
+    * Defaults to null meaning that we will attempt to figure out the appropriate timestamp
+    * automatically.  If we fail at finding the appropriate timestamp, then it will
+    * fall back to using the current UNIX timestamp
+    */
+    public $timestampExpression=null;
 
-	/**
-	* @var array Maps column types to database method
-	*/
-	protected static $map = array(
-			'datetime'=>'UTC_TIMESTAMP()',
-			'timestamp'=>'UTC_TIMESTAMP()',
-			'date'=>'UTC_TIMESTAMP()',
-	);
+    /**
+    * @var array Maps column types to database method
+    */
+    protected static $map = array(
+            'datetime'=>'UTC_TIMESTAMP()',
+            'timestamp'=>'UTC_TIMESTAMP()',
+            'date'=>'UTC_TIMESTAMP()',
+    );
 
-	/**
-	* Responds to {@link CModel::onBeforeSave} event.
-	* Sets the values of the creation or modified attributes as configured
-	*
-	* @param CModelEvent event parameter
-	*/
-	public function beforeSave($event) {
-		if ($this->getOwner()->getIsNewRecord() && ($this->createAttribute !== null)) {
-			$this->getOwner()->{$this->createAttribute} = $this->getTimestampByAttribute($this->createAttribute);
-		}
-		if ((!$this->getOwner()->getIsNewRecord() || $this->setUpdateOnCreate) && ($this->updateAttribute !== null)) {
-			$this->getOwner()->{$this->updateAttribute} = $this->getTimestampByAttribute($this->updateAttribute);
-		}
-	}
+    /**
+    * Responds to {@link CModel::onBeforeSave} event.
+    * Sets the values of the creation or modified attributes as configured
+    *
+    * @param CModelEvent event parameter
+    */
+    public function beforeSave($event) {
+        if ($this->getOwner()->getIsNewRecord() && ($this->createAttribute !== null)) {
+            $this->getOwner()->{$this->createAttribute} = $this->getTimestampByAttribute($this->createAttribute);
+        }
+        if ((!$this->getOwner()->getIsNewRecord() || $this->setUpdateOnCreate) && ($this->updateAttribute !== null)) {
+            $this->getOwner()->{$this->updateAttribute} = $this->getTimestampByAttribute($this->updateAttribute);
+        }
+    }
 
-	/**
-	* Gets the approprate timestamp depending on the column type $attribute is
-	*
-	* @param string $attribute
-	* @return mixed timestamp (eg unix timestamp or a mysql function)
-	*/
-	protected function getTimestampByAttribute($attribute) {
-		if ($this->timestampExpression !== null)
-			return @eval('return '.$this->timestampExpression.';');
+    /**
+    * Gets the approprate timestamp depending on the column type $attribute is
+    *
+    * @param string $attribute
+    * @return mixed timestamp (eg unix timestamp or a mysql function)
+    */
+    protected function getTimestampByAttribute($attribute) {
+        if ($this->timestampExpression !== null)
+            return @eval('return '.$this->timestampExpression.';');
 
-		$columnType = $this->getOwner()->getTableSchema()->getColumn($attribute)->dbType;
-		return $this->getTimestampByColumnType($columnType);
-	}
+        $columnType = $this->getOwner()->getTableSchema()->getColumn($attribute)->dbType;
+        return $this->getTimestampByColumnType($columnType);
+    }
 
-	/**
-	* Returns the approprate timestamp depending on $columnType
-	*
-	* @param string $columnType
-	* @return mixed timestamp (eg unix timestamp or a mysql function)
-	*/
-	protected function getTimestampByColumnType($columnType) {
-		//return isset(self::$map[$columnType]) ? new CDbExpression(self::$map[$columnType]) : time();
+    /**
+    * Returns the approprate timestamp depending on $columnType
+    *
+    * @param string $columnType
+    * @return mixed timestamp (eg unix timestamp or a mysql function)
+    */
+    protected function getTimestampByColumnType($columnType) {
+        //return isset(self::$map[$columnType]) ? new CDbExpression(self::$map[$columnType]) : time();
                 return date("Y-m-d H:i:s", time());//
-	}
+    }
 }

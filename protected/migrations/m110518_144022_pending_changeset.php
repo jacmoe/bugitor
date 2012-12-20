@@ -9,9 +9,9 @@ class m110518_144022_pending_changeset extends CDbMigration
                 'id' => 'pk',
                 'changeset_id' => 'integer NOT NULL',
             ),"ENGINE=InnoDB DEFAULT CHARSET=utf8");
-        
+
         $this->createIndex('fk_pending_changeset_id', '{{pending_changeset}}', 'changeset_id');
-        
+
         $this->addForeignKey('fk_pending_changeset_id',
             '{{pending_changeset}}',
             'changeset_id',

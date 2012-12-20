@@ -38,3 +38,6 @@ glob:protected/vendors/pyrus/vendor/bin/*
 glob:protected/vendors/pyrus/vendor/.pear2registry
 glob:protected/vendors/pyrus/vendor/cache/*
 glob:protected/vendors/pyrus/vendor/downloads/*
+.tags
+.tags_sorted_by_file
+bugitor.sublime-workspace
