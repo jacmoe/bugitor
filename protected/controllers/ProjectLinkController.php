@@ -36,150 +36,150 @@
 class ProjectLinkController extends Controller
 {
 
-	public function filters()
-	{
-		return array(
-			'rights', // perform access control for CRUD operations
-		);
-	}
+    public function filters()
+    {
+        return array(
+            'rights', // perform access control for CRUD operations
+        );
+    }
 
-	public function allowedActions()
-	{
-		return 'index, view';
-	}
+    public function allowedActions()
+    {
+        return 'index, view';
+    }
 
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id)
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
+    /**
+     * Displays a particular model.
+     * @param integer $id the ID of the model to be displayed
+     */
+    public function actionView($id)
+    {
+        $this->render('view',array(
+            'model'=>$this->loadModel($id),
+        ));
+    }
 
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate($identifier)
-	{
+    /**
+     * Creates a new model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     */
+    public function actionCreate($identifier)
+    {
                 $_GET['projectname'] = Project::getProjectNameFromIdentifier($identifier);
-		
+
                 $model=new ProjectLink;
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
 
-		if(isset($_POST['ProjectLink']))
-		{
-			$model->attributes=$_POST['ProjectLink'];
+        if(isset($_POST['ProjectLink']))
+        {
+            $model->attributes=$_POST['ProjectLink'];
                         $model->project_id = Project::getProjectIdFromIdentifier($_GET['identifier']);
-			if($model->save())
+            if($model->save())
                             $this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'links'));
-		}
+        }
 
-		$this->render('create',array(
-			'model'=>$model,
-		));
-	}
+        $this->render('create',array(
+            'model'=>$model,
+        ));
+    }
 
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
-	public function actionUpdate($id, $identifier)
-	{
+    /**
+     * Updates a particular model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id the ID of the model to be updated
+     */
+    public function actionUpdate($id, $identifier)
+    {
                 $_GET['projectname'] = Project::getProjectNameFromIdentifier($identifier);
-		$model=$this->loadModel($id);
+        $model=$this->loadModel($id);
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
 
-		if(isset($_POST['ProjectLink']))
-		{
-			$model->attributes=$_POST['ProjectLink'];
-			if($model->save())
-				$this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'links'));
-		}
+        if(isset($_POST['ProjectLink']))
+        {
+            $model->attributes=$_POST['ProjectLink'];
+            if($model->save())
+                $this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'links'));
+        }
 
-		$this->render('update',array(
-			'model'=>$model,
-		));
-	}
+        $this->render('update',array(
+            'model'=>$model,
+        ));
+    }
 
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'index' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id, $identifier)
-	{
-		if(Yii::app()->request->isPostRequest)
-		{
-			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+    /**
+     * Deletes a particular model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id the ID of the model to be deleted
+     */
+    public function actionDelete($id, $identifier)
+    {
+        if(Yii::app()->request->isPostRequest)
+        {
+            // we only allow deletion via POST request
+            $this->loadModel($id)->delete();
 
-			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'links'));
-		}
-		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
-	}
+            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+            if(!isset($_GET['ajax']))
+                $this->redirect(array('project/settings','identifier'=>$identifier, 'tab' => 'links'));
+        }
+        else
+            throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+    }
 
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('ProjectLink');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
+    /**
+     * Lists all models.
+     */
+    public function actionIndex()
+    {
+        $dataProvider=new CActiveDataProvider('ProjectLink');
+        $this->render('index',array(
+            'dataProvider'=>$dataProvider,
+        ));
+    }
 
-	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
-	{
+    /**
+     * Manages all models.
+     */
+    public function actionAdmin()
+    {
                 $this->block_robots = true;
-		$model=new ProjectLink('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['ProjectLink']))
-			$model->attributes=$_GET['ProjectLink'];
+        $model=new ProjectLink('search');
+        $model->unsetAttributes();  // clear any default values
+        if(isset($_GET['ProjectLink']))
+            $model->attributes=$_GET['ProjectLink'];
 
-		$this->render('admin',array(
-			'model'=>$model,
-		));
-	}
+        $this->render('admin',array(
+            'model'=>$model,
+        ));
+    }
 
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer the ID of the model to be loaded
-	 */
-	public function loadModel($id)
-	{
-		$model=ProjectLink::model()->findByPk((int)$id);
-		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
-		return $model;
-	}
+    /**
+     * Returns the data model based on the primary key given in the GET variable.
+     * If the data model is not found, an HTTP exception will be raised.
+     * @param integer the ID of the model to be loaded
+     */
+    public function loadModel($id)
+    {
+        $model=ProjectLink::model()->findByPk((int)$id);
+        if($model===null)
+            throw new CHttpException(404,'The requested page does not exist.');
+        return $model;
+    }
 
-	/**
-	 * Performs the AJAX validation.
-	 * @param CModel the model to be validated
-	 */
-	protected function performAjaxValidation($model)
-	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='project-link-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-	}
+    /**
+     * Performs the AJAX validation.
+     * @param CModel the model to be validated
+     */
+    protected function performAjaxValidation($model)
+    {
+        if(isset($_POST['ajax']) && $_POST['ajax']==='project-link-form')
+        {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+    }
 }

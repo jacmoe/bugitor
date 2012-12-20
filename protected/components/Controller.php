@@ -41,19 +41,19 @@
 class Controller extends BugitorController {
 
     public $block_robots = false;
-    
+
     public function beforeRender($view)
     {
- 
+
         if ($this->block_robots)
         {
             Yii::app()->clientScript->registerMetaTag('noindex,noarchive', 'robots');
         }
- 
+
         return true;
- 
+
     }
- 
+
     /**
      * @var string the default layout for the controller view. Defaults to '//layouts/column1',
      * meaning using a single column layout. See 'protected/views/layouts/column1.php'.

@@ -34,20 +34,20 @@
 <?php
 
 return CMap::mergeArray(
-	require(dirname(__FILE__).'/local.php'),
-	array(
-		'components'=>array(
-			'fixture'=>array(
-				'class'=>'system.test.CDbFixtureManager',
-			),
-			'db'=>array(
-				'connectionString' => 'mysql:host=localhost;dbname=ogitorbugs_test',
-				'emulatePrepare' => true,
-				'username' => 'root',
+    require(dirname(__FILE__).'/local.php'),
+    array(
+        'components'=>array(
+            'fixture'=>array(
+                'class'=>'system.test.CDbFixtureManager',
+            ),
+            'db'=>array(
+                'connectionString' => 'mysql:host=localhost;dbname=ogitorbugs_test',
+                'emulatePrepare' => true,
+                'username' => 'root',
                 'tablePrefix' => 'bugitor_',
-				'password' => '',
-				'charset' => 'utf8',
-			),
-		),
-	)
+                'password' => '',
+                'charset' => 'utf8',
+            ),
+        ),
+    )
 );

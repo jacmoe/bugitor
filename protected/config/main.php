@@ -40,17 +40,17 @@
 
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    
+
     'name' => 'Bugitor Issue Tracker',
     'theme' => 'new',
-    
+
     'defaultController' => 'site',
-    
+
     'sourceLanguage' => 'en_gb',
     'language' => 'en_US',
-    
+
     'preload' => array('log', 'maintenanceMode'),
-    
+
     'import' => array(
         'application.models.*',
         'application.components.*',
@@ -64,25 +64,25 @@ return array(
         'ext.simpleWorkflow.*',
         'ext.yii-mail.YiiMailMessage',
     ),
-    
+
     'modules' => array(
-        
+
         'admin',
-        
+
         'rights' => array(
             'install' => false,
             'appLayout'=>'application.modules.admin.views.layouts.main',
         ),
-        
+
         'user' => array(
             'returnLogoutUrl' => array('/project/index'),
             'returnUrl' => array('/site/index'),
         ),
     ),
-    
+
     // application components
     'components' => array(
-        
+
         'user' => array(
             // enable cookie-based authentication
             'class' => 'RWebUser',
@@ -91,9 +91,9 @@ return array(
         ),
 
         'db' => require(dirname(__FILE__) . '/db.php'),
-        
+
         'mail' => require(dirname(__FILE__) . '/mail.php'),
-        
+
         'log'=>array(
             'class'=>'CLogRouter',
             'routes'=>array(
@@ -108,23 +108,23 @@ return array(
                 ),
             ),
         ),
-        
+
         'textile' => array(
             'class' => 'application.components.textile.Textilizer',
         ),
-        
+
         'mutex' => array(
             'class' => 'ext.EMutex',
         ),
-        
+
         'file' => array(
             'class' => 'ext.CFile',
         ),
-        
+
         'scm' => array(
             'class' => 'SCM',
         ),
-        
+
         'maintenanceMode' => array(
             'class' => 'ext.MaintenanceMode.MaintenanceMode',
             'enabledMode' => file_exists(dirname(__FILE__).'/.maintenance'),
@@ -134,30 +134,30 @@ return array(
             // allowed roles
             //'roles' => array('Administrator', ),
         ),
-        
+
         'config' => array(
             'class' => 'application.extensions.EConfig',
             'configTableName' => '{{config}}',
             'autoCreateConfigTable' => false,
             'strictMode' => false,
         ),
-        
+
         'cache' => array(
             'class' => 'system.caching.CFileCache',
         ),
-        
+
         'swSource' => array(
             'class' => 'application.extensions.simpleWorkflow.SWPhpWorkflowSource',
         ),
-        
+
         'timezonekeeper' => array (
             'class' => 'application.components.TimeZoneKeeper',
         ),
-        
+
         'gravatar' => array (
             'class' => 'application.helpers.Gravatar',
         ),
-        
+
         'authManager' => array(
             // The authorization manager (default: CDbAuthManager)
             'class' => 'RDbAuthManager',
@@ -172,13 +172,13 @@ return array(
             // The itemWeightTable (default: AuthItemWeight)
             'rightsTable' => '{{auth_item_weight}}',
         ),
-        
+
         'urlManager' => array(
             'urlFormat' => 'path',
             'showScriptName' => false,
             'rules' => require(dirname(__FILE__) . '/url_rules.php'),
         ),
-        
+
         'errorHandler' => array(
             // use 'site/error' action to display errors
             'errorAction' => 'site/error',

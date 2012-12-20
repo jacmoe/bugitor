@@ -40,31 +40,31 @@
  */
 class MilestonePostponeForm extends CFormModel
 {
-	public $postpone;
+    public $postpone;
         public $interval;
 
         /**
-	 * Declares the validation rules.
-	 * The rules state that username and password are required,
-	 * and password needs to be authenticated.
-	 */
-	public function rules()
-	{
-		return array(
-			// username and password are required
-			array('postpone, interval', 'required'),
+     * Declares the validation rules.
+     * The rules state that username and password are required,
+     * and password needs to be authenticated.
+     */
+    public function rules()
+    {
+        return array(
+            // username and password are required
+            array('postpone, interval', 'required'),
                         array('postpone, interval', 'numerical', 'integerOnly' => true),
-		);
-	}
+        );
+    }
 
-	/**
-	 * Declares attribute labels.
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'postpone'=>'Postpone',
+    /**
+     * Declares attribute labels.
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'postpone'=>'Postpone',
                         'interval' => 'Interval',
-		);
-	}
+        );
+    }
 }

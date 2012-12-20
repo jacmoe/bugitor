@@ -33,7 +33,7 @@ class GithubSCMBackend extends SCMBackend
 
     public function getDiff($path, $from, $to = null)
     {
-    } 
+    }
 
     protected function log($start = 0, $end = '', $limit = 100)
     {
@@ -46,27 +46,27 @@ class GithubSCMBackend extends SCMBackend
                         (
                             [id] => f45bad6555162cafa55f3b47d10e3ed5efa4dee5
                         )
-        
+
                     [1] => Array
                         (
                             [id] => 3441f2ce5061843906b4bc1ea701068a0cd04492
                         )
-        
+
                 )
-        
+
             [author] => Array
                 (
                     [name] => Jacob Moen
                     [login] => jacmoe
                     [email] => mail@jacmoe.dk
                 )
-        
+
             [url] => /jacmoe/highlighter/commit/db7d468ee1920a8e0bbe27093797950743faa6cc
             [id] => db7d468ee1920a8e0bbe27093797950743faa6cc
             [committed_date] => 2011-11-07T23:45:53-08:00
             [authored_date] => 2011-11-07T23:45:53-08:00
             [message] => Merge pull request #3 from rchavik/2.0
-        
+
         upgrade for croogo 1.4 branch (cakephp 2.0)
             [tree] => a7d0fb165be51340683a2c1bce7977cd587d130e
             [committer] => Array
@@ -75,7 +75,7 @@ class GithubSCMBackend extends SCMBackend
                     [login] => jacmoe
                     [email] => mail@jacmoe.dk
                 )
-        
+
         )*/
         /*
             revision
@@ -98,25 +98,25 @@ class GithubSCMBackend extends SCMBackend
     {
         return $this->repositoryId;
     }
-    
+
     public function getLastRevision()
     {
         return $this->lastRevision;
     }
-    
+
     public function getLastRevisionOf($path)
     {
     }
-    
+
     public function getFileContents($path, $revision)
     {
     }
-    
+
     public function getChanges($start = 0, $end = '', $limit = 100)
     {
         return $this->log($start, $end, $limit);
     }
-    
+
     public function getParents($revision)
     {
     }

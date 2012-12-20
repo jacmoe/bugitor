@@ -2,28 +2,28 @@
 
 class m110520_005821_kill_children_changeset extends CDbMigration
 {
-	public function up()
-	{
-            $this->dropColumn("{{changeset}}", 
+    public function up()
+    {
+            $this->dropColumn("{{changeset}}",
                     "child_count");
-            $this->dropColumn("{{changeset}}", 
+            $this->dropColumn("{{changeset}}",
                     "children");
-	}
+    }
 
-	public function down()
-	{
-		echo "m110520_005821_kill_children_changeset does not support migration down.\n";
-		return false;
-	}
+    public function down()
+    {
+        echo "m110520_005821_kill_children_changeset does not support migration down.\n";
+        return false;
+    }
 
-	/*
-	// Use safeUp/safeDown to do migration with transaction
-	public function safeUp()
-	{
-	}
+    /*
+    // Use safeUp/safeDown to do migration with transaction
+    public function safeUp()
+    {
+    }
 
-	public function safeDown()
-	{
-	}
-	*/
+    public function safeDown()
+    {
+    }
+    */
 }

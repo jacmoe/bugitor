@@ -2,7 +2,7 @@
 abstract class SCMLocalBackend extends SCMBackend
 {
     public $executable = '';
-    
+
     // function courtesy of the mtrack project
     protected function run_tool($toolname, $mode, $args = null) {
         global $FORKS;
@@ -55,7 +55,7 @@ abstract class SCMLocalBackend extends SCMBackend
     }
 
     public abstract function cloneRepository();
-    
+
     public abstract function pullRepository();
 
 }

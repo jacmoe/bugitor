@@ -101,7 +101,7 @@ class Milestone extends CActiveRecord {
         }
         return $count;
     }
-    
+
     public function isinproject($attribute, $params) {
             if($this->isNewRecord) {
                 $criteria = new CDbCriteria;

@@ -68,7 +68,7 @@ class ProjectController extends Controller {
         array_shift($args);
         $command->run($args);
     }
-    
+
 /*    public function beforeAction($action) {
         $time = 600;
         $fake_cron_last_exec_time = Yii::app()->config->get('fakecron_last_exec_time');
@@ -84,7 +84,7 @@ class ProjectController extends Controller {
         }
         return parent::beforeAction($action);
     }*/
-    
+
     public function getProjects() {
         $Criteria = new CDbCriteria();
         $Criteria->select = "name, identifier";
@@ -172,22 +172,22 @@ class ProjectController extends Controller {
     }
 
     public function actionActivity($identifier) {
-        
+
         //$this->layout = '//layouts/activity2';
-        
+
         $criteria = new CDbCriteria;
         $criteria->condition = 'identifier = :identifier';
         $criteria->params = array('identifier' => $_GET['identifier']);
-        
+
         // Sourceforge does not like 'with activities' ...
         //$project = Project::model()->with('activities')->find($criteria);
         $project = Project::model()->find($criteria);
         if(null === $project){
             throw new CHttpException(404,'The requested project does not exist.');
         }
-        
+
         $_GET['projectname'] = $project->name;
-        
+
         Yii::app()->clientScript->registerLinkTag(
             'alternate',
             'application/rss+xml',
@@ -218,7 +218,7 @@ class ProjectController extends Controller {
         if(null === $project){
             throw new CHttpException(404,'The requested project does not exist.');
         }
-        
+
         $_GET['projectname'] = $project->name;
 
         $this->render('roadmap', array(
@@ -241,7 +241,7 @@ class ProjectController extends Controller {
         if(null === $project){
             throw new CHttpException(404,'The requested project does not exist.');
         }
-        
+
 
         $_GET['projectname'] = $project->name;
         $this->render('code', array(
@@ -365,7 +365,7 @@ class ProjectController extends Controller {
     public function actionAdmin() {
         $this->block_robots = true;
         $this->layout = 'admin.views.layouts.main';
-        
+
         $model = new Project('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Project']))

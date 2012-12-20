@@ -17,7 +17,7 @@ class SCM
         $scms = Yii::app()->config->get('allowed_scm');
         return call_user_func(array($scms[$scm], 'factory'), $project);
     }
-    
+
     /**
      * Return the size of the repository in bytes.
      *

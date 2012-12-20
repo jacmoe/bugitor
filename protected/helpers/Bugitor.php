@@ -47,7 +47,7 @@ class Bugitor {
         $title = $dateTime_date; // . ' ' . $title_extra;
         return "<acronym class='localtimeago' title='{$title}'>{$dateTime_date}</acronym>";
     }
-    
+
     public static function link_to_user($user) {
         if (true) {
             return CHtml::link(ucfirst($user->username), array('/user/user/view', "id" => $user->id));

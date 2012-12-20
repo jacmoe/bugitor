@@ -5,7 +5,7 @@ class m110517_220431_change_diff_to_blob extends CDbMigration
     public function up()
     {
         $this->alterColumn("{{change}}",
-                "diff", 
+                "diff",
                 "binary DEFAULT NULL");
     }
 

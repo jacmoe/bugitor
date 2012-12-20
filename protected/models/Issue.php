@@ -113,7 +113,7 @@ class Issue extends CActiveRecord {
             $this->done_ratio = $this->pre_done_ratio = 0;
         }
     }
-    
+
     public function getCurrentMilestone($project_id) {
         $Criteria = new CDbCriteria();
         $Criteria->select = "name, id, effective_date, project_id";
@@ -180,7 +180,7 @@ class Issue extends CActiveRecord {
         }
         return $watcher_list;
     }
-    
+
     public function getAttachments() {
         $criteria = new CDbCriteria();
         $criteria->compare('issue_id', $this->id);
@@ -256,8 +256,8 @@ class Issue extends CActiveRecord {
         }
         return parent::beforeSave();
     }
-    
-    
+
+
     protected function beforeValidate() {
         if(($this->assigned_to) && ($this->status === 'swIssue/new')) {
             $this->status = 'swIssue/assigned';
@@ -476,11 +476,11 @@ class Issue extends CActiveRecord {
         } else {
             $issue = Issue::model()->findByPk($id);
         }
-        
+
         if($comment_id){
             $comment = Comment::model()->findByPk($comment_id);
         }
-        
+
         switch ($type) {
             case 'new':
                 $actionLog = new ActionLog;
@@ -646,7 +646,7 @@ class Issue extends CActiveRecord {
         $notification->updated_by = $updated_by;
         $notification->save();
     }
-    
+
     public function sendNotification($issue_id, $comment_id, $updated_by) {
         $issue = Issue::model()->findByPk($issue_id);
         $comment = Comment::model()->findByPk($comment_id);
@@ -702,7 +702,7 @@ class Issue extends CActiveRecord {
         $text .= Yii::app()->config->get('hostname')."user/profile\n";
         return $text;
     }
-    
+
     public function getWatcherEmails($id, $updated_by) {
         $criteria = new CDbCriteria();
         $criteria->compare('issue_id', $id);
