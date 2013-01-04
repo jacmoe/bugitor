@@ -10,7 +10,7 @@
  * A Yii powered issue tracker
  * http://bitbucket.org/jacmoe/bugitor/
  *
- * Copyright (C) 2009 - 2012 Bugitor Team
+ * Copyright (C) 2009 - 2013 Bugitor Team
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation files
@@ -31,30 +31,3 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
-<!--
-<div class="form">
-<?php /* ?>
-<?php if(!isset($message)) : ?>
-<?php $form=$this->beginWidget('CActiveForm'); ?>
-	<?php echo $form->errorSummary($model); ?>
-        <div class="row">
-		<?php echo $form->labelEx($model,'subject'); ?>
-		<?php echo $form->textField($model,'subject',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'subject'); ?>
-	</div>
-        <div class="row">
-		<?php echo $form->labelEx($model,'message'); ?>
-		<?php echo $form->textField($model,'message',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'message'); ?>
-	</div>
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Send Test Email'); ?>
-                <?php echo CHtml::Button('Cancel');?>
-	</div>
-<?php $this->endWidget(); ?>
-</div><!-- form -->
-<?php else : ?>
-<?php echo $message; ?><br/><br class="clearfix"/>
-<?php endif; ?>
-<?php */ ?>
-//-->

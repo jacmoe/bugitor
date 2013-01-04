@@ -37,7 +37,7 @@
 		 * A Yii powered issue tracker
 		 * http://bitbucket.org/jacmoe/bugitor/
 		 *
-		 * Copyright (C) 2009 - 2012 Bugitor Team
+		 * Copyright (C) 2009 - 2013 Bugitor Team
 		 *
 		 * Permission is hereby granted, free of charge, to any person
 		 * obtaining a copy of this software and associated documentation files
