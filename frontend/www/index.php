@@ -12,8 +12,8 @@ defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
 
 // On dev display all errors
 if (YII_DEBUG) {
-//	error_reporting(-1);
-//	ini_set('display_errors', true);
+	error_reporting(-1);
+	ini_set('display_errors', true);
 }
 
 date_default_timezone_set('UTC');
@@ -44,4 +44,4 @@ Yii::registerAutoloader(array("EZendAutoloader", "loadClass"), true);
 $app->run();
 
 /* uncomment if you wish to debug your resulting config */
-/* echo '<pre>' . dump($config) . '</pre>'; */
+ // echo '<pre>' . dump($config) . '</pre>'; 
