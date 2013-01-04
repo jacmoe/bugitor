@@ -39,11 +39,11 @@ Repository: https://bitbucket.org/jacmoe/bugitor
 # INSTALLATION
 1. Copy bugitor files to the desired folder (e.g. /bugitor)
 2. Create bugitor MySQL database:
-		CREATE DATABASE `bugitor` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+    CREATE DATABASE `bugitor` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 3. Run '/bugitor/installer' and follow installation instructions
-4. After finishing installation you can login with 
-		login:		admin
-		password:	admin
+4. After finishing installation you can login with
+    login:    admin
+    password: admin
 5. Please not forget to change your login/password
 6. Welcome to bugitor!
 
