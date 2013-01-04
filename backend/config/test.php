@@ -16,14 +16,14 @@ return CMap::mergeArray(
 				'class' => 'system.test.CDbFixtureManager'
 			),
 			/* uncomment if we require to run commands against test database */
-			/*
+
 			 'db' => array(
 				'connectionString' => $params['testdb.connectionString'],
 				'username' => $params['testdb.username'],
 				'password' => $params['testdb.password'],
 				'charset' => 'utf8'
 			),
-			*/
+
 
 		)
 	)

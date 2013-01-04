@@ -52,3 +52,14 @@ backend/config/params-env.php
 backend/config/main-env.php
 old/protected/config/New name 1.php
 old/protected/config/New name 2.php
+backend/runtime/*
+common/vendors/buzz/.git/*
+common/vendors/buzz/.gitignore
+common/vendors/buzz/composer.json
+common/vendors/buzz/.travis.yml
+common/vendors/php-github-api/.git/*
+common/vendors/php-github-api/composer.json
+common/vendors/php-github-api/.travis.yml
+common/vendors/php-github-api/.gitignore
+common/vendors/php-github-api/.Rhistory
+frontend/runtime/*

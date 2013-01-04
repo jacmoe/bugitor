@@ -66,6 +66,7 @@ class SiteController extends Controller {
 		if (isset($_POST['LoginForm'])) {
 			$model->username = $_POST['LoginForm']['username'];
 			$model->password = $_POST['LoginForm']['password'];
+			$model->rememberMe = $_POST['LoginForm']['rememberMe'];
 			print_r($_POST['LoginForm']);
 			// validate user input and redirect to the previous page if valid
 			if ($model->login())
