@@ -42,3 +42,11 @@ glob:protected/vendors/pyrus/vendor/downloads/*
 .tags_sorted_by_file
 bugitor.sublime-workspace
 console/runtime/*
+frontend/config/params-env.php
+frontend/config/main-env.php
+console/config/params-env.php
+console/config/main-env.php
+common/config/params-local.php
+common/config/params-env.php
+backend/config/params-env.php
+backend/config/main-env.php
