@@ -41,3 +41,4 @@ glob:protected/vendors/pyrus/vendor/downloads/*
 .tags
 .tags_sorted_by_file
 bugitor.sublime-workspace
+console/runtime/*
