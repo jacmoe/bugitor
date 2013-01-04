@@ -50,3 +50,5 @@ common/config/params-local.php
 common/config/params-env.php
 backend/config/params-env.php
 backend/config/main-env.php
+old/protected/config/New name 1.php
+old/protected/config/New name 2.php
