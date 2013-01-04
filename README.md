@@ -1,239 +1,65 @@
-# YiiBoilerplate
-We use this folder structure setup on [Clevertech](http://www.clevertech.biz) for our own projects. 
+# Bugitor
 
-### Overview
+## A Yii powered issue tracker
 
-**YiiBoilerplate**, aims to provide *Yii developers* an application folder structure with sufficient flexibility to satisfy development needs from simple to enterprise applications.
+Bugitor is an issue tracker written in PHP using the Yii Framework (http://www.yiiframework.com/).
+Home page: http://tracker.ogitor.org/projects/bugitor
+Repository: https://bitbucket.org/jacmoe/bugitor
 
-It may look a little bit too complex at first sight but, at Clevertech, we understand that needs may vary along the development life cycle of a product in order to fulfill customer's requirements and that commonly forces developers to modify the initial folder structure, thus making very hard for a new developer to jump in and 'understand' where everything is located.
+## INSTALLATION
+1. Copy bugitor files to the desired folder (e.g. /bugitor)
+2. Create bugitor MySQL database:
+    CREATE DATABASE `bugitor` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+3. Run '/bugitor/installer' and follow installation instructions
+4. After finishing installation you can login with
+    login:    admin
+    password: admin
+5. Please not forget to change your login/password
+6. Welcome to bugitor!
 
-In order to avoid such time consuming tasks, **ease the life of our beloved developers** and increase productivity, we make use of this folder structure template for our projects.
+## Features
 
-### Overall Structure
-Below the directory structure we are using:
+### Mercurial repository support
+1. Bugitor currently requires that the 'hg' executable is present on the server on which it runs.
+2. The user which runs php-cli should be the same user who runs the apache php process, otherwise you need to
+   edit the hgrc for the server Mercurial installation and add the Apache user to the list of trusted users.
+3. Bugitor creates a local clone of each repository in the 'repositories' directory.
+4. After the repository has been created, you need to go to /authorUser/admin and edit the mappings between
+   Bugitor users and Mercurial authors. After that you need to set the status field of the repository table to '2'
+   (Will remove this part when it's been integrated into the user interface)
+5. The 'handlerepositories' console command will examine the repository and import the changesets.
+   Look in bugitor/protected/commands for a sample cron entry if you want to schedule the command.
+6. The script fetches 50 entries each run, so you might want to run the 'handlerepositories' command manually
+   if you are importing a larger, existing repository.
+7. Later, support for the Bitbucket API will be implemented which will eliminate the need to keep a local
+   repository clone.
+8. Support for SVN and Git is planned (including Github API).
 
-	/
-    backend/
-        components/
-	config/
-            environments/
-            	main-private.php *
-            	main-prod.php
-      			params-private.php *
-      			params-prod.php
-    	main-env.php *
-    	main-local.php *
-    	main.php
-    	params-env.php *
-    	params-local.php *
-    	params.php
-    	test.php
-	controllers/
-		SiteController.php
-		...
-	extensions/
-            behaviors/
-            validators/
-        lib/
-        models/
-        	FormModel.php
-        	...
-        modules/
-        runtime/ *
-        views/
-        	layouts/
-        	site/
-        widgets/
-        www/
-            assets/ *
-            css/
-            images/
-            js/
-            themes/
-            index.php
-            .htaccess
-    common/
-        components/
-        config/
-            environments/
-            	params-private.php *
-            	params-prod.php
-            params-env.php *
-            params-local.php *
-            params.php
-        data/
-        extensions/
-        	behaviors/
-        	validators/
-        lib/
-            Behat/
-            Pear/
-            Yii/
-            Zend/
-        messages/
-        models/
-        widgets/
-    console/
-		commands/
-		components/
-		config/
-	    	environments/
-		lib/
-		migrations/
-        models/
-        runtime/ *
-        yiic.php
-    frontend/
-		components/
-		config/
-	    	environments/
-	    		main-private.php *
-	    		main-prod.php
-	    		params-private.php *
-	    		params-prod.php
-	    	main-env.php *
-	    	main-local.php
-	    	main.php
-	    	params-env.php *
-	    	params-local.php *
-	    	params.php
-	    	test.php
-		controllers/
-		extensions/
-			behaviors/
-			validators/
-		lib/
-		models/	
-		modules/	
-		runtime/ *
-		views/
-    		layouts/
-    		site/
-		www/
-	    	assets/ *
-	    	css/
-	    	files/
-	    	images/
-            	js/
-            	less/
-            index.php
-            robots.txt
-            .htaccess
-    tests/
-        bootstrap/
-            FeatureContext.php
-            YiiContext.php
-        features/
-            Startup.feature
-        behat.yml
-    
-    INSTALL.md
-    README.md
-    runbehat
-    runpostdeploy
-    yiic
-    yiic.bat
-
-When working in a team development environment, using any of the VCS (Version Control System) available (i.e. Git, SVN), the files and folders marked with an asterisk should **not** be included in the revision system.
-
-###Top Level Directories
-At the top-most level, we have:  
-  
-* ***backend***: the backend application which will be mainly used by site administrators to manage the whole system (avoiding admin modules at frontend application to avoid confusion)   
-* ***console***: the console application that is compound of the console commands required for the system.   
-* ***frontend***: the frontend application that is the main interface for end users. On a website development, this would be what the site users would see.  
-* ***common***: the directory whose content is shared among  all the above applications.
-* ***test***: the folder where we include all of our BDD system tests.
-
-The whole application is divided into three applications: backend, fronted and console. Following [the directory structure of the yii project site](http://www.yiiframework.com/wiki/155/the-directory-structure-of-the-yii-project-site), with some twist on its configuration. The common folder is to store all files (extensions, components, behaviors, models, etc… ) that are shared among the mentioned applications.
-
-###Application Directories
-The directory structure of each application is very similar. For example **backend** and **frontend** both share the same directory structure with a slight variation at the ***www*** folder of the **frontend** and the inclusion of bootstrap theme and extensions for the **backend**, to easy the task to create Administrative panels.
-
-The shared folder structure is this one:  
-
-* ***components***: contains components (i.e. helpers, application components) that are only used by this application  
-* ***config***: contains application specific configuration files.
-* ***controllers***: contains controller classes
-* ***extensions***: Yii extensions that are only used by this application
-* ***lib***: third-party libraries that are only used by this application
-* ***models***: contains model classes that are specific for this application
-* ***modules***: contains modules that are only used by this application
-* ***views***: stores controller actions view scripts
-* ***widgets***: stores Yii widgets only used by this application. 
-* ***www***: the web root for this application.
-
-We have created **extensions** and **widgets** folders, that could had been obviously included in the **components** folder, in order to clearly differentiate the types of components that could exist into a Yii application and easy the task to find them. So, for example, developers won't search for a widget that renders a jQuery UI plugin within a folder that has application wide components, or helpers, or extensions, or… 
-
-The directory structure for **console** application differs from the others as it doesn't require **controllers**, **views**, **widgets**, and **www**. It has a **commands** directory to store all console command class files.
-
-When developing a large project with a long development cycle, we constantly need to adjust the database structure. For this reason, we also use the DB migration feature to keep track of database changes. We store all DB migrations under the **migrations** directory in **console**.
-
-###The Common Directory
-The common directory contains the files that are shared among applications. For example, every application may need to access the database using ActiveRecord. Therefore, we can store the AR model classes under the common directory. Similarly, if some helper or widget classes are used in more than one application, we should also put them under common to avoid duplication of code.
-
-To facilitate the maintenance of code, we organize the common directory in a structure similar to that of an application. For example, we have components, models, lib, etc.
+### Issue reply by Email
+1. A sample postfix file is available in bugitor/protected/commands - which will pipe incoming emails to the 'FetchEmailCommand'
+   script. It is designed to parse emails where the subject is of the form: "Re: [project_name - issue_type #issue_number] issue_subject"
+   The email address of the sender identifies the user.
+2. To make this work on a host, for example Dreamhost, you need to forward email to a shell account and place to postfix
+   script at the root of the home directory (rename it .forward.postfix)
 
 
-<span style="float:right;">***- source: [Yii Framework Site](http://www.yiiframework.com/wiki/155/the-directory-structure-of-the-yii-project-site#hh3)***</span>
-<div style="clear:both">&nbsp;</div>
+## License
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation files
+(the "Software"), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of the Software,
+and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
 
-###Application Configurations
-Applications of the same system usually share some common configurations, such as DB connection configuration, application parameters, etc. In order to eliminate duplication of code, we should extract these common configurations and store them in a central place. In our setting, we put them under the config directory in **common**.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
+OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-####How to configure the application
-The configuration for this boilerplate is not that complicated as it seems at first sight. As mentioned before, if our system has both **backend** and **frontend** applications and they both share the same DB configuration. We just need to configure one of the files on the **config** sub-directory under the **common** folder.
-
-The files within the config folder of each application and common folder requires a bit of explanation. When working in a team environment, different developers may have different development environments. These environments are also often different from the production environment. This is why the configuration folders on each application contains a list of files that try to avoid interference among the different environments. 
-
-As you can see, the config folders include a set of files:
-
-* environments/***params-private.php***: This is to have the application parameters required for the developer on its development environment.
-* environments/**params-prod.php**: This is to have the application parameters required for the application on **production**
-* environments/**main-private.php**: The application configuration settings required for the developer on its development environment.
-* environments/**main-prod.php**: The application configuration settings required for the application on **production**
-* **main-env.php**: This file will be override with the  environment specific application configuration selected by the **runpostDeploy** script (as we are going to explain after)
-* **main-local.php**: This is the application configuration options for the developer*
-* **params-env.php**: This will be override with the environment specific parameters selected by the **runpostdeploy** script 
-* **params-local.php**: The application parameters for the developer*
-* **params.php**: The application parameters
-* **test.php**: Test application configuration options
-
-
-The configuration tree override in the following way:
-
-***local settings > environment specific > main configuration file*** 
-
-That means that local settings override environment specific and its result override main configuration file. And this is true for all configurations folders being the common configuration folder settings predominant over the application specific one:
-
-**common shared params > application params**
-**common shared config > application config**
-
-There is a slight difference between the ****-private.php*** and the ****-local.php** files. The first ones are automatically read with the ***runpostdeploy*** script and it could be settings that developers sitting on same machines in internal networks, and the latest is the programmer's configurations. 
-
-The base configuration should be put under version control, like regular source code, so that it can be shared by every developer. The local configuration should **not** be put under version control and should only exist in each developer's working directory.
-
-
-####The _runpostdeploy_ script
-The project has a very useful script that automatically creates the required and **not** shared folders for a Yii application: the **runtime** and **assets** folders, extracts the configuration settings specified for a specific environment and copies them to the ****-env.php*** files and runs migrations when not on private environments -we believe that migrations should be always run manually by developers on their machines.
-
-From the application's root folder, to run the script simply do:
-
-```
-./runpostdeploy environmentType migrations
-```
-
-* **environmentType** (required): can be "any" of the ones you configure on the **environments** folders (i.e. `./runpostdeploy private` to use ****-private.php*** configurations)
-* **migrations** (optional): could be "**migrate**"" or "**no-migrate**". 
-	* migrate: will run migrations
-	* no-migrate: will not run migrations (on private wont run them anyway)
-
-###YiiBooster library
-We have included [YiiBooster](http://yii-booster.clevertech.biz) widget library to the boilerplate. For more information regarding this library and its use
-please visit [YiiBooster Site](http://yii-booster.clevertech.biz).
-
-====
-
-> [![Clevertech](http://clevertech.biz/images/slir/w54-h36-c54:36/images/site/index/home/clevertech-logo.png)](http://www.clevertech.biz)    
-well-built beautifully designed web applications  
-[www.clevertech.biz](http://www.clevertech.biz)
+Copyright (C) 2009 - 2013 Bugitor Team
