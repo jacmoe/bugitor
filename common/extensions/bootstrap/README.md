@@ -8,7 +8,7 @@ We included his library into our own Yii project startup library, [YiiBoilerplat
 To get started, checkout [http://yii-booster.clevertech.biz](http://yii-booster.clevertech.biz)!
 
 ###Quick Start
-Clone the repo, `git clone git://github.com/clevertech/yiibooster.git`, or [download the latest release](https://github.com/clevertech/YiiBooster/zipball/master).
+Clone the repo, `git clone git://github.com/clevertech/YiiBooster.git`, or [download the latest release](https://github.com/clevertech/YiiBooster/zipball/master).
 
 ###Widgets
 
@@ -28,28 +28,47 @@ The YiiBooster library includes:
 * Modals 
 * Dropdowns
 * Tooltips
+* Extended Tooltips
 * Popovers
 * Accordion
 * Carousel
+* Bootstrap Wizard
+* Toggle Buttons
+* Form Builder Support
 * Typeahead
+* Datepicker
+* Colorpicker
+* Timepicker
 * WYSIWYG HTML Editors
+    * RedactorJS
+    * Html5Editor
+    * CKEditor
 * Boxes 
 * Google Charts
 * HighCharts
+* Edit in Place
+* JQuery UI Bootstrap Style
 * JSON Grid
 	* JSON Button Column
 	* JSON Data Column
 	* JSON Pager 
 * Extended Grid
+    * Selectable Cells
+    * Sortable Rows
 	* Extended Summary
-	* Inline Column Edition
 	* Grid/Chart Switcher
-	* Image Column
-	* Picker Column
 	* Total Sum Column
+* Inline Column Edition
+* Image Column
+* Picker Column
+* TbToggleColumn
 * Grouping Grid
     * Merge cells or columns
-	
+
+
+###Contributing
+Please submit all pull requests against *-wip branches. Thanks!
+
 ###Bug tracker
 If you find any bugs, please create an issue at [https://github.com/clevertech/YiiBooster/issues](https://github.com/clevertech/YiiBooster/issues)
 

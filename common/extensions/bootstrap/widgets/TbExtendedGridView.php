@@ -235,6 +235,10 @@ class TbExtendedGridView extends TbGridView
 	public function renderKeys()
 	{
 		$data = $this->dataProvider->getData();
+		if (empty($data))
+		{
+			return false;
+		}
 
 		if(!$this->sortableRows || !$this->getAttribute($data[0], $this->sortableAttribute))
 		{
@@ -247,7 +251,7 @@ class TbExtendedGridView extends TbGridView
 			'title'=>Yii::app()->getRequest()->getUrl(),
 		));
 		foreach($data as $d)
-			echo CHtml::tag('span',array('data-order' => $this->getAttribute($d, $this->sortableAttribute), CHtml::encode($this->getPrimaryKey($d))));
+   			echo CHtml::tag('span',array('data-order' => $this->getAttribute($d, $this->sortableAttribute), ), CHtml::encode($this->getPrimaryKey($d)));
 		echo "</div>\n";
 	}
 
