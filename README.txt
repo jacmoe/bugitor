@@ -31,6 +31,7 @@ DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
 OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+
 # Linx
 Bugitor is an issue tracker written in PHP using the Yii Framework (http://www.yiiframework.com/).
 Home page: http://tracker.ogitor.org/projects/bugitor
