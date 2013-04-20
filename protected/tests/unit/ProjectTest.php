@@ -21,13 +21,11 @@ class ProjectTest extends CDbTestCase {
         $this->assertEquals($newProjectName, $retrievedProject->name);
     }
 
-    public function testDelete() {
-        echo "\nTesting deleting Project...";
-        $project = $this->projects('project1');
-        $savedProjectId = $project->id;
-        $this->assertTrue($project->delete());
-        $deletedProject = Project::model()->findByPk($savedProjectId);
-        $this->assertEquals(NULL, $deletedProject);
+    public function testRead() {
+        echo "\nTesting reading Project...";
+        $retrievedProject = $this->projects('project1');
+        $this->assertTrue($retrievedProject instanceof Project);
+        $this->assertEquals('Test Project 1', $retrievedProject->name);
     }
 
     public function testUpdate() {
@@ -42,10 +40,13 @@ class ProjectTest extends CDbTestCase {
         $this->assertEquals($updatedProjectName, $updatedProject->description);
     }
 
-    public function testRead() {
-        echo "\nTesting reading Project...";
-        $retrievedProject = $this->projects('project1');
-        $this->assertTrue($retrievedProject instanceof Project);
-        $this->assertEquals('Test Project 1', $retrievedProject->name);
+    public function testDelete() {
+        echo "\nTesting deleting Project...";
+        $project = $this->projects('project1');
+        $savedProjectId = $project->id;
+        $this->assertTrue($project->delete());
+        $deletedProject = Project::model()->findByPk($savedProjectId);
+        $this->assertEquals(NULL, $deletedProject);
     }
+
 }
