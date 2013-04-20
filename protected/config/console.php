@@ -133,6 +133,15 @@ return array(
                 ),
         ),
         'db' => require(dirname(__FILE__) . '/db.php'),
+        'dbtest'=>array(
+            'class'=>'CDbConnection',
+            'connectionString' => 'mysql:host=localhost;dbname=bugitortest',
+            'tablePrefix' => 'bugitor_',
+            'emulatePrepare' => true,
+            'username' => 'root',
+            'password' => 'jake2383',
+            'charset' => 'utf8',
+        ),
         'errorHandler' => array(
             // use 'site/error' action to display errors
             'errorAction' => 'site/error',
