@@ -42,14 +42,14 @@ return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
 
     'name' => 'Bugitor Issue Tracker',
-    'theme' => 'new',
+    'theme' => 'bootstrap',
 
     'defaultController' => 'site',
 
     'sourceLanguage' => 'en_gb',
     'language' => 'en_US',
 
-    'preload' => array('log', 'maintenanceMode'),
+    'preload' => array('log', 'maintenanceMode', 'bootstrap'),
 
     'import' => array(
         'application.models.*',
@@ -91,6 +91,11 @@ return array(
         ),
 
         'db' => require(dirname(__FILE__) . '/db.php'),
+
+        'bootstrap' => array(
+            'class' => 'ext.yiibooster.components.Bootstrap',
+            'responsiveCss' => true,
+        ),
 
         'mail' => require(dirname(__FILE__) . '/mail.php'),
 

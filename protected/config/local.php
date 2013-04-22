@@ -43,6 +43,9 @@ return CMap::mergeArray(
             'gii' => array(
                 'class' => 'system.gii.GiiModule',
                 'password' => 'letmein',
+                'generatorPaths' => array(
+                  'bootstrap.gii'
+                ),
             ),
         ),
         // application components
