@@ -23,6 +23,8 @@ Yii::import('bootstrap.widgets.TbGridView');
  */
 class TbExtendedGridView extends TbGridView
 {
+	private $rowHtmlOptionsExpression = '';
+
 	/**
 	 * @var bool $fixedHeader if set to true will keep the header fixed  position
 	 */
