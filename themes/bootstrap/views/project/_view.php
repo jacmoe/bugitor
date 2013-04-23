@@ -31,15 +31,16 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 ?>
-<div>
-	<div id="splitcontentleft" role="primary">
+<div class="row-fluid">
+	<div class="span6" role="primary">
 	    <div class="project box">
 	        <?php $this->widget('ProjectBox', array('project' => $data)) ?>
 	    </div>
 	</div>
-	<div id="splitcontentright" role="complementary">
+	<div class="span6" role="complementary">
 	    <div class="project box">
 	        <?php $this->widget('ProjectIssuesByTracker', array('project' => $data)) ?>
 	    </div>
 	</div>
 </div>
+<hr/>

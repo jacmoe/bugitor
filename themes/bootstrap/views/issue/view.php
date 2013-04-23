@@ -67,15 +67,15 @@ $this->pageTitle = $model->project->name . ' - ' . $model->tracker->name . ' #' 
 </div>
 <h2><?php echo Bugitor::namedImage($model->tracker->name, true) . ' ' . $model->tracker->name . ' #' . $model->id; ?> (<?php echo $model->getStatusLabel($model->status); ?>)</h2>
 <div class="issue">
-<div class="row">
+<div class="row-fluid">
 <?php echo Bugitor::gravatar($model->user); ?>
 <h3><?php echo $model->subject; ?></h3>
 Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Bugitor::timeAgoInWords($model->created); ?>.
 <?php if(isset($model->updatedBy)) echo '  Updated by '.Bugitor::link_to_user($model->updatedBy) .' '. Bugitor::timeAgoInWords($model->modified); ?>
 <hr/>
 </div>
-<div class="row">
-<div id="splitcontentleft">
+<div class="row-fluid">
+<div id="splitcontentleft" class="span6">
 <table width="100%">
     <tbody><tr>
         <td style="width: 15%;" class="status"><b>Status:</b></td>
@@ -104,7 +104,7 @@ Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Bugitor::
     </tr>
 </tbody></table>
 </div>
-<div id="splitcontentright">
+<div id="splitcontentright" class="span6">
 <table width="100%">
     <tbody><tr>
         <td class="category"><b>Category:</b></td>

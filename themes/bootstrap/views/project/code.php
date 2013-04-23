@@ -48,7 +48,7 @@ $this->pageTitle = $model->name . ' - Code - ' . Yii::app()->name;
             ?>
 </div>
 <h3 class="code-icon">Code</h3>
-<div id="changelog">
+<div id="changelog" class="row-fluid">
 <div id="codemenu" class="simplebox">
     <?php
     $this->widget('BugitorMenu', array(
@@ -59,7 +59,7 @@ $this->pageTitle = $model->name . ' - Code - ' . Yii::app()->name;
         ),
     )); ?>
 </div>
-<div id="shortlogs-changes">
+<div id="shortlogs-changes" class="row-fluid">
     <?php foreach($model->repositories as $repository) : ?>
     <div id="changesets-inner"><h3><?php echo ucfirst($repository->name) ?></h3></div>
     <table class="maintable">
