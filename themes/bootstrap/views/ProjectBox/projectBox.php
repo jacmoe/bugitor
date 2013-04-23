@@ -38,4 +38,4 @@
 <?php if($project->homepage != ''): ?>
 Homepage: <?php echo CHtml::link($project->homepage, $project->homepage); ?>
 <?php endif; ?>
-<div class="alt smalltext">Created : <?php echo Bugitor::timeAgoInWords($project->created); ?></div>
+<div class="muted smalltext">Created : <?php echo Bugitor::timeAgoInWords($project->created); ?></div>

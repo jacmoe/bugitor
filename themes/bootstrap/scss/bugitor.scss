@@ -63,8 +63,8 @@ $issue-background-color: #ffffdd;
 .box {
   @extend .simplebox;
   @include border-radius(5px);
-  $shadow: 0 2px 3px darken($border-color, 20%), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-  @include box-shadow($shadow);
+  //$shadow: 0 2px 3px darken($border-color, 20%), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  //@include box-shadow($shadow);
   //+box-shadow(0px 3px 3px rgba(0, 0, 0, 0.4))
 }
 
@@ -75,7 +75,7 @@ div.issue {
   border: 1px solid $border-color;
   //$shadow: 0 1px 3px $border-color, inset 0 -1px 0 rgba(0, 0, 0, 0.1)
   //+box-shadow($shadow)
-  @include box-shadow(0px 2px 3px rgba(0, 0, 0, 0.4));
+  //@include box-shadow(0px 2px 3px rgba(0, 0, 0, 0.4));
   @include border-radius(5px);
 }
 

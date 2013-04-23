@@ -12,18 +12,19 @@ table.progress {
 table.progress td {
   height: 0.9em;
   border: 1px solid #d7d7d7 !important;
+  height: 0.4em !important;
 }
 
 table.progress td.closed {
-  background: #bae0ba none repeat scroll 0%;
+  background: #bae0ba none repeat scroll 0% !important;
 }
 
 table.progress td.done {
-  background: #fdee99 none repeat scroll 0%;
+  background: #fdee99 none repeat scroll 0% !important;
 }
 
 table.progress td.open {
-  background: white none repeat scroll 0%;
+  background: white none repeat scroll 0% !important;
 }
 
 span.pourcent {
@@ -49,7 +50,7 @@ table.big_progress {
 }
 
 table.big_progress td {
-  height: 1.4em;
+  height: 0.4em !important;
 }
 
 table.big_progress td.closed {
