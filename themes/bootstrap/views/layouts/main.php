@@ -110,11 +110,11 @@
         'htmlOptions' => array('id' => 'topbar'),
 		'items' => array(
 		array(
-		'class' => 'bootstrap.widgets.TbMenu',
+		'class' => 'BugitorMenu',
 		'items' => $items,
 		),
         array(
-        'class' => 'bootstrap.widgets.TbMenu',
+        'class' => 'BugitorMenu',
         'items' => $items2,
         'htmlOptions' => array('class' => 'pull-right'),
         ),

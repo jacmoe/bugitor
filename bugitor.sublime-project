@@ -3,7 +3,7 @@
     [
     {
         "folder_exclude_patterns": [
-        "assets",
+        //"assets",
         "protected/runtime",
         "themes/sassy/.*",
         "uploads"
