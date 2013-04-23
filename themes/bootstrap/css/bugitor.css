@@ -2,6 +2,41 @@
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+/* line 1, ../scss/partials/_headers.scss */
+h1, h2, h3, h4, h5 {
+  font-weight: bolder;
+  color: #555555;
+}
+
+/* line 6, ../scss/partials/_headers.scss */
+h2, h3 {
+  border-bottom: 1px solid #d5d5d5;
+}
+
+/* line 10, ../scss/partials/_headers.scss */
+h1 {
+  font-size: 1.625em;
+  line-height: 1.84615em;
+}
+
+/* line 14, ../scss/partials/_headers.scss */
+h2 {
+  font-size: 1.375em;
+  line-height: 2.18182em;
+}
+
+/* line 18, ../scss/partials/_headers.scss */
+h3 {
+  font-size: 1.125em;
+  line-height: 1.33333em;
+}
+
+/* line 22, ../scss/partials/_headers.scss */
+h4 {
+  font-size: 1em;
+  line-height: 1.5em;
+}
+
 /* Sprites -------------------------------------------------------------- */
 /* line 682, icons/*.png */
 .icons-sprite, .icons-Assigned, .icons-Bug, .icons-Feature, .icons-Feedback, .icons-High, .icons-Low, .icons-New, .icons-Normal, .icons-Rejected, .icons-Resolved, .icons-add, .icons-admin, .icons-arrow-collapsed, .icons-arrow-expanded, .icons-attachment, .icons-bullet-add, .icons-bullet-black, .icons-bullet-blue, .icons-bullet-delete, .icons-bullet-orange, .icons-bullet-purple, .icons-bullet-toggle-minus, .icons-bullet-toggle-plus, .icons-cancel, .icons-changeset, .icons-comment, .icons-comments, .icons-copy, .icons-csv, .icons-delete, .icons-document, .icons-downarrow, .icons-downarrow2, .icons-edit, .icons-fav-off, .icons-fav, .icons-file, .icons-folder-open-add, .icons-folder-open-orange, .icons-folder-open, .icons-folder, .icons-group, .icons-help, .icons-history, .icons-home, .icons-html, .icons-image, .icons-linux, .icons-locked, .icons-message, .icons-move, .icons-negative, .icons-news, .icons-osx, .icons-package, .icons-pdf, .icons-positive, .icons-projects, .icons-reload, .icons-report, .icons-rss, .icons-save, .icons-stats, .icons-sticky, .icons-ticket-checked, .icons-ticket-crossed, .icons-ticket-edit, .icons-ticket-note, .icons-ticket, .icons-time, .icons-txt, .icons-unlock, .icons-uparrow, .icons-uparrow2, .icons-user-page, .icons-user, .icons-user_new, .icons-users, .icons-warning, .icons-wiki-edit, .icons-windows {
@@ -809,128 +844,1142 @@
   width: 22px;
 }
 
-/* line 36, ../scss/partials/05-sprites/_sprites.scss */
+/* line 36, ../scss/partials/_sprites.scss */
 .icons-sprite, .icons-Assigned, .icons-Bug, .icons-Feature, .icons-Feedback, .icons-High, .icons-Low, .icons-New, .icons-Normal, .icons-Rejected, .icons-Resolved, .icons-add, .icons-admin, .icons-arrow-collapsed, .icons-arrow-expanded, .icons-attachment, .icons-bullet-add, .icons-bullet-black, .icons-bullet-blue, .icons-bullet-delete, .icons-bullet-orange, .icons-bullet-purple, .icons-bullet-toggle-minus, .icons-bullet-toggle-plus, .icons-cancel, .icons-changeset, .icons-comment, .icons-comments, .icons-copy, .icons-csv, .icons-delete, .icons-document, .icons-downarrow, .icons-downarrow2, .icons-edit, .icons-fav-off, .icons-fav, .icons-file, .icons-folder-open-add, .icons-folder-open-orange, .icons-folder-open, .icons-folder, .icons-group, .icons-help, .icons-history, .icons-home, .icons-html, .icons-image, .icons-linux, .icons-locked, .icons-message, .icons-move, .icons-negative, .icons-news, .icons-osx, .icons-package, .icons-pdf, .icons-positive, .icons-projects, .icons-reload, .icons-report, .icons-rss, .icons-save, .icons-stats, .icons-sticky, .icons-ticket-checked, .icons-ticket-crossed, .icons-ticket-edit, .icons-ticket-note, .icons-ticket, .icons-time, .icons-txt, .icons-unlock, .icons-uparrow, .icons-uparrow2, .icons-user-page, .icons-user, .icons-user_new, .icons-users, .icons-warning, .icons-wiki-edit, .icons-windows {
   padding-left: 16px;
   width: 16px;
   height: 16px;
 }
 
-/* line 42, ../scss/partials/05-sprites/_sprites.scss */
+/* line 42, ../scss/partials/_sprites.scss */
 .smilies-sprite, .smilies-icon_biggrin, .smilies-icon_cheesygrin, .smilies-icon_confused, .smilies-icon_cool, .smilies-icon_cry, .smilies-icon_eek, .smilies-icon_evil, .smilies-icon_frown, .smilies-icon_mad, .smilies-icon_neutral, .smilies-icon_razz, .smilies-icon_redface, .smilies-icon_rolleyes, .smilies-icon_sad, .smilies-icon_smile, .smilies-icon_surprised, .smilies-icon_twisted, .smilies-icon_wink {
   width: 15px;
   height: 15px;
 }
 
-/* line 47, ../scss/partials/05-sprites/_sprites.scss */
+/* line 47, ../scss/partials/_sprites.scss */
 .twentytwo-sprite, .twentytwo-authent, .twentytwo-comment, .twentytwo-file, .twentytwo-info, .twentytwo-notifications, .twentytwo-options, .twentytwo-package, .twentytwo-plugin, .twentytwo-projects, .twentytwo-role, .twentytwo-settings, .twentytwo-tracker, .twentytwo-users, .twentytwo-workflow {
   padding-left: 24px;
 }
 
-/* line 56, ../scss/partials/05-sprites/_sprites.scss */
+/* line 56, ../scss/partials/_sprites.scss */
 .projects-icon {
   padding-left: 20px;
   background: url('../images/icons-s48247ce2e2.png') 0 -507px no-repeat;
 }
 
-/* line 60, ../scss/partials/05-sprites/_sprites.scss */
+/* line 60, ../scss/partials/_sprites.scss */
 .activity-icon {
   padding-left: 20px;
   background: url('../images/icons-s48247ce2e2.png') 0 -1883px no-repeat;
 }
 
-/* line 64, ../scss/partials/05-sprites/_sprites.scss */
+/* line 64, ../scss/partials/_sprites.scss */
 .overview-icon {
   padding-left: 20px;
   background: url('../images/icons-s48247ce2e2.png') 0 -1979px no-repeat;
 }
 
-/* line 68, ../scss/partials/05-sprites/_sprites.scss */
+/* line 68, ../scss/partials/_sprites.scss */
 .issues-icon {
   padding-left: 20px;
   background: url('../images/icons-s48247ce2e2.png') 0 -1500px no-repeat;
 }
 
-/* line 72, ../scss/partials/05-sprites/_sprites.scss */
+/* line 72, ../scss/partials/_sprites.scss */
 .code-icon {
   padding-left: 20px;
   background: url('../images/icons-s48247ce2e2.png') 0 -1467px no-repeat;
 }
 
-/* line 76, ../scss/partials/05-sprites/_sprites.scss */
+/* line 76, ../scss/partials/_sprites.scss */
 .settings-icon {
   padding-left: 20px;
   background: url('../images/icons-s48247ce2e2.png') 0 -1179px no-repeat;
 }
 
-/* line 80, ../scss/partials/05-sprites/_sprites.scss */
+/* line 80, ../scss/partials/_sprites.scss */
 .roadmap-icon {
   padding-left: 20px;
   background: url('../images/icons-s48247ce2e2.png') 0 -1340px no-repeat;
 }
 
-/* line 84, ../scss/partials/05-sprites/_sprites.scss */
+/* line 84, ../scss/partials/_sprites.scss */
 .members-icon {
   padding-left: 20px;
   background: url('../images/icons-s48247ce2e2.png') 0 -1724px no-repeat;
 }
 
-/* line 88, ../scss/partials/05-sprites/_sprites.scss */
+/* line 88, ../scss/partials/_sprites.scss */
 .Bug-icon {
   padding-left: 20px;
   background: url('../images/icons-s48247ce2e2.png') 0 -570px no-repeat;
 }
 
-/* line 92, ../scss/partials/05-sprites/_sprites.scss */
+/* line 92, ../scss/partials/_sprites.scss */
 .Feature-icon {
   padding-left: 20px;
   background: url('../images/icons-s48247ce2e2.png') 0 -890px no-repeat;
 }
 
-/* line 96, ../scss/partials/05-sprites/_sprites.scss */
+/* line 96, ../scss/partials/_sprites.scss */
 dt.issue-attachment {
   padding-left: 17px;
   background: url('../images/icons-s48247ce2e2.png') 0 -406px no-repeat;
 }
 
-/* line 101, ../scss/partials/05-sprites/_sprites.scss */
+/* line 101, ../scss/partials/_sprites.scss */
 dt.changeset {
   padding-left: 17px;
   background: url('../images/icons-s48247ce2e2.png') 0 -1462px no-repeat;
 }
 
-/* line 106, ../scss/partials/05-sprites/_sprites.scss */
+/* line 106, ../scss/partials/_sprites.scss */
 dt.issue-new {
   padding-left: 17px;
   background: url('../images/icons-s48247ce2e2.png') 0 -1494px no-repeat;
 }
 
-/* line 111, ../scss/partials/05-sprites/_sprites.scss */
+/* line 111, ../scss/partials/_sprites.scss */
 dt.issue-change {
   padding-left: 17px;
   background: url('../images/icons-s48247ce2e2.png') 0 -694px no-repeat;
 }
 
-/* line 116, ../scss/partials/05-sprites/_sprites.scss */
+/* line 116, ../scss/partials/_sprites.scss */
 dt.issue-note {
   padding-left: 17px;
   background: url('../images/icons-s48247ce2e2.png') 0 -534px no-repeat;
 }
 
-/* line 121, ../scss/partials/05-sprites/_sprites.scss */
+/* line 121, ../scss/partials/_sprites.scss */
 dt.issue-resolved {
   padding-left: 17px;
   background: url('../images/icons-s48247ce2e2.png') 0 -1142px no-repeat;
 }
 
-/* line 126, ../scss/partials/05-sprites/_sprites.scss */
+/* line 126, ../scss/partials/_sprites.scss */
 dt.issue-rejected {
   padding-left: 17px;
   background: url('../images/icons-s48247ce2e2.png') 0 -758px no-repeat;
 }
 
-/* line 131, ../scss/partials/05-sprites/_sprites.scss */
+/* line 131, ../scss/partials/_sprites.scss */
 .big-icon-projects {
   padding-left: 24px;
   background: url('../images/twentytwo-sdb7a3e63f4.png') 0 2px no-repeat;
+}
+
+/* FULL WIDTH TABLE (used in Source and Overview) */
+/* line 3, ../scss/partials/_changesets.scss */
+table.maintable {
+  margin: 12px 0;
+  width: 100%;
+  border: 1px solid #dddddd;
+  border-collapse: collapse;
+}
+/* line 8, ../scss/partials/_changesets.scss */
+table.maintable th, table.maintable td {
+  border-style: solid;
+  border-color: #dddddd;
+  padding: 0.75em 10px 0.75em 20px;
+  /* cells should have 10px left and right padding...
+   *   except the leftmost, which should have 20 and 10...
+   *     and the rightmost, which should have 10 and 20 */
+}
+/* line 16, ../scss/partials/_changesets.scss */
+table.maintable th + th, table.maintable td + td {
+  padding-left: 10px;
+}
+/* line 19, ../scss/partials/_changesets.scss */
+table.maintable td {
+  font: 12px / 1.5em "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, "Courier New", Courier, monospace;
+}
+
+/* line 25, ../scss/partials/_changesets.scss */
+#issues-list table.maintable td {
+  font: inherit;
+}
+/* line 28, ../scss/partials/_changesets.scss */
+#issues-list table.maintable a {
+  color: #525252;
+}
+
+/* line 34, ../scss/partials/_changesets.scss */
+table.maintable th {
+  font-weight: bold;
+  line-height: 18px;
+  text-shadow: 0 1px 0 white;
+}
+/* line 39, ../scss/partials/_changesets.scss */
+table.maintable thead tr {
+  background: #eeeeee;
+}
+/* line 42, ../scss/partials/_changesets.scss */
+table.maintable tbody tr:nth-child(even) {
+  background: #fcfcfc;
+}
+/* line 45, ../scss/partials/_changesets.scss */
+table.maintable th, table.maintable td {
+  border-bottom: 1px solid #dddddd;
+}
+
+/* STANDARD LAYOUT-BOX */
+/* line 52, ../scss/partials/_changesets.scss */
+.layout-box {
+  border: 1px solid #dddddd;
+  padding: 15px 24px;
+}
+
+/* SHORTLOG/OVERVIEW */
+/* line 60, ../scss/partials/_changesets.scss */
+#strip-repository th {
+  width: 158px;
+}
+/* line 63, ../scss/partials/_changesets.scss */
+#strip-repository th + th {
+  width: 80px;
+}
+/* line 66, ../scss/partials/_changesets.scss */
+#strip-repository th + th + th {
+  width: 480px;
+}
+/* line 69, ../scss/partials/_changesets.scss */
+#strip-repository th + th + th + th {
+  width: 110px;
+  padding-right: 20px;
+}
+
+/* line 76, ../scss/partials/_changesets.scss */
+#shortlogs-changes th {
+  width: 158px;
+}
+/* line 79, ../scss/partials/_changesets.scss */
+#shortlogs-changes th + th {
+  width: 80px;
+}
+/* line 82, ../scss/partials/_changesets.scss */
+#shortlogs-changes th + th + th {
+  width: 480px;
+}
+/* line 85, ../scss/partials/_changesets.scss */
+#shortlogs-changes th + th + th + th {
+  width: 32px;
+  padding-left: 0;
+  padding-right: 0;
+  text-indent: -9999px;
+  background: url('../images/icons-s48247ce2e2.png') 8px -150px no-repeat;
+}
+/* line 92, ../scss/partials/_changesets.scss */
+#shortlogs-changes th + th + th + th + th {
+  background: url('../images/icons-s48247ce2e2.png') 8px -118px no-repeat;
+}
+/* line 95, ../scss/partials/_changesets.scss */
+#shortlogs-changes th + th + th + th + th + th {
+  background: url('../images/icons-s48247ce2e2.png') 8px -374px no-repeat;
+}
+/* line 98, ../scss/partials/_changesets.scss */
+#shortlogs-changes td + td + td + td {
+  padding-left: 0;
+  padding-right: 0;
+  text-indent: -9999px;
+  text-indent: inherit;
+  text-align: center;
+  color: #228822;
+}
+/* line 106, ../scss/partials/_changesets.scss */
+#shortlogs-changes td + td + td + td + td {
+  color: #bb7700;
+}
+/* line 109, ../scss/partials/_changesets.scss */
+#shortlogs-changes td + td + td + td + td + td {
+  color: #cc3333;
+  padding-right: 12px;
+}
+
+/* line 115, ../scss/partials/_changesets.scss */
+#strip-repository img {
+  float: left;
+  margin: 0 9px 0 0;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #dddddd;
+}
+
+/* line 124, ../scss/partials/_changesets.scss */
+#shortlogs-changes img {
+  float: left;
+  margin: 0 9px 0 0;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #dddddd;
+}
+/* line 131, ../scss/partials/_changesets.scss */
+#shortlogs-changes .commented {
+  background: url(../img/icons/fugue/balloon_left.png) no-repeat 50%;
+}
+/* line 134, ../scss/partials/_changesets.scss */
+#shortlogs-changes input[type="radio"] {
+  float: left;
+  margin: 3px 3px 3px -16px;
+}
+
+/* line 140, ../scss/partials/_changesets.scss */
+.diff-radio input {
+  margin: 0;
+  padding: 0;
+}
+
+/* line 145, ../scss/partials/_changesets.scss */
+.changes-added, .changes-modified, .changes-removed {
+  display: block;
+  float: right;
+  width: 15px;
+  border: 1px solid #dddddd;
+  text-align: center;
+  font-size: 0.75em;
+}
+
+/* line 154, ../scss/partials/_changesets.scss */
+.changes-added, .changes-modified {
+  border-right: 0 !important;
+}
+
+/* line 158, ../scss/partials/_changesets.scss */
+.changes-removed, .changes-modified {
+  border-left: 0 !important;
+}
+
+/* line 162, ../scss/partials/_changesets.scss */
+.changes-added {
+  background: #bbffbb;
+  text-align: center;
+}
+
+/* line 167, ../scss/partials/_changesets.scss */
+.changes-modified {
+  background: #ffdd88;
+  text-align: center;
+}
+
+/* line 172, ../scss/partials/_changesets.scss */
+.changes-removed {
+  background: #ff8888;
+  text-align: center;
+}
+
+/* CHANGESETS */
+/* line 179, ../scss/partials/_changesets.scss */
+.changesets-date {
+  margin: 0 auto;
+  border-bottom: 0;
+  background: white url(../img/layout/bg_general.png) repeat-x left top;
+  padding: 10px 20px !important;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+/* line 188, ../scss/partials/_changesets.scss */
+.changeset-description {
+  margin-bottom: 10px;
+  width: 710px;
+  white-space: pre-wrap;
+}
+
+/* line 194, ../scss/partials/_changesets.scss */
+#content h2.changesets {
+  margin: 0;
+  padding: 12px 0 10px 20px;
+}
+
+/* line 199, ../scss/partials/_changesets.scss */
+#changesets-graph {
+  position: relative;
+  float: left;
+  margin-top: 20px;
+  margin-left: -110px;
+}
+
+/* line 206, ../scss/partials/_changesets.scss */
+#changesets-inner {
+  margin: 0 0 10px;
+}
+/* line 208, ../scss/partials/_changesets.scss */
+#changesets-inner h3 {
+  margin: -1px 0 0 !important;
+  border: 1px solid #dddddd;
+  background: #eeeeee;
+  padding: 10px 20px;
+}
+
+/* line 216, ../scss/partials/_changesets.scss */
+#changesets-inner > ol {
+  font: 12px / 1.5em "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, "Courier New", Courier, monospace;
+}
+
+/* line 220, ../scss/partials/_changesets.scss */
+#changesets-inner > ol > li {
+  margin: -1px 0 0;
+  border: 1px solid #dddddd;
+  padding: 10px 300px 10px 20px;
+}
+
+/* line 226, ../scss/partials/_changesets.scss */
+#changesets-inner > ol > li:nth-child(even) {
+  background: #fcfcfc;
+}
+
+/* line 230, ../scss/partials/_changesets.scss */
+.shortlog_relations {
+  float: right;
+  margin: 0 -280px 0 0;
+  text-align: right;
+}
+/* line 234, ../scss/partials/_changesets.scss */
+.shortlog_relations dt {
+  clear: left;
+  float: left;
+  width: 100px;
+  text-align: right;
+  color: #747474;
+}
+/* line 240, ../scss/partials/_changesets.scss */
+.shortlog_relations dt:after {
+  content: ":";
+}
+/* line 244, ../scss/partials/_changesets.scss */
+.shortlog_relations dd {
+  float: left;
+  margin: 0 0 0 0.5em;
+}
+
+/* line 250, ../scss/partials/_changesets.scss */
+.relations {
+  float: right;
+  margin: 0 0 0 0;
+  text-align: right;
+}
+/* line 254, ../scss/partials/_changesets.scss */
+.relations dt {
+  clear: left;
+  float: left;
+  width: 100px;
+  text-align: right;
+  color: #747474;
+}
+/* line 260, ../scss/partials/_changesets.scss */
+.relations dt:after {
+  content: ":";
+}
+/* line 264, ../scss/partials/_changesets.scss */
+.relations dd {
+  float: left;
+  margin: 0 0 0 0.5em;
+}
+
+/* line 270, ../scss/partials/_changesets.scss */
+#changesets-inner h4 {
+  position: absolute;
+  left: -9999px;
+}
+
+/* line 276, ../scss/partials/_changesets.scss */
+#changelog.added, #changelog.modified, #changelog.removed {
+  float: right;
+  width: 32px;
+  height: 36px;
+}
+/* line 281, ../scss/partials/_changesets.scss */
+#changelog.added {
+  background: url('../images/icons-s48247ce2e2.png') 0 -150px no-repeat;
+}
+/* line 284, ../scss/partials/_changesets.scss */
+#changelog.modified {
+  padding-left: 17px;
+  background: url('../images/icons-s48247ce2e2.png') 0 -118px no-repeat;
+}
+/* line 288, ../scss/partials/_changesets.scss */
+#changelog.removed {
+  background: url('../images/icons-s48247ce2e2.png') 0 -374px no-repeat;
+  margin-right: 201px;
+}
+
+/* line 294, ../scss/partials/_changesets.scss */
+.files-affected {
+  float: right;
+  margin: 0 -100px 0 0;
+  width: 96px;
+  overflow: hidden;
+}
+/* line 299, ../scss/partials/_changesets.scss */
+.files-affected dt {
+  position: absolute;
+  left: -9999px;
+}
+/* line 303, ../scss/partials/_changesets.scss */
+.files-affected dd {
+  float: left;
+  width: 32px;
+  text-align: center;
+}
+/* line 307, ../scss/partials/_changesets.scss */
+.files-affected dd[title="Added"] {
+  color: #228822;
+}
+/* line 310, ../scss/partials/_changesets.scss */
+.files-affected dd[title="Modified"] {
+  color: #bb7700;
+}
+/* line 313, ../scss/partials/_changesets.scss */
+.files-affected dd[title="Removed"] {
+  color: #cc3333;
+}
+
+/* line 319, ../scss/partials/_changesets.scss */
+#source-summary > p {
+  white-space: pre-wrap;
+}
+
+/* line 323, ../scss/partials/_changesets.scss */
+#source-summary + p {
+  margin: 0 0 0 21px;
+}
+
+/* line 327, ../scss/partials/_changesets.scss */
+#changesets-inner p, #source-summary p {
+  margin: 0.25em 0 0.5em;
+  width: 600px;
+  line-height: inherit;
+}
+
+/* line 333, ../scss/partials/_changesets.scss */
+#changesets-inner .metadata, #source-summary .metadata {
+  position: relative;
+  margin: 0.5em 0 0;
+  min-height: 34px;
+  padding: 2px 0 2px 45px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+/* line 341, ../scss/partials/_changesets.scss */
+#changesets-inner .metadata dt, #source-summary .metadata dt {
+  position: absolute;
+  left: -9999px;
+}
+
+/* line 346, ../scss/partials/_changesets.scss */
+#changesets-inner .metadata .avatar, #source-summary .metadata .avatar {
+  position: absolute;
+  left: -3px;
+  top: 0;
+}
+
+/* line 352, ../scss/partials/_changesets.scss */
+#changesets-inner .metadata dd[title], #source-summary .metadata dd:last-child {
+  color: #747474;
+}
+
+/* line 357, ../scss/partials/_changesets.scss */
+#changesets-inner li {
+  position: relative;
+}
+/* line 360, ../scss/partials/_changesets.scss */
+#changesets-inner .metadata + p {
+  position: absolute;
+  right: 220px;
+  bottom: 12px;
+  display: block;
+  width: auto;
+}
+
+/* line 369, ../scss/partials/_changesets.scss */
+.changesets-changeset {
+  margin: 0 auto -1px;
+  font: 12px / 16px "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, "Courier New", Courier, monospace;
+}
+/* line 372, ../scss/partials/_changesets.scss */
+.changesets-changeset h4 {
+  font-weight: bold;
+  font-size: 1em;
+}
+/* line 376, ../scss/partials/_changesets.scss */
+.changesets-changeset span {
+  font-family: "Lucida Grande", "Trebuchet MS", Tahoma, Arial, sans-serif;
+}
+
+/* line 381, ../scss/partials/_changesets.scss */
+#changesets-footer {
+  margin: 0 auto;
+}
+
+/* line 386, ../scss/partials/_changesets.scss */
+#content.added, #content.modified, #content.removed {
+  float: right;
+  width: 32px;
+  height: 36px;
+}
+/* line 391, ../scss/partials/_changesets.scss */
+#content.added {
+  padding-left: 17px;
+  background: url('../images/icons-s48247ce2e2.png') 0 -150px no-repeat;
+}
+/* line 395, ../scss/partials/_changesets.scss */
+#content.modified {
+  padding-left: 17px;
+  background: url('../images/icons-s48247ce2e2.png') 0 -118px no-repeat;
+}
+/* line 399, ../scss/partials/_changesets.scss */
+#content.removed {
+  background: url('../images/icons-s48247ce2e2.png') 0 -374px no-repeat;
+  margin-right: 201px;
+}
+
+/* line 405, ../scss/partials/_changesets.scss */
+.files-affected {
+  float: right;
+  margin: 0 -100px 0 0;
+  width: 96px;
+  overflow: hidden;
+}
+/* line 410, ../scss/partials/_changesets.scss */
+.files-affected dt {
+  position: absolute;
+  left: -9999px;
+}
+/* line 414, ../scss/partials/_changesets.scss */
+.files-affected dd {
+  float: left;
+  width: 32px;
+  text-align: center;
+}
+/* line 418, ../scss/partials/_changesets.scss */
+.files-affected dd[title="Added"] {
+  color: #228822;
+}
+/* line 421, ../scss/partials/_changesets.scss */
+.files-affected dd[title="Modified"] {
+  color: #bb7700;
+}
+/* line 424, ../scss/partials/_changesets.scss */
+.files-affected dd[title="Removed"] {
+  color: #cc3333;
+}
+
+/* line 430, ../scss/partials/_changesets.scss */
+#source-summary > p {
+  white-space: pre-wrap;
+}
+
+/* line 434, ../scss/partials/_changesets.scss */
+#source-summary + p {
+  margin: 0 0 0 21px;
+}
+
+/* line 438, ../scss/partials/_changesets.scss */
+#changesets-inner p, #source-summary p {
+  margin: 0.25em 0 0.5em;
+  width: 600px;
+  line-height: inherit;
+}
+
+/* line 444, ../scss/partials/_changesets.scss */
+#changesets-inner .metadata, #source-summary .metadata {
+  position: relative;
+  margin: 0.5em 0 0;
+  min-height: 34px;
+  padding: 2px 0 2px 45px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+/* line 452, ../scss/partials/_changesets.scss */
+#changesets-inner .metadata dt, #source-summary .metadata dt {
+  position: absolute;
+  left: -9999px;
+}
+
+/* line 457, ../scss/partials/_changesets.scss */
+#changesets-inner .metadata .avatar, #source-summary .metadata .avatar {
+  position: absolute;
+  left: -3px;
+  top: 0;
+}
+
+/* line 463, ../scss/partials/_changesets.scss */
+#changesets-inner .metadata dd[title], #source-summary .metadata dd:last-child {
+  color: #747474;
+}
+
+/* line 468, ../scss/partials/_changesets.scss */
+#changesets-inner li {
+  position: relative;
+}
+/* line 471, ../scss/partials/_changesets.scss */
+#changesets-inner .metadata + p {
+  position: absolute;
+  right: 220px;
+  bottom: 12px;
+  display: block;
+  width: auto;
+}
+
+/* line 480, ../scss/partials/_changesets.scss */
+.changesets-changeset {
+  margin: 0 auto -1px;
+  font: 12px / 16px "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, "Courier New", Courier, monospace;
+}
+/* line 483, ../scss/partials/_changesets.scss */
+.changesets-changeset h4 {
+  font-weight: bold;
+  font-size: 1em;
+}
+/* line 487, ../scss/partials/_changesets.scss */
+.changesets-changeset span {
+  font-family: "Lucida Grande", "Trebuchet MS", Tahoma, Arial, sans-serif;
+}
+
+/* line 492, ../scss/partials/_changesets.scss */
+#changesets-footer {
+  margin: 0 auto;
+}
+
+/* line 496, ../scss/partials/_changesets.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 500, ../scss/partials/_changesets.scss */
+#changelog, #introduction > div {
+  margin: 0 auto;
+  width: 930px;
+}
+
+/* line 505, ../scss/partials/_changesets.scss */
+#source-summary table td, .changesets-changeset table td {
+  padding: 0 4px 4px;
+}
+
+/*p {
+ *    line-height: 21px;
+ *} */
+/* line 513, ../scss/partials/_changesets.scss */
+.metadata img.gravatar {
+  margin: 0 auto -1px;
+  float: left;
+  position: relative;
+  left: -45px;
+  bottom: 35px;
+}
+
+/* CHANGE TYPES */
+/* line 523, ../scss/partials/_changesets.scss */
+.change-modified {
+  background: url('../images/icons-s48247ce2e2.png') 0 -124px no-repeat;
+  padding: 2px 0 2px 20px;
+}
+
+/* line 528, ../scss/partials/_changesets.scss */
+.change-added {
+  background: url('../images/icons-s48247ce2e2.png') 0 -156px no-repeat;
+  padding: 2px 0 2px 20px;
+}
+
+/* line 533, ../scss/partials/_changesets.scss */
+.change-removed {
+  background: url('../images/icons-s48247ce2e2.png') 0 -380px no-repeat;
+  padding: 2px 0 2px 20px;
+}
+
+/* line 1, ../scss/partials/_gravatar.scss */
+img.gravatar {
+  padding: 2px;
+  border: solid 1px #d5d5d5;
+  background: white;
+}
+
+/* line 9, ../scss/partials/_gravatar.scss */
+.topbar img.gravatar {
+  padding: 1px 1px 1px 1px;
+  margin: 6px 2px 2px 2px;
+  border: solid 1px #d5d5d5;
+  background: transparent;
+  position: relative;
+  top: inherit;
+  float: right;
+  left: 50px;
+}
+
+/* line 20, ../scss/partials/_gravatar.scss */
+div.issue img.gravatar {
+  float: right;
+  padding: 1px;
+}
+
+/* line 26, ../scss/partials/_gravatar.scss */
+div.issue span img.gravatar {
+  height: 14px;
+  width: 14px;
+  padding: 2px;
+  float: left;
+  margin: 0 0.5em 0 0;
+}
+
+/* line 34, ../scss/partials/_gravatar.scss */
+#history img.gravatar {
+  padding: 3px;
+  margin: 0 1.5em 1em 0;
+  float: left;
+  position: relative;
+  top: -6px;
+}
+
+/* line 42, ../scss/partials/_gravatar.scss */
+td.username img.gravatar {
+  float: left;
+  margin: 0 1em 0 0;
+}
+
+/* line 47, ../scss/partials/_gravatar.scss */
+#activity dt img.gravatar {
+  position: relative;
+  top: 8px;
+}
+
+/* line 1, ../scss/partials/_progress.scss */
+table.progress {
+  border: 1px solid #d7d7d7 !important;
+  border-collapse: collapse;
+  border-spacing: 0pt;
+  empty-cells: show;
+  text-align: center;
+  margin: 1px 6px 1px 0px;
+  display: inline-table;
+}
+
+/* line 12, ../scss/partials/_progress.scss */
+table.progress td {
+  height: 0.9em;
+  border: 1px solid #d7d7d7 !important;
+}
+
+/* line 17, ../scss/partials/_progress.scss */
+table.progress td.closed {
+  background: #bae0ba none repeat scroll 0%;
+}
+
+/* line 21, ../scss/partials/_progress.scss */
+table.progress td.done {
+  background: #fdee99 none repeat scroll 0%;
+}
+
+/* line 25, ../scss/partials/_progress.scss */
+table.progress td.open {
+  background: white none repeat scroll 0%;
+}
+
+/* line 29, ../scss/partials/_progress.scss */
+span.pourcent {
+  font-size: 80%;
+  position: relative;
+  top: 2px;
+}
+
+/* line 35, ../scss/partials/_progress.scss */
+p.progress-info {
+  clear: left;
+  font-style: italic;
+  font-size: 80%;
+}
+
+/* line 41, ../scss/partials/_progress.scss */
+table.big_progress {
+  border: 1px solid #d7d7d7;
+  border-collapse: collapse;
+  border-spacing: 0pt;
+  empty-cells: show;
+  text-align: center;
+  float: left;
+  margin: 1px 6px 1px 0px;
+}
+
+/* line 51, ../scss/partials/_progress.scss */
+table.big_progress td {
+  height: 1.4em;
+}
+
+/* line 55, ../scss/partials/_progress.scss */
+table.big_progress td.closed {
+  background: #bae0ba none repeat scroll 0%;
+}
+
+/* line 59, ../scss/partials/_progress.scss */
+table.big_progress td.done {
+  background: #fdee99 none repeat scroll 0%;
+}
+
+/* line 63, ../scss/partials/_progress.scss */
+table.big_progress td.open {
+  background: white none repeat scroll 0%;
+}
+
+/* line 67, ../scss/partials/_progress.scss */
+span.big_pourcent {
+  font-size: 100%;
+  position: relative;
+  top: 2px;
+}
+
+/* line 73, ../scss/partials/_progress.scss */
+div.big_progress-info {
+  clear: left;
+  font-style: italic;
+  font-size: 90%;
+}
+
+/* line 2, ../scss/partials/_flash-messages.scss */
+div.flash-error, div.flash-notice, div.flash-success {
+  padding: 0.8em;
+  margin-bottom: 1em;
+  border: 2px solid #dddddd;
+}
+/* line 7, ../scss/partials/_flash-messages.scss */
+div.flash-error {
+  background: #fbe3e4;
+  color: #8a1f11;
+  border-color: #fbc2c4;
+}
+/* line 12, ../scss/partials/_flash-messages.scss */
+div.flash-notice {
+  background: #fff6bf;
+  color: #514721;
+  border-color: #ffd324;
+}
+/* line 17, ../scss/partials/_flash-messages.scss */
+div.flash-success {
+  background: #e6efc2;
+  color: #264409;
+  border-color: #c6d880;
+}
+/* line 22, ../scss/partials/_flash-messages.scss */
+div.flash-error a {
+  color: #8a1f11;
+}
+/* line 25, ../scss/partials/_flash-messages.scss */
+div.flash-notice a {
+  color: #514721;
+}
+/* line 28, ../scss/partials/_flash-messages.scss */
+div.flash-success a {
+  color: #264409;
+}
+
+/* line 22, ../scss/bugitor.scss */
+.centered {
+  text-align: center;
+  margin-top: 22px;
+  line-height: 6px;
+}
+
+/* line 28, ../scss/bugitor.scss */
+.contextual {
+  position: relative;
+  float: right;
+}
+
+/* line 33, ../scss/bugitor.scss */
+.floatrightup {
+  float: right;
+  position: relative;
+  top: 0.85em;
+}
+
+/* line 40, ../scss/bugitor.scss */
+.floatright {
+  float: right;
+  position: relative;
+  bottom: 32px;
+}
+
+/* line 46, ../scss/bugitor.scss */
+.contextual_left {
+  float: left;
+  line-height: 1.4em;
+  margin-top: 5px;
+  padding-right: 10px;
+}
+
+/* line 53, ../scss/bugitor.scss */
+.lowered {
+  top: 20px;
+}
+
+/* line 57, ../scss/bugitor.scss */
+.simplebox, .box {
+  padding: 10px 10px;
+  margin-bottom: 1em;
+  border: 1px solid #bbbbbb;
+}
+
+/* line 63, ../scss/bugitor.scss */
+.box {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 2px 3px #888888, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 2px 3px #888888, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 3px #888888, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* line 71, ../scss/bugitor.scss */
+div.issue {
+  background: #ffffdd;
+  padding: 6px;
+  margin-bottom: 6px;
+  border: 1px solid #bbbbbb;
+  -webkit-box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.4);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+
+/* line 82, ../scss/bugitor.scss */
+a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
+  color: #999999;
+  text-decoration: line-through;
+}
+
+/* line 87, ../scss/bugitor.scss */
+.keep-together {
+  white-space: nowrap !important;
+}
+
+/* line 91, ../scss/bugitor.scss */
+#content .tabs {
+  height: 2.6em;
+  border-bottom: 1px solid #bbbbbb;
+  margin-bottom: 1.2em;
+  position: relative;
+}
+/* line 6, ../scss/partials/_tabs.scss */
+#content .tabs ul {
+  margin: 0;
+  position: absolute;
+  bottom: -2px;
+  padding-left: 1em;
+}
+/* line 11, ../scss/partials/_tabs.scss */
+#content .tabs ul li {
+  float: left;
+  list-style-type: none;
+  white-space: nowrap;
+  margin-right: 8px;
+  background: white;
+}
+/* line 17, ../scss/partials/_tabs.scss */
+#content .tabs ul li a {
+  display: block;
+  font-size: 0.9em;
+  text-decoration: none;
+  line-height: 1.3em;
+  padding: 4px 6px 4px 6px;
+  border: 1px solid #cccccc;
+  border-bottom: 1px solid #bbbbbb;
+  background-color: #eeeeee;
+  color: #777777;
+  font-weight: bold;
+}
+/* line 28, ../scss/partials/_tabs.scss */
+#content .tabs ul li a:hover {
+  background-color: #ffffdd;
+  text-decoration: none;
+}
+/* line 33, ../scss/partials/_tabs.scss */
+#content .tabs ul li a.selected {
+  background-color: white;
+  border: 1px solid #bbbbbb;
+  border-bottom: 1px solid white;
+}
+/* line 37, ../scss/partials/_tabs.scss */
+#content .tabs ul li a.selected:hover {
+  background-color: white;
+}
+/* line 44, ../scss/partials/_tabs.scss */
+#content .tabs > ul {
+  bottom: -1px;
+}
+/* line 46, ../scss/partials/_tabs.scss */
+#content .tabs > ul li.active a {
+  color: orange;
+  background-color: white;
+  border: 1px solid #bbbbbb;
+  border-bottom: 1px solid white;
+}
+/* line 51, ../scss/partials/_tabs.scss */
+#content .tabs > ul li.active a:hover {
+  background-color: white;
+}
+
+/* line 95, ../scss/bugitor.scss */
+.journal {
+  clear: left;
+}
+/* line 97, ../scss/bugitor.scss */
+.journal ul {
+  position: relative;
+  width: 30%;
+  margin: 0 0 20px 20px;
+  padding: 2px 2px 2px 10px;
+  right: 20px;
+  background: #1673a1;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+  color: white;
+  list-style: none;
+}
+/* line 11, ../../../../../lib/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/typography/lists/_bullets.scss */
+.journal ul li {
+  list-style-image: none;
+  list-style-type: none;
+  margin-left: 0;
+}
+/* line 110, ../scss/bugitor.scss */
+.journal h5 {
+  margin-bottom: 2px;
+  margin-top: 1.5em;
+}
+/* line 114, ../scss/bugitor.scss */
+.journal hr {
+  clear: left;
+}
+
+/* line 119, ../scss/bugitor.scss */
+div#issue-changesets {
+  float: right;
+  width: 45%;
+  margin-left: 1em;
+  margin-bottom: 1em;
+  background: white;
+  padding-left: 1em;
+  font-size: 90%;
+}
+/* line 127, ../scss/bugitor.scss */
+div#issue-changesets .changeset {
+  padding: 4px;
+  border-bottom: 1px solid #bbbbbb;
+}
+/* line 130, ../scss/bugitor.scss */
+div#issue-changesets .changeset p {
+  margin-top: 0;
+  margin-bottom: 1em;
 }
