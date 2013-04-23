@@ -29,12 +29,15 @@
 	}
 </style>
 
-<!-- Le fav and touch icons -->
-<link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.ico">
-<!--Uncomment when required-->
-<!--<link rel="apple-touch-icon" href="images/apple-touch-icon.png">-->
-<!--<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">-->
-<!--<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">-->
+<link rel="stylesheet" type="text/css" href="<?php  echo Yii::app() -> theme -> baseUrl;?>/css/bugitor.css" />
+<!-- Favicons
+================================================== -->
+<link rel="shortcut icon" href="<?php  echo Yii::app() -> theme -> baseUrl;?>/images/favicon.ico">
+<link rel="apple-touch-icon" href="<?php  echo Yii::app() -> theme -> baseUrl;?>/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="<?php  echo Yii::app() -> theme -> baseUrl;?>/images/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="<?php  echo Yii::app() -> theme -> baseUrl;?>/images/apple-touch-icon-114x114.png">
+<script type="text/javascript" src="<?php  echo Yii::app() -> theme -> baseUrl;?>/js/branch_renderer.js"></script>
+
 </head>
 
 <body>
@@ -130,8 +133,36 @@
                         <?php  endif;?>
                     </span>
 
+				<?php  $this -> widget('ext.ELocalTimeago.ELocalTimeago', array('localtimeago' => 'MMM dd, yyyy HH:mm zzz'));?>
+				<?php  $this -> widget('ext.EHighlight.EHighlight');?>
+				<?php
+				Yii::app() -> clientScript -> registerScript('myHideEffect', '$(".info").animate({opacity: 1.0}, 4000).fadeOut("slow");', CClientScript::POS_READY);
+				?>
+				<?php
+					$user = Yii::app()->getUser();
+					foreach ($user->getFlashKeys() as $key):
+					if ($user->hasFlash($key)):
+				?>
+				<br/>
+				<div class="info flash-<?php  echo $key;?>">
+					<?php  echo $user -> getFlash($key);?>
+				</div>
+				<?php
+				endif;
+				endforeach;
+				?>
 	<div class="container">
 		<?php echo $content ?>
+
+			<footer id="footer">
+				<div align="center" class="quiet">
+					<hr/>
+					Powered by <a class="noicon" title="Bugitor - The Yii-powered issue tracker" href="http://bitbucket.org/jacmoe/bugitor">Bugitor</a> &copy; 2010 - 2013 by Bugitor Team.
+					<br/>
+					<a class="noicon" href="http://www.yiiframework.com/" rel="external"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/yii_power_lightblue_white.gif" alt="Made with Yii Framework" title="Made with Yii Framework"/></a>
+					<hr/>
+				</div>
+			</footer>
 	</div> <!-- /container -->
 </body>
 </html>
