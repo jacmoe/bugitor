@@ -1,0 +1,18 @@
+// get rid of dashed borders in menu
+a:active, a:focus, input[type="image"] {
+  outline: 0;
+}
+
+a {
+  &:active {
+    outline: none;
+  }
+  &:focus {
+    -moz-outline-style: none;
+  }
+  @include hover-link;
+  @include link-colors($link-normal);
+  &:visited {
+    @include link-colors($link-visited);
+  }
+}

@@ -1,0 +1,81 @@
+// This file establishes simple clean default font stacks
+
+$font-sans: Calibri, "Myriad Pro", Tahoma, sans-serif;
+
+//$font-sans: sans-serif
+$font-serifs: Georgia, serif;
+$font-mono: Consolas, Menlo, "Courier New", monospace, monospace;
+
+// uncomment to integrate typekit or similar
+// $font-typekit-FONTNAME: fontname
+// $font-typekit-FONTNAME: fontname
+//
+// $font-sans: $font-typekit-FONTNAME, $font-sans
+// $font-serifs: $font-typekit-FONTNAME, $font-serifs
+
+$font-body: $font-sans;
+$font-headline: $font-serifs;
+$font-logo: $font-sans;
+
+// special use font stacks
+// ampersands
+$font-amp: $font-serifs;
+
+// CAPS
+$font_cap: $font-sans;
+
+$body-text-line-height: 1em;
+$secondary-text-size: 1em;
+$body-text-family: $font-body;
+
+// fix this!
+$column-width: 20px;
+$horizontal-nudge: 1px;
+
+// Main vertical rythm variables
+//$base-font-size: 16px
+//$base-line-height: 24px
+//$relative-font-sizing: true
+
+$base-font-size: 14px;
+
+/* 1. Correct text resizing oddly in IE6/7 when body font-size is set using em units
+ * 2. Force vertical scrollbar in non-IE
+ * 3. Prevent iOS text size adjust on device orientation change, without disabling user zoom: h5bp.com/g */
+
+html {
+  font-size: 100%;
+  overflow-y: scroll;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Body -------------------------------------------------------------- */
+
+/* Establish baseline rhythm */
+ * from compass/typography/_vertical_rhythm */
+@include establish-baseline;
+
+body {
+  font-family: $font-body;
+  color: $base-color;
+  background: $background-color;
+}
+
+/* Selected Text -------------------------------------------------------------- */
+/* -moz- must be declared separately */
+
+::-moz-selection {
+  // "+accessible-color" located in 'kit_partials/mixins/_helpers.sass'
+  @include accessible-color($alt-color);
+  background: $alt-color;
+  text-shadow: none;
+}
+
+::selection {
+  // "+accessible-color" located in 'kit_partials/mixins/_helpers.sass'
+  @include accessible-color($alt-color);
+  background: $alt-color;
+  text-shadow: none;
+}
