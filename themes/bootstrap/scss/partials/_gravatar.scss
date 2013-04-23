@@ -6,7 +6,7 @@ img.gravatar {
   //top: 8px
 }
 
-.topbar img.gravatar {
+#topbar img.gravatar {
   padding: 1px 1px 1px 1px;
   margin: 6px 2px 2px 2px;
   border: solid 1px $border-color;
@@ -14,7 +14,7 @@ img.gravatar {
   position: relative;
   top: inherit;
   float: right;
-  left: 50px;
+  left: 12px;
 }
 
 div.issue img.gravatar {

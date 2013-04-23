@@ -3,29 +3,29 @@
  * @package Yii Framework < http://yiiframework.com >
  * @subpackage Widgets
  * @author Vadim Gabriel , http://vadimg.com/ < vadimg88@gmail.com >
- * @copyright 
- * 
- * 
+ * @copyright
+ *
+ *
  * Installation Instructions:
  * --------------------------
- * 
+ *
  * 1. Download the extension
  * 2. Unzip the file contents
  * 3. Upload the VGGravatarWidget.php file to the extensions folder located under WebRoot/protected/extensions
  * 4. Read Usage Instructions.
- * 
- * 
+ *
+ *
  * Requirements:
  * -------------
- * 
+ *
  * * This should work on all Yii versions (That has widgets working in them), But was tested on version 1.0.9 & 1.1.x .
- * 
- * 
+ *
+ *
  * Usage:
  * ---------------
  * Inside your view file just paste the following code:
- * 
- * $this->widget('application.extensions.VGGravatarWidget', 
+ *
+ * $this->widget('application.extensions.VGGravatarWidget',
  * 			    											array(
  *																  'email' => 'myemail@mydomain.com', // email to display the gravatar belonging to it
  *																  'hashed' => false, // if the email provided above is already md5 hashed then set this property to true, defaults to false
@@ -36,41 +36,41 @@
  * 																  'rating' => 'PG', // the Gravatar ratings, Can be G, PG, R, X, Defaults to G
  * 																  'htmlOptions' => array( 'alt' => 'Gravatar Icon' ), // Html options that will be appended to the image tag
  * 															));
- * 
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
+ *
  */
 class VGGravatarWidget extends CWidget
 {
 	/**
-	 * @var string - Email we will use to generate the Gravatar Image  
+	 * @var string - Email we will use to generate the Gravatar Image
 	 */
 	public $email = '';
-	
+
 	/**
 	 * @var boolean - set this to true if the email is already md5 hashed
 	 */
 	public $hashed = false;
-	
+
 	/**
-	 * @var string - Enter the default image displayed if the 
+	 * @var string - Enter the default image displayed if the
 	 * Email provided to display the Gravatar does not have one.
-	 * There are "special" values that you may pass to this parameter which produce dynamic default images. 
-	 * These are "identicon" "monsterid" and "wavatar". 
-	 * If omitted we will serve up our default image, the blue G. 
-	 * A new parameter, 404, has been added to allow the return of an HTTP 404 error instead of any 
-	 * image or redirect if an image cannot be found for the specified email address. 
-	 * 
+	 * There are "special" values that you may pass to this parameter which produce dynamic default images.
+	 * These are "identicon" "monsterid" and "wavatar".
+	 * If omitted we will serve up our default image, the blue G.
+	 * A new parameter, 404, has been added to allow the return of an HTTP 404 error instead of any
+	 * image or redirect if an image cannot be found for the specified email address.
+	 *
 	 */
 	public $default = 'identicon';
-	
+
 	/**
 	 * @var int - Gravatar Size in px, Defaults to 40px
 	 */
 	public $size = 48;
-	
+
 	/**
 	 * @var string - the Gravatar default rating
 	 * Can be G, PG, R, X
@@ -85,62 +85,61 @@ class VGGravatarWidget extends CWidget
 	 *
 	 */
 	public $rating = 'G';
-	
+
 	/**
 	 * @var array - any HTML options that will be passed to the IMG tag
 	 */
-	public $htmlOptions = array('alt' => 'Gravatar Icon', 'class' => 'gravatar');
-	
+	public $htmlOptionsPriv = array('alt' => 'Gravatar Icon', 'class' => 'gravatar');
+
+	public $htmlOptions = array();
+
 	/**
 	 * Gravatar Url
 	 */
 	const GRAVATAR_URL = 'http://www.gravatar.com/avatar/';
-	
+
 	/**
 	 * @var string - the final constructed URL
 	 */
 	protected $url = '';
-	
+
 	/**
 	 * @var array - url params
 	 */
 	protected $params = array();
-	
+
 	/**
 	 * Widget Constructor
 	 */
 	public function init()
-	{	
+	{
 		// Email
 		$this->url .= $this->hashed ? strtolower( $this->email ) . '?' : md5( strtolower( $this->email ) ) . '?';
-		
+
 		// Size
 		$this->params['size'] = (int) $this->size;
-		
+
 		// Rating
 		$this->params['rating'] = $this->rating;
-		
-		// Default
-		//if( $this->default != '' )
-		//{
-		//	$this->params['default'] = $this->default;
-		//}
-		
+
+		$this->htmlOptions = array_merge($this->htmlOptionsPriv, $this->htmlOptions);
+
 		$array = array();
 		foreach( $this->params as $key => $value )
 		{
 			$array[] = $key . '=' . $value;
 		}
-		
+
 		$this->url .= implode('&', $array);
 	}
-	
+
 	/**
 	 * Run Widget and display
 	 */
 	public function run()
 	{
-		echo CHtml::image(self::GRAVATAR_URL . $this->url, $this->htmlOptions['alt'], $this->htmlOptions);
+		if($this->email !== '')
+			echo CHtml::image(self::GRAVATAR_URL . $this->url, $this->htmlOptions['alt'], $this->htmlOptions);
 	}
-	
+
 }
