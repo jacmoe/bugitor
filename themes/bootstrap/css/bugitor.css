@@ -1659,38 +1659,39 @@ table.progress {
 table.progress td {
   height: 0.9em;
   border: 1px solid #d7d7d7 !important;
+  height: 0.4em !important;
 }
 
-/* line 17, ../scss/partials/_progress.scss */
+/* line 18, ../scss/partials/_progress.scss */
 table.progress td.closed {
-  background: #bae0ba none repeat scroll 0%;
+  background: #bae0ba none repeat scroll 0% !important;
 }
 
-/* line 21, ../scss/partials/_progress.scss */
+/* line 22, ../scss/partials/_progress.scss */
 table.progress td.done {
-  background: #fdee99 none repeat scroll 0%;
+  background: #fdee99 none repeat scroll 0% !important;
 }
 
-/* line 25, ../scss/partials/_progress.scss */
+/* line 26, ../scss/partials/_progress.scss */
 table.progress td.open {
-  background: white none repeat scroll 0%;
+  background: white none repeat scroll 0% !important;
 }
 
-/* line 29, ../scss/partials/_progress.scss */
+/* line 30, ../scss/partials/_progress.scss */
 span.pourcent {
   font-size: 80%;
   position: relative;
   top: 2px;
 }
 
-/* line 35, ../scss/partials/_progress.scss */
+/* line 36, ../scss/partials/_progress.scss */
 p.progress-info {
   clear: left;
   font-style: italic;
   font-size: 80%;
 }
 
-/* line 41, ../scss/partials/_progress.scss */
+/* line 42, ../scss/partials/_progress.scss */
 table.big_progress {
   border: 1px solid #d7d7d7;
   border-collapse: collapse;
@@ -1701,34 +1702,34 @@ table.big_progress {
   margin: 1px 6px 1px 0px;
 }
 
-/* line 51, ../scss/partials/_progress.scss */
+/* line 52, ../scss/partials/_progress.scss */
 table.big_progress td {
-  height: 1.4em;
+  height: 0.4em !important;
 }
 
-/* line 55, ../scss/partials/_progress.scss */
+/* line 56, ../scss/partials/_progress.scss */
 table.big_progress td.closed {
   background: #bae0ba none repeat scroll 0%;
 }
 
-/* line 59, ../scss/partials/_progress.scss */
+/* line 60, ../scss/partials/_progress.scss */
 table.big_progress td.done {
   background: #fdee99 none repeat scroll 0%;
 }
 
-/* line 63, ../scss/partials/_progress.scss */
+/* line 64, ../scss/partials/_progress.scss */
 table.big_progress td.open {
   background: white none repeat scroll 0%;
 }
 
-/* line 67, ../scss/partials/_progress.scss */
+/* line 68, ../scss/partials/_progress.scss */
 span.big_pourcent {
   font-size: 100%;
   position: relative;
   top: 2px;
 }
 
-/* line 73, ../scss/partials/_progress.scss */
+/* line 74, ../scss/partials/_progress.scss */
 div.big_progress-info {
   clear: left;
   font-style: italic;
@@ -1826,9 +1827,6 @@ div.flash-success a {
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
   border-radius: 5px;
-  -webkit-box-shadow: 0 2px 3px #888888, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0 2px 3px #888888, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-  box-shadow: 0 2px 3px #888888, inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
 
 /* line 71, ../scss/bugitor.scss */
@@ -1837,9 +1835,6 @@ div.issue {
   padding: 6px;
   margin-bottom: 6px;
   border: 1px solid #bbbbbb;
-  -webkit-box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.4);
-  -moz-box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.4);
-  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.4);
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;

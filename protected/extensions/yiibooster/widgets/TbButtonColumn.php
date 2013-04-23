@@ -14,7 +14,7 @@ Yii::import('zii.widgets.grid.CButtonColumn');
  * Bootstrap button column widget.
  * Used to set buttons to use Glyphicons instead of the defaults images.
  */
-class TbButtonColumn extends CButtonColumn
+class TbButtonColumn extends IssueButtonColumn
 {
 	/**
 	 * @var string the view button icon (defaults to 'eye-open').
