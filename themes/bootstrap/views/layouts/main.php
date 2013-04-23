@@ -22,7 +22,7 @@
 		padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
 	}
 
-	@media (max-width: 980px) {
+	@media (max-width: 1140px) {
 		body{
 			padding-top: 0px;
 		}
