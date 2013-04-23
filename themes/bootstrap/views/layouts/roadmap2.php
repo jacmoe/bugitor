@@ -32,10 +32,11 @@
  */
 ?>
 <?php $this->beginContent('//layouts/main'); ?>
-<div id="roadmap-content">
+<div id="roadmap" class="row-fluid">
+<div id="roadmap-content" class="span8">
         <?php echo $content; ?>
 </div>
-<div id="roadmap-sidebar">
+<div id="roadmap-sidebar" class="span4">
     <div class="box">
         <?php if(isset($_GET['showcompleted'])) : ?>
             <?php echo CHtml::link('Hide completed milestones', array('/project/roadmap', 'identifier' => $_GET['identifier'])); ?>
@@ -49,5 +50,6 @@
             'topLinks' => '<span style="font-size: 0.5em; color: grey;">(^ Top of page)</span>'
         )); ?>
     </div>
+</div>
 </div>
 <?php $this->endContent(); ?>

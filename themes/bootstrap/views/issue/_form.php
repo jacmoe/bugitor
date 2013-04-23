@@ -34,7 +34,7 @@
 <?php if (!$model->isNewRecord) : ?>
     <div class="notice">To edit subject or description you need to click the Toggle Subject/Description link to make it visible.</div>
 <?php endif; ?> <!-- if is new record //-->
-<div class="issue">
+<div class="issue row-fluid">
     <fieldset id="subject_description_fieldset" class="collapsible collapsed">
         <?php if (!$model->isNewRecord) : ?>
             <legend class="alt" onclick="$('#description_row').toggle();$('#subject_row').toggle();$('#subject_description_fieldset').toggleClass('collapsed')">
@@ -48,24 +48,24 @@
                         'enableAjaxValidation' => false,
                     ));
             ?>
-<div class="row">
+<div class="row-fluid">
     <p class="note">Fields with <span class="required">*</span> are required.</p>
     <?php echo $form->errorSummary($model); ?>
 </div>
 <?php if (!$model->isNewRecord) : ?>
-    <div class="row" id="subject_row" style="display: none;">
+    <div class="row-fluid" id="subject_row" style="display: none;">
         <?php echo $form->labelEx($model, 'subject'); ?>
         <?php echo $form->textField($model, 'subject', array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'size' => '79%', 'maxlength' => 255)); ?>
         <?php echo $form->error($model, 'subject'); ?>
     </div>
 <?php else : ?>
-    <div class="row">
+    <div class="row-fluid">
         <?php echo $form->labelEx($model, 'subject'); ?>
         <?php echo $form->textField($model, 'subject', array('size' => 85, 'maxlength' => 255)); ?>
         <?php echo $form->error($model, 'subject'); ?>
     </div>
 <?php endif; ?>
-<div id="splitcontentleft">
+<div id="splitcontentleft" class="span6">
     <table width="100%">
         <tbody>
             <tr>
@@ -139,7 +139,7 @@
         </tbody>
     </table>
 </div>
-<div id="splitcontentright">
+<div id="splitcontentright" class="span6">
 <table width="100%">
     <tbody><tr>
         <td class="category"><b><?php echo $form->labelEx($model, 'issue_category_id'); ?></b></td>
@@ -216,7 +216,7 @@
 <hr style="clear:both"/>
 <br style="clear:both"/>
 <?php if (!$model->isNewRecord) : ?>
-    <div class="row" id="description_row" style="display: none;">
+    <div class="row-fluid" id="description_row" style="display: none;">
         <?php echo $form->labelEx($model, 'description'); ?>
         <?php if (Yii::app()->user->checkAccess('Issue.Update')) : ?>
             <?php
@@ -230,7 +230,7 @@
         <?php endif; ?>
         <?php echo $form->error($model, 'description'); ?>
     </div>
-    <div class="row">
+    <div class="row-fluid">
         <b>Comment:</b><br/>
         <?php $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
                 'name' => 'Comment',
@@ -238,7 +238,7 @@
         ))?>
     </div>
 <?php else : ?>
-    <div class="row">
+    <div class="row-fluid">
         <?php echo $form->labelEx($model, 'description'); ?>
         <?php
             $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
@@ -250,7 +250,7 @@
         <?php echo $form->error($model, 'description'); ?>
     </div>
 <?php endif; ?>
-<div class="row">
+<div class="row-fluid">
     <?php if ($model->isNewRecord) : ?>
         <?php echo $form->hiddenField($model, 'user_id', array('value' => Yii::app()->getModule('user')->user()->id)); ?>
     <?php else: ?>
@@ -269,7 +269,7 @@
     <?php endif; ?>
     <?php echo $form->hiddenField($model, 'project_id', array('value' => Project::getProjectIdFromIdentifier($_GET['identifier']))); ?>
 </div>
-<div class="row buttons">
+<div class="row-fluid buttons">
     <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
     <?php echo CHtml::Button('Cancel', array('submit' => Yii::app()->request->getUrlReferrer())); ?>
 </div>

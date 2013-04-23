@@ -34,7 +34,7 @@
 <?php
 $this->pageTitle = $model->name . ' - Overview - ' . Yii::app()->name;
 ?>
-<div id="project-view">
+<div id="project-view" class="row-fluid">
 	<div class="contextual">
 	    <?php
 	    if (((Yii::app()->controller->id === 'project') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) {
@@ -49,7 +49,10 @@ $this->pageTitle = $model->name . ' - Overview - ' . Yii::app()->name;
 	    ?>
 	</div>
 	<h3 class="overview-icon">Overview</h3>
-	<div id="splitcontentleft">
+
+<div class="row-fluid">
+	<div id="splitcontentleft" class="span6">
+		<br/>
 		<div class="project box">
 			<?php $this->widget('ProjectBox', array('project' => $model)) ?>
 		</div>
@@ -65,7 +68,7 @@ $this->pageTitle = $model->name . ' - Overview - ' . Yii::app()->name;
 			<?php $this->widget('ProjectMembers', array('project' => $model)) ?>
 		</div>
 	</div>
-	<div id="splitcontentright">
+	<div id="splitcontentright" class="span6">
 		<div class="issues box">
 			<h3 class="issues-icon">Issues</h3>
 			<?php $this->widget('ProjectIssuesByTracker', array('project' => $model)) ?>
@@ -75,4 +78,5 @@ $this->pageTitle = $model->name . ' - Overview - ' . Yii::app()->name;
 			<?php $this->widget('ProjectActivity', array('projectId' => $model->id, 'displayLimit' => 5)); ?>
 		</div>
 	</div>
+</div>
 </div>
