@@ -1,0 +1,27 @@
+/* Default layout */
+$total-cols: 2;
+$col-width: 12em;
+$gutter-width: 1em;
+$side-gutter-width: 1em;
+
+// @debug columns-width()
+// YOUR STYLES BELOW
+#page {
+  @include container;
+  //+susy-grid-background
+  #topmenu {
+    @include full;
+  }
+  #topbanner {
+    @include full;
+  }
+  #mainmenu {
+    @include full;
+  }
+  div[role="main"] {
+    @include full;
+  }
+  footer {
+    @include full;
+  }
+}

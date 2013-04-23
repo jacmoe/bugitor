@@ -39,16 +39,6 @@
 
 <body>
 
-	<div class="navbar navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container">
-				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</a>
-				<a class="brand" href="#"><?php echo Yii::app()->name ?></a>
-				<div class="nav-collapse">
 						<?php
 							if (((Yii::app()->controller->id === 'project')
 							|| (Yii::app()->controller->id === 'changeset')
@@ -68,11 +58,8 @@
 						  array('label' => 'Projects', 'url' => array('/projects/'), 'id' => 'project/index'), );
 						?>
 						<?php  endif;?>
-					</span>
-					<span id="user-menu">
-						<?php $this->widget('BootTopbar', array(
-						'items' => $items,
-						'items2' => array(
+<?php
+						$items2 = array(
                             array(  'url' => Yii::app() -> getModule('user')->profileUrl,
                                     'label' => Yii::app()->user->name,
                                     'visible' => !Yii::app()->user->isGuest,
@@ -108,10 +95,32 @@
                                                         'id' => 'user/registration/registration'),
                                             ),
                                 ),
-                        ),
-								)
-							);
-						?>
+                        );
+?>
+					<span id="user-menu">
+<?php
+	$this->widget('bootstrap.widgets.TbNavbar', array(
+		'brand' => 'Title',
+		'type' => 'inverse',
+		'collapse' => true,
+		'items' => array(
+		array(
+		'class' => 'bootstrap.widgets.TbMenu',
+		'items' => $items,
+		),
+		// array(
+		// 'class' => 'application.extensions.VGGravatarWidget',
+		// 'size' => '24px',
+		// 'email' => Yii::app() -> getModule('user') -> user() -> email,
+		// 'htmlOptions' => array('class' => 'pull-right'),
+		// ),
+		array(
+		'class' => 'bootstrap.widgets.TbMenu',
+		'items' => $items2,
+		'htmlOptions' => array('class' => 'pull-right'),
+		),
+	)));
+?>
 					</span>
                     <span id="user-gravatar">
                         <?php if (!Yii::app()->user->isGuest): ?>
@@ -120,10 +129,6 @@
                         ?>
                         <?php  endif;?>
                     </span>
-				</div><!--/.nav-collapse -->
-			</div>
-		</div>
-	</div>
 
 	<div class="container">
 		<?php echo $content ?>

@@ -1,0 +1,42 @@
+// wide screen
+// primarily laptop and desktop browsers
+
+// redefine grid variables for this context
+$total-cols: 12;
+$col-width: 6em;
+$gutter-width: 1em;
+$side-gutter-width: $gutter-width;
+
+// @debug columns-width()
+// YOUR STYLES BELOW
+#page {
+  @include container;
+  //+susy-grid-background
+  #system-menu {
+    @include full;
+  }
+  header {
+    @include full;
+  }
+  div[role="main"] {
+    @include columns(12);
+    @include alpha;
+    #splitcontentleft {
+      @include columns(6, 12);
+    }
+    #splitcontentright {
+      @include columns(6, 12);
+      @include omega(12);
+    }
+    #roadmap-content {
+      @include columns(8, 12);
+    }
+    #roadmap-sidebar {
+      @include columns(4, 12);
+      @include omega(12);
+    }
+  }
+  footer {
+    @include full;
+  }
+}

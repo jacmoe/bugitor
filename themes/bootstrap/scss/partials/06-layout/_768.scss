@@ -1,0 +1,47 @@
+// redefine grid variables for this context
+$total-cols: 12;
+$col-width: 4em;
+$gutter-width: 1em;
+$side-gutter-width: $gutter-width;
+
+// @debug columns-width()
+// YOUR STYLES BELOW
+
+#page {
+  @include container;
+  //+susy-grid-background
+  #topmenu {
+    @include full;
+  }
+  #topbanner {
+    @include columns(12);
+    @include alpha;
+    #logo {
+      @include columns(1, 12);
+    }
+    #masthead {
+      @include columns(10, 12);
+    }
+    #gravatar {
+      @include columns(1, 12);
+      @include omega(12);
+    }
+  }
+  #mainmenu {
+    @include full;
+  }
+  div[role="main"] {
+    @include columns(12);
+    @include alpha;
+    #splitcontentleft {
+      @include columns(6, 12);
+    }
+    #splitcontentright {
+      @include columns(6, 12);
+      @include omega(12);
+    }
+  }
+  footer {
+    @include full;
+  }
+}

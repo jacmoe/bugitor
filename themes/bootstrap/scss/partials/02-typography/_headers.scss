@@ -1,0 +1,24 @@
+h1, h2, h3, h4, h5 {
+  font-weight: bolder;
+  color: $base-color-light;
+}
+
+h2, h3 {
+  border-bottom: 1px solid $border-color;
+}
+
+h1 {
+  @include adjust-font-size-to(26px);
+}
+
+h2 {
+  @include adjust-font-size-to(22px);
+}
+
+h3 {
+  @include adjust-font-size-to(18px);
+}
+
+h4 {
+  @include adjust-font-size-to(16px);
+}
