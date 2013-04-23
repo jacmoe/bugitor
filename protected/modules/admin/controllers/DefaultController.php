@@ -46,19 +46,7 @@ class DefaultController extends Controller {
     }
 
     public function actionIndex() {
-        
-        $model = new EmailForm;
-        $message = null;
-        if(isset($_POST['EmailForm']))
-        {
-            $model->attributes=$_POST['EmailForm'];
-            
-            if($model->save()) {
-                $message = 'Email sent';
-            }
-            $model->attributes = null;
-        }
-        
+
         $this->render('index', array('model' => $model,
             'message' => $message));
     }
