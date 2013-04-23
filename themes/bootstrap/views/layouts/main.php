@@ -105,34 +105,28 @@
 	$this->widget('bootstrap.widgets.TbNavbar', array(
 		'brand' => 'Title',
 		'type' => 'inverse',
+        'fluid' => true,
 		'collapse' => true,
+        'htmlOptions' => array('id' => 'topbar'),
 		'items' => array(
 		array(
 		'class' => 'bootstrap.widgets.TbMenu',
 		'items' => $items,
 		),
-		// array(
-		// 'class' => 'application.extensions.VGGravatarWidget',
-		// 'size' => '24px',
-		// 'email' => Yii::app() -> getModule('user') -> user() -> email,
-		// 'htmlOptions' => array('class' => 'pull-right'),
-		// ),
+        array(
+        'class' => 'bootstrap.widgets.TbMenu',
+        'items' => $items2,
+        'htmlOptions' => array('class' => 'pull-right'),
+        ),
 		array(
-		'class' => 'bootstrap.widgets.TbMenu',
-		'items' => $items2,
-		'htmlOptions' => array('class' => 'pull-right'),
+		'class' => 'application.extensions.VGGravatarWidget',
+		'size' => '24px',
+		'email' => (Yii::app()->user->isGuest) ? '' : Yii::app()->getModule('user')->user()->email,
+		'htmlOptions' => array('class' => 'pull-right gravatar'),
 		),
 	)));
 ?>
 					</span>
-                    <span id="user-gravatar">
-                        <?php if (!Yii::app()->user->isGuest): ?>
-                        <?php
-                            $this->widget('application.extensions.VGGravatarWidget', array('size' => '24px','email' => Yii::app() -> getModule('user') -> user() -> email));
-                        ?>
-                        <?php  endif;?>
-                    </span>
-
 				<?php  $this -> widget('ext.ELocalTimeago.ELocalTimeago', array('localtimeago' => 'MMM dd, yyyy HH:mm zzz'));?>
 				<?php  $this -> widget('ext.EHighlight.EHighlight');?>
 				<?php
@@ -151,7 +145,7 @@
 				endif;
 				endforeach;
 				?>
-	<div class="container">
+	<div class="container-fluid">
 		<?php echo $content ?>
 
 			<footer id="footer">

@@ -1597,7 +1597,7 @@ img.gravatar {
 }
 
 /* line 9, ../scss/partials/_gravatar.scss */
-.topbar img.gravatar {
+#topbar img.gravatar {
   padding: 1px 1px 1px 1px;
   margin: 6px 2px 2px 2px;
   border: solid 1px #d5d5d5;
@@ -1605,7 +1605,7 @@ img.gravatar {
   position: relative;
   top: inherit;
   float: right;
-  left: 50px;
+  left: 12px;
 }
 
 /* line 20, ../scss/partials/_gravatar.scss */
