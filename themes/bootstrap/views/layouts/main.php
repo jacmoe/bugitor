@@ -126,6 +126,15 @@
 		),
 	)));
 ?>
+<?php
+    $topscript = <<<EOD
+    $('#topbar').click(function(){
+       $('html, body').animate({scrollTop:0}, 'slow');
+     });
+EOD;
+    Yii::app() -> clientScript -> registerScript('scrolltotop', $topscript, CClientScript::POS_READY);
+?>
+
 					</span>
 				<?php  $this -> widget('ext.ELocalTimeago.ELocalTimeago', array('localtimeago' => 'MMM dd, yyyy HH:mm zzz'));?>
 				<?php  $this -> widget('ext.EHighlight.EHighlight');?>
