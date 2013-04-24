@@ -54,7 +54,7 @@
 		<?php echo $form->textField($model,'tagline',array('size'=>30,'maxlength'=>60)); ?>
 		<?php echo $form->error($model,'tagline'); ?>
 	</div>
-	
+
         <div class="row-fluid">
 		<?php echo $form->labelEx($model,'description'); ?>
 		<?php $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
@@ -73,7 +73,7 @@
 		<?php echo $form->error($model,'identifier'); ?>
 	</div>
         <?php endif; ?>
-	
+
         <div class="row-fluid">
 		<?php echo $form->labelEx($model,'homepage'); ?>
 		<?php echo $form->textField($model,'homepage',array('size'=>60,'maxlength'=>255)); ?>
