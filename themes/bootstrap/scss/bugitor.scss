@@ -88,7 +88,7 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   white-space: nowrap !important;
 }
 
-#content .tabs {
+.settingstabs {
   @include tabs;
 }
 

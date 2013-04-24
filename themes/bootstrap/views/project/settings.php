@@ -39,7 +39,8 @@ if(isset($_GET['tab'])) {
 }
 ?>
 <h3 class="settings-icon">Settings</h3>
-<div class="tabs">
+<div class="row-fluid">
+<div id="content" class="settingstabs">
 <ul>
 <?php foreach($tabs as $tab): ?>
 <?php if($tab['name'] == $selected_tab): ?>
@@ -63,3 +64,4 @@ echo '</div>';
 ?>
 <?php endif; ?>
 <?php endforeach; ?>
+</div>

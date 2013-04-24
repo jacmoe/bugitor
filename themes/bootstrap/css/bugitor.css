@@ -1853,21 +1853,21 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
 }
 
 /* line 91, ../scss/bugitor.scss */
-#content .tabs {
+.settingstabs {
   height: 2.6em;
   border-bottom: 1px solid #bbbbbb;
   margin-bottom: 1.2em;
   position: relative;
 }
 /* line 6, ../scss/partials/_tabs.scss */
-#content .tabs ul {
+.settingstabs ul {
   margin: 0;
   position: absolute;
   bottom: -2px;
   padding-left: 1em;
 }
 /* line 11, ../scss/partials/_tabs.scss */
-#content .tabs ul li {
+.settingstabs ul li {
   float: left;
   list-style-type: none;
   white-space: nowrap;
@@ -1875,7 +1875,7 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   background: white;
 }
 /* line 17, ../scss/partials/_tabs.scss */
-#content .tabs ul li a {
+.settingstabs ul li a {
   display: block;
   font-size: 0.9em;
   text-decoration: none;
@@ -1888,33 +1888,33 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   font-weight: bold;
 }
 /* line 28, ../scss/partials/_tabs.scss */
-#content .tabs ul li a:hover {
+.settingstabs ul li a:hover {
   background-color: #ffffdd;
   text-decoration: none;
 }
 /* line 33, ../scss/partials/_tabs.scss */
-#content .tabs ul li a.selected {
+.settingstabs ul li a.selected {
   background-color: white;
   border: 1px solid #bbbbbb;
   border-bottom: 1px solid white;
 }
 /* line 37, ../scss/partials/_tabs.scss */
-#content .tabs ul li a.selected:hover {
+.settingstabs ul li a.selected:hover {
   background-color: white;
 }
 /* line 44, ../scss/partials/_tabs.scss */
-#content .tabs > ul {
+.settingstabs > ul {
   bottom: -1px;
 }
 /* line 46, ../scss/partials/_tabs.scss */
-#content .tabs > ul li.active a {
+.settingstabs > ul li.active a {
   color: orange;
   background-color: white;
   border: 1px solid #bbbbbb;
   border-bottom: 1px solid white;
 }
 /* line 51, ../scss/partials/_tabs.scss */
-#content .tabs > ul li.active a:hover {
+.settingstabs > ul li.active a:hover {
   background-color: white;
 }
 
