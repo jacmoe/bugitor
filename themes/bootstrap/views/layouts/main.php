@@ -1,8 +1,3 @@
-<?php
-	Yii::app()->clientscript
-		->registerCssFile( Yii::app()->theme->baseUrl . '/css/bootstrap.css' )
-		->registerCssFile( Yii::app()->theme->baseUrl . '/css/bootstrap-responsive.css' )
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

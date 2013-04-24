@@ -1605,16 +1605,15 @@ img.gravatar {
   position: relative;
   top: inherit;
   float: right;
-  left: 12px;
 }
 
-/* line 20, ../scss/partials/_gravatar.scss */
+/* line 19, ../scss/partials/_gravatar.scss */
 div.issue img.gravatar {
   float: right;
   padding: 1px;
 }
 
-/* line 26, ../scss/partials/_gravatar.scss */
+/* line 25, ../scss/partials/_gravatar.scss */
 div.issue span img.gravatar {
   height: 14px;
   width: 14px;
@@ -1623,7 +1622,7 @@ div.issue span img.gravatar {
   margin: 0 0.5em 0 0;
 }
 
-/* line 34, ../scss/partials/_gravatar.scss */
+/* line 33, ../scss/partials/_gravatar.scss */
 #history img.gravatar {
   padding: 3px;
   margin: 0 1.5em 1em 0;
@@ -1632,13 +1631,13 @@ div.issue span img.gravatar {
   top: -6px;
 }
 
-/* line 42, ../scss/partials/_gravatar.scss */
+/* line 41, ../scss/partials/_gravatar.scss */
 td.username img.gravatar {
   float: left;
   margin: 0 1em 0 0;
 }
 
-/* line 47, ../scss/partials/_gravatar.scss */
+/* line 46, ../scss/partials/_gravatar.scss */
 #activity dt img.gravatar {
   position: relative;
   top: 1px;
