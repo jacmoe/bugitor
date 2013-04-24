@@ -69,6 +69,7 @@ $this->pageTitle = $model->name . ' - Overview - ' . Yii::app()->name;
 		</div>
 	</div>
 	<div id="splitcontentright" class="span6">
+		<br/>
 		<div class="issues box">
 			<h3 class="issues-icon">Issues</h3>
 			<?php $this->widget('ProjectIssuesByTracker', array('project' => $model)) ?>
