@@ -82,6 +82,7 @@ EOD;
 <?php $this->widget('bootstrap.widgets.TbExtendedGridView', array(
 	'id'=>'issue-grid',
     'fixedHeader' => true,
+    'enableHistory' => true,
     'headerOffset' => 40, // 40px is the height of the main navigation at bootstrap
     'type' => 'striped bordered',
 	'dataProvider'=>$model->search(),
