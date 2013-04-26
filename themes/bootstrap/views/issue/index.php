@@ -89,7 +89,6 @@ EOD;
 	'afterAjaxUpdate'=>"function() { $script }",
     'filter'=>$model,
     'sortableRows'=>true,
-    'pager' => array('class' => 'CustomLinkPager'),
     'responsiveTable' => true,
     'template' => "{items}{pager}",
     'enablePagination' => true,
