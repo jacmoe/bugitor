@@ -9,58 +9,52 @@ $this->breadcrumbs=array(
 	<?php echo Yii::app()->user->getFlash('loginMessage'); ?>
 </div>
 <?php endif; ?>
-<div id="page group">
-<?php echo CHtml::beginForm(); ?>
-    <fieldset class="login">
-	
-	<h1>Login</h1>
-	
-	<?php echo CHtml::errorSummary($model); ?>
-	
-	<div class="field stacked ">
-		<?php echo CHtml::activeLabelEx($model,'username'); ?>
-		<?php echo CHtml::activeTextField($model,'username', array('type' => 'email', 'class' => 'login')) ?>
-	</div>
-	
-	<div class="field stacked ">
-		<?php echo CHtml::activeLabelEx($model,'password'); ?>
-		<?php echo CHtml::activePasswordField($model,'password', array('type' => 'password', 'class' => 'login')) ?>
-	</div>
-	<div class="rememberme group">
-        <?php echo CHtml::activeCheckBox($model,'rememberMe'); ?>
-        <?php echo CHtml::activeLabelEx($model,'rememberMe'); ?>
-	</div>
-	<div class="button-bar group">
-		<?php echo CHtml::submitButton(UserModule::t("Login")); ?>
-	</div>
-    <p class="hint">
-    <?php echo CHtml::link(UserModule::t("Register"),Yii::app()->getModule('user')->registrationUrl); ?> | <?php echo CHtml::link(UserModule::t("Lost Password?"),Yii::app()->getModule('user')->recoveryUrl); ?>
-    </p>
-    <div class="note centered"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></div>
-    </fieldset>	
-<?php echo CHtml::endForm(); ?>
-</div>
-<?php
-$form = new CForm(array(
-    'elements'=>array(
-        'username'=>array(
-            'type'=>'text',
-            'maxlength'=>32,
-        ),
-        'password'=>array(
-            'type'=>'password',
-            'maxlength'=>32,
-        ),
-        'rememberMe'=>array(
-            'type'=>'checkbox',
-        )
-    ),
 
-    'buttons'=>array(
-        'login'=>array(
-            'type'=>'submit',
-            'label'=>'Login',
-        ),
-    ),
-), $model);
-?>
+<div id="page group" class="row-fluid">
+    <div class="span4 offset4">
+        <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+        'type'=>'inline',
+        'enableClientValidation' => true,
+        'clientOptions'=>array('validateOnSubmit'=>true),
+        'errorMessageCssClass'=>'error',
+        'htmlOptions'=>array('class'=>'well'),
+        )); ?>
+        <fieldset>
+            <legend>Login</legend>
+        </fieldset>
+        <div class="row-fluid">
+            <div class="span12">
+                <?php echo $form->error($model,'username'); ?>
+                <?php echo $form->textFieldRow($model, 'username', array('class'=>'span12')); ?>
+                <br/><br/>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <?php echo $form->error($model,'password'); ?>
+                <?php echo $form->passwordFieldRow($model, 'password', array('class'=>'span12')); ?>
+                <br/><br/>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <?php echo $form->checkboxRow($model, 'rememberMe'); ?>
+                <br/><br/>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Login')); ?><br/>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <hr/>
+                <span class="hint">
+                <?php echo CHtml::link(UserModule::t("Register"),Yii::app()->getModule('user')->registrationUrl); ?> | <?php echo CHtml::link(UserModule::t("Lost Password?"),Yii::app()->getModule('user')->recoveryUrl); ?>
+                </span>
+            </div>
+        </div>
+        <?php $this->endWidget(); ?>
+    </div>
+</div>
