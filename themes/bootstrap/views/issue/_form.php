@@ -43,102 +43,75 @@
         <?php endif; ?> <!-- if is new record //-->
         <div class="form">
             <?php
-            $form = $this->beginWidget('CActiveForm', array(
+            $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                         'id' => 'issue-form',
+                        'type' => 'horizontal',
                         'enableAjaxValidation' => false,
                     ));
             ?>
-<div class="row-fluid">
-    <p class="note">Fields with <span class="required">*</span> are required.</p>
-    <?php echo $form->errorSummary($model); ?>
-</div>
+
 <?php if (!$model->isNewRecord) : ?>
-    <div class="row-fluid" id="subject_row" style="display: none;">
-        <?php echo $form->labelEx($model, 'subject'); ?>
-        <?php echo $form->textField($model, 'subject', array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'size' => '79%', 'maxlength' => 255)); ?>
-        <?php echo $form->error($model, 'subject'); ?>
+    <div id="subject_row" style="display: none;">
+        <?php echo $form->textFieldRow($model, 'subject', array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'class' => 'span12', 'maxlength' => 255)); ?>
     </div>
 <?php else : ?>
-    <div class="row-fluid">
-        <?php echo $form->labelEx($model, 'subject'); ?>
-        <?php echo $form->textField($model, 'subject', array('size' => 85, 'maxlength' => 255)); ?>
-        <?php echo $form->error($model, 'subject'); ?>
-    </div>
+        <?php echo $form->textFieldRow($model, 'subject', array('class' => 'span12', 'maxlength' => 255)); ?>
 <?php endif; ?>
+
+<div class="row-fluid">
 <div id="splitcontentleft" class="span6">
-    <table width="100%">
-        <tbody>
-            <tr>
-                <td style="width: 15%;" class="tracker">
-                    <b><?php echo $form->labelEx($model, 'tracker_id'); ?></b>
-                </td>
-                <td style="width: 35%;" class="tracker">
-                    <?php if ($model->isNewRecord) : ?>
-                        <?php echo $form->dropDownList($model, 'tracker_id', CHtml::listData(
-                                        Tracker::model()->findAll(), 'id', 'name'), array('selected' => 'Bug')); ?>
-                    <?php else : ?>
-                        <?php echo $form->dropDownList($model, 'tracker_id', CHtml::listData(
-                                        Tracker::model()->findAll(), 'id', 'name')); ?>
-                    <?php endif; ?>
-                    <?php echo $form->error($model, 'tracker_id'); ?>
-                </td>
-            </tr>
-            <tr>
-                <td style="width: 15%;" class="status"><b><?php echo $form->labelEx($model, 'status'); ?></b></td>
-                <td style="width: 35%;" class="status">
-                    <?php if(Yii::app()->user->checkAccess('Issue.Delete')) : ?>
-                        <?php if ($model->isNewRecord) : ?>
-                            <?php echo $form->dropDownList($model, 'status', array('swIssue/new' => 'New*')); ?>
-                        <?php else : ?>
-                            <?php echo $form->dropDownList($model, 'status', SWHelper::nextStatuslistData($model), array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true)); ?>
-                        <?php endif; ?>
-                        <?php echo $form->error($model, 'status'); ?>
-                    <?php else : ?>
-                        <?php if(isset($model->status)) : ?>
-                            <?php echo $model->getStatusLabel($model->status); ?>
-                        <?php else : ?>
-                            New*
-                        <?php endif; ?>
-                    <?php endif; ?>
-                </td>
-            </tr>
-            <tr>
-                <td class="priority"><b><?php echo $form->labelEx($model, 'issue_priority_id'); ?></b></td>
-                <td class="priority">
-                    <?php if ($model->isNewRecord) : ?>
-                        <?php
-                            echo $form->dropDownList($model,
-                                    'issue_priority_id',
-                                    CHtml::listData(IssuePriority::model()->findAll(array('order' => 'id')), 'id', 'name'),
-                                    array('options' => array('2' => array('selected' => true))));
-                        ?>
-                    <?php else : ?>
-                        <?php
-                            echo $form->dropDownList($model,
-                                    'issue_priority_id',
-                                    CHtml::listData(IssuePriority::model()->findAll(array('order' => 'id')), 'id', 'name'));
-                        ?>
-                    <?php endif; ?>
-                    <?php echo $form->error($model, 'issue_priority_id'); ?>
-                </td>
-            </tr>
-            <tr>
-                <td class="assigned-to"><b><?php echo $form->labelEx($model, 'assigned_to'); ?></b></td>
-                <td>
-                    <?php if(Yii::app()->user->checkAccess('Issue.Delete')) : ?>
-                        <?php echo $form->dropDownList($model, 'assigned_to', $this->getMemberSelectList(), array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'prompt' => '<None>')); ?>
-                        <?php echo $form->error($model, 'assigned_to'); ?>
-                    <?php else : ?>
-                        <?php if(isset($model->assignedTo)) : ?>
-                            <span><?php echo Bugitor::gravatar($model->assignedTo); ?></span>
-                            <?php echo Bugitor::link_to_user($model->assignedTo); ?>
-                        <?php endif; ?>
-                    <?php endif; ?>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+
+    <?php if ($model->isNewRecord) : ?>
+        <?php echo $form->dropDownListRow($model, 'tracker_id', CHtml::listData(
+                        Tracker::model()->findAll(), 'id', 'name'), array('class' => 'span6','selected' => 'Bug')); ?>
+    <?php else : ?>
+        <?php echo $form->dropDownListRow($model, 'tracker_id', CHtml::listData(
+                        Tracker::model()->findAll(), 'id', 'name'), array('class' => 'span6')); ?>
+    <?php endif; ?>
+
+    <?php if(Yii::app()->user->checkAccess('Issue.Delete')) : ?>
+        <?php if ($model->isNewRecord) : ?>
+            <?php echo $form->dropDownListRow($model, 'status', array('swIssue/new' => 'New*'), array('class' => 'span6')); ?>
+        <?php else : ?>
+            <?php echo $form->dropDownListRow($model, 'status', SWHelper::nextStatuslistData($model), array('class' => 'span6', Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true)); ?>
+        <?php endif; ?>
+    <?php else : ?>
+        <?php if(isset($model->status)) : ?>
+            <?php echo $model->getStatusLabel($model->status); ?>
+        <?php else : ?>
+            New*
+        <?php endif; ?>
+    <?php endif; ?>
+
+    <?php if ($model->isNewRecord) : ?>
+        <?php
+            echo $form->dropDownListRow($model,
+                    'issue_priority_id',
+                    CHtml::listData(IssuePriority::model()->findAll(array('order' => 'id')), 'id', 'name'),
+                    array('options' => array('2' => array('class' => 'span6', 'selected' => true))));
+        ?>
+    <?php else : ?>
+        <?php
+            echo $form->dropDownListRow($model,
+                    'issue_priority_id',
+                    CHtml::listData(IssuePriority::model()->findAll(array('order' => 'id')), 'id', 'name'),
+                    array('class' => 'span6'));
+        ?>
+    <?php endif; ?>
+
+    <?php if(Yii::app()->user->checkAccess('Issue.Delete')) : ?>
+        <?php echo $form->dropDownListRow($model, 'assigned_to', $this->getMemberSelectList(), array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'class' => 'span6', 'prompt' => '<None>')); ?>
+        <?php echo $form->error($model, 'assigned_to'); ?>
+    <?php else : ?>
+        <?php if(isset($model->assignedTo)) : ?>
+            <span><?php echo Bugitor::gravatar($model->assignedTo); ?></span>
+            <?php echo Bugitor::link_to_user($model->assignedTo); ?>
+        <?php endif; ?>
+    <?php endif; ?>
+
 </div>
+
+
 <div id="splitcontentright" class="span6">
 <table width="100%">
     <tbody><tr>
@@ -212,9 +185,10 @@
     </tr>
 </tbody></table>
 </div>
-<br style="clear:both"/>
-<hr style="clear:both"/>
-<br style="clear:both"/>
+
+</div>
+
+
 <?php if (!$model->isNewRecord) : ?>
     <div class="row-fluid" id="description_row" style="display: none;">
         <?php echo $form->labelEx($model, 'description'); ?>
@@ -250,6 +224,7 @@
         <?php echo $form->error($model, 'description'); ?>
     </div>
 <?php endif; ?>
+
 <div class="row-fluid">
     <?php if ($model->isNewRecord) : ?>
         <?php echo $form->hiddenField($model, 'user_id', array('value' => Yii::app()->getModule('user')->user()->id)); ?>
@@ -269,12 +244,11 @@
     <?php endif; ?>
     <?php echo $form->hiddenField($model, 'project_id', array('value' => Project::getProjectIdFromIdentifier($_GET['identifier']))); ?>
 </div>
-<div class="row-fluid buttons">
-    <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-    <?php echo CHtml::Button('Cancel', array('submit' => Yii::app()->request->getUrlReferrer())); ?>
-</div>
-<!-- content left //-->
-<!-- content right //-->
+
+    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type' => 'primary', 'label'=> $model->isNewRecord ? 'Create' : 'Save')); ?>
+    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'link', 'label'=>'Cancel', 'url' => Yii::app()->request->getUrlReferrer())); ?>
+
+
             <?php $this->endWidget(); ?><!-- form widget //-->
         </div><!-- form //-->
     </fieldset>
