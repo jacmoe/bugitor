@@ -59,170 +59,174 @@
 <?php endif; ?>
 
 <div class="row-fluid">
-<div id="splitcontentleft" class="span6">
-
-    <?php if ($model->isNewRecord) : ?>
-        <?php echo $form->dropDownListRow($model, 'tracker_id', CHtml::listData(
-                        Tracker::model()->findAll(), 'id', 'name'), array('class' => 'span6','selected' => 'Bug')); ?>
-    <?php else : ?>
-        <?php echo $form->dropDownListRow($model, 'tracker_id', CHtml::listData(
-                        Tracker::model()->findAll(), 'id', 'name'), array('class' => 'span6')); ?>
-    <?php endif; ?>
-
-    <?php if(Yii::app()->user->checkAccess('Issue.Delete')) : ?>
-        <?php if ($model->isNewRecord) : ?>
-            <?php echo $form->dropDownListRow($model, 'status', array('swIssue/new' => 'New*'), array('class' => 'span6')); ?>
-        <?php else : ?>
-            <?php echo $form->dropDownListRow($model, 'status', SWHelper::nextStatuslistData($model), array('class' => 'span6', Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true)); ?>
-        <?php endif; ?>
-    <?php else : ?>
-        <?php if(isset($model->status)) : ?>
-            <?php echo $model->getStatusLabel($model->status); ?>
-        <?php else : ?>
-            New*
-        <?php endif; ?>
-    <?php endif; ?>
-
-    <?php if ($model->isNewRecord) : ?>
-        <?php
-            echo $form->dropDownListRow($model,
-                    'issue_priority_id',
-                    CHtml::listData(IssuePriority::model()->findAll(array('order' => 'id')), 'id', 'name'),
-                    array('options' => array('2' => array('class' => 'span6', 'selected' => true))));
-        ?>
-    <?php else : ?>
-        <?php
-            echo $form->dropDownListRow($model,
-                    'issue_priority_id',
-                    CHtml::listData(IssuePriority::model()->findAll(array('order' => 'id')), 'id', 'name'),
-                    array('class' => 'span6'));
-        ?>
-    <?php endif; ?>
-
-    <?php if(Yii::app()->user->checkAccess('Issue.Delete')) : ?>
-        <?php echo $form->dropDownListRow($model, 'assigned_to', $this->getMemberSelectList(), array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'class' => 'span6', 'prompt' => '<None>')); ?>
-        <?php echo $form->error($model, 'assigned_to'); ?>
-    <?php else : ?>
-        <?php if(isset($model->assignedTo)) : ?>
-            <span><?php echo Bugitor::gravatar($model->assignedTo); ?></span>
-            <?php echo Bugitor::link_to_user($model->assignedTo); ?>
-        <?php endif; ?>
-    <?php endif; ?>
-
-</div>
-
-
-<div id="splitcontentright" class="span6">
-<table width="100%">
-    <tbody><tr>
-        <td class="category"><b><?php echo $form->labelEx($model, 'issue_category_id'); ?></b></td>
-        <td>
+    <div id="splitcontentleft" class="span6">
+        <div class="row-fluid">
+            <?php if ($model->isNewRecord) : ?>
+                <?php echo $form->dropDownListRow($model, 'tracker_id', CHtml::listData(
+                                Tracker::model()->findAll(), 'id', 'name'), array('class' => 'span12','selected' => 'Bug')); ?>
+            <?php else : ?>
+                <?php echo $form->dropDownListRow($model, 'tracker_id', CHtml::listData(
+                                Tracker::model()->findAll(), 'id', 'name'), array('class' => 'span12')); ?>
+            <?php endif; ?>
+        </div>
+        <div class="row-fluid">
             <?php if(Yii::app()->user->checkAccess('Issue.Delete')) : ?>
-                <?php echo $form->dropDownList($model, 'issue_category_id', $this->getCategorySelectList(), array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'prompt' => '<None>')); ?>
-                <?php echo $form->error($model, 'issue_category_id'); ?>
+                <?php if ($model->isNewRecord) : ?>
+                    <?php echo $form->dropDownListRow($model, 'status', array('swIssue/new' => 'New*'), array('class' => 'span12')); ?>
+                <?php else : ?>
+                    <?php echo $form->dropDownListRow($model, 'status', SWHelper::nextStatuslistData($model), array('class' => 'span12', Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true)); ?>
+                <?php endif; ?>
+            <?php else : ?>
+                <?php if(isset($model->status)) : ?>
+                    <?php echo $model->getStatusLabel($model->status); ?>
+                <?php else : ?>
+                    New*
+                <?php endif; ?>
+            <?php endif; ?>
+        </div>
+        <div class="row-fluid">
+            <?php if ($model->isNewRecord) : ?>
+                <?php
+                    echo $form->dropDownListRow($model,
+                            'issue_priority_id',
+                            CHtml::listData(IssuePriority::model()->findAll(array('order' => 'id')), 'id', 'name'),
+                            array('options' => array('2' => array('class' => 'span12', 'selected' => true))));
+                ?>
+            <?php else : ?>
+                <?php
+                    echo $form->dropDownListRow($model,
+                            'issue_priority_id',
+                            CHtml::listData(IssuePriority::model()->findAll(array('order' => 'id')), 'id', 'name'),
+                            array('class' => 'span12'));
+                ?>
+            <?php endif; ?>
+        </div>
+        <div class="row-fluid">
+            <?php if(Yii::app()->user->checkAccess('Issue.Delete')) : ?>
+                <?php echo $form->dropDownListRow($model, 'assigned_to', $this->getMemberSelectList(), array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'class' => 'span6', 'prompt' => '<None>')); ?>
+                <?php echo $form->error($model, 'assigned_to'); ?>
+            <?php else : ?>
+                <?php if(isset($model->assignedTo)) : ?>
+                    <span><?php echo Bugitor::gravatar($model->assignedTo); ?></span>
+                    <?php echo Bugitor::link_to_user($model->assignedTo); ?>
+                <?php endif; ?>
+            <?php endif; ?>
+        </div>
+    </div><!-- splitcontentleft -->
+
+    <div id="splitcontentright" class="span6">
+        <div class="row-fluid">
+            <?php if(Yii::app()->user->checkAccess('Issue.Delete')) : ?>
+                <?php echo $form->dropDownListRow($model, 'issue_category_id',
+                    $this->getCategorySelectList(),
+                    array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true,
+                    'prompt' => '<None>',
+                    'class' => 'span12')); ?>
             <?php else : ?>
                 <?php if(isset($model->issueCategory)) : ?>
-                        <?php echo $model->issueCategory->name; ?>
+                        <div class="span12">
+                            <?php echo $model->issueCategory->name; ?>
+                        </div>
                 <?php endif; ?>
             <?php endif; ?>
-        </td>
-    </tr>
-    <tr>
-        <td class="fixed-version"><b><?php echo $form->labelEx($model, 'milestone_id'); ?></b></td>
-        <td>
+        </div>
+        <div class="row-fluid">
             <?php if(Yii::app()->user->checkAccess('Issue.Delete')) : ?>
                 <?php if(isset($model->milestone)) : ?>
-                    <?php echo $form->dropDownList($model, 'milestone_id', $this->getmilestoneSelectList(
-                    Project::getProjectIdFromIdentifier($_GET['identifier']), true, 
+                    <?php echo $form->dropDownListRow($model, 'milestone_id', $this->getmilestoneSelectList(
+                    Project::getProjectIdFromIdentifier($_GET['identifier']), true,
                     $model->milestone->id, $model->milestone->name .' : '. $model->milestone->title),
                     array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true,
-                    'prompt' => '<None>')); ?>
+                    'prompt' => '<None>',
+                    'class' => 'span12')); ?>
                 <?php else : ?>
-                    <?php echo $form->dropDownList($model, 'milestone_id', $this->getmilestoneSelectList(
+                    <?php echo $form->dropDownListRow($model, 'milestone_id', $this->getmilestoneSelectList(
                     Project::getProjectIdFromIdentifier($_GET['identifier']), true),
                     array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true,
-                    'prompt' => '<None>')); ?>
+                    'prompt' => '<None>',
+                    'class' => 'span12')); ?>
                 <?php endif; ?>
-                <?php echo $form->error($model, 'milestone_id'); ?>
             <?php else : ?>
                 <?php if(isset($model->milestone)) : ?>
-                        <?php echo $model->milestone->name; ?>
+                        <div class="span12">
+                            <?php echo $model->milestone->name; ?>
+                        </div>
                 <?php endif; ?>
             <?php endif; ?>
-        </td>
-    </tr>
-    <tr>
-        <td class="progress"><b><?php echo $form->labelEx($model, 'done_ratio'); ?></b></td>
-        <td class="progress">
-            <?php if(Yii::app()->user->checkAccess('Issue.Delete')) : ?>
-                <?php if ((Yii::app()->user->checkAccess('Issue.Update')) && (!$model->isNewRecord)) : ?>
-                    <?php
-                        $this->widget('zii.widgets.jui.CJuiSlider', array(
-                            'value' => $model->done_ratio,
-                            'id' => 'doneRatioSlider',
-                            // additional javascript options for the slider plugin
-                            'options' => array(
-                                'min' => 0,
-                                'max' => 100,
-                                'step' => 5,
-                                'slide' => 'js:function(event, ui) { $("#done_ratio").val(ui.value);}',
-                            ),
-                            'htmlOptions' => array(
-                                'style' => 'height:8px;width:140px;',
-                                Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true,
-                            ),
-                        ));
-                    ?>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <?php if(Yii::app()->user->checkAccess('Issue.Delete')) : ?>
+                    <?php if ((Yii::app()->user->checkAccess('Issue.Update')) && (!$model->isNewRecord)) : ?>
+                        <?php
+                            $this->widget('zii.widgets.jui.CJuiSlider', array(
+                                'value' => $model->done_ratio,
+                                'id' => 'doneRatioSlider',
+                                // additional javascript options for the slider plugin
+                                'options' => array(
+                                    'min' => 0,
+                                    'max' => 100,
+                                    'step' => 5,
+                                    'slide' => 'js:function(event, ui) { $("#done_ratio").val(ui.value);}',
+                                ),
+                                'htmlOptions' => array(
+                                    'style' => 'height:8px;width:140px;',
+                                    Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true,
+                                ),
+                            ));
+                        ?>
+                    <?php endif; ?>
+                    <?php echo $form->textFieldRow($model, 'done_ratio', array('id' => 'done_ratio', 'readonly' => true, 'size' => 18, 'maxlength' => 18)); ?>
+                <?php else : ?>
+                    <?php if(isset($model->done_ratio)) : ?>
+                        <?php echo Bugitor::progress_bar($model->done_ratio, array('class'=>'span12', 'legend'=>$model->done_ratio.'%'));?>
+                    <?php endif; ?>
                 <?php endif; ?>
-                <?php echo $form->textField($model, 'done_ratio', array('id' => 'done_ratio', 'readonly' => true, 'size' => 18, 'maxlength' => 18)); ?>
-                <?php echo $form->error($model, 'done_ratio'); ?>
-            <?php else : ?>
-                <?php if(isset($model->done_ratio)) : ?>
-                    <?php echo Bugitor::progress_bar($model->done_ratio, array('width'=>'80px', 'legend'=>$model->done_ratio.'%'));?>
-                <?php endif; ?>
-            <?php endif; ?>
-        </td>
-    </tr>
-</tbody></table>
-</div>
-
+            </div>
+        </div>
+    </div><!-- splitcontentright -->
 </div>
 
 
 <?php if (!$model->isNewRecord) : ?>
     <div class="row-fluid" id="description_row" style="display: none;">
+        <div class="span12">
         <?php echo $form->labelEx($model, 'description'); ?>
         <?php if (Yii::app()->user->checkAccess('Issue.Update')) : ?>
             <?php
                     $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
                         'model' => $model,
                         'attribute' => 'description',
-                        'htmlOptions' => array('style' => 'height:150px;width:80%;')
+                        'htmlOptions' => array('style' => 'height:150px;width:100%;', 'class' => 'span12')
                     )) ?>
         <?php else : ?>
-            <?php echo $form->textArea($model, 'description', array('disabled' => true, 'style' => 'height:150px;width:98%;')); ?>
+            <?php echo $form->textArea($model, 'description', array('disabled' => true, 'style' => 'height:150px;width:100%;')); ?>
         <?php endif; ?>
         <?php echo $form->error($model, 'description'); ?>
     </div>
+    </div>
     <div class="row-fluid">
+        <div class="span12">
         <b>Comment:</b><br/>
         <?php $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
                 'name' => 'Comment',
-                'htmlOptions'=>array('style'=>'height:150px;width:80%;')
+                'htmlOptions'=>array('style'=>'height:150px;width:100%;', 'class' => 'span12')
         ))?>
+    </div>
     </div>
 <?php else : ?>
     <div class="row-fluid">
+        <div class="span12">
         <?php echo $form->labelEx($model, 'description'); ?>
         <?php
             $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
                 'model' => $model,
                 'attribute' => 'description',
-                'htmlOptions' => array('style' => 'height:150px;width:80%;')
+                'htmlOptions' => array('style' => 'height:150px;width:100%;', 'class' => 'span12')
             ))
         ?>
         <?php echo $form->error($model, 'description'); ?>
-    </div>
+    </div></div>
 <?php endif; ?>
 
 <div class="row-fluid">
