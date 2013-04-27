@@ -90,7 +90,7 @@ EOD;
     'filter'=>$model,
     'sortableRows'=>true,
     'responsiveTable' => true,
-    'template' => "{items}{pager}",
+    'template' => "{summary}{items}{pager}",
     'enablePagination' => true,
     'columns'=>array(
             array(

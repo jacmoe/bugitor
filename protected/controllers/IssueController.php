@@ -384,17 +384,23 @@ class IssueController extends Controller {
     }
 
     public function actionEditcomment(){
-        $model = Comment::model()->findbyPk((int)$_POST['id']);
-        if(null != $model) {
-            $model->content = $_POST['value'];
-            $model->update_user_id = Yii::app()->user->id;
-            if($model->save()) {
-                echo Yii::app()->textile->textilize($model->content);
-            }
-            else {
-                echo 'Error';
-            }
-        }
+        $es = new EditableSaver('Comment');
+        $es->onBeforeUpdate = function($event) {
+            $event->sender->setAttribute('update_user_id', Yii::app()->user->id);
+        };
+        $es->update();
+        // $model = Comment::model()->findbyPk((int)$_POST['id']);
+        // if(null != $model) {
+        //     $model->content = $_POST['value'];
+        //     $model->update_user_id = Yii::app()->user->id;
+        //     if($model->save()) {
+        //         echo Yii::app()->textile->textilize($model->content);
+        //     }
+        //     else {
+        //         echo 'Error';
+        //     }
+        // }
+        echo Yii::app()->textile->textilize($model->content);
     }
 
     public function actionComment($id) {
