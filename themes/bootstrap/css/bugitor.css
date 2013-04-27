@@ -853,118 +853,119 @@ h4 {
 
 /* line 42, ../scss/partials/_sprites.scss */
 .smilies-sprite, .smilies-icon_biggrin, .smilies-icon_cheesygrin, .smilies-icon_confused, .smilies-icon_cool, .smilies-icon_cry, .smilies-icon_eek, .smilies-icon_evil, .smilies-icon_frown, .smilies-icon_mad, .smilies-icon_neutral, .smilies-icon_razz, .smilies-icon_redface, .smilies-icon_rolleyes, .smilies-icon_sad, .smilies-icon_smile, .smilies-icon_surprised, .smilies-icon_twisted, .smilies-icon_wink {
+  padding-left: 16px;
   width: 15px;
   height: 15px;
 }
 
-/* line 47, ../scss/partials/_sprites.scss */
+/* line 48, ../scss/partials/_sprites.scss */
 .twentytwo-sprite, .twentytwo-authent, .twentytwo-comment, .twentytwo-file, .twentytwo-info, .twentytwo-notifications, .twentytwo-options, .twentytwo-package, .twentytwo-plugin, .twentytwo-projects, .twentytwo-role, .twentytwo-settings, .twentytwo-tracker, .twentytwo-users, .twentytwo-workflow {
   padding-left: 24px;
 }
 
-/* line 56, ../scss/partials/_sprites.scss */
+/* line 57, ../scss/partials/_sprites.scss */
 .projects-icon {
   padding-left: 20px;
   background: url('../images/icons-s48247ce2e2.png') 0 -511px no-repeat;
 }
 
-/* line 60, ../scss/partials/_sprites.scss */
+/* line 61, ../scss/partials/_sprites.scss */
 .activity-icon {
   padding-left: 20px;
   background: url('../images/icons-s48247ce2e2.png') 0 -1887px no-repeat;
 }
 
-/* line 64, ../scss/partials/_sprites.scss */
+/* line 65, ../scss/partials/_sprites.scss */
 .overview-icon {
   padding-left: 20px;
   background: url('../images/icons-s48247ce2e2.png') 0 -1983px no-repeat;
 }
 
-/* line 68, ../scss/partials/_sprites.scss */
+/* line 69, ../scss/partials/_sprites.scss */
 .issues-icon {
   padding-left: 20px;
   background: url('../images/icons-s48247ce2e2.png') 0 -1503px no-repeat;
 }
 
-/* line 72, ../scss/partials/_sprites.scss */
+/* line 73, ../scss/partials/_sprites.scss */
 .code-icon {
   padding-left: 20px;
   background: url('../images/icons-s48247ce2e2.png') 0 -1471px no-repeat;
 }
 
-/* line 76, ../scss/partials/_sprites.scss */
+/* line 77, ../scss/partials/_sprites.scss */
 .settings-icon {
   padding-left: 20px;
   background: url('../images/icons-s48247ce2e2.png') 0 -1183px no-repeat;
 }
 
-/* line 80, ../scss/partials/_sprites.scss */
+/* line 81, ../scss/partials/_sprites.scss */
 .roadmap-icon {
   padding-left: 20px;
   background: url('../images/icons-s48247ce2e2.png') 0 -1343px no-repeat;
 }
 
-/* line 84, ../scss/partials/_sprites.scss */
+/* line 85, ../scss/partials/_sprites.scss */
 .members-icon {
   padding-left: 20px;
   background: url('../images/icons-s48247ce2e2.png') 0 -1727px no-repeat;
 }
 
-/* line 88, ../scss/partials/_sprites.scss */
+/* line 89, ../scss/partials/_sprites.scss */
 .Bug-icon {
   padding-left: 20px;
   background: url('../images/icons-s48247ce2e2.png') 0 -575px no-repeat;
 }
 
-/* line 92, ../scss/partials/_sprites.scss */
+/* line 93, ../scss/partials/_sprites.scss */
 .Feature-icon {
   padding-left: 20px;
   background: url('../images/icons-s48247ce2e2.png') 0 -895px no-repeat;
 }
 
-/* line 96, ../scss/partials/_sprites.scss */
+/* line 97, ../scss/partials/_sprites.scss */
 dt.issue-attachment {
   padding-left: 17px;
   background: url('../images/icons-s48247ce2e2.png') 0 -413px no-repeat;
 }
 
-/* line 101, ../scss/partials/_sprites.scss */
+/* line 102, ../scss/partials/_sprites.scss */
 dt.changeset {
   padding-left: 17px;
   background: url('../images/icons-s48247ce2e2.png') 0 -1469px no-repeat;
 }
 
-/* line 106, ../scss/partials/_sprites.scss */
+/* line 107, ../scss/partials/_sprites.scss */
 dt.issue-new {
   padding-left: 17px;
   background: url('../images/icons-s48247ce2e2.png') 0 -1501px no-repeat;
 }
 
-/* line 111, ../scss/partials/_sprites.scss */
+/* line 112, ../scss/partials/_sprites.scss */
 dt.issue-change {
   padding-left: 17px;
   background: url('../images/icons-s48247ce2e2.png') 0 -701px no-repeat;
 }
 
-/* line 116, ../scss/partials/_sprites.scss */
+/* line 117, ../scss/partials/_sprites.scss */
 dt.issue-note {
   padding-left: 17px;
   background: url('../images/icons-s48247ce2e2.png') 0 -541px no-repeat;
 }
 
-/* line 121, ../scss/partials/_sprites.scss */
+/* line 122, ../scss/partials/_sprites.scss */
 dt.issue-resolved {
   padding-left: 17px;
   background: url('../images/icons-s48247ce2e2.png') 0 -1149px no-repeat;
 }
 
-/* line 126, ../scss/partials/_sprites.scss */
+/* line 127, ../scss/partials/_sprites.scss */
 dt.issue-rejected {
   padding-left: 17px;
   background: url('../images/icons-s48247ce2e2.png') 0 -765px no-repeat;
 }
 
-/* line 131, ../scss/partials/_sprites.scss */
+/* line 132, ../scss/partials/_sprites.scss */
 .big-icon-projects {
   padding-left: 24px;
   background: url('../images/twentytwo-sdb7a3e63f4.png') 0 3px no-repeat;
