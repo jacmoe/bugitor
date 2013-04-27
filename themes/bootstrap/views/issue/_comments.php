@@ -34,10 +34,12 @@
 <?php //TODO: check if the user wants the comments in cronological order?    ?>
 <?php $comments = array_reverse($comments); ?>
 <?php $comment_count = count($comments); ?>
-<?php $this->widget('ext.EJeditable.EJeditable', array(
-    'url' => $this->createUrl('issue/editcomment'),
-    'loadurl' => $this->createUrl('issue/getcomment'),
-));?>
+<?php
+//  $this->widget('ext.EJeditable.EJeditable', array(
+//     'url' => $this->createUrl('issue/editcomment'),
+//     'loadurl' => $this->createUrl('issue/getcomment'),
+// ));
+?>
 
 <div id="history">
     <h3>History</h3>
@@ -60,7 +62,24 @@
                             <?php endforeach; ?>
                         </ul>
                     <?php endif; ?>
-                    <div class="<?php echo (isset(Yii::app()->user->id)&&(Yii::app()->user->id == $comment->create_user_id)) ? "edit" : "nedit" ?>" id="<?php echo $comment->id; ?>"><?php echo Yii::app()->textile->textilize($comment->content); ?></div>
+                    <div class="<?php echo (isset(Yii::app()->user->id)&&(Yii::app()->user->id == $comment->create_user_id)) ? "edit" : "nedit" ?>" id="<?php echo $comment->id; ?>">
+
+    <?php
+        // $this->widget('bootstrap.widgets.TbEditableField', array(
+        // 'type' => 'textarea',
+        // 'model' => $comment,
+        // 'options' => array(
+        //     'source' => $this->createUrl('issue/getcomment'),
+        //     'pk' => $comment->id,
+        //     ),
+        // 'attribute' => 'content',
+        // 'url' => $this->createUrl('issue/editcomment'), //url for submit data
+        // 'placement' => 'right',
+        // //'enabled' => true
+        // ));
+    ?>
+                        <?php echo Yii::app()->textile->textilize($comment->content); ?>
+                    </div>
                 </dd></dl>
         <hr/>
         </div>

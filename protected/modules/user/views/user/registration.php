@@ -10,20 +10,22 @@ $this->breadcrumbs=array(
 </div>
 <?php else: ?>
 
-<div id="page group">
+<div id="page group" class="row-fluid">
+
 <?php echo CHtml::beginForm('','post',array('enctype'=>'multipart/form-data')); ?>
+
     <fieldset class="register">
 
     <h1><?php echo UserModule::t("Registration"); ?></h1>
-	
+
 	<?php echo CHtml::errorSummary($form); ?>
 	<?php echo CHtml::errorSummary($profile); ?>
-	
+
 	<div class="field stacked">
 	<?php echo CHtml::activeLabelEx($form,'username'); ?>
 	<?php echo CHtml::activeTextField($form,'username'); ?>
 	</div>
-	
+
 	<div class="field stacked">
 	<?php echo CHtml::activeLabelEx($form,'password'); ?>
 	<?php echo CHtml::activePasswordField($form,'password'); ?>
@@ -31,25 +33,25 @@ $this->breadcrumbs=array(
 	<?php echo UserModule::t("Minimal password length 4 symbols."); ?>
 	</p>
 	</div>
-	
+
 	<div class="field stacked">
 	<?php echo CHtml::activeLabelEx($form,'verifyPassword'); ?>
 	<?php echo CHtml::activePasswordField($form,'verifyPassword'); ?>
 	</div>
-	
+
 	<div class="field stacked">
 	<?php echo CHtml::activeLabelEx($form,'email'); ?>
 	<?php echo CHtml::activeTextField($form,'email'); ?>
 	</div>
-	
-<?php 
+
+<?php
 		$profileFields=ProfileField::model()->forRegistration()->sort()->findAll();
 		if ($profileFields) {
 			foreach($profileFields as $field) {
 			?>
 	<div class="field stacked">
 		<?php echo CHtml::activeLabelEx($profile,$field->varname); ?>
-		<?php 
+		<?php
 		if ($field->widgetEdit($profile)) {
 			echo $field->widgetEdit($profile);
 		} elseif ($field->range) {
@@ -61,7 +63,7 @@ $this->breadcrumbs=array(
 		}
 		 ?>
 		<?php echo CHtml::error($profile,$field->varname); ?>
-	</div>	
+	</div>
 			<?php
 			}
 		}
@@ -77,11 +79,11 @@ $this->breadcrumbs=array(
 		<br/><?php echo UserModule::t("Letters are not case-sensitive."); ?></p>
 	</div>
 	<?php endif; ?>
-	
+
 	<div class="button-bar group">
 		<?php echo CHtml::submitButton(UserModule::t("Register")); ?>
 	</div>
-    
+
     <div class="note centered"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></div>
 </fieldset>
 <?php echo CHtml::endForm(); ?>

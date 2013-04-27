@@ -62,6 +62,7 @@ return array(
         'application.helpers.*',
         'application.widgets.*',
         'ext.simpleWorkflow.*',
+        'ext.editable.*',
         'ext.yii-mail.YiiMailMessage',
     ),
 
