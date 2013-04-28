@@ -47,8 +47,7 @@ class DefaultController extends Controller {
 
     public function actionIndex() {
 
-        $this->render('index', array('model' => $model,
-            'message' => $message));
+        $this->render('index');
     }
 
 }

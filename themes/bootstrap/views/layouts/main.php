@@ -1,3 +1,36 @@
+<?php
+/*
+ * This file is part of
+ *     ____              _ __
+ *    / __ )__  ______ _(_) /_____  _____
+ *   / __  / / / / __ `/ / __/ __ \/ ___/
+ *  / /_/ / /_/ / /_/ / / /_/ /_/ / /
+ * /_____/\__,_/\__, /_/\__/\____/_/
+ *             /____/
+ * A Yii powered issue tracker
+ * http://bitbucket.org/jacmoe/bugitor/
+ *
+ * Copyright (C) 2009 - 2013 Bugitor Team
+ *
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation files
+ * (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge,
+ * publish, distribute, sublicense, and/or sell copies of the Software,
+ * and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
+ * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,64 +70,88 @@
 
 <body>
 
-						<?php
-							if (((Yii::app()->controller->id === 'project')
-							|| (Yii::app()->controller->id === 'changeset')
-							|| (Yii::app()->controller->id === 'milestone')
-							|| (Yii::app()->controller->id === 'member')
-							|| (Yii::app()->controller->id === 'projectLink')
-							|| (Yii::app()->controller->id === 'repository')
-							|| (Yii::app()->controller->id === 'issueCategory')
-							|| (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) :
-						?>
-						<?php
-						$items = array( array('label' => 'Overview', 'url' => array('/projects/' . $_GET['identifier']), 'id' => 'project/view'), array('label' => 'Activity', 'url' => array('/projects/' . $_GET['identifier'] . '/activity'), 'id' => 'project/activity'), array('label' => 'Roadmap', 'url' => array('/projects/' . $_GET['identifier'] . '/roadmap'), 'id' => 'project/roadmap'), array('label' => 'Issues', 'url' => array('/projects/' . $_GET['identifier'] . '/issues'), 'id' => 'issue/index'), array('label' => 'New Issue', 'url' => array('/projects/' . $_GET['identifier'] . '/issue/create'), 'visible' => !Yii::app() -> user -> isGuest, 'id' => 'issue/create'), array('label' => 'Code', 'url' => array('/projects/' . $_GET['identifier'] . '/code'), 'id' => 'project/code'), array('label' => 'Settings', 'url' => array('/projects/' . $_GET['identifier'] . '/settings'), 'visible' => Yii::app() -> user -> checkAccess('Project.Settings') === true, 'id' => 'project/settings'), );
-						?>
-						<?php  else :?>
-						<?php
-						$items = array(
-						  array('label' => 'Projects', 'url' => array('/projects/'), 'id' => 'project/index'), );
-						?>
-						<?php  endif;?>
-<?php
-						$items2 = array(
-                            array(  'url' => Yii::app() -> getModule('user')->profileUrl,
-                                    'label' => Yii::app()->user->name,
-                                    'visible' => !Yii::app()->user->isGuest,
-                                    'id' => 'none',
-                                'items' => array(
-                                                array(  'url' => Yii::app() -> getModule('user') -> profileUrl,
-                                                        'label' => Yii::app() -> getModule('user') -> t("Profile"),
-                                                        'visible' => !Yii::app() -> user -> isGuest,
-                                                        'id' => 'user/profile/profile'),
-                                                array(  'url' => Yii::app() -> getModule('user') -> logoutUrl,
-                                                        'label' => Yii::app() -> getModule('user') -> t("Logout") . ' (' . Yii::app() -> user -> name . ')',
-                                                        'visible' => !Yii::app() -> user -> isGuest,
-                                                        'id' => 'user/logout/logout'
-                                                    ),
-                                                array(  'label' => 'Administration',
-                                                        'url' => array('/admin/default/index'),
-                                                        'id' => 'admin/default/index',
-                                                        'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
-                                            ),
-                                ),
-                            array(  'url' => '#',
-                                    'label' => 'Login/Register',
-                                    'visible' => Yii::app()->user->isGuest,
-                                    'id' => 'none',
-                                'items' => array(
-                                                array(  'url' => Yii::app() -> getModule('user') -> loginUrl,
-                                                        'label' => Yii::app() -> getModule('user') -> t("Login"),
-                                                        'visible' => Yii::app() -> user -> isGuest,
-                                                        'id' => 'user/login/login'),
-                                                array(  'url' => Yii::app() -> getModule('user') -> registrationUrl,
-                                                        'label' => Yii::app() -> getModule('user') -> t("Register"),
-                                                        'visible' => Yii::app() -> user -> isGuest,
-                                                        'id' => 'user/registration/registration'),
-                                            ),
-                                ),
-                        );
-?>
+	<?php
+		if (((Yii::app()->controller->id === 'project')
+		|| (Yii::app()->controller->id === 'changeset')
+		|| (Yii::app()->controller->id === 'milestone')
+		|| (Yii::app()->controller->id === 'member')
+		|| (Yii::app()->controller->id === 'projectLink')
+		|| (Yii::app()->controller->id === 'repository')
+		|| (Yii::app()->controller->id === 'issueCategory')
+		|| (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) :
+	?>
+    	<?php
+    	$items = array(
+            array('label' => 'Overview',
+                'url' => array('/projects/' . $_GET['identifier']),
+                'id' => 'project/view'),
+            array('label' => 'Activity',
+                'url' => array('/projects/' . $_GET['identifier'] . '/activity'),
+                'id' => 'project/activity'),
+            array('label' => 'Roadmap',
+                'url' => array('/projects/' . $_GET['identifier'] . '/roadmap'),
+                'id' => 'project/roadmap'),
+            array('label' => 'Issues',
+                'url' => array('/projects/' . $_GET['identifier'] . '/issues'),
+                'id' => 'issue/index'),
+            array('label' => 'New Issue',
+                'url' => array('/projects/' . $_GET['identifier'] . '/issue/create'),
+                'visible' => !Yii::app() -> user -> isGuest,
+                'id' => 'issue/create'),
+            array('label' => 'Code',
+                'url' => array('/projects/' . $_GET['identifier'] . '/code'),
+                'id' => 'project/code'),
+            array('label' => 'Settings',
+                'url' => array('/projects/' . $_GET['identifier'] . '/settings'),
+                'visible' => Yii::app() -> user -> checkAccess('Project.Settings') === true,
+                'id' => 'project/settings'),
+            );
+    	?>
+	<?php  else :?>
+    	<?php
+        	$items = array(
+        	  array('label' => 'Projects', 'url' => array('/projects/'), 'id' => 'project/index'), );
+    	?>
+	<?php  endif;?>
+    <?php
+    	$items2 = array(
+            array(  'url' => Yii::app() -> getModule('user')->profileUrl,
+                    'label' => Yii::app()->user->name,
+                    'visible' => !Yii::app()->user->isGuest,
+                    'id' => 'none',
+                    'items' => array(
+                                array(  'url' => Yii::app() -> getModule('user') -> profileUrl,
+                                        'label' => Yii::app() -> getModule('user') -> t("Profile"),
+                                        'visible' => !Yii::app() -> user -> isGuest,
+                                        'id' => 'user/profile/profile'),
+                                array(  'url' => Yii::app() -> getModule('user') -> logoutUrl,
+                                        'label' => Yii::app() -> getModule('user') -> t("Logout") . ' (' . Yii::app() -> user -> name . ')',
+                                        'visible' => !Yii::app() -> user -> isGuest,
+                                        'id' => 'user/logout/logout'
+                                    ),
+                                array(  'label' => 'Administration',
+                                        'url' => array('/admin/default/index'),
+                                        'id' => 'admin/default/index',
+                                        'visible' => Yii::app()->user->checkAccess(Rights::module()->superuserName)),
+                            ),
+                ),
+            array(  'url' => '#',
+                    'label' => 'Login/Register',
+                    'visible' => Yii::app()->user->isGuest,
+                    'id' => 'none',
+                'items' => array(
+                                array(  'url' => Yii::app() -> getModule('user') -> loginUrl,
+                                        'label' => Yii::app() -> getModule('user') -> t("Login"),
+                                        'visible' => Yii::app() -> user -> isGuest,
+                                        'id' => 'user/login/login'),
+                                array(  'url' => Yii::app() -> getModule('user') -> registrationUrl,
+                                        'label' => Yii::app() -> getModule('user') -> t("Register"),
+                                        'visible' => Yii::app() -> user -> isGuest,
+                                        'id' => 'user/registration/registration'),
+                            ),
+                ),
+        );
+    ?>
 					<span id="user-menu">
 <?php
 	$this->widget('bootstrap.widgets.TbNavbar', array(
