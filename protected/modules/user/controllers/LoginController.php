@@ -11,6 +11,9 @@ class LoginController extends Controller
 	{
 		if (Yii::app()->user->isGuest) {
 			$model=new UserLogin;
+
+	        $this->performAjaxValidation($model);
+
 			// collect user input data
 			if(isset($_POST['UserLogin']))
 			{
@@ -36,4 +39,16 @@ class LoginController extends Controller
 		$lastVisit->save();
 	}
 
+    /**
+     * Performs the AJAX validation.
+     * @param CModel the model to be validated
+     */
+    protected function performAjaxValidation($model)
+    {
+        if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
+        {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+    }
 }

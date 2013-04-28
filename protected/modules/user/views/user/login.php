@@ -15,13 +15,15 @@ $this->breadcrumbs=array(
         <?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'type'=>'inline',
         'enableClientValidation' => true,
+        'id' => 'login-form',
         'clientOptions'=>array('validateOnSubmit'=>true),
-        'errorMessageCssClass'=>'error',
+        //'errorMessageCssClass'=>'error',
         'htmlOptions'=>array('class'=>'well'),
         )); ?>
         <fieldset>
             <legend>Login</legend>
         </fieldset>
+    <?php echo $form->errorSummary($model); ?>
         <div class="row-fluid">
             <div class="span12">
                 <?php echo $form->error($model,'username'); ?>
