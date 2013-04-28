@@ -57,7 +57,7 @@
             <?php while($count < $model->parent_count) : ?>
                 <?php list($parent_short, $parent_rev) = explode(":", $parents[$count]); ?>
                 <dt>parent <?php echo $parent_short; ?></dt>
-                <dd><?php echo Bugitor::link_to_changeset(Changeset::changesetFromRevision($parent_rev)); ?></dd>
+                <dd><?php //echo Bugitor::link_to_changeset(Changeset::changesetFromRevision($parent_rev)); ?></dd>
                 <?php $count++; ?>
             <?php endwhile; ?>
         <?php else : ?>
@@ -67,7 +67,7 @@
             <?php else : ?>
                 <?php list($parent_short, $parent_rev) = explode(":", $model->parents); ?>
                 <dt>parent <?php echo $parent_short; ?></dt>
-                <dd><?php echo Bugitor::link_to_changeset(Changeset::changesetFromRevision($parent_rev)); ?></dd>
+                <dd><?php //echo Bugitor::link_to_changeset(Changeset::changesetFromRevision($parent_rev)); ?></dd>
             <?php endif; ?>
         <?php endif; ?>
         <dt>branch</dt>
@@ -84,40 +84,40 @@
 </div>
 </div>
 <div id="changeset" class="layout-box">
-<h3>Changing <?php echo count($model->changes) ?> files:</h3>
+<h3>Changing <?php //echo count($model->changes) ?> files:</h3>
 <div class="quiet">
 <?php echo ($model->edit > 0) ? $model->edit . ' modified. ' : '' ?>
 <?php echo ($model->add > 0) ? $model->add . ' added. ' : '' ?>
 <?php echo ($model->del > 0) ? $model->del . ' deleted. ' : '' ?></div>
-<?php foreach($model->changes as $change) : ?>
+<?php //foreach($model->changes as $change) : ?>
     <?php
-    $change_class = '';
-    switch ($change->action) {
-        case 'M':
-            $change_class = 'class="change-modified"';
-            break;
-        case 'A':
-            $change_class = 'class="change-added"';
-            break;
-        case 'D':
-            $change_class = 'class="change-removed"';
-            break;
-        default:
-            $change_class = 'class="change-modified"';
-            break;
-    }
+    // $change_class = '';
+    // switch ($change->action) {
+    //     case 'M':
+    //         $change_class = 'class="change-modified"';
+    //         break;
+    //     case 'A':
+    //         $change_class = 'class="change-added"';
+    //         break;
+    //     case 'D':
+    //         $change_class = 'class="change-removed"';
+    //         break;
+    //     default:
+    //         $change_class = 'class="change-modified"';
+    //         break;
+    // }
     ?>
-    <?php if($change->action != 'C') : ?>
-        <a <?php echo $change_class; ?> href="#<?php echo $change->path; ?>"><?php echo $change->path; ?></a><br/>
-    <?php endif; ?>
-<?php endforeach; ?>
+    <?php //if($change->action != 'C') : ?>
+        <a <?php //echo $change_class; ?> href="#<?php //echo $change->path; ?>"><?php //echo $change->path; ?></a><br/>
+    <?php //endif; ?>
+<?php //endforeach; ?>
 </div>
-<?php foreach($model->changes as $change) : ?>
-    <?php if('M' == $change->action) : ?>
-        <a name="<?php echo $change->path; ?>"></a><div class="diff box">
-        <?php echo htmlspecialchars($change->diff); ?>
+<?php //foreach($model->changes as $change) : ?>
+    <?php //if('M' == $change->action) : ?>
+        <a name="<?php //echo $change->path; ?>"></a><div class="diff box">
+        <?php //echo htmlspecialchars($change->diff); ?>
         </div>
         <a style="float: right;" href="#top">Up To File-list</a>
-    <?php endif; ?>
-<?php endforeach; ?>
+    <?php //endif; ?>
+<?php //endforeach; ?>
 </div>
