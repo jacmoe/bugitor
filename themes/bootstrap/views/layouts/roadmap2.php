@@ -45,8 +45,8 @@
         <?php endif; ?>
         <ol id="toc"></ol>
         <?php $this->widget('ext.ETableOfContents.ETableOfContents', array(
-            'scope_id' => 'roadmap', 
-            'startLevel' => '3', 
+            'scope_id' => 'roadmap',
+            'startLevel' => '3',
             'topLinks' => '<span style="font-size: 0.5em; color: grey;">(^ Top of page)</span>'
         )); ?>
     </div>
