@@ -105,7 +105,7 @@ class TestSCMCommand extends CConsoleCommand {
         echo $bitbucket->name;
         echo "\n---------------------------------------------------\n";
         $bitbucket->url = "jacmoes";
-        require(dirname(__FILE__) . '/../../credentials.php');
+        require(dirname(__FILE__) . '/../config/credentials.php');
         $bitbucket->setCredentials($user, $pass);
         $bitbucket_entries = $bitbucket->getChanges(1);
         print_r($bitbucket_entries);
