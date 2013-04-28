@@ -107,7 +107,8 @@ class Changeset extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-                        'changesetIssues' => array(self::HAS_MANY, 'ChangesetIssue', 'changeset_id'),
+            'scm' => array(self::BELONGS_TO, 'Repository', 'scm_id'),
+            'changesetIssues' => array(self::HAS_MANY, 'ChangesetIssue', 'changeset_id'),
         );
     }
 
@@ -120,7 +121,7 @@ class Changeset extends CActiveRecord
             'id' => 'ID',
             'revision' => 'Revision',
             'unique_ident' => 'Unique Identifier',
-                        'user_id' => 'User',
+            'user_id' => 'User',
             'scm_id' => 'Scm',
             'commit_date' => 'Commit Date',
             'message' => 'Message',
