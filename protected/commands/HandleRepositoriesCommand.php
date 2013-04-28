@@ -170,40 +170,40 @@ class HandleRepositoriesCommand extends CConsoleCommand {
 
                     $change_edit = $change_del = $change_add = 0;
 
-                    // foreach ($entry['files'] as $file) {
-                    //     $change = new Change;
-                    //     $change->changeset_id = $changeset->id;
-                    //     switch ($file['status']) {
-                    //         case 'M':
-                    //             $change_edit++;
-                    //             break;
-                    //         case 'A':
-                    //             $change_add++;
-                    //             break;
-                    //         case 'D':
-                    //             $change_del++;
-                    //             break;
-                    //         default:
-                    //             break;
-                    //     }
-                    //     $change->path = $file['name'];
-                    //     $change->action = $file['status'];
-                    //     if ('M' === $change->action) {
-                    //         $change->diff = $this->SCMBackend->getDiff($change->path, $changeset->short_rev);
-                    //     } elseif('A' === $change->action) {
-                    //         $change->diff = $this->SCMBackend->getFileContents($change->path, $changeset->short_rev);
-                    //     } elseif('D' === $change->action) {
-                    //         $change->diff = $this->SCMBackend->getFileContents($change->path, $this->SCMBackend->getLastRevisionOf($change->path));
-                    //     } else {
-                    //         $change->diff = '';
-                    //     }
-                    //     $fp = null;
-                    //     if ($change->validate()) {
-                    //         $change->save(false);
-                    //     } else {
-                    //         return false;
-                    //     }
-                    // }
+                    foreach ($entry['files'] as $file) {
+                        // $change = new Change;
+                        // $change->changeset_id = $changeset->id;
+                        switch ($file['status']) {
+                            case 'M':
+                                $change_edit++;
+                                break;
+                            case 'A':
+                                $change_add++;
+                                break;
+                            case 'D':
+                                $change_del++;
+                                break;
+                            default:
+                                break;
+                        }
+                        // $change->path = $file['name'];
+                        // $change->action = $file['status'];
+                        // if ('M' === $change->action) {
+                        //     $change->diff = $this->SCMBackend->getDiff($change->path, $changeset->short_rev);
+                        // } elseif('A' === $change->action) {
+                        //     $change->diff = $this->SCMBackend->getFileContents($change->path, $changeset->short_rev);
+                        // } elseif('D' === $change->action) {
+                        //     $change->diff = $this->SCMBackend->getFileContents($change->path, $this->SCMBackend->getLastRevisionOf($change->path));
+                        // } else {
+                        //     $change->diff = '';
+                        // }
+                        // $fp = null;
+                        // if ($change->validate()) {
+                        //     $change->save(false);
+                        // } else {
+                        //     return false;
+                        // }
+                    }
                     $changeset->add = $change_add;
                     $changeset->del = $change_del;
                     $changeset->edit = $change_edit;
