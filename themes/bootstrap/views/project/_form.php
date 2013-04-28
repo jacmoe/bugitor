@@ -35,7 +35,7 @@
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'project-form',
-        'action' => array('update', 'id' => $model->id),
+    'action' => array('update', 'id' => $model->id),
 	'enableAjaxValidation'=>false,
 )); ?>
 
