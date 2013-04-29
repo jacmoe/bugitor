@@ -1773,6 +1773,196 @@ div.flash-success a {
   color: #264409;
 }
 
+/*
+    Imports
+*/
+/*
+    Grid view
+*/
+/* line 16, ../scss/partials/yii/_bootstrap-yii.scss */
+.grid-view {
+  padding-top: 20px;
+}
+/* line 20, ../scss/partials/yii/_bootstrap-yii.scss */
+.grid-view table.items th a {
+  display: block;
+  position: relative;
+}
+/* line 24, ../scss/partials/yii/_bootstrap-yii.scss */
+.grid-view table.items th a .caret {
+  display: none;
+  position: absolute;
+  right: 5px;
+  top: 7px;
+}
+/* line 31, ../scss/partials/yii/_bootstrap-yii.scss */
+.grid-view table.items th a.asc .caret {
+  display: block;
+}
+/* line 35, ../scss/partials/yii/_bootstrap-yii.scss */
+.grid-view table.items th a.desc .caret {
+  border-bottom: 4px solid #dddddd;
+  border-top: none;
+  display: block;
+}
+/* line 42, ../scss/partials/yii/_bootstrap-yii.scss */
+.grid-view table.items tr.selected td {
+  background: whitesmoke;
+}
+/* line 48, ../scss/partials/yii/_bootstrap-yii.scss */
+.grid-view .filters .filter-container {
+  padding: 0 15px 0 0;
+}
+/* line 53, ../scss/partials/yii/_bootstrap-yii.scss */
+.grid-view .filters input,
+.grid-view .filters select {
+  margin-bottom: 0;
+  width: 100%;
+}
+/* line 59, ../scss/partials/yii/_bootstrap-yii.scss */
+.grid-view .button-column {
+  text-align: center;
+  width: 50px;
+}
+/* line 64, ../scss/partials/yii/_bootstrap-yii.scss */
+.grid-view .checkbox-column {
+  width: 15px;
+}
+/* line 68, ../scss/partials/yii/_bootstrap-yii.scss */
+.grid-view .summary {
+  margin-bottom: 5px;
+  text-align: right;
+}
+/* line 73, ../scss/partials/yii/_bootstrap-yii.scss */
+.grid-view .pager {
+  margin-top: 5px;
+}
+/* line 77, ../scss/partials/yii/_bootstrap-yii.scss */
+.grid-view .empty {
+  font-style: italic;
+}
+
+/* line 82, ../scss/partials/yii/_bootstrap-yii.scss */
+.grid-view-loading {
+  background: url(../images/loading.gif) no-repeat;
+}
+
+/*
+    List view
+*/
+/* line 90, ../scss/partials/yii/_bootstrap-yii.scss */
+.list-view {
+  padding-top: 20px;
+}
+/* line 93, ../scss/partials/yii/_bootstrap-yii.scss */
+.list-view .summary {
+  margin-bottom: 5px;
+  text-align: right;
+}
+/* line 98, ../scss/partials/yii/_bootstrap-yii.scss */
+.list-view .pager {
+  margin-top: 5px;
+}
+/* line 102, ../scss/partials/yii/_bootstrap-yii.scss */
+.list-view .sorter {
+  margin: 0 0 5px 0;
+  text-align: right;
+}
+/* line 106, ../scss/partials/yii/_bootstrap-yii.scss */
+.list-view .sorter ul {
+  display: inline;
+  list-style: none outside none;
+  margin: 0;
+  padding: 0;
+}
+/* line 113, ../scss/partials/yii/_bootstrap-yii.scss */
+.list-view .sorter li {
+  display: inline;
+  margin: 0 0 0 5px;
+  padding: 0;
+}
+/* line 119, ../scss/partials/yii/_bootstrap-yii.scss */
+.list-view .sorter a .caret {
+  position: absolute;
+  right: 5px;
+  top: 7px;
+}
+/* line 124, ../scss/partials/yii/_bootstrap-yii.scss */
+.list-view .sorter a .caret.desc .caret {
+  border-bottom: 4px solid #dddddd;
+  border-top: none;
+}
+
+/* line 132, ../scss/partials/yii/_bootstrap-yii.scss */
+.list-view-loading {
+  background: url(../images/loading.gif) no-repeat;
+}
+
+/*
+    Detail view
+*/
+/* line 141, ../scss/partials/yii/_bootstrap-yii.scss */
+.detail-view .null {
+  color: white;
+}
+/* line 145, ../scss/partials/yii/_bootstrap-yii.scss */
+.detail-view th {
+  text-align: right;
+  width: 160px;
+}
+
+/*
+    Form
+*/
+/* line 155, ../scss/partials/yii/_bootstrap-yii.scss */
+span.required {
+  color: #b94a48;
+}
+
+/* line 162, ../scss/partials/yii/_bootstrap-yii.scss */
+.form-inline label.error,
+.form-horizontal label.error,
+.form-vertical label.error {
+  color: #b94a48;
+}
+/* line 168, ../scss/partials/yii/_bootstrap-yii.scss */
+.form-inline select.error,
+.form-inline input.error,
+.form-inline textarea.error,
+.form-horizontal select.error,
+.form-horizontal input.error,
+.form-horizontal textarea.error,
+.form-vertical select.error,
+.form-vertical input.error,
+.form-vertical textarea.error {
+  border-color: #ee5f5b;
+  color: #b94a48;
+}
+/* line 172, ../scss/partials/yii/_bootstrap-yii.scss */
+.form-inline select.error:focus,
+.form-inline input.error:focus,
+.form-inline textarea.error:focus,
+.form-horizontal select.error:focus,
+.form-horizontal input.error:focus,
+.form-horizontal textarea.error:focus,
+.form-vertical select.error:focus,
+.form-vertical input.error:focus,
+.form-vertical textarea.error:focus {
+  border-color: #e9322d;
+  -webkit-box-shadow: 0 0 6px #f8b9b7;
+  -moz-box-shadow: 0 0 6px #f8b9b7;
+  box-shadow: 0 0 6px #f8b9b7;
+}
+/* line 179, ../scss/partials/yii/_bootstrap-yii.scss */
+.form-inline .help-block.error,
+.form-inline .help-inline.error,
+.form-horizontal .help-block.error,
+.form-horizontal .help-inline.error,
+.form-vertical .help-block.error,
+.form-vertical .help-inline.error {
+  color: #b94a48;
+}
+
 /* line 22, ../scss/bugitor.scss */
 .centered {
   text-align: center;
@@ -1824,8 +2014,6 @@ div.flash-success a {
 .box {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
   border-radius: 5px;
 }
 
@@ -1837,8 +2025,6 @@ div.issue {
   border: 1px solid #bbbbbb;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
   border-radius: 5px;
 }
 
@@ -1933,8 +2119,6 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   background: #1673a1;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
   border-radius: 5px;
   -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);

@@ -35,6 +35,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="<?php  echo Yii::app() -> theme -> baseUrl;?>/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="<?php  echo Yii::app() -> theme -> baseUrl;?>/css/bootstrap-responsive.css" />
 <title><?php echo $this->pageTitle; ?></title>
 <meta name="description" content="">
 <meta name="author" content="">
@@ -50,7 +52,7 @@
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
     }
 
-    @media (max-width: 1140px) {
+    @media (max-width: 979px) {
         body{
             padding-top: 0px;
         }
