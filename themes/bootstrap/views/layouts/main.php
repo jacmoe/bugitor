@@ -55,6 +55,9 @@
 			padding-top: 0px;
 		}
 	}
+.brandext {
+    margin-left:10px !important;
+}
 </style>
 
 <link rel="stylesheet" type="text/css" href="<?php  echo Yii::app() -> theme -> baseUrl;?>/css/bugitor.css" />
@@ -106,11 +109,17 @@
                 'visible' => Yii::app() -> user -> checkAccess('Project.Settings') === true,
                 'id' => 'project/settings'),
             );
+
+            $brand = CHtml::encode($_GET['projectname']);
+            $brand_url = $this->createUrl('project/view', array('identifier' => $_GET['identifier']));
     	?>
 	<?php  else :?>
     	<?php
         	$items = array(
         	  array('label' => 'Projects', 'url' => array('/projects/'), 'id' => 'project/index'), );
+
+            $brand = CHtml::encode(Yii::app()->name);
+            $brand_url = $this->createUrl('project/index');
     	?>
 	<?php  endif;?>
     <?php
@@ -154,8 +163,9 @@
     ?>
 					<span id="user-menu">
 <?php
-	$this->widget('bootstrap.widgets.TbNavbar', array(
-		'brand' => 'Title',
+	$this->widget('BugitorNavbar', array(
+        'brand' => $brand,
+        'brandUrl' => $brand_url,
 		'type' => 'inverse',
         'fluid' => true,
 		'collapse' => true,
