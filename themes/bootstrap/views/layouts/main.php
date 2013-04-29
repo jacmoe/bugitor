@@ -58,6 +58,18 @@
 .brandext {
     margin-left:10px !important;
 }
+@media (min-width: 768px) and (max-width: 979px) {
+    .brandext {
+    margin-left:16px !important;
+    top: -1px;
+}
+}
+@media (max-width: 768px) {
+    .brandext {
+    margin-left:36px !important;
+}
+}
+
 </style>
 
 <link rel="stylesheet" type="text/css" href="<?php  echo Yii::app() -> theme -> baseUrl;?>/css/bugitor.css" />
