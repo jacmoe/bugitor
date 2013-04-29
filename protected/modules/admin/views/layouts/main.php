@@ -35,8 +35,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="<?php  echo Yii::app() -> theme -> baseUrl;?>/css/bootstrap.css" />
-<link rel="stylesheet" type="text/css" href="<?php  echo Yii::app() -> theme -> baseUrl;?>/css/bootstrap-responsive.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl;?>/css/bootstrap<?php echo (!YII_DEBUG ? ".min" : "") . ".css"; ?>"/>
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl;?>/css/bootstrap-responsive<?php echo (!YII_DEBUG ? ".min" : "") . ".css"; ?>"/>
 <title><?php echo $this->pageTitle; ?></title>
 <meta name="description" content="">
 <meta name="author" content="">
@@ -57,9 +57,23 @@
             padding-top: 0px;
         }
     }
+.brandext {
+    margin-left:10px !important;
+}
+@media (min-width: 768px) and (max-width: 979px) {
+    .brandext {
+    margin-left:16px !important;
+    top: -1px;
+}
+}
+@media (max-width: 768px) {
+    .brandext {
+    margin-left:36px !important;
+}
+}
 </style>
 
-<link rel="stylesheet" type="text/css" href="<?php  echo Yii::app() -> theme -> baseUrl;?>/css/bugitor.css" />
+<link rel="stylesheet" type="text/css" href="<?php  echo Yii::app() -> theme -> baseUrl;?>/css/bugitor<?php echo (!YII_DEBUG ? ".min" : "") . ".css"; ?>"/>
 <!-- Favicons
 ================================================== -->
 <link rel="shortcut icon" href="<?php  echo Yii::app() -> theme -> baseUrl;?>/images/favicon.ico">
