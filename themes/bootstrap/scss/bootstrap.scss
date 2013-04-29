@@ -1,8 +1,6 @@
-$iconSpritePath:          "../images/glyphicons-halflings.png" !default;
-$iconWhiteSpritePath:     "../images/glyphicons-halflings-white.png" !default;
-$linkColor:             #08c;
+$iconSpritePath:          "../images/glyphicons-halflings.png";
+$iconWhiteSpritePath:     "../images/glyphicons-halflings-white.png";
 
-$navbarInverseLinkBackgroundActive: $linkColor;
-// #1673a1;
+$navbarInverseLinkBackgroundActive: #1673a1;
 
 @import "partials/sass-twitter-bootstrap/bootstrap";

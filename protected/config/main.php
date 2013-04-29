@@ -97,6 +97,7 @@ return array(
             'class' => 'ext.yiibooster.components.Bootstrap',
             'responsiveCss' => false,
             'coreCss' => false,
+            'yiiCss' => false,
         ),
 
         'mail' => require(dirname(__FILE__) . '/mail.php'),
