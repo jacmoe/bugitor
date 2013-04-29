@@ -5282,7 +5282,7 @@ input[type="submit"].btn.btn-mini {
 .navbar-inverse .nav .active > a:hover,
 .navbar-inverse .nav .active > a:focus {
   color: white;
-  background-color: #111111;
+  background-color: #0088cc;
 }
 /* line 431, ../scss/partials/sass-twitter-bootstrap/_navbar.scss */
 .navbar-inverse .navbar-link {
@@ -5301,7 +5301,7 @@ input[type="submit"].btn.btn-mini {
 .navbar-inverse .nav li.dropdown.open > .dropdown-toggle,
 .navbar-inverse .nav li.dropdown.active > .dropdown-toggle,
 .navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle {
-  background-color: #111111;
+  background-color: #0088cc;
   color: white;
 }
 /* line 453, ../scss/partials/sass-twitter-bootstrap/_navbar.scss */
