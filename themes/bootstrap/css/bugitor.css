@@ -1,7 +1,17 @@
-/* Welcome to Compass.
- * In this file you should write your main styles. (or centralize your imports)
- * Import this file using the following HTML or equivalent:
- * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+/*
+ * This file is part of
+ *     ____              _ __
+ *    / __ )__  ______ _(_) /_____  _____
+ *   / __  / / / / __ `/ / __/ __ \/ ___/
+ *  / /_/ / /_/ / /_/ / / /_/ /_/ / /
+ * /_____/\__,_/\__, /_/\__/\____/_/
+ *             /____/
+ * A Yii powered issue tracker
+ * http://bitbucket.org/jacmoe/bugitor/
+ *
+ * Copyright (C) 2009 - 2013 Bugitor Team
+ *
+ */
 /* line 1, ../scss/partials/_headers.scss */
 h1, h2, h3, h4, h5 {
   font-weight: bolder;
@@ -1963,34 +1973,34 @@ span.required {
   color: #b94a48;
 }
 
-/* line 22, ../scss/bugitor.scss */
+/* line 32, ../scss/bugitor.scss */
 .centered {
   text-align: center;
   margin-top: 22px;
   line-height: 6px;
 }
 
-/* line 28, ../scss/bugitor.scss */
+/* line 38, ../scss/bugitor.scss */
 .contextual {
   position: relative;
   float: right;
 }
 
-/* line 33, ../scss/bugitor.scss */
+/* line 43, ../scss/bugitor.scss */
 .floatrightup {
   float: right;
   position: relative;
   top: 0.85em;
 }
 
-/* line 40, ../scss/bugitor.scss */
+/* line 50, ../scss/bugitor.scss */
 .floatright {
   float: right;
   position: relative;
   bottom: 32px;
 }
 
-/* line 46, ../scss/bugitor.scss */
+/* line 56, ../scss/bugitor.scss */
 .contextual_left {
   float: left;
   line-height: 1.4em;
@@ -1998,26 +2008,26 @@ span.required {
   padding-right: 10px;
 }
 
-/* line 53, ../scss/bugitor.scss */
+/* line 63, ../scss/bugitor.scss */
 .lowered {
   top: 20px;
 }
 
-/* line 57, ../scss/bugitor.scss */
+/* line 67, ../scss/bugitor.scss */
 .simplebox, .box {
   padding: 10px 10px;
   margin-bottom: 1em;
   border: 1px solid #bbbbbb;
 }
 
-/* line 63, ../scss/bugitor.scss */
+/* line 73, ../scss/bugitor.scss */
 .box {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
 
-/* line 71, ../scss/bugitor.scss */
+/* line 81, ../scss/bugitor.scss */
 div.issue {
   background: #ffffdd;
   padding: 6px;
@@ -2028,18 +2038,18 @@ div.issue {
   border-radius: 5px;
 }
 
-/* line 82, ../scss/bugitor.scss */
+/* line 92, ../scss/bugitor.scss */
 a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   color: #999999;
   text-decoration: line-through;
 }
 
-/* line 87, ../scss/bugitor.scss */
+/* line 97, ../scss/bugitor.scss */
 .keep-together {
   white-space: nowrap !important;
 }
 
-/* line 91, ../scss/bugitor.scss */
+/* line 101, ../scss/bugitor.scss */
 .settingstabs {
   height: 2.6em;
   border-bottom: 1px solid #bbbbbb;
@@ -2105,11 +2115,11 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   background-color: white;
 }
 
-/* line 95, ../scss/bugitor.scss */
+/* line 105, ../scss/bugitor.scss */
 .journal {
   clear: left;
 }
-/* line 97, ../scss/bugitor.scss */
+/* line 107, ../scss/bugitor.scss */
 .journal ul {
   position: relative;
   width: 30%;
@@ -2132,17 +2142,17 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited {
   list-style-type: none;
   margin-left: 0;
 }
-/* line 110, ../scss/bugitor.scss */
+/* line 120, ../scss/bugitor.scss */
 .journal h5 {
   margin-bottom: 2px;
   margin-top: 1.5em;
 }
-/* line 114, ../scss/bugitor.scss */
+/* line 124, ../scss/bugitor.scss */
 .journal hr {
   clear: left;
 }
 
-/* line 119, ../scss/bugitor.scss */
+/* line 129, ../scss/bugitor.scss */
 div#issue-changesets {
   float: right;
   width: 45%;
@@ -2152,13 +2162,32 @@ div#issue-changesets {
   padding-left: 1em;
   font-size: 90%;
 }
-/* line 127, ../scss/bugitor.scss */
+/* line 137, ../scss/bugitor.scss */
 div#issue-changesets .changeset {
   padding: 4px;
   border-bottom: 1px solid #bbbbbb;
 }
-/* line 130, ../scss/bugitor.scss */
+/* line 140, ../scss/bugitor.scss */
 div#issue-changesets .changeset p {
   margin-top: 0;
   margin-bottom: 1em;
+}
+
+/* line 148, ../scss/bugitor.scss */
+fieldset.collapsible {
+  border-width: 1px 0 0 0;
+  font-size: 0.9em;
+}
+
+/* line 149, ../scss/bugitor.scss */
+fieldset.collapsible legend {
+  border-width: 0px;
+  padding-left: 16px;
+  background: url(../images/arrow_expanded.png) no-repeat 0% 40%;
+  cursor: pointer;
+}
+
+/* line 150, ../scss/bugitor.scss */
+fieldset.collapsible.collapsed legend {
+  background-image: url(../images/arrow_collapsed.png);
 }
