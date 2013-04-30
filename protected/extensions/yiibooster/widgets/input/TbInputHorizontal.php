@@ -480,6 +480,50 @@ class TbInputHorizontal extends TbInput
 	}
 
 	/**
+	 * Renders markitup editor.
+	 * @return mixed|void
+	 */
+	protected function markitup()
+	{
+		if (isset($this->htmlOptions['options']))
+		{
+			$options = $this->htmlOptions['options'];
+			unset($this->htmlOptions['options']);
+		}
+		if (!isset($this->htmlOptions['width']))
+		{
+			$this->htmlOptions['width'] = '100%';
+		}
+		if (!isset($this->htmlOptions['height']))
+		{
+			$this->htmlOptions['height'] = '400px';
+		}
+		echo $this->getLabel();
+		echo '<div class="controls">';
+		if(isset($this->model))
+		{
+			$this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget',
+				array(
+					'model' => $this->model,
+					'attribute' => $this->attribute,
+		            'settings' => 'textile',
+		            'htmlOptions' => $this->htmlOptions,
+		        )
+		    );
+		} else {
+			$this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget',
+				array(
+					'name' => $this->name,
+		            'settings' => 'textile',
+		            'htmlOptions' => $this->htmlOptions,
+		        )
+		    );
+		}
+		echo $this->getError() . $this->getHint();
+		echo '</div>';
+	}
+
+	/**
 	 * Renders a ckEditor.
 	 * @return string the rendered content
 	 * @author antonio ramirez <antonio@clevertech.biz>

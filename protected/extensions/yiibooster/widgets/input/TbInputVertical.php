@@ -435,6 +435,37 @@ class TbInputVertical extends TbInput
 	}
 
 	/**
+	 * Renders markitup editor.
+	 * @return mixed|void
+	 */
+	protected function markitup()
+	{
+		if (isset($this->htmlOptions['options']))
+		{
+			$options = $this->htmlOptions['options'];
+			unset($this->htmlOptions['options']);
+		}
+		if (!isset($this->htmlOptions['width']))
+		{
+			$this->htmlOptions['width'] = '100%';
+		}
+		if (!isset($this->htmlOptions['height']))
+		{
+			$this->htmlOptions['height'] = '400px';
+		}
+		echo $this->getLabel();
+		$this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget',
+			array(
+				'model' => $this->model,
+				'attribute' => $this->attribute,
+	            'settings' => 'textile',
+	            'htmlOptions' => $this->htmlOptions,
+	        )
+	    );
+		echo $this->getError() . $this->getHint();
+	}
+
+	/**
 	 * Renders a daterange field.
 	 * @return string the rendered content
 	 * @author antonio ramirez <antonio@clevertech.biz>

@@ -339,6 +339,21 @@ class TbActiveForm extends CActiveForm
 	}
 
 	/**
+	 *### .markitupRow()
+	 *
+	 * Renders a markitup editor
+	 *
+	 * @param CModel $model
+	 * @param string $attribute
+	 * @param array $htmlOptions
+	 * @return string
+	 */
+	public function markitupRow($model, $attribute, $htmlOptions = array())
+	{
+		return $this->inputRow(TbInput::TYPE_MARKITUP, $model, $attribute, null, $htmlOptions);
+	}
+
+	/**
 	 *### .ckEditorRow()
 	 *
 	 * Renders a WYSIWYG  ckeditor
