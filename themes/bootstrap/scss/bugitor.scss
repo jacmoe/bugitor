@@ -1,7 +1,17 @@
-/* Welcome to Compass.
- * In this file you should write your main styles. (or centralize your imports)
- * Import this file using the following HTML or equivalent:
- * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+/*
+ * This file is part of
+ *     ____              _ __
+ *    / __ )__  ______ _(_) /_____  _____
+ *   / __  / / / / __ `/ / __/ __ \/ ___/
+ *  / /_/ / /_/ / /_/ / / /_/ /_/ / /
+ * /_____/\__,_/\__, /_/\__/\____/_/
+ *             /____/
+ * A Yii powered issue tracker
+ * http://bitbucket.org/jacmoe/bugitor/
+ *
+ * Copyright (C) 2009 - 2013 Bugitor Team
+ *
+ */
 
 @import "compass";
 
@@ -133,3 +143,8 @@ div#issue-changesets {
     }
   }
 }
+
+
+fieldset.collapsible { border-width: 1px 0 0 0; font-size: 0.9em; }
+fieldset.collapsible legend { border-width: 0px; padding-left: 16px; background: url(../images/arrow_expanded.png) no-repeat 0% 40%; cursor:pointer; }
+fieldset.collapsible.collapsed legend { background-image: url(../images/arrow_collapsed.png); }

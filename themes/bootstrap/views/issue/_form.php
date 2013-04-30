@@ -32,7 +32,7 @@
  */
 ?>
 <?php if (!$model->isNewRecord) : ?>
-    <div class="notice">To edit subject or description you need to click the Toggle Subject/Description link to make it visible.</div>
+    <div class="alert alert-warning">To edit subject or description you need to click the Toggle Subject/Description link to make it visible.</div>
 <?php endif; ?> <!-- if is new record //-->
 <div class="issue row-fluid">
     <fieldset id="subject_description_fieldset" class="collapsible collapsed">
