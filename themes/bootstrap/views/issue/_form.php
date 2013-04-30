@@ -191,42 +191,34 @@
 <?php if (!$model->isNewRecord) : ?>
     <div class="row-fluid" id="description_row" style="display: none;">
         <div class="span12">
-        <?php echo $form->labelEx($model, 'description'); ?>
         <?php if (Yii::app()->user->checkAccess('Issue.Update')) : ?>
-            <?php
-                    $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
-                        'model' => $model,
-                        'attribute' => 'description',
-                        'htmlOptions' => array('style' => 'height:150px;width:100%;', 'class' => 'span12')
-                    )) ?>
+            <?php echo $form->markitupRow($model, 'description'); ?>
         <?php else : ?>
-            <?php echo $form->textArea($model, 'description', array('disabled' => true, 'style' => 'height:150px;width:100%;')); ?>
+            <?php echo $form->textAreaRow($model, 'description', array('disabled' => true, 'style' => 'height:150px;width:100%;')); ?>
         <?php endif; ?>
         <?php echo $form->error($model, 'description'); ?>
     </div>
     </div>
     <div class="row-fluid">
         <div class="span12">
-        <b>Comment:</b><br/>
-        <?php $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
-                'name' => 'Comment',
-                'htmlOptions'=>array('style'=>'height:150px;width:100%;', 'class' => 'span12')
-        ))?>
+        <div class="control-group">
+            <label for="Comment" class="control-label">Comment:</label>
+            <div class="controls">
+                <?php $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
+                        'name' => 'Comment',
+                        'htmlOptions'=>array('class' => 'span12', 'width' => '100%', 'height' => '400px',)
+                ))?>
+            </div>
+        </div>
     </div>
     </div>
 <?php else : ?>
     <div class="row-fluid">
         <div class="span12">
-        <?php echo $form->labelEx($model, 'description'); ?>
-        <?php
-            $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
-                'model' => $model,
-                'attribute' => 'description',
-                'htmlOptions' => array('style' => 'height:150px;width:100%;', 'class' => 'span12')
-            ))
-        ?>
+        <?php echo $form->markitupRow($model, 'description'); ?>
         <?php echo $form->error($model, 'description'); ?>
-    </div></div>
+        </div>
+    </div>
 <?php endif; ?>
 
 <div class="row-fluid">

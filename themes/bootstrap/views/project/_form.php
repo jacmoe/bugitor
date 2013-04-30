@@ -32,64 +32,78 @@
  */
 ?>
 <div class="form row-fluid">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'project-form',
-    'action' => array('update', 'id' => $model->id),
-	'enableAjaxValidation'=>false,
-)); ?>
-
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<?php
+	$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+	            'id' => 'project-form',
+			    'action' => array('update', 'id' => $model->id),
+	            'type' => 'horizontal',
+	            'enableAjaxValidation' => false,
+	        ));
+	?>
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row-fluid">
-		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('size'=>30,'maxlength'=>30)); ?>
-		<?php echo $form->error($model,'name'); ?>
-	</div>
+	<!-- name -->
+	<?php echo $form->textFieldRow($model, 'name',
+		array(
+			'size' => 30,
+			'maxlength' => 30,
+			)
+	); ?>
+	<?php echo $form->error($model, 'name'); ?>
 
-	<div class="row-fluid">
-		<?php echo $form->labelEx($model,'tagline'); ?>
-		<?php echo $form->textField($model,'tagline',array('size'=>30,'maxlength'=>60)); ?>
-		<?php echo $form->error($model,'tagline'); ?>
-	</div>
+	<!-- tagline -->
+	<?php echo $form->textFieldRow($model, 'tagline',
+		array(
+			'size' => 30,
+			'maxlength' => 60,
+		)
+	); ?>
+	<?php echo $form->error($model, 'tagline'); ?>
 
-        <div class="row-fluid">
-		<?php echo $form->labelEx($model,'description'); ?>
-		<?php $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
-			'model' => $model,
-			'attribute' => 'description',
-                        'settings' => 'textile',
-                        'htmlOptions'=>array('style'=>'height:150px;')
-		))?>
-		<?php echo $form->error($model,'description'); ?>
-	</div>
+	<!-- description -->
+	<?php echo $form->markitupRow($model, 'description'); ?>
+	<?php echo $form->error($model, 'description'); ?>
 
+	<!-- identifier -->
 	<?php if(!$model->isNewRecord) :?>
-        <div class="row-fluid">
-		<?php echo $form->labelEx($model,'identifier'); ?>
-		<?php echo $form->textField($model,'identifier',array('size'=>60,'maxlength'=>255,'disabled' => true)); ?>
+		<?php echo $form->textFieldRow($model, 'identifier',
+			array(
+				'size' => 60,
+				'maxlength' => 255,
+				'disabled' => true,
+			)
+		); ?>
 		<?php echo $form->error($model,'identifier'); ?>
-	</div>
-        <?php endif; ?>
+    <?php endif; ?>
 
-        <div class="row-fluid">
-		<?php echo $form->labelEx($model,'homepage'); ?>
-		<?php echo $form->textField($model,'homepage',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'homepage'); ?>
-	</div>
+	<!-- home page -->
+	<?php echo $form->textFieldRow($model, 'homepage',
+		array(
+			'size' => 60,
+			'maxlength' => 255,
+		)
+	); ?>
+	<?php echo $form->error($model, 'homepage'); ?>
 
-	<div class="row-fluid">
-		<?php echo $form->labelEx($model,'public'); ?>
-		<?php echo $form->checkBox($model,'public'); ?>
-		<?php echo $form->error($model,'public'); ?>
-	</div>
+	<!-- public -->
+	<?php echo $form->checkBoxRow($model, 'public'); ?>
+	<?php echo $form->error($model, 'public'); ?>
 
-	<div class="row-fluid buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-                <?php echo CHtml::Button('Cancel',array('submit' => Yii::app()->request->getUrlReferrer()));?>
-	</div>
+	<!-- buttons -->
+    <?php $this->widget('bootstrap.widgets.TbButton',
+    	array(
+    		'buttonType' => 'submit',
+    		'type' => 'primary',
+    		'label' => $model->isNewRecord ? 'Create' : 'Save',
+    	)
+    ); ?>
+    <?php $this->widget('bootstrap.widgets.TbButton',
+    	array(
+    		'buttonType' => 'link',
+    		'label' => 'Cancel',
+    	)
+    ); ?>
 
 <?php $this->endWidget(); ?>
 
