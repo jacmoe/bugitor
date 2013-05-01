@@ -180,6 +180,43 @@
                 <?php if(Yii::app()->user->checkAccess('Issue.Delete')) : ?>
                     <div class="controls">
                     <?php if ((Yii::app()->user->checkAccess('Issue.Update')) && (!$model->isNewRecord)) : ?>
+<?php
+$sliderScript = <<< EOD
+js:function(event, ui)
+{
+    if(ui.value > 0)
+    {
+        if( $("td.closed").length == 0)
+        {
+            $("<td class='closed'></td>").insertBefore("td").css("class", "progress");
+        }
+    } else {
+        if( $("td.closed").length != 0)
+        {
+            $("td.closed").remove();
+        }
+    }
+    if(ui.value < 100)
+    {
+        if( $("td.todo").length == 0)
+        {
+            $("<td class='todo'></td>").insertAfter("td").css("class", "progress");
+        }
+    } else {
+        if( $("td.todo").length != 0)
+        {
+            $("td.todo").remove();
+        }
+    }
+    $(".progress").prop("title", ui.value + "%");
+    $("td.closed").css("width", ui.value + "%");
+    $("td.todo").css("width", 100-ui.value + "%");
+    $(".pourcent").html(ui.value + "%");
+    $("#sliderval").val(ui.value);
+}
+EOD;
+
+?>
                             <?php
                                 $this->widget('zii.widgets.jui.CJuiSlider', array(
                                     'value' => $model->done_ratio,
@@ -189,12 +226,7 @@
                                         'min' => 0,
                                         'max' => 100,
                                         'step' => 5,
-                                        'slide' => 'js:function(event, ui)
-                                            { $("td.closed").css("width", ui.value + "%");
-                                            $(".progress").prop("title", ui.value + "%");
-                                            $("td.todo").css("width", 100-ui.value + "%");
-                                            $(".pourcent").html(ui.value + "%")
-                                        }',
+                                        'slide' => $sliderScript,
                                     ),
                                     'htmlOptions' => array(
                                         'style' => 'height:8px;width:100%;',
@@ -203,6 +235,11 @@
                                 ));
                             ?>
                     <?php endif; ?>
+                    <?php echo $form->hiddenField($model, 'done_ratio', array(
+                        'value' => $model->done_ratio,
+                        'id' => 'sliderval'
+                        )
+                    ); ?>
                     <?php if(isset($model->done_ratio)) : ?>
                         <?php echo Bugitor::progress_bar($model->done_ratio, array(
                             'id' => 'done_ratio',
