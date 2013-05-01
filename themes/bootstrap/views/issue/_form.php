@@ -52,10 +52,17 @@
 
 <?php if (!$model->isNewRecord) : ?>
     <div id="subject_row" style="display: none;">
-        <?php echo $form->textFieldRow($model, 'subject', array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'class' => 'span12', 'maxlength' => 255)); ?>
+        <?php echo $form->textFieldRow($model, 'subject', array(
+            Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true,
+            'class' => 'span12',
+            'maxlength' => 255)
+        ); ?>
     </div>
 <?php else : ?>
-        <?php echo $form->textFieldRow($model, 'subject', array('class' => 'span12', 'maxlength' => 255)); ?>
+        <?php echo $form->textFieldRow($model, 'subject', array(
+            'class' => 'span12',
+            'maxlength' => 255)
+        ); ?>
 <?php endif; ?>
 
 <div class="row-fluid">
@@ -63,18 +70,28 @@
         <div class="row-fluid">
             <?php if ($model->isNewRecord) : ?>
                 <?php echo $form->dropDownListRow($model, 'tracker_id', CHtml::listData(
-                                Tracker::model()->findAll(), 'id', 'name'), array('class' => 'span12','selected' => 'Bug')); ?>
+                    Tracker::model()->findAll(), 'id', 'name'), array(
+                        'class' => 'span12',
+                        'selected' => 'Bug')
+                ); ?>
             <?php else : ?>
                 <?php echo $form->dropDownListRow($model, 'tracker_id', CHtml::listData(
-                                Tracker::model()->findAll(), 'id', 'name'), array('class' => 'span12')); ?>
+                    Tracker::model()->findAll(), 'id', 'name'), array(
+                        'class' => 'span12')
+                ); ?>
             <?php endif; ?>
         </div>
         <div class="row-fluid">
             <?php if(Yii::app()->user->checkAccess('Issue.Delete')) : ?>
                 <?php if ($model->isNewRecord) : ?>
-                    <?php echo $form->dropDownListRow($model, 'status', array('swIssue/new' => 'New*'), array('class' => 'span12')); ?>
+                    <?php echo $form->dropDownListRow($model, 'status', array('swIssue/new' => 'New*'), array(
+                        'class' => 'span12')
+                ); ?>
                 <?php else : ?>
-                    <?php echo $form->dropDownListRow($model, 'status', SWHelper::nextStatuslistData($model), array('class' => 'span12', Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true)); ?>
+                    <?php echo $form->dropDownListRow($model, 'status', SWHelper::nextStatuslistData($model), array(
+                        'class' => 'span12',
+                        Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true)
+                    ); ?>
                 <?php endif; ?>
             <?php else : ?>
                 <?php if(isset($model->status)) : ?>
@@ -86,24 +103,28 @@
         </div>
         <div class="row-fluid">
             <?php if ($model->isNewRecord) : ?>
-                <?php
-                    echo $form->dropDownListRow($model,
-                            'issue_priority_id',
-                            CHtml::listData(IssuePriority::model()->findAll(array('order' => 'id')), 'id', 'name'),
-                            array('options' => array('2' => array('class' => 'span12', 'selected' => true))));
-                ?>
+                <?php echo $form->dropDownListRow($model, 'issue_priority_id', CHtml::listData(
+                        IssuePriority::model()->findAll(array('order' => 'id')), 'id', 'name'), array(
+                            'options' => array('2' => array(
+                                'selected' => true)
+                            ),
+                            'class' => 'span12',
+                        )
+                ); ?>
             <?php else : ?>
-                <?php
-                    echo $form->dropDownListRow($model,
-                            'issue_priority_id',
-                            CHtml::listData(IssuePriority::model()->findAll(array('order' => 'id')), 'id', 'name'),
-                            array('class' => 'span12'));
-                ?>
+                <?php echo $form->dropDownListRow($model, 'issue_priority_id', CHtml::listData(
+                    IssuePriority::model()->findAll(array('order' => 'id')), 'id', 'name'), array(
+                        'class' => 'span12')
+                ); ?>
             <?php endif; ?>
         </div>
         <div class="row-fluid">
             <?php if(Yii::app()->user->checkAccess('Issue.Delete')) : ?>
-                <?php echo $form->dropDownListRow($model, 'assigned_to', $this->getMemberSelectList(), array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true, 'class' => 'span6', 'prompt' => '<None>')); ?>
+                <?php echo $form->dropDownListRow($model, 'assigned_to', $this->getMemberSelectList(), array(
+                    Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true,
+                    'class' => 'span12',
+                    'prompt' => '<None>')
+                ); ?>
                 <?php echo $form->error($model, 'assigned_to'); ?>
             <?php else : ?>
                 <?php if(isset($model->assignedTo)) : ?>
@@ -157,29 +178,57 @@
         <div class="row-fluid">
             <div class="span12">
                 <?php if(Yii::app()->user->checkAccess('Issue.Delete')) : ?>
+                    <div class="controls">
                     <?php if ((Yii::app()->user->checkAccess('Issue.Update')) && (!$model->isNewRecord)) : ?>
-                        <?php
-                            $this->widget('zii.widgets.jui.CJuiSlider', array(
-                                'value' => $model->done_ratio,
-                                'id' => 'doneRatioSlider',
-                                // additional javascript options for the slider plugin
-                                'options' => array(
-                                    'min' => 0,
-                                    'max' => 100,
-                                    'step' => 5,
-                                    'slide' => 'js:function(event, ui) { $("#done_ratio").val(ui.value);}',
-                                ),
-                                'htmlOptions' => array(
-                                    'style' => 'height:8px;width:140px;',
-                                    Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true,
-                                ),
-                            ));
-                        ?>
+                            <?php
+                                $this->widget('zii.widgets.jui.CJuiSlider', array(
+                                    'value' => $model->done_ratio,
+                                    'id' => 'doneRatioSlider',
+                                    // additional javascript options for the slider plugin
+                                    'options' => array(
+                                        'min' => 0,
+                                        'max' => 100,
+                                        'step' => 5,
+                                        'slide' => 'js:function(event, ui)
+                                            { $("td.closed").css("width", ui.value + "%");
+                                            $(".progress").prop("title", ui.value + "%");
+                                            $("td.todo").css("width", 100-ui.value + "%");
+                                            $(".pourcent").html(ui.value + "%")
+                                        }',
+                                    ),
+                                    'htmlOptions' => array(
+                                        'style' => 'height:8px;width:100%;',
+                                        Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true,
+                                    ),
+                                ));
+                            ?>
                     <?php endif; ?>
-                    <?php echo $form->textFieldRow($model, 'done_ratio', array('id' => 'done_ratio', 'readonly' => true, 'size' => 18, 'maxlength' => 18)); ?>
+                    <?php if(isset($model->done_ratio)) : ?>
+                        <?php echo Bugitor::progress_bar($model->done_ratio, array(
+                            'id' => 'done_ratio',
+                            'class' => 'span12',
+                            'width' => '100%',
+                            'legend' => $model->done_ratio . '%')
+                        ); ?>
+                    </div>
+                    <?php else : ?>
+                        <?php echo Bugitor::progress_bar(0, array(
+                            'id' => 'done_ratio',
+                            'class' => 'span12',
+                            'width' => '100%',
+                            'legend' => $model->done_ratio . '%')
+                        ); ?>
+                    </div>
+                    <?php endif; ?>
                 <?php else : ?>
                     <?php if(isset($model->done_ratio)) : ?>
-                        <?php echo Bugitor::progress_bar($model->done_ratio, array('class'=>'span12', 'legend'=>$model->done_ratio.'%'));?>
+                        <div class="controls">
+                            <?php echo Bugitor::progress_bar($model->done_ratio, array(
+                                'class' => 'span12',
+                                'width' => '100%',
+                                'legend' => $model->done_ratio . '%')
+                            ); ?>
+                        </div>
                     <?php endif; ?>
                 <?php endif; ?>
             </div>
@@ -194,7 +243,10 @@
         <?php if (Yii::app()->user->checkAccess('Issue.Update')) : ?>
             <?php echo $form->markitupRow($model, 'description'); ?>
         <?php else : ?>
-            <?php echo $form->textAreaRow($model, 'description', array('disabled' => true, 'style' => 'height:150px;width:100%;')); ?>
+            <?php echo $form->textAreaRow($model, 'description', array(
+                'disabled' => true,
+                'style' => 'height:150px;width:100%;')
+            ); ?>
         <?php endif; ?>
         <?php echo $form->error($model, 'description'); ?>
     </div>
@@ -215,8 +267,8 @@
 <?php else : ?>
     <div class="row-fluid">
         <div class="span12">
-        <?php echo $form->markitupRow($model, 'description'); ?>
-        <?php echo $form->error($model, 'description'); ?>
+            <?php echo $form->markitupRow($model, 'description'); ?>
+            <?php echo $form->error($model, 'description'); ?>
         </div>
     </div>
 <?php endif; ?>

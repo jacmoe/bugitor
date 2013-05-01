@@ -7,12 +7,14 @@ table.progress {
   float:left {}
   margin: 1px 6px 1px 0px;
   display: inline-table;
+  height: 1em;
+  vertical-align: center;
 }
 
 table.progress td {
-  height: 0.9em;
+  height: 1em;
   border: 1px solid #d7d7d7 !important;
-  height: 0.4em !important;
+  height: 0.8em !important;
 }
 
 table.progress td.closed {
@@ -50,7 +52,7 @@ table.big_progress {
 }
 
 table.big_progress td {
-  height: 0.4em !important;
+  height: 1em !important;
 }
 
 table.big_progress td.closed {
