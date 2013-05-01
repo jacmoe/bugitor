@@ -46,8 +46,7 @@
 	<!-- name -->
 	<?php echo $form->textFieldRow($model, 'name',
 		array(
-			'size' => 30,
-			'maxlength' => 30,
+			'class' => 'span8',
 			)
 	); ?>
 	<?php echo $form->error($model, 'name'); ?>
@@ -55,22 +54,22 @@
 	<!-- tagline -->
 	<?php echo $form->textFieldRow($model, 'tagline',
 		array(
-			'size' => 30,
-			'maxlength' => 60,
+            'class' => 'span8',
 		)
 	); ?>
 	<?php echo $form->error($model, 'tagline'); ?>
 
 	<!-- description -->
-	<?php echo $form->markitupRow($model, 'description'); ?>
+	<?php echo $form->markitupRow($model, 'description', array(
+        'class' => 'span8',
+    )); ?>
 	<?php echo $form->error($model, 'description'); ?>
 
 	<!-- identifier -->
 	<?php if(!$model->isNewRecord) :?>
 		<?php echo $form->textFieldRow($model, 'identifier',
 			array(
-				'size' => 60,
-				'maxlength' => 255,
+                'class' => 'span8',
 				'disabled' => true,
 			)
 		); ?>
@@ -80,7 +79,7 @@
 	<!-- home page -->
 	<?php echo $form->textFieldRow($model, 'homepage',
 		array(
-			'size' => 60,
+            'class' => 'span8',
 			'maxlength' => 255,
 		)
 	); ?>
@@ -91,20 +90,21 @@
 	<?php echo $form->error($model, 'public'); ?>
 
 	<!-- buttons -->
-    <?php $this->widget('bootstrap.widgets.TbButton',
-    	array(
-    		'buttonType' => 'submit',
-    		'type' => 'primary',
-    		'label' => $model->isNewRecord ? 'Create' : 'Save',
-    	)
-    ); ?>
-    <?php $this->widget('bootstrap.widgets.TbButton',
-    	array(
-    		'buttonType' => 'link',
-    		'label' => 'Cancel',
-    	)
-    ); ?>
-
+    <div class="controls">
+        <?php $this->widget('bootstrap.widgets.TbButton',
+        	array(
+        		'buttonType' => 'submit',
+        		'type' => 'primary',
+        		'label' => $model->isNewRecord ? 'Create' : 'Save',
+        	)
+        ); ?>
+        <?php $this->widget('bootstrap.widgets.TbButton',
+        	array(
+        		'buttonType' => 'link',
+        		'label' => 'Cancel',
+        	)
+        ); ?>
+    </div>
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
