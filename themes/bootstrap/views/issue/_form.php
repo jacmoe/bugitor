@@ -142,10 +142,10 @@
                     $this->getCategorySelectList(),
                     array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true,
                     'prompt' => '<None>',
-                    'class' => 'span12')); ?>
+                    'class' => 'span11')); ?>
             <?php else : ?>
                 <?php if(isset($model->issueCategory)) : ?>
-                        <div class="span12">
+                        <div class="span11">
                             <?php echo $model->issueCategory->name; ?>
                         </div>
                 <?php endif; ?>
@@ -159,24 +159,24 @@
                     $model->milestone->id, $model->milestone->name .' : '. $model->milestone->title),
                     array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true,
                     'prompt' => '<None>',
-                    'class' => 'span12')); ?>
+                    'class' => 'span11')); ?>
                 <?php else : ?>
                     <?php echo $form->dropDownListRow($model, 'milestone_id', $this->getmilestoneSelectList(
                     Project::getProjectIdFromIdentifier($_GET['identifier']), true),
                     array(Yii::app()->user->checkAccess('Issue.Update') ? 'enabled' : 'disabled' => true,
                     'prompt' => '<None>',
-                    'class' => 'span12')); ?>
+                    'class' => 'span11')); ?>
                 <?php endif; ?>
             <?php else : ?>
                 <?php if(isset($model->milestone)) : ?>
-                        <div class="span12">
+                        <div class="span11">
                             <?php echo $model->milestone->name; ?>
                         </div>
                 <?php endif; ?>
             <?php endif; ?>
         </div>
         <div class="row-fluid">
-            <div class="span12">
+            <div class="span11">
                 <?php if(Yii::app()->user->checkAccess('Issue.Delete')) : ?>
                     <div class="controls">
                     <?php if ((Yii::app()->user->checkAccess('Issue.Update')) && (!$model->isNewRecord)) : ?>
@@ -243,7 +243,7 @@ EOD;
                     <?php if(isset($model->done_ratio)) : ?>
                         <?php echo Bugitor::progress_bar($model->done_ratio, array(
                             'id' => 'done_ratio',
-                            'class' => 'span12',
+                            'class' => 'span11',
                             'width' => '100%',
                             'legend' => $model->done_ratio . '%')
                         ); ?>
@@ -251,7 +251,7 @@ EOD;
                     <?php else : ?>
                         <?php echo Bugitor::progress_bar(0, array(
                             'id' => 'done_ratio',
-                            'class' => 'span12',
+                            'class' => 'span11',
                             'width' => '100%',
                             'legend' => $model->done_ratio . '%')
                         ); ?>
@@ -261,7 +261,7 @@ EOD;
                     <?php if(isset($model->done_ratio)) : ?>
                         <div class="controls">
                             <?php echo Bugitor::progress_bar($model->done_ratio, array(
-                                'class' => 'span12',
+                                'class' => 'span11',
                                 'width' => '100%',
                                 'legend' => $model->done_ratio . '%')
                             ); ?>
@@ -290,16 +290,16 @@ EOD;
     </div>
     <div class="row-fluid">
         <div class="span12">
-        <div class="control-group">
-            <label for="Comment" class="control-label">Comment:</label>
-            <div class="controls">
-                <?php $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
-                        'name' => 'Comment',
-                        'htmlOptions'=>array('class' => 'span12', 'width' => '100%', 'height' => '400px',)
-                ))?>
+            <div class="control-group">
+                <label for="Comment" class="control-label">Comment:</label>
+                <div class="controls">
+                    <?php $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
+                            'name' => 'Comment',
+                            'htmlOptions'=>array('class' => 'span12', 'width' => '100%', 'height' => '400px',)
+                    ))?>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 <?php else : ?>
     <div class="row-fluid">
