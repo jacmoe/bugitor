@@ -329,12 +329,11 @@ EOD;
     <?php endif; ?>
     <?php echo $form->hiddenField($model, 'project_id', array('value' => Project::getProjectIdFromIdentifier($_GET['identifier']))); ?>
 </div>
-
+<div class="controls">
     <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type' => 'primary', 'label'=> $model->isNewRecord ? 'Create' : 'Save')); ?>
     <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'link', 'label'=>'Cancel', 'url' => Yii::app()->request->getUrlReferrer())); ?>
-
-
-            <?php $this->endWidget(); ?><!-- form widget //-->
-        </div><!-- form //-->
+</div>
+    <?php $this->endWidget(); ?><!-- form widget //-->
+    </div><!-- form //-->
     </fieldset>
 </div>

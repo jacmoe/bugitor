@@ -157,8 +157,10 @@ $this->pageTitle = $model->project->name . ' - Comment on ' . $model->tracker->n
         </div>
     </div>
 
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type' => 'primary', 'label'=> $model->isNewRecord ? 'Create' : 'Save')); ?>
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'link', 'label'=>'Cancel', 'url' => Yii::app()->request->getUrlReferrer())); ?>
+    <div class="controls">
+        <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type' => 'primary', 'label'=> $model->isNewRecord ? 'Create' : 'Save')); ?>
+        <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'link', 'label'=>'Cancel', 'url' => Yii::app()->request->getUrlReferrer())); ?>
+    </div>
 
     <?php echo $form->hiddenField($model, 'tracker_id', array('value' => $model->tracker_id)); ?>
     <?php echo $form->hiddenField($model, 'subject', array('value' => $model->subject)); ?>
