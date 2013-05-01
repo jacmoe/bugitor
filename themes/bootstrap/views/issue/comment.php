@@ -36,98 +36,147 @@ $this->pageTitle = $model->project->name . ' - Comment on ' . $model->tracker->n
 ?>
 <h3 class="editissue">Comment on Issue <?php echo $model->id; ?> : <i>"<?php echo $model->subject; ?>"</i></h3>
 
-<div class="issue">
-            <?php
-            $form = $this->beginWidget('CActiveForm', array(
-                        'id' => 'issue-form',
-                        'enableAjaxValidation' => false,
-                    ));
-            ?>
-                <p class="note">Fields with <span class="required">*</span> are required.</p>
-                <?php echo $form->errorSummary($model); ?>
-                <?php echo Bugitor::gravatar($model->user); ?>
-                <h3><?php echo $model->subject; ?></h3>
-                Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Bugitor::timeAgoInWords($model->created); ?>.
-                <?php if(isset($model->updatedBy)) echo '  Updated by '.Bugitor::link_to_user($model->updatedBy) .' '. Bugitor::timeAgoInWords($model->modified); ?>
-                <hr/>
-                <table width="95%">
-                    <tbody><tr>
-                        <td style="width: 15%;" class="status"><b>Status:</b></td>
-                        <td style="width: 35%;" class="status">
+<div class="issue row-fluid">
+    <?php
+    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+        'id' => 'issue-form',
+        'type' => 'horizontal',
+        'enableAjaxValidation' => false,
+        )
+    ); ?>
+    <?php echo $form->errorSummary($model); ?>
+
+    <?php echo Bugitor::gravatar($model->user); ?>
+    <h3><?php echo $model->subject; ?></h3>
+    Added by <?php echo Bugitor::link_to_user($model->user); ?> <?php echo Bugitor::timeAgoInWords($model->created); ?>.
+    <?php if(isset($model->updatedBy)) echo '  Updated by '.Bugitor::link_to_user($model->updatedBy) .' '. Bugitor::timeAgoInWords($model->modified); ?>
+    <hr/>
+    <div class="row-fluid">
+        <div id="splitcontentleft" class="span6">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="control-group">
+                        <label for="Comment" class="control-label">Status:</label>
+                        <div class="controls" style="position:relative;top:5px;">
                             <?php if(isset($model->status)) : ?>
                                 <?php echo $model->getStatusLabel($model->status); ?>
                             <?php endif; ?>
-                        </td>
-                        <td class="category"><b>Category:</b></td>
-                        <td>
-                            <?php if(isset($model->issueCategory)) : ?>
-                                    <?php echo $model->issueCategory->name; ?>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="priority"><b>Priority:</b></td>
-                        <td class="priority">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="control-group">
+                        <label for="Comment" class="control-label">Priority:</label>
+                        <div class="controls" style="position:relative;top:5px;">
                             <?php if(isset($model->issuePriority)) : ?>
-                                    <?php echo $model->issuePriority->name; ?>
+                                <?php echo $model->issuePriority->name; ?>
                             <?php endif; ?>
-                        </td>
-                        <td class="fixed-version"><b>Milestone:</b></td>
-                        <td>
-                            <?php if(isset($model->milestone)) : ?>
-                                    <?php echo $model->milestone->name; ?>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="assigned-to"><b>Assigned to:</b></td>
-                        <td>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="control-group">
+                        <label for="Comment" class="control-label">Assigned to:</label>
+                        <div class="controls" style="position:relative;top:5px;">
                             <?php if(isset($model->assignedTo)) : ?>
                                 <span><?php echo Bugitor::gravatar($model->assignedTo); ?></span>
                                 <?php echo Bugitor::link_to_user($model->assignedTo); ?>
                             <?php endif; ?>
-                        </td>
-                        <td class="progress"><b>% Done:</b></td>
-                        <td class="progress">
-                            <?php if(isset($model->done_ratio)) : ?>
-                                <?php echo Bugitor::progress_bar($model->done_ratio, array('width'=>'80px', 'legend'=>$model->done_ratio.'%'));?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- splitcontentleft -->
+        <div id="splitcontentright" class="span6">
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="control-group">
+                        <label for="Comment" class="control-label">Category:</label>
+                        <div class="controls" style="position:relative;top:5px;">
+                            <?php if(isset($model->issueCategory)) : ?>
+                                <?php echo $model->issueCategory->name; ?>
                             <?php endif; ?>
-                        </td>
-                    </tr>
-                </tbody></table>
-                <br class="clearfix"/>
-                <hr class="space"/>
-                <hr/>
-                <b>Description:</b><br/>
-                <?php echo Yii::app()->textile->textilize($model->description); ?>
-                <hr/>
-                <div class="row">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="control-group">
+                        <label for="Comment" class="control-label">Milestone:</label>
+                        <div class="controls" style="position:relative;top:5px;">
+                            <?php if(isset($model->milestone)) : ?>
+                                <?php echo Bugitor::link_to_milestone($model->milestone); ?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="control-group">
+                        <label for="Comment" class="control-label">Done:</label>
+                        <div class="controls" style="position:relative;top:5px;">
+                            <?php if(isset($model->done_ratio)) : ?>
+                                <?php echo Bugitor::progress_bar($model->done_ratio, array('width'=>'80%', 'legend'=>$model->done_ratio.'%'));?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- splitcontentright -->
+    </div> <!-- row -->
+    <hr/>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="control-group">
+                <label for="Comment" class="control-label">Description:</label>
+                <div class="controls" style="position:relative;top:5px;">
+                    <?php echo Yii::app()->textile->textilize($model->description); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="control-group">
+                <label for="Comment" class="control-label">Comment:</label>
+                <div class="controls" style="position:relative;top:5px;">
                     <?php $this->widget('ext.yiiext.widgets.markitup.EMarkitupWidget', array(
                             'name' => 'Comment',
-                            'htmlOptions'=>array('style'=>'height:150px;')
+                            'htmlOptions'=>array('class' => 'span12', 'width' => '100%', 'height' => '400px',)
                     ))?>
                 </div>
-                <div class="row buttons">
-                    <?php echo CHtml::submitButton('Save'); ?>
-                    <?php echo CHtml::Button('Cancel', array('submit' => Yii::app()->request->getUrlReferrer())); ?>
-                </div>
-                <div class="row">
-                    <?php echo $form->hiddenField($model, 'tracker_id', array('value' => $model->tracker_id)); ?>
-                    <?php echo $form->hiddenField($model, 'subject', array('value' => $model->subject)); ?>
-                    <?php echo $form->hiddenField($model, 'description', array('value' => $model->description)); ?>
-                    <?php echo $form->hiddenField($model, 'issue_priority_id', array('value' => $model->issue_priority_id)); ?>
-                    <?php echo $form->hiddenField($model, 'status', array('value' => $model->status)); ?>
-                    <?php echo $form->hiddenField($model, 'issue_category_id', array('value' => $model->issue_category_id)); ?>
-                    <?php echo $form->hiddenField($model, 'assigned_to', array('value' => $model->assigned_to)); ?>
-                    <?php echo $form->hiddenField($model, 'milestone_id', array('value' => $model->milestone_id)); ?>
-                    <?php echo $form->hiddenField($model, 'done_ratio', array('value' => $model->done_ratio)); ?>
-                    <?php echo $form->hiddenField($model, 'user_id', array('value' => $model->user_id)); ?>
-                    <?php echo $form->hiddenField($model, 'project_id', array('value' => Project::getProjectIdFromIdentifier($_GET['identifier']))); ?>
-                </div>
-            <?php $this->endWidget(); ?><!-- form widget //-->
-</div><!-- form //-->
-<div class="scroll">
-<?php if($model->commentCount>=1): ?>
-    <?php $this->renderPartial('_comments',array('comments'=>$model->comments,)); ?>
-<?php endif; ?>
+            </div>
+        </div>
+    </div>
+
+    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type' => 'primary', 'label'=> $model->isNewRecord ? 'Create' : 'Save')); ?>
+    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'link', 'label'=>'Cancel', 'url' => Yii::app()->request->getUrlReferrer())); ?>
+
+    <?php echo $form->hiddenField($model, 'tracker_id', array('value' => $model->tracker_id)); ?>
+    <?php echo $form->hiddenField($model, 'subject', array('value' => $model->subject)); ?>
+    <?php echo $form->hiddenField($model, 'description', array('value' => $model->description)); ?>
+    <?php echo $form->hiddenField($model, 'issue_priority_id', array('value' => $model->issue_priority_id)); ?>
+    <?php echo $form->hiddenField($model, 'status', array('value' => $model->status)); ?>
+    <?php echo $form->hiddenField($model, 'issue_category_id', array('value' => $model->issue_category_id)); ?>
+    <?php echo $form->hiddenField($model, 'assigned_to', array('value' => $model->assigned_to)); ?>
+    <?php echo $form->hiddenField($model, 'milestone_id', array('value' => $model->milestone_id)); ?>
+    <?php echo $form->hiddenField($model, 'done_ratio', array('value' => $model->done_ratio)); ?>
+    <?php echo $form->hiddenField($model, 'user_id', array('value' => $model->user_id)); ?>
+    <?php echo $form->hiddenField($model, 'project_id', array('value' => Project::getProjectIdFromIdentifier($_GET['identifier']))); ?>
+
+    <?php $this->endWidget(); ?><!-- form widget //-->
+</div> <!-- issue -->
+
+<div class="scroll row-fluid">
+    <?php if($model->commentCount>=1): ?>
+        <?php $this->renderPartial('_comments',array('comments'=>$model->comments,)); ?>
+    <?php endif; ?>
 </div>
