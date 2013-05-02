@@ -40,18 +40,18 @@
  */
 class BugitorController extends RController {
 
-    public function render($view, $data = null, $return = false)
-    {
-        if ($this->beforeRender($view))
-        {
-            parent::render($view, $data, $return);
-        }
-    }
+    // public function render($view, $data = null, $return = false)
+    // {
+    //     if ($this->beforeRender($view))
+    //     {
+    //         parent::render($view, $data, $return);
+    //     }
+    // }
 
-    public function beforeRender($view)
-    {
-        return true;
-    }
+    // public function beforeRender($view)
+    // {
+    //     return true;
+    // }
 
     /**
      * @var string the default layout for the controller view. Defaults to '//layouts/column1',
