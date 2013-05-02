@@ -61,6 +61,7 @@ class Controller extends BugitorController {
         {
             Yii::app()->user->setReturnUrl(Yii::app()->request->getUrl());
         }
+        echo Yii::app()->assetManager->basePath;
         return true;
     }
 

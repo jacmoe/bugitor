@@ -91,6 +91,11 @@ return array(
             'loginUrl' => array('/user/login'),
         ),
 
+       'assetManager'=>array(
+            // change the path on disk
+            'basePath'=>dirname(__FILE__).'/../../yiiassets',
+        ),
+
         'db' => require(dirname(__FILE__) . '/db.php'),
 
         'bootstrap' => array(
