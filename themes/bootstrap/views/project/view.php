@@ -43,9 +43,9 @@ $this->pageTitle = $model->name . ' - Overview - ' . Yii::app()->name;
         if (('issue/view' !== $this->route) && ('issue/update' !== $this->route) && ('issue/create' !== $this->route)) {
             $this->widget('DropDownRedirect', array(
                 'data' => Yii::app()->controller->getProjects(),
-                'url' => $this->createUrl($this->route, array_replace($new_GET, array('identifier' => '__value__'))),
+                'url' => $this->createUrl($this->route, array_merge($new_GET, array('identifier' => '__value__'))),
                 'select' => $_GET['identifier'], //the preselected value
-                'htmlOptions' => array('style' => 'width:120px !important', 'class' => 'pull-right'),
+                'htmlOptions' => array('style' => 'width:120px !important', 'class' => 'pull-right', 'data-placement' => 'bottom', 'rel' => 'tooltip', 'title' => 'Change project'),
             ));
         }
     }
