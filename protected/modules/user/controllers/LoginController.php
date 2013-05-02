@@ -21,22 +21,23 @@ class LoginController extends Controller
 				// validate user input and redirect to previous page if valid
 				if($model->validate()) {
 					$this->lastViset();
-					if ('/index.php') {
+
+                    if(is_null(Yii::app()->getUser()->returnUrl)) {
+                        $this->redirect(Yii::app()->request->getUrlReferrer());
+                    } else {
                         $this->redirect(Yii::app()->getUser()->returnUrl);
-						//$this->redirect(Yii::app()->controller->module->returnUrl);
                     }
-					else {
-                        $this->redirect(Yii::app()->getUser()->returnUrl);
-						//$this->redirect(Yii::app()->user->returnUrl);
-                        }
 				}
 			}
 			// display the login form
 			$this->render('/user/login',array('model'=>$model,));
 		} else {
-            $this->redirect(Yii::app()->getUser()->returnUrl);
-			//$this->redirect(Yii::app()->controller->module->returnUrl);
+            if(is_null(Yii::app()->getUser()->returnUrl)) {
+                $this->redirect(Yii::app()->request->getUrlReferrer());
+            } else {
+                $this->redirect(Yii::app()->getUser()->returnUrl);
             }
+        }
 	}
 
 	private function lastViset() {

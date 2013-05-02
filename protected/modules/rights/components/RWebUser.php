@@ -92,4 +92,5 @@ class RWebUser extends CWebUser
             return array();
         return array_keys($counters);
     }
+
 }
