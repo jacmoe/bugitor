@@ -93,7 +93,8 @@ return array(
 
        'assetManager'=>array(
             // change the path on disk
-            'basePath'=>dirname(__FILE__).'/../../yiiassets',
+            'basePath' => dirname(__FILE__).'/../../yiiassets',
+            'baseUrl' => '/yiiassets',
         ),
 
         'db' => require(dirname(__FILE__) . '/db.php'),
