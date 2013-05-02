@@ -35,19 +35,22 @@
 $this->pageTitle = $model->name . ' - Overview - ' . Yii::app()->name;
 ?>
 <div id="project-view" class="row-fluid">
-	<div class="contextual">
-	    <?php
-	    if (((Yii::app()->controller->id === 'project') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) {
-	        if (('issue/view' !== $this->route) && ('issue/update' !== $this->route) && ('issue/create' !== $this->route)) {
-	            $this->widget('DropDownRedirect', array(
-	                'data' => Yii::app()->controller->getProjects(),
-	                'url' => $this->createUrl($this->route, array_merge($_GET, array('identifier' => '__value__'))),
-	                'select' => $_GET['identifier'], //the preselected value
-	            ));
-	        }
-	    }
-	    ?>
-	</div>
+<div class="contextual">
+    <?php
+    if (((Yii::app()->controller->id === 'project') || (Yii::app()->controller->id === 'issue')) && (isset($_GET['identifier']))) {
+        $new_GET = $_GET;
+        unset($new_GET['projectname']);
+        if (('issue/view' !== $this->route) && ('issue/update' !== $this->route) && ('issue/create' !== $this->route)) {
+            $this->widget('DropDownRedirect', array(
+                'data' => Yii::app()->controller->getProjects(),
+                'url' => $this->createUrl($this->route, array_replace($new_GET, array('identifier' => '__value__'))),
+                'select' => $_GET['identifier'], //the preselected value
+                'htmlOptions' => array('style' => 'width:120px !important', 'class' => 'pull-right'),
+            ));
+        }
+    }
+    ?>
+</div>
 	<h3 class="overview-icon">Overview</h3>
 
 <div class="row-fluid">
