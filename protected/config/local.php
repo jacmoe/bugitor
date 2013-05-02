@@ -86,6 +86,11 @@ return CMap::mergeArray(
 //                    ),
                 ),
             ),
+           'assetManager'=>array(
+                // change the path on disk
+                'basePath' => dirname(__FILE__).'/../../yiiassets',
+                'baseUrl' => '/bugitor/yiiassets',
+            ),
             'db'=>array(
                 'enableProfiling'=>true,
                 'enableParamLogging'=>true,
