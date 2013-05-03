@@ -171,7 +171,7 @@ EOD;
                 'type' => 'raw',
                 'filter' => '',
                 'value' => 'Bugitor::progress_bar($data->done_ratio, array("width"=>"100%"))',
-                'htmlOptions'=>array('width'=>'6%','class'=>'progress'),
+                'htmlOptions'=>array('width'=>'6%'),
             ),
             array(
                 'name' => 'milestone_id',
