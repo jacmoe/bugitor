@@ -450,7 +450,7 @@ a:focus {
 .row-fluid [class*="span"] {
   display: block;
   width: 100%;
-  min-height: 30px;
+  min-height: 28px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1286,11 +1286,11 @@ input[type="checkbox"] {
 /* line 156, ../scss/partials/sass-twitter-bootstrap/_forms.scss */
 select,
 input[type="file"] {
-  height: 30px;
+  height: 28px;
   /* In IE7, the height of the select element cannot be changed by height, only font-size */
   *margin-top: 4px;
   /* For IE7, add top margin to align select with labels */
-  line-height: 30px;
+  line-height: 28px;
 }
 
 /* line 163, ../scss/partials/sass-twitter-bootstrap/_forms.scss */
@@ -2171,21 +2171,21 @@ table {
 /* line 24, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table th,
 .table td {
-  padding: 8px;
+  padding: 3px;
   line-height: 20px;
   text-align: left;
-  vertical-align: top;
-  border-top: 1px solid #dddddd;
+  vertical-align: center;
+  border-bottom: 1px solid #dddddd;
 }
-/* line 31, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 32, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table th {
   font-weight: bold;
 }
-/* line 35, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 36, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table thead th {
   vertical-align: bottom;
 }
-/* line 44, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 45, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table caption + thead tr:first-child th,
 .table caption + thead tr:first-child td,
 .table colgroup + thead tr:first-child th,
@@ -2194,22 +2194,22 @@ table {
 .table thead:first-child tr:first-child td {
   border-top: 0;
 }
-/* line 48, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 49, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table tbody + tbody {
   border-top: 2px solid #dddddd;
 }
-/* line 53, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 54, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table .table {
   background-color: white;
 }
 
-/* line 65, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 66, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table-condensed th,
 .table-condensed td {
   padding: 4px 5px;
 }
 
-/* line 74, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 75, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table-bordered {
   border: 1px solid #dddddd;
   border-collapse: separate;
@@ -2219,12 +2219,12 @@ table {
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
-/* line 81, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 82, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table-bordered th,
 .table-bordered td {
   border-left: 1px solid #dddddd;
 }
-/* line 93, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 94, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table-bordered caption + thead tr:first-child th,
 .table-bordered caption + tbody tr:first-child th,
 .table-bordered caption + tbody tr:first-child td,
@@ -2236,7 +2236,7 @@ table {
 .table-bordered tbody:first-child tr:first-child td {
   border-top: 0;
 }
-/* line 99, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 100, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table-bordered thead:first-child tr:first-child > th:first-child,
 .table-bordered tbody:first-child tr:first-child > td:first-child,
 .table-bordered tbody:first-child tr:first-child > th:first-child {
@@ -2244,7 +2244,7 @@ table {
   -moz-border-radius-topleft: 4px;
   border-top-left-radius: 4px;
 }
-/* line 105, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 106, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table-bordered thead:first-child tr:first-child > th:last-child,
 .table-bordered tbody:first-child tr:first-child > td:last-child,
 .table-bordered tbody:first-child tr:first-child > th:last-child {
@@ -2252,7 +2252,7 @@ table {
   -moz-border-radius-topright: 4px;
   border-top-right-radius: 4px;
 }
-/* line 113, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 114, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table-bordered thead:last-child tr:last-child > th:first-child,
 .table-bordered tbody:last-child tr:last-child > td:first-child,
 .table-bordered tbody:last-child tr:last-child > th:first-child,
@@ -2262,7 +2262,7 @@ table {
   -moz-border-radius-bottomleft: 4px;
   border-bottom-left-radius: 4px;
 }
-/* line 121, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 122, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table-bordered thead:last-child tr:last-child > th:last-child,
 .table-bordered tbody:last-child tr:last-child > td:last-child,
 .table-bordered tbody:last-child tr:last-child > th:last-child,
@@ -2272,19 +2272,19 @@ table {
   -moz-border-radius-bottomright: 4px;
   border-bottom-right-radius: 4px;
 }
-/* line 126, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 127, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table-bordered tfoot + tbody:last-child tr:last-child td:first-child {
   -webkit-border-bottom-left-radius: 0;
   -moz-border-radius-bottomleft: 0;
   border-bottom-left-radius: 0;
 }
-/* line 129, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 130, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table-bordered tfoot + tbody:last-child tr:last-child td:last-child {
   -webkit-border-bottom-right-radius: 0;
   -moz-border-radius-bottomright: 0;
   border-bottom-right-radius: 0;
 }
-/* line 137, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 138, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table-bordered caption + thead tr:first-child th:first-child,
 .table-bordered caption + tbody tr:first-child td:first-child,
 .table-bordered colgroup + thead tr:first-child th:first-child,
@@ -2293,7 +2293,7 @@ table {
   -moz-border-radius-topleft: 4px;
   border-top-left-radius: 4px;
 }
-/* line 143, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 144, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table-bordered caption + thead tr:first-child th:last-child,
 .table-bordered caption + tbody tr:first-child td:last-child,
 .table-bordered colgroup + thead tr:first-child th:last-child,
@@ -2303,19 +2303,19 @@ table {
   border-top-right-radius: 4px;
 }
 
-/* line 159, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 160, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table-striped tbody > tr:nth-child(odd) > td,
 .table-striped tbody > tr:nth-child(odd) > th {
   background-color: #f9f9f9;
 }
 
-/* line 172, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 173, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table-hover tbody tr:hover > td,
 .table-hover tbody tr:hover > th {
   background-color: whitesmoke;
 }
 
-/* line 186, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 187, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 table td[class*="span"],
 table th[class*="span"],
 .row-fluid table td[class*="span"],
@@ -2325,84 +2325,84 @@ table th[class*="span"],
   margin-left: 0;
 }
 
-/* line 196, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 197, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table td.span1,
 .table th.span1 {
   float: none;
   width: 44px;
   margin-left: 0;
 }
-/* line 196, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 197, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table td.span2,
 .table th.span2 {
   float: none;
   width: 124px;
   margin-left: 0;
 }
-/* line 196, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 197, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table td.span3,
 .table th.span3 {
   float: none;
   width: 204px;
   margin-left: 0;
 }
-/* line 196, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 197, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table td.span4,
 .table th.span4 {
   float: none;
   width: 284px;
   margin-left: 0;
 }
-/* line 196, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 197, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table td.span5,
 .table th.span5 {
   float: none;
   width: 364px;
   margin-left: 0;
 }
-/* line 196, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 197, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table td.span6,
 .table th.span6 {
   float: none;
   width: 444px;
   margin-left: 0;
 }
-/* line 196, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 197, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table td.span7,
 .table th.span7 {
   float: none;
   width: 524px;
   margin-left: 0;
 }
-/* line 196, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 197, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table td.span8,
 .table th.span8 {
   float: none;
   width: 604px;
   margin-left: 0;
 }
-/* line 196, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 197, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table td.span9,
 .table th.span9 {
   float: none;
   width: 684px;
   margin-left: 0;
 }
-/* line 196, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 197, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table td.span10,
 .table th.span10 {
   float: none;
   width: 764px;
   margin-left: 0;
 }
-/* line 196, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 197, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table td.span11,
 .table th.span11 {
   float: none;
   width: 844px;
   margin-left: 0;
 }
-/* line 196, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 197, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table td.span12,
 .table th.span12 {
   float: none;
@@ -2410,36 +2410,36 @@ table th[class*="span"],
   margin-left: 0;
 }
 
-/* line 207, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 208, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table tbody tr.success > td {
   background-color: #dff0d8;
 }
-/* line 210, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 211, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table tbody tr.error > td {
   background-color: #f2dede;
 }
-/* line 213, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 214, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table tbody tr.warning > td {
   background-color: #fcf8e3;
 }
-/* line 216, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 217, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table tbody tr.info > td {
   background-color: #d9edf7;
 }
 
-/* line 223, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 224, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table-hover tbody tr.success:hover > td {
   background-color: #d0e9c6;
 }
-/* line 226, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 227, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table-hover tbody tr.error:hover > td {
   background-color: #ebcccc;
 }
-/* line 229, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 230, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table-hover tbody tr.warning:hover > td {
   background-color: #faf2cc;
 }
-/* line 232, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
+/* line 233, ../scss/partials/sass-twitter-bootstrap/_tables.scss */
 .table-hover tbody tr.info:hover > td {
   background-color: #c4e3f3;
 }
@@ -6787,7 +6787,7 @@ a.label:hover, a.label:focus, a.badge:hover, a.badge:focus {
 .input-block-level {
   display: block;
   width: 100%;
-  min-height: 30px;
+  min-height: 28px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
