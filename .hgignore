@@ -43,4 +43,3 @@ bugitor.sublime-workspace
 themes/bootstrap/.sass-cache/*
 themes/bootstrap/css/screen.css
 yiiassets/*
-protected/tests/codeception/codecept.phar
