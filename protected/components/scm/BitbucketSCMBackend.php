@@ -36,7 +36,7 @@ class BitbucketSCMBackend extends SCMBackend
     {
     }
 
-    protected function log($start = 0, $end = '', $limit = 100)
+    protected function log($start = 0, $end = '', $limit = 50)
     {
         $this->authenticate();
 
@@ -44,7 +44,7 @@ class BitbucketSCMBackend extends SCMBackend
 
         $changesets = new bbApiChangesets($this->getBitbucket());
 
-        $changeList = $changesets->show($this->url, null, null, 1);
+        $changeList = $changesets->show($this->url, null, null, $start, $limit);
 
         //print_r($changeList);
         /*stdClass Object
@@ -195,7 +195,7 @@ class BitbucketSCMBackend extends SCMBackend
             }
         }*/
 
-        return $commits[0];
+        return $commits;
     }
 
     public function getRepositoryId()
@@ -216,7 +216,7 @@ class BitbucketSCMBackend extends SCMBackend
     {
     }
 
-    public function getChanges($start = 0, $end = '', $limit = 100)
+    public function getChanges($start = 0, $end = '', $limit = 50)
     {
         return $this->log($start, $end, $limit);
     }

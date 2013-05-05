@@ -104,10 +104,10 @@ class TestSCMCommand extends CConsoleCommand {
         $bitbucket = Yii::app()->scm->getBackend('bitbucket');
         echo $bitbucket->name;
         echo "\n---------------------------------------------------\n";
-        $bitbucket->url = "jacmoes";
+        $bitbucket->url = "bugitor";
         require(dirname(__FILE__) . '/../config/credentials.php');
         $bitbucket->setCredentials($user, $pass);
-        $bitbucket_entries = $bitbucket->getChanges(1);
+        $bitbucket_entries = $bitbucket->getChanges('tip',null,1);
         print_r($bitbucket_entries);
         echo "\n---------------------------------------------------\n";
 
