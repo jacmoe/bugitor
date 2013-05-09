@@ -46,3 +46,5 @@ yiiassets/*
 themes/bootstrap/node_modules/*
 themes/bootstrap/js/bootstrap.js
 themes/bootstrap/js/bootstrap.min.js
+themes/bootstrap/css/bugitor.css
+themes/bootstrap/css/bugitor.min.css
