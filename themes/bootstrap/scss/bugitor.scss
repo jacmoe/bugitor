@@ -15,6 +15,21 @@
 
 @import "compass";
 
+
+$iconSpritePath:          "../images/glyphicons-halflings.png";
+$iconWhiteSpritePath:     "../images/glyphicons-halflings-white.png";
+
+$navbarInverseLinkBackgroundActive: #1673a1;
+
+// Bootstrap
+@import "partials/sass-twitter-bootstrap/bootstrap";
+
+// Boostrap responsive
+@import "partials/sass-twitter-bootstrap/responsive";
+
+
+// Bugitor
+
 @import "partials/colors/all";
 @import "partials/headers";
 @import "partials/tabs";

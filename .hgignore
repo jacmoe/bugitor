@@ -43,3 +43,6 @@ bugitor.sublime-workspace
 themes/bootstrap/.sass-cache/*
 themes/bootstrap/css/screen.css
 yiiassets/*
+themes/bootstrap/node_modules/*
+themes/bootstrap/js/bootstrap.js
+themes/bootstrap/js/bootstrap.min.js
