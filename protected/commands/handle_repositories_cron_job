@@ -1,1 +1,0 @@
-/full/path/to/php /full/path/to/bugitor/console.php handlerepositories >> /dev/null 2>&1
