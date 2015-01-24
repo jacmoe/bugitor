@@ -19,3 +19,6 @@ backend/web/index-test.php
 frontend/web/index.php
 frontend/web/index-test.php
 tests/codeception/console/_output/*
+tests/codeception/backend/_output/*
+tests/codeception/frontend/_output/*
+tests/codeception/common/_output/*
