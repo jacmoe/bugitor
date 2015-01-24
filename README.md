@@ -1,97 +1,41 @@
-Yii 2 Advanced Application Template
-===================================
+    ____              _ __
+    / __ )__  ______ _(_) /_____  _____
+    / __  / / / / __ `/ / __/ __ \/ ___/
+    / /_/ / /_/ / /_/ / / /_/ /_/ / /
+    /_____/\__,_/\__, /_/\__/\____/_/
+    /____/
 
-Yii 2 Advanced Application Template is a skeleton Yii 2 application best for
-developing complex Web applications with multiple tiers.
+    A Yii powered issue tracker
 
-The template includes three tiers: front end, back end, and console, each of which
-is a separate Yii application.
+    http://www.yiiframework.com/
+    http://bitbucket.org/jacmoe/bugitor/
+    http://tracker.ogitor.org/projects/bugitor
 
-The template is designed to work in a team development environment. It supports
-deploying the application in different environments.
+    Copyright (C) 2009 - 2015 Bugitor Team
 
+    Permission is hereby granted, free of charge, to any person
+    obtaining a copy of this software and associated documentation files
+    (the "Software"), to deal in the Software without restriction,
+    including without limitation the rights to use, copy, modify, merge,
+    publish, distribute, sublicense, and/or sell copies of the Software,
+    and to permit persons to whom the Software is furnished to do so,
+    subject to the following conditions:
+    The above copyright notice and this permission notice shall be included
+    in all copies or substantial portions of the Software.
 
-DIRECTORY STRUCTURE
--------------------
-
-```
-common
-    config/              contains shared configurations
-    mail/                contains view files for e-mails
-    models/              contains model classes used in both backend and frontend
-console
-    config/              contains console configurations
-    controllers/         contains console controllers (commands)
-    migrations/          contains database migrations
-    models/              contains console-specific model classes
-    runtime/             contains files generated during runtime
-backend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains backend configurations
-    controllers/         contains Web controller classes
-    models/              contains backend-specific model classes
-    runtime/             contains files generated during runtime
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-frontend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains frontend configurations
-    controllers/         contains Web controller classes
-    models/              contains frontend-specific model classes
-    runtime/             contains files generated during runtime
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-    widgets/             contains frontend widgets
-vendor/                  contains dependent 3rd-party packages
-environments/            contains environment-based overrides
-tests                    contains various tests for the advanced application
-    codeception/         contains tests developed with Codeception PHP Testing Framework
-```
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+    OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
+    OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-REQUIREMENTS
-------------
+    # About
+    Bugitor is an issue tracker written in PHP using the Yii Framework (http://www.yiiframework.com/).
+    Home page: http://tracker.ogitor.org/projects/bugitor
+    Repository: https://bitbucket.org/jacmoe/bugitor
 
-The minimum requirement by this application template that your Web server supports PHP 5.4.0.
-
-
-INSTALLATION
-------------
-
-### Install from an Archive File
-
-Extract the archive file downloaded from [yiiframework.com](http://www.yiiframework.com/download/) to
-a directory named `advanced` that is directly under the Web root.
-
-Then follow the instructions given in "GETTING STARTED".
-
-
-### Install via Composer
-
-If you do not have [Composer](http://getcomposer.org/), you may install it by following the instructions
-at [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
-
-You can then install the application using the following command:
-
-~~~
-php composer.phar global require "fxp/composer-asset-plugin:1.0.0-beta4"
-php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-advanced advanced
-~~~
-
-
-GETTING STARTED
----------------
-
-After you install the application, you have to conduct the following steps to initialize
-the installed application. You only need to do these once for all.
-
-1. Run command `init` to initialize the application with a specific environment.
-2. Create a new database and adjust the `components['db']` configuration in `common/config/main-local.php` accordingly.
-3. Apply migrations with console command `yii migrate`. This will create tables needed for the application to work.
-4. Set document roots of your Web server:
-
-- for frontend `/path/to/yii-application/frontend/web/` and using the URL `http://frontend/`
-- for backend `/path/to/yii-application/backend/web/` and using the URL `http://backend/`
-
-To login into the application, you need to first sign up, with any of your email address, username and password.
-Then, you can login into the application with same email address and password at any time.
+    # ACHTUNG:
+    Bugitor is currently undergoing *major* refactoring and upgrade from Yii 1.x to Yii 2.
