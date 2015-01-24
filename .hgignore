@@ -1,0 +1,24 @@
+syntax: glob
+backend/config/main-local.php
+backend/runtime/*
+backend/web/assets/*
+console/config/main-local.php
+backend/config/params-local.php
+common/config/main-local.php
+common/config/params-local.php
+console/config/params-local.php
+console/runtime/*
+frontend/runtime/*
+frontend/config/main-local.php
+frontend/config/params-local.php
+frontend/web/assets/*
+tests/codeception/_output/*
+vendor/*
+backend/web/index.php
+backend/web/index-test.php
+frontend/web/index.php
+frontend/web/index-test.php
+tests/codeception/console/_output/*
+tests/codeception/backend/_output/*
+tests/codeception/frontend/_output/*
+tests/codeception/common/_output/*
