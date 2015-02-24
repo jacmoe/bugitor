@@ -1,13 +1,5 @@
-<?php
-use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
-
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \frontend\models\SignupForm */
-
-$this->params['breadcrumbs'][] = $this->title;
-?>
+{{ use('yii/helpers/Html')}}
+{{ use('yii/bootstrap/ActiveForm')}}
 {{ set(this, 'title', 'Signup') }}
 
 <div class="site-signup">
@@ -17,14 +9,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
-                <?= $form->field($model, 'username') ?>
-                <?= $form->field($model, 'email') ?>
-                <?= $form->field($model, 'password')->passwordInput() ?>
+            {% set form = active_form_begin({
+                'id' : 'form-signup',
+            }) %}
+            {{ form.field(model, 'username') | raw }}
+            {{ form.field(model, 'email') | raw }}
+            {{ form.field(model, 'password').passwordInput() | raw }}
                 <div class="form-group">
-                    <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+                    <input type="submit" value="Signup" class="btn btn-primary" />
                 </div>
-            <?php ActiveForm::end(); ?>
+            {{ active_form_end() }}
         </div>
     </div>
 </div>

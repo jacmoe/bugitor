@@ -18,6 +18,7 @@ use yii\filters\AccessControl;
  */
 class SiteController extends Controller
 {
+    public $layout = 'main.html';
     /**
      * @inheritdoc
      */
