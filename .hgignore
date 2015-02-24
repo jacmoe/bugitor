@@ -22,3 +22,4 @@ tests/codeception/console/_output/*
 tests/codeception/backend/_output/*
 tests/codeception/frontend/_output/*
 tests/codeception/common/_output/*
+bugitor.sublime-workspace
