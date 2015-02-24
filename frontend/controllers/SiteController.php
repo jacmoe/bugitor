@@ -67,7 +67,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->render('index.html');
     }
 
     public function actionLogin()
@@ -80,7 +80,7 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
-            return $this->render('login', [
+            return $this->render('login.html', [
                 'model' => $model,
             ]);
         }
@@ -105,7 +105,7 @@ class SiteController extends Controller
 
             return $this->refresh();
         } else {
-            return $this->render('contact', [
+            return $this->render('contact.html', [
                 'model' => $model,
             ]);
         }
@@ -113,7 +113,7 @@ class SiteController extends Controller
 
     public function actionAbout()
     {
-        return $this->render('about');
+        return $this->render('about.html');
     }
 
     public function actionSignup()
@@ -127,7 +127,7 @@ class SiteController extends Controller
             }
         }
 
-        return $this->render('signup', [
+        return $this->render('signup.html', [
             'model' => $model,
         ]);
     }
@@ -145,7 +145,7 @@ class SiteController extends Controller
             }
         }
 
-        return $this->render('requestPasswordResetToken', [
+        return $this->render('requestPasswordResetToken.html', [
             'model' => $model,
         ]);
     }
@@ -164,7 +164,7 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
-        return $this->render('resetPassword', [
+        return $this->render('resetPassword.html', [
             'model' => $model,
         ]);
     }

@@ -1,0 +1,30 @@
+{{ use('yii/helpers/Html')}}
+{{ use('yii/bootstrap/ActiveForm')}}
+{{ use('yii/captcha/Captcha')}}
+{{ set(this, 'title', 'Contact') }}
+
+<div class="site-contact">
+    <h1>{{this.title}}</h1>
+
+    <p>
+        If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.
+    </p>
+
+    <div class="row">
+        <div class="col-lg-5">
+            {% set form = active_form_begin({
+                'id' : 'contact-form',
+            }) %}
+            {{ form.field(model, 'name') | raw }}
+            {{ form.field(model, 'email') | raw }}
+            {{ form.field(model, 'subject') | raw }}
+            {{ form.field(model, 'body').textArea({ 'rows' : 6, }) | raw }}
+
+                <div class="form-group">
+                    <input type="submit" value="Submit" class="btn btn-primary" />
+                </div>
+            {{ active_form_end() }}
+        </div>
+    </div>
+
+</div>

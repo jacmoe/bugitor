@@ -6,11 +6,12 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \frontend\models\SignupForm */
 
-$this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+{{ set(this, 'title', 'Signup') }}
+
 <div class="site-signup">
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>{{this.title}}</h1>
 
     <p>Please fill out the following fields to signup:</p>
 
