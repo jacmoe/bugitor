@@ -16,7 +16,10 @@ return [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
         ],
-        'log' => [
+        'authManager' => [
+                    'class' => 'yii\rbac\PhpManager',
+                ],
+            'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
