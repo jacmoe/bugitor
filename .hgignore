@@ -25,3 +25,4 @@ tests/codeception/common/_output/*
 bugitor.sublime-workspace
 composer.lock
 frontend/theming/node_modules/*
+frontend/theming/.sass-cache/*
