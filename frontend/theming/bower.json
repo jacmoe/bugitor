@@ -1,0 +1,18 @@
+{
+  "name": "BugitorBootstrap",
+  "version": "0.0.1",
+  "authors": [
+    "jacmoe <jacmoe.dk@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+      "bootstrap-sass": "3.3.3"
+  }
+}

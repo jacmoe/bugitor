@@ -18,7 +18,8 @@
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
-        "yiisoft/yii2-twig": "*"
+        "yiisoft/yii2-twig": "*",
+        "claudejanz/yii2-context-access-filter": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
