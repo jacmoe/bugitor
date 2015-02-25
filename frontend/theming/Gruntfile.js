@@ -54,11 +54,7 @@ module.exports = function(grunt)
     cssmin: {
       target: {
         files: {
-          'dist/css/app.min.css': ['srccss/fluidbox.css',
-          'srccss/solarized_dark.css',
-          'srccss/scrollup.css',
-          'foundation-icons/foundation-icons.css',
-          'dist/css/app.css']
+          '../web/css/bugitor.min.css': ['../web/css/bugitor.css']
         }
       }
     },
@@ -74,24 +70,11 @@ module.exports = function(grunt)
       },
       script: {
         src: [
-          'bower_components/foundation/js/foundation/foundation.js',
-          'bower_components/foundation/js/foundation/foundation.topbar.js',
-          'bower_components/foundation/js/foundation/foundation.dropdown.js',
-          // ...more foundation JS you might want to add
-          'js/toc.js',
-          'js/highlight.pack.js',
-          'js/jquery.fluidbox.js',
-          'js/jquery.scrollUp.js',
-          'js/script.js'
+          'js/yii.js',
+          'js/yii.validation.js',
+          'js/yii.activeForm.js'
         ],
-        dest: 'dist/js/script.js'
-      },
-      modernizr: {
-        src: [
-          'bower_components/modernizr/modernizr.js',
-          'js/custom.modernizr.js'
-        ],
-        dest: 'dist/js/modernizr.js'
+        dest: '../web/js/script.js'
       }
     },
 
@@ -103,9 +86,7 @@ module.exports = function(grunt)
     uglify: {
       dist: {
         files: {
-          'dist/js/jquery.min.js': ['bower_components/jquery/dist/jquery.js'],
-          'dist/js/modernizr.min.js': ['dist/js/modernizr.js'],
-          'dist/js/script.min.js': ['dist/js/script.js']
+          '../web/js/script.min.js': ['../web/js/script.js']
         }
       }
     },

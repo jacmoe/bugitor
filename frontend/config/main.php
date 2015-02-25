@@ -15,6 +15,9 @@ return [
         'assetManager' => [
             'bundles' => [
                 'yii\bootstrap\BootstrapAsset' => false,
+                'yii\validators\ValidationAsset' => false,
+                'yii\web\YiiAsset' => false,
+                'yii\widgets\ActiveFormAsset' => false,
             ],
         ],
         'user' => [

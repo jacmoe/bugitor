@@ -21,6 +21,7 @@ class AppAsset extends AssetBundle
         'css/bugitor.css',
     ];
     public $js = [
+        'js/script.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
