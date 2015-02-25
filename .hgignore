@@ -26,3 +26,5 @@ bugitor.sublime-workspace
 composer.lock
 frontend/theming/node_modules/*
 frontend/theming/.sass-cache/*
+frontend/web/js/*
+frontend/web/css/*
