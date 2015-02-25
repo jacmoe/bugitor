@@ -18,10 +18,10 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/bugitor.css',
+        YII_ENV_DEV ? 'css/bugitor.css' : 'css/bugitor.min.css',
     ];
     public $js = [
-        'js/script.js',
+        YII_ENV_DEV ? 'js/script.js' : 'js/script.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
