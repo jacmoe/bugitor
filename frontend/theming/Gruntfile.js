@@ -70,6 +70,7 @@ module.exports = function(grunt)
       },
       script: {
         src: [
+          'vendor/bower/bootstrap-sass/assets/javascripts/bootstrap.js',
           'js/yii.js',
           'js/yii.validation.js',
           'js/yii.activeForm.js'

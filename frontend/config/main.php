@@ -18,6 +18,13 @@ return [
                 'yii\validators\ValidationAsset' => false,
                 'yii\web\YiiAsset' => false,
                 'yii\widgets\ActiveFormAsset' => false,
+                'yii\bootstrap\BootstrapPluginAsset' => false,
+                'yii\web\JqueryAsset' => [
+                    'js' => [
+                        //YII_ENV_DEV ? 'jquery.js' : 'jquery.min.js'
+                        'jquery.min.js',
+                    ]
+                ],
             ],
         ],
         'user' => [
