@@ -19,7 +19,9 @@
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
         "yiisoft/yii2-twig": "*",
-        "claudejanz/yii2-context-access-filter": "dev-master"
+        "claudejanz/yii2-context-access-filter": "dev-master",
+        "kartik-v/yii2-dynagrid": "*",
+        "warrence/yii2-kartikgii": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
