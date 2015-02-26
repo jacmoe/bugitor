@@ -3,9 +3,7 @@
 {{ use('yii/bootstrap/NavBar')}}
 {{ use('frontend/assets/AppAsset')}}
 {{ use('frontend/widgets/Alert')}}
-
 {{ register_app_asset() }}
-
 {{ this.beginPage() | raw}}
 <!DOCTYPE html>
 <html lang="{{app.language}}">
@@ -51,20 +49,17 @@
         'items': items
     }) }}
     {{ nav_bar_end() }}
-
        <div class="container">
         {{ Alert.widget()  | raw}}
         {{ content  | raw}}
         </div>
     </div>
-
     <footer class="footer">
         <div class="container">
         <p class="pull-left">&copy; My Company 2015</p>
         <p class="pull-right">{{Yii.powered()  | raw}}</p>
         </div>
     </footer>
-
     {{this.endBody() | raw}}
 </body>
 </html>
