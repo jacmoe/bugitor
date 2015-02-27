@@ -21,8 +21,8 @@ modules:
     config:
         PhpBrowser:
 # PLEASE ADJUST IT TO THE ACTUAL ENTRY POINT WITHOUT PATH INFO
-            url: http://localhost:8080
+            url: http://front.bugitor.dev
 #        WebDriver:
-#            url: http://localhost:8080
+#            url: http://front.bugitor.dev
 #            browser: firefox
 #            restart: true
