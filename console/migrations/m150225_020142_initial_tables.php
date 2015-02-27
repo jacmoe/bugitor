@@ -172,6 +172,73 @@ class m150225_020142_initial_tables extends Migration
         $this->createIndex('identifier', '{{%project}}', 'identifier', true);
         $this->createIndex('public', '{{%project}}', 'public');
 
+        $this->createTable("{{%project_link}}", [
+            'id' => Schema::TYPE_PK,
+            'url' => Schema::TYPE_STRING . ' NOT NULL',
+            'title' => Schema::TYPE_STRING . ' NOT NULL',
+            'description' => Schema::TYPE_STRING . ' NOT NULL',
+            'position' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'project_id' => Schema::TYPE_INTEGER . ' NOT NULL'
+        ], $tableOptions);
+        $this->createIndex('project_id', '{{%project_link}}', 'project_id');
+
+        $this->createTable("{{%project_tracker}}", [
+            'project_id' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'tracker_id' => Schema::TYPE_INTEGER . ' NOT NULL'
+        ], $tableOptions);
+        $this->createIndex('fk_project_tracker_project_id', '{{%project_tracker}}', 'project_id');
+        $this->createIndex('fk_project_tracker_tracker_id', '{{%project_tracker}}', 'tracker_id');
+        $this->addPrimaryKey('pk_project_tracker', '{{%project_tracker}}', 'project_id, tracker_id');
+
+        $this->createTable("{{%related_issue}}", [
+            'issue_from' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'issue_to' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'relation_type_id' => Schema::TYPE_INTEGER . ' NOT NULL'
+        ], $tableOptions);
+        $this->createIndex('fk_related_issue_issue_from_id', '{{%related_issue}}', 'issue_from');
+        $this->createIndex('fk_related_issue_issue_to_id', '{{%related_issue}}', 'issue_to');
+        $this->createIndex('fk_related_issue_relation_type_id', '{{%related_issue}}', 'relation_type_id');
+        $this->addPrimaryKey('pk_related_issue', '{{%related_issue}}', 'issue_from, issue_to');
+
+        $this->createTable("{{%relation_type}}", [
+            'id' => Schema::TYPE_PK,
+            'name' => Schema::TYPE_STRING . ' NOT NULL',
+            'description' => Schema::TYPE_STRING . ' NOT NULL'
+        ], $tableOptions);
+        $this->createIndex('name_UNIQUE', '{{%relation_type}}', 'name', true);
+
+        $this->createTable("{{%repository}}", [
+            'id' => Schema::TYPE_PK,
+            'project_id' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'url' => Schema::TYPE_STRING . ' DEFAULT NULL',
+            'local_path' => Schema::TYPE_STRING . ' DEFAULT NULL',
+            'name' => Schema::TYPE_STRING . ' NOT NULL',
+            'identifier' => Schema::TYPE_STRING . ' NOT NULL',
+            'status' => Schema::TYPE_INTEGER . " NOT NULL DEFAULT '0'"
+        ], $tableOptions);
+        $this->createIndex('name', '{{%repository}}', 'name', true);
+        $this->createIndex('repository_project_id', '{{%repository}}', 'project_id');
+
+        $this->createTable("{{%version}}", [
+            'id' => Schema::TYPE_PK,
+            'project_id' => Schema::TYPE_INTEGER . " NOT NULL DEFAULT '0'",
+            'name' => Schema::TYPE_STRING . ' NOT NULL',
+            'description' => Schema::TYPE_STRING . ' DEFAULT NULL',
+            'effective_date' => Schema::TYPE_DATE . ' DEFAULT NULL',
+            'created' => Schema::TYPE_TIMESTAMP . ' NULL DEFAULT NULL',
+            'modified' => Schema::TYPE_TIMESTAMP . ' NULL DEFAULT NULL',
+            'version_order' => Schema::TYPE_INTEGER . ' DEFAULT NULL'
+        ], $tableOptions);
+        $this->createIndex('versions_project_id', '{{%version}}', 'project_id');
+        $this->createIndex('name', '{{%version}}', 'name');
+
+        $this->createTable("{{%watcher}}", [
+            'issue_id' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'user_id' => Schema::TYPE_INTEGER . ' NOT NULL'
+        ], $tableOptions);
+        $this->createIndex('fk_watcher_user_id', '{{%watcher}}', 'user_id');
+        $this->createIndex('fk_watcher_issue_id', '{{%watcher}}', 'issue_id');
+        $this->addPrimaryKey('pk_watcher', '{{%watcher}}', 'issue_id, user_id');
     }
 
     public function safeDown()
@@ -188,5 +255,12 @@ class m150225_020142_initial_tables extends Migration
         $this->dropTable('{{%issue_priority}}');
         $this->dropTable('{{%member}}');
         $this->dropTable('{{%project}}');
+        $this->dropTable('{{%project_link}}');
+        $this->dropTable('{{%project_tracker}}');
+        $this->dropTable('{{%related_issue}}');
+        $this->dropTable('{{%relation_type}}');
+        $this->dropTable('{{%repository}}');
+        $this->dropTable('{{%version}}');
+        $this->dropTable('{{%watcher}}');
     }
 }
