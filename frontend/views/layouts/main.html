@@ -33,7 +33,8 @@
             ]
         %}
     {% else %} 
-    {% set logoutTxt = ['Logout ', app.user().identity().username ]|join(', ') %}
+    {% set logoutTxt = ['Logout (', app.user().identity().username ]|join('') %}
+    {% set logoutTxt = [logoutTxt, ')']|join('') %}
         {% set items = [
                 {'label': 'Home', 'url': '/site/index'},
                 {'label': 'About', 'url': '/site/about'},

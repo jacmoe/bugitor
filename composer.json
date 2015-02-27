@@ -21,13 +21,15 @@
         "yiisoft/yii2-twig": "*",
         "claudejanz/yii2-context-access-filter": "dev-master",
         "kartik-v/yii2-dynagrid": "*",
-        "warrence/yii2-kartikgii": "dev-master"
+        "warrence/yii2-kartikgii": "dev-master",
+        "yiisoft/yii2-authclient": "~2.0"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
         "yiisoft/yii2-debug": "*",
         "yiisoft/yii2-gii": "*",
-        "yiisoft/yii2-faker": "*"
+        "yiisoft/yii2-faker": "*",
+        "phpunit/phpunit": "4.2.x-dev"
     },
     "config": {
         "process-timeout": 1800

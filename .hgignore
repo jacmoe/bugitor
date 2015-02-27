@@ -28,3 +28,9 @@ frontend/theming/node_modules/*
 frontend/theming/.sass-cache/*
 frontend/web/js/*
 frontend/web/css/*
+tests/codeception/frontend/unit/UnitTester.php
+tests/codeception/backend/acceptance/AcceptanceTester.php
+tests/codeception/backend/functional/FunctionalTester.php
+tests/codeception/backend/unit/UnitTester.php
+tests/codeception/frontend/acceptance/AcceptanceTester.php
+tests/codeception/frontend/functional/FunctionalTester.php
