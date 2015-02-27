@@ -19,9 +19,9 @@
             {{ form.field(model, 'email') | raw }}
             {{ form.field(model, 'subject') | raw }}
             {{ form.field(model, 'body').textArea({ 'rows' : 6, }) | raw }}
-
+            {{ form.field(model, 'verifyCode').widget('yii\\captcha\\Captcha', {'template': '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>'}) | raw }}
                 <div class="form-group">
-                    <input type="submit" id="contact-button" value="Submit" class="btn btn-primary" />
+                    <button type="submit" id="contact-button" name="contact-button" class="btn btn-primary">Submit</button>
                 </div>
             {{ active_form_end() }}
         </div>

@@ -73,7 +73,9 @@ module.exports = function(grunt)
           'vendor/bower/bootstrap-sass/assets/javascripts/bootstrap.js',
           'js/yii.js',
           'js/yii.validation.js',
-          'js/yii.activeForm.js'
+          'js/yii.activeForm.js',
+          'js/yii.captcha.js',
+          'js/yii.gridView.js'
         ],
         dest: '../web/js/script.js'
       }
