@@ -1,8 +1,10 @@
-{{ use('yii/helpers/Html')}}
-{{ use('yii/bootstrap/Nav')}}
-{{ use('yii/bootstrap/NavBar')}}
-{{ use('frontend/assets/AppAsset')}}
-{{ use('frontend\\widgets\\Alert')}}
+{{ use('yii/helpers/Html') }}
+{{ use('yii/bootstrap/Nav') }}
+{{ use('yii/bootstrap/NavBar') }}
+{{ use('frontend/assets/AppAsset') }}
+{{ use('frontend\\widgets\\Alert') }}
+{{ use('yii\\widgets\\Breadcrumbs') }}
+
 {{ register_app_asset() }}
 {{ this.beginPage() | raw}}
 <!DOCTYPE html>
@@ -51,6 +53,9 @@
     }) }}
     {{ nav_bar_end() }}
        <div class="container">
+        {{ breadcrumbs_widget({
+        'links': this.params['breadcrumbs'],
+        }) }}
         {{ alert_widget() }}
         {{ content  | raw}}
         </div>
