@@ -1,7 +1,7 @@
 {{ use('yii/helpers/Html')}}
 {{ use('yii/bootstrap/ActiveForm')}}
 {{ set(this, 'title', 'Signup') }}
-
+{{ set(this, 'params', { 'breadcrumbs' : { '' : this.title } }) }}
 <div class="site-signup">
     <h1>{{this.title}}</h1>
 

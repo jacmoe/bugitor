@@ -2,7 +2,7 @@
 {{ use('yii/bootstrap/ActiveForm')}}
 {{ use('yii/captcha/Captcha')}}
 {{ set(this, 'title', 'Contact') }}
-
+{{ set(this, 'params', { 'breadcrumbs' : { '' : this.title } }) }}
 <div class="site-contact">
     <h1>{{this.title}}</h1>
 
