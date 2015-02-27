@@ -2,7 +2,7 @@
 {{ use('yii/bootstrap/Nav')}}
 {{ use('yii/bootstrap/NavBar')}}
 {{ use('frontend/assets/AppAsset')}}
-{{ use('frontend/widgets/Alert')}}
+{{ use('frontend\\widgets\\Alert')}}
 {{ register_app_asset() }}
 {{ this.beginPage() | raw}}
 <!DOCTYPE html>
@@ -51,7 +51,7 @@
     }) }}
     {{ nav_bar_end() }}
        <div class="container">
-        {{ Alert.widget()  | raw}}
+        {{ alert_widget() }}
         {{ content  | raw}}
         </div>
     </div>
