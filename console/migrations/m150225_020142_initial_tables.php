@@ -239,6 +239,14 @@ class m150225_020142_initial_tables extends Migration
         $this->createIndex('fk_watcher_user_id', '{{%watcher}}', 'user_id');
         $this->createIndex('fk_watcher_issue_id', '{{%watcher}}', 'issue_id');
         $this->addPrimaryKey('pk_watcher', '{{%watcher}}', 'issue_id, user_id');
+
+        $this->createTable("{{%tracker}}", [
+            'id' => Schema::TYPE_PK,
+            'name' => Schema::TYPE_STRING . ' NOT NULL',
+            'is_in_chlog' => Schema::TYPE_SMALLINT . " NOT NULL DEFAULT '0'",
+            'is_in_roadmap' => Schema::TYPE_SMALLINT . " NOT NULL DEFAULT '0'",
+            'position' => Schema::TYPE_INTEGER . " NOT NULL DEFAULT '0'"
+        ], $tableOptions);
     }
 
     public function safeDown()
