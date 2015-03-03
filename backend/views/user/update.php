@@ -2,22 +2,24 @@
 
 use yii\helpers\Html;
 
-/* @var $this yii\web\View */
-/* @var $model common\models\User */
+/**
+ * @var yii\web\View $this
+ * @var common\models\User $model
+ */
 
-$this->title = Yii::t('app', 'Update {modelClass}: ', [
-    'modelClass' => 'User',
-]) . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Users'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->title = 'User Update ' . $model->id . '';
+$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => (string)$model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'Edit';
 ?>
 <div class="user-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <p>
+        <?= Html::a('<span class="glyphicon glyphicon-eye-open"></span> View', ['view', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
+    </p>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+	<?php echo $this->render('_form', [
+		'model' => $model,
+	]); ?>
 
 </div>

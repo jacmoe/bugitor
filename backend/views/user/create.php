@@ -2,22 +2,24 @@
 
 use yii\helpers\Html;
 
+/**
+* @var yii\web\View $this
+* @var common\models\User $model
+*/
 
-/* @var $this yii\web\View */
-/* @var $model common\models\User */
-
-$this->title = Yii::t('app', 'Create {modelClass}', [
-    'modelClass' => 'User',
-]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Users'), 'url' => ['index']];
+$this->title = 'Create';
+$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <p class="pull-left">
+        <?= Html::a('Cancel', \yii\helpers\Url::previous(), ['class' => 'btn btn-default']) ?>
+    </p>
+    <div class="clearfix"></div>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+    <?php echo $this->render('_form', [
+    'model' => $model,
+    ]); ?>
 
 </div>
