@@ -1,0 +1,54 @@
+{{ use('yii/helpers/Html')}}
+{{ use('yii/widgets/DetailView')}}
+<?php
+
+use yii\helpers\Html;
+use yii\widgets\DetailView;
+
+/* @var $this yii\web\View */
+/* @var $model common\models\Issue */
+
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Issues'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="issue-view">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <p>
+        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                'method' => 'post',
+            ],
+        ]) ?>
+    </p>
+
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'id',
+            'tracker_id',
+            'project_id',
+            'subject',
+            'description:ntext',
+            'issue_category_id',
+            'user_id',
+            'issue_priority_id',
+            'version_id',
+            'assigned_to',
+            'created',
+            'modified',
+            'done_ratio',
+            'status',
+            'closed',
+            'pre_done_ratio',
+            'updated_by',
+            'last_comment',
+        ],
+    ]) ?>
+
+</div>

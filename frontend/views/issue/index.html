@@ -1,0 +1,45 @@
+{{ use('yii/helpers/Html')}}
+{{ use('yii/widgets/GridView')}}
+{{ set(this, 'title', 'Issues') }}
+{{ set(this, 'params', { 'breadcrumbs' : { '' : this.title } }) }}
+<div class="issue-index">
+
+    <h1>{{html.encode(this.title)}}</h1>
+    {{ this.render('_search.html', {'model': searchModel}) }}
+
+    <p>
+        <?= Html::a(Yii::t('app', 'Create {modelClass}', [
+    'modelClass' => 'Issue',
+]), ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'id',
+            'tracker_id',
+            'project_id',
+            'subject',
+            'description:ntext',
+            // 'issue_category_id',
+            // 'user_id',
+            // 'issue_priority_id',
+            // 'version_id',
+            // 'assigned_to',
+            // 'created',
+            // 'modified',
+            // 'done_ratio',
+            // 'status',
+            // 'closed',
+            // 'pre_done_ratio',
+            // 'updated_by',
+            // 'last_comment',
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
+
+</div>
