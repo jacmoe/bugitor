@@ -28,8 +28,8 @@
     {% if app.user().isGuest() %} 
         {% set items = [
                 {'label': 'Home', 'url': '/site/index'},
-                {'label': 'About', 'url': '/site/about'},
-                {'label': 'Contact', 'url': '/site/contact'},
+                {'label': 'Projects', 'url': '/project/index'},
+                {'label': 'Issues', 'url': '/issue/index'},
                 {'label': 'Signup', 'url': '/site/signup'},
                 {'label': 'Login', 'url': '/site/login'}
             ]
@@ -39,8 +39,8 @@
     {% set logoutTxt = [logoutTxt, ')']|join('') %}
         {% set items = [
                 {'label': 'Home', 'url': '/site/index'},
-                {'label': 'About', 'url': '/site/about'},
-                {'label': 'Contact', 'url': '/site/contact'},
+                {'label': 'Projects', 'url': '/project/index'},
+                {'label': 'Issues', 'url': '/issue/index'},
                 {'label': logoutTxt, 'url': '/site/logout', 'linkOptions': {'data-method': 'post'}}
             ]
         %}

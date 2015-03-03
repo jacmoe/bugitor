@@ -1,0 +1,51 @@
+
+{{use('yii/helpers/Html')}}
+{{use('yii/grid/GridView')}}
+{{use('yii/bootstrap/ButtonDropdown')}}
+
+{{ set(this, 'title', 'Users') }}
+
+{# $this->params['breadcrumbs'][] = $this->title; #}
+
+<div class="user-index">
+
+    <div class="clearfix">
+        <p class="pull-left">
+            {{ html.a('<span class="glyphicon glyphicon-plus"></span> New User', ['create'],{'class': 'btn btn-success'}) | raw }}
+        </p>
+
+        <div class="pull-right">
+                        
+            {{ button_dropdown_widget({
+                'id' : 'giiant-relations',
+                'encodeLabel': false,
+                'label': '<span class="glyphicon glyphicon-paperclip"></span> Relations',
+                'dropdown': {
+                    'options' : {
+                        'class' : 'dropdown-menu-right'
+                    },
+                    'encodeLabels': false,
+                    'items': []                }
+            }) }}
+        </div>
+    </div>
+
+    {{ grid_view_widget({
+        'dataProvider': dataProvider,
+        'filterModel': searchModel,
+        'columns': [
+        			'id',
+			'username',
+			'auth_key',
+			'password_hash',
+			'password_reset_token',
+			'email:email',
+			'status',
+            {
+                'class': 'yii\\grid\\ActionColumn',
+                'contentOptions': {'nowrap':'nowrap'}
+            }
+        ]
+    }) }}
+
+</div>
