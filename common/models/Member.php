@@ -5,64 +5,8 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%member}}".
- *
- * @property integer $id
- * @property integer $project_id
- * @property integer $user_id
- * @property string $role
- *
- * @property Project $project
- * @property User $user
+ * This is the model class for table "member".
  */
-class Member extends \yii\db\ActiveRecord
+class Member extends \common\models\base\Member
 {
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return '{{%member}}';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['project_id', 'user_id', 'role'], 'required'],
-            [['project_id', 'user_id'], 'integer'],
-            [['role'], 'string', 'max' => 255]
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => Yii::t('app', 'ID'),
-            'project_id' => Yii::t('app', 'Project ID'),
-            'user_id' => Yii::t('app', 'User ID'),
-            'role' => Yii::t('app', 'Role'),
-        ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getProject()
-    {
-        return $this->hasOne(Project::className(), ['id' => 'project_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
-    }
 }

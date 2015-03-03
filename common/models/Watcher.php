@@ -5,59 +5,8 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%watcher}}".
- *
- * @property integer $issue_id
- * @property integer $user_id
- *
- * @property Issue $issue
- * @property User $user
+ * This is the model class for table "watcher".
  */
-class Watcher extends \yii\db\ActiveRecord
+class Watcher extends \common\models\base\Watcher
 {
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return '{{%watcher}}';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['issue_id', 'user_id'], 'required'],
-            [['issue_id', 'user_id'], 'integer']
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'issue_id' => Yii::t('app', 'Issue ID'),
-            'user_id' => Yii::t('app', 'User ID'),
-        ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getIssue()
-    {
-        return $this->hasOne(Issue::className(), ['id' => 'issue_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
-    }
 }
