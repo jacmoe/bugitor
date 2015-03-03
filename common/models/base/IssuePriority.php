@@ -19,7 +19,7 @@ class IssuePriority extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'issue_priority';
+        return '{{%issue_priority}}';
     }
 
     /**

@@ -24,7 +24,7 @@ class Tracker extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'tracker';
+        return '{{%tracker}}';
     }
 
     /**

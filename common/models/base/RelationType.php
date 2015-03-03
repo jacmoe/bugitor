@@ -20,7 +20,7 @@ class RelationType extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'relation_type';
+        return '{{%relation_type}}';
     }
 
     /**

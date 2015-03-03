@@ -22,7 +22,7 @@ class RelatedIssue extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'related_issue';
+        return '{{%related_issue}}';
     }
 
     /**

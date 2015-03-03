@@ -19,7 +19,7 @@ class PendingChangeset extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'pending_changeset';
+        return '{{%pending_changeset}}';
     }
 
     /**

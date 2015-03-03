@@ -39,7 +39,7 @@ class Changeset extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'changeset';
+        return '{{%changeset}}';
     }
 
     /**

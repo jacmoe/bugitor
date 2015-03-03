@@ -23,7 +23,7 @@ class ProjectLink extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'project_link';
+        return '{{%project_link}}';
     }
 
     /**

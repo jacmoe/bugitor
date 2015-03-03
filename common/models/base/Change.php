@@ -22,7 +22,7 @@ class Change extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'change';
+        return '{{%change}}';
     }
 
     /**

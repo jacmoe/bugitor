@@ -20,7 +20,7 @@ class Watcher extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'watcher';
+        return '{{%watcher}}';
     }
 
     /**
