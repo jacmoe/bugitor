@@ -7,7 +7,7 @@ use yii\helpers\Html;
  * @var common\models\User $model
  */
 
-$this->title = 'User Update ' . $model->id . '';
+$this->title = 'User Update ' . $model->id . ' | Bugitor Admin';
 $this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => (string)$model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Edit';

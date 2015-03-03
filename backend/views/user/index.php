@@ -9,8 +9,8 @@ use yii\grid\GridView;
 * @var common\models\UserSearch $searchModel
 */
 
-$this->title = 'Users';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Users | Bugitor Admin';
+$this->params['breadcrumbs'][] = 'Users';
 ?>
 
 <div class="user-index">

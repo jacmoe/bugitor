@@ -7,11 +7,11 @@ use yii\helpers\Html;
 /* @var $message string */
 /* @var $exception Exception */
 
-$this->title = $name;
+$this->title = $name . '| Bugitor Admin';
 ?>
 <div class="site-error">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($name) ?></h1>
 
     <div class="alert alert-danger">
         <?= nl2br(Html::encode($message)) ?>
