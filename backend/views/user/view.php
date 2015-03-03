@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
 * @var common\models\User $model
 */
 
-$this->title = 'User View ' . $model->id . '';
+$this->title = 'User View ' . $model->id . ' | Bugitor Admin';
 $this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => (string)$model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'View';

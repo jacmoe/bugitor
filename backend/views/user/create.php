@@ -7,9 +7,9 @@ use yii\helpers\Html;
 * @var common\models\User $model
 */
 
-$this->title = 'Create';
+$this->title = 'User Create | Bugitor Admin';
 $this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = 'User Create';
 ?>
 <div class="user-create">
 
