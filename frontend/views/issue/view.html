@@ -1,36 +1,39 @@
-{{ use('yii/helpers/Html')}}
-{{ use('yii/widgets/DetailView')}}
-<?php
+{{use('yii/helpers/Html')}}
+{{use('yii/widgets/DetailView')}}
+{{use('yii/grid/GridView')}}
+{{use('yii/widgets/Pjax')}}
+{{use('yii/bootstrap/Tabs')}}
+{{use('Yii')}}
 
-use yii\helpers\Html;
-use yii\widgets\DetailView;
+{{set(this, 'title', 'Issue View #{model.id} ') }}
 
-/* @var $this yii\web\View */
-/* @var $model common\models\Issue */
+{#
+$this->params['breadcrumbs'][] = ['label' => 'Issues', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => (string)$model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'View'; #}
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Issues'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-?>
 <div class="issue-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <p class='pull-left'>
+        {{ html.a('<span class="glyphicon glyphicon-pencil"></span> Edit', url('update' , {'id' : model.id}), {'class' : 'btn btn-info'} ) | raw }}
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
+        {{ html.a('<span class="glyphicon glyphicon-plus"></span> New Issue', ['create'], {'class' : 'btn btn-success'} ) | raw }}
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
+    <p class='pull-right'>
+        {{ html.a('<span class="glyphicon glyphicon-list"></span> List', ['index'], {'class' : 'btn btn-default'} ) | raw }}
+    </p><div class='clearfix'></div>
+
+    
+    <h3>
+        {{ model.id }}    </h3>
+
+    {{ this.block_begin('common\models\Issue') }}
+
+    {{ detail_view_widget({
+        'model': model,
+        'attributes': [
+                'id',
             'tracker_id',
             'project_id',
             'subject',
@@ -48,7 +51,127 @@ $this->params['breadcrumbs'][] = $this->title;
             'pre_done_ratio',
             'updated_by',
             'last_comment',
-        ],
-    ]) ?>
+    ],
+    }) }}
 
+    <hr/>
+
+    {{ html.a('<span class="glyphicon glyphicon-trash"></span> Delete', {'delete': '', 'id' : model.id}, {
+    'class': 'btn btn-danger',
+    'data-confirm': Yii.t('app', 'Are you sure to delete this item?'),
+    'data-method': 'post',
+    } ) | raw }}
+
+    {{ this.block_end() }}
+
+
+    {{ this.beginBlock('Attachments') }}
+<p class='pull-right'>
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-list"></span> List All Attachments',
+            {'attachment/index'},
+            {'class': 'btn btn-muted btn-xs'}
+        ) }} 
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-plus"></span> New Attachment',
+            {'attachment/create', 'Attachment': {'issue_id':$model->id} },
+            {'class': 'btn btn-success btn-xs'}
+        ) }} 
+</p><div class='clearfix'></div>
+{{this.endBlock() }}
+
+{{ this.beginBlock('ChangesetIssues') }}
+<p class='pull-right'>
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-list"></span> List All Changeset Issues',
+            {'changeset-issue/index'},
+            {'class': 'btn btn-muted btn-xs'}
+        ) }} 
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-plus"></span> New Changeset Issue',
+            {'changeset-issue/create', 'ChangesetIssue': {'issue_id':$model->id} },
+            {'class': 'btn btn-success btn-xs'}
+        ) }} 
+</p><div class='clearfix'></div>
+{{this.endBlock() }}
+
+{{ this.beginBlock('Comments') }}
+<p class='pull-right'>
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-list"></span> List All Comments',
+            {'comment/index'},
+            {'class': 'btn btn-muted btn-xs'}
+        ) }} 
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-plus"></span> New Comment',
+            {'comment/create', 'Comment': {'issue_id':$model->id} },
+            {'class': 'btn btn-success btn-xs'}
+        ) }} 
+</p><div class='clearfix'></div>
+{{this.endBlock() }}
+
+{{ this.beginBlock('RelatedIssues') }}
+<p class='pull-right'>
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-list"></span> List All Related Issues',
+            {'related-issue/index'},
+            {'class': 'btn btn-muted btn-xs'}
+        ) }} 
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-plus"></span> New Related Issue',
+            {'related-issue/create', 'RelatedIssue': {'issue_to':$model->id} },
+            {'class': 'btn btn-success btn-xs'}
+        ) }} 
+</p><div class='clearfix'></div>
+{{this.endBlock() }}
+
+{{ this.beginBlock('Users') }}
+<p class='pull-right'>
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-list"></span> List All Users',
+            {'user/index'},
+            {'class': 'btn btn-muted btn-xs'}
+        ) }} 
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-plus"></span> New User',
+            {'user/create', 'User': {'id':$model->id} },
+            {'class': 'btn btn-success btn-xs'}
+        ) }} 
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-link"></span> Attach User', ['watcher/create', 'Watcher':{'issue_id':$model->id } },
+            {'class': 'btn btn-info btn-xs'}
+        ) }} 
+</p><div class='clearfix'></div>
+{{this.endBlock() }}
+
+
+    {{ tabs_begin({
+        'id' : 'relation-tabs',
+        'encodeLabels' : false,
+        'items' : [     {
+        'label'  : '<span class="glyphicon glyphicon-asterisk"></span> label',
+        'content': attribute(this.blocks, 'common\models\Issue'),
+        'active' : true,
+    },{
+    'label'   : '<small><span class="glyphicon glyphicon-paperclip"></span> label</small>',
+    'content' : attribute(this.blocks, 'name'),
+    'active'  : false,
+},{
+    'label'   : '<small><span class="glyphicon glyphicon-paperclip"></span> label</small>',
+    'content' : attribute(this.blocks, 'name'),
+    'active'  : false,
+},{
+    'label'   : '<small><span class="glyphicon glyphicon-paperclip"></span> label</small>',
+    'content' : attribute(this.blocks, 'name'),
+    'active'  : false,
+},{
+    'label'   : '<small><span class="glyphicon glyphicon-paperclip"></span> label</small>',
+    'content' : attribute(this.blocks, 'name'),
+    'active'  : false,
+},{
+    'label'   : '<small><span class="glyphicon glyphicon-paperclip"></span> label</small>',
+    'content' : attribute(this.blocks, 'name'),
+    'active'  : false,
+}, ]
+    }) }}
 </div>

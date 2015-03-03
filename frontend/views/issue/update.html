@@ -1,24 +1,21 @@
-{{ use('yii/helpers/Html')}}
-<?php
 
-use yii\helpers\Html;
+{{use('yii/helpers/Html')}}
 
-/* @var $this yii\web\View */
-/* @var $model common\models\Issue */
+{{ set(this, 'title', 'Issue Update #{model.id} ') }}
 
-$this->title = Yii::t('app', 'Update {modelClass}: ', [
-    'modelClass' => 'Issue',
-]) . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Issues'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
-?>
+{#
+$this->params['breadcrumbs'][] = ['label' => 'Issues', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => (string)$model->id, 'url' => {'view': '', 'id' : model.id}];
+$this->params['breadcrumbs'][] = 'Edit'; #}
+
 <div class="issue-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <p>
+        {{ html.a('<span class="glyphicon glyphicon-eye-open"></span> View', url('view', {'id' : model.id}), {'class' : 'btn btn-info'} ) | raw }}
+    </p>
 
-    <?= $this->render('_form.html', [
-        'model' => $model,
-    ]) ?>
+    {{ this.render('_form.html', {
+        'model': model
+    }) |raw }}
 
 </div>

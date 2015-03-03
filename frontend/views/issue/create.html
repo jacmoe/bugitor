@@ -1,8 +1,21 @@
-{{ use('yii/helpers/Html')}}
-{{ set(this, 'title', 'Create Issue') }}
-{{ set(this, 'params', { 'breadcrumbs' : [ {'label': 'Issues', 'url': 'index'},{'label' : this.title} ] }) }}
 
+{{use('yii/helpers/Html')}}
+
+{{ set(this, 'title', 'Create') }}
+{# $this->params['breadcrumbs'][] = ['label' => 'Issues', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
+#}
+
+?>
 <div class="issue-create">
-    <h1>{{html.encode(this.title)}}</h1>
-    {{ this.render('_form.html', {'model': model}) | raw }}
+
+    <p class="pull-left">
+        {{ html.a('Cancel', url.previous(), {'class': 'btn btn-default'}) |raw}}
+    </p>
+    <div class="clearfix"></div>
+
+    {{ this.render('_form.html', {
+        'model': model
+    }) |raw }}
+
 </div>

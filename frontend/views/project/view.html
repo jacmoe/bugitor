@@ -1,36 +1,39 @@
-{{ use('yii/helpers/Html')}}
-{{ use('yii/widgets/DetailView')}}
-<?php
+{{use('yii/helpers/Html')}}
+{{use('yii/widgets/DetailView')}}
+{{use('yii/grid/GridView')}}
+{{use('yii/widgets/Pjax')}}
+{{use('yii/bootstrap/Tabs')}}
+{{use('Yii')}}
 
-use yii\helpers\Html;
-use yii\widgets\DetailView;
+{{set(this, 'title', 'Project View #{model.name} ') }}
 
-/* @var $this yii\web\View */
-/* @var $model common\models\Project */
+{#
+$this->params['breadcrumbs'][] = ['label' => 'Projects', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => (string)$model->name, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'View'; #}
 
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Projects'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-?>
 <div class="project-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <p class='pull-left'>
+        {{ html.a('<span class="glyphicon glyphicon-pencil"></span> Edit', url('update' , {'id' : model.id}), {'class' : 'btn btn-info'} ) | raw }}
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
+        {{ html.a('<span class="glyphicon glyphicon-plus"></span> New Project', ['create'], {'class' : 'btn btn-success'} ) | raw }}
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
+    <p class='pull-right'>
+        {{ html.a('<span class="glyphicon glyphicon-list"></span> List', ['index'], {'class' : 'btn btn-default'} ) | raw }}
+    </p><div class='clearfix'></div>
+
+    
+    <h3>
+        {{ model.name }}    </h3>
+
+    {{ this.block_begin('common\models\Project') }}
+
+    {{ detail_view_widget({
+        'model': model,
+        'attributes': [
+                'id',
             'name',
             'description:ntext',
             'homepage',
@@ -38,7 +41,184 @@ $this->params['breadcrumbs'][] = $this->title;
             'created',
             'modified',
             'identifier',
-        ],
-    ]) ?>
+    ],
+    }) }}
 
+    <hr/>
+
+    {{ html.a('<span class="glyphicon glyphicon-trash"></span> Delete', {'delete': '', 'id' : model.id}, {
+    'class': 'btn btn-danger',
+    'data-confirm': Yii.t('app', 'Are you sure to delete this item?'),
+    'data-method': 'post',
+    } ) | raw }}
+
+    {{ this.block_end() }}
+
+
+    {{ this.beginBlock('ActionLogs') }}
+<p class='pull-right'>
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-list"></span> List All Action Logs',
+            {'action-log/index'},
+            {'class': 'btn btn-muted btn-xs'}
+        ) }} 
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-plus"></span> New Action Log',
+            {'action-log/create', 'ActionLog': {'project_id':$model->id} },
+            {'class': 'btn btn-success btn-xs'}
+        ) }} 
+</p><div class='clearfix'></div>
+{{this.endBlock() }}
+
+{{ this.beginBlock('Issues') }}
+<p class='pull-right'>
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-list"></span> List All Issues',
+            {'issue/index'},
+            {'class': 'btn btn-muted btn-xs'}
+        ) }} 
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-plus"></span> New Issue',
+            {'issue/create', 'Issue': {'project_id':$model->id} },
+            {'class': 'btn btn-success btn-xs'}
+        ) }} 
+</p><div class='clearfix'></div>
+{{this.endBlock() }}
+
+{{ this.beginBlock('IssueCategories') }}
+<p class='pull-right'>
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-list"></span> List All Issue Categories',
+            {'issue-category/index'},
+            {'class': 'btn btn-muted btn-xs'}
+        ) }} 
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-plus"></span> New Issue Category',
+            {'issue-category/create', 'IssueCategory': {'project_id':$model->id} },
+            {'class': 'btn btn-success btn-xs'}
+        ) }} 
+</p><div class='clearfix'></div>
+{{this.endBlock() }}
+
+{{ this.beginBlock('Members') }}
+<p class='pull-right'>
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-list"></span> List All Members',
+            {'member/index'},
+            {'class': 'btn btn-muted btn-xs'}
+        ) }} 
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-plus"></span> New Member',
+            {'member/create', 'Member': {'project_id':$model->id} },
+            {'class': 'btn btn-success btn-xs'}
+        ) }} 
+</p><div class='clearfix'></div>
+{{this.endBlock() }}
+
+{{ this.beginBlock('ProjectLinks') }}
+<p class='pull-right'>
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-list"></span> List All Project Links',
+            {'project-link/index'},
+            {'class': 'btn btn-muted btn-xs'}
+        ) }} 
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-plus"></span> New Project Link',
+            {'project-link/create', 'ProjectLink': {'project_id':$model->id} },
+            {'class': 'btn btn-success btn-xs'}
+        ) }} 
+</p><div class='clearfix'></div>
+{{this.endBlock() }}
+
+{{ this.beginBlock('Trackers') }}
+<p class='pull-right'>
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-list"></span> List All Trackers',
+            {'tracker/index'},
+            {'class': 'btn btn-muted btn-xs'}
+        ) }} 
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-plus"></span> New Tracker',
+            {'tracker/create', 'Tracker': {'id':$model->id} },
+            {'class': 'btn btn-success btn-xs'}
+        ) }} 
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-link"></span> Attach Tracker', ['project-tracker/create', 'ProjectTracker':{'project_id':$model->id } },
+            {'class': 'btn btn-info btn-xs'}
+        ) }} 
+</p><div class='clearfix'></div>
+{{this.endBlock() }}
+
+{{ this.beginBlock('Repositories') }}
+<p class='pull-right'>
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-list"></span> List All Repositories',
+            {'repository/index'},
+            {'class': 'btn btn-muted btn-xs'}
+        ) }} 
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-plus"></span> New Repository',
+            {'repository/create', 'Repository': {'project_id':$model->id} },
+            {'class': 'btn btn-success btn-xs'}
+        ) }} 
+</p><div class='clearfix'></div>
+{{this.endBlock() }}
+
+{{ this.beginBlock('Versions') }}
+<p class='pull-right'>
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-list"></span> List All Versions',
+            {'version/index'},
+            {'class': 'btn btn-muted btn-xs'}
+        ) }} 
+  <?= {{html.a(
+            '<span class="glyphicon glyphicon-plus"></span> New Version',
+            {'version/create', 'Version': {'project_id':$model->id} },
+            {'class': 'btn btn-success btn-xs'}
+        ) }} 
+</p><div class='clearfix'></div>
+{{this.endBlock() }}
+
+
+    {{ tabs_begin({
+        'id' : 'relation-tabs',
+        'encodeLabels' : false,
+        'items' : [     {
+        'label'  : '<span class="glyphicon glyphicon-asterisk"></span> label',
+        'content': attribute(this.blocks, 'common\models\Project'),
+        'active' : true,
+    },{
+    'label'   : '<small><span class="glyphicon glyphicon-paperclip"></span> label</small>',
+    'content' : attribute(this.blocks, 'name'),
+    'active'  : false,
+},{
+    'label'   : '<small><span class="glyphicon glyphicon-paperclip"></span> label</small>',
+    'content' : attribute(this.blocks, 'name'),
+    'active'  : false,
+},{
+    'label'   : '<small><span class="glyphicon glyphicon-paperclip"></span> label</small>',
+    'content' : attribute(this.blocks, 'name'),
+    'active'  : false,
+},{
+    'label'   : '<small><span class="glyphicon glyphicon-paperclip"></span> label</small>',
+    'content' : attribute(this.blocks, 'name'),
+    'active'  : false,
+},{
+    'label'   : '<small><span class="glyphicon glyphicon-paperclip"></span> label</small>',
+    'content' : attribute(this.blocks, 'name'),
+    'active'  : false,
+},{
+    'label'   : '<small><span class="glyphicon glyphicon-paperclip"></span> label</small>',
+    'content' : attribute(this.blocks, 'name'),
+    'active'  : false,
+},{
+    'label'   : '<small><span class="glyphicon glyphicon-paperclip"></span> label</small>',
+    'content' : attribute(this.blocks, 'name'),
+    'active'  : false,
+},{
+    'label'   : '<small><span class="glyphicon glyphicon-paperclip"></span> label</small>',
+    'content' : attribute(this.blocks, 'name'),
+    'active'  : false,
+}, ]
+    }) }}
 </div>
