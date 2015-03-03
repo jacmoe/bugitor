@@ -1,4 +1,6 @@
+
 {{use('yii/helpers/Html')}}
+
 {{ set(this, 'title', 'User Update #' ~model.id ) }}
 
 {{ set(this, 'params', 
@@ -6,11 +8,16 @@
         [ 
             {'label': 'Users', 
                 'url': ['index']}, 
-            {'label' : model.username, 'url' : url('view', {'id': model.id})},
+            {'label' : model.id, 'url' : url('view', {'id': model.id})},
             {'label' : 'Edit'}
         ]
     })
 }}
+
+{#
+$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => (string)$model->id, 'url' => {'view': '', 'id' : model.id}];
+$this->params['breadcrumbs'][] = 'Edit'; #}
 
 <div class="user-update">
 
