@@ -20,7 +20,7 @@ class AuthorUser extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'author_user';
+        return '{{%author_user}}';
     }
 
     /**

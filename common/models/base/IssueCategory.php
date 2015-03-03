@@ -22,7 +22,7 @@ class IssueCategory extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'issue_category';
+        return '{{%issue_category}}';
     }
 
     /**

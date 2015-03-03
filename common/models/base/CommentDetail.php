@@ -20,7 +20,7 @@ class CommentDetail extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'comment_detail';
+        return '{{%comment_detail}}';
     }
 
     /**

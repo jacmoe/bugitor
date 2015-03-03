@@ -20,7 +20,7 @@ class ProjectTracker extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'project_tracker';
+        return '{{%project_tracker}}';
     }
 
     /**

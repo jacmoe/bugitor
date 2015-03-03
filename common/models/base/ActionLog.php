@@ -26,7 +26,7 @@ class ActionLog extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'action_log';
+        return '{{%action_log}}';
     }
 
     /**

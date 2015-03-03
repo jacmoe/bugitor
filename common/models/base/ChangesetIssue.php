@@ -21,7 +21,7 @@ class ChangesetIssue extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'changeset_issue';
+        return '{{%changeset_issue}}';
     }
 
     /**
