@@ -2,9 +2,17 @@
 {{use('yii/helpers/Html')}}
 
 {{ set(this, 'title', 'Create') }}
-{# $this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-#}
+
+{{ set(this, 'params', 
+    { 'breadcrumbs' : 
+        [ 
+            {'label': 'Users', 
+                'url': ['index']}, 
+            {'label' : 'Create'}, 
+        ]
+    }
+    )
+}}
 <div class="user-create">
 
     <p class="pull-left">
