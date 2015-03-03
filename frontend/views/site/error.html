@@ -1,5 +1,6 @@
 {{ use('yii\helpers\Html') }}
 {{ set(this, 'title', html.encode(name)) }}
+{{ set(this, 'params', { 'breadcrumbs' : { '' : this.title } }) }}
 <div class="site-error">
 
     <h1>{{ this.title }}</h1>
