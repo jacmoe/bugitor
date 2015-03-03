@@ -1,28 +1,55 @@
-{{ use('yii/helpers/Html')}}
-{{ use('yii/widgets/ActiveForm')}}
+{{use('yii/helpers/Html')}}
+{{use('yii/bootstrap/ActiveForm')}}
+{{use('yii/bootstrap/Tabs')}}
+
 <div class="issue-form">
+
     {% set form = active_form_begin({
-        'id' : 'issue-form',
+        'layout': 'horizontal',
+        'enableClientValidation': false
     }) %}
-        {{ form.field(model, 'tracker_id').textInput() | raw }}
-        {{ form.field(model, 'project_id').textInput() | raw }}
-        {{ form.field(model, 'subject').textInput({'maxlength': 255}) | raw }}
-        {{ form.field(model, 'description').textArea({ 'rows' : 6, }) | raw }}
-        {{ form.field(model, 'issue_category_id').textInput() | raw }}
-        {{ form.field(model, 'user_id').textInput() | raw }}
-        {{ form.field(model, 'issue_priority_id').textInput() | raw }}
-        {{ form.field(model, 'version_id').textInput() | raw }}
-        {{ form.field(model, 'assigned_to').textInput() | raw }}
-        {{ form.field(model, 'created').textInput() | raw }}
-        {{ form.field(model, 'modified').textInput() | raw }}
-        {{ form.field(model, 'done_ratio').textInput() | raw }}
-        {{ form.field(model, 'status').textInput() | raw }}
-        {{ form.field(model, 'closed').textInput() | raw }}
-        {{ form.field(model, 'pre_done_ratio').textInput() | raw }}
-        {{ form.field(model, 'updated_by').textInput() | raw }}
-        {{ form.field(model, 'last_comment').textInput() | raw }}
-    <div class="form-group">
-        {{ html.submitButton(model.isNewRecord ? 'Create' : 'Update', {'class': model.isNewRecord ? 'btn btn-success' : 'btn btn-primary'}) | raw }}
+
+    <div class="">
+        {{form.errorSummary(model) | raw}}
+        {{this.block_begin('main') | raw}}
+
+        <p>
+            
+            {{ form.field(model, 'tracker_id').textInput()| raw }}
+            {{ form.field(model, 'project_id').textInput()| raw }}
+            {{ form.field(model, 'subject').textInput({'maxlength' : 255})| raw }}
+            {{ form.field(model, 'description').textarea({'rows' : 6})| raw }}
+            {{ form.field(model, 'user_id').textInput()| raw }}
+            {{ form.field(model, 'issue_priority_id').textInput()| raw }}
+            {{ form.field(model, 'status').textInput({'maxlength' : 255})| raw }}
+            {{ form.field(model, 'closed').textInput()| raw }}
+            {{ form.field(model, 'pre_done_ratio').textInput()| raw }}
+            {{ form.field(model, 'issue_category_id').textInput()| raw }}
+            {{ form.field(model, 'version_id').textInput()| raw }}
+            {{ form.field(model, 'assigned_to').textInput()| raw }}
+            {{ form.field(model, 'done_ratio').textInput()| raw }}
+            {{ form.field(model, 'updated_by').textInput()| raw }}
+            {{ form.field(model, 'last_comment').textInput()| raw }}
+            {{ form.field(model, 'created').textInput()| raw }}
+            {{ form.field(model, 'modified').textInput()| raw }}
+        </p>
+        {{this.block_end('main')}}
+
+        
+
+        {{ tabs_widget({
+            'encodeLabels': false,
+            'items': [        {
+            'label'   : label,
+            'content' : this.blocks['main'],
+            'active'  : true,
+        },]
+        }) }}
+        <hr/>
+        {{ html.submitButton('<span class="glyphicon glyphicon-check"></span> Save', {'class' : 'btn btn-primary'}) | raw }}
+
+        {{ active_form_end() }}
+
     </div>
-    {{ active_form_end() }}
+
 </div>

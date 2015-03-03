@@ -1,54 +1,54 @@
-{{ use('yii/helpers/Html')}}
-{{ use('yii/widgets/ActiveForm')}}
+{{use('yii/helpers/Html')}}
+{{use('yii/widgets/ActiveForm')}}
 
 <div class="issue-search">
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-    ]); ?>
+    {% set form = active_form_begin({
+        'action': ['index'],
+        'method': 'get'
+    }) %}
 
-    <?= $form->field($model, 'id') ?>
+        {{ form.field(model, 'id') }}
 
-    <?= $form->field($model, 'tracker_id') ?>
+        {{ form.field(model, 'tracker_id') }}
 
-    <?= $form->field($model, 'project_id') ?>
+        {{ form.field(model, 'project_id') }}
 
-    <?= $form->field($model, 'subject') ?>
+        {{ form.field(model, 'subject') }}
 
-    <?= $form->field($model, 'description') ?>
+        {{ form.field(model, 'description') }}
 
-    <?php // echo $form->field($model, 'issue_category_id') ?>
+        {# form.field(model, 'issue_category_id') #}
 
-    <?php // echo $form->field($model, 'user_id') ?>
+        {# form.field(model, 'user_id') #}
 
-    <?php // echo $form->field($model, 'issue_priority_id') ?>
+        {# form.field(model, 'issue_priority_id') #}
 
-    <?php // echo $form->field($model, 'version_id') ?>
+        {# form.field(model, 'version_id') #}
 
-    <?php // echo $form->field($model, 'assigned_to') ?>
+        {# form.field(model, 'assigned_to') #}
 
-    <?php // echo $form->field($model, 'created') ?>
+        {# form.field(model, 'created') #}
 
-    <?php // echo $form->field($model, 'modified') ?>
+        {# form.field(model, 'modified') #}
 
-    <?php // echo $form->field($model, 'done_ratio') ?>
+        {# form.field(model, 'done_ratio') #}
 
-    <?php // echo $form->field($model, 'status') ?>
+        {# form.field(model, 'status') #}
 
-    <?php // echo $form->field($model, 'closed') ?>
+        {# form.field(model, 'closed') #}
 
-    <?php // echo $form->field($model, 'pre_done_ratio') ?>
+        {# form.field(model, 'pre_done_ratio') #}
 
-    <?php // echo $form->field($model, 'updated_by') ?>
+        {# form.field(model, 'updated_by') #}
 
-    <?php // echo $form->field($model, 'last_comment') ?>
+        {# form.field(model, 'last_comment') #}
 
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
-    </div>
+        <div class="form-group">
+            {{ html.submitButton('Search', {'class' : 'btn btn-primary'}) | raw }}
+            {{ html.resetButton('Reset', {'class' : 'btn btn-primary'}) | raw }}
+        </div>
 
-    <?php ActiveForm::end(); ?>
+    {{ active_form_end() }}
 
 </div>
