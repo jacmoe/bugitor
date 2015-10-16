@@ -16,7 +16,11 @@
     "repositories": [
             {
                     "type": "vcs",
-                    "url": "C:/Coral/UniServerZ/vhosts/yii2-giiant-twig"
+                    "url": "C:/OldCoral/UniServerZ/vhosts/yii2-giiant-twig"
+            },
+            {
+                    "type": "vcs",
+                    "url": "C:/OldCoral/UniServerZ/vhosts/yii2-giiant"
             }
             ],
     "require": {
@@ -42,6 +46,7 @@
         "yiisoft/yii2-gii": "*",
         "yiisoft/yii2-faker": "*",
         "phpunit/phpunit": "4.2.x-dev",
+        "schmunk42/yii2-giiant" : "dev-master",
         "esquire900/yii2-giiant-twig" : "dev-master"
     },
     "config": {
