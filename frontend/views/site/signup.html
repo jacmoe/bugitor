@@ -10,14 +10,17 @@
     <div class="row">
         <div class="col-lg-5">
             {% set form = active_form_begin({
-                'id' : 'form-signup',
+                'id' : 'signup-form',
             }) %}
             {{ form.field(model, 'username') | raw }}
             {{ form.field(model, 'email') | raw }}
             {{ form.field(model, 'password').passwordInput() | raw }}
                 <div class="form-group">
-                    <input type="submit" id="signup-button" value="Signup" class="btn btn-primary" />
-                </div>
+                    
+{{ html.submitButton('Signup', {
+                'class': 'btn btn-primary',
+            }) | raw }}
+                    </div>
             {{ active_form_end() }}
         </div>
     </div>
