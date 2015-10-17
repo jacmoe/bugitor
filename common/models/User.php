@@ -11,7 +11,7 @@ use yii\web\IdentityInterface;
 /**
  * This is the model class for table "user".
  */
-class User extends \common\models\base\User implements IdentityInterface
+class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
