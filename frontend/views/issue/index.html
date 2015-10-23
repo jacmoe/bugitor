@@ -11,7 +11,9 @@
 
     <div class="clearfix">
         <p class="pull-left">
-            {{ html.a('<span class="glyphicon glyphicon-plus"></span> New Issue', ['create'],{'class': 'btn btn-success'}) | raw }}
+            {% if not app.user.isguest %}
+                {{ html.a('<span class="glyphicon glyphicon-plus"></span> New Issue', ['create'],{'class': 'btn btn-success'}) | raw }}
+            {% endif %}
         </p>
 
         <div class="pull-right">
