@@ -13,16 +13,6 @@
         "source": "https://github.com/yiisoft/yii2"
     },
     "minimum-stability": "stable",
-    "repositories": [
-            {
-                    "type": "vcs",
-                    "url": "C:/OldCoral/UniServerZ/vhosts/yii2-giiant-twig"
-            },
-            {
-                    "type": "vcs",
-                    "url": "C:/OldCoral/UniServerZ/vhosts/yii2-giiant"
-            }
-            ],
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": "*",
@@ -38,16 +28,15 @@
         "kartik-v/yii2-datecontrol": "*",
         "kartik-v/yii2-helpers": "*",
         "kartik-v/yii2-builder": "*",
-        "kartik-v/yii2-detail-view": "*"
+        "kartik-v/yii2-detail-view": "*",
+        "mervick/yii2-mthaml": "^0.1.3"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
         "yiisoft/yii2-debug": "*",
         "yiisoft/yii2-gii": "*",
         "yiisoft/yii2-faker": "*",
-        "phpunit/phpunit": "4.2.x-dev",
-        "schmunk42/yii2-giiant" : "dev-master",
-        "esquire900/yii2-giiant-twig" : "dev-master"
+        "phpunit/phpunit": "4.2.x-dev"
     },
     "config": {
         "process-timeout": 1800
