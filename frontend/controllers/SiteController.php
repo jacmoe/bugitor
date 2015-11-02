@@ -69,7 +69,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index.html');
+        return $this->render('index.haml');
     }
 
     public function actionLogin()

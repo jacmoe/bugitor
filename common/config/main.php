@@ -18,7 +18,7 @@ return [
             ],
             // format settings for saving each date attribute
             'saveSettings' => [
-                'date' => 'Y-m-d', 
+                'date' => 'Y-m-d',
                 'time' => 'H:i:s',
                 'datetime' => 'Y-m-d H:i:s',
             ],
@@ -42,6 +42,12 @@ return [
         'view' => [
             'class' => 'yii\web\View',
             'renderers' => [
+                'haml' => [
+                    'class' => 'mervick\mthaml\HamlViewRenderer',
+                    ],
+                    'twig' => [
+                    'class' => 'mervick\mthaml\TwigViewRenderer',
+                ],
                 'html' => [
                     'class' => 'yii\twig\ViewRenderer',
                     'cachePath' => '@runtime/Twig/cache',
