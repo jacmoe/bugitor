@@ -256,6 +256,7 @@ class m150225_020142_initial_tables extends Migration
         $this->dropTable('{{%author_user}}');
         $this->dropTable('{{%change}}');
         $this->dropTable('{{%changeset}}');
+        $this->dropTable("{{%changeset_issue}}");
         $this->dropTable('{{%comment}}');
         $this->dropTable('{{%comment_detail}}');
         $this->dropTable('{{%issue}}');
@@ -270,5 +271,6 @@ class m150225_020142_initial_tables extends Migration
         $this->dropTable('{{%repository}}');
         $this->dropTable('{{%version}}');
         $this->dropTable('{{%watcher}}');
+        $this->dropTable("{{%tracker}}");
     }
 }
