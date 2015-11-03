@@ -34,7 +34,7 @@ if (method_exists($I, 'wait')) {
     $I->wait(3); // only for selenium
 }
 $I->expectTo('see that user is logged');
-$I->see('Logout (erau)', 'form button[type=submit]');
+$I->see('Logout (erau)');
 $I->dontSeeLink('Login');
 $I->dontSeeLink('Signup');
 /** Uncomment if using WebDriver
