@@ -36,3 +36,5 @@ tests/codeception/frontend/acceptance/AcceptanceTester.php
 tests/codeception/frontend/functional/FunctionalTester.php
 tests/codeception/console/unit/fixtures/data/.gitkeep
 tests/codeception/backend/unit/fixtures/data/.gitkeep
+tests/codeception/common/unit/UnitTester.php
+tests/codeception/console/unit/UnitTester.php

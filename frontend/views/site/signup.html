@@ -14,7 +14,7 @@
             {{ form.field(model, 'email') | raw }}
             {{ form.field(model, 'password').passwordInput() | raw }}
             <div class="form-group">
-                {{ html.submitButton('Signup', {'class': 'btn btn-primary',}) | raw }}
+                {{ html.submitButton('Signup', {'class': 'btn btn-primary', 'id': 'signup-button'}) | raw }}
             </div>
             {{ active_form_end() }}
         </div>
