@@ -25,7 +25,7 @@
             'class': 'navbar-inverse navbar-fixed-top',
         }
     })}}
-    {% if app.user().isGuest() %} 
+    {% if app.user().isGuest() %}
         {% set items = [
                 {'label': 'Home', 'url': ['/site/index']},
                 {'label': 'Projects', 'url': ['/project/index']},
@@ -34,7 +34,7 @@
                 {'label': 'Login', 'url': ['/site/login']}
             ]
         %}
-    {% else %} 
+    {% else %}
     {% set logoutTxt = ['Logout (', app.user().identity().username ]|join('') %}
     {% set logoutTxt = [logoutTxt, ')']|join('') %}
         {% set items = [
@@ -46,7 +46,7 @@
                 {'label': logoutTxt, 'url': ['/site/logout'], 'linkOptions': {'data-method': 'post'}}
             ]
         %}
-    {% endif %} 
+    {% endif %}
     {{ nav_widget({
         'options' : {
             'class': 'navbar-nav navbar-right',
