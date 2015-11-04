@@ -58,7 +58,7 @@ class SiteController extends Controller
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
-                'view' => 'error.html',
+                'view' => 'error.haml',
             ],
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
@@ -82,7 +82,7 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
-            return $this->render('login.html', [
+            return $this->render('login.haml', [
                 'model' => $model,
             ]);
         }
@@ -93,29 +93,6 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
-    }
-
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
-            } else {
-                Yii::$app->session->setFlash('error', 'There was an error sending email.');
-            }
-
-            return $this->refresh();
-        } else {
-            return $this->render('contact.html', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    public function actionAbout()
-    {
-        return $this->render('about.html');
     }
 
     public function actionSignup()
@@ -129,7 +106,7 @@ class SiteController extends Controller
             }
         }
 
-        return $this->render('signup.html', [
+        return $this->render('signup.haml', [
             'model' => $model,
         ]);
     }
@@ -147,7 +124,7 @@ class SiteController extends Controller
             }
         }
 
-        return $this->render('requestPasswordResetToken.html', [
+        return $this->render('requestPasswordResetToken.haml', [
             'model' => $model,
         ]);
     }
@@ -166,7 +143,7 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
-        return $this->render('resetPassword.html', [
+        return $this->render('resetPassword.haml', [
             'model' => $model,
         ]);
     }
