@@ -1,0 +1,16 @@
+-use yii\helpers\Html
+-use yii\bootstrap\ActiveForm
+-$view->title = 'Sign Up'
+-$view->params['breadcrumbs'][] = $view->title;
+.site-signup
+  h1 #{$view->title}
+  p Please fill out the following fields to sign up:
+  .row
+    .col-lg-5
+      -$form = ActiveForm::begin(['id' => 'signup-form'])
+      !=$form->field($model, 'username')
+      !=$form->field($model, 'email')
+      !=$form->field($model, 'password')->passwordInput()
+      .form-group
+        !=Html::submitButton('Sign Up', ['class' => 'btn btn-primary', 'name' => 'signup-button'])
+      -ActiveForm::end()
