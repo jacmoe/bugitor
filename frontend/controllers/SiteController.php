@@ -18,7 +18,7 @@ use yii\filters\AccessControl;
  */
 class SiteController extends Controller
 {
-    public $layout = 'main.html';
+    public $layout = 'main.jade';
     /**
      * @inheritdoc
      */
@@ -69,7 +69,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index.haml');
+        return $this->render('index.jade');
     }
 
     public function actionLogin()
@@ -82,7 +82,7 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
-            return $this->render('login.haml', [
+            return $this->render('login.jade', [
                 'model' => $model,
             ]);
         }
@@ -106,7 +106,7 @@ class SiteController extends Controller
             }
         }
 
-        return $this->render('signup.haml', [
+        return $this->render('signup.jade', [
             'model' => $model,
         ]);
     }
@@ -124,7 +124,7 @@ class SiteController extends Controller
             }
         }
 
-        return $this->render('requestPasswordResetToken.haml', [
+        return $this->render('requestPasswordResetToken.jade', [
             'model' => $model,
         ]);
     }

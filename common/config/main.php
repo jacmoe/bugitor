@@ -42,6 +42,9 @@ return [
         'view' => [
             'class' => 'yii\web\View',
             'renderers' => [
+                'jade' => [
+                    'class' => 'jacmoe\talejade\JadeViewRenderer',
+                ],
                 'haml' => [
                     'class' => 'mervick\mthaml\HamlViewRenderer',
                     ],
