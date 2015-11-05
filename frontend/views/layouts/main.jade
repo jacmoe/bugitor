@@ -22,16 +22,13 @@ html(lang=Yii::$app->language)
         'brandUrl' => Yii::$app->homeUrl,
         'options' => ['class' => 'navbar-inverse navbar-fixed-top',],])
 
+      -$menuItems[] = ['label' => 'Home', 'url' => ['/site/index']]
+      -$menuItems[] = ['label' => 'Projects', 'url' => ['/project/index']]
+      -$menuItems[] = ['label' => 'Issues', 'url' => ['/issue/index']]
       if (Yii::$app->user->isGuest)
-        -$menuItems[] = ['label' => 'Home', 'url' => ['/site/index']]
-        -$menuItems[] = ['label' => 'Projects', 'url' => ['/project/index']]
-        -$menuItems[] = ['label' => 'Issues', 'url' => ['/issue/index']]
         -$menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']]
         -$menuItems[] = ['label' => 'Login', 'url' => ['/site/login']]
       else
-        -$menuItems[] = ['label' => 'Home', 'url' => ['/site/index']]
-        -$menuItems[] = ['label' => 'Projects', 'url' => ['/project/index']]
-        -$menuItems[] = ['label' => 'Issues', 'url' => ['/issue/index']]
         -$menuItems[] = ['label' => 'Users', 'url' => ['/user/index']]
         -$menuItems[] = ['label' => 'Gii', 'url' => ['/gii']]
         -$menuItems[] = ['label' => 'Logout (' . Yii::$app->user->identity->username . ')','url' => ['/site/logout'],'linkOptions' =>['data-method' => 'post']]
