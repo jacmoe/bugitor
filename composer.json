@@ -30,9 +30,10 @@
         "kartik-v/yii2-builder": "*",
         "kartik-v/yii2-detail-view": "*",
         "mervick/yii2-mthaml": "^0.1.3",
-        "talesoft/tale-jade": "^1.1",
+        "talesoft/tale-jade": "1.1.0",
         "cedx/yii2-mustache": "^0.4.1",
-        "jacmoe/yii2-tale-jade" : "dev-master"
+        "jacmoe/yii2-tale-jade" : "dev-master",
+        "talesoft/tale-jade": "1.1.1"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
