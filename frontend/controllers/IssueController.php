@@ -26,7 +26,7 @@ class IssueController extends Controller
 		$dataProvider = $searchModel->search($_GET);
 
         Url::remember();
-		return $this->render('index.html', [
+		return $this->render('index.jade', [
 			'dataProvider' => $dataProvider,
 			'searchModel' => $searchModel,
 		]);
@@ -64,7 +64,7 @@ class IssueController extends Controller
             $msg = (isset($e->errorInfo[2]))?$e->errorInfo[2]:$e->getMessage();
             $model->addError('_exception', $msg);
 		}
-        return $this->render('create.html', ['model' => $model,]);
+        return $this->render('create.jade', ['model' => $model,]);
 	}
 
 	/**

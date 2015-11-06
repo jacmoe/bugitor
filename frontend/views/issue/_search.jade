@@ -1,0 +1,26 @@
+{{use('yii/helpers/Html')}}
+{{use('yii/widgets/ActiveForm')}}
+.issue-search
+    -$form = ActiveForm::begin(['action'=> ['index'], 'method' => 'get'])
+    -$form->field(model, 'id')
+    -$form->field(model, 'tracker_id')
+    -$form->field(model, 'project_id')
+    -$form->field(model, 'subject')
+    -$form->field(model, 'description')
+    -$form->field(model, 'issue_category_id')
+    -$form->field(model, 'user_id')
+    -$form->field(model, 'issue_priority_id')
+    -$form->field(model, 'version_id')
+    -$form->field(model, 'assigned_to')
+    -$form->field(model, 'created')
+    -$form->field(model, 'modified')
+    -$form->field(model, 'done_ratio')
+    -$form->field(model, 'status')
+    -$form->field(model, 'closed')
+    -$form->field(model, 'pre_done_ratio')
+    -$form->field(model, 'updated_by')
+    -$form->field(model, 'last_comment')
+    .form-group
+      !=Html::submitButton('Search', ['class' => 'btn btn-primary'])
+      !=Html::resetButton('Reset', ['class' => 'btn btn-primary'])
+    -ActiveForm::end()

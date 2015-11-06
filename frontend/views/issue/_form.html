@@ -11,10 +11,10 @@
 
     <div class="">
         {{form.errorSummary(model) | raw}}
-        {{this.block_begin('main') | raw}}
+        {{this.beginBlock('main') | raw}}
 
         <p>
-            
+
             {{ form.field(model, 'tracker_id').textInput()| raw }}
             {{ form.field(model, 'project_id').textInput()| raw }}
             {{ form.field(model, 'subject').textInput({'maxlength' : 255})| raw }}
@@ -35,7 +35,7 @@
         </p>
         {{this.block_end('main')}}
 
-        
+
 
         {{ tabs_widget({
             'encodeLabels': false,

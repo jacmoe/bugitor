@@ -1,0 +1,10 @@
+-use yii\helpers\Html
+-$view->title = 'Create'
+-$view->params['breadcrumbs'][] = ['label' => 'Issues', 'url' => ['index']];
+-$view->params['breadcrumbs'][] = 'Issue Create';
+.issue-create
+  p.pull-left
+    !=Html::a('cancel', \yii\helpers\Url::previous(), ['class' => 'btn btn-default'])
+  .clearfix
+  
+  !=$view->render('_form.jade', array('model' => $model))

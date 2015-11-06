@@ -44,6 +44,11 @@ return [
             'renderers' => [
                 'jade' => [
                     'class' => 'jacmoe\talejade\JadeViewRenderer',
+                    'cachePath' => '@runtime/Jade/cache',
+                    'options' => [
+                        'pretty' => true,
+                        'lifeTime' => 0,//3600 -> 1 hour
+                    ],
                 ],
                 'haml' => [
                     'class' => 'mervick\mthaml\HamlViewRenderer',

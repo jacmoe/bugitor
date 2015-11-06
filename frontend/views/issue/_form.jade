@@ -1,0 +1,37 @@
+-use yii\helpers\Html
+-use yii\bootstrap\ActiveForm
+-use yii\bootstrap\Tabs
+.issue-form
+  
+  -$form = ActiveForm::begin(['layout' => 'horizontal', 'enableClientValidation' => false])
+
+  div
+    !=$form->errorSummary($model)
+    -$view->beginBlock('main')
+    p
+      !=$form->field($model, 'tracker_id')->textInput()
+      !=$form->field($model, 'tracker_id')->textInput()
+      !=$form->field($model, 'project_id')->textInput()
+      !=$form->field($model, 'subject')->textInput(['maxlength' => 255])
+      !=$form->field($model, 'description')->textarea(['rows' => 6])
+      !=$form->field($model, 'user_id')->textInput()
+      !=$form->field($model, 'issue_priority_id')->textInput()
+      !=$form->field($model, 'status')->textInput(['maxlength' => 255])
+      !=$form->field($model, 'closed')->textInput()
+      !=$form->field($model, 'pre_done_ratio')->textInput()
+      !=$form->field($model, 'issue_category_id')->textInput()
+      !=$form->field($model, 'version_id')->textInput()
+      !=$form->field($model, 'assigned_to')->textInput()
+      !=$form->field($model, 'done_ratio')->textInput()
+      !=$form->field($model, 'updated_by')->textInput()
+      !=$form->field($model, 'last_comment')->textInput()
+      !=$form->field($model, 'created')->textInput()
+      !=$form->field($model, 'modified')->textInput()
+
+    -$view->endBlock()
+
+    !=Tabs::widget(['encodeLabels' => false,'items' => [['label'   => 'Issue', 'content' => $view->blocks['main'], 'active'  => true ]]])
+    hr
+    !=Html::submitButton('<span class="glyphicon glyphicon-check"></span> '.($model->isNewRecord ? 'Create' : 'Save'), ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary'])
+
+    -ActiveForm::end()
