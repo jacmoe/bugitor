@@ -15,7 +15,7 @@ use yii\helpers\Url;
  */
 class IssueController extends Controller
 {
-    public $layout = 'main.html';
+    public $layout = 'main.jade';
 	/**
 	 * Lists all Issue models.
 	 * @return mixed
@@ -40,7 +40,7 @@ class IssueController extends Controller
 	public function actionView($id)
 	{
         Url::remember();
-        return $this->render('view.html', [
+        return $this->render('view.jade', [
 			'model' => $this->findModel($id),
 		]);
 	}
@@ -80,7 +80,7 @@ class IssueController extends Controller
 		if ($model->load($_POST) && $model->save()) {
             return $this->redirect(Url::previous());
 		} else {
-			return $this->render('update.html', [
+			return $this->render('update.jade', [
 				'model' => $model,
 			]);
 		}
