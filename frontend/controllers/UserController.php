@@ -2,115 +2,122 @@
 
 namespace frontend\controllers;
 
+use Yii;
 use common\models\User;
-use common\models\UserSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
-use yii\web\HttpException;
+use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use yii\helpers\Url;
 
 /**
  * UserController implements the CRUD actions for User model.
  */
 class UserController extends Controller
 {
-    public $layout = 'main.html';
-	/**
-	 * Lists all User models.
-	 * @return mixed
-	 */
-	public function actionIndex()
-	{
-		$searchModel = new UserSearch;
-		$dataProvider = $searchModel->search($_GET);
+    public $layout = 'main.jade';
 
-        Url::remember();
-		return $this->render('index.html', [
-			'dataProvider' => $dataProvider,
-			'searchModel' => $searchModel,
-		]);
-	}
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['post'],
+                ],
+            ],
+        ];
+    }
 
-	/**
-	 * Displays a single User model.
-	 * @param integer $id
-	 * @return mixed
-	 */
-	public function actionView($id)
-	{
-        Url::remember();
-        return $this->render('view.html', [
-			'model' => $this->findModel($id),
-		]);
-	}
+    /**
+     * Lists all User models.
+     * @return mixed
+     */
+    public function actionIndex()
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => User::find(),
+        ]);
 
-	/**
-	 * Creates a new User model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 * @return mixed
-	 */
-	public function actionCreate()
-	{
-		$model = new User;
+        return $this->render('index.jade', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
-		try {
-            if ($model->load($_POST) && $model->save()) {
-                return $this->redirect(Url::previous());
-            } elseif (!\Yii::$app->request->isPost) {
-                $model->load($_GET);
-            }
-        } catch (\Exception $e) {
-            $msg = (isset($e->errorInfo[2]))?$e->errorInfo[2]:$e->getMessage();
-            $model->addError('_exception', $msg);
-		}
-        return $this->render('create.html', ['model' => $model,]);
-	}
+    /**
+     * Displays a single User model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionView($id)
+    {
+        return $this->render('view.jade', [
+            'model' => $this->findModel($id),
+        ]);
+    }
 
-	/**
-	 * Updates an existing User model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id
-	 * @return mixed
-	 */
-	public function actionUpdate($id)
-	{
-		$model = $this->findModel($id);
+    /**
+     * Creates a new User model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        $model = new User();
 
-		if ($model->load($_POST) && $model->save()) {
-            return $this->redirect(Url::previous());
-		} else {
-			return $this->render('update.html', [
-				'model' => $model,
-			]);
-		}
-	}
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view.jade', 'id' => $model->id]);
+        } else {
+            return $this->render('create.jade', [
+                'model' => $model,
+            ]);
+        }
+    }
 
-	/**
-	 * Deletes an existing User model.
-	 * If deletion is successful, the browser will be redirected to the 'index' page.
-	 * @param integer $id
-	 * @return mixed
-	 */
-	public function actionDelete($id)
-	{
-		$this->findModel($id)->delete();
-		return $this->redirect(Url::previous());
-	}
+    /**
+     * Updates an existing User model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
 
-	/**
-	 * Finds the User model based on its primary key value.
-	 * If the model is not found, a 404 HTTP exception will be thrown.
-	 * @param integer $id
-	 * @return User the loaded model
-	 * @throws HttpException if the model cannot be found
-	 */
-	protected function findModel($id)
-	{
-		if (($model = User::findOne($id)) !== null) {
-			return $model;
-		} else {
-			throw new HttpException(404, 'The requested page does not exist.');
-		}
-	}
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view.jade', 'id' => $model->id]);
+        } else {
+            return $this->render('update.jade', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+    /**
+     * Deletes an existing User model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index.jade']);
+    }
+
+    /**
+     * Finds the User model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return User the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = User::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
 }
