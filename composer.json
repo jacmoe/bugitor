@@ -32,9 +32,8 @@
         "mervick/yii2-mthaml": "^0.1.3",
         "talesoft/tale-jade": "1.1.0",
         "cedx/yii2-mustache": "^0.4.1",
-        "jacmoe/yii2-tale-jade" : "dev-master",
-        "jacmoe/yii2-gii-jade" : "0.1.2",
-        "talesoft/tale-jade": "1.1.1"
+        "jacmoe/yii2-tale-jade" : "*",
+        "jacmoe/yii2-gii-jade" : "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
