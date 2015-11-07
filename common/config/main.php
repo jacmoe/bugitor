@@ -1,7 +1,7 @@
 <?php
 return [
   'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
-  'layout' => 'main.php',
+  'layout' => 'main.jade',
   'components' => [
     'cache' => [
       'class' => 'yii\caching\FileCache',

@@ -34,3 +34,4 @@ backend/web/index.php
 console/runtime/logs/*
 frontend/web/index.php
 frontend/web/index-test.php
+frontend/runtime/Jade/cache/*
