@@ -10,27 +10,29 @@ class SignupCest
 
     /**
      * This method is called before each cest class test method
-     * @param \codeception_frontend\FunctionalTester $I
+     * @param \Codeception\Event\TestEvent $event
      */
-    public function _before($I)
+    public function _before($event)
     {
     }
 
     /**
      * This method is called after each cest class test method, even if test failed.
-     * @param \codeception_frontend\FunctionalTester $I
+     * @param \Codeception\Event\TestEvent $event
      */
-    public function _after($I)
+    public function _after($event)
     {
-        //reload default fixtures
-        $I->loadFixtures();
+        User::deleteAll([
+            'email' => 'tester.email@example.com',
+            'username' => 'tester',
+        ]);
     }
 
     /**
      * This method is called when test fails.
-     * @param \codeception_frontend\FunctionalTester $I
+     * @param \Codeception\Event\FailEvent $event
      */
-    public function _failed($I)
+    public function _fail($event)
     {
 
     }
@@ -83,6 +85,6 @@ class SignupCest
         ]);
 
         $I->expectTo('see that user logged in');
-        $I->see('Logout (tester)');
+        $I->seeLink('Logout (tester)');
     }
 }
