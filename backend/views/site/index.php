@@ -1,7 +1,8 @@
 <?php
+
 /* @var $this yii\web\View */
 
-$this->title = 'Dashboard | Bugitor Admin';
+$this->title = 'My Yii Application';
 ?>
 <div class="site-index">
 
