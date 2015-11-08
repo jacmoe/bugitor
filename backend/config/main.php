@@ -42,6 +42,8 @@ return [
       'allowActions' => [
         'site/*',
         'admin/*',
+        'gii/*',
+        'debug/*',
       ],
     ],
     'params' => $params,

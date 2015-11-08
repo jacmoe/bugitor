@@ -5,11 +5,10 @@
 /_____/\__,_/\__, /_/\__/\____/_/
             /____/
 
-A Yii powered issue tracker
+A [Yii](http://www.yiiframework.com/) powered issue tracker
 
-http://www.yiiframework.com/
-http://bitbucket.org/bugitor/bugitor/
-http://http://bugitor.bitbucket.org
+[http://bitbucket.org/bugitor/bugitor/](http://bitbucket.org/bugitor/bugitor/)
+[http://http://bugitor.bitbucket.org](http://http://bugitor.bitbucket.org)
 
 Copyright (C) 2009 - 2015 Bugitor Team
 
@@ -33,9 +32,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 # About
-Bugitor is an issue tracker written in PHP using the Yii Framework (http://www.yiiframework.com/).
-Home page: http://bugitor.bitbucket.org
-Repository: https://bitbucket.org/bugitor/bugitor
+Bugitor is an issue tracker written in PHP using the Yii Framework.
 
 # ACHTUNG
 Bugitor is currently undergoing *MAJOR* refactoring, including upgrade from Yii 1.x to Yii 2.x
