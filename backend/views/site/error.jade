@@ -1,0 +1,9 @@
+-use yii\helpers\Html
+-$view->title = $name
+-$view->params['breadcrumbs'][] = $view->title;
+.site-error
+  h1 #{$view->title}
+  .alert.alert-danger
+    =$message
+  p The above error occurred while the Web server was processing your request.
+  p Please contact us if you think this is a server error. Thank you.

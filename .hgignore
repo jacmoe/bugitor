@@ -37,3 +37,4 @@ frontend/web/index-test.php
 frontend/runtime/Jade/cache/*
 frontend/views/site/backup/*
 frontend/runtime/*
+backend/views/site/backup/*
