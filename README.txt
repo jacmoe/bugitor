@@ -8,8 +8,8 @@
 A Yii powered issue tracker
 
 http://www.yiiframework.com/
-http://bitbucket.org/jacmoe/bugitor/
-http://tracker.ogitor.org/projects/bugitor
+http://bitbucket.org/bugitor/bugitor/
+http://http://bugitor.bitbucket.org
 
 Copyright (C) 2009 - 2015 Bugitor Team
 
@@ -34,8 +34,8 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 # About
 Bugitor is an issue tracker written in PHP using the Yii Framework (http://www.yiiframework.com/).
-Home page: http://tracker.ogitor.org/projects/bugitor
-Repository: https://bitbucket.org/jacmoe/bugitor
+Home page: http://bugitor.bitbucket.org
+Repository: https://bitbucket.org/bugitor/bugitor
 
 # ACHTUNG
 Bugitor is currently undergoing *MAJOR* refactoring, including upgrade from Yii 1.x to Yii 2.x
