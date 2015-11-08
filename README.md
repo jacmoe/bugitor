@@ -8,7 +8,8 @@
 ~~~
 A [Yii](http://www.yiiframework.com/) powered issue tracker
 
-[http://bitbucket.org/bugitor/bugitor/](http://bitbucket.org/bugitor/bugitor/)
+[http://bitbucket.org/bugitor/bugitor/](http://bitbucket.org/bugitor/bugitor/)  
+
 [http://http://bugitor.bitbucket.org](http://http://bugitor.bitbucket.org)
 
 Copyright (C) 2009 - 2015 Bugitor Team
