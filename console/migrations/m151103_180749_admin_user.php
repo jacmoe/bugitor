@@ -13,7 +13,7 @@ class m151103_180749_admin_user extends Migration
           $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
       }
 
-      $this->insert('user', array(
+      $this->insert('{{%user}}', array(
           "id" => "2",
           "username" => "admin",
           "status" => 10,
@@ -26,7 +26,7 @@ class m151103_180749_admin_user extends Migration
 
     public function down()
     {
-      $this->delete('user', array('id' => 2));
+      $this->delete('{{%user}}', array('id' => 2));
     }
 
     /*
