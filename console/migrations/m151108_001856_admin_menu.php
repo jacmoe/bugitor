@@ -29,7 +29,7 @@ class m151108_001856_admin_menu extends Migration
 
     public function down()
     {
-      $this->dropTable(Configs::menuTable());
+      $this->dropTable("{{%menu}}");
     }
 
     /*
