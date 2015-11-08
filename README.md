@@ -1,10 +1,11 @@
+~~~
     ____              _ __
    / __ )__  ______ _(_) /_____  _____
   / __  / / / / __ `/ / __/ __ \/ ___/
  / /_/ / /_/ / /_/ / / /_/ /_/ / /
 /_____/\__,_/\__, /_/\__/\____/_/
             /____/
-
+~~~
 A [Yii](http://www.yiiframework.com/) powered issue tracker
 
 [http://bitbucket.org/bugitor/bugitor/](http://bitbucket.org/bugitor/bugitor/)
