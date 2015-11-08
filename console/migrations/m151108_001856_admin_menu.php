@@ -3,6 +3,9 @@
 use yii\db\Schema;
 use yii\db\Migration;
 
+
+// Installs the menu table into the database
+// to be used by the mdm Rbac Admin module
 class m151108_001856_admin_menu extends Migration
 {
     public function up()
