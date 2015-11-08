@@ -6,6 +6,9 @@ return [
     'cache' => [
       'class' => 'yii\caching\FileCache',
     ], // cache
+    'authManager' => [
+        'class' => 'yii\rbac\DbManager',
+    ],
     'urlManager' => [
         'enablePrettyUrl' => true,
         'showScriptName' => false,

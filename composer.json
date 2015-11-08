@@ -19,8 +19,7 @@
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
         "jacmoe/yii2-tale-jade": "^1.1",
-        "jacmoe/yii2-gii-jade": "^0.1.5",
-        "mdmsoft/yii2-admin": "~3.0"
+        "jacmoe/yii2-gii-jade": "^0.1.5"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

@@ -9,17 +9,12 @@ $params = array_merge(
 return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log', 'admin'],
-    'modules' => [
-      'admin' => [
-        'class' => 'mdm\admin\Module',
-      ],
-    ],// modules
+    'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
-        'authManager' => [
-          'class' => 'yii\rbac\PhpManager',
-        ],
+        /*'authManager' => [
+          'class' => 'yii\rbac\DbManager',
+      ],*/
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
@@ -52,7 +47,7 @@ return [
             'errorAction' => 'site/error',
         ],// errorHandler
     ],// components
-    'as access' => [
+    /*'as access' => [
       'class' => 'mdm\admin\classes\AccessControl',
       'allowActions' => [
         'site/*',
@@ -60,6 +55,6 @@ return [
         'gii/*',
         'debug/*',
       ],
-    ],
+  ], // as access */
     'params' => $params,
 ];
