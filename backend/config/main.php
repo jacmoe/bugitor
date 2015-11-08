@@ -10,9 +10,16 @@ return [
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
-    'bootstrap' => ['log'],
-    'modules' => [],
+    'bootstrap' => ['log', 'admin'],
+    'modules' => [
+      'admin' => [
+        'class' => 'mdm\admin\Module',
+      ],
+    ],// modules
     'components' => [
+        'authManager' => [
+          'class' => 'yii\rbac\PhpManager',
+        ],
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
@@ -29,6 +36,13 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+    ],// components
+    'as access' => [
+      'class' => 'mdm\admin\classes\AccessControl',
+      'allowActions' => [
+        'site/*',
+        'admin/*',
+      ],
     ],
     'params' => $params,
 ];
