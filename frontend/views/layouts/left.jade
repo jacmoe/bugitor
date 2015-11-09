@@ -1,0 +1,28 @@
+aside.main-sidebar
+  section.sidebar
+    // sidebar user panel
+    .user-panel
+      .pull-left.image
+        img.img-circle(src=$directoryAsset."/img/user2-160x160.jpg", alt="User Image")
+      .pull-left.info
+        p Alexander Pierce
+        a(href="#")
+          i.fa.fa-circle.text-success Online
+    // search form
+    form.sidebar-form(action="#", method="get")
+      .input-group
+        input.form-control(type="text", name="q", placeholder="Search...")
+        span.input-group-btn
+          button.btn.btn-flat(type="submit", name="search", id="search-btn")
+            i.fa.fa-search
+
+    -
+      $items =
+      [
+        ['label' => 'Navigation', 'options' => ['class' => 'header']],
+        ['label' => 'Gii', 'icon' => 'fa fa-file-code-o', 'url' => ['/gii']],
+        ['label' => 'Debug', 'icon' => 'fa fa-dashboard', 'url' => ['/debug']],
+        ['label' => 'Sign in', 'icon' => 'fa fa-lock', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
+      ]
+
+    !=dmstr\widgets\Menu::widget(['options' => ['class' => 'sidebar-menu'],'items' => $items])
