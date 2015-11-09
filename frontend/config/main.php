@@ -37,6 +37,17 @@ return [
                 ],
             ],
         ],// assetManager
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'enableStrictParsing' => false,
+            'rules' => [
+                '/' => 'site/index',
+                '/about' => 'site/about',
+                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+            ],
+        ],// urlManager
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [

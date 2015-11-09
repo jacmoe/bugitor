@@ -39,3 +39,4 @@ frontend/views/site/backup/*
 frontend/runtime/*
 backend/views/site/backup/*
 frontend/views/layouts/backup/*
+backend/views/admin/backup/*
