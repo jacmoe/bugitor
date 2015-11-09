@@ -32,6 +32,7 @@ aside.main-sidebar
         ['label' => 'Gii', 'icon' => 'fa fa-file-code-o', 'url' => ['/gii']],
         ['label' => 'Debug', 'icon' => 'fa fa-dashboard', 'url' => ['/debug']],
         ['label' => 'Sign in', 'icon' => 'fa fa-lock', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
+        ['label' => 'Sign up', 'icon' => 'fa fa-user', 'url' => ['site/signup'], 'visible' => Yii::$app->user->isGuest],
       ]
 
     !=dmstr\widgets\Menu::widget(['options' => ['class' => 'sidebar-menu'],'items' => $items])

@@ -3,7 +3,8 @@
 .content-wrapper
   section.content-header
     if (isset($view->blocks['content-header']))
-      h1 !=$view->blocks['content-header']
+      h1
+        !=$view->blocks['content-header']
     else
       h1
         if ($view->title !== null)

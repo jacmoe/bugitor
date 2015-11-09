@@ -25,6 +25,11 @@
       .col-xs-4
         !=Html::submitButton('Sign in', ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button'])
     -ActiveForm::end()
-    !=Html::a('I forgot my password', ['site/request-password-reset'])
     br
+    !=Html::a('I forgot my password', ['site/request-password-reset'])
+    hr
+    |Not a member? 
     !=Html::a('Sign up', ['site/signup'])
+    hr
+    |Here by mistake? 
+    !=Html::a('Back to dashboard', ['site/index'])
