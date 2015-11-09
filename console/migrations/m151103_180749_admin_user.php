@@ -14,7 +14,6 @@ class m151103_180749_admin_user extends Migration
       }
 
       $this->insert('{{%user}}', array(
-          "id" => "2",
           "username" => "admin",
           "status" => 10,
           "auth_key" => Yii::$app->security->generateRandomString(),
