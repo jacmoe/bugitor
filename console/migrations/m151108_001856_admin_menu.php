@@ -8,7 +8,7 @@ use yii\db\Migration;
 // to be used by the mdm Rbac Admin module
 class m151108_001856_admin_menu extends Migration
 {
-    public function up()
+    public function safeUp()
     {
       $menuTable = "{{%menu}}";
       $tableOptions = null;
@@ -27,7 +27,7 @@ class m151108_001856_admin_menu extends Migration
       ], $tableOptions);
     }
 
-    public function down()
+    public function safeDown()
     {
       $this->dropTable("{{%menu}}");
     }

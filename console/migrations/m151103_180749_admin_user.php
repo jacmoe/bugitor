@@ -5,7 +5,7 @@ use yii\db\Migration;
 
 class m151103_180749_admin_user extends Migration
 {
-    public function up()
+    public function safeUp()
     {
       $tableOptions = null;
       if ($this->db->driverName === 'mysql') {
@@ -24,7 +24,7 @@ class m151103_180749_admin_user extends Migration
       ));
     }
 
-    public function down()
+    public function safeDown()
     {
       $this->delete('{{%user}}', array('id' => 2));
     }

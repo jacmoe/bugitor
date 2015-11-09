@@ -16,7 +16,7 @@ class m151108_213153_rbac_init extends Migration
         return $authManager;
     }
 
-    public function up()
+    public function safeUp()
     {
         $authManager = $this->getAuthManager();
         $this->db = $authManager->db;
@@ -65,7 +65,7 @@ class m151108_213153_rbac_init extends Migration
         ], $tableOptions);
     }
 
-    public function down()
+    public function safeDown()
     {
         $authManager = $this->getAuthManager();
         $this->db = $authManager->db;

@@ -5,7 +5,7 @@ use yii\db\Migration;
 
 class m151108_223831_admin_user_role extends Migration
 {
-    public function up()
+    public function safeUp()
     {
         $this->update("{{%user}}",
             array(
@@ -14,7 +14,7 @@ class m151108_223831_admin_user_role extends Migration
         );
     }
 
-    public function down()
+    public function safeDown()
     {
         $this->update("{{%user}}",
             array(
@@ -23,14 +23,4 @@ class m151108_223831_admin_user_role extends Migration
         );
     }
 
-    /*
-    // Use safeUp/safeDown to run migration code within a transaction
-    public function safeUp()
-    {
-    }
-
-    public function safeDown()
-    {
-    }
-    */
 }
