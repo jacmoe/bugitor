@@ -39,7 +39,6 @@ html(lang=Yii::$app->language)
         -$menuItems[] = ['label' => 'Login', 'url' => ['/site/login']]
       else
         -$menuItems[] = ['label' => 'Gii', 'url' => ['/gii']]
-        -$menuItems[] = ['label' => 'Rbac', 'url' => ['/admin']]
         -$menuItems[] = ['label' => 'Logout (' . Yii::$app->user->identity->username . ')','url' => ['/site/logout'],'linkOptions' =>['data-method' => 'post']]
 
       !=Nav::widget(['options' => ['class' => 'navbar-nav navbar-right'],'items' => $menuItems,])
