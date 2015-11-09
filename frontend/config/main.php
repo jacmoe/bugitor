@@ -21,6 +21,9 @@ return [
         ],// user
         'assetManager' => [
             'bundles' => [
+                'dmstr\web\AdminLteAsset' => [
+                    'skin' => 'skin-purple',
+                ],
                 //'yii\bootstrap\BootstrapAsset' => false,
                 //'yii\validators\ValidationAsset' => false,
                 //'yii\web\YiiAsset' => false,

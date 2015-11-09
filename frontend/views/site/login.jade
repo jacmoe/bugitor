@@ -1,19 +1,30 @@
 -use yii\helpers\Html
 -use yii\bootstrap\ActiveForm
--$view->title = 'Login'
--$view->params['breadcrumbs'][] = $view->title;
-.site-login
-  h1 #{$view->title}
-  p Please fill out the following fields to login:
-  .row
-    .col-lg-5
-      -$form = ActiveForm::begin(['id' => 'login-form'])
-      !=$form->field($model, 'username')
-      !=$form->field($model, 'password')->passwordInput()
-      !=$form->field($model, 'rememberMe')->checkbox()
-      p
-        |If you forgot your password you can
-        !=Html::a('reset it', ['site/request-password-reset'])
-      .form-group
-        !=Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button'])
-      -ActiveForm::end()
+-$view->title = 'Sign In'
+-$view->params['breadcrumbs'][] = $view->title
+-
+  $fieldOptions1 = [
+  'options' => ['class' => 'form-group has-feedback'],
+  'inputTemplate' => "{input}<span class='glyphicon glyphicon-user form-control-feedback'></span>"
+  ]
+-
+  $fieldOptions2 = [
+  'options' => ['class' => 'form-group has-feedback'],
+  'inputTemplate' => "{input}<span class='glyphicon glyphicon-lock form-control-feedback'></span>"
+  ]
+.login-box
+  .login-logo Bugitor
+  .login-box-body
+    p.login-box-msg Sign in to start your session
+    -$form = ActiveForm::begin(['id' => 'login-form'])
+    !=$form->field($model, 'username', $fieldOptions1)->label(false)->textInput(['placeholder' => $model->getAttributeLabel('username')])
+    !=$form->field($model, 'password', $fieldOptions2)->label(false)->passwordInput(['placeholder' => $model->getAttributeLabel('password')])
+    .row
+      .col-xs-8
+        !=$form->field($model, 'rememberMe')->checkbox()
+      .col-xs-4
+        !=Html::submitButton('Sign in', ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button'])
+    -ActiveForm::end()
+    !=Html::a('I forgot my password', ['site/request-password-reset'])
+    br
+    !=Html::a('Sign up', ['site/signup'])

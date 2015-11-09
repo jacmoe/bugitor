@@ -1,16 +1,33 @@
 -use yii\helpers\Html
 -use yii\bootstrap\ActiveForm
 -$view->title = 'Sign Up'
--$view->params['breadcrumbs'][] = $view->title;
-.site-signup
-  h1 #{$view->title}
-  p Please fill out the following fields to sign up:
-  .row
-    .col-lg-5
-      -$form = ActiveForm::begin(['id' => 'signup-form'])
-      !=$form->field($model, 'username')
-      !=$form->field($model, 'email')
-      !=$form->field($model, 'password')->passwordInput()
-      .form-group
-        !=Html::submitButton('Sign Up', ['class' => 'btn btn-primary', 'name' => 'signup-button'])
-      -ActiveForm::end()
+-$view->params['breadcrumbs'][] = $view->title
+-
+  $fieldOptions1 = [
+  'options' => ['class' => 'form-group has-feedback'],
+  'inputTemplate' => "{input}<span class='glyphicon glyphicon-user form-control-feedback'></span>"
+  ]
+-
+  $fieldOptions2 = [
+  'options' => ['class' => 'form-group has-feedback'],
+  'inputTemplate' => "{input}<span class='glyphicon glyphicon-envelope form-control-feedback'></span>"
+  ]
+-
+  $fieldOptions3 = [
+  'options' => ['class' => 'form-group has-feedback'],
+  'inputTemplate' => "{input}<span class='glyphicon glyphicon-lock form-control-feedback'></span>"
+  ]
+.login-box
+  .login-logo Bugitor
+  .login-box-body
+    p.login-box-msg Please fill out the following fields to sign up:
+    -$form = ActiveForm::begin(['id' => 'signup-form'])
+    !=$form->field($model, 'username', $fieldOptions1)->label(false)->textInput(['placeholder' => $model->getAttributeLabel('username')])
+    !=$form->field($model, 'email', $fieldOptions2)->label(false)->textInput(['placeholder' => $model->getAttributeLabel('email')])
+    !=$form->field($model, 'password', $fieldOptions3)->label(false)->passwordInput(['placeholder' => $model->getAttributeLabel('password')])
+    .row
+      .col-xs-8
+      .col-xs-4
+        !=Html::submitButton('Sign up', ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'signup-button'])
+    -ActiveForm::end()
+    !=Html::a('Sign in', ['site/login'])
