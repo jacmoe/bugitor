@@ -1,0 +1,28 @@
+-use yii\helpers\Html
+-use yii\grid\GridView
+-$view->title = Yii::t('app', 'Projects')
+-$view->params['breadcrumbs'][] = $view->title
+.project-index
+  h1
+    !=Html::encode($view->title)
+
+  p
+    !=Html::a(Yii::t('app', 'Create Project'), ['create'], ['class' => 'btn btn-success'])
+
+
+  -
+    $columns = [
+    ['class' => 'yii\grid\SerialColumn'],
+    'id',
+    'name',
+    'description:ntext',
+    'homepage',
+    'public',
+    //'created',
+    //'modified',
+    //'identifier',
+    ['class' => 'yii\grid\ActionColumn'],
+    ]
+
+  !=GridView::widget(['dataProvider' => $dataProvider,  'columns' => $columns ])
+

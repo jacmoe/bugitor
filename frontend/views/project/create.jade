@@ -1,0 +1,9 @@
+-use yii\helpers\Html
+-$view->title = Yii::t('app', 'Create Project')
+-$view->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Projects'), 'url' => ['index']]
+-$view->params['breadcrumbs'][] = $view->title
+.project-create
+  h1
+    !=Html::encode($view->title)
+
+  !=$view->render('_form', ['model' => $model,])

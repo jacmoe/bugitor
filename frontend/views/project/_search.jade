@@ -1,0 +1,17 @@
+-use yii\helpers\Html
+-use yii\widgets\ActiveForm
+.project-search
+  -$form = ActiveForm::begin(['action' => ['index'],'method' => 'get',])
+  !=$form->field($model, 'id')
+  !=$form->field($model, 'name')
+  !=$form->field($model, 'description')
+  !=$form->field($model, 'homepage')
+  !=$form->field($model, 'public')
+  //-!=$form->field($model, 'created')
+  //-!=$form->field($model, 'modified')
+  //-!=$form->field($model, 'identifier')
+  .form-group
+     !=Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary'])
+     !=Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default'])
+
+  -ActiveForm::end()
