@@ -1,0 +1,12 @@
+-use yii\helpers\Html
+-use yii\widgets\ListView
+-$view->title = Yii::t('app', 'Users')
+-$view->params['breadcrumbs'][] = $view->title
+.user-index
+  h1
+    !=Html::encode($view->title)
+
+  p
+    !=Html::a(Yii::t('app', 'Create User'), ['create'], ['class' => 'btn btn-success'])
+
+  !=ListView::widget(['dataProvider' => $dataProvider,'itemOptions' => ['class' => 'item'],'itemView' => '_view'])
