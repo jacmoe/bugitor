@@ -8,6 +8,7 @@ require(__DIR__ . '/params-local.php')
 
 return [
     'id' => 'app-backend',
+    'name' => 'Bugitor Admin',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
