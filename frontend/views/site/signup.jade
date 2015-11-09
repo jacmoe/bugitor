@@ -30,4 +30,9 @@
       .col-xs-4
         !=Html::submitButton('Sign up', ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'signup-button'])
     -ActiveForm::end()
+    hr
+    |Already a member? 
     !=Html::a('Sign in', ['site/login'])
+    hr
+    |Here by mistake? 
+    !=Html::a('Back to dashboard', ['site/index'])
