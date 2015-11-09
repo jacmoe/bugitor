@@ -20,7 +20,8 @@
         "yiisoft/yii2-swiftmailer": "*",
         "jacmoe/yii2-tale-jade": "^1.1",
         "jacmoe/yii2-gii-jade": "^0.1.5",
-        "dmstr/yii2-adminlte-asset": "2.*"
+        "dmstr/yii2-adminlte-asset": "2.*",
+        "cebe/yii2-gravatar": "1.*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

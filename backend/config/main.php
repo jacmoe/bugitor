@@ -1,9 +1,9 @@
 <?php
 $params = array_merge(
-    require(__DIR__ . '/../../common/config/params.php'),
-    require(__DIR__ . '/../../common/config/params-local.php'),
-    require(__DIR__ . '/params.php'),
-    require(__DIR__ . '/params-local.php')
+require(__DIR__ . '/../../common/config/params.php'),
+require(__DIR__ . '/../../common/config/params-local.php'),
+require(__DIR__ . '/params.php'),
+require(__DIR__ . '/params-local.php')
 );
 
 return [
@@ -13,8 +13,26 @@ return [
     'bootstrap' => ['log'],
     'components' => [
         /*'authManager' => [
-          'class' => 'yii\rbac\PhpManager',
-      ],*/
+        'class' => 'yii\rbac\PhpManager',
+    ],*/
+    'assetManager' => [
+        'bundles' => [
+            'dmstr\web\AdminLteAsset' => [
+                'skin' => 'skin-red',
+            ],
+            //'yii\bootstrap\BootstrapAsset' => false,
+            //'yii\validators\ValidationAsset' => false,
+            //'yii\web\YiiAsset' => false,
+            //'yii\widgets\ActiveFormAsset' => false,
+            //'yii\bootstrap\BootstrapPluginAsset' => false,
+            'yii\web\JqueryAsset' => [
+                'js' => [
+                    //YII_ENV_DEV ? 'jquery.js' : 'jquery.min.js'
+                    'jquery.min.js',
+                    ]
+                ],
+            ],
+        ],// assetManager
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
@@ -33,13 +51,13 @@ return [
         ],
     ],// components
     /*'as access' => [
-      'class' => 'mdm\admin\classes\AccessControl',
-      'allowActions' => [
-        'site/*',
-        'admin/*',
-        'gii/*',
-        'debug/*',
-      ],
-  ],// as access */
-    'params' => $params,
+    'class' => 'mdm\admin\classes\AccessControl',
+    'allowActions' => [
+    'site/*',
+    'admin/*',
+    'gii/*',
+    'debug/*',
+],
+],// as access */
+'params' => $params,
 ];
