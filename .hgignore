@@ -38,3 +38,4 @@ frontend/runtime/Jade/cache/*
 frontend/views/site/backup/*
 frontend/runtime/*
 backend/views/site/backup/*
+frontend/views/layouts/backup/*

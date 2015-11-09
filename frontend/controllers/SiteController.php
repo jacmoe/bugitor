@@ -82,6 +82,8 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        $this->layout = '//main-login';
+
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -125,6 +127,8 @@ class SiteController extends Controller
      */
     public function actionSignup()
     {
+        $this->layout = '//main-login';
+
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
@@ -146,6 +150,8 @@ class SiteController extends Controller
      */
     public function actionRequestPasswordReset()
     {
+        $this->layout = '//main-login';
+
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
@@ -171,6 +177,8 @@ class SiteController extends Controller
      */
     public function actionResetPassword($token)
     {
+        $this->layout = '//main-login';
+
         try {
             $model = new ResetPasswordForm($token);
         } catch (InvalidParamException $e) {
