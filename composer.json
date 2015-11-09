@@ -21,7 +21,10 @@
         "jacmoe/yii2-tale-jade": "^1.1",
         "jacmoe/yii2-gii-jade": "^0.1.5",
         "dmstr/yii2-adminlte-asset": "2.*",
-        "cebe/yii2-gravatar": "1.*"
+        "cebe/yii2-gravatar": "1.*",
+        "wbraganca/yii2-dynamicform": "*",
+        "raoul2000/yii2-workflow": "*",
+        "raoul2000/yii2-workflow-view": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

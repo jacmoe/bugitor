@@ -8,9 +8,9 @@ use common\models\LoginForm;
 use yii\filters\VerbFilter;
 
 /**
- * Site controller
+ * Admin controller
  */
-class SiteController extends Controller
+class AdminController extends Controller
 {
     /**
      * @inheritdoc

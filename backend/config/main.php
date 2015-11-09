@@ -11,6 +11,7 @@ return [
     'name' => 'Bugitor Admin',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
+    'defaultRoute' => 'admin/index',
     'bootstrap' => ['log'],
     'components' => [
         /*'authManager' => [
@@ -36,8 +37,19 @@ return [
         ],// assetManager
         'user' => [
             'identityClass' => 'common\models\User',
+            'loginUrl' => ['/admin/login'],
             'enableAutoLogin' => true,
         ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'enableStrictParsing' => false,
+            'rules' => [
+                '/' => 'admin/index',
+                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+            ],
+        ],// urlManager
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -48,7 +60,7 @@ return [
             ],
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'admin/error',
         ],
     ],// components
     /*'as access' => [
