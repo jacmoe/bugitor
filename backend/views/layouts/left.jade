@@ -7,14 +7,14 @@ aside.main-sidebar
         if (Yii::$app->user->isGuest)
           !=\cebe\gravatar\Gravatar::widget(['email' => '','options' => ['alt' => '', 'class' => 'img-circle'], 'size' => 45])
         else
-          !=\cebe\gravatar\Gravatar::widget(['email' => 'jacmoe.dk@gmail.com','options' => ['alt' => 'Jacob Moen', 'class' => 'img-circle'], 'size' => 45])
+          !=\cebe\gravatar\Gravatar::widget(['email' => Yii::$app->user->identity->email,'options' => ['alt' => 'Jacob Moen', 'class' => 'img-circle'], 'size' => 45])
       .pull-left.info
         if (Yii::$app->user->isGuest)
           p Not signed in
           a(href="#")
             i.fa.fa-circle.text-gray Offline
         else
-          p Jacob Moen
+          p #{Yii::$app->user->identity->username}
           a(href="#")
             i.fa.fa-circle.text-success Online
     // search form

@@ -75,22 +75,23 @@ header.main-header
                   a(href="#") View all tasks
           li.dropdown.user.user-menu
             a.dropdown-toggle(href="#", data-toggle="dropdown")
-              !=\cebe\gravatar\Gravatar::widget(['email' => 'jacmoe.dk@gmail.com','options' => ['alt' => 'Jacob Moen', 'class' => 'user-image'], 'size' => 25])
+              !=\cebe\gravatar\Gravatar::widget(['email' => Yii::$app->user->identity->email,'options' => ['alt' => '#{Yii::$app->user->identity->username}', 'class' => 'user-image'], 'size' => 25])
               span.hidden-xs
-                |Jacob Moen
+                !=Yii::$app->user->identity->username
             ul.dropdown-menu
               li.user-header
-                !=\cebe\gravatar\Gravatar::widget(['email' => 'jacmoe.dk@gmail.com','options' => ['alt' => 'Jacob Moen', 'class' => 'img-circle']])
+                !=\cebe\gravatar\Gravatar::widget(['email' => Yii::$app->user->identity->email,'options' => ['alt' => '#{Yii::$app->user->identity->username}', 'class' => 'img-circle']])
                 p
-                  |Jacob Moen - Web Developer
-                  small Member since Nov. 2012
+                  !=Yii::$app->user->identity->username
+                  small Member since
+                    !=date('F Y',Yii::$app->user->identity->created_at)
               li.user-body
                 .col-xs-4.text-center
-                  a(href="#") Followers
+                  a(href="#") Link
                 .col-xs-4.text-center
-                  a(href="#") Sales
+                  a(href="#") Link
                 .col-xs-4.text-center
-                  a(href="#") Friends
+                  a(href="#") Link
               li.user-footer
                 .pull-left
                   <a href="#" class="btn btn-default btn-flat">Profile</a>

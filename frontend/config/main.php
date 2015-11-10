@@ -48,6 +48,19 @@ return [
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ],
         ],// urlManager
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'google' => [
+                    'class' => 'yii\authclient\clients\GoogleOpenId'
+                ],
+                /*'facebook' => [
+                    'class' => 'yii\authclient\clients\Facebook',
+                    'clientId' => 'facebook_client_id',
+                    'clientSecret' => 'facebook_client_secret',
+                ],*/
+            ],
+        ],// authClientCollection
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
