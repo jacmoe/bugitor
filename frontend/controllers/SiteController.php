@@ -58,6 +58,10 @@ class SiteController extends Controller
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
+            'auth' => [
+              'class' => 'yii\authclient\AuthAction',
+              'successCallback' => [$this, 'oAuthSuccess'],
+            ],
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
@@ -108,6 +112,27 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    /**
+    * This function will be triggered when user is successfuly authenticated using some oAuth client.
+    *
+    * @param yii\authclient\ClientInterface $client
+    * @return boolean|yii\web\Response
+    */
+    public function oAuthSuccess($client) {
+      // get user data from client
+      $userAttributes = $client->getUserAttributes();
+      if($client->getName() === 'twitter') {
+          // if the twitter id matches
+          $the_user = \common\models\User::find()->where(['twitter_id' => (string)$userAttributes['id']])->one();
+          if ($the_user != null) {
+              // log the user in
+              return Yii::$app->user->login($the_user, 3600 * 24 * 30);
+          }
+          // if the user hasn't got a twitter id associated, then we should ask them to log in and associate
+      }
+      // to do
     }
 
     /**
