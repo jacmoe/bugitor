@@ -40,4 +40,4 @@ aside.main-sidebar
     if (!Yii::$app->user->isGuest)
       ul.sidebar-menu
         li
-          !=Html::a('<i class="fa fa-lock"></i> Sign out',['/admin/logout'],['data-method' => 'post'])
+          !=Html::a('<i class="fa fa-lock"></i><span>Sign out</span>',['/admin/logout'],['data-method' => 'post'])
