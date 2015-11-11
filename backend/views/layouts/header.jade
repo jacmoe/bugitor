@@ -88,11 +88,11 @@ header.main-header
                     !=date('F Y',Yii::$app->user->identity->created_at)
               li.user-body
                 .col-xs-4.text-center
-                  a(href="#") Followers
+                  //-a(href="#") Followers
                 .col-xs-4.text-center
-                  a(href="#") Sales
+                  //-a(href="#") Sales
                 .col-xs-4.text-center
-                  a(href="#") Friends
+                  //-a(href="#") Friends
               li.user-footer
                 .pull-left
                   !=Html::a('Profile', Url::to(['/user/profile', 'id' => Yii::$app->user->identity->id]) , ['class' => 'btn btn-default btn-flat'])

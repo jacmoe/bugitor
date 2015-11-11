@@ -59,5 +59,5 @@ return [
             'as frontend' => 'dektrium\user\filters\FrontendFilter',
         ],// user
     ], //modules
-'params' => $params,
+    'params' => $params,
 ];
