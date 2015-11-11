@@ -12,14 +12,11 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
-    'user' => [
-        'as frontend' => 'dektrium\user\filters\FrontendFilter',
-    ],// user
-    'assetManager' => [
-        'bundles' => [
-            'dmstr\web\AdminLteAsset' => [
-                'skin' => 'skin-purple',
-            ],
+        'assetManager' => [
+            'bundles' => [
+                'dmstr\web\AdminLteAsset' => [
+                    'skin' => 'skin-purple',
+                ],
             //'yii\bootstrap\BootstrapAsset' => false,
             //'yii\validators\ValidationAsset' => false,
             //'yii\web\YiiAsset' => false,
@@ -57,14 +54,10 @@ return [
             'errorAction' => 'site/error',
         ],// errorHandler
     ],// components
-    /*'as access' => [
-    'class' => 'mdm\admin\classes\AccessControl',
-    'allowActions' => [
-    'site/*',
-    'admin/*',
-    'gii/*',
-    'debug/*',
-],
-], // as access */
+    'modules' => [
+        'user' => [
+            'as frontend' => 'dektrium\user\filters\FrontendFilter',
+        ],// user
+    ], //modules
 'params' => $params,
 ];

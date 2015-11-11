@@ -32,9 +32,6 @@ return [
                 ],
             ],
         ],// assetManager
-        'user' => [
-            'as backend' => 'dektrium\user\filters\BackendFilter',
-        ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
@@ -61,6 +58,7 @@ return [
     'modules' => [
         'user' => [
             'enableRegistration' => false,
+            'as backend' => 'dektrium\user\filters\BackendFilter',
         ],
     ],
 'params' => $params,
