@@ -22,7 +22,6 @@
         "jacmoe/yii2-gii-jade": "*",
         "dmstr/yii2-adminlte-asset": "2.*",
         "cebe/yii2-gravatar": "1.*",
-        "wbraganca/yii2-dynamicform": "*",
         "raoul2000/yii2-workflow": "*",
         "raoul2000/yii2-workflow-view": "*",
         "rmrevin/yii2-rbac-command": "1.3.*",
