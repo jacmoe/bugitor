@@ -1,4 +1,5 @@
 -use yii\helpers\Html
+-use yii\helpers\Url
 header.main-header
   !=Html::a('<span class="logo-mini">APP</span><span class="logo-lg">' . Yii::$app->name . '</span>', Yii::$app->homeUrl, ['class' => 'logo'])
   nav.navbar.navbar-static-top
@@ -94,7 +95,7 @@ header.main-header
                   a(href="#") Link
               li.user-footer
                 .pull-left
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  !=Html::a('Profile', Url::to(['/user/profile', 'id' => Yii::$app->user->identity->id]) , ['class' => 'btn btn-default btn-flat'])
                 .pull-right
                   !=Html::a('Sign out',['/site/logout'],['data-method' => 'post', 'class' => 'btn btn-default btn-flat'])
           li
