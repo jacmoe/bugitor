@@ -97,7 +97,7 @@ header.main-header
                 .pull-left
                   !=Html::a('Profile', Url::to(['/user/profile', 'id' => Yii::$app->user->identity->id]) , ['class' => 'btn btn-default btn-flat'])
                 .pull-right
-                  !=Html::a('Sign out',['/site/logout'],['data-method' => 'post', 'class' => 'btn btn-default btn-flat'])
+                  !=Html::a('Sign out',['/user/logout'],['data-method' => 'post', 'class' => 'btn btn-default btn-flat'])
           li
             a(href="#", data-toggle="control-sidebar")
               i.fa.fa-gears
