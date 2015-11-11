@@ -58,7 +58,7 @@ return [
     'modules' => [
         'user' => [
             'enableRegistration' => false,
-            'as backend' => 'dektrium\user\filters\BackendFilter',
+            //'as backend' => 'dektrium\user\filters\BackendFilter',
         ],
     ],
 'params' => $params,
