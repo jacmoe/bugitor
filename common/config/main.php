@@ -27,6 +27,7 @@ return [
         ],
         'user' => [
             'class' => 'dektrium\user\Module',
+            'admins' => ['admin', 'jacmoe'],
         ],
     ],
 ];// config

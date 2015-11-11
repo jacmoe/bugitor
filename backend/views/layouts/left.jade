@@ -30,14 +30,14 @@ aside.main-sidebar
       [
         ['label' => 'Navigation', 'options' => ['class' => 'header']],
         ['label' => 'Dashboard', 'icon' => 'fa fa-file-code-o', 'url' => ['/admin/index']],
-        ['label' => 'Users', 'icon' => 'fa fa-user', 'url' => ['user/index'], 'visible' => !Yii::$app->user->isGuest],
+        ['label' => 'User Management', 'icon' => 'fa fa-user', 'url' => ['/user/admin'], 'visible' => !Yii::$app->user->isGuest],
         ['label' => 'Gii', 'icon' => 'fa fa-file-code-o', 'url' => ['/gii']],
         ['label' => 'Debug', 'icon' => 'fa fa-dashboard', 'url' => ['/debug']],
-        ['label' => 'Sign in', 'icon' => 'fa fa-lock', 'url' => ['admin/login'], 'visible' => Yii::$app->user->isGuest],
+        ['label' => 'Sign in', 'icon' => 'fa fa-lock', 'url' => ['user/login'], 'visible' => Yii::$app->user->isGuest],
       ]
 
     !=dmstr\widgets\Menu::widget(['options' => ['class' => 'sidebar-menu'],'items' => $items])
     if (!Yii::$app->user->isGuest)
       ul.sidebar-menu
         li
-          !=Html::a('<i class="fa fa-lock"></i><span>Sign out</span>',['/admin/logout'],['data-method' => 'post'])
+          !=Html::a('<i class="fa fa-lock"></i><span>Sign out</span>',['/user/logout'],['data-method' => 'post'])

@@ -30,16 +30,14 @@ aside.main-sidebar
       [
         ['label' => 'Navigation', 'options' => ['class' => 'header']],
         ['label' => 'Dashboard', 'icon' => 'fa fa-file-code-o', 'url' => ['/site/index']],
-        ['label' => 'Projects', 'icon' => 'fa fa-file-code-o', 'url' => ['/project/index']],
-        ['label' => 'Issues', 'icon' => 'fa fa-file-code-o', 'url' => ['/issue/index']],
         ['label' => 'Gii', 'icon' => 'fa fa-file-code-o', 'url' => ['/gii']],
         ['label' => 'Debug', 'icon' => 'fa fa-dashboard', 'url' => ['/debug']],
-        ['label' => 'Sign in', 'icon' => 'fa fa-lock', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
-        ['label' => 'Sign up', 'icon' => 'fa fa-user', 'url' => ['site/signup'], 'visible' => Yii::$app->user->isGuest],
+        ['label' => 'Sign in', 'icon' => 'fa fa-lock', 'url' => ['/user/login'], 'visible' => Yii::$app->user->isGuest],
+        ['label' => 'Sign up', 'icon' => 'fa fa-user', 'url' => ['/user/signup'], 'visible' => Yii::$app->user->isGuest],
       ]
 
     !=dmstr\widgets\Menu::widget(['options' => ['class' => 'sidebar-menu'],'items' => $items])
     if (!Yii::$app->user->isGuest)
       ul.sidebar-menu
         li
-          !=Html::a('<i class="fa fa-lock"></i><span>Sign out</span>',['/site/logout'],['data-method' => 'post'])
+          !=Html::a('<i class="fa fa-lock"></i><span>Sign out</span>',['/user/logout'],['data-method' => 'post'])
