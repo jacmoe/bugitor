@@ -41,3 +41,4 @@ backend/views/site/backup/*
 frontend/views/layouts/backup/*
 backend/views/admin/backup/*
 console/old_migrations/*
+common/models/old_models/*
