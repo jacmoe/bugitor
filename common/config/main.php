@@ -7,9 +7,6 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ], // cache
-        'authManager' => [
-            'class' => 'yii\rbac\DbManager',
-        ],
         'view' => [
             'defaultExtension' => 'jade',
             'renderers' => [
@@ -24,4 +21,12 @@ return [
             ],// renderers
         ],// view
     ],// components
+    'modules' => [
+        'rbac' => [
+            'class' => 'dektrium\rbac\Module',
+        ],
+        'user' => [
+            'class' => 'dektrium\user\Module',
+        ],
+    ],
 ];// config

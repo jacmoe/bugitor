@@ -12,12 +12,8 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
-        /*'authManager' => [
-        'class' => 'yii\rbac\DbManager',
-    ],*/
     'user' => [
-        'identityClass' => 'common\models\User',
-        'enableAutoLogin' => true,
+        'as frontend' => 'dektrium\user\filters\FrontendFilter',
     ],// user
     'assetManager' => [
         'bundles' => [

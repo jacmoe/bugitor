@@ -40,3 +40,4 @@ frontend/runtime/*
 backend/views/site/backup/*
 frontend/views/layouts/backup/*
 backend/views/admin/backup/*
+console/old_migrations/*

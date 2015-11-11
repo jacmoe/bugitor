@@ -14,13 +14,10 @@ return [
     'defaultRoute' => 'admin/index',
     'bootstrap' => ['log'],
     'components' => [
-        /*'authManager' => [
-        'class' => 'yii\rbac\PhpManager',
-    ],*/
-    'assetManager' => [
-        'bundles' => [
-            'dmstr\web\AdminLteAsset' => [
-                'skin' => 'skin-red',
+        'assetManager' => [
+            'bundles' => [
+                'dmstr\web\AdminLteAsset' => [
+                    'skin' => 'skin-red',
             ],
             //'yii\bootstrap\BootstrapAsset' => false,
             //'yii\validators\ValidationAsset' => false,
@@ -36,9 +33,7 @@ return [
             ],
         ],// assetManager
         'user' => [
-            'identityClass' => 'common\models\User',
-            'loginUrl' => ['/admin/login'],
-            'enableAutoLogin' => true,
+            'as backend' => 'dektrium\user\filters\BackendFilter',
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,

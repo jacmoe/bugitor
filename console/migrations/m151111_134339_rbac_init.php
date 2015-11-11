@@ -5,7 +5,7 @@ use yii\base\InvalidConfigException;
 use yii\db\Schema;
 use yii\rbac\DbManager;
 
-class m151108_213153_rbac_init extends Migration
+class m151111_134339_rbac_init extends Migration
 {
     protected function getAuthManager()
     {
