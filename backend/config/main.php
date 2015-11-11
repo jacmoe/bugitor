@@ -58,14 +58,10 @@ return [
             'errorAction' => 'admin/error',
         ],
     ],// components
-    /*'as access' => [
-    'class' => 'mdm\admin\classes\AccessControl',
-    'allowActions' => [
-    'site/*',
-    'admin/*',
-    'gii/*',
-    'debug/*',
-],
-],// as access */
+    'modules' => [
+        'user' => [
+            'enableRegistration' => false,
+        ],
+    ],
 'params' => $params,
 ];
