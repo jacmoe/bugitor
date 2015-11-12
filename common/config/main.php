@@ -24,10 +24,12 @@ return [
     'modules' => [
         'rbac' => [
             'class' => 'dektrium\rbac\Module',
+            'enableFlashMessages' => false,
         ],
         'user' => [
             'class' => 'dektrium\user\Module',
             'admins' => ['admin', 'jacmoe'],
+            'enableFlashMessages' => false,
         ],
     ],
 ];// config
