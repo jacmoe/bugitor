@@ -28,7 +28,8 @@
         "yiisoft/yii2-authclient": "^2.0",
         "dektrium/yii2-user": "0.9.*@dev",
         "dektrium/yii2-rbac": "dev-master",
-        "bower-asset/jquery-cookie":"*"
+        "bower-asset/jquery-cookie":"*",
+        "himiklab/yii2-recaptcha-widget": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

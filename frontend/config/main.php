@@ -30,6 +30,13 @@ return [
                 ],
             ],
         ],// assetManager
+        'view' => [
+            'theme' => [
+                    'pathMap' => [
+                        '@dektrium/user/views' => '@frontend/views/user',
+                    ],
+            ],
+        ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
@@ -57,6 +64,9 @@ return [
     'modules' => [
         'user' => [
             'as frontend' => 'dektrium\user\filters\FrontendFilter',
+            'modelMap' => [
+                'RegistrationForm' => 'frontend\models\RegistrationForm',
+            ],
         ],// user
     ], //modules
     'params' => $params,
