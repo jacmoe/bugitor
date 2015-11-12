@@ -2,7 +2,7 @@
 /*
  * rfc822_addresses.php
  *
- * @(#) $Id: rfc822_addresses.php,v 1.14 2011/03/25 04:57:38 mlemos Exp $
+ * @(#) $Id: rfc822_addresses.php,v 1.15 2011/10/29 09:11:50 mlemos Exp $
  *
  */
 namespace console\controllers;
@@ -13,7 +13,7 @@ namespace console\controllers;
 
 	<package>net.manuellemos.mimeparser</package>
 
-	<version>@(#) $Id: rfc822_addresses.php,v 1.14 2011/03/25 04:57:38 mlemos Exp $</version>
+	<version>@(#) $Id: rfc822_addresses.php,v 1.15 2011/10/29 09:11:50 mlemos Exp $</version>
 	<copyright>Copyright © (C) Manuel Lemos 2006 - 2008</copyright>
 	<title>RFC 822 e-mail addresses parser</title>
 	<author>Manuel Lemos</author>
@@ -506,30 +506,52 @@ class rfc822_addresses_class
 		return(1);
 	}
 
-	Function ParseWord(&$p, &$word)
+	Function ParseWord(&$p, &$word, &$escape)
 	{
 		$word = null;
 		if(!$this->ParseQuotedString($p, $word))
 			return(0);
 		if(IsSet($word))
 			return(1);
-		if(!$this->ParseAtom($p, $word, 0))
-			return(0);
+		for($w = '';;)
+		{
+			$last = $w;
+			if(!$this->ParseAtom($p, $atom, 0))
+				return(0);
+			if(IsSet($atom))
+				$w .= $atom;
+			if($this->ignore_syntax_errors)
+			{
+				$e = $p;
+				if(!$this->ParseQuotedPair($p, $quoted_pair))
+					return(0);
+				if(IsSet($quoted_pair))
+				{
+					$w .= $quoted_pair;
+					if(!IsSet($escape))
+						$escape = $e;
+				}
+			}
+			if($last === $w)
+				break;
+		}
+		if(strlen($w))
+			$word = $w;
 		return(1);
 	}
 
-	Function ParseObsPhrase(&$p, &$obs_phrase)
+	Function ParseObsPhrase(&$p, &$obs_phrase, &$escape)
 	{
 		$obs_phrase = null;
 		$v = $this->v;
 		$l = strlen($v);
 		$ph = $p;
-		if(!$this->ParseWord($ph, $word))
+		if(!$this->ParseWord($ph, $word, $escape))
 			return(0);
 		$string = $word;
 		for(;;)
 		{
-			if(!$this->ParseWord($ph, $word))
+			if(!$this->ParseWord($ph, $word, $escape))
 				return(0);
 			if(IsSet($word))
 			{
@@ -555,20 +577,20 @@ class rfc822_addresses_class
 		return(1);
 	}
 
-	Function ParsePhrase(&$p, &$phrase)
+	Function ParsePhrase(&$p, &$phrase, &$escape)
 	{
 		$phrase = null;
-		if(!$this->ParseObsPhrase($p, $phrase))
+		if(!$this->ParseObsPhrase($p, $phrase, $escape))
 			return(0);
 		if(IsSet($phrase))
 			return(1);
 		$ph = $p;
-		if(!$this->ParseWord($ph, $word))
+		if(!$this->ParseWord($ph, $word, $escape))
 			return(0);
 		$string = $word;
 		for(;;)
 		{
-			if(!$this->ParseWord($ph, $word))
+			if(!$this->ParseWord($ph, $word, $escape))
 				return(0);
 			if(!IsSet($word))
 				break;
@@ -633,12 +655,15 @@ class rfc822_addresses_class
 
 	Function ParseName(&$p, &$address)
 	{
-		$address = null;
+		$address = $escape = null;
 		$a = $p;
-		if(!$this->ParsePhrase($a, $display_name))
+		if(!$this->ParsePhrase($a, $display_name, $escape))
 			return(0);
 		if(IsSet($display_name))
 		{
+			if(IsSet($escape)
+			&& !$this->SetPositionedWarning('it was used an escape character outside a quoted value', $escape))
+				return(0);
 			if(!$this->QDecode($p, $display_name, $encoding))
 				return(0);
 			$address['name'] = trim($display_name);
@@ -651,9 +676,9 @@ class rfc822_addresses_class
 
 	Function ParseNameAddr(&$p, &$address)
 	{
-		$address = null;
+		$address = $escape = null;
 		$a = $p;
-		if(!$this->ParsePhrase($a, $display_name))
+		if(!$this->ParsePhrase($a, $display_name, $escape))
 			return(0);
 		if(!$this->ParseAngleAddr($a, $addr))
 			return(0);
@@ -662,6 +687,9 @@ class rfc822_addresses_class
 		$address = array('address'=>$addr);
 		if(IsSet($display_name))
 		{
+			if(IsSet($escape)
+			&& !$this->SetPositionedWarning('it was used an escape character outside a quoted value', $escape))
+				return(0);
 			if(!$this->QDecode($p, $display_name, $encoding))
 				return(0);
 			$address['name'] = trim($display_name);
@@ -754,11 +782,11 @@ class rfc822_addresses_class
 
 	Function ParseGroup(&$p, &$address)
 	{
-		$address = null;
+		$address = $escape = null;
 		$v = $this->v;
 		$l = strlen($v);
 		$g = $p;
-		if(!$this->ParsePhrase($g, $display_name))
+		if(!$this->ParsePhrase($g, $display_name, $escape))
 			return(0);
 		if(!IsSet($display_name)
 		|| $g >= $l
@@ -780,6 +808,9 @@ class rfc822_addresses_class
 		if($this->SkipCommentWhiteSpace($g)
 		&& $g > $c
 		&& !$this->SetPositionedWarning('it were used invalid comments after a group of addresses', $c))
+			return(0);
+		if(IsSet($escape)
+		&& !$this->SetPositionedWarning('it was used an escape character outside a quoted value', $escape))
 			return(0);
 		if(!$this->QDecode($p, $display_name, $encoding))
 			return(0);
