@@ -2,7 +2,7 @@
 /*
  * mime_parser.php
  *
- * @(#) $Id: mime_parser.php,v 1.80 2011/05/05 20:31:05 mlemos Exp $
+ * @(#) $Id: mime_parser.php,v 1.88 2015/10/04 00:15:39 mlemos Exp $
  *
  */
 namespace console\controllers;
@@ -31,7 +31,7 @@ define('MIME_ADDRESS_FIRST',            2);
 
 	<package>net.manuellemos.mimeparser</package>
 
-	<version>@(#) $Id: mime_parser.php,v 1.80 2011/05/05 20:31:05 mlemos Exp $</version>
+	<version>@(#) $Id: mime_parser.php,v 1.88 2015/10/04 00:15:39 mlemos Exp $</version>
 	<copyright>Copyright © (C) Manuel Lemos 2006 - 2008</copyright>
 	<title>MIME parser</title>
 	<author>Manuel Lemos</author>
@@ -315,6 +315,31 @@ class mime_parser_class
 {/metadocument}
 */
 	var $use_part_file_names = 0;
+
+/*
+{metadocument}
+	<variable>
+		<name>custom_mime_types</name>
+		<type>HASH</type>
+		<value></value>
+		<documentation>
+			<purpose>List of MIME types not yet recognized by the
+				<functionlink>Analyze</functionlink> function that applications
+				may define.</purpose>
+			<usage>Set this variable to an associative array of custom MIME
+				types that your application recognizes, so the
+				<functionlink>Analyze</functionlink> function does not fail when
+				message parts are found with those MIME types.<paragraphbreak />
+				The indexes of this array are the MIME type names with lower case
+				letters. The array values are also associative arrays with an
+				entry named <tt>Type</tt> that defines the type of content and
+				another entry named <tt>Description</tt> that defines the content
+				type description.</usage>
+		</documentation>
+	</variable>
+{/metadocument}
+*/
+	var $custom_mime_types = array();
 
 	/* Private variables */
 	var $state = MIME_PARSER_START;
@@ -670,7 +695,7 @@ class mime_parser_class
 							|| !strcmp($character, "\t"))
 							{
 								$value .= $line;
-								$position = $next + 1;
+								$position = $next;
 							}
 							else
 							{
@@ -1060,7 +1085,8 @@ class mime_parser_class
 								break 2;
 						}
 						$position = $end + 2;
-						$position += strspn($value, " \t", $position);
+						if(($space = strspn($value, " \t", $position)) > 0)
+							$position += $space - 1;
 					}
 					if(strlen($error)==0
 					&& count($decoded_header))
@@ -2210,9 +2236,43 @@ class mime_parser_class
 									if(strlen($body))
 										$results['Response'] = $body;
 									break;
+								case 'feedback-report':
+									$body_part = $results = null;
+									for($p = 1; $p < $lp; ++$p)
+									{
+										if(!strcmp($parts[$p]['Type'], $parameters['report-type']))
+										{
+											$results = $parts[$p];
+											UnSet($results['Data']);
+										}
+										elseif(!strcmp($parts[$p]['Type'], 'message'))
+											$body_part = $p;
+									}
+									if(!IsSet($results))
+									{
+										$this->SetErrorWithContact('the report of type '.$parameters['report-type'].' does not contain the report details part');
+										$results['Response'] = $this->error;
+										$this->error = '';
+										break;
+									}
+									if(IsSet($body_part))
+									{
+										if(!$this->ReadMessageBody($parts[$body_part], $body, 'Data'))
+											return false;
+										if(strlen($body))
+											$results['Response'] = $body;
+									}
+									break;
+								default:
+									$this->SetErrorWithContact('the report type is '.$parameters['report-type'].' is not yet supported');
+									$results['Response'] = $this->error;
+									$this->error = '';
+									break;
 							}
+							$results['Type'] = $parameters['report-type'];
 						}
-						$results['Type'] = $parameters['report-type'];
+						else
+							return($this->SetError('this '.$content_type.' message is not well formed because it does not define the report type'));
 						break;
 
 					case 'signed':
@@ -2408,6 +2468,25 @@ class mime_parser_class
 						}
 						$copy_body = 0;
 						break;
+					case 'feedback-report':
+						$results['Type'] = $sub_type;
+						$results['Description'] = 'Notification of the processing of a message sent';
+						if(!$this->ReadMessageBody($message, $body, 'Body'))
+							return(0);
+						if(($l = strlen($body)))
+						{
+							$position = 0;
+							$this->ParseHeaderString($body, $position, $headers);
+							$report = array();
+							for(;$position<$l;)
+							{
+								$this->ParseHeaderString($body, $position, $headers);
+								foreach($headers as $name => $value)
+									$report[$name] = $value;
+							}
+							$results['Report'] = $report;
+						}
+						break;
 					case 'rfc822':
 						$results['Type'] = 'message';
 						$results['Description'] = 'E-mail message';
@@ -2420,9 +2499,17 @@ class mime_parser_class
 		}
 		if(!IsSet($results['Type']))
 		{
-			$this->SetErrorWithContact($content_type.' message parts are not yet recognized');
-			$results['Type'] = $this->error;
-			$this->error = '';
+			if(IsSet($this->custom_mime_types[$content_type]))
+			{
+				$results['Type'] = $this->custom_mime_types[$content_type]['Type'];
+				$results['Description'] = $this->custom_mime_types[$content_type]['Description'];
+			}
+			else
+			{
+				$this->SetErrorWithContact($content_type.' message parts are not yet recognized. You can define these part type names and descriptions setting the custom_mime_types class variable');
+				$results['Type'] = $this->error;
+				$this->error = '';
+			}
 		}
 		if(IsSet($parameters['charset']))
 			$results['Encoding'] = strtolower($parameters['charset']);
