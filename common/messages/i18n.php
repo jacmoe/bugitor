@@ -53,9 +53,9 @@ return [
     'overwrite' => true,
 
     // Message categories to ignore
-    /*'ignoreCategories' => [
+    'ignoreCategories' => [
         'user',
-    ],*/
+    ],
 
     /*
     // 'db' output format is for saving messages to database.
