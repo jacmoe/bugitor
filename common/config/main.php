@@ -1,6 +1,7 @@
 <?php
 return [
     'name' => 'Bugitor',
+    //'language' => 'da-DK',
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'layout' => 'main.jade',
     'components' => [
@@ -20,6 +21,14 @@ return [
                 ],// jade
             ],// renderers
         ],// view
+        'i18n' => [
+            'translations' => [
+                'app' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@common/messages',
+                ]
+            ],
+        ],
     ],// components
     'modules' => [
         'rbac' => [

@@ -28,10 +28,10 @@ aside.main-sidebar
     -
       $items =
       [
-        ['label' => 'Navigation', 'options' => ['class' => 'header']],
-        ['label' => 'Dashboard', 'icon' => 'fa fa-home', 'url' => ['/site/index']],
-        ['label' => 'Projects', 'icon' => 'fa fa-rocket', 'url' => ['/project/index']],
-        ['label' => 'Help', 'icon' => 'fa fa-book', 'url' => ['/help/index']],
+        ['label' => Yii::t('app', 'Navigation'), 'options' => ['class' => 'header']],
+        ['label' => Yii::t('app', 'Dashboard'), 'icon' => 'fa fa-home', 'url' => ['/site/index']],
+        ['label' => Yii::t('app', 'Projects'), 'icon' => 'fa fa-rocket', 'url' => ['/project/index']],
+        ['label' => Yii::t('app', 'Help'), 'icon' => 'fa fa-book', 'url' => ['/help/index']],
         ['label' => 'Gii', 'icon' => 'fa fa-file-code-o', 'url' => ['/gii']],
         ['label' => 'Debug', 'icon' => 'fa fa-dashboard', 'url' => ['/debug']],
         ['label' => 'Sign in', 'icon' => 'fa fa-lock', 'url' => ['/user/login'], 'visible' => Yii::$app->user->isGuest],
