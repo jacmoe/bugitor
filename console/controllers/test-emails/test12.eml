@@ -1,0 +1,250 @@
+From: "Jacob Moen" <jacmoe@mail.dk>
+To: <ticket@tracker.ogitor.org>
+References: <4cb0dcb7-e950-49dc-86b1-55bb45a3aec7@tracker.ogitor.org>
+In-Reply-To: <4cb0dcb7-e950-49dc-86b1-55bb45a3aec7@tracker.ogitor.org>
+Subject: Re: [Ogitor - Bug #597] DotSceneSerializer Import/Export SubEntity Material
+Date: Sat, 9 Oct 2010 23:22:38 +0200
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_000_0025_01CB6808.DD0042C0"
+X-Priority: 3
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Windows Mail 6.0.6002.18197
+X-MimeOLE: Produced By Microsoft MimeOLE V6.0.6002.18263
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0025_01CB6808.DD0042C0
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Sorry about bumping this issue - I am trying to fix our issue tracker. =
+:)
+  ----- Original Message -----=20
+  From: Bugitor Issue Tracker=20
+  To: jacmoe@mail.dk=20
+  Sent: Saturday, October 09, 2010 11:20 PM
+  Subject: [Ogitor - Bug #597] DotSceneSerializer Import/Export =
+SubEntity Material
+
+
+  Issue #597 has been updated by Jacmoe
+  asdf
+
+
+-------------------------------------------------------------------------=
+-----
+
+  Bug #597: DotSceneSerializer Import/Export SubEntity Material
+    a.. Author: Tinoshi=20
+    b.. Status: Assigned=20
+    c.. Priority: Normal=20
+    d.. Assigned to: IsmailTarim=20
+    e.. Category:=20
+    f.. Version: 0.5.0=20
+    a.. It looks like the DotSceneSerializer cannot import/export =
+materials properly. For instance, I have a mesh that is an Entity with =
+two sub entities, each of them with a specific material. What happens is =
+that material related to subentities with index 0 are NOT imported =
+correctly:=20
+  This mesh has been created in XSI 2010 and exported with OgreMax 2.3. =
+It is a single mesh with two clusters, and when the .scene is exported =
+from XSI, OgreMax creates the nodes, to assign each =
+=E2=80=98cluster=E2=80=99 a specific material.=20
+
+  When I try to import the .scene file in Ogitor 0.4.x, this mesh is =
+loaded with the following material intead of Material0:
+
+
+  while Material1 is loaded ok. This happens for all materials of =
+subentity0 in every mesh. Only subentities with index > 0 are rendered =
+and loaded with the correct material.=20
+
+    a.. If I then try to change material to the subentity from the =
+Properties panel, I can see only SubEntity0 listed, and I can actually =
+manually set the correct material for it, but there is no way to change =
+materials for other subentities (index > 0).=20
+    a.. If I save the scene as .ogscene, the =E2=80=98wrong=E2=80=99 =
+MAT_GIZMO_X_L materials are saved=E2=80=A6=20
+    a.. If I export the .scene with the DotSceneSerializer, the =
+materials are NOT saved at all. This is the result for the previous XML =
+(import .scene -> savet to .ogscene -> export .scene):=20
+
+
+-------------------------------------------------------------------------=
+-----
+
+  Bugitor Issue Tracker
+  You have received this notification because you have either subscribed =
+to it, or are involved in it.
+  To change your notification preferences, please click here: =
+http://tracker.ogitor.org/my/account 
+------=_NextPart_000_0025_01CB6808.DD0042C0
+Content-Type: text/html;
+	charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+=EF=BB=BF<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD>
+<META content=3D"text/html; charset=3Dutf-8" http-equiv=3DContent-Type>
+<STYLE>BODY {
+	FONT-FAMILY: Verdana, sans-serif; COLOR: #484848; FONT-SIZE: 0.8em
+}
+H1 {
+	MARGIN: 0px; FONT-FAMILY: "Trebuchet MS", Verdana, sans-serif
+}
+H2 {
+	MARGIN: 0px; FONT-FAMILY: "Trebuchet MS", Verdana, sans-serif
+}
+H3 {
+	MARGIN: 0px; FONT-FAMILY: "Trebuchet MS", Verdana, sans-serif
+}
+H1 {
+	FONT-SIZE: 1.2em
+}
+H2 {
+	FONT-SIZE: 1.1em
+}
+H3 {
+	FONT-SIZE: 1.1em
+}
+A {
+	COLOR: #2a5685
+}
+A:link {
+	COLOR: #2a5685
+}
+A:visited {
+	COLOR: #2a5685
+}
+A:hover {
+	COLOR: #c61a1a
+}
+A:active {
+	COLOR: #c61a1a
+}
+A.wiki-anchor {
+	DISPLAY: none
+}
+HR {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; WIDTH: 100%; BACKGROUND: #ccc; =
+HEIGHT: 1px; BORDER-TOP: 0px; BORDER-RIGHT: 0px
+}
+.footer {
+	FONT-STYLE: italic; FONT-SIZE: 0.8em
+}
+</STYLE>
+
+<META name=3DGENERATOR content=3D"MSHTML 8.00.6001.18943"></HEAD>
+<BODY bgColor=3D#ffffff>
+<DIV><FONT color=3D#000000 size=3D2 face=3DArial>Sorry about bumping =
+this issue - I am=20
+trying to fix our issue tracker. :)</FONT></DIV>
+<BLOCKQUOTE=20
+style=3D"BORDER-LEFT: #000000 2px solid; PADDING-LEFT: 5px; =
+PADDING-RIGHT: 0px; MARGIN-LEFT: 5px; MARGIN-RIGHT: 0px">
+  <DIV style=3D"FONT: 10pt arial">----- Original Message ----- </DIV>
+  <DIV=20
+  style=3D"FONT: 10pt arial; BACKGROUND: #e4e4e4; font-color: =
+black"><B>From:</B>=20
+  <A title=3Dticket@tracker.ogitor.org=20
+  href=3D"mailto:ticket@tracker.ogitor.org">Bugitor Issue Tracker</A> =
+</DIV>
+  <DIV style=3D"FONT: 10pt arial"><B>To:</B> <A title=3Djacmoe@mail.dk=20
+  href=3D"mailto:jacmoe@mail.dk">jacmoe@mail.dk</A> </DIV>
+  <DIV style=3D"FONT: 10pt arial"><B>Sent:</B> Saturday, October 09, =
+2010 11:20=20
+  PM</DIV>
+  <DIV style=3D"FONT: 10pt arial"><B>Subject:</B> [Ogitor - Bug #597]=20
+  DotSceneSerializer Import/Export SubEntity Material</DIV>
+  <DIV><BR></DIV>Issue #597 has been updated by Jacmoe
+  <UL></UL>
+  <P>asdf</P>
+  <HR>
+
+  <H1><A =
+href=3D"http://tracker.ogitor.org/projects/ogitor/issues/view/597">Bug=20
+  #597: DotSceneSerializer Import/Export SubEntity Material</A></H1>
+  <UL>
+    <LI>Author: Tinoshi=20
+    <LI>Status: Assigned=20
+    <LI>Priority: Normal=20
+    <LI>Assigned to: IsmailTarim=20
+    <LI>Category:=20
+    <LI>Version: 0.5.0 </LI></UL>
+  <UL>
+    <LI>It looks like the DotSceneSerializer cannot import/export =
+materials=20
+    properly. For instance, I have a mesh that is an Entity with two sub =
+
+    entities, each of them with a specific material. What happens is =
+that=20
+    material related to subentities with index 0 are <SPAN =
+class=3Dcaps>NOT</SPAN>=20
+    imported correctly: </LI></UL><NODE name=3D"Stairs"><POSITION =
+z=3D"-469.732" y=3D"0"=20
+  x=3D"461.616" /><SCALE z=3D"1" y=3D"1" x=3D"1" /><ROTATION qw=3D"1" =
+qz=3D"0" qy=3D"0" qx=3D"0"=20
+  /><ENTITY name=3D"Stairs" meshFile=3D"Stairs_0.mesh" =
+receiveShadows=3D"true"=20
+  castShadows=3D"true"><SUBENTITIES><SUBENTITY =
+materialName=3D"Material0" index=3D"0"=20
+  /><SUBENTITY materialName=3D"Material1" index=3D"1"=20
+  /></SUBENTITIES></ENTITY></NODE>
+  <P>This mesh has been created in <SPAN class=3Dcaps>XSI</SPAN> 2010 =
+and exported=20
+  with OgreMax 2.3. It is a single mesh with two clusters, and when the =
+.scene=20
+  is exported from <SPAN class=3Dcaps>XSI</SPAN>, OgreMax creates the=20
+  <SUBENTITY>nodes, to assign each =E2=80=98cluster=E2=80=99 a specific =
+material. </P>
+  <P>When I try to import the .scene file in Ogitor 0.4.x, this mesh is =
+loaded=20
+  with the following material intead of Material0:</P>
+  <P><PROPERTY id=3Dsubentity0::material value=3D"MAT_GIZMO_X_L"=20
+  type=3D"7"></PROPERTY></P>
+  <P>while Material1 is loaded ok. This happens for all materials of =
+subentity0=20
+  in every mesh. Only subentities with index &gt; 0 are rendered and =
+loaded with=20
+  the correct material. </P>
+  <UL>
+    <LI>If I then try to change material to the subentity from the =
+Properties=20
+    panel, I can see only SubEntity0 listed, and I can actually manually =
+set the=20
+    correct material for it, but there is no way to change materials for =
+other=20
+    subentities (index &gt; 0). </LI></UL>
+  <UL>
+    <LI>If I save the scene as .ogscene, the =E2=80=98wrong=E2=80=99 =
+MAT_GIZMO_X_L materials are=20
+    saved=E2=80=A6 </LI></UL>
+  <UL>
+    <LI>If I export the .scene with the DotSceneSerializer, the =
+materials are=20
+    <SPAN class=3Dcaps>NOT</SPAN> saved at all. This is the result for =
+the=20
+    previous <SPAN class=3Dcaps>XML</SPAN> (import .scene -&gt; savet to =
+.ogscene=20
+    -&gt; export .scene): </LI></UL>
+  <P><NODE name=3D"Stairs"><POSITION z=3D"-469.732" y=3D"0" =
+x=3D"461.616" /><SCALE z=3D"1"=20
+  y=3D"1" x=3D"1" /><ROTATION qw=3D"1" qz=3D"0" qy=3D"0" qx=3D"0" =
+/><ENTITY name=3D"Stairs"=20
+  meshFile=3D"Stairs_0.mesh" receiveShadows=3D"true"=20
+  castShadows=3D"true"></ENTITY></NODE></P>
+  <HR>
+
+  <H3>Bugitor Issue Tracker</H3><SPAN class=3Dfooter>You have received =
+this=20
+  notification because you have either subscribed to it, or are involved =
+in=20
+  it.<BR>To change your notification preferences, please click here: <A=20
+  =
+href=3D"http://tracker.ogitor.org/my/account">http://tracker.ogitor.org/m=
+y/account</A>=20
+  </SPAN></BLOCKQUOTE></BODY></HTML>
+
+------=_NextPart_000_0025_01CB6808.DD0042C0--
