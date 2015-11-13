@@ -5,4 +5,4 @@
 |#{$view->title} <small>all your bugs are belong to us</small>
 -$view->endBlock()
 
-!=Html::a('Overview', Url::to(['project/overview', 'identifier' => 'bugitor']) , ['class' => 'btn btn-default btn-flat'])
+!=Html::a(Yii::t('app','Overview'), Url::to(['project/overview', 'identifier' => 'bugitor']) , ['class' => 'btn btn-default btn-flat'])
