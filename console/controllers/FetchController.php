@@ -60,7 +60,7 @@ class FetchController extends Controller
 
         $fd = null;
         if($email != '') {
-            $fd = fopen("/home/jacmoe/test-emails/" . $email, "r");
+            $fd = fopen(__DIR__ . "/test-emails/" . $email, "r");
         } else {
             $fd = fopen("php://stdin", "r");
         }
