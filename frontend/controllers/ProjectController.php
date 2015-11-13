@@ -9,27 +9,27 @@ class ProjectController extends \yii\web\Controller
         return $this->render('index');
     }
 
-    public function actionOverview()
+    public function actionOverview($identifier)
     {
         return $this->render('overview');
     }
 
-    public function actionIssues()
+    public function actionIssues($identifier)
     {
         return $this->render('issues');
     }
 
-    public function actionRoadmap()
+    public function actionRoadmap($identifier)
     {
         return $this->render('roadmap');
     }
 
-    public function actionActivity()
+    public function actionActivity($identifier)
     {
         return $this->render('activity');
     }
 
-    public function actionUpdate()
+    public function actionUpdate($identifier)
     {
         return $this->render('update');
     }

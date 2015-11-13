@@ -21,19 +21,19 @@ use yii\bootstrap\Nav;
     'items' => [
         [
             'label'   => Yii::t('app', 'Overview'),
-            'url'     => ['project/overview'],
+            'url'     => ['project/overview', 'identifier' => 'bugitor'],
         ],
         [
             'label'   => Yii::t('app', 'Activity'),
-            'url'     => ['project/activity'],
+            'url'     => ['project/activity', 'identifier' => 'bugitor'],
         ],
         [
             'label'   => Yii::t('app', 'Roadmap'),
-            'url'     => ['project/roadmap'],
+            'url'     => ['project/roadmap', 'identifier' => 'bugitor'],
         ],
         [
             'label'   => Yii::t('app', 'Issues'),
-            'url'     => ['project/issues'],
+            'url'     => ['project/issues', 'identifier' => 'bugitor'],
         ],
     ],//items
 ]) ?>
