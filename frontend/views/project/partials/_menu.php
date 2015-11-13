@@ -15,13 +15,14 @@ use yii\bootstrap\Nav;
 
 <?= Nav::widget([
     'options' => [
-        'class' => 'nav-tabs',
+        'class' => 'nav-tabs nav-justified',
         'style' => 'margin-bottom: 15px',
     ],
     'items' => [
         [
             'label'   => Yii::t('app', 'Overview'),
             'url'     => ['project/overview', 'identifier' => 'bugitor'],
+            'icon' => 'fa fa-rocket',
         ],
         [
             'label'   => Yii::t('app', 'Activity'),
