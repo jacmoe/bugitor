@@ -51,20 +51,26 @@ Yii::$classMap['console\controllers\rfc822_addresses_class'] = __DIR__ . "/mimep
 
 class FetchController extends Controller
 {
-    public function actionMail()
+    public function actionMail($email = '')
     {
         $message = $this->ansiFormat('Parsing email...', Console::FG_GREEN);
         echo $message . "\n";
 
         $message_data = '';
-        $fd = fopen("php://stdin", "r");
+
+        $fd = null;
+        if($email != '') {
+            $fd = fopen("/home/jacmoe/test-emails/" . $email, "r");
+        } else {
+            $fd = fopen("php://stdin", "r");
+        }
         if ($fd) {
             while (!feof($fd)) {
                 $message_data .= fread($fd, 1024);
             }
             fclose($fd);
         }
-        
+
         $mime = new mime_parser_class;
         //file_put_contents('/home/jacmoe/email.txt',$message_data);
 
@@ -195,10 +201,10 @@ class FetchController extends Controller
                             //echo "From: " . $pass_this['from'] . "\n";
                             //echo "Subject: " . $pass_this['subject'] . "\n";
                             //echo "Message: " . $pass_this['message'];
-                            
+
                             file_put_contents('/home/jacmoe/email.txt', "From: " . $pass_this['from'] . "\n" . "Subject: " . $pass_this['subject'] . "\n" . "Message: " . $pass_this['message']);
-                            
-                            
+
+
 /*                            // Now, get the email into Bugitor..
                             $criteria = new CDbCriteria();
                             $criteria->compare('email', $pass_this['from'], true);
