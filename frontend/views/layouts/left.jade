@@ -10,9 +10,11 @@ aside.main-sidebar
           !=\cebe\gravatar\Gravatar::widget(['email' => Yii::$app->user->identity->email,'options' => ['alt' => 'Jacob Moen', 'class' => 'img-circle'], 'size' => 45])
       .pull-left.info
         if (Yii::$app->user->isGuest)
-          p Not signed in
+          p
+            !=Yii::t('app','Not signed in')
           a(href="#")
-            i.fa.fa-circle.text-gray Offline
+            i.fa.fa-circle.text-gray
+              !=Yii::t('app','Offline')
         else
           p #{Yii::$app->user->identity->username}
           a(href="#")
@@ -34,12 +36,12 @@ aside.main-sidebar
         ['label' => Yii::t('app', 'Help'), 'icon' => 'fa fa-book', 'url' => ['/help/index']],
         ['label' => 'Gii', 'icon' => 'fa fa-file-code-o', 'url' => ['/gii']],
         ['label' => 'Debug', 'icon' => 'fa fa-dashboard', 'url' => ['/debug']],
-        ['label' => 'Sign in', 'icon' => 'fa fa-lock', 'url' => ['/user/login'], 'visible' => Yii::$app->user->isGuest],
-        ['label' => 'Sign up', 'icon' => 'fa fa-user', 'url' => ['/user/register'], 'visible' => Yii::$app->user->isGuest],
+        ['label' => Yii::t('app','Sign in'), 'icon' => 'fa fa-lock', 'url' => ['/user/login'], 'visible' => Yii::$app->user->isGuest],
+        ['label' => Yii::t('app','Sign up'), 'icon' => 'fa fa-user', 'url' => ['/user/register'], 'visible' => Yii::$app->user->isGuest],
       ]
 
     !=dmstr\widgets\Menu::widget(['options' => ['class' => 'sidebar-menu'],'items' => $items])
     if (!Yii::$app->user->isGuest)
       ul.sidebar-menu
         li
-          !=Html::a('<i class="fa fa-lock"></i><span>Sign out</span>',['/user/logout'],['data-method' => 'post'])
+          !=Html::a('<i class="fa fa-lock"></i><span>'.Yii::t('app','Sign out').'</span>',['/user/logout'],['data-method' => 'post'])

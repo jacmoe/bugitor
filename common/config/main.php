@@ -1,7 +1,7 @@
 <?php
 return [
     'name' => 'Bugitor',
-    //'language' => 'da-DK',
+    'language' => 'da-DK',
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'layout' => 'main.jade',
     'components' => [
