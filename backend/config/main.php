@@ -42,6 +42,14 @@ return [
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ],
         ],// urlManager
+        'view' => [
+            'theme' => [
+                    'pathMap' => [
+                        '@dektrium/user/views' => '@common/views/user',
+                        '@backend/views/layouts' => '@common/views/layouts',
+                    ],
+            ],
+        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -61,5 +69,5 @@ return [
             //'as backend' => 'dektrium\user\filters\BackendFilter',
         ],
     ],
-'params' => $params,
+    'params' => $params,
 ];

@@ -1,0 +1,20 @@
+-use yii\helpers\Html
+
+-
+  $items =
+  [
+    ['label' => Yii::t('app', 'Navigation'), 'options' => ['class' => 'header']],
+    ['label' => Yii::t('app', 'Dashboard'), 'icon' => 'fa fa-home', 'url' => ['/site/index']],
+    ['label' => Yii::t('app', 'Projects'), 'icon' => 'fa fa-rocket', 'url' => ['/project/index']],
+    ['label' => Yii::t('app', 'Help'), 'icon' => 'fa fa-book', 'url' => ['/help/index']],
+    ['label' => 'Gii', 'icon' => 'fa fa-file-code-o', 'url' => ['/gii']],
+    ['label' => 'Debug', 'icon' => 'fa fa-dashboard', 'url' => ['/debug']],
+    ['label' => Yii::t('app','Sign in'), 'icon' => 'fa fa-lock', 'url' => ['/user/login'], 'visible' => Yii::$app->user->isGuest],
+    ['label' => Yii::t('app','Sign up'), 'icon' => 'fa fa-user', 'url' => ['/user/register'], 'visible' => Yii::$app->user->isGuest],
+  ]
+
+!=dmstr\widgets\Menu::widget(['options' => ['class' => 'sidebar-menu'],'items' => $items])
+if (!Yii::$app->user->isGuest)
+  ul.sidebar-menu
+    li
+      !=Html::a('<i class="fa fa-lock"></i><span>'.Yii::t('app','Sign out').'</span>',['/user/logout'],['data-method' => 'post'])
