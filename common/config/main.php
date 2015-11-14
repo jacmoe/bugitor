@@ -36,6 +36,12 @@ return [
                     'basePath' => '@common/messages',
                 ],
             ],
+        ],// i18n
+        'mailqueue' => [
+            'class' => 'nterms\mailqueue\MailQueue',
+			'table' => '{{%mail_queue}}',
+			'mailsPerRound' => 10,
+			'maxAttempts' => 30,
         ],
     ],// components
     'modules' => [
