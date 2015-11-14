@@ -146,6 +146,21 @@ class Project extends \yii\db\ActiveRecord
      */
     public static function find()
     {
-        return new ProjectQuery(get_called_class());
+        return new \common\models\query\ProjectQuery(get_called_class());
+    }
+
+    /** @inheritdoc */
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+
+            if($insert) {
+                $this->setAttribute('identifier', preg_replace( '/\s*/m', '', strtolower($this->getAttribute('name'))));
+            }
+            return true;
+
+        } else {
+            return false;
+        }
     }
 }
