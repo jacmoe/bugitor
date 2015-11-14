@@ -33,7 +33,8 @@ return [
         'view' => [
             'theme' => [
                     'pathMap' => [
-                        '@dektrium/user/views' => '@frontend/views/user',
+                        '@dektrium/user/views' => '@common/views/user',
+                        '@frontend/views/layouts' => '@common/views/layouts',
                     ],
             ],
         ],
