@@ -1,0 +1,4 @@
+-use yii\helpers\Html
+p
+  !=$model->name
+  !=Html::a(Yii::t('app', 'View project'), ['project/overview', 'identifier' => $model->identifier])

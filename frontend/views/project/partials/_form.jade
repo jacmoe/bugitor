@@ -1,1 +1,11 @@
-|form
+-use yii\helpers\Html
+-use yii\widgets\ActiveForm
+.project-form
+  -$form = ActiveForm::begin();
+  !=$form->field($model, 'name')->textInput()
+  !=$form->field($model, 'description')->textarea(['rows' => 6])
+  !=$form->field($model, 'homepage')->textInput()
+  !=$form->field($model, 'public')->checkbox()
+  .form-group
+    !=Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary'])
+  -ActiveForm::end()
