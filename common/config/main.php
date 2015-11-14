@@ -41,7 +41,7 @@ return [
             'class' => 'nterms\mailqueue\MailQueue',
 			'table' => '{{%mail_queue}}',
 			'mailsPerRound' => 10,
-			'maxAttempts' => 30,
+			'maxAttempts' => 3,
         ],
     ],// components
     'modules' => [

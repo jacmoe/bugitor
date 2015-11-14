@@ -71,6 +71,9 @@ return [
             'modelMap' => [
                 'RegistrationForm' => 'frontend\models\RegistrationForm',
             ],
+            'mailer' => [
+                'viewPath' => '@common/views/mail',
+            ],
         ],// user
     ], //modules
     'params' => $params,

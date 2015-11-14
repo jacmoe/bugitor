@@ -67,6 +67,9 @@ return [
         'user' => [
             'enableRegistration' => false,
             //'as backend' => 'dektrium\user\filters\BackendFilter',
+            'mailer' => [
+                'viewPath' => '@common/views/mail',
+            ],
         ],
     ],
     'params' => $params,
