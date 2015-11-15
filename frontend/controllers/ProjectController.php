@@ -49,7 +49,12 @@ class ProjectController extends \yii\web\Controller
     public function actionSettings($identifier)
     {
         $model = Project::find()->identifier($identifier)->one();
-        return $this->render('settings', ['model' => $model]);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->render('settings', ['model' => $model]);
+         } else {
+             return $this->render('settings', ['model' => $model]);
+         }
     }
 
     /**
