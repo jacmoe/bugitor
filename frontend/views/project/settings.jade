@@ -1,8 +1,35 @@
 -use yii\helpers\Html
 -$view->title=Yii::t('app','Settings')
+-use kartik\detail\DetailView
+-use kartik\markdown\Markdown
 !=$view->render('partials/_menu', ['identifier' => $model->identifier])
 hr
 
-if (\Yii::$app->user->can('project_update'))
-  p
-    !=Html::a(Yii::t('app', 'Update Project'), ['update', 'identifier' => $model->identifier], ['class' => 'btn btn-success'])
+-
+  $options = [
+  'model' => $model,
+  'condensed' => true,
+  'hover' => true,
+  'mode' => DetailView::MODE_VIEW,
+  'buttons1' => '{update}',
+  'panel' => [
+  'heading'=> $model->name,
+  'type'=> DetailView::TYPE_INFO,
+  ],
+  'attributes' => [
+  ['attribute' => 'identifier', 'displayOnly' => true],
+  ['attribute' => 'name', 'displayOnly' => true],
+  [
+  'attribute' => 'description',
+  'format' => 'raw',
+  'value' => Markdown::convert($model->description),
+  'type' => DetailView::INPUT_WIDGET, 
+  'widgetOptions' => [
+  'class' => \kartik\markdown\MarkdownEditor::classname(),
+  ],
+  ],
+  ['attribute' => 'public', 'type' => DetailView::INPUT_CHECKBOX, 'format' => 'boolean'],
+  ]]
+
+!=DetailView::widget($options)
+    
