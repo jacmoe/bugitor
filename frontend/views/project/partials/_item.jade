@@ -1,4 +1,10 @@
 -use yii\helpers\Html
+-use kartik\markdown\Markdown
 p
   !=$model->name
+
+p
+  !=Markdown::convert($model->description)
+  
+p
   !=Html::a(Yii::t('app', 'View project'), ['project/overview', 'identifier' => $model->identifier])
