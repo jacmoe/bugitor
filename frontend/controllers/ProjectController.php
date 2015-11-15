@@ -24,22 +24,26 @@ class ProjectController extends \yii\web\Controller
 
     public function actionOverview($identifier)
     {
-        return $this->render('overview', ['model' => $this->findModel($identifier)]);
+        $model = Project::find()->identifier($identifier)->one();
+        return $this->render('overview', ['model' => $model]);
     }
 
     public function actionIssues($identifier)
     {
-        return $this->render('issues', ['model' => $this->findModel($identifier)]);
+        $model = Project::find()->identifier($identifier)->one();
+        return $this->render('issues', ['model' => $model]);
     }
 
     public function actionRoadmap($identifier)
     {
-        return $this->render('roadmap', ['model' => $this->findModel($identifier)]);
+        $model = Project::find()->identifier($identifier)->one();
+        return $this->render('roadmap', ['model' => $model]);
     }
 
     public function actionActivity($identifier)
     {
-        return $this->render('activity', ['model' => $this->findModel($identifier)]);
+        $model = Project::find()->identifier($identifier)->one();
+        return $this->render('activity', ['model' => $model]);
     }
 
     /**
@@ -67,15 +71,15 @@ class ProjectController extends \yii\web\Controller
     }
 
     /**
-     * Finds the Issue model based on its identifier.
+     * Finds the Project model based on its id.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $identifier
+     * @param int $id
      * @return Project the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($identifier)
+    protected function findModel($id)
     {
-        if (($model = Project::find()->where(['identifier' => $identifier])->one()) !== null) {
+        if (($model = Project::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
