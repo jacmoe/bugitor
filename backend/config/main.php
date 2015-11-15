@@ -14,6 +14,9 @@ return [
     'defaultRoute' => 'admin/index',
     'bootstrap' => ['log'],
     'components' => [
+        'authManager' => [
+            'class' => 'dektrium\rbac\components\DbManager',
+        ],
         'assetManager' => [
             'bundles' => [
                 'dmstr\web\AdminLteAsset' => [

@@ -12,6 +12,9 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+        'authManager' => [
+            'class' => 'dektrium\rbac\components\DbManager',
+        ],
         'assetManager' => [
             'bundles' => [
                 'dmstr\web\AdminLteAsset' => [

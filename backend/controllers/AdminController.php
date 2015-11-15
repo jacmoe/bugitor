@@ -12,9 +12,6 @@ use yii\filters\VerbFilter;
  */
 class AdminController extends Controller
 {
-    /**
-     * @inheritdoc
-     */
     public function behaviors()
     {
         return [
@@ -22,20 +19,12 @@ class AdminController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['logout', 'index'],
                         'allow' => true,
                         'roles' => ['@'],
+                        'matchCallback' => function () {
+                            return Yii::$app->user->identity->getIsAdmin();
+                        },
                     ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
                 ],
             ],
         ];
