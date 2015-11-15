@@ -32,4 +32,10 @@ class ProjectQuery extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
+    public function identifier($identifier = null)
+    {
+        return $this->andWhere(['identifier' => $identifier]);
+    }
+
 }
