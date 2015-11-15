@@ -5,13 +5,6 @@
     if (isset($view->blocks['content-header']))
       h1
         !=$view->blocks['content-header']
-    else
-      h1
-        if ($view->title !== null)
-          !=\yii\helpers\Html::encode($view->title)
-        else
-          !=\yii\helpers\Inflector::camel2words(\yii\helpers\Inflector::id2camel($view->context->module->id))
-          !=($view->context->module->id !== \Yii::$app->id) ? '<small>Module</small>' : '';
 
     !=Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],])
   section.content
