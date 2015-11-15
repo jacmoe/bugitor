@@ -7,6 +7,7 @@ hr
 
 -
   $options = [
+  'formOptions' => ['options' => ['enctype'=>'multipart/form-data']],
   'model' => $model,
   'condensed' => true,
   'hover' => true,
@@ -19,6 +20,13 @@ hr
   'attributes' => [
   ['attribute' => 'identifier', 'displayOnly' => true],
   ['attribute' => 'name', 'displayOnly' => true],
+  ['attribute' => 'logo',
+  'format' => 'raw', 'displayOnly' => true,
+  'value' => Html::img('/uploads/' . $model->logo),
+  ],
+  ['attribute' => 'image', 'type' => DetailView::INPUT_FILEINPUT,
+  'formOptions' => ['enctype'=>'multipart/form-data'],
+  ],
   [
   'attribute' => 'description',
   'format' => 'raw',

@@ -15,6 +15,9 @@ use Yii;
  * @property string $created
  * @property string $modified
  * @property string $identifier
+ * @property string $image
+ * @property string $logo
+ * @property string $logoname
  *
  * @property ActionLog[] $actionLogs
  * @property Issue[] $issues
@@ -28,6 +31,7 @@ use Yii;
  */
 class Project extends \yii\db\ActiveRecord
 {
+    public $image; // do I really need this??!
     /**
      * @inheritdoc
      */
@@ -45,8 +49,9 @@ class Project extends \yii\db\ActiveRecord
             [['name'], 'required'],
             [['description'], 'string'],
             [['public'], 'integer'],
-            [['created', 'modified'], 'safe'],
-            [['name', 'homepage', 'identifier'], 'string', 'max' => 255],
+            [['created', 'modified', 'image'], 'safe'],
+            [['image'], 'file', 'extensions'=>'jpg, gif, png'],
+            [['name', 'homepage', 'identifier', 'logo', 'logoname'], 'string', 'max' => 255],
             [['identifier'], 'unique']
         ];
     }

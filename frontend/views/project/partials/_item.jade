@@ -2,9 +2,9 @@
 -use kartik\markdown\Markdown
 p
   !=$model->name
-
+p
+  !=Html::img('/uploads/' . $model->logo)
 p
   !=Markdown::convert($model->description)
-  
 p
   !=Html::a(Yii::t('app', 'View project'), ['project/overview', 'identifier' => $model->identifier])
