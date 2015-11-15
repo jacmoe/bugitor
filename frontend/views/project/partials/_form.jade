@@ -1,9 +1,11 @@
 -use yii\helpers\Html
 -use yii\widgets\ActiveForm
+-use kartik\markdown\MarkdownEditor
 .project-form
   -$form = ActiveForm::begin();
   !=$form->field($model, 'name')->textInput()
-  !=$form->field($model, 'description')->textarea(['rows' => 6])
+  !=MarkdownEditor::widget(['model' => $model,'attribute' => 'description',]);
+  //-!=$form->field($model, 'description')->textarea(['rows' => 6])
   !=$form->field($model, 'homepage')->textInput()
   !=$form->field($model, 'public')->checkbox()
   .form-group

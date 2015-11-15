@@ -30,7 +30,9 @@
         "dektrium/yii2-rbac": "dev-master",
         "bower-asset/jquery-cookie":"*",
         "himiklab/yii2-recaptcha-widget": "*",
-        "nterms/yii2-mailqueue": "*"
+        "nterms/yii2-mailqueue": "*",
+        "michelf/php-smartypants": "dev-lib",
+        "kartik-v/yii2-markdown": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

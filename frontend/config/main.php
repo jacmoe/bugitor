@@ -75,6 +75,9 @@ return [
                 'viewPath' => '@common/views/mail',
             ],
         ],// user
+        'markdown' => [
+            'class' => 'kartik\markdown\Module',
+        ],
     ], //modules
     'params' => $params,
 ];
