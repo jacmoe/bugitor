@@ -9,9 +9,23 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\filters\AccessControl;
 
 class ProjectController extends \yii\web\Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    ['allow' => true, 'actions' => ['index', 'overview', 'issues', 'activity', 'roadmap'], 'roles' => ['?', '@']],
+                    ['allow' => true, 'actions' => ['settings', 'create'], 'roles' => ['@']],
+                ],
+            ],
+        ];
+    }
+
     public function actionIndex()
     {
         $searchModel = new ProjectSearch();
