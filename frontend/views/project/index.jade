@@ -11,4 +11,5 @@ if (\Yii::$app->user->can('project_create'))
     !=Html::a(Yii::t('app', 'Create Project'), ['create'], ['class' => 'btn btn-success pull-right'])
 
 hr
-!=ListView::widget(['dataProvider' => $dataProvider,'itemOptions' => ['class' => 'item'],'itemView' => 'partials/_item'])
+  .row
+    !=ListView::widget(['dataProvider' => $dataProvider, 'summary'=>'', 'itemOptions' => ['class' => 'item'],'itemView' => 'partials/_item'])
