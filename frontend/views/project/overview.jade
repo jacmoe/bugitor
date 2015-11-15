@@ -1,3 +1,42 @@
+-use yii\helpers\Html
+-use kartik\markdown\Markdown
 -$view->title=Yii::t('app','Overview')
 !=$view->render('partials/_menu', ['identifier' => $model->identifier])
 hr
+.col-md-6
+  .panel.panel-default
+    .panel-heading
+      h3.panel-title
+        i.fa.fa-rocket
+        !=$model->name
+    .panel-body
+      .media
+        .media-left
+          !=Html::img('/uploads/' . $model->logo)
+        .media-body
+          h4.media-heading
+            !=$model->name
+          !=Markdown::convert($model->description)
+  .panel.panel-default
+    .panel-heading
+      h3.panel-title
+        i.fa.fa-users
+        |Members
+    .panel-body
+.col-md-6
+  .panel.panel-default
+    .panel-heading
+      h3.panel-title
+        i.fa.fa-ticket
+        |Issues
+    .panel-body
+    .panel-footer
+      !=Html::a(Yii::t('app', 'View all issues'), ['project/issues', 'identifier' => $model->identifier])
+  .panel.panel-default
+    .panel-heading
+      h3.panel-title
+        i.fa.fa-clock-o
+        |Latest activity
+    .panel-body
+    .panel-footer
+      !=Html::a(Yii::t('app', 'View all activity'), ['project/activity', 'identifier' => $model->identifier])

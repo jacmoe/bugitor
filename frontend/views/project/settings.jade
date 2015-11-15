@@ -39,5 +39,28 @@ hr
   ['attribute' => 'public', 'type' => DetailView::INPUT_CHECKBOX, 'format' => 'boolean'],
   ]]
 
-!=DetailView::widget($options)
+.col-md-6
+  !=DetailView::widget($options)
+.col-md-6
+  .panel.panel-default
+    .panel-heading
+      h3.panel-title
+        i.fa.fa-users
+        |Members
+    .panel-body
+    .panel-footer
+  .panel.panel-default
+    .panel-heading
+      h3.panel-title
+        i.fa.fa-tags
+        |Trackers
+    .panel-body
+    .panel-footer
+  .panel.panel-default
+    .panel-heading
+      h3.panel-title
+        i.fa.fa-thumb-tack
+        |Milestones
+    .panel-body
+    .panel-footer
     

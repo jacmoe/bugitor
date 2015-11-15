@@ -25,7 +25,7 @@ use yii\helpers\Html;
             'url'     => ['project/overview', 'identifier' => $identifier],
         ],
         [
-            'label'   => Html::tag('i', '', ['class' => 'fa fa-rocket']) . ' ' . Yii::t('app', 'Activity'),
+            'label'   => Html::tag('i', '', ['class' => 'fa fa-clock-o']) . ' ' . Yii::t('app', 'Activity'),
             'url'     => ['project/activity', 'identifier' => $identifier],
         ],
         [
