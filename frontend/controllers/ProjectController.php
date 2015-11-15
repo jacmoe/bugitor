@@ -76,18 +76,6 @@ class ProjectController extends \yii\web\Controller
         }
     }
 
-    public function actionUpdate($identifier)
-    {
-        $model = Project::find()->identifier($identifier)->one();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['settings', 'identifier' => $model->identifier]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }
-
     /**
      * Finds the Project model based on its id.
      * If the model is not found, a 404 HTTP exception will be thrown.
