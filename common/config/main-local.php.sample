@@ -1,0 +1,39 @@
+<?php
+return [
+    'components' => [
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=HOST;dbname=DBNAME',
+            'username' => 'USER',
+            'password' => 'PASSWORD',
+            'charset' => 'utf8',
+        ],//db
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'twitter' => [
+                    'class' => 'dektrium\user\clients\Twitter',
+                    'consumerKey' => 'KEY',
+                    'consumerSecret' => 'SECRET',
+                ],
+                'google' => [
+                    'class'        => 'dektrium\user\clients\Google',
+                    'clientId'     => 'CLIENT_ID',
+                    'clientSecret' => 'CLIENT_SECRET',
+                ],
+            ],// clients
+        ],// authClientCollection
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'viewPath' => '@common/mail',
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'HOST',
+                'username' => 'USERNAME',
+                'password' => 'PASSWORD',
+                'port' => 'PORT',
+            ],
+        ],// mailer
+    ],// components
+];
