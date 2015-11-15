@@ -19,7 +19,7 @@ class SiteController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                    ['allow' => true, 'actions' => ['index'], 'roles' => ['?', '@']],
+                    ['allow' => true, 'actions' => ['index','error'], 'roles' => ['?', '@']],
                 ],
             ],
         ];

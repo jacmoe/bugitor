@@ -7,8 +7,13 @@
 -$view->endBlock()
 
 if (\Yii::$app->user->can('project_create'))
-  p
-    !=Html::a(Yii::t('app', 'Create Project'), ['create'], ['class' => 'btn btn-success pull-right'])
+  !=Html::a(Yii::t('app', 'Create Project'), ['create'], ['class' => 'btn btn-success pull-right'])
+
+div
+  !=Html::a(Yii::t('app', 'View all issues'), ['/issues/index'])
+div
+  !=Html::a(Yii::t('app', 'View all activity'), ['/activity/index'])
+
 
 hr
   .row
