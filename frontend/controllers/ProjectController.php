@@ -46,6 +46,12 @@ class ProjectController extends \yii\web\Controller
         return $this->render('activity', ['model' => $model]);
     }
 
+    public function actionSettings($identifier)
+    {
+        $model = Project::find()->identifier($identifier)->one();
+        return $this->render('settings', ['model' => $model]);
+    }
+
     /**
      * Creates a new Project model.
      * If creation is successful, the browser will be redirected to the 'overview' page.
@@ -67,7 +73,14 @@ class ProjectController extends \yii\web\Controller
 
     public function actionUpdate($identifier)
     {
-        return $this->render('update');
+        $model = Project::find()->identifier($identifier)->one();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['settings', 'identifier' => $model->identifier]);
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
     }
 
     /**

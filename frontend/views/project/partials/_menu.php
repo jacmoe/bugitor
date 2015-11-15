@@ -10,6 +10,7 @@
  */
 
 use yii\bootstrap\Nav;
+use yii\helpers\Html;
 
 ?>
 
@@ -20,21 +21,26 @@ use yii\bootstrap\Nav;
     ],
     'items' => [
         [
-            'label'   => Yii::t('app', 'Overview'),
+            'label'   => Html::tag('i', '', ['class' => 'fa fa-dashboard']) . ' ' . Yii::t('app', 'Overview'),
             'url'     => ['project/overview', 'identifier' => $identifier],
-            'icon' => 'fa fa-rocket',
         ],
         [
-            'label'   => Yii::t('app', 'Activity'),
+            'label'   => Html::tag('i', '', ['class' => 'fa fa-rocket']) . ' ' . Yii::t('app', 'Activity'),
             'url'     => ['project/activity', 'identifier' => $identifier],
         ],
         [
-            'label'   => Yii::t('app', 'Roadmap'),
+            'label'   => Html::tag('i', '', ['class' => 'fa fa-map']) . ' ' . Yii::t('app', 'Roadmap'),
             'url'     => ['project/roadmap', 'identifier' => $identifier],
         ],
         [
-            'label'   => Yii::t('app', 'Issues'),
+            'label'   => Html::tag('i', '', ['class' => 'fa fa-ticket']) . ' ' . Yii::t('app', 'Issues'),
             'url'     => ['project/issues', 'identifier' => $identifier],
         ],
+        [
+            'label'   => Html::tag('i', '', ['class' => 'fa fa-wrench']) . ' ' . Yii::t('app', 'Settings'),
+            'url'     => ['project/settings', 'identifier' => $identifier],
+            'visible' => \Yii::$app->user->can('project_settings'),
+        ],
     ],//items
+    'encodeLabels' => false,
 ]) ?>
