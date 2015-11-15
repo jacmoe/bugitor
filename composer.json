@@ -33,7 +33,9 @@
         "nterms/yii2-mailqueue": "*",
         "michelf/php-smartypants": "dev-lib",
         "kartik-v/yii2-markdown": "@dev",
-        "kartik-v/yii2-detail-view": "@dev"
+        "kartik-v/yii2-detail-view": "@dev",
+        "kartik-v/bootstrap-fileinput": "@dev",
+        "kartik-v/yii2-widgets": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

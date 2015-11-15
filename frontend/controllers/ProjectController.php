@@ -8,6 +8,7 @@ use common\models\search\ProjectSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 class ProjectController extends \yii\web\Controller
 {
@@ -50,8 +51,34 @@ class ProjectController extends \yii\web\Controller
     {
         $model = Project::find()->identifier($identifier)->one();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->render('settings', ['model' => $model]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            // store the current logo
+            $old_logo = $model->logo;
+
+            $image = UploadedFile::getInstance($model, 'image');
+            if (!is_null($image))
+            {
+                // store the source file name
+                $model->logoname = $image->name;
+                $ext = end((explode(".", $image->name)));
+
+                // generate a unique file name
+                $model->logo = Yii::$app->security->generateRandomString().".{$ext}";
+
+                $path = Yii::$app->basePath . '/web/uploads/' . $model->logo;
+            }
+            if($model->save()) {
+                if (!is_null($image)) {
+                    // save the new logo
+                    $image->saveAs($path);
+                    // get rid of the old logo
+                    unlink(Yii::$app->basePath . '/web/uploads/' . $old_logo);
+                }
+                return $this->render('settings', ['model' => $model]);
+            } else {
+                Yii::$app->getSession()->setFlash('danger', Yii::t('app', 'Something went wrong and the settings was not saved.'));
+            }
          } else {
              return $this->render('settings', ['model' => $model]);
          }
