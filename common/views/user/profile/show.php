@@ -10,6 +10,7 @@
  */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /**
  * @var \yii\web\View $this
@@ -42,6 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php if (!empty($profile->bio)): ?>
                     <p><?= Html::encode($profile->bio) ?></p>
                 <?php endif; ?>
+                <?= Html::a('Edit profile', Url::to('/user/settings/profile')); ?>
             </div>
         </div>
     </div>
