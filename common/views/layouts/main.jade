@@ -35,7 +35,7 @@ html(lang=Yii::$app->language)
     meta(name="theme-color", content="#ffffff")
 
   -$theme = \dmstr\helpers\AdminLteHelper::skinClass()
-  body(class="hold-transition sidebar-mini #{$theme}")
+  body(class="hold-transition sidebar-mini fixed #{$theme}")
     -$view->beginBody()
     .wrapper
       !=$view->render('header', ['directoryAsset' => $directoryAsset])
