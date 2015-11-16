@@ -108,8 +108,27 @@ class ProjectController extends \yii\web\Controller
         $model = new Project();
         $model->loadDefaultValues();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['overview', 'identifier' => $model->identifier]);
+        if ($model->load(Yii::$app->request->post())) {
+            $image = UploadedFile::getInstance($model, 'image');
+            if (!is_null($image))
+            {
+                // store the source file name
+                $model->logoname = $image->name;
+                $ext = end((explode(".", $image->name)));
+
+                // generate a unique file name
+                $model->logo = Yii::$app->security->generateRandomString().".{$ext}";
+
+                $path = Yii::$app->basePath . '/web/uploads/' . $model->logo;
+            }
+            if($model->save()) {
+                if (!is_null($image)) {
+                    $image->saveAs($path);
+                }
+                return $this->redirect(['overview', 'identifier' => $model->identifier]);
+            } else {
+                Yii::$app->getSession()->setFlash('danger', Yii::t('app', 'Something went wrong and the settings was not saved.'));
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,
