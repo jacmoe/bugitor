@@ -74,6 +74,9 @@ return [
             'modelMap' => [
                 'RegistrationForm' => 'frontend\models\RegistrationForm',
             ],
+            /*'controllerMap' => [
+                'profile' => 'frontend\controllers\ProfileController'
+            ],*/
             'mailer' => [
                 'viewPath' => '@common/views/mail',
             ],
