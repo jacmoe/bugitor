@@ -2,11 +2,12 @@
 -use yii\helpers\Url
 -$view->title = empty($profile->name) ? Html::encode($profile->user->username) : Html::encode($profile->name)
 -$view->params['breadcrumbs'][] = $view->title
+-$gravatar_url ="http://gravatar.com/avatar/".$profile->gravatar_id."?s=230"
 .row
   .col-xs-12.col-sm-6.col-md-6
     .row
       .col-sm-6.col-md-4
-        img.img-rounded.img-responsive(src="http://gravatar.com/avatar/"$profile->gravatar_id"?s=230", alt="")
+        img.img-rounded.img-responsive(src=$gravatar_url, alt="")
       .col-sm-6.col-md-8
         h4 #{$view->title}
         ul(style="padding: 0; list-style: none outside none;")
@@ -29,4 +30,4 @@
           p
             !=Html::encode($profile->bio)
 
-        !=Html::a(Url::to('/user/settings/profile'),'Edit profile')
+        !=Html::a('Edit profile', Url::to('/user/settings/profile'))

@@ -20,10 +20,18 @@ hr
   .panel.panel-default
     .panel-heading
       h3.panel-title
+        i.fa.fa-map
+        |Roadmap
+    .panel-body
+    .panel-footer
+      !=Html::a(Yii::t('app', 'View the entire roadmap'), ['project/roadmap', 'identifier' => $model->identifier])
+.col-md-6
+  .panel.panel-default
+    .panel-heading
+      h3.panel-title
         i.fa.fa-users
         |Members
     .panel-body
-.col-md-6
   .panel.panel-default
     .panel-heading
       h3.panel-title
