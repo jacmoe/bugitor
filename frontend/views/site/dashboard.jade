@@ -1,4 +1,5 @@
 -use yii\helpers\Html
+-use dektrium\user\models\User
 -$view->title=Yii::t('app', 'Dashboard')
 -$view->beginBlock('content-header')
 |#{$view->title} <small>all your bugs are belong to us</small>
@@ -23,6 +24,7 @@
         i.fa.fa-ticket
         |Issues reported by me
     .panel-body
+      !=User::findIdentity(1)->username
     .panel-footer
   .panel.panel-default
     .panel-heading
