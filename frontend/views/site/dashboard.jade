@@ -22,6 +22,13 @@
     .panel-heading
       h3.panel-title
         i.fa.fa-ticket
+        |Issues owned by me
+    .panel-body
+    .panel-footer
+  .panel.panel-default
+    .panel-heading
+      h3.panel-title
+        i.fa.fa-ticket
         |Issues reported by me
     .panel-body
       !=User::findIdentity(1)->username
@@ -30,21 +37,28 @@
     .panel-heading
       h3.panel-title
         i.fa.fa-ticket
-        |Issues owned by me
+        |Watched issues
     .panel-body
     .panel-footer
 .col-md-6
   .panel.panel-default
     .panel-heading
       h3.panel-title
+        i.fa.fa-check-square-o
+        |Tasklist
+    .panel-body
+    .panel-footer
+  .panel.panel-default
+    .panel-heading
+      h3.panel-title
         i.fa.fa-clock-o
-        |Latest activity
+        |Recent activity
     .panel-body
     .panel-footer
   .panel.panel-default
     .panel-heading
       h3.panel-title
         i.fa.fa-commenting
-        |Latest conversation
+        |Recent conversation
     .panel-body
     .panel-footer
