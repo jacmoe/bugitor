@@ -9,12 +9,22 @@ class m151116_214817_project_owner extends Migration
     public function safeUp()
     {
         $this->addColumn("{{%project}}",
-            "owner",
+            "owner_id",
             "integer");
-        $this->createIndex('owner_idx', '{{%project}}', 'owner');
+        $this->addColumn("{{%project}}",
+            "updater_id",
+            "integer");
+        $this->createIndex('owner_idx', '{{%project}}', 'owner_id');
+        $this->createIndex('updater_idx', '{{%project}}', 'updater_id');
         $this->addForeignKey('fk_project_owner',
             '{{%project}}',
-            'owner',
+            'owner_id',
+            '{{%user}}', 'id',
+            'NO ACTION', 'NO ACTION'
+        );
+        $this->addForeignKey('fk_project_updater',
+            '{{%project}}',
+            'updater_id',
             '{{%user}}', 'id',
             'NO ACTION', 'NO ACTION'
         );
@@ -22,9 +32,12 @@ class m151116_214817_project_owner extends Migration
 
     public function safeDown()
     {
-        $this->dropColumn('{{%project}}', 'owner');
         $this->dropForeignKey('fk_project_owner',
             '{{%project}}');
+        $this->dropForeignKey('fk_project_updater',
+            '{{%project}}');
+        $this->dropColumn('{{%project}}', 'owner_id');
+        $this->dropColumn('{{%project}}', 'updater_id');
     }
 
 }
