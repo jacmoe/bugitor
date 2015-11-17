@@ -42,4 +42,5 @@ class ProjectQuery extends \yii\db\ActiveQuery
     {
         return $this->andWhere(['owner_id' => $ownerId]);
     }
+
 }

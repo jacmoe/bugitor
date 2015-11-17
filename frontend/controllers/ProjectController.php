@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use Yii;
 use common\models\Project;
+use common\models\Member;
 use common\models\search\ProjectSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -39,8 +40,7 @@ class ProjectController extends \yii\web\Controller
 
     public function actionOverview($identifier)
     {
-        //$model = Project::find()->identifier($identifier)->with('members')->one();
-        $model = Project::find()->identifier($identifier)->one();
+        $model = Project::find()->identifier($identifier)->with('members')->one();
         return $this->render('overview', ['model' => $model]);
     }
 
@@ -126,6 +126,12 @@ class ProjectController extends \yii\web\Controller
                 if (!is_null($image)) {
                     $image->saveAs($path);
                 }
+                $member = new Member();
+                $member->setAttribute('project_id', $model->id);
+                $member->setAttribute('user_id', Yii::$app->user->id);
+                $member->setAttribute('role', 'Administrator');
+                $member->save();
+
                 return $this->redirect(['overview', 'identifier' => $model->identifier]);
             } else {
                 Yii::$app->getSession()->setFlash('danger', Yii::t('app', 'Something went wrong and the settings was not saved.'));
