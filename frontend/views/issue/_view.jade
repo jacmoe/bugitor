@@ -1,0 +1,25 @@
+-use yii\widgets\DetailView
+
+-
+  $attributes = [
+    'id',
+    'tracker_id',
+    'project_id',
+    'subject',
+    'description:ntext',
+    //'issue_category_id',
+    //'user_id',
+    //'issue_priority_id',
+    //'version_id',
+    //'assigned_to',
+    //'created',
+    //'modified',
+    //'done_ratio',
+    //'status',
+    //'closed',
+    //'pre_done_ratio',
+    //'updated_by',
+    //'last_comment',
+  ]
+
+!=DetailView::widget(['model' => $model,'attributes' => $attributes ])
