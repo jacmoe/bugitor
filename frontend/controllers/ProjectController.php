@@ -121,6 +121,7 @@ class ProjectController extends \yii\web\Controller
 
                 $path = Yii::$app->basePath . '/web/uploads/' . $model->logo;
             }
+            $model->setAttribute('owner', \Yii::$app->user->identity->id);
             if($model->save()) {
                 if (!is_null($image)) {
                     $image->saveAs($path);

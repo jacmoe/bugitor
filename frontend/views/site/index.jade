@@ -1,3 +1,4 @@
+-use yii\helpers\Html
 -$view->title=Yii::t('app', 'Dashboard')
 -$view->beginBlock('content-header')
 |#{$view->title} <small>all your bugs are belong to us</small>
@@ -9,6 +10,11 @@
         i.fa.fa-rocket
         |My projects
     .panel-body
+      -foreach ($projects as $project) {
+        .col-md-3
+          div: !=$project->name
+          div: !=Html::a(Yii::t('app', 'View project'), ['project/overview', 'identifier' => $project->identifier])
+      -}
     .panel-footer
 .col-md-6
   .panel.panel-default
