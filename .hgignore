@@ -10,7 +10,6 @@ backend/config/main-local.php
 backend/config/params-local.php
 backend/runtime/*
 backend/web/assets/*
-composer.lock
 console/config/main-local.php
 console/config/params-local.php
 environments/dev/common/config/main-local.php
