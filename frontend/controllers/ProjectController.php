@@ -39,6 +39,7 @@ class ProjectController extends \yii\web\Controller
 
     public function actionOverview($identifier)
     {
+        //$model = Project::find()->identifier($identifier)->with('members')->one();
         $model = Project::find()->identifier($identifier)->one();
         return $this->render('overview', ['model' => $model]);
     }

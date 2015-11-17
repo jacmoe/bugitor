@@ -45,8 +45,14 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $projects = Project::find()->byOwner(\Yii::$app->user->identity->id)->all();
-        return $this->render('index', ['projects' => $projects]);
+        if (Yii::$app->user->isGuest) {
+            return $this->render('index');
+        }
+        else
+        {
+            $projects = Project::find()->byOwner(\Yii::$app->user->identity->id)->all();
+            return $this->render('dashboard', ['projects' => $projects]);
+        }
     }
 
     /**
