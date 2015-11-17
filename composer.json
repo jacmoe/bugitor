@@ -48,6 +48,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/jacmoe/yii2-mailqueue"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/jacmoe/yii2-rbac"
         }
     ],
     "config": {

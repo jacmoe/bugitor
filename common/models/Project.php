@@ -18,6 +18,7 @@ use Yii;
  * @property string $image
  * @property string $logo
  * @property string $logoname
+ * @property integer $owner
  *
  * @property ActionLog[] $actionLogs
  * @property Issue[] $issues
@@ -48,7 +49,7 @@ class Project extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['description'], 'string'],
-            [['public'], 'integer'],
+            [['public', 'owner'], 'integer'],
             [['created', 'modified', 'image'], 'safe'],
             [['image'], 'file', 'extensions'=>'jpg, gif, png'],
             [['name', 'homepage', 'identifier', 'logo', 'logoname'], 'string', 'max' => 255],
@@ -67,6 +68,7 @@ class Project extends \yii\db\ActiveRecord
             'description' => Yii::t('app', 'Description'),
             'homepage' => Yii::t('app', 'Homepage'),
             'public' => Yii::t('app', 'Public'),
+            'owner' => Yii::t('app', 'Owner'),
             'created' => Yii::t('app', 'Created'),
             'modified' => Yii::t('app', 'Modified'),
             'identifier' => Yii::t('app', 'Identifier'),

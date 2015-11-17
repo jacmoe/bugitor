@@ -7,6 +7,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use common\models\Project;
 
 /**
  * Site controller
@@ -44,7 +45,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $projects = Project::find()->byOwner(\Yii::$app->user->identity->id)->all();
+        return $this->render('index', ['projects' => $projects]);
     }
 
     /**
