@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
 
 /**
  * This is the model class for table "{{%project}}".
@@ -18,7 +20,8 @@ use Yii;
  * @property string $image
  * @property string $logo
  * @property string $logoname
- * @property integer $owner
+ * @property integer $owner_id
+ * @property integer $updater_id
  *
  * @property ActionLog[] $actionLogs
  * @property Issue[] $issues
@@ -32,13 +35,31 @@ use Yii;
  */
 class Project extends \yii\db\ActiveRecord
 {
-    public $image; // do I really need this??!
+    public $image; // stores the project logo image when uploaded
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return '{{%project}}';
+    }
+
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'created',
+                'updatedAtAttribute' => 'modified',
+            ],
+            [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'owner_id',
+                'updatedByAttribute' => 'updater_id',
+            ],
+        ];
     }
 
     /**
@@ -49,7 +70,7 @@ class Project extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['description'], 'string'],
-            [['public', 'owner'], 'integer'],
+            [['public', 'owner_id', 'updater_id'], 'integer'],
             [['created', 'modified', 'image'], 'safe'],
             [['image'], 'file', 'extensions'=>'jpg, gif, png'],
             [['name', 'homepage', 'identifier', 'logo', 'logoname'], 'string', 'max' => 255],
@@ -68,7 +89,8 @@ class Project extends \yii\db\ActiveRecord
             'description' => Yii::t('app', 'Description'),
             'homepage' => Yii::t('app', 'Homepage'),
             'public' => Yii::t('app', 'Public'),
-            'owner' => Yii::t('app', 'Owner'),
+            'owner_id' => Yii::t('app', 'Owner'),
+            'updater_id' => Yii::t('app', 'Updater'),
             'created' => Yii::t('app', 'Created'),
             'modified' => Yii::t('app', 'Modified'),
             'identifier' => Yii::t('app', 'Identifier'),
