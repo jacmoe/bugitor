@@ -36,3 +36,4 @@ frontend/web/index-test.php
 frontend/runtime/Jade/cache/*
 frontend/runtime/*
 frontend/web/uploads/*
+tests_cpy/*
