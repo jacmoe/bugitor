@@ -43,3 +43,5 @@ backend/web/js/*
 frontend/web/css/*
 frontend/web/js/*
 node_modules/*
+backend/web/fonts/*
+frontend/web/fonts/*
