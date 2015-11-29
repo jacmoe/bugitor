@@ -45,3 +45,4 @@ frontend/web/js/*
 node_modules/*
 backend/web/fonts/*
 frontend/web/fonts/*
+scss/2-vendors/new_bootstrap/*
