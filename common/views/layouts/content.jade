@@ -1,5 +1,4 @@
 -use yii\widgets\Breadcrumbs;
--use dmstr\widgets\Alert;
 .content-wrapper
   section.content-header
     if (isset($view->blocks['content-header']))
@@ -8,5 +7,5 @@
 
     !=Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],])
   section.content
-    !=Alert::widget()
+    //-!=Alert::widget()
     !=$content

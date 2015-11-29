@@ -18,14 +18,12 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
+        'css/all.css',
     ];
     public $js = [
-        //'js/sidebar_toggle.js',
+        'js/all.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
-        //'frontend\assets\JCookieAsset',
     ];
 }

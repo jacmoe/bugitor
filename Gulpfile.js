@@ -103,8 +103,9 @@ gulp.task('watch', function() {
   //gulp.watch('img/**/*', ['images']);
 
   // Watch any view files in 'views', reload on change
-  gulp.watch(['frontend/views/**/*.php']).on('change', browsersync.reload);
-  gulp.watch(['backend/views/**/*.php']).on('change', browsersync.reload);
+  gulp.watch(['common/views/**/*.jade']).on('change', browsersync.reload);
+  gulp.watch(['frontend/views/**/*.jade']).on('change', browsersync.reload);
+  gulp.watch(['backend/views/**/*.jade']).on('change', browsersync.reload);
 
   // Watch any files in 'web', reload on change
   gulp.watch(['frontend/web/js/*']).on('change', browsersync.reload);
