@@ -4,49 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "04e13bed43857b3c9c30096a37839780",
-    "content-hash": "90d66e1a1abe49b3a6a2e3a220b24b26",
+    "hash": "6eef6fd33be517c0dda56837b249c4bd",
+    "content-hash": "3909cefef942a4719c8fffb0945acc78",
     "packages": [
-        {
-            "name": "almasaeed2010/adminlte",
-            "version": "v2.3.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/almasaeed2010/AdminLTE.git",
-                "reference": "1ee281b3b99e8d8cccdc72fb8437c6888149cb46"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/almasaeed2010/AdminLTE/zipball/1ee281b3b99e8d8cccdc72fb8437c6888149cb46",
-                "reference": "1ee281b3b99e8d8cccdc72fb8437c6888149cb46",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Abdullah Almsaeed",
-                    "email": "support@almsaeedstudio.com"
-                }
-            ],
-            "description": "AdminLTE - admin control panel and dashboard that's based on Bootstrap 3",
-            "homepage": "http://almsaeedstudio.com/",
-            "keywords": [
-                "JS",
-                "admin",
-                "back-end",
-                "css",
-                "less",
-                "responsive",
-                "template",
-                "theme",
-                "web"
-            ],
-            "time": "2015-10-23 14:50:49"
-        },
         {
             "name": "bower-asset/bootstrap",
             "version": "v3.3.5",
@@ -95,43 +55,6 @@
                 "responsive",
                 "web"
             ]
-        },
-        {
-            "name": "bower-asset/fontawesome",
-            "version": "v4.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/FortAwesome/Font-Awesome.git",
-                "reference": "e554555d73a44e0a7d11b0361ad7a5325a5f551c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/e554555d73a44e0a7d11b0361ad7a5325a5f551c",
-                "reference": "e554555d73a44e0a7d11b0361ad7a5325a5f551c",
-                "shasum": ""
-            },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": [
-                    "less/font-awesome.less",
-                    "scss/font-awesome.scss"
-                ],
-                "bower-asset-ignore": [
-                    "*/.*",
-                    "*.json",
-                    "src",
-                    "*.yml",
-                    "Gemfile",
-                    "Gemfile.lock",
-                    "*.md"
-                ]
-            },
-            "license": [
-                "OFL-1.1",
-                "MIT",
-                "CC-BY-3.0"
-            ],
-            "description": "Font Awesome"
         },
         {
             "name": "bower-asset/jquery",
@@ -316,16 +239,16 @@
         },
         {
             "name": "bower-asset/vis",
-            "version": "v4.9.0",
+            "version": "v4.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/almende/vis.git",
-                "reference": "a59e72800f4ba3869224b6453bf76d062e3145e1"
+                "reference": "32630826d1e083dd434bf670cdfc6c0676c5d1e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/almende/vis/zipball/a59e72800f4ba3869224b6453bf76d062e3145e1",
-                "reference": "a59e72800f4ba3869224b6453bf76d062e3145e1",
+                "url": "https://api.github.com/repos/almende/vis/zipball/32630826d1e083dd434bf670cdfc6c0676c5d1e5",
+                "reference": "32630826d1e083dd434bf670cdfc6c0676c5d1e5",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -604,60 +527,6 @@
             "time": "2015-09-27 14:49:11"
         },
         {
-            "name": "dmstr/yii2-adminlte-asset",
-            "version": "2.2.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dmstr/yii2-adminlte-asset.git",
-                "reference": "c842a15ceef4e903f70ac927ec3246e6d53e1148"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dmstr/yii2-adminlte-asset/zipball/c842a15ceef4e903f70ac927ec3246e6d53e1148",
-                "reference": "c842a15ceef4e903f70ac927ec3246e6d53e1148",
-                "shasum": ""
-            },
-            "require": {
-                "almasaeed2010/adminlte": "~2.0",
-                "cebe/yii2-gravatar": "1.*",
-                "rmrevin/yii2-fontawesome": "~2.9",
-                "yiisoft/yii2": "2.*",
-                "yiisoft/yii2-bootstrap": "2.*"
-            },
-            "type": "yii2-extension",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "dmstr\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Tobias Munk",
-                    "email": "tobias@diemeisterei.de"
-                },
-                {
-                    "name": "Evgeniy Tkachenko",
-                    "email": "et.coder@gmail.com"
-                }
-            ],
-            "description": "Backend theme for Yii2 Framework",
-            "keywords": [
-                "AdminLTE",
-                "extension",
-                "yii2"
-            ],
-            "time": "2015-11-06 10:35:36"
-        },
-        {
             "name": "dmstr/yii2-migrate-command",
             "version": "0.2.0",
             "source": {
@@ -829,21 +698,21 @@
         },
         {
             "name": "jacmoe/yii2-tale-jade",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "source": {
                 "type": "hg",
                 "url": "https://bitbucket.org/jacmoe/yii2-tale-jade",
-                "reference": "0cb5b22fa93801f4be801597e5f87bf6777affe0"
+                "reference": "fffd767c2c35df6891dfced25b3b49a920e34fdd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://bitbucket.org/jacmoe/yii2-tale-jade/get/0cb5b22fa93801f4be801597e5f87bf6777affe0.zip",
-                "reference": "0cb5b22fa93801f4be801597e5f87bf6777affe0",
+                "url": "https://bitbucket.org/jacmoe/yii2-tale-jade/get/fffd767c2c35df6891dfced25b3b49a920e34fdd.zip",
+                "reference": "fffd767c2c35df6891dfced25b3b49a920e34fdd",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5.0",
-                "talesoft/tale-jade": "1.2.0",
+                "talesoft/tale-jade": "*",
                 "yiisoft/yii2": "*"
             },
             "type": "yii2-extension",
@@ -870,7 +739,7 @@
                 "tale",
                 "yii2"
             ],
-            "time": "2015-11-10 17:08:22"
+            "time": "2015-11-10 17:28:30"
         },
         {
             "name": "kartik-v/bootstrap-fileinput",
@@ -878,12 +747,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-fileinput.git",
-                "reference": "c828dbb70f5bac2ff68167c537e90dece4591156"
+                "reference": "6ba4295298ee3abe26171b4e2078c27a2f3b35b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/c828dbb70f5bac2ff68167c537e90dece4591156",
-                "reference": "c828dbb70f5bac2ff68167c537e90dece4591156",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/6ba4295298ee3abe26171b4e2078c27a2f3b35b0",
+                "reference": "6ba4295298ee3abe26171b4e2078c27a2f3b35b0",
                 "shasum": ""
             },
             "type": "library",
@@ -918,20 +787,20 @@
                 "progress",
                 "upload"
             ],
-            "time": "2015-11-13 16:04:11"
+            "time": "2015-11-18 17:56:04"
         },
         {
             "name": "kartik-v/bootstrap-star-rating",
-            "version": "v3.5.4",
+            "version": "v3.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-star-rating.git",
-                "reference": "987777ee21a599bebbc545c743063fcee9833842"
+                "reference": "0f729ea50a69224b643e2d9c955b9183e387f03a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-star-rating/zipball/987777ee21a599bebbc545c743063fcee9833842",
-                "reference": "987777ee21a599bebbc545c743063fcee9833842",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-star-rating/zipball/0f729ea50a69224b643e2d9c955b9183e387f03a",
+                "reference": "0f729ea50a69224b643e2d9c955b9183e387f03a",
                 "shasum": ""
             },
             "type": "library",
@@ -959,7 +828,7 @@
                 "jquery",
                 "star"
             ],
-            "time": "2015-09-21 09:06:33"
+            "time": "2015-11-22 17:08:34"
         },
         {
             "name": "kartik-v/dependent-dropdown",
@@ -1099,16 +968,16 @@
         },
         {
             "name": "kartik-v/yii2-krajee-base",
-            "version": "v1.7.7",
+            "version": "v1.7.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-krajee-base.git",
-                "reference": "c0adff9d9762f4fd3bf0e7cd0000fcab0bf00f19"
+                "reference": "6f10fd0a0bfccd729764c65fa65eb4ccf2cbade9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/c0adff9d9762f4fd3bf0e7cd0000fcab0bf00f19",
-                "reference": "c0adff9d9762f4fd3bf0e7cd0000fcab0bf00f19",
+                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/6f10fd0a0bfccd729764c65fa65eb4ccf2cbade9",
+                "reference": "6f10fd0a0bfccd729764c65fa65eb4ccf2cbade9",
                 "shasum": ""
             },
             "require": {
@@ -1141,7 +1010,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-06-16 05:19:57"
+            "time": "2015-11-25 07:03:35"
         },
         {
             "name": "kartik-v/yii2-markdown",
@@ -1343,16 +1212,16 @@
         },
         {
             "name": "kartik-v/yii2-widget-colorinput",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-colorinput.git",
-                "reference": "1f3e3dc32a7dae0c83623fbda8e0dd77b84771b1"
+                "reference": "c00c3fc46a63a738b038366febc08a21112ff9f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-colorinput/zipball/1f3e3dc32a7dae0c83623fbda8e0dd77b84771b1",
-                "reference": "1f3e3dc32a7dae0c83623fbda8e0dd77b84771b1",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-colorinput/zipball/c00c3fc46a63a738b038366febc08a21112ff9f2",
+                "reference": "c00c3fc46a63a738b038366febc08a21112ff9f2",
                 "shasum": ""
             },
             "require": {
@@ -1388,7 +1257,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2014-11-08 21:10:18"
+            "time": "2015-11-22 06:32:23"
         },
         {
             "name": "kartik-v/yii2-widget-datepicker",
@@ -1638,16 +1507,16 @@
         },
         {
             "name": "kartik-v/yii2-widget-rangeinput",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-rangeinput.git",
-                "reference": "b7a0b1eb627a3d6d99bad3d8ff31b28259f9e987"
+                "reference": "ad82cf956b95555d39dbb534587c7827b1dc7bdf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-rangeinput/zipball/b7a0b1eb627a3d6d99bad3d8ff31b28259f9e987",
-                "reference": "b7a0b1eb627a3d6d99bad3d8ff31b28259f9e987",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-rangeinput/zipball/ad82cf956b95555d39dbb534587c7827b1dc7bdf",
+                "reference": "ad82cf956b95555d39dbb534587c7827b1dc7bdf",
                 "shasum": ""
             },
             "require": {
@@ -1683,7 +1552,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2014-11-08 21:15:27"
+            "time": "2015-11-22 06:52:44"
         },
         {
             "name": "kartik-v/yii2-widget-rating",
@@ -2393,58 +2262,6 @@
             "time": "2015-08-23 20:00:46"
         },
         {
-            "name": "rmrevin/yii2-fontawesome",
-            "version": "2.12.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/rmrevin/yii2-fontawesome.git",
-                "reference": "6bfb628f5d93170bfe896866faac494c24783c2e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/rmrevin/yii2-fontawesome/zipball/6bfb628f5d93170bfe896866faac494c24783c2e",
-                "reference": "6bfb628f5d93170bfe896866faac494c24783c2e",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/fontawesome": "4.4.*",
-                "php": ">=5.4.0",
-                "yiisoft/yii2": "2.0.*"
-            },
-            "type": "yii2-extension",
-            "extra": {
-                "asset-installer-paths": {
-                    "npm-asset-library": "vendor/npm",
-                    "bower-asset-library": "vendor/bower"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "rmrevin\\yii\\fontawesome\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Revin Roman",
-                    "email": "roman@rmrevin.com",
-                    "homepage": "https://rmrevin.com/"
-                }
-            ],
-            "description": "Asset Bundle for Yii2 with Font Awesome",
-            "keywords": [
-                "asset",
-                "awesome",
-                "bundle",
-                "font",
-                "yii"
-            ],
-            "time": "2015-11-09 15:03:05"
-        },
-        {
             "name": "rmrevin/yii2-rbac-command",
             "version": "1.3.1",
             "source": {
@@ -2542,16 +2359,16 @@
         },
         {
             "name": "talesoft/tale-jade",
-            "version": "1.2",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Talesoft/tale-jade.git",
-                "reference": "5533809a83a67b65fabf1ca32b3f2755fd7b8bd6"
+                "reference": "bd2c1ef0011c1b4c89126c585618c4b166cc926a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Talesoft/tale-jade/zipball/5533809a83a67b65fabf1ca32b3f2755fd7b8bd6",
-                "reference": "5533809a83a67b65fabf1ca32b3f2755fd7b8bd6",
+                "url": "https://api.github.com/repos/Talesoft/tale-jade/zipball/bd2c1ef0011c1b4c89126c585618c4b166cc926a",
+                "reference": "bd2c1ef0011c1b4c89126c585618c4b166cc926a",
                 "shasum": ""
             },
             "require": {
@@ -2559,6 +2376,13 @@
             },
             "require-dev": {
                 "phpunit/phpunit": ">=4.0"
+            },
+            "suggest": {
+                "coffeescript/coffeescript": "Enables CoffeeScript filtering",
+                "erusev/parsedown": "Enables Markdown filtering",
+                "leafo/lessphp": "Enables LESS filtering",
+                "leafo/scssphp": "Enables SASS filtering",
+                "neemzy/stylus": "Enables Stylus filtering"
             },
             "type": "library",
             "autoload": {
@@ -2600,7 +2424,7 @@
                 "template",
                 "views"
             ],
-            "time": "2015-11-06 16:57:15"
+            "time": "2015-11-11 17:12:37"
         },
         {
             "name": "yiisoft/yii2",

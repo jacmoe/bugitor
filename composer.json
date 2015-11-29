@@ -20,7 +20,6 @@
         "yiisoft/yii2-swiftmailer": "*",
         "jacmoe/yii2-tale-jade": "*",
         "jacmoe/yii2-gii-jade": "*",
-        "dmstr/yii2-adminlte-asset": "2.*",
         "cebe/yii2-gravatar": "1.*",
         "raoul2000/yii2-workflow": "*",
         "raoul2000/yii2-workflow-view": "*",
