@@ -38,3 +38,8 @@ frontend/runtime/*
 frontend/web/uploads/*
 tests_cpy/*
 bootstrap-4.0.0-alpha/*
+backend/web/css/*
+backend/web/js/*
+frontend/web/css/*
+frontend/web/js/*
+node_modules/*
