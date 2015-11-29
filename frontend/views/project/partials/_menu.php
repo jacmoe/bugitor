@@ -16,7 +16,7 @@ use yii\helpers\Html;
 
 <?= Nav::widget([
     'options' => [
-        'class' => 'nav-tabs nav-justified',
+        'class' => 'nav nav-tabs',
         'style' => 'margin-bottom: 15px',
     ],
     'items' => [

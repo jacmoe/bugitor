@@ -72,8 +72,9 @@ gulp.task('images', function() {
 
 // Copy fonts
 gulp.task('fonts', function() {
-  gulp.src(['vendor/bower/bootstrap/fonts/*','scss/2-vendors/fontawesome/fonts/*', 'scss/2-vendors/fonts/josefine-sans/*'])
-  .pipe(gulp.dest('./web/fonts'));
+  gulp.src(['scss/2-vendors/fontawesome/fonts/*'])
+  .pipe(gulp.dest('./frontend/web/fonts'))
+  .pipe(gulp.dest('./backend/web/fonts'));
 });
 
 // Clean
@@ -83,7 +84,7 @@ gulp.task('clean', function(cb) {
 });
 
 // Build the "web" folder by running all of the above tasks
-gulp.task('build', ['clean', 'styles', 'scripts'], function() {});
+gulp.task('build', ['clean', 'styles', 'fonts', 'scripts'], function() {});
 
 // Watch
 gulp.task('watch', function() {
