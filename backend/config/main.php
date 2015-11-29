@@ -19,61 +19,59 @@ return [
         ],
         'assetManager' => [
             'bundles' => [
-                'dmstr\web\AdminLteAsset' => [
-                    'skin' => 'skin-red',
-            ],
-            //'yii\bootstrap\BootstrapAsset' => false,
-            //'yii\validators\ValidationAsset' => false,
-            //'yii\web\YiiAsset' => false,
-            //'yii\widgets\ActiveFormAsset' => false,
-            //'yii\bootstrap\BootstrapPluginAsset' => false,
-            'yii\web\JqueryAsset' => [
+                'yii\bootstrap\BootstrapAsset' => false,
+                'yii\validators\ValidationAsset' => false,
+                'yii\web\YiiAsset' => false,
+                'yii\widgets\ActiveFormAsset' => false,
+                'yii\bootstrap\BootstrapPluginAsset' => false,
+                'yii\web\JqueryAsset' => false,
+                /*'yii\web\JqueryAsset' => [
                 'js' => [
-                    //YII_ENV_DEV ? 'jquery.js' : 'jquery.min.js'
-                    'jquery.min.js',
-                    ]
-                ],
-            ],
-        ],// assetManager
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'enableStrictParsing' => false,
-            'rules' => [
-                '/' => 'admin/index',
-                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
-                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
-            ],
-        ],// urlManager
-        'view' => [
-            'theme' => [
-                    'pathMap' => [
-                        '@dektrium/user/views' => '@common/views/user',
-                        '@backend/views/layouts' => '@common/views/layouts',
-                    ],
-            ],
+                //YII_ENV_DEV ? 'jquery.js' : 'jquery.min.js'
+                'jquery.min.js',
+                ]
+            ],*/
         ],
-        'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets' => [
-                [
-                    'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
-                ],
-            ],
+    ],// assetManager
+    'urlManager' => [
+        'enablePrettyUrl' => true,
+        'showScriptName' => false,
+        'enableStrictParsing' => false,
+        'rules' => [
+            '/' => 'admin/index',
+            '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+            '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
         ],
-        'errorHandler' => [
-            'errorAction' => 'admin/error',
-        ],
-    ],// components
-    'modules' => [
-        'user' => [
-            'enableRegistration' => false,
-            //'as backend' => 'dektrium\user\filters\BackendFilter',
-            'mailer' => [
-                'viewPath' => '@common/views/mail',
+    ],// urlManager
+    'view' => [
+        'theme' => [
+            'pathMap' => [
+                '@dektrium/user/views' => '@common/views/user',
+                '@backend/views/layouts' => '@common/views/layouts',
             ],
         ],
     ],
-    'params' => $params,
+    'log' => [
+        'traceLevel' => YII_DEBUG ? 3 : 0,
+        'targets' => [
+            [
+                'class' => 'yii\log\FileTarget',
+                'levels' => ['error', 'warning'],
+            ],
+        ],
+    ],
+    'errorHandler' => [
+        'errorAction' => 'admin/error',
+    ],
+],// components
+'modules' => [
+    'user' => [
+        'enableRegistration' => false,
+        //'as backend' => 'dektrium\user\filters\BackendFilter',
+        'mailer' => [
+            'viewPath' => '@common/views/mail',
+        ],
+    ],
+],
+'params' => $params,
 ];

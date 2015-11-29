@@ -1,8 +1,6 @@
 -use yii\helpers\Html
 -use frontend\assets\AppAsset
 -AppAsset::register($view)
--dmstr\web\AdminLteAsset::register($view)
--$directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist')
 -$view->beginPage()
 
 doctype html
@@ -34,12 +32,11 @@ html(lang=Yii::$app->language)
     meta(name="msapplication-TileImage", content="/ms-icon-144x144.png")
     meta(name="theme-color", content="#ffffff")
 
-  -$theme = \dmstr\helpers\AdminLteHelper::skinClass()
-  body(class="hold-transition sidebar-mini fixed #{$theme}")
+  body(class="hold-transition sidebar-mini fixed")
     -$view->beginBody()
     .wrapper
-      !=$view->render('header', ['directoryAsset' => $directoryAsset])
-      !=$view->render('left', ['directoryAsset' => $directoryAsset])
-      !=$view->render('content', ['content' => $content, 'directoryAsset' => $directoryAsset])
+      !=$view->render('header')
+      !=$view->render('left')
+      !=$view->render('content', ['content' => $content])
     -$view->endBody()
 -$view->endPage()

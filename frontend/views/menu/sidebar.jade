@@ -14,7 +14,7 @@
     ['label' => Yii::t('app','Sign up'), 'icon' => 'fa fa-user', 'url' => ['/user/register'], 'visible' => Yii::$app->user->isGuest],
   ]
 
-!=dmstr\widgets\Menu::widget(['options' => ['class' => 'sidebar-menu'],'items' => $items])
+//-!=dmstr\widgets\Menu::widget(['options' => ['class' => 'sidebar-menu'],'items' => $items])
 if (!Yii::$app->user->isGuest)
   ul.sidebar-menu
     li
