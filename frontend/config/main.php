@@ -17,12 +17,12 @@ return [
         ],
         'assetManager' => [
             'bundles' => [
-                'yii\bootstrap\BootstrapAsset' => false,
-                'yii\validators\ValidationAsset' => false,
+                //'yii\bootstrap\BootstrapAsset' => false,
+                //'yii\validators\ValidationAsset' => false,
                 //'yii\web\YiiAsset' => false,
-                'yii\widgets\ActiveFormAsset' => false,
-                'yii\bootstrap\BootstrapPluginAsset' => false,
-                'yii\web\JqueryAsset' => false,
+                //'yii\widgets\ActiveFormAsset' => false,
+                //'yii\bootstrap\BootstrapPluginAsset' => false,
+                //'yii\web\JqueryAsset' => false,
                 /*'yii\web\JqueryAsset' => [
                 'js' => [
                 //YII_ENV_DEV ? 'jquery.js' : 'jquery.min.js'
