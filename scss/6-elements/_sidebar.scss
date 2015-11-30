@@ -1,0 +1,4 @@
+aside.main-sidebar {
+  background-color: $brand-success;
+  @include make-md-column(2);
+}
