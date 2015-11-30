@@ -1,10 +1,6 @@
--use yii\helpers\Html
--use yii\widgets\Menu
-
 -
   $items =
   [
-    ['label' => Yii::t('app', 'Navigation'), 'options' => ['class' => 'header']],
     ['label' => Yii::t('app', 'Dashboard'), 'icon' => 'fa fa-home', 'url' => ['/site/index']],
     ['label' => Yii::t('app', 'Projects'), 'icon' => 'fa fa-rocket', 'url' => ['/project/index']],
     ['label' => Yii::t('app', 'Help'), 'icon' => 'fa fa-book', 'url' => ['/help/index']],
@@ -15,9 +11,4 @@
     ['label' => Yii::t('app','Sign up'), 'icon' => 'fa fa-user', 'url' => ['/user/register'], 'visible' => Yii::$app->user->isGuest],
   ]
 
-!=yii\widgets\Menu::widget(['options' => ['class' => 'sidebar-menu'],'items' => $items])
-
-if (!Yii::$app->user->isGuest)
-  ul.sidebar-menu
-    li
-      !=Html::a('<i class="fa fa-lock"></i><span>'.Yii::t('app','Sign out').'</span>',['/user/logout'],['data-method' => 'post'])
+!=common\widgets\Menu::widget(['options' => ['class' => 'nav navbar-nav side-nav'],'items' => $items])

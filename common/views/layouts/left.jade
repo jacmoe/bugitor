@@ -1,19 +1,6 @@
 .collapse.navbar-collapse.navbar-ex1-collapse
 
-  -
-    $items =
-    [
-      ['label' => Yii::t('app', 'Dashboard'), 'icon' => 'fa fa-home', 'url' => ['/site/index']],
-      ['label' => Yii::t('app', 'Projects'), 'icon' => 'fa fa-rocket', 'url' => ['/project/index']],
-      ['label' => Yii::t('app', 'Help'), 'icon' => 'fa fa-book', 'url' => ['/help/index']],
-      ['label' => 'Gii', 'icon' => 'fa fa-file-code-o', 'url' => ['/gii']],
-      ['label' => 'Rest Client', 'icon' => 'fa fa-dashboard', 'url' => ['/rest-client']],
-      ['label' => 'Debug', 'icon' => 'fa fa-dashboard', 'url' => ['/debug']],
-      ['label' => Yii::t('app','Sign in'), 'icon' => 'fa fa-lock', 'url' => ['/user/login'], 'visible' => Yii::$app->user->isGuest],
-      ['label' => Yii::t('app','Sign up'), 'icon' => 'fa fa-user', 'url' => ['/user/register'], 'visible' => Yii::$app->user->isGuest],
-    ]
-
-  !=common\widgets\Menu::widget(['options' => ['class' => 'nav navbar-nav side-nav'],'items' => $items])
+  !=$view->render('//menu/sidebar')
 
   ul.nav.navbar-nav.navbar-right.navbar-user
     li.dropdown.messages-dropdown
