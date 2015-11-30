@@ -18,12 +18,5 @@ aside.main-sidebar
           p #{Yii::$app->user->identity->username}
           a(href="#")
             i.fa.fa-circle.text-success Online
-    // search form
-    form.sidebar-form(action="#", method="get")
-      .input-group
-        input.form-control(type="text", name="q", placeholder="Search...")
-        span.input-group-btn
-          button.btn.btn-flat(type="submit", name="search", id="search-btn")
-            i.fa.fa-search
 
     !=$view->render('//menu/sidebar')
