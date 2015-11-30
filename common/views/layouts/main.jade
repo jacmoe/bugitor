@@ -32,11 +32,12 @@ html(lang=Yii::$app->language)
     meta(name="msapplication-TileImage", content="/ms-icon-144x144.png")
     meta(name="theme-color", content="#ffffff")
 
-  body(class="hold-transition sidebar-mini fixed")
+  body
     -$view->beginBody()
-    .wrapper
-      !=$view->render('header')
-      !=$view->render('left')
+    #wrapper
+      nav.navbar.navbar-inverse.navbar-fixed-top
+        !=$view->render('header')
+        !=$view->render('left')
       !=$view->render('content', ['content' => $content])
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
     -$view->endBody()
