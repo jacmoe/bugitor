@@ -1,11 +1,10 @@
 -use yii\widgets\Breadcrumbs;
-.content-wrapper
+#page-wrapper
   section.content-header
     if (isset($view->blocks['content-header']))
       h1
         !=$view->blocks['content-header']
 
-    !=Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],])
   section.content
     //-!=Alert::widget()
     !=$content

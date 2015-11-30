@@ -1,36 +1,11 @@
 -use yii\helpers\Html
 -use yii\helpers\Url
-header.main-header
-  !=Html::a('<span class="logo-mini">APP</span><span class="logo-lg">' . Yii::$app->name . '</span>', Yii::$app->homeUrl, ['class' => 'logo'])
-  nav.navbar.navbar-static-top
-    a.sidebar-toggle(href="#", data-toggle="offcanvas", role="button")
-      span.sr-only Toggle navigation
-    .navbar-custom-menu
-      ul.nav.navbar-nav
-        if (!Yii::$app->user->isGuest)
-          li.dropdown.user.user-menu
-            a.dropdown-toggle(href="#", data-toggle="dropdown")
-              !=\cebe\gravatar\Gravatar::widget(['email' => Yii::$app->user->identity->email,'options' => ['alt' => '#{Yii::$app->user->identity->username}', 'class' => 'user-image'], 'size' => 25])
-              span.hidden-xs
-                !=Yii::$app->user->identity->username
-            ul.dropdown-menu
-              li.user-header
-                !=\cebe\gravatar\Gravatar::widget(['email' => Yii::$app->user->identity->email,'options' => ['alt' => '#{Yii::$app->user->identity->username}', 'class' => 'img-circle']])
-                p
-                  !=Yii::$app->user->identity->username
-                  small
-                    !=Yii::t('app','Member since')
-                    !=date('F Y',Yii::$app->user->identity->created_at)
-              li.user-body
-                .col-xs-4.text-center
-                  //-a(href="#") Followers
-                .col-xs-4.text-center
-                  //-a(href="#") Sales
-                .col-xs-4.text-center
-                  //-a(href="#") Friends
-              li.user-footer
-                .pull-left
-                  !=Html::a(Yii::t('app','Profile'), Url::to(['/user/profile', 'id' => Yii::$app->user->identity->id]) , ['class' => 'btn btn-default btn-flat'])
-                .pull-right
-                  !=Html::a(Yii::t('app','Sign out'),['/user/logout'],['data-method' => 'post', 'class' => 'btn btn-default btn-flat'])
-          li &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">Admin Panel</a>
+    </div>
