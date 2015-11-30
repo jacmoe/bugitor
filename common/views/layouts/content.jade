@@ -1,4 +1,4 @@
--use yii\widgets\Breadcrumbs;
+-use common\widgets\Alert
 #page-wrapper
   section.content-header
     if (isset($view->blocks['content-header']))
@@ -6,5 +6,5 @@
         !=$view->blocks['content-header']
 
   section.content
-    //-!=Alert::widget()
+    !=Alert::widget()
     !=$content
