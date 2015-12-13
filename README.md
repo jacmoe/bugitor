@@ -8,9 +8,9 @@
 ~~~
 A [Yii](http://www.yiiframework.com/) powered issue tracker
 
-[http://bitbucket.org/bugitor/bugitor/](http://bitbucket.org/bugitor/bugitor/)  
+[http://jacmoe.github.io/bugitor/](http://jacmoe.github.io/bugitor/)  
 
-[http://bugitor.bitbucket.org](http://bugitor.bitbucket.org)
+[https://github.com/jacmoe/bugitor](https://github.com/jacmoe/bugitor)
 
 Copyright (C) 2009 - 2015 Bugitor Team
 
