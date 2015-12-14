@@ -1,3 +1,14 @@
 /backend/config/main-local.php
+/frontend/config/main-local.php
+/common/config/main-local.php
+/backend/config/params-local.php
+/frontend/config/params-local.php
+/common/config/params-local.php
 /vendor/*
 /node_modules/*
+/backend/web/css/*
+/frontend/web/css/*
+/backend/web/js/*
+/frontend/web/js/*
+/backend/web/fonts/*
+/frontend/web/fonts/*
