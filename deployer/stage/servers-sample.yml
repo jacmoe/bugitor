@@ -31,6 +31,11 @@ prod_1:
                 admin1: ''
                 admin2: ''
 
+        gii:
+            allowedIPs:
+                -'127.0.0.1'
+                - '::1'
+
         recaptcha:
             siteKey: ''
             secret: ''
@@ -75,6 +80,11 @@ dev_1:
             admins:
                 admin1: ''
                 admin2: ''
+
+        gii:
+            allowedIPs:
+                -'127.0.0.1'
+                - '::1'
 
         recaptcha:
             siteKey: ''
