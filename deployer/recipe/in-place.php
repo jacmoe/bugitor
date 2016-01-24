@@ -197,13 +197,27 @@ require_once __DIR__ . '/common.php';
 
   })->desc('Make writable dirs');
 
+
+  /**
+   * Create shared directories
+   */
+  task('inplace:shared', function () {
+      $sharedPath = env('deploy_path');
+
+      foreach (get('shared_dirs') as $dir) {
+          // Create shared dir if it does not exist
+          run("mkdir -p $sharedPath/$dir");
+      }
+  })->desc('Creating shared directories');
+
   /**
   * Main task
   */
   task('inplace', [
     'inplace:vendors',
     'inplace:writable',
-    'inplace:configure'
+    'inplace:configure',
+    'inplace:shared',
     ])->desc('Deploy your project in place');
 
     after('inplace', 'success');
