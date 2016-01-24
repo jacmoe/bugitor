@@ -215,9 +215,9 @@ require_once __DIR__ . '/common.php';
   */
   task('inplace', [
     'inplace:vendors',
+    'inplace:shared',
     'inplace:writable',
     'inplace:configure',
-    'inplace:shared',
     ])->desc('Deploy your project in place');
 
     after('inplace', 'success');
