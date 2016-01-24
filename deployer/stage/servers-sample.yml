@@ -16,6 +16,25 @@ prod_1:
             password: dbpassword
             dbname: dbname
 
+        mailer:
+            useFileTransport: false
+            transport:
+                class: ''
+                host: ''
+                username: ''
+                password: ''
+                port: ''
+                encryption: ''
+
+        auth:
+            twitter:
+                consumerKey: ''
+                consumerSecret: ''
+
+            google:
+                clientId: ''
+                clientSecret: ''
+
 dev_1:
     local: true
     host: localhost
@@ -32,3 +51,22 @@ dev_1:
             username: dbuser
             password: dbpassword
             dbname: dbname
+
+        mailer:
+            useFileTransport: true
+            transport:
+                class: ''
+                host: ''
+                username: ''
+                password: ''
+                port: ''
+                encryption: ''
+
+        auth:
+            twitter:
+                consumerKey: ''
+                consumerSecret: ''
+
+            google:
+                clientId: ''
+                clientSecret: ''
