@@ -26,6 +26,11 @@ prod_1:
                 port: ''
                 encryption: ''
 
+        user:
+            admins:
+                admin1: ''
+                admin2: ''
+
         auth:
             twitter:
                 consumerKey: ''
@@ -61,6 +66,11 @@ dev_1:
                 password: ''
                 port: ''
                 encryption: ''
+
+        user:
+            admins:
+                admin1: ''
+                admin2: ''
 
         auth:
             twitter:
