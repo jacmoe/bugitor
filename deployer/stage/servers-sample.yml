@@ -31,6 +31,10 @@ prod_1:
                 admin1: ''
                 admin2: ''
 
+        recaptcha:
+            siteKey: ''
+            secret: ''
+
         auth:
             twitter:
                 consumerKey: ''
@@ -71,6 +75,10 @@ dev_1:
             admins:
                 admin1: ''
                 admin2: ''
+
+        recaptcha:
+            siteKey: ''
+            secret: ''
 
         auth:
             twitter:
