@@ -27,4 +27,5 @@ after('deploy:symlink', 'deploy:run_migrations');
 after('inplace:configure', 'inplace:run_migrations');
 
 before('deploy:vendors', 'deploy:configure_composer');
+before('inplace:vendors', 'deploy:configure_composer');
 before('deploy:symlink', 'deploy:configure');
