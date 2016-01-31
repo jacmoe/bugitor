@@ -11,7 +11,7 @@ use \yii\codeception\BasePage;
 class SignupPage extends BasePage
 {
 
-    public $route = 'site/signup';
+    public $route = 'user/signup';
 
     /**
      * @param array $signupData
