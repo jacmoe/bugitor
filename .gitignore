@@ -13,3 +13,6 @@
 /backend/web/fonts/*
 /frontend/web/fonts/*
 /yii
+/.settings/*
+/.buildpath
+/.project

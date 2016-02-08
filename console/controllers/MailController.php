@@ -1,4 +1,5 @@
 <?php
+namespace console\controllers;
 
 /*
  * This file is part of
@@ -34,14 +35,9 @@
 ?>
 <?php
 
-namespace console\controllers;
-
 use yii\console\Controller;
 use Yii;
-use yii\console\Exception;
 use yii\helpers\Console;
-use yii\helpers\FileHelper;
-use yii\helpers\VarDumper;
 
 class MailController extends Controller
 {
