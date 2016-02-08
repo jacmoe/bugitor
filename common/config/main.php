@@ -51,7 +51,6 @@ return [
         ],
         'user' => [
             'class' => 'dektrium\user\Module',
-            'admins' => ['admin', 'jacmoe'],
             'enableFlashMessages' => false,
         ],
     ],

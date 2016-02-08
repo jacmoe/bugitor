@@ -37,4 +37,9 @@ return [
             ],
         ],
     ],
+    'modules' => [
+        'user' => [
+            'admins' => ['{{app.user.admins.admin1}}', '{{app.user.admins.admin2}}'],
+        ],
+    ],
 ];
