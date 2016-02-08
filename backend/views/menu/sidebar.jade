@@ -1,3 +1,4 @@
+-use yii\helpers\Html
 -
   $items =
   [
@@ -11,6 +12,6 @@
 
 !=common\widgets\Menu::widget(['options' => ['class' => 'nav navbar-nav side-nav'],'items' => $items])
 
-ul.sidebar-menu
+ul.nav.navbar-nav.side-nav
   li
     !=Html::a('<i class="fa fa-lock"></i><span>Sign out</span>',['/user/logout'],['data-method' => 'post'])
