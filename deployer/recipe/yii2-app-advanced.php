@@ -19,6 +19,8 @@ set('shared_dirs', [
     'frontend/runtime',
     'backend/runtime',
     'console/runtime',
+    'frontend/web/.well-known',
+    'backend/web/.well-known',
 ]);
 
 set('writable_dirs', [
@@ -26,6 +28,8 @@ set('writable_dirs', [
     'backend/web/assets',
     'frontend/runtime',
     'frontend/web/assets',
+    'frontend/web/.well-known',
+    'backend/web/.well-known',
 ]);
 
 /**
