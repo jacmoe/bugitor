@@ -9,6 +9,7 @@ return [
             'class' => 'yii\caching\FileCache',
         ], // cache
         'view' => [
+            'class' => 'common\components\View',
             'defaultExtension' => 'jade',
             'renderers' => [
                 'jade' => [
