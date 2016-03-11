@@ -11,6 +11,12 @@ prod_1:
         debug: false
         stage: 'prod'
 
+        mysql:
+            host: db_server
+            username: dbuser
+            password: dbpassword
+            dbname: dbname
+
         github:
             token: secretstuff
             owner: user
@@ -33,6 +39,12 @@ dev_1:
     app:
         debug: true
         stage: 'dev'
+
+        mysql:
+            host: db_server
+            username: dbuser
+            password: dbpassword
+            dbname: dbname
 
         github:
             token: secretstuff
