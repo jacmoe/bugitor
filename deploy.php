@@ -45,7 +45,7 @@ task('deploy:build_assets', function () {
 
 // update symlink to images dir
 task('deploy:images_symlink', function () {
-    run('php {{release_path}}/yii mdpages/pages/symlink');
+    run('php {{release_path}}/yii docs/pages/symlink');
 })->desc('Update images symlink');
 
 task('flush_cache', function () {
