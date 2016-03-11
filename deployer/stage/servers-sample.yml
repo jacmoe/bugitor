@@ -27,6 +27,29 @@ prod_1:
                 port: ''
                 encryption: ''
 
+        user:
+            admins:
+                admin1: ''
+                admin2: ''
+
+        gii:
+            allowedIPs:
+                -'127.0.0.1'
+                - '::1'
+
+        recaptcha:
+            siteKey: ''
+            secret: ''
+
+        auth:
+            twitter:
+                consumerKey: ''
+                consumerSecret: ''
+
+            google:
+                clientId: ''
+                clientSecret: ''
+
         github:
             token: secretstuff
             owner: user
