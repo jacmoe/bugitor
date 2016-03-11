@@ -37,10 +37,10 @@ gulp.task('styles', function() {
     .pipe(sass(sassOptions).on('error', sass.logError))
     .pipe(autoprefixer(autoprefixerOptions))
     .pipe(sourcemaps.write('.', { sourceRoot: '../../scss/' }))
-    .pipe(gulp.dest('web/css'))
+    .pipe(gulp.dest('assets/dist/css'))
     .pipe(gulpif('*.css', rename({ suffix: '.min' })))
     .pipe(gulpif('*.css', cssnano()))
-    .pipe(gulpif('*.css', gulp.dest('web/css')))
+    .pipe(gulpif('*.css', gulp.dest('assets/dist/css')))
     .pipe(gulpif('*.css', notify({ message: 'Styles task complete' })));
 });
 
@@ -52,10 +52,10 @@ gulp.task('scripts', function() {
     .pipe(sourcemaps.init())
     .pipe(concat('all.js'))
     .pipe(sourcemaps.write('.', { sourceRoot: '../../js/' }))
-    .pipe(gulp.dest('web/js'))
+    .pipe(gulp.dest('assets/dist/js'))
     .pipe(gulpif('*.js', rename({ suffix: '.min' })))
     .pipe(gulpif('*.js', uglify()))
-    .pipe(gulpif('*.js', gulp.dest('web/js')))
+    .pipe(gulpif('*.js', gulp.dest('assets/dist/js')))
     .pipe(gulpif('*.js', notify({ message: 'Scripts task complete' })));
 });
 
@@ -63,7 +63,7 @@ gulp.task('scripts', function() {
 gulp.task('images', function() {
   return gulp.src('img/**/*')
     .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
-    .pipe(gulp.dest('web/img'))
+    .pipe(gulp.dest('assets/dist/img'))
     .pipe(notify({ message: 'Images task complete' }));
 });
 
@@ -73,15 +73,15 @@ gulp.task('fonts', function() {
     [   'vendor/bower/bootstrap-sass/assets/fonts/bootstrap/*',
         'vendor/bower/font-awesome/fonts/*'
     ])
-    .pipe(gulp.dest('./web/fonts'));
+    .pipe(gulp.dest('./assets/dist/fonts'));
 });
 
 // Clean
 gulp.task('clean', function() {
-  return del(['web/css/*', 'web/js/*', 'web/fonts/*']);
+  return del(['assets/dist/css/*', 'assets/dist/js/*', 'assets/dist/fonts/*']);
 });
 
-// Build the "web" folder by running all of the above tasks
+// Build the "assets/dist" folder by running all of the above tasks
 gulp.task('build', function(callback) {
   runSequence('clean', ['styles', 'scripts', 'fonts'], callback);
 });
@@ -106,9 +106,9 @@ gulp.task('watch', function() {
   // Watch any view files in 'views', reload on change
   gulp.watch(['views/**/*.php']).on('change', browsersync.reload);
 
-  // Watch any files in 'web', reload on change
-  gulp.watch(['web/js/*']).on('change', browsersync.reload);
-  gulp.watch(['web/css/*']).on('change', browsersync.reload);
+  // Watch any files in 'assets/dist', reload on change
+  gulp.watch(['assets/dist/js/*']).on('change', browsersync.reload);
+  gulp.watch(['assets/dist/css/*']).on('change', browsersync.reload);
 });
 
 gulp.task('default', ['build', 'watch'], function() {});

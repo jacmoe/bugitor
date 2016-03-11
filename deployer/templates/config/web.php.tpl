@@ -18,7 +18,17 @@ $config = [
             'class' => 'dektrium\rbac\components\DbManager',
         ],
         'assetManager' => [
-            'bundles' => false,
+            //'bundles' => false,
+            'bundles' => [
+                'yii\bootstrap\BootstrapAsset' => false,
+                'yii\validators\ValidationAsset' => false,
+                'yii\web\YiiAsset' => false,
+                'yii\widgets\ActiveFormAsset' => false,
+                'yii\bootstrap\BootstrapPluginAsset' => false,
+                'yii\web\JqueryAsset' => false,
+            ],
+            'linkAssets' => true,
+            'appendTimestamp' => true,
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
