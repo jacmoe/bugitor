@@ -37,9 +37,10 @@ task('deploy:configure_composer', function () {
 // build assets
 task('deploy:build_assets', function () {
    runLocally('gulp build');
-   upload(__DIR__ . '/themes/bourbon/dist/css', '{{release_path}}/themes/bourbon/dist/css');
-   upload(__DIR__ . '/themes/bourbon/dist/js', '{{release_path}}/themes/bourbon/dist/js');
-   upload(__DIR__ . '/themes/bourbon/dist/fonts', '{{release_path}}/themes/bourbon/dist/fonts');
+   upload(__DIR__ . '/assets/dist/css', '{{release_path}}/assets/dist/css');
+   upload(__DIR__ . '/assets/dist/img', '{{release_path}}/assets/dist/img');
+   upload(__DIR__ . '/assets/dist/js', '{{release_path}}/assets/dist/js');
+   upload(__DIR__ . '/assets/dist/fonts', '{{release_path}}/assets/dist/fonts');
 })->desc('Build assets');
 
 // update symlink to images dir
@@ -60,3 +61,4 @@ after('deploy:shared', 'deploy:configure');
 before('deploy:vendors', 'deploy:configure_composer');
 after('deploy:vendors', 'deploy:build_assets');
 after('deploy:build_assets', 'deploy:images_symlink');
+after('deploy:symlink', 'deploy:run_migrations');
