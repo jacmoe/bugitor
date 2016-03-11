@@ -21,40 +21,49 @@ app\assets\AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
+    <header class="navbar navbar-inverse navbar-static" id="top">
+        <div class="container">
+            <div id="main-nav-head" class="navbar-header">
+                <a href="<?= Yii::$app->homeUrl ?>" class="navbar-brand">
+                    <span>
+                        <img src="<?= Yii::getAlias('@web/bugitor_white.svg') ?>"
+                            alt="Bugitor"
+                            width="48" height="48" />
+                        Bugitor</span>
+                </a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-inverse fa-bars"></i></button>
+            </div>
+            <div class="navbar-collapse collapse navbar-right">
+                <?php
 
-<div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => 'Bugitor',
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);?><span style="color: #fff;">
-    <img src="/bugitor_white.svg" width=48 alt="Bugitor" /></span>
-<?php
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Docs', 'url' => ['/docs/page']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/user/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/user/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
-    ]);
-    NavBar::end();
-    ?>
-
+                // main navigation
+                $controller = Yii::$app->controller ? Yii::$app->controller->id : null;
+                echo Nav::widget([
+                    'id' => 'main-nav',
+                    'encodeLabels' => false,
+                    'options' => ['class' => 'nav navbar-nav navbar-main-menu'],
+                    'activateItems' => true,
+                    'activateParents' => true,
+                    'dropDownCaret' => '<span class="caret"></span>',
+                    'items' => [
+                        ['label' => 'Docs', 'url' => ['/docs/page'], 'options' => ['title' => 'Bugitor Documentation']],
+                            Yii::$app->user->isGuest ? (
+                                 ['label' => 'Login', 'url' => ['/user/login']]
+                             ) : (
+                                 '<li>'
+                                 . Html::beginForm(['/user/logout'], 'post')
+                                 . Html::submitButton(
+                                     'Logout (' . Yii::$app->user->identity->username . ')',
+                                     ['class' => 'btn btn-link']
+                                 )
+                                 . Html::endForm()
+                                 . '</li>'
+                             )
+                    ],// items
+                ]); ?>
+            </div>
+        </div>
+    </header>
     <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
