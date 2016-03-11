@@ -36,7 +36,7 @@ $config = [
         ],
     ],
     'modules' => [
-      'mdpages' => [
+      'docs' => [
         'class' => 'jacmoe\mdpages\Module',
         'repository_url' => 'https://github.com/{{app.github.owner}}/{{app.github.repo}}.git',
         'github_token' => '{{app.github.token}}',

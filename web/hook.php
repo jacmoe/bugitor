@@ -26,7 +26,7 @@ function run($postBody, $headers) {
     }
 
     // check if the push came from the right repository
-    if ($payload->repository->url == 'https://github.com/jacmoe/bugitor-pages'
+    if ($payload->repository->url == 'https://github.com/jacmoe/bugitor-docs'
         && $payload->ref == 'refs/heads/master') {
 
         // execute update script

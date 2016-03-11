@@ -87,12 +87,11 @@ $config = [
         //    'appendTimestamp' => true,
         //],
         'view' => [
-            'class' => 'app\components\View',
-            //'defaultExtension' => 'jade',
+            'class' => 'jacmoe\mdpages\components\View',
+            'defaultExtension' => 'jade',
             'theme' => [
                 'pathMap' => [
-                    //'/home/jacmoe/webdev/vhosts/yii2-mdpages-module/views' => '@app/themes/' . $theme . '/views',
-                    '@jacmoe/mdpages/views' => '@app/views/wiki',
+                    '@jacmoe/mdpages/views' => '@app/views/docs',
                 ],
             ],
             'renderers' => [
@@ -108,7 +107,7 @@ $config = [
         ],// view
     ],
     'modules' => [
-        'wiki' => [
+        'docs' => [
             'class' => 'jacmoe\mdpages\Module',
             'repository_url' => 'https://github.com/{{app.github.owner}}/{{app.github.repo}}.git',
             'github_token' => '{{app.github.token}}',
