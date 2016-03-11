@@ -24,12 +24,39 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'reCaptcha' => [
+            'name' => 'reCaptcha',
+            'class' => 'himiklab\yii2\recaptcha\ReCaptcha',
+            'siteKey' => '{{app.recaptcha.siteKey}}',
+            'secret' => '{{app.recaptcha.secret}}',
+        ],//recaptcha
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'twitter' => [
+                    'class' => 'dektrium\user\clients\Twitter',
+                    'consumerKey' => '{{app.auth.twitter.consumerKey}}',
+                    'consumerSecret' => '{{app.auth.twitter.consumerSecret}}',
+                ],
+                'google' => [
+                    'class'        => 'dektrium\user\clients\Google',
+                    'clientId'     => '{{app.auth.google.clientId}}',
+                    'clientSecret' => '{{app.auth.google.clientSecret}}',
+                ],
+            ],// clients
+        ],// authClientCollection
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'viewPath' => '@common/mail',
+            'useFileTransport' => {{app.mailer.useFileTransport}},
+            'transport' => [
+                'class' => '{{app.mailer.transport.class}}',
+                'host' => '{{app.mailer.transport.host}}',
+                'username' => '{{app.mailer.transport.username}}',
+                'password' => '{{app.mailer.transport.password}}',
+                'port' => '{{app.mailer.transport.port}}',
+                'encryption' => '{{app.mailer.transport.encryption}}',
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -76,6 +103,11 @@ $config = [
             'feed_filtering' => true,
             'generate_contributor_data' => false,
             'snippets' => $snippets,
+        ],
+        'user' => [
+            'class' => 'dektrium\user\Module',
+            'enableFlashMessages' => false,
+            'admins' => ['{{app.user.admins.admin1}}', '{{app.user.admins.admin2}}'],
         ],
     ],
     'params' => $params,
