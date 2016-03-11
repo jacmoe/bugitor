@@ -1,9 +1,0 @@
-.content-wrapper {
-    @extend .container-fluid;
-  section.content-header {
-    @extend make-row;
-  }
-  section.content {
-    @include make-md-column(10);
-  }
-}

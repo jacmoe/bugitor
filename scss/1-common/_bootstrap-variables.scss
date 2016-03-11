@@ -5,18 +5,6 @@
 // --------------------------------------------------
 
 
-// HOW TO USE THIS FILE:
-//
-// Search and find a setting that you want to override
-// copy it and paste it at the top
-// and then customize it.
-// Be sure to leave the original untouched where it is.
-//
-// That way, we always know what the original value looked like.
-// And it will be easier to spot what we have changed (and what we haven't.)
-
-
-
 //== Colors
 //
 //## Gray and brand colors for use across Bootstrap.
@@ -28,12 +16,43 @@ $gray:                   lighten($gray-base, 33.5%); // #555
 $gray-light:             lighten($gray-base, 46.7%); // #777
 $gray-lighter:           lighten($gray-base, 93.5%); // #eee
 
-$brand-primary:         darken(#428bca, 6.5%); // #337ab7
-$brand-success:         #5cb85c;
-$brand-warning:         #f0ad4e;
-$brand-info:            #5bc0de;
-$brand-danger:          #d9534f;
+// $brand-primary:         darken(#428bca, 6.5%); // #337ab7
+// $brand-success:         #5cb85c;
+// $brand-info:            #5bc0de;
+// $brand-warning:         #f0ad4e;
+// $brand-danger:          #d9534f;
 
+$brand-primary:         $yii-blue;
+$brand-success:         $yii-green;
+$brand-warning:         $yii-yellow;
+
+$state-success-text:             $yii-green;
+$state-info-text:                $yii-blue;
+$state-warning-text:             $yii-yellow;
+
+$text-color:            $gray-dark;
+$link-color:            $brand-primary;
+$link-hover-color:      darken($link-color, 15%);
+
+
+$navbar-height: 80px;
+$navbar-inverse-link-active-bg:             darken($yii-blue, 2%);
+$navbar-inverse-border:                     transparent;
+$navbar-border-radius: 0;
+$navbar-margin-bottom: 0;
+
+$blue-navbar: true;
+
+@if $blue-navbar {
+  $navbar-inverse-color:                      lighten($gray-light, 20%);
+  $navbar-inverse-bg:                         $yii-blue;
+  // Inverted navbar links
+  $navbar-inverse-link-color:                 #fff;
+  // Inverted navbar toggle
+  $navbar-inverse-toggle-hover-bg:            $navbar-inverse-bg;
+  // $navbar-inverse-toggle-icon-bar-bg:         #fff;
+  $navbar-inverse-toggle-border-color:        darken($navbar-inverse-bg, 5%);
+}
 
 
 //== Scaffolding
@@ -41,46 +60,16 @@ $brand-danger:          #d9534f;
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-// $body-bg:               #fff
-$body-bg:               darken(#FEFEFE, 5%);
+// $body-bg:               #fff;
 //** Global text color on `<body>`.
-$text-color:            $gray-dark;
+// $text-color:            $gray-dark;
 
 //** Global textual link color.
-$link-color:            $brand-primary;
+// $link-color:            $brand-primary;
 //** Link hover color set via `darken()` function.
-$link-hover-color:      darken($link-color, 15%);
+// $link-hover-color:      darken($link-color, 15%);
 //** Link hover decoration.
-$link-hover-decoration: underline;
-
-
-$navbar-height: 40px;
-$navbar-inverse-link-active-bg:             transparent;
-$navbar-inverse-border:                     transparent;
-$navbar-border-radius: 0;
-
-$well-bg: #F5F5F5;
-
-$pre-bg: inherit;
-$pre-color: inherit;
-$pre-border-color: inherit;
-
-$icon-font-path: "/fonts/";
-
-$font-size-base:          16px;
-
-
-$grid-float-breakpoint: 1200px;
-
-$grid-gutter-width:         30px;
-
-$container-tablet:             (720px + $grid-gutter-width);
-//** For `$screen-sm-min` and up.
-$container-sm:                 $container-tablet;
-// Large screen / wide desktop
-$container-large-desktop:      (1240px + $grid-gutter-width);
-//** For `$screen-lg-min` and up.
-$container-lg:                 $container-large-desktop;
+// $link-hover-decoration: underline;
 
 
 //== Typography
@@ -456,7 +445,6 @@ $container-lg:                 $container-large-desktop;
 // $navbar-inverse-brand-color:                $navbar-inverse-link-color;
 // $navbar-inverse-brand-hover-color:          #fff;
 // $navbar-inverse-brand-hover-bg:             transparent;
-// $navbar-inverse-brand-color:                $navbar-inverse-link-color;
 
 // Inverted navbar toggle
 // $navbar-inverse-toggle-hover-bg:            #333;
@@ -846,7 +834,7 @@ $container-lg:                 $container-large-desktop;
 //** Text color of current page in the breadcrumb
 // $breadcrumb-active-color:       $gray-light;
 //** Textual separator for between breadcrumb elements
-// $breadcrumb-separator:          "/"
+// $breadcrumb-separator:          "/";
 
 
 //== Carousel
@@ -896,7 +884,7 @@ $container-lg:                 $container-large-desktop;
 //##
 
 //** Horizontal offset for forms and lists.
-// $component-offset-horizontal: 180px
+// $component-offset-horizontal: 180px;
 //** Text muted color
 // $text-muted:                  $gray-light;
 //** Abbreviations and acronyms border color

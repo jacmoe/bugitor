@@ -1,18 +1,37 @@
-/backend/config/main-local.php
-/frontend/config/main-local.php
-/common/config/main-local.php
-/backend/config/params-local.php
-/frontend/config/params-local.php
-/common/config/params-local.php
-/vendor/*
-/node_modules/*
-/backend/web/css/*
-/frontend/web/css/*
-/backend/web/js/*
-/frontend/web/js/*
-/backend/web/fonts/*
-/frontend/web/fonts/*
+# phpstorm project files
+.idea
+
+# netbeans project files
+nbproject
+
+# zend studio for eclipse project files
+.buildpath
+.project
+.settings
+
+# windows thumbnail cache
+Thumbs.db
+
+# composer vendor dir
+/vendor
+
+# node modules
+/node_modules
+
+# composer itself is not needed
+composer.phar
+
+# ignore deployer if present
+deployer.phar
+
+# Mac DS_Store Files
+.DS_Store
+
+# phpunit itself is not needed
+phpunit.phar
+# local phpunit config
+/phpunit.xml
+
+# yii executable - it is generated
 /yii
-/.settings/*
-/.buildpath
-/.project
+/composer.lock

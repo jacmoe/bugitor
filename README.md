@@ -1,40 +1,98 @@
+Yii 2 Basic Gulp Sass Project Template
+============================
+
+Yii 2 Basic Gulp Sass Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application that adds support for Gulp and Sass.
+
+The template contains the basic features including user login/logout and a contact page.
+It includes all commonly used configurations that would allow you to focus on adding new
+features to your application.
+
+[![Latest Stable Version](https://poser.pugx.org/jacmoe/yii2-mdpages-module/v/stable)](https://packagist.org/packages/jacmoe/yii2-app-basic-gulp-sass)
+[![Total Downloads](https://poser.pugx.org/jacmoe/yii2-mdpages-module/downloads)](https://packagist.org/packages/jacmoe/yii2-mdpages-module)
+[![Latest Unstable Version](https://poser.pugx.org/jacmoe/yii2-mdpages-module/v/unstable)](https://packagist.org/packages/jacmoe/yii2-mdpages-module)
+[![License](https://poser.pugx.org/jacmoe/yii2-mdpages-module/license)](https://packagist.org/packages/jacmoe/yii2-mdpages-module)
+
+
+DIRECTORY STRUCTURE
+-------------------
+
+      assets/             contains assets definition
+      commands/           contains console commands (controllers)
+      config/             contains application configurations
+      controllers/        contains Web controller classes
+      mail/               contains view files for e-mails
+      models/             contains model classes
+      runtime/            contains files generated during runtime
+      tests/              contains various tests for the basic application
+      vendor/             contains dependent 3rd-party packages
+      views/              contains view files for the Web application
+      web/                contains the entry script and Web resources
+
+
+
+REQUIREMENTS
+------------
+
+The minimum requirement by this project template that your Web server supports PHP 5.4.0.
+
+
+INSTALLATION
+------------
+## Prerequisites
+Before you start, make sure you have installed [composer](https://getcomposer.org/) and [Node.js](http://nodejs.org/).
+If you are on Debian or Ubuntu you might also want to install the [libnotify-bin](https://packages.debian.org/jessie/libnotify-bin) package, which is used by Gulp to inform you about its status.
+
+### Gulp
+install gulp globally if you haven't done so before
+
+```
+npm install -g gulp
+```
+### Browsersync
+install browsersync globally if you haven't done so before
+
+```
+npm install -g browser-sync
+```
+
+### Install via Composer
+
+If you do not have [Composer](http://getcomposer.org/), you may install it by following the instructions
+at [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
+
+You can then install this project template using the following command:
+
 ~~~
-    ____              _ __
-   / __ )__  ______ _(_) /_____  _____
-  / __  / / / / __ `/ / __/ __ \/ ___/
- / /_/ / /_/ / /_/ / / /_/ /_/ / /
-/_____/\__,_/\__, /_/\__/\____/_/
-            /____/
+php composer.phar global require "fxp/composer-asset-plugin:~1.1.1"
+php composer.phar create-project --prefer-dist --stability=dev jacmoe/yii2-app-basic-gulp-sass basic
 ~~~
-A [Yii](http://www.yiiframework.com/) powered issue tracker
 
-[http://jacmoe.github.io/bugitor/](http://jacmoe.github.io/bugitor/)  
+Now you should be able to access the application through the following URL, assuming `basic` is the directory
+directly under the Web root.
 
-[https://github.com/jacmoe/bugitor](https://github.com/jacmoe/bugitor)
-
-Copyright (C) 2009 - 2015 Bugitor Team
-
-Permission is hereby granted, free of charge, to any person
-obtaining a copy of this software and associated documentation files
-(the "Software"), to deal in the Software without restriction,
-including without limitation the rights to use, copy, modify, merge,
-publish, distribute, sublicense, and/or sell copies of the Software,
-and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
-The above copyright notice and this permission notice shall be included
-in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
-OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
-OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+~~~
+http://localhost/basic/web/
+~~~
 
 
-# About
-Bugitor is an issue tracker written in PHP using the Yii Framework.
+CONFIGURATION
+-------------
 
-# ACHTUNG
-Bugitor is currently undergoing *MAJOR* refactoring, including upgrade from Yii 1.x to Yii 2.x
+### Database
+
+Edit the file `config/db.php` with real data, for example:
+
+```php
+return [
+    'class' => 'yii\db\Connection',
+    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
+    'username' => 'root',
+    'password' => '1234',
+    'charset' => 'utf8',
+];
+```
+
+**NOTES:**
+- Yii won't create the database for you, this has to be done manually before you can access it.
+- Check and edit the other files in the `config/` directory to customize your application as required.
+- Refer to the README in the `tests` directory for information specific to basic application tests.

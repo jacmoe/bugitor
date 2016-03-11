@@ -6,7 +6,7 @@ require('es6-promise').polyfill();
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
-    minifycss = require('gulp-minify-css'),
+    cssnano = require('gulp-cssnano'),
     jshint = require('gulp-jshint'),
     uglify = require('gulp-uglify'),
     imagemin = require('gulp-imagemin'),
@@ -16,33 +16,32 @@ var gulp = require('gulp'),
     cache = require('gulp-cache'),
     browsersync = require('browser-sync'),
     sourcemaps = require('gulp-sourcemaps'),
-    del = require('del');
+    del = require('del'),
+    gulpif = require('gulp-if'),
+    runSequence = require('run-sequence');
 
-    var sassOptions = {
-      errLogToConsole: true,
-      outputStyle: 'expanded'
-    };
+var sassOptions = {
+  errLogToConsole: true,
+  outputStyle: 'expanded'
+};
 
-    var autoprefixerOptions = {
-      browsers: ['last 2 versions', '> 5%', 'Firefox ESR']
-    };
+var autoprefixerOptions = {
+  browsers: ['last 2 versions', '> 5%', 'Firefox ESR']
+};
 
 
 // Styles
 gulp.task('styles', function() {
-  return gulp
-    .src('scss/all.scss')
+  return gulp.src('scss/all.scss')
     .pipe(sourcemaps.init())
     .pipe(sass(sassOptions).on('error', sass.logError))
     .pipe(autoprefixer(autoprefixerOptions))
-    .pipe(gulp.dest('frontend/web/css'))
-    .pipe(gulp.dest('backend/web/css'))
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(minifycss())
-    .pipe(sourcemaps.write('../css/',{includeContent: false, sourceRoot: '../scss/'}))
-    .pipe(gulp.dest('frontend/web/css'))
-    .pipe(gulp.dest('backend/web/css'))
-    .pipe(notify({ message: 'Styles task complete' }));
+    .pipe(sourcemaps.write('.', { sourceRoot: '../../scss/' }))
+    .pipe(gulp.dest('web/css'))
+    .pipe(gulpif('*.css', rename({ suffix: '.min' })))
+    .pipe(gulpif('*.css', cssnano()))
+    .pipe(gulpif('*.css', gulp.dest('web/css')))
+    .pipe(gulpif('*.css', notify({ message: 'Styles task complete' })));
 });
 
 // Scripts
@@ -52,14 +51,12 @@ gulp.task('scripts', function() {
     //.pipe(jshint.reporter('default'))
     .pipe(sourcemaps.init())
     .pipe(concat('all.js'))
-    .pipe(gulp.dest('frontend/web/js'))
-    .pipe(gulp.dest('backend/web/js'))
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(uglify())
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest('frontend/web/js'))
-    .pipe(gulp.dest('backend/web/js'))
-    .pipe(notify({ message: 'Scripts task complete' }));
+    .pipe(sourcemaps.write('.', { sourceRoot: '../../js/' }))
+    .pipe(gulp.dest('web/js'))
+    .pipe(gulpif('*.js', rename({ suffix: '.min' })))
+    .pipe(gulpif('*.js', uglify()))
+    .pipe(gulpif('*.js', gulp.dest('web/js')))
+    .pipe(gulpif('*.js', notify({ message: 'Scripts task complete' })));
 });
 
 // Images
@@ -72,26 +69,29 @@ gulp.task('images', function() {
 
 // Copy fonts
 gulp.task('fonts', function() {
-  gulp.src(['vendor/bower/bootstrap/fonts/*','scss/2-vendors/fontawesome/fonts/*'])
-  .pipe(gulp.dest('./frontend/web/fonts'))
-  .pipe(gulp.dest('./backend/web/fonts'));
+  return gulp.src(
+    [   'vendor/bower/bootstrap-sass/assets/fonts/bootstrap/*',
+        'vendor/bower/font-awesome/fonts/*'
+    ])
+    .pipe(gulp.dest('./web/fonts'));
 });
 
 // Clean
-gulp.task('clean', function(cb) {
-    del(['frontend/web/css', 'frontend/web/js'], cb)
-    del(['backend/web/css', 'backend/web/js'], cb)
+gulp.task('clean', function() {
+  return del(['web/css/*', 'web/js/*', 'web/fonts/*']);
 });
 
 // Build the "web" folder by running all of the above tasks
-gulp.task('build', ['clean', 'styles', 'fonts', 'scripts'], function() {});
+gulp.task('build', function(callback) {
+  runSequence('clean', ['styles', 'scripts', 'fonts'], callback);
+});
 
 // Watch
 gulp.task('watch', function() {
 
   // Initialize Browsersync
   browsersync.init({
-    proxy: "http://bugitor.dev"
+    proxy: "http://foundationtest.dev"
   });
 
   // Watch .scss files
@@ -104,15 +104,11 @@ gulp.task('watch', function() {
   //gulp.watch('img/**/*', ['images']);
 
   // Watch any view files in 'views', reload on change
-  gulp.watch(['common/views/**/*.jade']).on('change', browsersync.reload);
-  gulp.watch(['frontend/views/**/*.jade']).on('change', browsersync.reload);
-  gulp.watch(['backend/views/**/*.jade']).on('change', browsersync.reload);
+  gulp.watch(['views/**/*.php']).on('change', browsersync.reload);
 
   // Watch any files in 'web', reload on change
-  gulp.watch(['frontend/web/js/*']).on('change', browsersync.reload);
-  gulp.watch(['backend/web/js/*']).on('change', browsersync.reload);
-  gulp.watch(['frontend/web/css/*']).on('change', browsersync.reload);
-  gulp.watch(['backend/web/css/*']).on('change', browsersync.reload);
+  gulp.watch(['web/js/*']).on('change', browsersync.reload);
+  gulp.watch(['web/css/*']).on('change', browsersync.reload);
 });
 
 gulp.task('default', ['build', 'watch'], function() {});

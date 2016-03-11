@@ -1,9 +1,8 @@
 [
-    "vendor/bower/yii2-pjax/jquery.pjax.js",
-    "vendor/bower/bootstrap/dist/js/bootstrap.js",
+    "vendor/bower/jquery/dist/jquery.js",
+    "vendor/bower/bootstrap-sass/assets/javascripts/bootstrap.js",
     "vendor/yiisoft/yii2/assets/yii.js",
     "vendor/yiisoft/yii2/assets/yii.validation.js",
-    "vendor/yiisoft/yii2/assets/yii.gridView.js",
     "vendor/yiisoft/yii2/assets/yii.activeForm.js",
     "js/custom.js"
 ]

@@ -1,1 +1,0 @@
-*/5 * * * * /opt/lampp/bin/php /home/jacmoe/webdev/vhosts/bugitor/yii mail/send >> /dev/null 2>&1 

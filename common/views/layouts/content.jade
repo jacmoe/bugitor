@@ -1,9 +1,0 @@
--use common\widgets\Alert
-#page-wrapper
-  section.content-header
-    if (isset($view->blocks['content-header']))
-      h1
-        !=$view->blocks['content-header']
-  section.content
-    !=Alert::widget()
-    !=$content
