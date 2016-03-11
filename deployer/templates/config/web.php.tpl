@@ -4,9 +4,11 @@ $params = require(__DIR__ . '/params.php');
 $snippets = require(__DIR__ . '/snippets.php');
 
 $config = [
+    'name' => 'Bugitor',
     'id' => 'bugitor',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    //'layout' => 'main.jade',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -84,6 +86,20 @@ $config = [
         //    'linkAssets' => true,
         //    'appendTimestamp' => true,
         //],
+        'view' => [
+            'class' => 'app\components\View',
+            //'defaultExtension' => 'jade',
+            'renderers' => [
+                'jade' => [
+                    'class' => 'jacmoe\talejade\JadeViewRenderer',
+                    'cachePath' => '@runtime/Jade/cache',
+                    'options' => [
+                        'pretty' => true,
+                        'lifeTime' => 0,//3600 -> 1 hour
+                    ],
+                ],// jade
+            ],// renderers
+        ],// view
     ],
     'modules' => [
         'wiki' => [

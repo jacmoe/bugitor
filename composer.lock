@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "51fdfafa8aaabd49781f0bf0abc8453f",
-    "content-hash": "708186533e5a7fd1b5a9296009d9ab6a",
+    "hash": "333ca32429c2a7bff6e7360d529f5db8",
+    "content-hash": "b6a320cfade9a9c900f35e3e5191447e",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -746,6 +746,51 @@
             "time": "2016-03-10 15:26:23"
         },
         {
+            "name": "jacmoe/yii2-tale-jade",
+            "version": "1.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jacmoe/yii2-tale-jade.git",
+                "reference": "9fa78245ec7b3085fc15bd664087ebe693fd4082"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jacmoe/yii2-tale-jade/zipball/9fa78245ec7b3085fc15bd664087ebe693fd4082",
+                "reference": "9fa78245ec7b3085fc15bd664087ebe693fd4082",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0",
+                "talesoft/tale-jade": "^1.4",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "jacmoe\\talejade\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jacob Moen",
+                    "email": "jacmoe.dk@gmail.com",
+                    "homepage": "https://jacmoe.dk"
+                }
+            ],
+            "description": "A Tale Jade for PHP integration for the Yii2 framework",
+            "keywords": [
+                "jade",
+                "renderer",
+                "tale",
+                "yii2"
+            ],
+            "time": "2016-03-02 07:17:47"
+        },
+        {
             "name": "jamesmoss/flywheel",
             "version": "0.4.2",
             "source": {
@@ -1040,6 +1085,172 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "time": "2016-03-10 14:06:18"
+        },
+        {
+            "name": "talesoft/tale-config",
+            "version": "0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Talesoft/tale-config.git",
+                "reference": "169eeaed57461a63839455b72853c382b09ae859"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Talesoft/tale-config/zipball/169eeaed57461a63839455b72853c382b09ae859",
+                "reference": "169eeaed57461a63839455b72853c382b09ae859",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0",
+                "talesoft/tale-factory": "~0.1"
+            },
+            "suggest": {
+                "symfony/yaml": "for YAML-configuration",
+                "talesoft/tale-dom": "for XML-configuration"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tale\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Torben Koehn",
+                    "email": "tk@talesoft.io"
+                },
+                {
+                    "name": "Talesoft",
+                    "email": "info@talesoft.io",
+                    "homepage": "http://talesoft.io"
+                }
+            ],
+            "description": "Lightweight configuration interfaces and utilities",
+            "homepage": "http://docs.talesoft.io/tale-framework/tale/config",
+            "keywords": [
+                "config",
+                "options"
+            ],
+            "time": "2016-02-29 22:39:53"
+        },
+        {
+            "name": "talesoft/tale-factory",
+            "version": "0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Talesoft/tale-factory.git",
+                "reference": "2ff9f746d1636048b9c0cc7c9c24d17c82c3a7ac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Talesoft/tale-factory/zipball/2ff9f746d1636048b9c0cc7c9c24d17c82c3a7ac",
+                "reference": "2ff9f746d1636048b9c0cc7c9c24d17c82c3a7ac",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tale\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Torben Koehn",
+                    "email": "tk@talesoft.io"
+                },
+                {
+                    "name": "Talesoft",
+                    "email": "info@talesoft.io",
+                    "homepage": "http://talesoft.io"
+                }
+            ],
+            "description": "A small and lightweight implementation of the factory pattern",
+            "homepage": "http://docs.talesoft.io/tale-framework/tale/factory",
+            "keywords": [
+                "factory"
+            ],
+            "time": "2016-03-01 19:06:00"
+        },
+        {
+            "name": "talesoft/tale-jade",
+            "version": "1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Talesoft/tale-jade.git",
+                "reference": "5afcbc2fbfd4828636ed14beee935004e21ff598"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Talesoft/tale-jade/zipball/5afcbc2fbfd4828636ed14beee935004e21ff598",
+                "reference": "5afcbc2fbfd4828636ed14beee935004e21ff598",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0",
+                "talesoft/tale-config": "0.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "suggest": {
+                "coffeescript/coffeescript": "Enables CoffeeScript filtering",
+                "erusev/parsedown": "Enables Markdown filtering",
+                "leafo/lessphp": "Enables LESS filtering",
+                "leafo/scssphp": "Enables SASS filtering",
+                "neemzy/stylus": "Enables Stylus filtering"
+            },
+            "bin": [
+                "tale-jade"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tale\\Jade\\": ""
+                },
+                "files": [
+                    "functions.php",
+                    "Compiler/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Torben Koehn",
+                    "email": "tk@talesoft.io"
+                },
+                {
+                    "name": "Talesoft",
+                    "email": "info@talesoft.io",
+                    "homepage": "http://talesoft.io"
+                }
+            ],
+            "description": "A complete and fully-functional implementation of the Jade template language for PHP",
+            "homepage": "http://jade.talesoft.io",
+            "keywords": [
+                "dialect",
+                "html",
+                "jade",
+                "php",
+                "phtml",
+                "presentation",
+                "template",
+                "views"
+            ],
+            "time": "2016-03-04 16:23:20"
         },
         {
             "name": "yiisoft/yii2",
