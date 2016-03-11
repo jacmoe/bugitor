@@ -47,9 +47,18 @@ class View extends \yii\web\View {
     protected function findViewFile($view, $context = null)
     {
         if ($this->theme !== null) {
-            $path = $view . '.' . $this->defaultExtension;
+            $view_parts = pathinfo($view);
+            $path = $view;
+            if(!isset($view_parts['extension'])) {
+                $path = $view . '.' . $this->defaultExtension;
+            }
             $path = $this->theme->applyTo($path);
             $viewfile = parent::findViewFile($path, $context);
+            if(!file_exists($viewfile)) {
+                $viewfile = parent::findViewFile($view, $context);
+            }
+            //echo "Found '$viewfile' <br>";
+
         } else {
             $viewfile = parent::findViewFile($view, $context);
         }
