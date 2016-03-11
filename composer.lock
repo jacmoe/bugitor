@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "333ca32429c2a7bff6e7360d529f5db8",
-    "content-hash": "b6a320cfade9a9c900f35e3e5191447e",
+    "hash": "03a6c41ca3d56e4b6ee35bc675f1f01d",
+    "content-hash": "5038db96e97a6c4a1622a99e12a08f85",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -703,16 +703,16 @@
         },
         {
             "name": "jacmoe/yii2-mdpages-module",
-            "version": "0.6.0",
+            "version": "0.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jacmoe/yii2-mdpages-module.git",
-                "reference": "bf0bf186b61195f7df52d08ce4e1daa625db11f4"
+                "reference": "da9609d995fa09b7ce187a6fb14a8f76fa769d1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jacmoe/yii2-mdpages-module/zipball/bf0bf186b61195f7df52d08ce4e1daa625db11f4",
-                "reference": "bf0bf186b61195f7df52d08ce4e1daa625db11f4",
+                "url": "https://api.github.com/repos/jacmoe/yii2-mdpages-module/zipball/da9609d995fa09b7ce187a6fb14a8f76fa769d1e",
+                "reference": "da9609d995fa09b7ce187a6fb14a8f76fa769d1e",
                 "shasum": ""
             },
             "require": {
@@ -743,7 +743,7 @@
                 "extension",
                 "yii2"
             ],
-            "time": "2016-03-10 15:26:23"
+            "time": "2016-03-11 19:47:45"
         },
         {
             "name": "jacmoe/yii2-tale-jade",
