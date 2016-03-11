@@ -11,7 +11,8 @@
     "yiisoft/yii2-bootstrap": "*",
     "yiisoft/yii2-swiftmailer": "*",
     "bower-asset/font-awesome": "^4.5",
-    "bower-asset/bootstrap-sass": "3.3.6"
+    "bower-asset/bootstrap-sass": "3.3.6",
+    "jacmoe/yii2-mdpages-module": "^0.6.0"
   },
   "require-dev": {
     "yiisoft/yii2-codeception": "*",

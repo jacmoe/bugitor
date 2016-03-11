@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "43d7bab8a470e7653c38b0b36cefe9a5",
-    "content-hash": "67302d99a8462bd7a4d48d2ea047ec31",
+    "hash": "902930f5c5939712d7a7a228dd88d1aa",
+    "content-hash": "67d4f5fd6206fec570fa8c1bf8b2cee8",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -381,6 +381,197 @@
             "time": "2015-08-05 01:03:42"
         },
         {
+            "name": "imagine/imagine",
+            "version": "v0.6.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/avalanche123/Imagine.git",
+                "reference": "149041d2a1b517107bfe270ca2b1a17aa341715d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/149041d2a1b517107bfe270ca2b1a17aa341715d",
+                "reference": "149041d2a1b517107bfe270ca2b1a17aa341715d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "sami/sami": "dev-master"
+            },
+            "suggest": {
+                "ext-gd": "to use the GD implementation",
+                "ext-gmagick": "to use the Gmagick implementation",
+                "ext-imagick": "to use the Imagick implementation"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Imagine": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bulat Shakirzyanov",
+                    "email": "mallluhuct@gmail.com",
+                    "homepage": "http://avalanche123.com"
+                }
+            ],
+            "description": "Image processing for PHP 5.3",
+            "homepage": "http://imagine.readthedocs.org/",
+            "keywords": [
+                "drawing",
+                "graphics",
+                "image manipulation",
+                "image processing"
+            ],
+            "time": "2015-09-19 16:54:05"
+        },
+        {
+            "name": "jacmoe/yii2-mdpages-module",
+            "version": "0.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jacmoe/yii2-mdpages-module.git",
+                "reference": "bf0bf186b61195f7df52d08ce4e1daa625db11f4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jacmoe/yii2-mdpages-module/zipball/bf0bf186b61195f7df52d08ce4e1daa625db11f4",
+                "reference": "bf0bf186b61195f7df52d08ce4e1daa625db11f4",
+                "shasum": ""
+            },
+            "require": {
+                "imagine/imagine": "^0.6.3",
+                "jamesmoss/flywheel": "^0.4.2",
+                "scrivo/highlight.php": "^9.0",
+                "symfony/yaml": "^3.0",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "jacmoe\\mdpages\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jacob Moen",
+                    "email": "jacmoe.dk@gmail.com"
+                }
+            ],
+            "description": "Yii2 module that loads and renders a collection of Markdown pages",
+            "keywords": [
+                "extension",
+                "yii2"
+            ],
+            "time": "2016-03-10 15:26:23"
+        },
+        {
+            "name": "jamesmoss/flywheel",
+            "version": "0.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jamesmoss/flywheel.git",
+                "reference": "88ee49cd1b1d9689b7a298ce7056aff0a46fbba2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jamesmoss/flywheel/zipball/88ee49cd1b1d9689b7a298ce7056aff0a46fbba2",
+                "reference": "88ee49cd1b1d9689b7a298ce7056aff0a46fbba2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "mikey179/vfsstream": "1.2.0",
+                "mockery/mockery": "dev-master@dev",
+                "mustangostang/spyc": "0.5.*@dev",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "suggest": {
+                "mustangostang/spyc": "You must install this if you're using the YAML or Markdown formatters."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "JamesMoss\\Flywheel\\": [
+                        "src/",
+                        "test/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "James Moss",
+                    "email": "james@moss.io",
+                    "homepage": "http://moss.io"
+                }
+            ],
+            "description": "A lightweight, flat-file, document database",
+            "homepage": "http://github.com/jamesmoss/flywheel",
+            "keywords": [
+                "db",
+                "document",
+                "file",
+                "flat"
+            ],
+            "time": "2016-02-24 19:56:55"
+        },
+        {
+            "name": "scrivo/highlight.php",
+            "version": "v9.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/scrivo/highlight.php.git",
+                "reference": "a905bf346a47f5fa40f33641b346c37f418d1242"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/scrivo/highlight.php/zipball/a905bf346a47f5fa40f33641b346c37f418d1242",
+                "reference": "a905bf346a47f5fa40f33641b346c37f418d1242",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Highlight\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Server side syntax highlighter that supports over 90 languages. It's a PHP port of highlight.js",
+            "keywords": [
+                "code",
+                "highlight",
+                "highlight.js",
+                "highlight.php",
+                "syntax"
+            ],
+            "time": "2016-01-01 14:08:00"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "5.x-dev",
             "source": {
@@ -432,6 +623,55 @@
                 "mailer"
             ],
             "time": "2016-01-03 15:42:47"
+        },
+        {
+            "name": "symfony/yaml",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "38aebd1045f91caaf25db0164e2703b21fb5359d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/38aebd1045f91caaf25db0164e2703b21fb5359d",
+                "reference": "38aebd1045f91caaf25db0164e2703b21fb5359d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Yaml\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Yaml Component",
+            "homepage": "https://symfony.com",
+            "time": "2016-03-10 14:06:18"
         },
         {
             "name": "yiisoft/yii2",
