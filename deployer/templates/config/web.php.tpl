@@ -12,14 +12,14 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '',
         ],
+        'authManager' => [
+            'class' => 'dektrium\rbac\components\DbManager',
+        ],
         'assetManager' => [
             'bundles' => false,
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
-        ],
-        'user' => [
-            'identityClass' => '\yii\web\IdentityInterface',
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -47,7 +47,7 @@ $config = [
         ],// authClientCollection
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            'viewPath' => '@common/mail',
+            'viewPath' => '@app/mail',
             'useFileTransport' => {{app.mailer.useFileTransport}},
             'transport' => [
                 'class' => '{{app.mailer.transport.class}}',
