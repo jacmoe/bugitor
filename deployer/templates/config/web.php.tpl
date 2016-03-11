@@ -82,10 +82,6 @@ $config = [
             'rules' => [
             ],
         ],
-        //'assetManager' => [
-        //    'linkAssets' => true,
-        //    'appendTimestamp' => true,
-        //],
         'view' => [
             'class' => 'jacmoe\mdpages\components\View',
             'defaultExtension' => 'jade',
