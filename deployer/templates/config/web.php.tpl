@@ -1,6 +1,7 @@
 <?php
 
 $params = require(__DIR__ . '/params.php');
+$snippets = require(__DIR__ . '/snippets.php');
 
 $config = [
     'id' => 'bugitor',
@@ -52,10 +53,10 @@ $config = [
             'rules' => [
             ],
         ],
-        'assetManager' => [
-            'linkAssets' => true,
-            'appendTimestamp' => true,
-        ],
+        //'assetManager' => [
+        //    'linkAssets' => true,
+        //    'appendTimestamp' => true,
+        //],
     ],
     'modules' => [
         'wiki' => [
