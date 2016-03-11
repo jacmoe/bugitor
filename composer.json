@@ -13,7 +13,9 @@
     "bower-asset/font-awesome": "^4.5",
     "bower-asset/bootstrap-sass": "3.3.6",
     "jacmoe/yii2-mdpages-module": "^0.6.0",
-    "dmstr/yii2-migrate-command": "^0.3.1"
+    "dmstr/yii2-migrate-command": "^0.3.1",
+    "cebe/yii2-gravatar": "^1.1",
+    "dektrium/yii2-user": "^0.9.5"
   },
   "require-dev": {
     "yiisoft/yii2-codeception": "*",
