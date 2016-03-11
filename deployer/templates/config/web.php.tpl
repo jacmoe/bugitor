@@ -89,6 +89,12 @@ $config = [
         'view' => [
             'class' => 'app\components\View',
             //'defaultExtension' => 'jade',
+            'theme' => [
+                'pathMap' => [
+                    //'/home/jacmoe/webdev/vhosts/yii2-mdpages-module/views' => '@app/themes/' . $theme . '/views',
+                    '@jacmoe/mdpages/views' => '@app/views/wiki',
+                ],
+            ],
             'renderers' => [
                 'jade' => [
                     'class' => 'jacmoe\talejade\JadeViewRenderer',

@@ -1,6 +1,6 @@
 <?php
 namespace app\components;
-;
+
 /*
 * This file is part of
 *     the yii2   _
@@ -46,24 +46,41 @@ class View extends \yii\web\View {
      */
     protected function findViewFile($view, $context = null)
     {
-        if ($this->theme !== null) {
-            $view_parts = pathinfo($view);
-            $path = $view;
-            if(!isset($view_parts['extension'])) {
-                $path = $view . '.' . $this->defaultExtension;
+        if (strncmp($view, '@', 1) === 0) {
+            // e.g. "@app/views/main"
+            $file = Yii::getAlias($view);
+        } elseif (strncmp($view, '//', 2) === 0) {
+            // e.g. "//layouts/main"
+            $file = Yii::$app->getViewPath() . DIRECTORY_SEPARATOR . ltrim($view, '/');
+        } elseif (strncmp($view, '/', 1) === 0) {
+            // e.g. "/site/index"
+            if (Yii::$app->controller !== null) {
+                $file = Yii::$app->controller->module->getViewPath() . DIRECTORY_SEPARATOR . ltrim($view, '/');
+            } else {
+                throw new InvalidCallException("Unable to locate view file for view '$view': no active controller.");
             }
-            $path = $this->theme->applyTo($path);
-            $viewfile = parent::findViewFile($path, $context);
-            if(!file_exists($viewfile)) {
-                $viewfile = parent::findViewFile($view, $context);
-            }
-            //echo "Found '$viewfile' <br>";
-
+        } elseif ($context instanceof ViewContextInterface) {
+            $file = $context->getViewPath() . DIRECTORY_SEPARATOR . $view;
+        } elseif (($currentViewFile = $this->getViewFile()) !== false) {
+            $file = dirname($currentViewFile) . DIRECTORY_SEPARATOR . $view;
         } else {
-            $viewfile = parent::findViewFile($view, $context);
+            //TODO: figure out why we even end up here.. ?
+            $file = $context->getViewPath() . DIRECTORY_SEPARATOR . $view;
+            //throw new InvalidCallException("Unable to resolve view file for view '$view': no active view context.");
         }
 
-        return $viewfile;
+        if (pathinfo($file, PATHINFO_EXTENSION) !== '') {
+            return $file;
+        }
+        $path = $file . '.' . $this->defaultExtension;
+        if ($this->theme !== null) {
+            $path = $this->theme->applyTo($path);
+        }
+        if ($this->defaultExtension !== 'php' && !is_file($path)) {
+            $path = $file . '.php';
+        }
+
+        return $path;
     }
 
 }
