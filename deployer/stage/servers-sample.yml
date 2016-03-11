@@ -1,0 +1,46 @@
+# Pype Configuration
+# -------------
+prod_1:
+    host: hostname
+    user: username
+    password: password
+    stage: production
+    repository: https://github.com/user/repository.git
+    deploy_path: /var/www
+    app:
+        debug: false
+        stage: 'prod'
+
+        github:
+            token: secretstuff
+            owner: user
+            repo: repo
+            branch: master
+
+        webhook:
+            secret: secrethash
+            php: /usr/bin/php
+            yii: /path/to/yii
+
+dev_1:
+    local: true
+    host: localhost
+    user: username
+    password: password
+    stage: local
+    repository: https://github.com/user/repository.git
+    deploy_path: /home/user/www
+    app:
+        debug: true
+        stage: 'dev'
+
+        github:
+            token: secretstuff
+            owner: user
+            repo: repo
+            branch: master
+
+        webhook:
+            secret: secrethash
+            php: /usr/bin/php
+            yii: /path/to/yii
