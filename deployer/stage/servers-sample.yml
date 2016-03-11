@@ -17,6 +17,16 @@ prod_1:
             password: dbpassword
             dbname: dbname
 
+        mailer:
+            useFileTransport: false
+            transport:
+                class: ''
+                host: ''
+                username: ''
+                password: ''
+                port: ''
+                encryption: ''
+
         github:
             token: secretstuff
             owner: user
@@ -45,6 +55,16 @@ dev_1:
             username: dbuser
             password: dbpassword
             dbname: dbname
+
+        mailer:
+            useFileTransport: true
+            transport:
+                class: ''
+                host: ''
+                username: ''
+                password: ''
+                port: ''
+                encryption: ''
 
         github:
             token: secretstuff

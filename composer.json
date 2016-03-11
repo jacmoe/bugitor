@@ -15,7 +15,8 @@
     "jacmoe/yii2-mdpages-module": "^0.6.0",
     "dmstr/yii2-migrate-command": "^0.3.1",
     "cebe/yii2-gravatar": "^1.1",
-    "dektrium/yii2-user": "^0.9.5"
+    "dektrium/yii2-user": "^0.9.5",
+    "himiklab/yii2-recaptcha-widget": "^1.0"
   },
   "require-dev": {
     "yiisoft/yii2-codeception": "*",
