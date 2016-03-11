@@ -3,13 +3,13 @@
 $params = require(__DIR__ . '/params.php');
 
 $config = [
-    'id' => 'basic',
+    'id' => 'bugitor',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'i_d_SmOfYkzSUDzPDb-ONRiKf02Z6I1R',
+            'cookieValidationKey' => 'aYSpej3uwMR-iwNzRrSE_5IVR8iOp9_K',
         ],
         'assetManager' => [
             'bundles' => false,
@@ -18,8 +18,7 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
+            'identityClass' => '\yii\web\IdentityInterface',
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -40,12 +39,42 @@ $config = [
                 ],
             ],
         ],
-        'db' => require(__DIR__ . '/db.php'),
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=localhost;dbname=yii2basic',
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
+        ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
+        ],
+        'assetManager' => [
+            'linkAssets' => true,
+            'appendTimestamp' => true,
+        ],
+    ],
+    'modules' => [
+        'wiki' => [
+            'class' => 'jacmoe\mdpages\Module',
+            'repository_url' => 'https://github.com/jacmoe/bugitor-pages.git',
+            'github_token' => '104b4836c4a8545972d32990b5b06fa894f738f9',
+            'github_owner' => 'jacmoe',
+            'github_repo' => 'bugitor-pages',
+            'github_branch' => 'master',
+            'absolute_wikilinks' => true,
+            'generate_page_toc' => false,
+            'feed_title' => 'Blog posts',
+            'feed_description' => 'Jacmoes Cyber Soapbox Rss Feed',
+            'feed_author_email' => 'jacmoe.dk@gmail.com',
+            'feed_author_name' => 'Jacob Moen',
+            'feed_ordering' => 'datetime DESC',
+            'feed_filtering' => true,
+            'generate_contributor_data' => false,
+            'snippets' => $snippets,
         ],
     ],
     'params' => $params,

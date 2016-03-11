@@ -1,10 +1,11 @@
 <?php
 
-$params = require(__DIR__ . '/params.php');
-$snippets = require(__DIR__ . '/snippets.php');
+Yii::setAlias('@tests', dirname(__DIR__) . '/tests/codeception');
 
-return [
-    'id' => 'pype-console',
+$params = require(__DIR__ . '/params.php');
+
+$config = [
+    'id' => 'bugitor-console',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'app\commands',
@@ -19,6 +20,13 @@ return [
                     'levels' => ['error', 'warning'],
                 ],
             ],
+        ],
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=localhost;dbname=yii2basic',
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
         ],
     ],
     'modules' => [
@@ -37,3 +45,13 @@ return [
     ],
     'params' => $params,
 ];
+
+if (YII_ENV_DEV) {
+    // configuration adjustments for 'dev' environment
+    $config['bootstrap'][] = 'gii';
+    $config['modules']['gii'] = [
+        'class' => 'yii\gii\Module',
+    ];
+}
+
+return $config;

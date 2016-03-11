@@ -1,20 +1,18 @@
 <?php
 
 $params = require(__DIR__ . '/params.php');
-$snippets = require(__DIR__ . '/snippets.php');
-
-$theme = 'bourbon';
 
 $config = [
-    'id' => 'jacmoes',
+    'id' => 'bugitor',
     'basePath' => dirname(__DIR__),
-    'defaultRoute' => '/wiki/page',
-    'layout' => '@app/themes/' . $theme . '/views/layouts/main.jade',
     'bootstrap' => ['log'],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '',
+        ],
+        'assetManager' => [
+            'bundles' => false,
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -23,7 +21,14 @@ $config = [
             'identityClass' => '\yii\web\IdentityInterface',
         ],
         'errorHandler' => [
-            'errorAction' => '/wiki/page/error',
+            'errorAction' => 'site/error',
+        ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            // send all mails to a file by default. You have to set
+            // 'useFileTransport' to false and configure a transport
+            // for the mailer to send real emails.
+            'useFileTransport' => true,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -34,52 +39,22 @@ $config = [
                 ],
             ],
         ],
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=localhost;dbname=yii2basic',
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
+        ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                [
-                    'pattern' => '/feed',
-                    'route' => '/wiki/page/rss',
-                ],
-                [
-                    'pattern' => '<id:[\w_\/-]+>',
-                    'route' => '/wiki/page/view',
-                    'encodeParams' => false
-                ],
-                [
-                    'pattern' => '<module:\w+>/<controller:\w+>/<action:\w+>/<id:[\w_\/-]+>',
-                    'route' => '<module>/<controller>/<action>',
-                    'encodeParams' => false
-                ],
-                '<module:\w+>/<controller:\w+>/<action:\w+>'=>'<module>/<controller>/<action>',
             ],
         ],
         'assetManager' => [
             'linkAssets' => true,
             'appendTimestamp' => true,
-        ],
-        'view' => [
-            'class' => 'jacmoe\mdpages\components\View',
-            'defaultExtension' => 'jade',
-            'renderers' => [
-                'jade' => [
-                    'class' => 'jacmoe\talejade\JadeViewRenderer',
-                    'cachePath' => '@runtime/Jade/cache',
-                    'options' => [
-                        'pretty' => true,
-                        'lifeTime' => 3600,//3600 -> 1 hour
-                    ],
-                ],
-            ],
-            'theme' => [
-                'basePath' => '@app/themes/' . $theme,
-                'baseUrl' => '@web/themes/' . $theme,
-                'pathMap' => [
-                    '@app/views' => '@app/themes/' . $theme . '/views',
-                    '@jacmoe/mdpages/views' => '@app/themes/' . $theme . '/views',
-                ],
-            ],
         ],
     ],
     'modules' => [
@@ -104,5 +79,18 @@ $config = [
     ],
     'params' => $params,
 ];
+
+if (YII_ENV_DEV) {
+    // configuration adjustments for 'dev' environment
+    $config['bootstrap'][] = 'debug';
+    $config['modules']['debug'] = [
+        'class' => 'yii\debug\Module',
+    ];
+
+    $config['bootstrap'][] = 'gii';
+    $config['modules']['gii'] = [
+        'class' => 'yii\gii\Module',
+    ];
+}
 
 return $config;
