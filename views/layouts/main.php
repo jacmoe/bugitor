@@ -7,9 +7,7 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
-$asset = app\assets\AppAsset::register($this);
-$pype_logo = $asset->baseUrl . '/bugitor.svg';
-
+app\assets\AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -32,7 +30,9 @@ $pype_logo = $asset->baseUrl . '/bugitor.svg';
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
-    ]);
+    ]);?><span style="color: #fff;">
+    <img src="/bugitor_white.svg" width=48 alt="Bugitor" /></span>
+<?php
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
