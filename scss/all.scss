@@ -14,23 +14,15 @@
 
 // Vendors
 @import "2-vendors/bootstrap";
+@import "2-vendors/yii";
 @import "../vendor/bower/sass-rem/rem";
 @import "../vendor/bower/font-awesome/scss/font-awesome";
 
 // Global styling that makes use of vendors
 @import "3-global/site";
 @import "3-global/typography";
-@import "3-global/navbar";
 
 // Components that could be used in multiple pages
-//@import "4-components/all";
-
-// Page specific style
-//@import "5-pages/all";
-
-// Elements
-// When a style file becomes too big
-// it can be split up.
-// Indivual elements gets placed here
-// in subdirectories named after the page/name
-//@import "6-elements/all";
+@import "4-components/navbar";
+@import "4-components/jumbotron";
+@import "4-components/footer";

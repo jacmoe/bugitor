@@ -1,0 +1,8 @@
+@include sticky-footer(4em);
+
+.footer {
+    height: 80px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}

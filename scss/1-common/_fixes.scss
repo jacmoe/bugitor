@@ -24,4 +24,7 @@ button:hover
 html {
   overflow: -moz-scrollbars-vertical;
   overflow-y: scroll;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizelegibility;
 }
