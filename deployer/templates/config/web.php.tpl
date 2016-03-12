@@ -26,6 +26,8 @@ $config = [
                 'yii\widgets\ActiveFormAsset' => false,
                 'yii\bootstrap\BootstrapPluginAsset' => false,
                 'yii\web\JqueryAsset' => false,
+                //'yii\authclient\widgets\AuthChoiceAsset' => false, //authchoice.js
+                //'yii\authclient\widgets\AuthChoiceStyleAsset' => false, //authchoice.css
             ],
             'linkAssets' => true,
             'appendTimestamp' => true,
@@ -140,7 +142,7 @@ $config = [
     'params' => $params,
 ];
 
-if (YII_ENV_DEV) {
+if (false/*YII_ENV_DEV*/) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
