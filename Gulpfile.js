@@ -91,7 +91,7 @@ gulp.task('watch', function() {
 
   // Initialize Browsersync
   browsersync.init({
-    proxy: "http://foundationtest.dev"
+    proxy: "https://bugitor.dev"
   });
 
   // Watch .scss files

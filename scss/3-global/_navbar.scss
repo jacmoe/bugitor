@@ -1,3 +1,17 @@
+// lift the logo up a bit
+.navbar-header {
+  position: relative;
+  top: -1em;
+  .navbar-brand {
+    color: #E6E6E6;
+    font-size: 3em;
+    img {
+      position: relative;
+      top: -0.1em;
+    }
+    border: none;
+  }
+}
 
 @media screen and (min-width: $grid-float-breakpoint) {
   // Dropdown menu items
