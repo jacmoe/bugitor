@@ -1,0 +1,15 @@
+include partials/_top.php
+
+doctype html
+html(lang=Yii::$app->language)
+  head
+    include partials/_head
+  body
+    -$view->beginBody()
+    include partials/_header
+    .container
+      include partials/_breadcrumbs.php
+      include partials/_content
+    include partials/_footer
+    -$view->endBody()
+-$view->endPage()
