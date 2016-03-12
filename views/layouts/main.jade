@@ -6,10 +6,12 @@ html(lang=Yii::$app->language)
     include partials/_head
   body
     -$view->beginBody()
-    include partials/_header
-    .container
-      include partials/_breadcrumbs.php
-      include partials/_content
+    #wrapper
+      #container
+        include partials/_header
+        .container
+          include partials/_breadcrumbs.php
+          include partials/_content
     include partials/_footer
     -$view->endBody()
 -$view->endPage()

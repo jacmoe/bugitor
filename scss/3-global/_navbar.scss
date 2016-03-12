@@ -13,6 +13,11 @@
   }
 }
 
+.navbar-toggle {
+  position: relative;
+  top: 0.9em;
+}
+
 @media screen and (min-width: $grid-float-breakpoint) {
   // Dropdown menu items
   .navbar-nav {

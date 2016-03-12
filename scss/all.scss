@@ -10,10 +10,12 @@
 @import "1-common/colors";
 @import "1-common/bootstrap-variables";
 @import "1-common/fixes";
+@import "1-common/sticky-footer";
 
 // Vendors
 @import "2-vendors/bootstrap";
 @import "../vendor/bower/sass-rem/rem";
+@import "../vendor/bower/font-awesome/scss/font-awesome";
 
 // Global styling that makes use of vendors
 @import "3-global/site";

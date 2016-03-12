@@ -5,21 +5,7 @@ html {
   text-rendering: optimizelegibility;
 }
 
-html,
-body {
-    height: 100%;
-}
-
-.wrap {
-    min-height: 100%;
-    height: auto;
-    margin: 0 auto -80px;
-    padding: 0 0 80px;
-}
-
-.wrap > .container {
-    padding: 90px 15px 20px;
-}
+@include sticky-footer(4em);
 
 .footer {
     height: 80px;
