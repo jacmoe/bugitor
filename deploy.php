@@ -4,14 +4,15 @@ require_once __DIR__ . '/deployer/recipe/yii2-app-basic.php';
 require_once __DIR__ . '/deployer/recipe/local-config.php';
 /*
 * This file is part of
-*  _ __  _   _ _ __   ___
-* | '_ \| | | | '_ \ / _ \
-* | |_) | |_| | |_) |  __/
-* | .__/ \__, | .__/ \___|
-* |_|    |___/|_|
-*                 Personal Yii Page Engine
+*  _                 _ _
+* | |__  _   _  __ _(_) |_ ___  _ __
+* | '_ \| | | |/ _` | | __/ _ \| '__|
+* | |_) | |_| | (_| | | || (_) | |
+* |_.__/ \__,_|\__, |_|\__\___/|_|
+*              |___/
+*                 issue tracker
 *
-*	Copyright (c) 2016 Jacob Moen
+*	Copyright (c) 2010 - 2016 Jacob Moen
 *	Licensed under the MIT license
 */
 
