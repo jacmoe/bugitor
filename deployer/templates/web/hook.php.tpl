@@ -30,7 +30,7 @@ function run($postBody, $headers) {
         && $payload->ref == 'refs/heads/{{app.github.branch}}') {
 
         // execute update script
-        passthru('{{app.webhook.php}} {{app.webhook.yii}} mdpages/pages/update');
+        passthru('{{app.webhook.php}} {{app.webhook.yii}} docs/pages/update');
 
         return true;
     } else {
