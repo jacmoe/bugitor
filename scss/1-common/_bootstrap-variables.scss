@@ -52,6 +52,8 @@ $blue-navbar: true;
   $navbar-inverse-toggle-hover-bg:            $navbar-inverse-bg;
   // $navbar-inverse-toggle-icon-bar-bg:         #fff;
   $navbar-inverse-toggle-border-color:        darken($navbar-inverse-bg, 5%);
+  $navbar-inverse-link-hover-bg:              $navbar-inverse-toggle-border-color;
+  $navbar-inverse-link-active-bg:             $navbar-inverse-link-hover-bg;
 }
 
 
