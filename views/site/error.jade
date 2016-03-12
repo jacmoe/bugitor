@@ -1,0 +1,16 @@
+-use yii\helpers\Html
+-$view->title = $name
+-$view->params['breadcrumbs'][] = $view->title;
+.content
+  .error-page
+    h2.headline.text-info: i.fa.fa-warning.text-yellow
+    .error-content
+      h3 #{$view->title}
+      p
+        =$message
+      p.
+        The above error occurred while the Web server was processing your request.
+      p.
+        Please contact us if you think this is a server error. Thank you.
+      p.
+        Meanwhile, you may <a href='#{Yii::$app->homeUrl}'>return to the dashboard</a>

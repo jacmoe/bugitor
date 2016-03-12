@@ -100,6 +100,7 @@ $config = [
             'theme' => [
                 'pathMap' => [
                     '@jacmoe/mdpages/views' => '@app/views/docs',
+                    '@dektrium/user/views' => '@app/views/user',
                 ],
             ],
             'renderers' => [

@@ -1,0 +1,31 @@
+-use dektrium\user\models\User
+-use yii\helpers\Html
+-$view->title=Yii::t('app', 'Bugitor Bug Tracker')
+-$view->beginBlock('content-header')
+|#{$view->title} <small>all your bugs are belong to us</small>
+-$view->endBlock()
+.col-md-12
+  .panel.panel-default
+    .panel-heading
+      h3.panel-title
+        i.fa.fa-rocket
+        |Recent projects
+    .panel-body
+      //-!=User::findIdentity(1)->username
+    .panel-footer
+.col-md-6
+  .panel.panel-default
+    .panel-heading
+      h3.panel-title
+        i.fa.fa-ticket
+        |Recent issues
+    .panel-body
+    .panel-footer
+.col-md-6
+  .panel.panel-default
+    .panel-heading
+      h3.panel-title
+        i.fa.fa-clock-o
+        |Recent activity
+    .panel-body
+    .panel-footer
