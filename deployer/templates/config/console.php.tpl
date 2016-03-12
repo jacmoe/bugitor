@@ -45,7 +45,7 @@ $config = [
         'github_branch' => '{{app.github.branch}}',
         'absolute_wikilinks' => true,
         'generate_page_toc' => true,
-        'generate_contributor_data' => false,
+        'generate_contributor_data' => true,
         'snippets' => $snippets,
       ],
     ],

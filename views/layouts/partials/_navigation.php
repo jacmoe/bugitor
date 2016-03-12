@@ -1,6 +1,7 @@
 <?php
 // main navigation
 $controller = Yii::$app->controller ? Yii::$app->controller->id : null;
+$module = Yii::$app->controller->module ? Yii::$app->controller->module->id : null;
 echo Nav::widget([
     'id' => 'main-nav',
     'encodeLabels' => false,
@@ -9,7 +10,7 @@ echo Nav::widget([
     'activateParents' => true,
     'dropDownCaret' => '<span class="caret"></span>',
     'items' => [
-        ['label' => 'Docs', 'url' => ['/docs/page'], 'options' => ['title' => 'Bugitor Documentation']],
+        ['label' => 'Docs', 'url' => ['/docs/page'], 'options' => ['title' => 'Bugitor Documentation'], 'active' => ($module == 'docs')],
         Yii::$app->user->isGuest ? (
             ['label' => 'Login', 'url' => ['/user/login']]
          ) : (
