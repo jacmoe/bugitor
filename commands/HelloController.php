@@ -30,8 +30,10 @@ class HelloController extends Controller
      * This command echoes what you have entered as the message.
      * @param string $message the message to be echoed.
      */
-    public function actionIndex($message = 'hello world')
+    public function actionIndex()
     {
-        echo $message . "\n";
+        $auth = \Yii::$app->authManager;
+        $managerRole = $auth->getRole('admin');
+        $auth->assign($managerRole, 1);
     }
 }

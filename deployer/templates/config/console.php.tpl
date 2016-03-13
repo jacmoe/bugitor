@@ -14,8 +14,23 @@ $config = [
         'migrate' => [
             'class' => 'dmstr\console\controllers\MigrateController'
         ],
+        'rbac' => [
+            'class' => 'app\commands\BugitorRbacCommand',
+            'batchSize' => 1000,
+            'assignmentsMap' => [
+                'old' => 'new', // after next update all `frontend.old` will be replaced by `frontend.new`
+            ],
+        ],
     ],
     'components' => [
+        'user' => [
+            'class' => 'yii\web\User',
+            'identityClass' => 'dektrium\user\models\User',
+            //'enableAutoLogin' => true,
+        ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
@@ -47,6 +62,11 @@ $config = [
         'generate_page_toc' => true,
         'generate_contributor_data' => true,
         'snippets' => $snippets,
+      ],
+      'user' => [
+          'class' => 'dektrium\user\Module',
+          'enableFlashMessages' => false,
+          'admins' => ['{{app.user.admins.admin1}}', '{{app.user.admins.admin2}}'],
       ],
     ],
     'params' => $params,

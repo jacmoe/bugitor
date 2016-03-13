@@ -6,7 +6,7 @@
 |#{$view->title} <small>all your bugs are belong to us</small>
 -$view->endBlock()
 
-if (\Yii::$app->user->can('project_create'))
+if (\Yii::$app->user->can('project.create'))
   !=Html::a(Yii::t('app', 'Create Project'), ['create'], ['class' => 'btn btn-success pull-right'])
 
 div

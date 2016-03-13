@@ -8,7 +8,7 @@
   //-!= $view->render('_search', ['model' => $searchModel]) ?>
 
   p
-    if (\Yii::$app->user->can('issue_create'))
+    if (\Yii::$app->user->can('issue.create'))
       !=Html::a(Yii::t('app', 'Create Issue'), ['create'], ['class' => 'btn btn-success'])
 
 

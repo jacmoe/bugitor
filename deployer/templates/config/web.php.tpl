@@ -15,7 +15,7 @@ $config = [
             'cookieValidationKey' => '',
         ],
         'authManager' => [
-            'class' => 'dektrium\rbac\components\DbManager',
+            'class' => 'yii\rbac\DbManager',
         ],
         'assetManager' => [
             //'bundles' => false,
