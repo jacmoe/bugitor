@@ -10,6 +10,8 @@ echo Nav::widget([
     'activateParents' => true,
     'dropDownCaret' => '<span class="caret"></span>',
     'items' => [
+        ['label' => 'Dashboard', 'url' => ['/site/index'], 'options' => ['title' => 'Projects'], 'active' => ($controller == 'site')],
+        ['label' => 'Projects', 'url' => ['/project/index'], 'options' => ['title' => 'Projects'], 'active' => (($controller == 'project') || ($controller == 'activity') || ($controller == 'issue'))],
         ['label' => 'Docs', 'url' => ['/docs/page'], 'options' => ['title' => 'Bugitor Documentation'], 'active' => ($module == 'docs')],
         Yii::$app->user->isGuest ? (
             ['label' => 'Login', 'url' => ['/user/login']]

@@ -17,7 +17,7 @@ namespace app\models\query;
 /**
  * This is the ActiveQuery class for [[\common\models\Member]].
  *
- * @see \common\models\Member
+ * @see \app\models\Member
  */
 class MemberQuery extends \yii\db\ActiveQuery
 {

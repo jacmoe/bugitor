@@ -1,0 +1,65 @@
+-use yii\helpers\Html
+-$view->title=Yii::t('app','Settings')
+-use kartik\detail\DetailView
+-use kartik\markdown\Markdown
+!=$view->render('partials/_menu', ['identifier' => $model->identifier])
+
+-
+  $options = [
+  'formOptions' => ['options' => ['enctype'=>'multipart/form-data']],
+  'model' => $model,
+  'condensed' => true,
+  'hover' => true,
+  'mode' => DetailView::MODE_VIEW,
+  'buttons1' => '{update}',
+  'panel' => [
+  'heading'=> $model->name,
+  'type'=> DetailView::TYPE_INFO,
+  ],
+  'attributes' => [
+  ['attribute' => 'identifier', 'displayOnly' => true],
+  ['attribute' => 'name', 'displayOnly' => true],
+  ['attribute' => 'logo',
+  'format' => 'raw', 'displayOnly' => true,
+  'value' => Html::img('/uploads/' . $model->logo),
+  ],
+  ['attribute' => 'image', 'type' => DetailView::INPUT_FILEINPUT,
+  'formOptions' => ['enctype'=>'multipart/form-data'],
+  ],
+  [
+  'attribute' => 'description',
+  'format' => 'raw',
+  'value' => Markdown::convert($model->description),
+  'type' => DetailView::INPUT_WIDGET, 
+  'widgetOptions' => [
+  'class' => \kartik\markdown\MarkdownEditor::classname(),
+  ],
+  ],
+  ['attribute' => 'public', 'type' => DetailView::INPUT_CHECKBOX, 'format' => 'boolean'],
+  ]]
+
+.col-md-6
+  !=DetailView::widget($options)
+.col-md-6
+  .panel.panel-default
+    .panel-heading
+      h3.panel-title
+        i.fa.fa-users
+        |Members
+    .panel-body
+    .panel-footer
+  .panel.panel-default
+    .panel-heading
+      h3.panel-title
+        i.fa.fa-thumb-tack
+        |Milestones
+    .panel-body
+    .panel-footer
+  .panel.panel-default
+    .panel-heading
+      h3.panel-title
+        i.fa.fa-map-signs
+        |Issue categories
+    .panel-body
+    .panel-footer
+    

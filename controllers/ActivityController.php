@@ -1,5 +1,5 @@
 <?php
-namespace frontend\controllers;
+namespace app\controllers;
 /*
 * This file is part of
 *  _                 _ _

@@ -17,7 +17,7 @@ namespace app\models\query;
 /**
  * This is the ActiveQuery class for [[\common\models\Issue]].
  *
- * @see \common\models\Issue
+ * @see \app\models\Issue
  */
 class IssueQuery extends \yii\db\ActiveQuery
 {

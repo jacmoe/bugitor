@@ -1,5 +1,5 @@
 <?php
-namespace frontend\controllers;
+namespace app\controllers;
 /*
 * This file is part of
 *  _                 _ _
@@ -15,9 +15,9 @@ namespace frontend\controllers;
 */
 
 use Yii;
-use common\models\Project;
-use common\models\Member;
-use common\models\search\ProjectSearch;
+use app\models\Project;
+use app\models\Member;
+use app\models\search\ProjectSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
