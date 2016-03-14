@@ -56,6 +56,8 @@ class BugitorRbacCommand extends \rmrevin\yii\rbac\Command
             //RbacFactory::Permission('issue.update.own', 'Update owned issue', 'issue.its-mine'),
             RbacFactory::Permission('issue.delete', 'Delete issue'),
             //RbacFactory::Permission('issue.delete.own', 'Delete owned issue', 'issue.its-mine'),
+            /** User */
+            RbacFactory::Permission('user.admin', 'Administrate users'),
         ];
     }
 
@@ -82,6 +84,7 @@ class BugitorRbacCommand extends \rmrevin\yii\rbac\Command
     {
         return [
             'admin' => [
+                'user.admin',
             ],
             'manager' => [
                 'project.delete',
