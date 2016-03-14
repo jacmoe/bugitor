@@ -28,7 +28,7 @@ class SiteController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                    ['allow' => true, 'actions' => ['index','error'], 'roles' => ['?', '@']],
+                    ['allow' => true, 'actions' => ['index','error', 'cookies'], 'roles' => ['?', '@']],
                 ],
             ],
         ];
@@ -57,6 +57,11 @@ class SiteController extends Controller
             $projects = Project::find()->byOwner(\Yii::$app->user->identity->id)->all();
             return $this->render('dashboard', ['projects' => $projects]);
         }
+    }
+
+    public function actionCookies()
+    {
+        return $this->render('cookies');
     }
 
 }

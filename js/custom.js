@@ -6,6 +6,6 @@ $(document).ready(function() {
       position: 'bottom',
       explicitConsent: false,
       message: 'This website uses cookies for analytics and persistent logins. By visiting this site you accept the use of cookies.',
-      privacyPolicyUri: 'cookies'
+      privacyPolicyUri: '/site/cookies'
     });
 });
