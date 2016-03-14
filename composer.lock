@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4e28036f6789eaad5187b9771c9b2478",
-    "content-hash": "a3517961d3cfc4cf673046f3c8ebae37",
+    "hash": "5f8eee7120d2ef8aa5c83ae40648a11e",
+    "content-hash": "f9c157c421247e7664cd60806fcc00f9",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -797,6 +797,54 @@
             "time": "2016-02-24 19:56:55"
         },
         {
+            "name": "nterms/yii2-mailqueue",
+            "version": "0.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nterms/yii2-mailqueue.git",
+                "reference": "fda0beafc1e493b976f0995453eddcf0e5b8cd69"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nterms/yii2-mailqueue/zipball/fda0beafc1e493b976f0995453eddcf0e5b8cd69",
+                "reference": "fda0beafc1e493b976f0995453eddcf0e5b8cd69",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*",
+                "yiisoft/yii2-swiftmailer": "~2.0.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "nterms\\mailqueue\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Saranga Abeykoon",
+                    "email": "amisaranga@gmail.com",
+                    "homepage": "http://nterms.com/"
+                }
+            ],
+            "description": "Email queue component for yii2 that works with yii2-swiftmailer.",
+            "homepage": "https://github.com/nterms/yii2-mailqueue",
+            "keywords": [
+                "component",
+                "email",
+                "extension",
+                "queue",
+                "swiftmailer",
+                "yii2",
+                "yii2-swiftmailer"
+            ],
+            "time": "2016-01-19 15:40:52"
+        },
+        {
             "name": "rmrevin/yii2-rbac-command",
             "version": "1.4.0",
             "source": {
@@ -1151,7 +1199,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/1c42b9ab26dcf7f9bbc80e29ad2f0cab9329116c",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/88ceadba3fc19ec90f72b6ba895347b7fecd3dfb",
                 "reference": "6798f7708b36c485cd45c78e22ab5126c10fbf28",
                 "shasum": ""
             },

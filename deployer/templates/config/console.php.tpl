@@ -32,6 +32,23 @@ $config = [
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
         ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'viewPath' => '@app/mail',
+            'useFileTransport' => {{app.mailer.useFileTransport}},
+            'transport' => [
+                'class' => '{{app.mailer.transport.class}}',
+                'host' => '{{app.mailer.transport.host}}',
+                'username' => '{{app.mailer.transport.username}}',
+                'password' => '{{app.mailer.transport.password}}',
+                'port' => '{{app.mailer.transport.port}}',
+                'encryption' => '{{app.mailer.transport.encryption}}',
+            ],
+        ],
+        'mailqueue' => [
+            'class' => 'nterms\mailqueue\MailQueue',
+            'table' => '{{%mail_queue}}',
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],

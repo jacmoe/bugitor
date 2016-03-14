@@ -7,6 +7,6 @@ return [
     'user.passwordResetTokenExpire' => 3600,
     "yii.migrations"=> [
         "@dektrium/user/migrations",
-        //"@vendor/nterms/yii2-mailqueue/migrations",
+        "@vendor/nterms/yii2-mailqueue/migrations",
     ],
 ];

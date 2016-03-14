@@ -72,6 +72,12 @@ $config = [
                 'encryption' => '{{app.mailer.transport.encryption}}',
             ],
         ],
+        'mailqueue' => [
+            'class' => 'nterms\mailqueue\MailQueue',
+            'table' => '{{%mail_queue}}',
+            'mailsPerRound' => 10,
+            'maxAttempts' => 3,
+        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
