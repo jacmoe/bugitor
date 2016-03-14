@@ -1,7 +1,7 @@
 <?php
 
 $params = require(__DIR__ . '/params.php');
-$snippets = require(__DIR__ . '/snippets.php');
+$snippets = require_once(__DIR__ . '/snippets.php');
 
 $config = [
     'name' => 'Bugitor',

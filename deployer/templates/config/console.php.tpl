@@ -3,7 +3,7 @@
 Yii::setAlias('@tests', dirname(__DIR__) . '/tests/codeception');
 
 $params = require(__DIR__ . '/params.php');
-$snippets = require(__DIR__ . '/snippets.php');
+$snippets = require_once(__DIR__ . '/snippets.php');
 
 $config = [
     'id' => 'bugitor-console',
