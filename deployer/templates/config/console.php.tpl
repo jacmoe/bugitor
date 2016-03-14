@@ -12,7 +12,8 @@ $config = [
     'controllerNamespace' => 'app\commands',
     'controllerMap' => [
         'migrate' => [
-            'class' => 'dmstr\console\controllers\MigrateController'
+            'class' => 'dmstr\console\controllers\MigrateController',
+            'templateFile' => '@app/views/migration/migration.php',
         ],
         'rbac' => [
             'class' => 'app\commands\BugitorRbacCommand',
