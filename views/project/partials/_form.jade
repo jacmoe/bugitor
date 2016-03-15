@@ -1,12 +1,12 @@
 -use yii\helpers\Html
 -use yii\widgets\ActiveForm
--use kartik\markdown\MarkdownEditor
--use kartik\file\FileInput
+//-use kartik\markdown\MarkdownEditor
+//-use kartik\file\FileInput
 .project-form
   -$form = ActiveForm::begin(['options' => ['enctype'=>'multipart/form-data']])
   !=$form->field($model, 'name')->textInput()
-  !=MarkdownEditor::widget(['model' => $model,'attribute' => 'description',])
-  !=$form->field($model, 'image')->widget(FileInput::classname(), ['options' => ['accept' => 'image/*'],'pluginOptions'=>['showUpload' => false,'allowedFileExtensions'=>['jpg','gif','png']],])->label(Yii::t('app', 'Project logo'))
+  //-!=MarkdownEditor::widget(['model' => $model,'attribute' => 'description',])
+  //-!=$form->field($model, 'image')->widget(FileInput::classname(), ['options' => ['accept' => 'image/*'],'pluginOptions'=>['showUpload' => false,'allowedFileExtensions'=>['jpg','gif','png']],])->label(Yii::t('app', 'Project logo'))
   !=$form->field($model, 'homepage')->textInput()
   !=$form->field($model, 'public')->checkbox()
   .form-group

@@ -1,5 +1,5 @@
 -use yii\helpers\Html
--use kartik\markdown\Markdown
+//-use kartik\markdown\Markdown
 .col-md-6
   .panel.panel-default
     .panel-heading
@@ -12,6 +12,6 @@
         .media-body
           h4.media-heading
             !=$model->name
-          !=Markdown::convert($model->description)
+          //-!=Markdown::convert($model->description)
     .panel-footer
       !=Html::a(Yii::t('app', 'View project'), ['project/overview', 'identifier' => $model->identifier])

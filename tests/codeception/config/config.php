@@ -9,7 +9,7 @@ return [
             'class' => 'yii\faker\FixtureController',
             'fixtureDataPath' => '@tests/unit/fixtures/data',
             'templatePath' => '@tests/unit/templates/fixtures',
-            'namespace' => 'tests\unit\fixtures',
+            'namespace' => 'tests\codeception\unit\fixtures',
         ],
     ],
     'components' => [
