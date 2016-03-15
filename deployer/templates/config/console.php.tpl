@@ -22,6 +22,9 @@ $config = [
                 'old' => 'new', // after next update all `frontend.old` will be replaced by `frontend.new`
             ],
         ],
+        'fixture' => [ // Fixture generation command line.
+            'class' => 'yii\faker\FixtureController',
+        ],
     ],
     'components' => [
         'user' => [
