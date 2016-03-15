@@ -2,11 +2,11 @@
 
 return [
     [
-        'name' => 'Kayli Price',
+        'name' => 'Zella Rau',
         'position' => 1,
     ],
     [
-        'name' => 'Prof. Edgardo Kuvalis III',
+        'name' => 'Dr. Jayce Goldner III',
         'position' => 1,
     ],
 ];

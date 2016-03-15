@@ -2,13 +2,13 @@
 
 return [
     [
-        'name' => 'Mrs. Bethel Walter DVM',
+        'name' => 'Claudine Thompson',
         'project_id' => 1,
-        'description' => 'Et ut similique suscipit quis voluptas sed in odit et voluptas magnam.',
+        'description' => 'Cupiditate labore consequatur error voluptatem hic quia suscipit et necessitatibus saepe.',
     ],
     [
-        'name' => 'Mrs. Lysanne West I',
+        'name' => 'Aisha Robel',
         'project_id' => 1,
-        'description' => 'Laboriosam tenetur atque voluptas exercitationem unde at id minima est consequatur commodi officia enim odit repudiandae.',
+        'description' => 'Quis autem et consequuntur error quod voluptate tempora natus ut.',
     ],
 ];
