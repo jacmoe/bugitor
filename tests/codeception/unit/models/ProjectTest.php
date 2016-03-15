@@ -14,11 +14,12 @@ class ProjectTest extends DbTestCase
         ];
     }
 
-    public function testFindProjectByName()
+    public function testCreate()
     {
-        $expectedAttrs = $this->project['carole'];
-        $project = Project::find($expectedAttrs['id']);
-        $this->assertNotNull($project);
+        $project = new Project();
+        $project->name = 'testproject';
+        $this->assertTrue($project->validate(), 'Project should validate');
+        //$this->assertTrue($project->save(), 'Project should save');
     }
-    // ...test methods...
+
 }
