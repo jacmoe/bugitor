@@ -1,21 +1,10 @@
-// lift the logo up a bit
 .navbar-header {
-  position: relative;
-  top: -1em;
-  .navbar-brand {
+  a.navbar-brand {
     color: #E6E6E6;
-    font-size: 3em;
-    img {
-      position: relative;
-      top: -0.1em;
+    .brand-title {
+    font-size: 1.6rem;
     }
-    border: none;
   }
-}
-
-.navbar-toggle {
-  position: relative;
-  top: 0.9em;
 }
 
 @media screen and (min-width: $grid-float-breakpoint) {

@@ -4,6 +4,38 @@
 // Variables
 // --------------------------------------------------
 
+// megatype stuff
+$font-size-base: 0.875rem;
+$line-height-base: 1.4;
+$line-height-computed: floor(($font-size-base * $line-height-base)); // ~20px
+
+$padding-base-vertical:     0.5rem;
+$padding-base-horizontal:   0.75rem;
+
+$padding-large-vertical:    0.75rem;
+$padding-large-horizontal:  1rem;
+
+$padding-small-vertical:    0.25rem;
+$padding-small-horizontal:  0.5rem;
+
+$padding-xs-vertical:       0.125rem;
+$padding-xs-horizontal:     0.25rem;
+
+$input-height-base: ($line-height-computed + ($padding-base-vertical * 2) + 2);
+
+$navbar-height: rem-to-px(3rem);
+
+$jumbotron-padding: 2rem;
+
+$modal-inner-padding: 2rem;
+$modal-title-padding: 1rem;
+
+$alert-padding: 1rem;
+
+$panel-body-padding:          1rem;
+$panel-heading-padding:       0.75rem 1rem;
+
+
 
 //== Colors
 //
@@ -35,7 +67,7 @@ $link-color:            $brand-primary;
 $link-hover-color:      darken($link-color, 15%);
 
 
-$navbar-height: 80px;
+//$navbar-height: 80px;
 $navbar-inverse-link-active-bg:             darken($yii-blue, 2%);
 $navbar-inverse-border:                     transparent;
 $navbar-border-radius: 0;

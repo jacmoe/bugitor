@@ -1,0 +1,52 @@
+// toggle debug
+$debug-allow: false;
+
+$debug-grid: true;
+$debug-type: true;
+$debug-breakpoints: true;
+
+$breakpoint-map: (
+    0: (
+        start:      0px,
+        max:        $screen-xs,
+        rootsize:   12px
+    ),
+    1: (
+        start:      $screen-xs,
+        max:        $screen-sm,
+        rootsize:   14px
+    ),
+    2: (
+        start:      $screen-sm,
+        max:        $screen-md,
+        rootsize:   16px
+    ),
+    3: (
+        start:      $screen-md,
+        max:        $screen-lg,
+        rootsize:   18px
+    ),
+    4: (
+        start:      $screen-lg,
+        max:        $screen-lg + 200px,
+        rootsize:   20px
+    )
+);
+
+$sans: (
+    font-family: $font-family-sans-serif,
+    regular: normal,
+    bold: $headings-font-weight,
+    cap-height: 0.71
+);
+
+$serif: (
+    font-family: $font-family-serif,
+    regular: normal,
+    bold: bold,
+    cap-height: 0.66
+);
+
+@import "../vendor/bower/megatype/megatype";
+
+@include megatype;
