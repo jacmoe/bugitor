@@ -15,7 +15,6 @@
   "moduleType": [],
   "private": true,
   "dependencies": {
-    "sass-rem": "^1.2.2",
-    "megatype": "^1.0.1"
+    "sass-rem": "^1.2.2"
   }
 }
