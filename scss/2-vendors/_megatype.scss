@@ -48,3 +48,5 @@ $serif: (
 );
 
 @import "../vendor/bower/megatype/megatype";
+
+@include megatype;
