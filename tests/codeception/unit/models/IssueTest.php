@@ -25,7 +25,7 @@ class IssueTest extends DbTestCase
         $issue->description = 'description here sdafa sadf saf';
         $issue->user_id = 1;
         $issue->issue_priority_id = 1;
-        $issue->version_id = 1;
+        //$issue->version_id = 1;
         $issue->assigned_to = 1;
         $issue->created = time();
         $issue->modified = time();
@@ -37,8 +37,10 @@ class IssueTest extends DbTestCase
         $issue->last_comment = null;
         $this->assertTrue($issue->validate(), 'Issue should validate');
         Debug::debug($issue->errors);
-        // issue can't be saved until the user model has been fixtured
-        //$this->assertTrue($issue->save(), 'Issue should save');
+        $this->assertTrue($issue->save(), 'Issue should save');
+        $id = $issue->id;
+        $issue->delete();
+        $this->assertNull(Issue::findOne($id), 'Issue should not exists anymore');
     }
 
 }
