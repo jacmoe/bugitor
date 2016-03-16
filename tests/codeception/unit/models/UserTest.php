@@ -7,6 +7,8 @@ use tests\codeception\unit\fixtures\UserFixture;
 
 class UserTest extends DbTestCase
 {
+    use \Codeception\Specify;
+
     public function fixtures()
     {
         return [

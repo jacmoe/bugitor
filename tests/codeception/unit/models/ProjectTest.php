@@ -7,6 +7,8 @@ use tests\codeception\unit\fixtures\ProjectFixture;
 
 class ProjectTest extends DbTestCase
 {
+    use \Codeception\Specify;
+
     public function fixtures()
     {
         return [
@@ -14,12 +16,22 @@ class ProjectTest extends DbTestCase
         ];
     }
 
+    private $project;
+
     public function testCreate()
     {
-        $project = new Project();
-        $project->name = 'testproject';
-        $this->assertTrue($project->validate(), 'Project should validate');
-        //$this->assertTrue($project->save(), 'Project should save');
+        $this->project = new Project();
+
+        $this->specify("Project is OK", function() {
+            $this->project->name = 'testproject';
+            $this->assertTrue($this->project->validate());
+        });
+
+        $this->specify("Name is required", function() {
+            $this->project->name = null;
+            $this->assertFalse($this->project->validate());
+        });
+
     }
 
 }

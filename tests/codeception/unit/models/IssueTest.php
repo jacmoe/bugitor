@@ -9,6 +9,11 @@ use Codeception\Util\Debug;
 
 class IssueTest extends DbTestCase
 {
+    use \Codeception\Specify;
+
+    private $issue;
+    private $issue_id;
+
     public function fixtures()
     {
         return [
@@ -16,31 +21,34 @@ class IssueTest extends DbTestCase
         ];
     }
 
-    public function testCreate()
+    public function testCreateDelete()
     {
-        $issue = new Issue();
-        $issue->tracker_id = 1;
-        $issue->project_id = 1;
-        $issue->subject = 'Stuffisodfj';
-        $issue->description = 'description here sdafa sadf saf';
-        $issue->user_id = 1;
-        $issue->issue_priority_id = 1;
-        //$issue->version_id = 1;
-        $issue->assigned_to = 1;
-        $issue->created = time();
-        $issue->modified = time();
-        $issue->done_ratio = 0;
-        $issue->status = 'ok';
-        $issue->closed = 0;
-        $issue->pre_done_ratio = 0;
-        $issue->updated_by = 1;
-        $issue->last_comment = null;
-        $this->assertTrue($issue->validate(), 'Issue should validate');
-        Debug::debug($issue->errors);
-        $this->assertTrue($issue->save(), 'Issue should save');
-        $id = $issue->id;
-        $issue->delete();
-        $this->assertNull(Issue::findOne($id), 'Issue should not exists anymore');
+        $this->issue = new Issue();
+
+        $this->specify("Issue can validate and delete", function() {
+            $this->issue->tracker_id = 1;
+            $this->issue->project_id = 1;
+            $this->issue->subject = 'Stuffisodfj';
+            $this->issue->description = 'description here sdafa sadf saf';
+            $this->issue->user_id = 1;
+            $this->issue->issue_priority_id = 1;
+            //$this->issue->version_id = 1;
+            $this->issue->assigned_to = 1;
+            $this->issue->created = time();
+            $this->issue->modified = time();
+            $this->issue->done_ratio = 0;
+            $this->issue->status = 'ok';
+            $this->issue->closed = 0;
+            $this->issue->pre_done_ratio = 0;
+            $this->issue->updated_by = 1;
+            $this->issue->last_comment = null;
+            $this->assertTrue($this->issue->validate(), 'Issue should validate');
+            $this->assertTrue($this->issue->save(), 'Issue should save');
+            $this->issue_id = $this->issue->id;
+            $this->issue->delete();
+            $this->assertNull(Issue::findOne($this->issue_id), 'Issue should not exists anymore');
+        });
+
     }
 
 }
