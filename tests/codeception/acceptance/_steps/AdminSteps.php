@@ -8,6 +8,6 @@ class AdminSteps extends \bugitor\tests\AcceptanceTester
     {
         $I = $this;
         $loginPage = LoginPage::openBy($I);
-        $loginPage->login('admin', 'qwerty');
+        $loginPage->login('admin@admin.com', 'qwerty');
     }
 }
