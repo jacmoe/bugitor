@@ -1,5 +1,5 @@
 <?php
-//use tests\codeception\AcceptanceTester;
+use bugitor\tests\AcceptanceTester;
 use tests\codeception\_pages\LoginPage;
 
 $I = new AcceptanceTester($scenario);
@@ -27,7 +27,8 @@ $I->expectTo('see validations errors');
 $I->see('Invalid login or password');
 
 $I->amGoingTo('try to login with correct credentials');
-$loginPage->login('user@example.com', 'qwerty');
+$user = $I->getFixture('user')->getModel('user');
+$loginPage->login($user->email, 'qwerty');
 if (method_exists($I, 'wait')) {
     $I->wait(3); // only for selenium
 }

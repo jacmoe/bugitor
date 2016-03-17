@@ -1,4 +1,5 @@
 <?php
+use bugitor\tests\FunctionalTester;
 
 /* @var $scenario Codeception\Scenario */
 

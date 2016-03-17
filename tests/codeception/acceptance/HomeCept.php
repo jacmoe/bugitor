@@ -1,4 +1,5 @@
 <?php
+use bugitor\tests\AcceptanceTester;
 
 /* @var $scenario Codeception\Scenario */
 
