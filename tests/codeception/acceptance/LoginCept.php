@@ -35,16 +35,17 @@ if (method_exists($I, 'wait')) {
 $I->expectTo('see admin link');
 $I->see('User Admin');
 $I->expectTo('see logout link');
-//$I->see('Logout');
-//$I->click('Logout');
-//if (method_exists($I, 'wait')) {
-//    $I->wait(3); // only for selenium
-//}
+$I->see('Logout');
+$I->click('Logout');
+if (method_exists($I, 'wait')) {
+    $I->wait(3); // only for selenium
+}
 
-// $I->amGoingTo('try to login as admin');
-// $loginPage->login('admin', 'qwerty');
-// if (method_exists($I, 'wait')) {
-//     $I->wait(3); // only for selenium
-// }
-// $I->expectTo('see admin link');
-// $I->see('User Admin');
+$I->amGoingTo('try to login as admin');
+$loginPage = LoginPage::openBy($I);
+$loginPage->login('admin', 'qwerty');
+if (method_exists($I, 'wait')) {
+ $I->wait(3); // only for selenium
+}
+$I->expectTo('see admin link');
+$I->see('User Admin');
