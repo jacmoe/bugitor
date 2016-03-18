@@ -7,7 +7,8 @@ class AdminSteps extends \bugitor\tests\AcceptanceTester
     public function loginAsAdmin()
     {
         $I = $this;
+        $user = $I->getFixture('user')->getModel('admin');
         $loginPage = LoginPage::openBy($I);
-        $loginPage->login('admin@admin.com', 'qwerty');
+        $loginPage->login($user->email, 'qwerty');
     }
 }

@@ -27,10 +27,24 @@ $I->expectTo('see validations errors');
 $I->see('Invalid login or password');
 
 $I->amGoingTo('try to login with correct credentials');
-$user = $I->getFixture('user')->getModel('user');
+$user = $I->getFixture('user')->getModel('admin');
 $loginPage->login($user->email, 'qwerty');
 if (method_exists($I, 'wait')) {
     $I->wait(3); // only for selenium
 }
+$I->expectTo('see admin link');
+$I->see('User Admin');
 $I->expectTo('see logout link');
-$I->see('Logout');
+//$I->see('Logout');
+//$I->click('Logout');
+//if (method_exists($I, 'wait')) {
+//    $I->wait(3); // only for selenium
+//}
+
+// $I->amGoingTo('try to login as admin');
+// $loginPage->login('admin', 'qwerty');
+// if (method_exists($I, 'wait')) {
+//     $I->wait(3); // only for selenium
+// }
+// $I->expectTo('see admin link');
+// $I->see('User Admin');

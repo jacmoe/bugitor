@@ -3,6 +3,10 @@
 namespace tests\codeception\_support;
 
 use tests\codeception\unit\fixtures\UserFixture;
+use tests\codeception\unit\fixtures\AuthItemFixture;
+use tests\codeception\unit\fixtures\AuthItemChildFixture;
+use tests\codeception\unit\fixtures\AuthAssignmentFixture;
+//use tests\codeception\unit\fixtures\AuthRuleFixture;
 use Codeception\Module;
 use yii\test\FixtureTrait;
 use yii\test\InitDbFixture;
@@ -67,6 +71,18 @@ class FixtureHelper extends Module
             'user' => [
                 'class' => UserFixture::className(),
                 'dataFile' => '@tests/codeception/unit/fixtures/data/user.php',
+            ],
+            'auth_item' => [
+                'class' => AuthItemFixture::className(),
+                'dataFile' => '@tests/codeception/unit/fixtures/data/auth_item.php',
+            ],
+            'auth_item_child' => [
+                'class' => AuthItemChildFixture::className(),
+                'dataFile' => '@tests/codeception/unit/fixtures/data/auth_item_child.php',
+            ],
+            'auth_assignment' => [
+                'class' => AuthAssignmentFixture::className(),
+                'dataFile' => '@tests/codeception/unit/fixtures/data/auth_assignment.php',
             ],
         ];
     }
