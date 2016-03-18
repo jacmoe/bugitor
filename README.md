@@ -22,8 +22,6 @@ A [Yii](http://www.yiiframework.com/) powered issue tracker
 [![Yii2](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](http://www.yiiframework.com/)
 
 
-Copyright (C) 2009 - 2016 Bugitor Team
-
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation files
 (the "Software"), to deal in the Software without restriction,
