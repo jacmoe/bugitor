@@ -15,9 +15,12 @@
 ~~~
 A [Yii](http://www.yiiframework.com/) powered issue tracker
 
-[http://jacmoe.github.io/bugitor/](http://jacmoe.github.io/bugitor/)  
+[http://jacmoe.github.io/bugitor/](https://bugitor.jacmoe.dk/)  
 
 [https://github.com/jacmoe/bugitor](https://github.com/jacmoe/bugitor)
+
+[![Yii2](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](http://www.yiiframework.com/)
+
 
 Copyright (C) 2009 - 2015 Bugitor Team
 
