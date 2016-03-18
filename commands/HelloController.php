@@ -10,7 +10,7 @@ namespace app\commands;
 *              |___/
 *                 issue tracker
 *
-*	Copyright (c) 2010 - 2016 Jacob Moen
+*	Copyright (c) 2009 - 2016 Jacob Moen
 *	Licensed under the MIT license
 */
 
