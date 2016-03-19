@@ -84,7 +84,8 @@ gulp.task('images', function() {
 gulp.task('fonts', function() {
   return gulp.src(
     [   'vendor/bower/bootstrap-sass/assets/fonts/bootstrap/*',
-        'vendor/bower/font-awesome/fonts/*'
+        'vendor/bower/font-awesome/fonts/*',
+        'vendor/bower/bootstrap/fonts/*'
     ])
     .pipe(gulp.dest('./assets/dist/fonts'));
 });
