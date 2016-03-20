@@ -39,7 +39,7 @@ use yii\helpers\Html;
         [
             'label'   => Html::tag('i', '', ['class' => 'fa fa-wrench']) . ' ' . Yii::t('app', 'Settings'),
             'url'     => ['project/settings', 'identifier' => $identifier],
-            'visible' => \Yii::$app->user->can('project_settings'),
+            'visible' => \Yii::$app->user->can('project.update'),
         ],
     ],//items
     'encodeLabels' => false,

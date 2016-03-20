@@ -17,7 +17,8 @@
         .media-body
           h4.media-heading
             !=$model->name
-          !=Markdown::convert($model->description)
+          //-!=Markdown::convert($model->description)
+          !=$model->description
   .panel.panel-default
     .panel-heading
       h3.panel-title
