@@ -1,7 +1,7 @@
 {
-  "name": "yii2-app-basic-gulp-sass",
+  "name": "jacmoe/bugitor",
   "version": "1.0.0",
-  "description": "Basic Yii2 application with Gulp and Sass support",
+  "description": "A Yii issue tracker",
   "license": "MIT",
   "main": "Gulpfile.js",
   "scripts": {
@@ -9,10 +9,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jacmoe/yii2-app-basic-gulp-sass.git"
+    "url": "https://github.com/jacmoe/bugitor.git"
   },
   "author": "Jacob Moen",
-  "homepage": "http://jacmoe.dk",
+  "homepage": "https://jacmoe.dk",
   "devDependencies": {
     "del": "^2.1.0",
     "es6-promise": "*",
