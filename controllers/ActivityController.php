@@ -14,8 +14,22 @@ namespace app\controllers;
 *	Licensed under the MIT license
 */
 
+use yii\filters\AccessControl;
+
 class ActivityController extends \yii\web\Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    ['allow' => true, 'actions' => ['index'], 'roles' => ['?', '@']],
+                ],
+            ],
+        ];
+    }
+
     public function actionIndex()
     {
         return $this->render('index');
