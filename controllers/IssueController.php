@@ -40,17 +40,17 @@ class IssueController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => 'create',
+                        'actions' => ['create'],
                         'roles' => ['issue.create'],
                     ],
                     [
                         'allow' => true,
-                        'actions' => 'update',
+                        'actions' => ['update'],
                         'roles' => ['issue.update'],
                     ],
                     [
                         'allow' => true,
-                        'actions' => 'delete',
+                        'actions' => ['delete'],
                         'roles' => ['issue.delete'],
                     ],
                 ],
