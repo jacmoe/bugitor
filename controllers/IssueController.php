@@ -33,7 +33,26 @@ class IssueController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                    ['allow' => true, 'actions' => ['index'], 'roles' => ['?', '@']],
+                    [
+                        'allow' => true,
+                        'actions' => ['index','view'],
+                        'roles' => ['?', '@']
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => 'create',
+                        'roles' => ['issue.create'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => 'update',
+                        'roles' => ['issue.update'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => 'delete',
+                        'roles' => ['issue.delete'],
+                    ],
                 ],
             ],
             'verbs' => [

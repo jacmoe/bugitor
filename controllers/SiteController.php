@@ -28,7 +28,11 @@ class SiteController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                    ['allow' => true, 'actions' => ['index','error', 'cookies'], 'roles' => ['?', '@']],
+                    [
+                        'allow' => true,
+                        'actions' => ['index','error', 'cookies'],
+                        'roles' => ['?', '@']
+                    ],
                 ],
             ],
         ];
@@ -39,10 +43,6 @@ class SiteController extends Controller
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
-            ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
     }

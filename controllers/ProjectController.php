@@ -32,8 +32,26 @@ class ProjectController extends \yii\web\Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                    ['allow' => true, 'actions' => ['index', 'overview', 'issues', 'activity', 'roadmap'], 'roles' => ['?', '@']],
-                    ['allow' => true, 'actions' => ['settings', 'create'], 'roles' => ['@']],
+                    [
+                        'allow' => true,
+                        'actions' => [
+                            'index',
+                            'overview',
+                            'issues',
+                            'activity',
+                            'roadmap'],
+                        'roles' => ['?', '@']
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['settings'],
+                        'roles' => ['project.settings']
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['create'],
+                        'roles' => ['project.create']
+                    ],
                 ],
             ],
         ];
