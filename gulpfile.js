@@ -55,7 +55,7 @@ function styles() {
     .pipe($.if('*.css', $.rename({ suffix: '.min' })))
     .pipe($.if('*.css', $.cssnano()))
     .pipe($.if('*.css', gulp.dest('assets/dist/css')))
-    //.pipe($.if('*.css', $.notify({ message: 'Styles task complete' })));
+    .pipe($.if('*.css', $.notify({ message: 'Styles task complete' })));
 };
 
 // Scripts
@@ -68,7 +68,7 @@ function scripts() {
     .pipe($.if('*.js', $.rename({ suffix: '.min' })))
     .pipe($.if('*.js', $.uglify()))
     .pipe($.if('*.js', gulp.dest('assets/dist/js')))
-    //.pipe($.if('*.js', $.notify({ message: 'Scripts task complete' })));
+    .pipe($.if('*.js', $.notify({ message: 'Scripts task complete' })));
 };
 
 // Copy fonts
