@@ -80,7 +80,7 @@ function clean(done) {
     rimraf(config.PATHS.dist, done);
 }
 
-// Build the "assets/dist" folder by running all of the above tasks
+// The main build task
 gulp.task('build', gulp.series(
   clean,
   gulp.parallel(styles, scripts, fonts)
@@ -108,4 +108,11 @@ function watch() {
   gulp.watch([config.PATHS.dist + '/css/*']).on('change', browsersync.reload);
 };
 
+// Default task runs build and then watch
 gulp.task('default', gulp.series('build', watch));
+
+// Export these function to the Gulp client
+gulp.task('clean', clean);
+gulp.task('fonts', fonts);
+gulp.task('styles', styles);
+gulp.task('scripts', scripts);
