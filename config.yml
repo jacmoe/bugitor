@@ -28,5 +28,5 @@ PATHS:
     - "vendor/yiisoft/yii2/assets/yii.validation.js"
     - "vendor/yiisoft/yii2/assets/yii.activeForm.js"
     # Paths to your own project code are here
-    - "js/!(custom).js"
-    - "js/custom.js"
+    - "assets/src/js/!(custom).js"
+    - "assets/src/js/custom.js"

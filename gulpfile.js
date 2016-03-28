@@ -46,11 +46,11 @@ var autoprefixerOptions = {
 
 // Styles
 function styles() {
-  return gulp.src('scss/all.scss')
+  return gulp.src('assets/src/scss/all.scss')
     .pipe($.sourcemaps.init())
     .pipe($.sass(sassOptions).on('error', $.sass.logError))
     .pipe($.autoprefixer(autoprefixerOptions))
-    .pipe($.sourcemaps.write('.', { sourceRoot: '../../scss/' }))
+    .pipe($.sourcemaps.write('.', { sourceRoot: '../../assets/src/scss/' }))
     .pipe(gulp.dest('assets/dist/css'))
     .pipe($.if('*.css', $.rename({ suffix: '.min' })))
     .pipe($.if('*.css', $.cssnano()))
@@ -63,7 +63,7 @@ function scripts() {
   return gulp.src(config.PATHS.javascript)
     .pipe($.sourcemaps.init())
     .pipe($.concat('all.js'))
-    .pipe($.sourcemaps.write('.', { sourceRoot: '../../js/' }))
+    .pipe($.sourcemaps.write('.', { sourceRoot: '../../assets/src/js/' }))
     .pipe(gulp.dest('assets/dist/js'))
     .pipe($.if('*.js', $.rename({ suffix: '.min' })))
     .pipe($.if('*.js', $.uglify()))
@@ -97,10 +97,10 @@ function watch() {
   });
 
   // Watch .scss files
-  gulp.watch('scss/**/*.scss', styles);
+  gulp.watch('assets/src/scss/**/*.scss', styles);
 
   // Watch .js files
-  gulp.watch('js/**/*.js', scripts);
+  gulp.watch('assets/src/js/**/*.js', scripts);
 
   // Watch any view files in 'views', reload on change
   gulp.watch(['views/**/*.php']).on('change', browsersync.reload);
