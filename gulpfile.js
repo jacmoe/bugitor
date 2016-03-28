@@ -60,7 +60,7 @@ function styles() {
 
 // Scripts
 function scripts() {
-  return gulp.src(require('./js/all.json'))
+  return gulp.src(config.PATHS.javascript)
     .pipe($.sourcemaps.init())
     .pipe($.concat('all.js'))
     .pipe($.sourcemaps.write('.', { sourceRoot: '../../js/' }))

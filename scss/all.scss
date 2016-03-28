@@ -15,8 +15,8 @@
 // Vendors
 @import "2-vendors/bootstrap";
 @import "2-vendors/yii";
-@import "../vendor/bower/sass-rem/rem";
-@import "../vendor/bower/font-awesome/scss/font-awesome";
+@import "rem";
+@import "font-awesome";
 
 // Global styling that makes use of vendors
 @import "3-global/site";

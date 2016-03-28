@@ -17,41 +17,13 @@ PATHS:
     - "vendor/bower/bootstrap/fonts/**/*"
   # Paths to Sass libraries, which can then be loaded with @import
   sass:
-    - "vendor/bower/foundation-sites/scss"
-    - "vendor/bower/motion-ui/src"
+    - "vendor/bower/bootstrap-sass/assets/stylesheets"
     - "vendor/bower/font-awesome/scss"
+    - "vendor/bower/sass-rem"
   # Paths to JavaScript libraries, which are compined into one file
-  babelscript:
-    # Libraries requried by Foundation
+  javascript:
     - "vendor/bower/jquery/dist/jquery.js"
-    - "vendor/bower/what-input/what-input.js"
-    # Core Foundation files
-    - "vendor/bower/foundation-sites/js/foundation.core.js"
-    - "vendor/bower/foundation-sites/js/foundation.util.*.js"
-    # Individual Foundation components
-    # If you aren't using a component, just remove it from the list
-    - "vendor/bower/foundation-sites/js/foundation.abide.js"
-    - "vendor/bower/foundation-sites/js/foundation.accordion.js"
-    - "vendor/bower/foundation-sites/js/foundation.accordionMenu.js"
-    - "vendor/bower/foundation-sites/js/foundation.drilldown.js"
-    - "vendor/bower/foundation-sites/js/foundation.dropdown.js"
-    - "vendor/bower/foundation-sites/js/foundation.dropdownMenu.js"
-    - "vendor/bower/foundation-sites/js/foundation.equalizer.js"
-    - "vendor/bower/foundation-sites/js/foundation.interchange.js"
-    - "vendor/bower/foundation-sites/js/foundation.magellan.js"
-    - "vendor/bower/foundation-sites/js/foundation.offcanvas.js"
-    - "vendor/bower/foundation-sites/js/foundation.orbit.js"
-    - "vendor/bower/foundation-sites/js/foundation.responsiveMenu.js"
-    - "vendor/bower/foundation-sites/js/foundation.responsiveToggle.js"
-    - "vendor/bower/foundation-sites/js/foundation.reveal.js"
-    - "vendor/bower/foundation-sites/js/foundation.slider.js"
-    - "vendor/bower/foundation-sites/js/foundation.sticky.js"
-    - "vendor/bower/foundation-sites/js/foundation.tabs.js"
-    - "vendor/bower/foundation-sites/js/foundation.toggler.js"
-    - "vendor/bower/foundation-sites/js/foundation.tooltip.js"
-  # Javascript that do not want to be run through Babel
-  plainscript:
-    # Yii2 scripts
+    - "vendor/bower/bootstrap-sass/assets/javascripts/bootstrap.js"
     - "vendor/yiisoft/yii2/assets/yii.js"
     - "vendor/yiisoft/yii2/assets/yii.validation.js"
     - "vendor/yiisoft/yii2/assets/yii.activeForm.js"
