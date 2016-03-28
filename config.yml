@@ -11,6 +11,8 @@ COMPATIBILITY:
 PATHS:
   # Path to dist folder
   dist: "assets/dist"
+  # Path to source folder
+  src: "assets/src"
   # Paths to fonts
   fonts:
     - "vendor/bower/font-awesome/fonts/**/*"

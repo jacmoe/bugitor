@@ -46,16 +46,15 @@ var autoprefixerOptions = {
 
 // Styles
 function styles() {
-  return gulp.src('assets/src/scss/all.scss')
+  return gulp.src(config.PATHS.src +'/scss/all.scss')
     .pipe($.sourcemaps.init())
     .pipe($.sass(sassOptions).on('error', $.sass.logError))
     .pipe($.autoprefixer(autoprefixerOptions))
-    .pipe($.sourcemaps.write('.', { sourceRoot: '../../assets/src/scss/' }))
-    .pipe(gulp.dest('assets/dist/css'))
-    .pipe($.if('*.css', $.rename({ suffix: '.min' })))
-    .pipe($.if('*.css', $.cssnano()))
-    .pipe($.if('*.css', gulp.dest('assets/dist/css')))
-    .pipe($.if('*.css', $.notify({ message: 'Styles task complete' })));
+    .pipe($.if(PRODUCTION, $.rename({ suffix: '.min' })))
+    .pipe($.if(PRODUCTION, $.cssnano()))
+    .pipe($.if(!PRODUCTION, $.sourcemaps.write('.', { sourceRoot: '../../assets/src/scss/' })))
+    .pipe(gulp.dest(config.PATHS.dist + '/css'))
+    .pipe($.notify({ message: 'Styles task complete' }));
 };
 
 // Scripts
@@ -63,12 +62,11 @@ function scripts() {
   return gulp.src(config.PATHS.javascript)
     .pipe($.sourcemaps.init())
     .pipe($.concat('all.js'))
-    .pipe($.sourcemaps.write('.', { sourceRoot: '../../assets/src/js/' }))
-    .pipe(gulp.dest('assets/dist/js'))
-    .pipe($.if('*.js', $.rename({ suffix: '.min' })))
-    .pipe($.if('*.js', $.uglify()))
-    .pipe($.if('*.js', gulp.dest('assets/dist/js')))
-    .pipe($.if('*.js', $.notify({ message: 'Scripts task complete' })));
+    .pipe($.if(PRODUCTION, $.rename({ suffix: '.min' })))
+    .pipe($.if(PRODUCTION, $.uglify()))
+    .pipe($.if(!PRODUCTION, $.sourcemaps.write('.', { sourceRoot: '../../assets/src/js/' })))
+    .pipe(gulp.dest(config.PATHS.dist + '/js'))
+    .pipe($.notify({ message: 'Scripts task complete' }));
 };
 
 // Copy fonts
@@ -97,17 +95,17 @@ function watch() {
   });
 
   // Watch .scss files
-  gulp.watch('assets/src/scss/**/*.scss', styles);
+  gulp.watch(config.PATHS.src + '/scss/**/*.scss', styles);
 
   // Watch .js files
-  gulp.watch('assets/src/js/**/*.js', scripts);
+  gulp.watch(config.PATHS.src + '/js/**/*.js', scripts);
 
   // Watch any view files in 'views', reload on change
   gulp.watch(['views/**/*.php']).on('change', browsersync.reload);
 
   // Watch any files in 'assets/dist', reload on change
-  gulp.watch(['assets/dist/js/*']).on('change', browsersync.reload);
-  gulp.watch(['assets/dist/css/*']).on('change', browsersync.reload);
+  gulp.watch([config.PATHS.dist + '/js/*']).on('change', browsersync.reload);
+  gulp.watch([config.PATHS.dist + '/css/*']).on('change', browsersync.reload);
 };
 
 gulp.task('default', gulp.series('build', watch));
