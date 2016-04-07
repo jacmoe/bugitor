@@ -19,7 +19,8 @@
         "himiklab/yii2-recaptcha-widget": "^1.0",
         "jacmoe/yii2-tale-jade": "^1.5",
         "rmrevin/yii2-rbac-command": "^1.4",
-        "nterms/yii2-mailqueue": "^0.0.2"
+        "nterms/yii2-mailqueue": "^0.0.2",
+        "talesoft/tale-jade": "1.4.2"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

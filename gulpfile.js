@@ -32,7 +32,6 @@ function loadConfig() {
   return yaml.load(ymlFile);
 }
 
-
 var sassOptions = {
   errLogToConsole: true,
   outputStyle: 'expanded',
@@ -42,7 +41,6 @@ var sassOptions = {
 var autoprefixerOptions = {
   browsers: config.COMPATIBILITY
 };
-
 
 // Styles
 function styles() {
@@ -96,13 +94,10 @@ function watch() {
 
   // Watch .scss files
   gulp.watch(config.PATHS.src + '/scss/**/*.scss', styles);
-
   // Watch .js files
   gulp.watch(config.PATHS.src + '/js/**/*.js', scripts);
-
   // Watch any view files in 'views', reload on change
   gulp.watch(['views/**/*.php']).on('change', browsersync.reload);
-
   // Watch any files in 'assets/dist', reload on change
   gulp.watch([config.PATHS.dist + '/js/*']).on('change', browsersync.reload);
   gulp.watch([config.PATHS.dist + '/css/*']).on('change', browsersync.reload);
