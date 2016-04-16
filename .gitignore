@@ -34,3 +34,6 @@ phpunit.phar
 
 # yii executable - it is generated
 /yii
+/GPATH
+/GRTAGS
+/GTAGS
