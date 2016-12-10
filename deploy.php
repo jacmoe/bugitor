@@ -1,4 +1,6 @@
 <?php
+namespace Deployer;
+
 require_once __DIR__ . '/deployer/recipe/yii-configure.php';
 require_once __DIR__ . '/deployer/recipe/yii2-app-basic.php';
 require_once __DIR__ . '/deployer/recipe/local-config.php';
@@ -29,9 +31,9 @@ set('keep_releases', 2);
 set('writable_use_sudo', false); // Using sudo in writable commands?
 
 task('deploy:configure_composer', function () {
-  $stage = env('app.stage');
+  $stage = get('app.stage');
   if($stage == 'dev') {
-    env('composer_options', 'install --verbose --no-progress --no-interaction');
+    set('composer_options', 'install --verbose --no-progress --no-interaction');
   }
 })->desc('Configure composer');
 
