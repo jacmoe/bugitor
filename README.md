@@ -15,7 +15,7 @@
 ~~~
 A [Yii](http://www.yiiframework.com/) powered issue tracker
 
-[http://jacmoe.github.io/bugitor/](https://bugitor.jacmoe.dk/)  
+[http://bugitor.jacmoe.dk/](http://bugitor.jacmoe.dk/)  
 
 [https://github.com/jacmoe/bugitor](https://github.com/jacmoe/bugitor)
 
