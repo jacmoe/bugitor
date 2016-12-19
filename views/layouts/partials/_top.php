@@ -7,5 +7,6 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\widgets\Alert;
 use app\helpers\Bugitor;
-AppAsset::register($view);
+$asset = AppAsset::register($view);
 $view->beginPage();
+$uber_logo = $asset->baseUrl . '/img/uberspace.png';

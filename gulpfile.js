@@ -73,6 +73,12 @@ function fonts() {
     .pipe(gulp.dest(config.PATHS.dist + '/fonts'));
 };
 
+// Copy images
+function images() {
+    return gulp.src(config.PATHS.images)
+        .pipe(gulp.dest(config.PATHS.dist + '/img'));
+};
+
 // Clean
 function clean(done) {
     rimraf(config.PATHS.dist, done);
@@ -81,7 +87,7 @@ function clean(done) {
 // The main build task
 gulp.task('build', gulp.series(
   clean,
-  gulp.parallel(styles, scripts, fonts)
+    gulp.parallel(styles, scripts, fonts, images)
 ));
 
 // Watch

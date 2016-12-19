@@ -22,6 +22,9 @@ PATHS:
     - "vendor/bower/font-awesome/scss"
     - "vendor/bower/sass-rem"
   # Paths to JavaScript libraries, which are compined into one file
+  # Paths to images
+  images:
+    - "assets/src/img/**/*"
   javascript:
     - "vendor/bower/jquery/dist/jquery.js"
     - "vendor/bower/bootstrap-sass/assets/javascripts/bootstrap.js"
