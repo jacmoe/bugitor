@@ -41,7 +41,7 @@ task('deploy:configure_composer', function () {
 task('deploy:build_assets', function () {
    runLocally('gulp build --production');
    upload(__DIR__ . '/assets/dist/css', '{{release_path}}/assets/dist/css');
-   //upload(__DIR__ . '/assets/dist/img', '{{release_path}}/assets/dist/img');
+   upload(__DIR__ . '/assets/dist/img', '{{release_path}}/assets/dist/img');
    upload(__DIR__ . '/assets/dist/js', '{{release_path}}/assets/dist/js');
    upload(__DIR__ . '/assets/dist/fonts', '{{release_path}}/assets/dist/fonts');
 })->desc('Build assets');
