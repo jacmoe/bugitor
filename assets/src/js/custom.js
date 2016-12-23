@@ -5,7 +5,7 @@ $(document).ready(function() {
       linkColor: '#FFF',
       position: 'bottom',
       explicitConsent: false,
-      message: 'This website uses cookies for analytics and persistent logins. By visiting this site you accept the use of cookies.',
+      message: 'This website uses cookies for persistent logins and other site functionality. By visiting this site you accept the use of cookies.',
       privacyPolicyUri: '/site/cookies'
     });
 });
