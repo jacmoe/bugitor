@@ -14,7 +14,7 @@ require_once __DIR__ . '/deployer/recipe/local-config.php';
 *              |___/
 *                 issue tracker
 *
-*	Copyright (c) 2009 - 2016 Jacob Moen
+*	Copyright (c) 2009 - 2017 Jacob Moen
 *	Licensed under the MIT license
 */
 
