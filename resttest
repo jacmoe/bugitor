@@ -1,0 +1,7 @@
+# -*- restclient  -*-
+
+# Emacs restclient examples for httpbin.org
+# http://httpbin.org/: HTTP Request & Response Service
+
+# Returns Origin IP.
+GET http://httpbin.org/ip

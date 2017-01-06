@@ -29,13 +29,13 @@ class Bugitor {
         if($image === true)
         {
             if($small) {
-                return '<a href="https://Bugitor.jacmoe.dk/" rel="external"><img width="24" height="24" title="Powered by Bugitor" alt="Powered by Bugitor" src="' . Bugitor::logo($white, $small) . '"></a>';
+                return '<a href="https://Bugitor.jacmoe.dk/" rel="external noopener noreferrer"><img width="24" height="24" title="Powered by Bugitor" alt="Powered by Bugitor" src="' . Bugitor::logo($white, $small) . '"></a>';
             } else {
-                return '<a href="https://Bugitor.jacmoe.dk/" rel="external"><img width="36" height="36" title="Powered by Bugitor" alt="Powered by Bugitor" src="' . Bugitor::logo($white) . '"></a>';
+                return '<a href="https://Bugitor.jacmoe.dk/" rel="external noopener noreferrer"><img width="36" height="36" title="Powered by Bugitor" alt="Powered by Bugitor" src="' . Bugitor::logo($white) . '"></a>';
             }
         }
 
-        return 'Powered by <a href="https://Bugitor.jacmoe.dk/" rel="external">Bugitor</a>';
+        return 'Powered by <a href="https://Bugitor.jacmoe.dk/" rel="external noopener noreferrer">Bugitor</a>';
     }
 
     /**
