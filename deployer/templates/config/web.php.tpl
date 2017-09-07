@@ -41,35 +41,35 @@ $config = [
         'reCaptcha' => [
             'name' => 'reCaptcha',
             'class' => 'himiklab\yii2\recaptcha\ReCaptcha',
-            'siteKey' => '{{app.recaptcha.siteKey}}',
-            'secret' => '{{app.recaptcha.secret}}',
+            'siteKey' => '{{recaptcha_siteKey}}',
+            'secret' => '{{recaptcha_secret}}',
         ],//recaptcha
         'authClientCollection' => [
             'class' => 'yii\authclient\Collection',
             'clients' => [
                 'twitter' => [
                     'class' => 'dektrium\user\clients\Twitter',
-                    'consumerKey' => '{{app.auth.twitter.consumerKey}}',
-                    'consumerSecret' => '{{app.auth.twitter.consumerSecret}}',
+                    'consumerKey' => '{{auth_twitter_consumerKey}}',
+                    'consumerSecret' => '{{auth_twitter_consumerSecret}}',
                 ],
                 'google' => [
                     'class'        => 'dektrium\user\clients\Google',
-                    'clientId'     => '{{app.auth.google.clientId}}',
-                    'clientSecret' => '{{app.auth.google.clientSecret}}',
+                    'clientId'     => '{{auth_google_clientId}}',
+                    'clientSecret' => '{{auth_google_clientSecret}}',
                 ],
             ],// clients
         ],// authClientCollection
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             'viewPath' => '@app/mail',
-            'useFileTransport' => {{app.mailer.useFileTransport}},
+            'useFileTransport' => {{mailer_useFileTransport}},
             'transport' => [
-                'class' => '{{app.mailer.transport.class}}',
-                'host' => '{{app.mailer.transport.host}}',
-                'username' => '{{app.mailer.transport.username}}',
-                'password' => '{{app.mailer.transport.password}}',
-                'port' => '{{app.mailer.transport.port}}',
-                'encryption' => '{{app.mailer.transport.encryption}}',
+                'class' => '{{mailer_transport_class}}',
+                'host' => '{{mailer_transport_host}}',
+                'username' => '{{mailer_transport_username}}',
+                'password' => '{{mailer_transport_password}}',
+                'port' => '{{mailer_transport_port}}',
+                'encryption' => '{{mailer_transport_encryption}}',
             ],
         ],
         'mailqueue' => [
@@ -89,9 +89,9 @@ $config = [
         ],
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host={{app.mysql.host}};dbname={{app.mysql.dbname}}',
-            'username' => '{{app.mysql.username}}',
-            'password' => '{{app.mysql.password}}',
+            'dsn' => 'mysql:host={{mysql_host}};dbname={{mysql_dbname}}',
+            'username' => '{{mysql_username}}',
+            'password' => '{{mysql_password}}',
             'charset' => 'utf8',
         ],
         'urlManager' => [
@@ -131,11 +131,11 @@ $config = [
     'modules' => [
         'docs' => [
             'class' => 'jacmoe\mdpages\Module',
-            'repository_url' => 'https://github.com/{{app.github.owner}}/{{app.github.repo}}.git',
-            'github_token' => '{{app.github.token}}',
-            'github_owner' => '{{app.github.owner}}',
-            'github_repo' => '{{app.github.repo}}',
-            'github_branch' => '{{app.github.branch}}',
+            'repository_url' => 'https://github.com/{{github_owner}}/{{github_repo}}.git',
+            'github_token' => '{{github_token}}',
+            'github_owner' => '{{github_owner}}',
+            'github_repo' => '{{github_repo}}',
+            'github_branch' => '{{github_branch}}',
             'absolute_wikilinks' => true,
             'generate_page_toc' => false,
             'feed_title' => 'Blog posts',
@@ -150,7 +150,7 @@ $config = [
         'user' => [
             'class' => 'dektrium\user\Module',
             'enableFlashMessages' => false,
-            'admins' => ['{{app.user.admins.admin1}}', '{{app.user.admins.admin2}}'],
+            'admins' => ['{{user_admins_admin1}}', '{{user_admins_admin2}}'],
         ],
     ],
     'params' => $params,

@@ -29,7 +29,6 @@ task('local-config', function () {
             } else {
                 $value = $matches[0];
             }
-
             return $value;
         };
 
@@ -41,7 +40,6 @@ task('local-config', function () {
         */
         $compiler = function ($contents) use ($paser) {
             $contents = preg_replace_callback('/\{\{\s*([\w\.]+)\s*\}\}/', $paser, $contents);
-
             return $contents;
         };
 
@@ -98,4 +96,4 @@ task('local-config', function () {
         }
 
     }
-})->desc('Configures your local development environment')->onlyForStage('local');
+})->desc('Configures your local development environment')->onStage('local');

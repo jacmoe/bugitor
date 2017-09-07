@@ -21,7 +21,7 @@ require_once __DIR__ . '/deployer/recipe/local-config.php';
 if (!file_exists (__DIR__ . '/deployer/stage/servers.yml')) {
   die('Please create "' . __DIR__ . '/deployer/stage/servers.yml" before continuing.' . "\n");
 }
-serverList(__DIR__ . '/deployer/stage/servers.yml');
+inventory(__DIR__ . '/deployer/stage/servers.yml');
 set('repository', '{{repository}}');
 
 set('default_stage', 'production');
