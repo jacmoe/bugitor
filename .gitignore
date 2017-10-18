@@ -16,7 +16,13 @@ Thumbs.db
 /vendor
 
 # node modules
-/node_modules
+front/node_modules
+
+# elm stuff
+front/elm-stuff
+
+# front dist
+front/public/dist
 
 # composer itself is not needed
 composer.phar
