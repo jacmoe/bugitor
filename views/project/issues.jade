@@ -1,6 +1,0 @@
--use yii\helpers\Html
--$view->title=Yii::t('app','Issues')
-!=$view->render('partials/_menu', ['identifier' => $model->identifier])
-if (\Yii::$app->user->can('issue.create'))
-  !=Html::a(Yii::t('app', 'Create Issue'), ['issue/create'], ['class' => 'btn btn-success'])
-
