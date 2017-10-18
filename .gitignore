@@ -37,3 +37,5 @@ phpunit.phar
 /GPATH
 /GRTAGS
 /GTAGS
+
+/backup

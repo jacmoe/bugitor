@@ -1,0 +1,26 @@
+# Apache Configuration File
+
+SetEnvIf Authorization .+ HTTP_AUTHORIZATION=$0
+
+<IfModule mod_rewrite.c>
+    # Enable URL rewriting
+    RewriteEngine On
+
+    # Strip unwanted query strings from the url
+    # RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^?]*)\?
+    # RewriteRule (.*) /$1? [R=301,L]
+
+    RewriteBase /
+
+    # Redirect http to https
+    #RewriteCond %{SERVER_PORT} ^80$
+    #RewriteRule ^.*$ https://%{SERVER_NAME}%{REQUEST_URI} [R=301,L]
+
+    # if a directory or a file exists, use it directly
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # otherwise forward it to index.php
+    RewriteRule . index.php
+
+</IfModule>
