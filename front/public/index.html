@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="shortcut icon" type="image/png" href="favicon.ico">
+<link rel="stylesheet" type="text/css" href="dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="dist/css/styles.min.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="UTF-8">
+    <title>Elm Quickstart</title>
+    <script src="dist/js/app-min.js"></script>
+</head>
+<body>
+<div id="main"></div>
+<script>
+    var mountNode = document.getElementById('main');
+
+    if (typeof MutationObserver === 'function') {
+        // look at http://stackoverflow.com/questions/39687776/how-to-render-embedded-elm-module-synchronously/ for more informations
+        var mo = new MutationObserver(function(mutationRecords, instance) {
+            // a trivial check
+            for (var i = 0; i < mutationRecords.length; i += 1) {
+                if (mutationRecords[i].addedNodes.length > 0) {
+                    console.debug('Hello from the JS, Elm just started rendering!');
+                    // stop observing, if not needed anymore
+                    mo.disconnect();
+                }
+            }
+        });
+        mo.observe(mountNode, { childList: true });
+    } else {
+        console.warning('MutationObserver is not available, skipping JS sync-bootstrap. Please use a modern browser http://caniuse.com/#feat=mutationobserver');
+    }
+
+    // start!
+	var myApp = Elm.Main.embed(mountNode);
+
+</script>
+</body>
+</html>

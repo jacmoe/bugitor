@@ -1,0 +1,28 @@
+{
+  "name": "elm-quickstart",
+  "version": "0.0.1",
+  "description": "ready-to-go project with Elm, Gulp, SASS, and pre-configured tasks",
+  "main": "index.js",
+  "dependencies": {
+    "babel-register": "^6.18.0",
+    "bootstrap": "^3.3.7",
+    "elm": "0.18.0",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-clean-css": "^2.0.13",
+    "gulp-concat": "^2.6.0",
+    "gulp-elm": "^0.5.0",
+    "gulp-minify": "0.0.14",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^2.1.1",
+    "http-server": "^0.9.0",
+    "require-dir": "^0.3.1",
+    "run-sequence": "^1.2.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/.bin/http-server -a localhost -p 8000"
+  },
+  "author": "",
+  "license": "MIT"
+}
