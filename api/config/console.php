@@ -11,7 +11,7 @@ return [
     'controllerNamespace' => 'api\modules\v1\commands',
     'components'          => [
         'authManager' => [
-            'class' => 'yii\rbac\DbManager',
+            'class' => 'Da\User\Component\AuthDbManagerComponent',
         ],
         'db' => [
             'class' => 'yii\db\Connection',

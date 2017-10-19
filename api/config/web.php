@@ -25,7 +25,7 @@ return [
             ],
         ],
         'authManager' => [
-            'class' => 'yii\rbac\DbManager',
+            'class' => 'Da\User\Component\AuthDbManagerComponent',
         ],
         'urlManager'           => [
             'enablePrettyUrl'     => true,

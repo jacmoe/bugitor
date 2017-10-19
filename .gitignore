@@ -22,7 +22,7 @@ front/node_modules
 front/elm-stuff
 
 # front dist
-front/public/dist
+front/dist/*
 
 # runtime directory
 api/runtime/*
