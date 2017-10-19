@@ -24,6 +24,9 @@ front/elm-stuff
 # front dist
 front/public/dist
 
+# runtime directory
+api/runtime/*
+
 # composer itself is not needed
 composer.phar
 

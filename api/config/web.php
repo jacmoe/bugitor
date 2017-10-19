@@ -24,6 +24,9 @@ return [
                 ],
             ],
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
         'urlManager'           => [
             'enablePrettyUrl'     => true,
             'enableStrictParsing' => true,
@@ -34,15 +37,6 @@ return [
                     'pluralize'  => false,
                     'controller' => [
                         'v1/hello'
-                    ],
-                    'tokens'     => [
-                        '{id}' => '<id:\\w+>',
-                    ],
-                ],
-                [
-                    'class'      => \yii\rest\UrlRule::className(),
-                    'controller' => [
-                        'v1/country'
                     ],
                     'tokens'     => [
                         '{id}' => '<id:\\w+>',
@@ -64,6 +58,13 @@ return [
             ],
             'enableCookieValidation' => false,
             'enableCsrfValidation'   => false,
+        ],
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=localhost;dbname=bugitor',
+            'username' => 'dbuser',
+            'password' => 'jake2383',
+            'charset' => 'utf8',
         ],
         'response'             => [
             'format' => \yii\web\Response::FORMAT_JSON,
