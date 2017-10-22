@@ -1,9 +1,19 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
+
+$primary: #f0634c;
+
 body {
-    background-color: rgb(222, 236, 220);
-    font-family: sans-serif;
-    margin-left: 30px;
+    font-family: 'Source Sans Pro';
 }
 
-h1 {
-    color: rgb(30,30,30);
+header {
+    background-color: $primary;
+    color: white;
+    font-size: 3rem;
+}
+
+a {
+	color: $primary;
+	text-decoration: none;
+	border-bottom: 0.05em solid $primary;
 }

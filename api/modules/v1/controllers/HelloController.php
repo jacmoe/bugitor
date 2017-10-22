@@ -30,11 +30,11 @@ class HelloController extends Controller
 
     public function actionIndex()
     {
-        return "Hello World";
+        return ['message' => 'Hello world.'];
     }
 
     public function actionView($id)
     {
-        return "Hello " . ($id ?: "world"); 
+        return ['message' => 'Hello ' . ($id ?: 'world')];
     }
 }

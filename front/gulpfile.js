@@ -122,9 +122,9 @@ gulp.task('watch', function() {
 	});
 	console.log("Listening on port 3000");
 
-	gulp.watch(paths.pug, ['pug']);
-	gulp.watch(paths.scss, ['sass']);
-	gulp.watch(paths.elm, ['elm-compile']);
+	gulp.watch(paths.pug, ['pug']).on('change', browserSync.reload);
+	gulp.watch(paths.scss, ['sass']).on('change', browserSync.reload);
+	gulp.watch(paths.elm, ['elm-compile']).on('change', browserSync.reload);
 	gulp.watch(paths.dist+"/*.{js,html}").on('change', browserSync.reload);
 });
 
@@ -148,10 +148,12 @@ gulp.task('dummy', function() {
 	console.log('in dummy', production);
 });
 
-gulp.task('build', ['del'], function() {
+gulp.task('build', ['dummy'], function() {
 	runSequence('compilation', 'elm-compile');
 });
 
 gulp.task('default', ['build', 'watch']);
 
 gulp.task('compile', ['compilation', 'elm-compile']);
+
+gulp.task('prod', ['compilation', 'elm-compile-production']);
