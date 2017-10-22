@@ -1,16 +1,9 @@
 body {
-    background-color: #ddd;
-    margin-top: 20px;
-    .main {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    button {
-        margin-right: 15px;
-    }
-    img {
-        width: 60px;
-        margin: 10px;
-    }
+    background-color: rgb(222, 236, 220);
+    font-family: sans-serif;
+    margin-left: 30px;
+}
+
+h1 {
+    color: rgb(30,30,30);
 }

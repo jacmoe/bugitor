@@ -1,8 +1,8 @@
 {
     "version": "1.0.0",
-    "summary": "elm-program",
+    "summary": "Elm fullstack starter",
     "repository": "https://github.com/user/project.git",
-    "license": "ISC",
+    "license": "BSD3",
     "source-directories": [
         "src"
     ],
