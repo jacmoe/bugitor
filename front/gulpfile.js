@@ -48,8 +48,8 @@ function elm_compile() {
       // No longer needed with gulp-elm 0.5
   // console.log(err.message);
   }
-  return gulp.src(config.PATHS.src + '/elm/Main.elm')             // "./src/Main.elm"
-	.pipe($.elm({"debug": true}))
+  return gulp.src(config.PATHS.src + '/elm/**/*.elm')             // "./src/Main.elm"
+	.pipe($.elm({"debug": PRODUCTION}))
 	.on('error', onErrorHandler)
 	.pipe( $.if(PRODUCTION, $.uglify()) )   // uglify
 	.pipe(gulp.dest(config.PATHS.dist));

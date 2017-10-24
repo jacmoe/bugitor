@@ -60,7 +60,7 @@ view { message, working } =
     Grid.container []
         [ Grid.row []
             [ Grid.col []
-                [ div [ class "jumbotron" ] [ text "JUmbo!" ]
+                [ div [ class "jumbotron" ] [ text "This is a Jumbotron!" ]
                 ]
             ]
         , Grid.row [] [ Grid.col [] [ h1 [] [ text "Heading" ] ] ]
