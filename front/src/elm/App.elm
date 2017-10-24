@@ -1,7 +1,8 @@
 module App exposing (init, update, view)
 
+import Bootstrap.Grid as Grid
 import Html exposing (..)
-import Html.Attributes exposing (href)
+import Html.Attributes exposing (class, href)
 import Http
 import Json.Decode as Json
 
@@ -56,18 +57,22 @@ message404 =
 
 view : Model -> Html Msg
 view { message, working } =
-    div []
-        [ h1 [] [ text "Elm-fullstack by Simon Hamptonn" ]
-        , p [] [ text message ]
-        , if working then
-            div []
-                [ text "At this stage, many people head over to "
-                , a [ href "https://github.com/simonh1000/elm-fullstack-starter" ]
-                    [ text "Github" ]
-                , text " to star this repo!"
+    Grid.container []
+        [ Grid.row []
+            [ Grid.col []
+                [ div [ class "jumbotron" ] [ text "JUmbo!" ]
                 ]
-          else
-            text ""
+            ]
+        , Grid.row [] [ Grid.col [] [ h1 [] [ text "Heading" ] ] ]
+        , Grid.row []
+            [ Grid.col [] [ text message ]
+            ]
+        , Grid.row
+            []
+            [ Grid.col
+                []
+                [ text "Hi!" ]
+            ]
         ]
 
 

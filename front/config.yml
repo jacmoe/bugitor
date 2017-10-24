@@ -1,0 +1,16 @@
+
+# Autoprefixer will make sure your CSS works with these browsers
+COMPATIBILITY:
+  - "last 2 versions"
+  - "ie >= 9"
+
+# Gulp will reference these paths when it copies files
+PATHS:
+  # Path to dist folder
+  dist: "dist"
+  # Path to source folder
+  src: "src"
+
+  # Paths to Sass libraries, which can then be loaded with @import
+  sass:
+    - "/home/jacmoe/vhosts/elm-foundation/node_modules/bootstrap-v4-dev/scss"

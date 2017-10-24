@@ -1,43 +1,39 @@
 {
-  "author": "Simon Hampton",
-  "name": "elm-fullstack-starter",
-  "version": "2.3.1",
-  "description": "Elm fullstack starter",
-  "license": "ISC",
-  "repository": "https://github.com/simonh1000/elm-fullstack-starter",
+  "name": "elm-foundation",
+  "version": "0.1.0",
+  "description": "Elm starter project with Sass, Pug and Browsersync support",
+  "license": "MIT",
+  "main": "gulpfile.js",
   "scripts": {
     "start": "gulp",
-    "production": "gulp build --production",
-    "compile": "gulp compile",
-    "serverless": "gulp serverless",
-    "postinstall": "elm-package install -y"
+    "build": "gulp build --production"
   },
-  "engines": {
-    "node": ">=4.x"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jacmoe/pype.git"
   },
-  "dependencies": {
-    "body-parser": "~1.15.2",
-    "bootstrap-v4-dev": "^4.0.0-alpha.6",
-    "cookie-parser": "~1.4.3",
-    "debug": "^2.2.0",
-    "express": "~4.14.0",
-    "morgan": "~1.7.0",
-    "serve-favicon": "~2.3.0"
-  },
+  "author": "Jacob Moen",
+  "homepage": "https://jacmoe.dk",
   "devDependencies": {
-    "browser-sync": "^2.17.5",
-    "del": "^2.2.2",
-    "gulp": "^3.9.1",
-    "gulp-clean-css": "^2.0.13",
-    "gulp-concat": "^2.6.0",
+    "bootstrap-v4-dev": "^4.0.0-alpha.6",
+    "browser-sync": "^2.18.13",
+    "gulp": "gulpjs/gulp#4.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-concat": "^2.5.2",
+    "gulp-cssnano": "^2.1.0",
     "gulp-elm": "^0.6.0",
-    "gulp-if": "^2.0.1",
-    "gulp-nodemon": "^2.2.1",
+    "gulp-extname": "^0.2.0",
+    "gulp-if": "^2.0.0",
+    "gulp-load-plugins": "^1.1.0",
+    "gulp-notify": "^2.2.0",
     "gulp-pug": "^3.1.0",
-    "gulp-sass": "^2.3.2",
-    "gulp-sourcemaps": "^2.2.0",
-    "gulp-uglify": "^2.0.0",
-    "pug": "^2.0.0-beta6",
-    "run-sequence": "^1.2.2"
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.6.1",
+    "gulp-sass": "^2.1.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.2.0",
+    "js-yaml": "^3.4.6",
+    "rimraf": "^2.4.3",
+    "yargs": "^3.8.0"
   }
 }
